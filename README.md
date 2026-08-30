@@ -10,27 +10,27 @@ Handling of complex tags like TABLE and IMG and AREAD / MAP are all taken care o
 
 The application looks like this:
 
-![Overview of the AuthorHTML main window](https://github.com/Edwig/AuthorDocumentation/doc/Image_overview.png)
+![Overview of the AuthorHTML main window](https://github.com/edwig/AuthorDocumentation/tree/main/doc/Image_overview.png)
 
 ## Import
 
 Existing CHM files can be directly imported and decompiled in a selected folder by means of the main menu option
 "Tools / Import a CHM" 
 
-![Importing an existing CHM file](https://github.com/Edwig/AuthorDocumentation/doc/image_import_chm.png)
+![Importing an existing CHM file](https://github.com/Edwig/AuthorDocumentation/tree/maindoc/image_import_chm.png)
 
 ## CSS
 
 Besides the HTML handling an integrated CSS editor exists. This makes it much easier to 
 change the underlying CSS and see the result immediatly in the css editor.
 
-![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/doc/image_css_editor_overview.png)
+![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/tree/maindoc/image_css_editor_overview.png)
 
 Example: Text in the CSS Editor
 
-![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/doc/image_css_editor_text.png)
+![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/tree/maindoc/image_css_editor_text.png)
 
 
 Example: Margins in the CSS Editor
 
-![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/doc/image_css_editor_margins.png)
+![Overview of the CSS editor](https://github.com/Edwig/AuthorDocumentation/tree/maindoc/image_css_editor_margins.png)
