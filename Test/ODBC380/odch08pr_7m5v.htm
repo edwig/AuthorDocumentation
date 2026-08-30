@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Constructing Interoperable SQL Statements</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name=
+    "odbcconstructing_interoperable_sql_statements"></a>Constructing Interoperable SQL Statements</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">As mentioned in the previous sections, interoperable applications should
+    use the ODBC SQL grammar. Beyond using this grammar, however, there are a number of additional problems faced by
+    interoperable applications. For example, what does an application do if it wants to use a feature, such as outer joins,
+    that is not supported by all data sources?</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">At this point, the application writer must make some decisions about
+    which language features are required and which are optional. Generally, if a particular driver does not support a feature
+    required by the application, the application simply refuses to run with that driver. However, if the feature is optional,
+    the application can work around the feature. For example, it might disable those parts of the interface that allow the user
+    to use the feature.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine which features are supported, applications start by calling
+    <b>SQLGetInfo</b> with the SQL_SQL_CONFORMANCE option. The SQL conformance level gives the application a broad view of
+    which SQL is supported. To refine this view, the application calls <b>SQLGetInfo</b> with any of a number of other options.
+    For a complete list of these options, see the <a href="odch21gpr_5fu7.htm">SQLGetInfo</a> function description. Finally,
+    <b>SQLGetTypeInfo</b> returns information about the data types supported by the data source.The following sections list a
+    number of things that applications should watch for when constructing interoperable SQL statements.</font></p>
+</body>
+</html>

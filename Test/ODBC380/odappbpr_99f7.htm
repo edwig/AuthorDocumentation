@@ -1,0 +1,2991 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Statement Transitions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstatement_transitions"></a>Statement
+    Transitions</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC statements have the following states.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="13%"><b>State</b></td>
+
+            <td class="label" width="87%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S0</td>
+
+            <td width="87%">Unallocated statement. (The connection state must be C4, C5, or C6. For more information, see
+            &#8220;<a href="odappbpr_1x0z.htm">Connection Transitions</a>,&#8221; earlier in this appendix.)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S1</td>
+
+            <td width="87%">Allocated statement.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S2</td>
+
+            <td width="87%">Prepared statement. No result set will be created.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S3</td>
+
+            <td width="87%">Prepared statement. A (possibly empty) result set will be created.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S4</td>
+
+            <td width="87%">Statement executed and no result set was created.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S5</td>
+
+            <td width="87%">Statement executed and a (possibly empty) result set was created. The cursor is open and positioned
+            before the first row of the result set.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S6</td>
+
+            <td width="87%">Cursor positioned with <b>SQLFetch</b> or <b>SQLFetchScroll</b>.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S7</td>
+
+            <td width="87%">Cursor positioned with <b>SQLExtendedFetch</b>.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S8</td>
+
+            <td width="87%">Function needs data. <b>SQLParamData</b> has not been called.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S9</td>
+
+            <td width="87%">Function needs data. <b>SQLPutData</b> has not been called.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S10</td>
+
+            <td width="87%">Function needs data. <b>SQLPutData</b> has been called.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S11</td>
+
+            <td width="87%">Still executing. A statement is left in this state after a function that is executed asynchronously
+            returns SQL_STILL_EXECUTING. A statement is temporarily in this state while any function that accepts a statement
+            handle is executing. Temporary residence in state S11 is not shown in any state tables except the state table for
+            <b>SQLCancel</b>. While a statement is temporarily in state S11, the function can be canceled by calling
+            <b>SQLCancel</b> from another thread.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">S12</td>
+
+            <td width="87%">Asynchronous execution canceled. In S12, an application must call the canceled function until it
+            returns a value other than SQL_STILL_EXECUTING. The function was canceled successfully only if the function returns
+            SQL_ERROR and SQLSTATE HY008 (Operation canceled). If it returns any other value, such as SQL_SUCCESS, the cancel
+            operation failed and the function executed normally.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">States S2 and S3 are known as the prepared states, states S5 through S7
+    as the cursor states, states S8 through S10 as the need data states, and states S11 and S12 as the asynchronous states. In
+    each of these groups, the transitions are shown separately only when they are different for each state in the group;
+    generally, the transitions for each state in each a group are the same.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following tables show how each ODBC function affects the statement
+    state.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLAllocHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]<sup>,</sup> [5]<sup>,</sup> [6]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="15%">-- [5]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [2]<sup>,</sup> [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="15%">-- [5]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">S1 [3]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="15%">-- [5]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [4]<sup>,</sup> [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="14%">-- [5]</td>
+
+            <td width="15%">-- [5]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DBC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DESC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]Calling <b>SQLAllocHandle</b> with
+    <i>OutputHandlePtr</i> pointing to a valid handle overwrites that handle without any regard for the previous contents to
+    that handle, and may cause problems for ODBC drivers. It is incorrect ODBC application programming to call
+    <b>SQLAllocHandle</b> twice with the same application variable defined for <i>*OutputHandlePtr</i> without calling
+    <b>SQLFreeHandle</b> to free the handle before reallocating it. Overwriting ODBC handles in such a manner may lead to
+    inconsistent behavior or errors on the part of ODBC drivers.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLBindCol</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLBindParameter</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLBrowseConnect, SQLConnect, and SQLDriverConnect</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(08002)</td>
+
+            <td width="14%">(08002)</td>
+
+            <td width="14%">(08002)</td>
+
+            <td width="14%">(08002)</td>
+
+            <td width="14%">(08002)</td>
+
+            <td width="14%">(08002)</td>
+
+            <td width="15%">(08002)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLBulkOperations</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLBulkOperations (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="30%">-- <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="55%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCancel</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">S1 [1]<br>
+            S2 <sup>nr</sup> [a]<sup>n</sup>[d] [2]<br>
+            S3 <sup>r</sup> [a]<sup>n</sup>[d] [2]<br>
+            S5 [3] [a]<sup>n</sup>[d] [5]<br>
+            S6 <sup>(</sup>[3] <sup>or</sup> [4]<sup>)</sup> [a]<sup>n</sup>[d] [6]<br>
+            S7 [4] [a]<sup>n</sup>[d] [7]</td>
+
+            <td width="15%">see next table</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]<b>SQLExecDirect</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]<b>SQLExecute</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]<b>SQLBulkOperations</b> returned
+    SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]<b>SQLSetPos</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]<b>SQLFetch</b>, <b>SQLFetchScroll</b>, or
+    <b>SQLExtendedFetch</b> had not been called.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[6]<b>SQLFetch</b> or <b>SQLFetchScroll</b> had been
+    called.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[7]<b>SQLExtendedFetch</b> had been called.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCancel (Asynchronous states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="31%"><b>S11<br>
+            Still executing</b></td>
+
+            <td class="label" width="69%"><b>S12<br>
+            Asynch canceled</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">NS [1]<br>
+            S12 [2]</td>
+
+            <td width="69%">S12</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The statement was temporarily in state S11 while a
+    function was executing. <b>SQLCancel</b> was called from a different thread.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The statement was in state S11 because a function called
+    asynchronously returned SQL_STILL_EXECUTING.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCloseCursor</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">S1 <sup>np</sup><br>
+            S3 <sup>p</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLColAttribute</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLColAttribute (Prepared states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="26%"><b>S2<br>
+            No Results</b></td>
+
+            <td class="label" width="74%"><b>S3<br>
+            Results</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="26%">-- [1]<br>
+            07005 [2]</td>
+
+            <td width="74%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]<i>FieldIdentifier</i> was SQL_DESC_COUNT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]<i>FieldIdentifier</i> was not
+    SQL_DESC_COUNT.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLColumnPrivileges, SQLColumns, SQLForeignKeys, SQLGetTypeInfo,
+    SQLPrimaryKeys, SQLProcedureColumns, SQLProcedures, SQLSpecialColumns, SQLStatistics, SQLTablePrivileges, and
+    SQLTables</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="14%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="15%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="14%">(IH)</td>
+
+            <td width="14%">S5 <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">S1 [e]<br>
+            S5 <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="15%">S1 [e] [a]<sup>n</sup>[d] [1]<br>
+            S5 <sup>s</sup> [a]<sup>n</sup>[d] [1]<br>
+            S11 <sup>x</sup> [a]<sup>n</sup>[d] [1]<br>
+            24000 [2]</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The current result is the last or only result or there
+    are no current results. For more information about multiple results, see &#8220;<a href="odch11pr_6ovn.htm">Multiple
+    Results</a>&#8221; in Chapter 11, &#8220;Retrieving Results (Advanced).&#8221;</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The current result is not the last result.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLColumnPrivileges, SQLColumns, SQLForeignKeys, SQLGetTypeInfo,
+    SQLPrimaryKeys, SQLProcedureColumns, SQLProcedures, SQLSpecialColumns, SQLStatistics, SQLTablePrivileges, and SQLTables
+    (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">24000</td>
+
+            <td width="30%">(24000) [1]</td>
+
+            <td width="55%">(24000)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This error is returned by the Driver Manager if
+    <b>SQLFetch</b> or <b>SQLFetchScroll</b> has not returned SQL_NO_DATA, and is returned by the driver if <b>SQLFetch</b> or
+    <b>SQLFetchScroll</b> has returned SQL_NO_DATA.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLColumns: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLConnect: see SQLBrowseConnect</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCopyDesc</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="590">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [1]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c] [a]<sup>n</sup>[d] [3]<br>
+            (HY010) <sup>o or</sup> [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [2]</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c] [a]<sup>n</sup>[d] [3]<br>
+            (HY010) <sup>o or</sup> [4]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when the
+    <i>SourceDescHandle</i> argument was an ARD, APD, or IPD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when the
+    <i>SourceDescHandle</i> argument was an IRD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]Both the <i>SourceDescHandle</i> and
+    <i>TargetDescHandle</i> arguments were the same as in the <b>SQLCopyDesc</b> function that is running
+    asynchronously.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]Either the <i>SourceDescHandle</i> argument or the
+    <i>TargetDescHandle</i> argument (or both) were different than in the <b>SQLCopyDesc</b> function that is running
+    asynchronously.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCopyDesc (Prepared states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S2<br>
+            No Results</b></td>
+
+            <td class="label" width="85%"><b>S3<br>
+            Results</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">24000 [1]</td>
+
+            <td width="85%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when the
+    <i>SourceDescHandle</i> argument was an IRD.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDataSources and SQLDrivers</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDescribeCol</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDescribeCol (Prepared states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S2<br>
+            No Results</b></td>
+
+            <td class="label" width="85%"><b>S3<br>
+            Results</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">07005</td>
+
+            <td width="85%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDescribeParam</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDisconnect</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]</td>
+
+            <td width="14%">S0 [1]</td>
+
+            <td width="14%">S0 [1]</td>
+
+            <td width="14%">S0 [1]</td>
+
+            <td width="14%">S0 [1]</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]Calling <b>SQLDisconnect</b> frees all statements
+    associated with the connection. Furthermore, this returns the connection state to C2; the connection state must be C4
+    before the statement state is S0.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDriverConnect: see SQLBrowseConnect</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDrivers: see SQLDataSources</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLEndTran</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">-- [2] <sup>or</sup> [3]<br>
+            S1 [1]</td>
+
+            <td width="14%">-- [3]<br>
+            S1 <sup>np</sup> [a]<sup>n</sup>[d] <sup>(</sup>[1] <sup>or</sup> [2]<sup>)</sup><br>
+            S1 <sup>p</sup> [a]<sup>n</sup>[d] [1]<br>
+            S2 <sup>p</sup> [a]<sup>n</sup>[d] [2]</td>
+
+            <td width="14%">-- [3]<br>
+            S1 <sup>np</sup> [a]<sup>n</sup>[d] <sup>(</sup>[1] <sup>or</sup> [2]<sup>)</sup><br>
+            S1 <sup>p</sup> [a]<sup>n</sup>[d] [1]<br>
+            S3 <sup>p</sup> [a]<sup>n</sup>[d] [2]</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The <i>CompletionType</i> argument is SQL_COMMIT and
+    <b>SQLGetInfo</b> returns SQL_CB_DELETE for the SQL_CURSOR_COMMIT_BEHAVIOR information type, or the <i>CompletionType</i>
+    argument is SQL_ROLLBACK and <b>SQLGetInfo</b> returns SQL_CB_DELETE for the SQL_CURSOR_ROLLBACK_BEHAVIOR information
+    type.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>CompletionType</i> argument is SQL_COMMIT and
+    <b>SQLGetInfo</b> returns SQL_CB_CLOSE for the SQL_CURSOR_COMMIT_BEHAVIOR information type, or the <i>CompletionType</i>
+    argument is SQL_ROLLBACK and <b>SQLGetInfo</b> returns SQL_CB_CLOSE for the SQL_CURSOR_ROLLBACK_BEHAVIOR information
+    type.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The <i>CompletionType</i> argument is SQL_COMMIT and
+    <b>SQLGetInfo</b> returns SQL_CB_PRESERVE for the SQL_CURSOR_COMMIT_BEHAVIOR information type, or the <i>CompletionType</i>
+    argument is SQL_ROLLBACK and <b>SQLGetInfo</b> returns SQL_CB_PRESERVE for the SQL_CURSOR_ROLLBACK_BEHAVIOR information
+    type.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExecDirect</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="16%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="13%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="14%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">S4 <sup>s</sup> [a]<sup>n</sup>[d] <sup>nr</sup><br>
+            S5 <sup>s</sup> [a]<sup>n</sup>[d] <sup>r</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">-- [e] [a]<sup>n</sup>[d] [1]<br>
+            S1 [e] [a]<sup>n</sup>[d] [2]<br>
+            S4 <sup>s</sup> [a]<sup>n</sup>[d] <sup>nr</sup><br>
+            S5 <sup>s</sup> [a]<sup>n</sup>[d] <sup>r</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="16%">-- [e]<sup>,</sup> [1]<sup>,</sup> [a]<sup>n</sup>[d] [3]<sup><br></sup>S1 [e]<sup>,</sup>
+            [2]<sup>,</sup> [a]<sup>n</sup>[d] [3]<br>
+            S4 <sup>s, nr,</sup> [a]<sup>n</sup>[d] [3]<br>
+            S5 <sup>s, r,</sup> [a]<sup>n</sup>[d] [3]<br>
+            S8 [d] [a]<sup>n</sup>[d] [3]<br>
+            S11 <sup>x</sup> [a]<sup>n</sup>[d] [3]<br>
+            24000 [4]</td>
+
+            <td width="13%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The error was returned by the Driver Manager.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The error was not returned by the Driver
+    Manager.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The current result is the last or only result or there
+    are no current results. For more information about multiple results, see &#8220;<a href="odch11pr_6ovn.htm">Multiple
+    Results</a>&#8221; in Chapter 11, &#8220;Retrieving Results (Advanced).&#8221;</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]The current result is not the last result.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExecDirect (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">24000</td>
+
+            <td width="30%">(24000) [1]</td>
+
+            <td width="55%">(24000)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This error is returned by the Driver Manager if
+    <b>SQLFetch</b> or <b>SQLFetchScroll</b> has not returned SQL_NO_DATA, and is returned by the driver if <b>SQLFetch</b> or
+    <b>SQLFetchScroll</b> has returned SQL_NO_DATA.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExecute</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="18%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="13%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="13%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="13%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="18%">S2 [e]<sup>, p,</sup> [a]<sup>n</sup>[d] [1]<br>
+            S4 <sup>s, p, nr,</sup> [a]<sup>n</sup>[d] [1]<br>
+            S5 <sup>s, p, r,</sup> [a]<sup>n</sup>[d] [1]<br>
+            S8 [d]<sup>, p,</sup> [a]<sup>n</sup>[d] [1]<br>
+            S11 <sup>x, p,</sup> [a]<sup>n</sup>[d] [1]<br>
+            24000 <sup>p</sup> [a]<sup>n</sup>[d] [2]<br>
+            (HY010) <sup>np</sup></td>
+
+            <td width="13%">see cursor states table</td>
+
+            <td width="13%">(HY010)</td>
+
+            <td width="13%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The current result is the last or only result or there
+    are no current results. For more information about multiple results, see &#8220;<a href="odch11pr_6ovn.htm">Multiple
+    Results</a>&#8221; in Chapter 11, &#8220;Retrieving Results (Advanced).&#8221;</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The current result is not the last result.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExecute (Prepared states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S2<br>
+            No Results</b></td>
+
+            <td class="label" width="85%"><b>S3<br>
+            Results</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">S4 <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="85%">S5 <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExecute (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">24000 <sup>p</sup><br>
+            (HY010) <sup>np</sup></td>
+
+            <td width="30%">(24000) <sup>p,</sup> [1]<br>
+            (HY010) <sup>np</sup></td>
+
+            <td width="55%">(24000) <sup>p</sup><br>
+            (HY010) <sup>np</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This error is returned by the Driver Manager if
+    <b>SQLFetch</b> or <b>SQLFetchScroll</b> has not returned SQL_NO_DATA, and is returned by the driver if <b>SQLFetch</b> or
+    <b>SQLFetchScroll</b> has returned SQL_NO_DATA.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExtendedFetch</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(S1010)</td>
+
+            <td width="14%">(S1010)</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(S1010)</td>
+
+            <td width="15%">NS [c]<br>
+            (S1010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLExtendedFetch (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">S7 <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="30%">(S1010)<br></td>
+
+            <td width="55%">-- <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFetch and SQLFetchScroll</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">24000</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFetch and SQLFetchScroll (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">S6 <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="30%">-- <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="55%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLForeignKeys: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFreeHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [2]</td>
+
+            <td width="14%">S0</td>
+
+            <td width="14%">S0</td>
+
+            <td width="14%">S0</td>
+
+            <td width="14%">S0</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [3]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV or SQL_HANDLE_DBC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DESC and the descriptor was explicitly allocated.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFreeStmt</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [1]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">S1 <sup>np</sup><br>
+            S2 <sup>p</sup></td>
+
+            <td width="14%">S1 <sup>np</sup><br>
+            S3 <sup>p</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [2]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>Option</i> was
+    SQL_CLOSE.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>Option</i> was
+    SQL_UNBIND or SQL_RESET_PARAMS. If the <i>Option</i> argument was SQL_DROP and the underlying driver is an ODBC 3.x driver,
+    the Driver Manager maps this to a call to <b>SQLFreeHandle</b> with <i>HandleType</i> set to SQL_HANDLE_STMT. For more
+    information, see the transition table for <a href="odch21fpr_6679.htm">SQLFreeHandle</a>.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetConnectAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetCursorName</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetData</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(24000)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetData (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(24000)</td>
+
+            <td width="30%">-- <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup><br>
+            24000 [b]<br>
+            HY109 <sup>i</sup></td>
+
+            <td width="55%">-- <sup>s or n</sup>[f]<br>
+            S11 <sup>x</sup><br>
+            24000 [b]<br>
+            HY109 <sup>i</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetDescField and SQLGetDescRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">-- [1] <sup>or</sup> [2]<br>
+            (HY010) [3]</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">-- [1] <sup>or</sup> [2]<br>
+            24000 [3]</td>
+
+            <td width="14%">-- [1]<sup>,</sup> [2]<sup>, or</sup> [3]<br>
+            S11 [3] [a]<sup>n</sup>[d] <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c] <sup>or</sup> [4]<br>
+            (HY010) <sup>o</sup> [a]<sup>n</sup>[d] [5]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The <i>DescriptorHandle</i> argument was an APD or
+    ARD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>DescriptorHandle</i> argument was an
+    IPD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The <i>DescriptorHandle</i> argument was an
+    IRD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]The <i>DescriptorHandle</i> argument was the same as the
+    <i>DescriptorHandle</i> argument in the <b>SQLGetDescField</b> or <b>SQLGetDescRec</b> function that is running
+    asynchronously.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]The <i>DescriptorHandle</i> argument was different than
+    the <i>DescriptorHandle</i> argument in the <b>SQLGetDescField</b> or <b>SQLGetDescRec</b> function that is running
+    asynchronously.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetDescField and SQLGetDescRec (Prepared states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S2<br>
+            No Results</b></td>
+
+            <td class="label" width="85%"><b>S3<br>
+            Results</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]<sup>,</sup> [2]<sup>, or</sup> [3]<br>
+            S11 [2] [a]<sup>n</sup>[d] <sup>x</sup></td>
+
+            <td width="85%">-- [1]<sup>,</sup> [2]<sup>, or</sup> [3]<br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The <i>DescriptorHandle</i> argument was an APD or
+    ARD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>DescriptorHandle</i> argument was an
+    IPD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The <i>DescriptorHandle</i> argument was an IRD. Note
+    that these functions always return SQL_NO_DATA in state S2 when <i>DescriptorHandle</i> was an IRD.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetDiagField and SQLGetDiagRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [2]</td>
+
+            <td width="14%">-- [3]</td>
+
+            <td width="14%">-- [3]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">-- [3]</td>
+
+            <td width="15%">-- [3]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV, SQL_HANDLE_DBC, or SQL_HANDLE_DESC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]<b>SQLGetDiagField</b> always returns an error in this
+    state when <i>DiagIdentifier</i> is SQL_DIAG_ROW_COUNT.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetEnvAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetFunctions</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetInfo</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetStmtAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="14%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="14%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The statement attribute was not
+    SQL_ATTR_ROW_NUMBER.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The statement attribute was
+    SQL_ATTR_ROW_NUMBER.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetStmtAttr (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch or SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="30%">-- [1] <sup>or (v</sup> [a]<sup>n</sup>[d] [2]<sup>)</sup><br>
+            24000 [b] [a]<sup>n</sup>[d] [2]<br>
+            HY109 <sup>i</sup> [a]<sup>n</sup>[d] [2]</td>
+
+            <td width="55%">-- <sup>i or (v</sup> [a]<sup>n</sup>[d] [2]<sup>)</sup><br>
+            24000 [b] [a]<sup>n</sup>[d] [2]<br>
+            HY109 [1] [a]<sup>n</sup>[d] [2]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The <i>Attribute</i> argument was not
+    SQL_ATTR_ROW_NUMBER.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>Attribute</i> argument was
+    SQL_ATTR_ROW_NUMBER.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetTypeInfo: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLMoreResults</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="17%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="16%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="12%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="12%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">-- [1]</td>
+
+            <td width="14%">-- [1]</td>
+
+            <td width="17%">-- <sup>s</sup> [a]<sup>n</sup>[d] [2]<br>
+            S1 <sup>n</sup>[f]<sup>, np,</sup> [a]<sup>n</sup>[d] [4]<br>
+            S2 <sup>n</sup>[f]<sup>, p,</sup> [a]<sup>n</sup>[d] [4]<sup><br></sup>S5 <sup>s</sup> [a]<sup>n</sup>[d] [3]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="16%">S1 <sup>n</sup>[f]<sup>, np,</sup> [a]<sup>n</sup>[d] [4]<br>
+            S3 <sup>n</sup>[f]<sup>, p</sup> [a]<sup>n</sup>[d] [4]<br>
+            S4 <sup>s</sup> [a]<sup>n</sup>[d] [2]<br>
+            S5 <sup>s</sup> [a]<sup>n</sup>[d] [3]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="12%">(HY010)</td>
+
+            <td width="12%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The function always returns SQL_NO_DATA in this
+    state.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The next result is a row count.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The next result is a result set.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]The current result is the last result.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLNativeSql</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="15%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLNumParams</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLNumResultCols</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">-- <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLParamData</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLParamData (Need Data states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S8<br>
+            Need Data</b></td>
+
+            <td class="label" width="18%"><b>S9<br>
+            Must Put</b></td>
+
+            <td class="label" width="67%"><b>S10<br>
+            Can Put</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">S1 [e] [a]<sup>n</sup>[d] [1]<br>
+            S2 [e]<sup>, nr,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S3 [e]<sup>, r,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S5 [e] [a]<sup>n</sup>[d] [4]<br>
+            S6 [e] [a]<sup>n</sup>[d] [5]<br>
+            S7 [e] [a]<sup>n</sup>[d] [3]<br>
+            S9 [d]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="18%">HY010</td>
+
+            <td width="67%">S1 [e] [a]<sup>n</sup>[d] [1]<br>
+            S2 [e]<sup>, nr,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S3 [e]<sup>, r,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S4 <sup>s, nr,</sup> [a]<sup>n</sup>[d] <sup>(</sup>[1] <sup>or</sup> [2]<sup>)</sup><br>
+            S5 <sup>s, r,</sup> [a]<sup>n</sup>[d] <sup>(</sup>[1] <sup>or</sup> [2]<sup>)</sup><br>
+            S5 <sup>(s or</sup> [e]<sup>)</sup> [a]<sup>n</sup>[d] [4]<br>
+            S6 <sup>(s or</sup> [e]<sup>)</sup> [a]<sup>n</sup>[d] [5]<br>
+            S7 <sup>(s or</sup> [e]<sup>)</sup> [a]<sup>n</sup>[d] [3]<br>
+            S9 [d]<br>
+            S11 <sup>x</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]<b>SQLExecDirect</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]<b>SQLExecute</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]<b>SQLSetPos</b> had been called from state S7 and
+    returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]<b>SQLBulkOperations</b> had been called from state S5
+    and returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]<b>SQLSetPos</b> or <b>SQLBulkOperations</b> had been
+    called from state S6 and returned SQL_NEED_DATA.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLPrepare</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="16%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="15%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="13%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="13%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="14%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">S2 <sup>s</sup> [a]<sup>n</sup>[d] <sup>nr</sup><br>
+            S3 <sup>s</sup> [a]<sup>n</sup>[d] <sup>r</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="16%">-- <sup>s&nbsp; or (</sup>[e] [a]<sup>n</sup>[d] [1]<sup>)</sup><br>
+            S1 [e] [a]<sup>n</sup>[d] [2]<br>
+            S11 <sup>x</sup></td>
+
+            <td width="15%">S1 [e] [a]<sup>n</sup>[d] [3]<br>
+            S2 <sup>s, nr,</sup> [a]<sup>n</sup>[d] [3]<br>
+            S3 <sup>s, r,</sup> [a]<sup>n</sup>[d] [3]<br>
+            S11 <sup>x</sup> [a]<sup>n</sup>[d] [3]<br>
+            24000 [4]</td>
+
+            <td width="13%">see next table</td>
+
+            <td width="13%">(HY010)</td>
+
+            <td width="14%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The preparation fails for a reason other than validating
+    the statement (the SQLSTATE was HY009 (Invalid argument value) or HY090 (Invalid string or buffer length)).</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The preparation fails while validating the statement
+    (the SQLSTATE was not HY009 (Invalid argument value) or HY090 (Invalid string or buffer length)).</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The current result is the last or only result, or there
+    are no current results. For more information about multiple results, see &#8220;<a href="odch11pr_6ovn.htm">Multiple
+    Results</a>&#8221; in Chapter 11, &#8220;Retrieving Results (Advanced).&#8221;</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]The current result is not the last result.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLPrepare (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">24000</td>
+
+            <td width="30%">(24000)</td>
+
+            <td width="55%">(24000)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLPrimaryKeys: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLProcedureColumns: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLProcedures: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLPutData</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLPutData (Need Data states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S8<br>
+            Need Data</b></td>
+
+            <td class="label" width="18%"><b>S9<br>
+            Must Put</b></td>
+
+            <td class="label" width="67%"><b>S10<br>
+            Can Put</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">HY010<br></td>
+
+            <td width="18%">S1 [e] [a]<sup>n</sup>[d] [1]<br>
+            S2 [e]<sup>, nr,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S3 [e]<sup>, r,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S5 [e] [a]<sup>n</sup>[d] [4]<br>
+            S6 [e] [a]<sup>n</sup>[d] [5]<br>
+            S7 [e] [a]<sup>n</sup>[d] [3]<br>
+            S10 <sup>s</sup><br>
+            S11 <sup>x</sup></td>
+
+            <td width="67%">-- <sup>s</sup><br>
+            S1 [e] [a]<sup>n</sup>[d] [1]<br>
+            S2 [e]<sup>, nr,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S3 [e]<sup>, r,</sup> [a]<sup>n</sup>[d] [2]<br>
+            S5 [e] [a]<sup>n</sup>[d] [4]<br>
+            S6 [e] [a]<sup>n</sup>[d] [5]<br>
+            S7 [e] [a]<sup>n</sup>[d] [3]<br>
+            S11 <sup>x</sup><br>
+            HY011 [6]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]<b>SQLExecDirect</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]<b>SQLExecute</b> returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]<b>SQLSetPos</b> had been called from state S7 and
+    returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]<b>SQLBulkOperations</b> had been called from state S5
+    and returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]<b>SQLSetPos</b> or <b>SQLBulkOperations</b> had been
+    called from state S6 and returned SQL_NEED_DATA.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[6]One or more calls to <b>SQLPutData</b> for a single
+    parameter returned SQL_SUCCESS, then a call to <b>SQLPutData</b> was made for the same parameter with <i>StrLen_or_Ind</i>
+    set to SQL_NULL_DATA.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLRowCount</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetConnectAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">-- [1]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--[2]<br>
+            24000 [3]</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>Attribute</i> was a
+    connection attribute. For transitions when <i>Attribute</i> was a statement attribute, see the statement transition table
+    for <b>SQLSetStmtAttr</b>.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>Attribute</i> argument was not
+    SQL_ATTR_CURRENT_CATALOG.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The <i>Attribute</i> argument was
+    SQL_ATTR_CURRENT_CATALOG.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetCursorName</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(24000)</td>
+
+            <td width="14%">(24000)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetDescField and SQLSetDescRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH) [1]</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">(HY010)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions where the
+    <i>DescriptorHandle</i> argument is an ARD, APD, IPD, or (for <b>SQLSetDescField</b>) an IRD when the
+    <i>FieldIdentifier</i> argument is SQL_DESC_ARRAY_STATUS_PTR or SQL_DESC_ROWS_PROCESSED_PTR. It is an error to call
+    <b>SQLSetDescField</b> for an IRD when <i>FieldIdentifier</i> is any other value.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetEnvAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(HY011)</td>
+
+            <td width="14%">(HY011)</td>
+
+            <td width="14%">(HY011)</td>
+
+            <td width="14%">(HY011)</td>
+
+            <td width="14%">(HY011)</td>
+
+            <td width="14%">(HY011)</td>
+
+            <td width="15%">(HY011)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetPos</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="14%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="14%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="15%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%">(IH)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="14%">(24000)</td>
+
+            <td width="14%">see next table</td>
+
+            <td width="14%">(HY010)</td>
+
+            <td width="15%">NS [c]<br>
+            (HY010) <sup>o</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetPos (Cursor states)</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="15%"><b>S5<br>
+            Opened</b></td>
+
+            <td class="label" width="30%"><b>S6<br>
+            SQLFetch</b> or <b>SQLFetchScroll</b></td>
+
+            <td class="label" width="55%"><b>S7<br>
+            SQLExtendedFetch</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="15%"><br>
+            (24000)</td>
+
+            <td width="30%">-- <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup><br>
+            24000 [b]<br>
+            HY109 <sup>i</sup></td>
+
+            <td width="55%">-- <sup>s</sup><br>
+            S8 [d]<br>
+            S11 <sup>x</sup><br>
+            24000 [b]<br>
+            HY109 <sup>i</sup></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetStmtAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="7" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="14%"><b>S0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="14%"><b>S1<br>
+            Allocated</b></td>
+
+            <td class="label" width="14%"><b>S2 &#8211; S3<br>
+            Prepared</b></td>
+
+            <td class="label" width="13%"><b>S4<br>
+            Executed</b></td>
+
+            <td class="label" width="14%"><b>S5 &#8211; S7<br>
+            Cursor</b></td>
+
+            <td class="label" width="17%"><b>S8 &#8211; S10<br>
+            Need Data</b></td>
+
+            <td class="label" width="14%"><b>S11 &#8211; S12<br>
+            Async</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="14%">(IH)</td>
+
+            <td width="14%">--</td>
+
+            <td width="14%">-- [1]<br>
+            (HY011) [2]</td>
+
+            <td width="13%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="14%">-- [1]<br>
+            (24000) [2]</td>
+
+            <td width="17%">(HY010) <sup>np&nbsp; or</sup> [1]<br>
+            (HY011) <sup>p</sup> [a]<sup>n</sup>[d] [2]</td>
+
+            <td width="14%">(HY010) <sup>np&nbsp; or</sup> [1]<br>
+            (HY011) <sup>p</sup> [a]<sup>n</sup>[d] [2]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The <i>Attribute</i> argument was not
+    SQL_ATTR_CONCURRENCY, SQL_ATTR_CURSOR_TYPE, SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE,
+    or SQL_ATTR_CURSOR_SENSITIVITY.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>Attribute</i> argument was SQL_ATTR_CONCURRENCY,
+    SQL_ATTR_CURSOR_TYPE, SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE, or
+    SQL_ATTR_CURSOR_SENSITIVITY.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSpecialColumns: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLStatistics: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLTablePrivileges: see SQLColumnPrivileges</font></h1>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLTables: see SQLColumnPrivileges</font></h1>
+</body>
+</html>

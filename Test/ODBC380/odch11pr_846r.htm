@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Bookmarks</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcbookmarks"></a>Bookmarks</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A bookmark is a value used to identify a row of data. The meaning of the
+    bookmark value is known only to the driver or data source. For example, it might be as simple as a row number or as complex
+    as a disk address. Bookmarks in ODBC are a bit different from bookmarks in real books. In a real book, the reader places a
+    bookmark at a specific page, then looks for that bookmark to return to the page. In ODBC, the application requests a
+    bookmark for a particular row, stores it, and passes it back to the cursor to return to the row. Thus, bookmarks in ODBC
+    are similar to a reader writing down a page number, remembering it, and then looking up the page again.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine a driver&#8217;s support of bookmarks, an application calls
+    <b>SQLGetInfo</b> with the SQL_BOOKMARK_PERSISTENCE option. The bits in this value describe what operations bookmarks
+    survive, such as whether bookmarks are still valid after the cursor is closed.</font></p>
+</body>
+</html>

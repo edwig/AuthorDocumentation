@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html dir="ltr">
+<head>
+    <title>C to SQL: Timestamp</title>
+    <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+    <link disabled rel="stylesheet" type="text/css" href="msdn_ie3.css">
+    <style type="text/css">
+@import url( msdn_ie4.css );
+    </style>
+    <meta name="GENERATOR" content="AuthorDocumentation">
+</head>
+
+<body>
+    <font size="2" face="Verdana, Arial, Helvetica">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font size="2" face="Verdana, Arial, Helvetica"><a name="odbcc_to_sql__timestamp"></a>C to SQL: Timestamp</font></h1>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">The identifier for the timestamp ODBC C data type is:</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">SQL_C_TYPE_TIMESTAMP</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">The following table shows the ODBC SQL data types to which timestamp C
+    data may be converted. For an explanation of the columns and terms in the table, see &#8220;<a href=
+    "odappdpr_744z.htm">Converting Data from C to SQL Data Types</a>.&#8221;</font></p>
+
+    <table cols="3" cellpadding="5" rules="rows" width="594" border="1" frame="below">
+        <tbody>
+            <tr valign="top">
+                <td class="label" width="36%"><b><br>
+                SQL type identifier</b></td>
+
+                <td class="label" width="51%"><b><br>
+                Test</b></td>
+
+                <td class="label" width="13%"><b>SQL-<br>
+                STATE</b></td>
+            </tr>
+
+            <tr valign="top">
+                <td width="36%">SQL_CHAR<br>
+                SQL_VARCHAR<br>
+                SQL_LONGVARCHAR</td>
+
+                <td width="51%">
+                    Column byte length &gt;= Character byte length.
+
+                    <p>19 &lt;= Column byte length &lt; Character byte length.</p>
+
+                    <p>Column byte length &lt; 19.</p>
+
+                    <p>Data value is not a valid timestamp.</p>
+                </td>
+
+                <td width="13%">
+                    n/a
+
+                    <p>22001<br></p>
+
+                    <p>22001</p>
+
+                    <p>22008</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <td width="36%">SQL_WCHAR<br>
+                SQL_WVARCHAR<br>
+                SQL_WLONGVARCHAR</td>
+
+                <td width="51%">
+                    Column character length &gt;= Character length of data.
+
+                    <p>19 &lt;= Column character length &lt; Character length of data.</p>
+
+                    <p>Column character length &lt; 19.</p>
+
+                    <p>Data value is not a valid timestamp.</p>
+                </td>
+
+                <td width="13%">
+                    n/a
+
+                    <p>22001<br></p>
+
+                    <p>22001</p>
+
+                    <p>22008</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <td width="36%">SQL_TYPE_DATE</td>
+
+                <td width="51%">
+                    Time fields are zero.
+
+                    <p>Time fields are non-zero.</p>
+
+                    <p>Data value does not contain a valid date.</p>
+                </td>
+
+                <td width="13%">
+                    n/a
+
+                    <p>22008</p>
+
+                    <p>22007</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <td width="36%">SQL_TYPE_TIME</td>
+
+                <td width="51%">
+                    Fractional seconds fields are zero. [a]
+
+                    <p>Fractional seconds fields are non-zero. [a]</p>
+
+                    <p>Data value does not contain a valid time.</p>
+                </td>
+
+                <td width="13%">
+                    n/a
+
+                    <p>22008</p>
+
+                    <p>22007</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <td width="36%">SQL_TYPE_<br>
+                TIMESTAMP</td>
+
+                <td width="51%">
+                    Fractional seconds fields are not truncated.
+
+                    <p>Fractional seconds fields are truncated.</p>
+
+                    <p>Data value is not a valid timestamp.</p>
+                </td>
+
+                <td width="13%">
+                    n/a
+
+                    <p>22008</p>
+
+                    <p>22007</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><font size="2" face="Verdana, Arial, Helvetica"><br></font>
+
+    <p class="mini"><font size="2" face="Verdana, Arial, Helvetica">[a]The date fields of the timestamp structure are
+    ignored.</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">For information about what values are valid in a SQL_C_TIMESTAMP
+    structure, see &#8220;<a href="odappdpr_40j7.htm">C Data Types</a>.&#8221;</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">When timestamp C data is converted to character SQL data, the resulting
+    character data is in the &#8220;<i>yyyy</i>-<i>mm</i>-<i>dd</i> <i>hh</i>:<i>mm</i>:<i>ss</i>[.<i>f...</i>]&#8221;
+    format.</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">The driver ignores the length/indicator value when converting data from
+    the timestamp C data type and assumes that the size of the data buffer is the size of the timestamp C data type. The
+    length/indicator value is passed in the <i>StrLen_or_Ind</i> argument in <b>SQLPutData</b> and in the buffer specified with
+    the <i>StrLen_or_IndPtr</i> argument in <b>SQLBindParameter</b>. The data buffer is specified with the <i>DataPtr</i>
+    argument in <b>SQLPutData</b> and the <i>ParameterValuePtr</i> argument in <b>SQLBindParameter</b>.</font></p>
+</body>
+</html>

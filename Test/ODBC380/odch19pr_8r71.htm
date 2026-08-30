@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html dir="ltr">
+<head>
+    <title>Administration Program</title>
+    <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+    <link disabled rel="stylesheet" type="text/css" href="msdn_ie3.css">
+    <style type="text/css">
+@import url( msdn_ie4.css );
+    </style>
+    <meta name="GENERATOR" content="AuthorDocumentation">
+</head>
+
+<body>
+    <font size="2" face="Verdana, Arial, Helvetica">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font size="2" face="Verdana, Arial, Helvetica"><a name="odbcadministration_program"></a>Administration
+    Program</font></h2>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">An administration program, the ODBC Administrator, is shipped with the
+    Data Access SDK and can be redistributed by users of the SDK. In addition, developers can write their own administration
+    programs. Generally, developers write their own administration programs only if they want to retain complete control over
+    data source configuration, or if they are configuring data sources directly from an application that is acting as an
+    administration program. For example, a spreadsheet program might allow users to add and then use data sources at run
+    time.</font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">The administration program first loads the installer DLL. It then calls
+    functions in the installer DLL to perform the following tasks:</font></p>
+
+    <ul type="disc">
+        <li>
+            <font size="2" face="Verdana, Arial, Helvetica"><b>Add, modify, or delete data sources interactively</b>. The
+            administration program can call <b>SQLManageDataSources</b>, <b>SQLCreateDataSource</b>, or
+            <b>SQLConfigDataSource</b>.</font>
+
+            <p class="tl"><font size="2" face="Verdana, Arial, Helvetica"><b>SQLManageDataSources</b> displays a dialog box
+            with which the user can add, modify, or delete data sources and specify tracing options; this function is called
+            when the installer DLL is invoked directly from the Control Panel. <b>SQLCreateDataSource</b> displays a dialog box
+            with which the user can only add data sources. <b>SQLConfigDataSource</b> passes the call directly to the driver
+            setup DLL.</font></p>
+
+            <p class="tl"><font size="2" face="Verdana, Arial, Helvetica">In all cases, the installer DLL calls
+            <b>ConfigDSN</b> in the driver setup DLL to actually add, modify, or delete the data source. The driver setup DLL
+            may prompt the user for additional information.</font></p>
+        </li>
+
+        <li><font size="2" face="Verdana, Arial, Helvetica"><b>Add, modify, or delete data sources silently</b>. The
+        administration program calls <b>SQLConfigDataSource</b> in the installer DLL and passes it a null window handle, the
+        name of a data source to add, modify, or delete, and a list of values for the registry. The installer DLL calls
+        <b>ConfigDSN</b> in the driver setup DLL to actually add, modify, or delete the data source.<br>
+        <br></font></li>
+
+        <li><font size="2" face="Verdana, Arial, Helvetica"><b>Add, modify, or delete a default data source</b>. The default
+        data source is the same as any other data source, except that its name is Default. It is added, modified, or deleted in
+        the same fashion as any other data source.</font></li>
+    </ul>
+</body>
+</html>

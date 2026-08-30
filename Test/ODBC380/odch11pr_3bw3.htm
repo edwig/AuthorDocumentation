@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Binding Columns for Use with Block Cursors</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcbinding_columns_for_use_with_block_cursors"></a>Binding
+    Columns for Use with Block Cursors</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because block cursors return multiple rows, applications that use them
+    must bind an array of variables to each column instead of a single variable. These arrays are collectively known as the
+    <i>rowset buffers</i>. Here are the two styles of binding:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Bind an array to each column. This is called <i>column-wise
+        binding</i> because each data structure (array) contains data for a single column.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Define a structure to hold the data for an entire row and bind an
+        array of these structures. This is called <i>row-wise binding</i> because each data structure contains the data for a
+        single row.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">As when the application binds single variables to columns, it calls
+    <b>SQLBindCol</b> to bind arrays to columns. The only difference is that the addresses passed are array addresses, not
+    single variable addresses. The application sets the SQL_ATTR_ROW_BIND_TYPE statement attribute to specify whether it is
+    using column-wise or row-wise binding. Whether to use column-wise or row-wise binding is largely a matter of application
+    preference. Row-wise binding might correspond more closely to the application&#8217;s layout of data, in which case it
+    would provide better performance.</font></p>
+</body>
+</html>

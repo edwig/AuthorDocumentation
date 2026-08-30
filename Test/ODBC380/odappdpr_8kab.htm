@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Data Types</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdata_types"></a>Overview of Data Types</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC defines two sets of data types: SQL data types and C data types.
+    SQL data types indicate the data type of data stored at the data source. C data types indicate the data type of data stored
+    in application buffers.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL data types are defined by each DBMS in accordance with the SQL92
+    standard. For each SQL data type specified in the SQL92 standard, ODBC defines a type identifier, which is a <b>#define</b>
+    value that is passed as an argument in ODBC functions or returned in the metadata of a result set. The only SQL92 data
+    types not supported by ODBC are BIT (the ODBC SQL_BIT type has different characteristics), BIT_VARYING, TIME_WITH_TIMEZONE,
+    TIMESTAMP_WITH_TIMEZONE, and NATIONAL_CHARACTER. Drivers are responsible for mapping data source&nbsp;&#8211;&nbsp;specific
+    SQL data types to ODBC SQL data type identifiers and driver-specific SQL data type identifiers. The SQL data type is
+    specified in the SQL_DESC_CONCISE_TYPE field of an implementation descriptor.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC defines the C data types and their corresponding ODBC type
+    identifiers. An application specifies the C data type of the buffer that will receive result set data by passing the
+    appropriate C type identifier in the <i>TargetType</i> argument in a call to <b>SQLBindCol</b> or <b>SQLGetData</b>. It
+    specifies the C type of the buffer containing a statement parameter by passing the appropriate C type identifier in the
+    <i>ValueType</i> argument in a call to <b>SQLBindParameter</b>. The C data type is specified in the SQL_DESC_CONCISE_TYPE
+    field of an application descriptor.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>There are no driver-specific
+    C data types.</font></p>
+
+    <p>Each SQL data type corresponds to an ODBC C data type. Before returning data from the data source, the driver converts
+    it to the specified C data type. Before sending data to the data source, the driver converts it from the specified C data
+    type.</p>
+
+    <p>This appendix discusses the following:</p>
+
+    <ul type="disc">
+        <li>ODBC SQL data types<br>
+        <br></li>
+
+        <li>ODBC C data types<br>
+        <br></li>
+
+        <li>Interval data types<br>
+        <br></li>
+
+        <li>Numeric literals<br>
+        <br></li>
+
+        <li>Data type identifiers, including pseudo-type identifiers, transferring data in its binary form, and information on
+        descriptors<br>
+        <br></li>
+
+        <li>Column size, decimal digits, transfer octet length, and display size of SQL data types<br>
+        <br></li>
+
+        <li>Converting data from SQL to C data types<br>
+        <br></li>
+
+        <li>Converting data from C to SQL data types</li>
+    </ul>
+
+    <p>For an explanation of ODBC data types, see &#8220;<a href="odch04pr_8l7n.htm">Data Types in ODBC</a>&#8221; in Chapter
+    4, &#8220;ODBC Fundamentals.&#8221; For information about driver-specific SQL data types, see the driver&#8217;s
+    documentation.</p>
+</body>
+</html>

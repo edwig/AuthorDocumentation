@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>ODBC and the Standard CLI</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcodbc_and_the_standard_cli"></a>ODBC and the Standard
+    CLI</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC aligns with the following specifications and standards that deal
+    with the Call-Level Interface (CLI). (ODBC&#8217;s features are a superset of each of these standards.)</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">The X/Open CAE Specification &#8220;Data Management: SQL Call-Level
+        Interface (CLI)&#8221;<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">ISO/IEC 9075-3:1995 (E) Call-Level Interface (SQL/CLI)</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">As a result of this alignment, the following are true:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">An application written to the X/Open and ISO CLI specifications
+        will work with an ODBC 3.x driver or a standards-compliant driver when it is compiled with the ODBC 3.x header files
+        and linked with ODBC 3.x libraries, and when it gains access to the driver through the ODBC 3.x Driver Manager.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">A driver written to the X/Open and ISO CLI specifications will work
+        with an ODBC 3.x application or a standards-compliant application when it is compiled with the ODBC 3.x header files
+        and linked with ODBC 3.x libraries, and when the application gains access to the driver through the ODBC 3.x Driver
+        Manager. (For more information, see &#8220;<a href="odch17pr_30tv.htm">Standards-Compliant Applications and
+        Drivers</a>&#8221; in Chapter 17, &#8220;Programming Considerations.&#8221;)</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The Core interface conformance level encompasses all the features in the
+    ISO CLI and all the non-optional features in the X/Open CLI. Optional features of the X/Open CLI appear in higher interface
+    conformance levels. Because all ODBC 3.x drivers are required to support the features in the Core interface conformance
+    level, the following are true:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">An ODBC 3.x driver will support all the features used by a
+        standards-compliant application.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">An ODBC 3.x application using only the features in ISO CLI and the
+        non-optional features of the X/Open CLI will work with any standards-compliant driver.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In addition to the call-level interface specifications contained in the
+    ISO/IEC and X/Open CLI standards, ODBC implements the following features. Note that some of these features existed in
+    versions of ODBC prior to ODBC 3.x:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Multirow fetches by a single function call<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Binding to an array of parameters<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Bookmark support including fetching by bookmark, variable-length
+        bookmarks, and bulk update and delete by bookmark operations on discontiguous rows<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Row-wise binding<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Binding offsets<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Support for batches of SQL statements, either in a stored procedure
+        or as a sequence of SQL statements executed through <b>SQLExecute</b> or <b>SQLExecDirect</b><br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Exact or approximate cursor row counts<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Positioned update and delete operations and batched updates and
+        deletes by function call (<b>SQLSetPos</b>)<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Catalog functions that extract information from the information
+        schema without the need for supporting information schema views<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Escape sequences for outer joins, scalar functions, datetime
+        literals, interval literals, and stored procedures<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Code-page translation libraries<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Reporting of a driver&#8217;s ANSI-conformance level and SQL
+        support<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">On-demand automatic population of implementation parameter
+        descriptor<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Enhanced diagnostics and row and parameter status arrays<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Datetime, interval, numeric/decimal, and 64-bit integer application
+        buffer types<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Asynchronous execution<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Stored procedure support, including escape sequences, output
+        parameter binding mechanisms, and catalog functions<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Connection enhancements including support for connection attributes
+        and attribute browsing</font></li>
+    </ul>
+</body>
+</html>

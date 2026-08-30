@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLFreeStmt in the Cursor Library</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlfreestmt_in_the_cursor_library"></a>SQLFreeStmt in the
+    Cursor Library</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If an application calls <b>SQLFreeStmt</b> with the SQL_UNBIND option
+    after it calls <b>SQLExtendedFetch</b>, <b>SQLFetch,</b> or <b>SQLFetchScroll</b>, the cursor library returns an error.
+    Before it can unbind result set columns, an application must call <b>SQLCloseCursor</b> or <b>SQLFreeStmt</b> with the
+    SQL_CLOSE option.</font></p>
+</body>
+</html>

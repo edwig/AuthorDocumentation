@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLSetConnectAttr in the Cursor Library</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name=
+    "odbcsqlsetconnectattr_in_the_cursor_library"></a>SQLSetConnectAttr in the Cursor Library</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application calls <b>SQLSetConnectAttr</b> with the
+    SQL_ATTR_ODBC_CURSORS attribute to specify whether the cursor library is always used, used if the driver does not support
+    scrollable cursors, or never used. The cursor library assumes that a driver supports scrollable cursors if it returns
+    SQL_CA1_RELATIVE for the SQL_STATIC_CURSOR_ATTRIBUTES1 information type in <b>SQLGetInfo</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application must call <b>SQLSetConnectAttr</b> to specify the cursor
+    library usage after it calls <b>SQLAllocHandle</b> with a <i>HandleType</i> of SQL_HANDLE_DBC to allocate the connection
+    and before it connects to the data source. If an application calls <b>SQLSetConnectAttr</b> with the SQL_ATTR_ODBC_CURSORS
+    attribute while the connection is still active, the cursor library returns an error.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To set a statement attribute supported by the cursor library for all
+    statements associated with a connection, an application must call <b>SQLSetConnectAttr</b> for that statement attribute
+    after it connects to the data source and before it opens the cursor. If an application calls <b>SQLSetConnectAttr</b> with
+    a statement attribute and a cursor is open on a statement associated with the connection, the statement attribute will not
+    be applied to that statement until the cursor is closed and reopened.</font></p>
+</body>
+</html>

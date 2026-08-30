@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Parameter Data Types</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcparameter_data_types"></a>Parameter Data Types</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Even though each parameter specified with <b>SQLBindParameter</b> is
+    defined using an SQL data type, the parameters in an SQL statement have no intrinsic data type. Therefore, parameter
+    markers can be included in an SQL statement only if their data types can be inferred from another operand in the statement.
+    For example, in an arithmetic expression such as ? + COLUMN1, the data type of the parameter can be inferred from the data
+    type of the named column represented by COLUMN1. An application cannot use a parameter marker if the data type cannot be
+    determined.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table describes how a data type is determined for several
+    types of parameters, in accordance with SQL92. For a more comprehensive specification on inferring the parameter type when
+    other SQL clauses are used, see the SQL92 specification.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="48%"><b>Location of parameter</b></td>
+
+            <td class="label" width="52%"><b>Assumed data type</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">One operand of a binary arithmetic or comparison operator</td>
+
+            <td width="52%">Same as the other operand</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">The first operand in a <b>BETWEEN</b> clause</td>
+
+            <td width="52%">Same as the second operand</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">The second or third operand in a <b>BETWEEN</b> clause</td>
+
+            <td width="52%">Same as the first operand</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">An expression used with <b>IN</b></td>
+
+            <td width="52%">Same as the first value or the result column of the subquery</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">A value used with <b>IN</b></td>
+
+            <td width="52%">Same as the expression or the first value if there is a parameter marker in the expression.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">A pattern value used with <b>LIKE</b></td>
+
+            <td width="52%">VARCHAR</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">An update value used with <b>UPDATE</b></td>
+
+            <td width="52%">Same as the update column</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

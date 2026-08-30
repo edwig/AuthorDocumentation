@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Date, Time, and Timestamp Escape Sequences</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdate__time__and_timestamp_escape_sequences"></a>Date,
+    Time, and Timestamp Escape Sequences</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC defines escape sequences for date, time, and timestamp literals.
+    The syntax of these escape sequences is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{</b><i>d</i> <b>'</b><i>value</i><b>'}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{</b><i>t</i> <b>'</b><i>value</i><b>'}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{</b><i>ts</i> <b>'</b><i>value</i><b>'}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-date-time-escape</i> ::=<br>
+    <i>ODBC-date-escape</i><br>
+    | <i>ODBC-time-escape</i><br>
+    | <i>ODBC-timestamp-escape</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-date-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> d '<i>date-value</i>' <i>ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-time-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> t '<i>time-value</i>' <i>ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-timestamp-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> ts '<i>timestamp-value</i>' <i>ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>date-value</i> ::=<br>
+    <i>years-value date-separator months-value date-separator days-value</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>time-value</i> ::=<br>
+    <i>hours-value time-separator minutes-value time-separator</i> <i>seconds-value</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>timestamp-value</i> ::= <i>date-value timestamp-separator
+    time-value</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>date-separator</i> ::= -</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>time-separator</i> ::= :</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>timestamp-separator</i> ::=<i><br>
+    (The blank character)</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>years-value</i> ::= <i>digit digit digit digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>months-value</i> ::= <i>digit digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>days-value</i> ::= <i>digit digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>hours-value</i> ::= <i>digit digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>minutes-value</i> ::= <i>digit digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>seconds-value</i> ::= <i>digit
+    digit</i>[<i>.digit&#8230;</i>]</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The date, time, and timestamp literal escape sequences are supported if
+    the date, time, and timestamp data types are supported by the data source. An application should call <b>SQLGetTypeInfo</b>
+    to determine whether these data types are supported.</font></p>
+</body>
+</html>

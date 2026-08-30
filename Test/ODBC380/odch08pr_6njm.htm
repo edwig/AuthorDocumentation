@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQL Statements Entered by the User</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsql_statements_entered_by_the_user"></a>SQL Statements
+    Entered by the User</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Applications that perform ad hoc analysis also commonly allow the user
+    to enter SQL statements directly. For example:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLCHAR  *Statement, SqlState[6], Msg[SQL_MAX_MESSAGE_LENGTH];
+SQLSMALLINT i, MsgLen;
+SQLINTEGER NativeError;
+SQLRETURN  rc1, rc2;
+
+// Prompt user for SQL statement.
+GetSQLStatement(Statement);
+
+// Execute the statement directly. Because it will be executed only once, do not
+// prepare it.
+rc1 = SQLExecDirect(hstmt, Statement, SQL_NTS);
+
+// Process any errors or returned information.
+if ((rc1 == SQL_ERROR) || rc1 == SQL_SUCCESS_WITH_INFO) {
+ i = 1;
+ while ((rc2 = SQLGetDiagRec(SQL_HANDLE_STMT, hstmt, i, SqlState, &amp;NativeError,
+      Msg, sizeof(Msg), &amp;MsgLen)) != SQL_NO_DATA) {
+  DisplayError(SqlState, NativeError, Msg, MsgLen);
+  i++;
+ }
+}
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This approach simplifies application coding; the application relies on
+    the user to build the SQL statement and on the data source to check the statement&#8217;s validity. Because it&#8217;s
+    difficult to write a graphical user interface that adequately exposes the intricacies of SQL, simply asking the user to
+    enter the SQL statement text may be a preferable alternative. However, this requires the user to know not only SQL but also
+    the schema of the data source being queried. Some applications provide a graphical user interface by which the user can
+    create a basic SQL statement, and a text interface with which the user can modify it.</font></p>
+</body>
+</html>

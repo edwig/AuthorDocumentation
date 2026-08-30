@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Checking Feature Support and Variability</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcchecking_feature_support_and_variability"></a>Checking
+    Feature Support and Variability</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To check feature support and variability, applications generally call
+    <b>SQLGetInfo</b>, <b>SQLGetFunctions</b>, and <b>SQLGetTypeInfo</b>. A good starting place is the driver&#8217;s API and
+    SQL grammar conformance levels. These describe broad levels of feature support. The application can then call
+    <b>SQLGetInfo</b> with other options to determine the support or variability of features it needs, <b>SQLGetFunctions</b>
+    to determine whether functions it needs beyond the returned conformance level are supported, and <b>SQLGetTypeInfo</b> to
+    determine what SQL data types are supported.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can determine whether a statement or connection attribute
+    is supported by calling <b>SQLSetStmtAttr</b> or <b>SQLSetConnectAttr</b> with that attribute. If the function returns
+    SQL_SUCCESS or SQL_SUCCESS_WITH_INFO, the attribute is supported; if it returns SQL_ERROR and SQLSTATE HYC00 (Optional
+    feature not implemented), the attribute is not supported.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Applications can also determine a limited amount of information before
+    connecting to the driver by calling <b>SQLDrivers</b>.</font></p>
+</body>
+</html>

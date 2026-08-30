@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>LIKE Escape Sequence</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbclike_escape_sequence"></a>LIKE Escape Sequence</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC uses escape sequences for the LIKE clause. The syntax of this
+    escape sequence is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">{<b>escape</b> '<i>escape-character</i>'}</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-like-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> escape '<i>escape-character</i>' <i>ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>escape-character</i> ::= <i>character</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine if the driver supports the LIKE escape sequence, an
+    application can call <b>SQLGetInfo</b> with the SQL_LIKE_ESCAPE_CLAUSE information type.</font></p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Data Buffer Length</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdata_buffer_length"></a>Data Buffer Length</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application passes the byte length of the data buffer to the driver
+    in an argument, named <i>BufferLength</i> or a similar name. For example, in the following call to <b>SQLBindCol</b>, the
+    application specifies the length of the <i>ValuePtr</i> buffer (<b>sizeof(</b><i>ValuePtr</i><b>)</b>):</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLCHAR  ValuePtr[50];
+SQLINTEGER ValueLenOrInd;
+SQLBindCol(hstmt, 1, SQL_C_CHAR, ValuePtr, sizeof(ValuePtr), &amp;ValueLenOrInd);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A driver will always return the number of bytes, not the number of
+    characters, in the buffer length argument of any function that has an output string argument.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Data buffer lengths are required only for output buffers; the driver
+    uses them to avoid writing past the end of the buffer. However, the driver checks the data buffer length only when the
+    buffer contains variable-length data, such as character or binary data. If the buffer contains fixed-length data, such as
+    an integer or date structure, the driver ignores the data buffer length and assumes the buffer is large enough to hold the
+    data; that is, it never truncates fixed-length data. It is therefore important for the application to allocate a large
+    enough buffer for fixed-length data.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When a truncation of non-data output strings occurs (such as the cursor
+    name returned for <b>SQLGetCursorName</b>), the returned length in the buffer length argument is the maximum byte length
+    possible. That means that it is twice the number of characters, because the string could contain DBCS characters. For
+    example, if the cursor name is 10 ANSI characters long (10 bytes), and an application calls <b>SQLGetCursorName</b> to try
+    to retrieve the cursor name into a buffer that is 6 bytes long, the value returned in <i>*NameLengthPtr</i> will be
+    20.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Data buffer lengths are not required for input buffers because the
+    driver does not write to these buffers.</font></p>
+</body>
+</html>

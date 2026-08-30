@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLCloseCursor in the Cursor Library</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlclosecursor_in_the_cursor_library"></a>SQLCloseCursor
+    in the Cursor Library</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The cursor library does not support calling <b>SQLCloseCursor</b>
+    without an open cursor. Attempting this will return SQLSTATE 24000 (Invalid cursor state). Calling <b>SQLFreeStmt</b> with
+    an <i>Option</i> of SQL_CLOSE when no cursor is open is supported by the cursor library.</font></p>
+</body>
+</html>

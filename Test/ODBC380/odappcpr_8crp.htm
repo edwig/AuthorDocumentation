@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Outer Join Escape Sequence</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcouter_join_escape_sequence"></a>Outer Join Escape
+    Sequence</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC uses escape sequences for outer joins. The syntax of this escape
+    sequence is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{oj</b> <i>outer-join</i><b>}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-outer-join-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> oj <i>outer-join ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>outer-join</i> ::= <i>table-name</i> [<i>correlation-name</i>] {LEFT
+    | RIGHT | FULL}<br>
+    &nbsp; OUTER JOIN{<i>table-name</i> [<i>correlation-name</i>] | <i>outer-join</i>} ON <i>search-</i><br>
+    &nbsp; <i>condition</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>correlation-name</i> ::= <i>user-defined-name</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine which parts of this statement are supported, an application
+    calls <b>SQLGetInfo</b> with the SQL_OJ_CAPABILITIES information type. For outer joins, <i>search-condition</i> must
+    contain only the join condition between the specified <i>table-names</i>.</font></p>
+</body>
+</html>

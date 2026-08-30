@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Determining Cursor Capabilities</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdetermining_cursor_capabilities"></a>Determining Cursor
+    Capabilities</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following four options in <b>SQLGetInfo</b> describe what types of
+    cursors are supported and what their capabilities are:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_CURSOR_SENSITIVITY. Indicates whether a cursor is sensitive to
+        changes made by another cursor.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_SCROLL_OPTIONS. Lists the supported cursor types (forward-only,
+        static, keyset-driven, dynamic, or mixed). All data sources must support forward-only cursors.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_DYNAMIC_CURSOR_ATTRIBUTES1,
+        SQL_FORWARD_ONLY_CURSOR_ATTRIBUTES1, SQL_KEYSET_CURSOR_ATTRIBUTES1, or SQL_STATIC_CURSOR_ATTRIBUTES1 (depending on the
+        type of the cursor). Lists the fetch types supported by scrollable cursors. The bits in the return value correspond to
+        the fetch types in <b>SQLFetchScroll</b>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_KEYSET_CURSOR_ATTRIBUTES2 or SQL_STATIC_CURSOR_ATTRIBUTES2
+        (depending on the type of the cursor). Lists whether static and keyset-driven cursors can detect their own updates,
+        deletes, and inserts.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can determine cursor capabilities at run time by calling
+    <b>SQLGetInfo</b> with these options. This is commonly done by generic applications. Cursor capabilities also can be
+    determined during application development and their use hard-coded into the application. This is commonly done by vertical
+    and custom applications, but can also be done by generic applications that use a client-side cursor implementation such as
+    the ODBC cursor library.</font></p>
+</body>
+</html>

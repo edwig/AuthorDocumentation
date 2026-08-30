@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Network Database Access</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcnetwork_database_access"></a>Network Database
+    Access</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Accessing a database across a network requires a number of components,
+    each of which is independent of, and resides beneath, the programming interface. These components are shown in the
+    following figure.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr04.gif" border="0"></font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Network database access</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A further description of each component follows:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Programming Interface</b>. As described earlier in this chapter,
+        the programming interface contains the calls made by the application. These interfaces (embedded SQL, SQL modules, and
+        call-level interfaces) are generally specific to each DBMS, although they are usually based on an ANSI or ISO
+        standard.<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>Data Stream Protocol</b>. The data stream protocol describes the
+            stream of data transferred between the DBMS and its client. For example, the protocol might require the first byte
+            to describe what the rest of the stream contains: an SQL statement to be executed, a returned error value, or
+            returned data. The format of the rest of the data in the stream would then depend on this flag. For example, an
+            error stream might contain the flag, a 2-byte integer error code, a 2-byte integer error message length, and an
+            error message.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">The data stream protocol is a logical protocol and is
+            independent of the protocols used by the underlying network. Thus, a single data stream protocol can generally be
+            used on a number of different networks. Data stream protocols are typically proprietary and have been optimized to
+            work with a particular DBMS.</font></p>
+        </li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Interprocess Communication Mechanism</b>. The interprocess
+        communication (IPC) mechanism is the process by which one process communicates with another. Examples include named
+        pipes, TCP/IP sockets, and DECnet sockets. The choice of IPC mechanism is constrained by the operating system and
+        network being used.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Network Protocol</b>. The network protocol is used to transport
+        the data stream over a network. It can be considered the plumbing that supports the IPC mechanisms used to implement
+        the data stream protocol, as well as supporting basic network operations such as file transfers and print sharing.
+        Network protocols include NetBEUI, TCP/IP, DECnet, and SPX/IPX and are specific to each network.</font></li>
+    </ul>
+</body>
+</html>

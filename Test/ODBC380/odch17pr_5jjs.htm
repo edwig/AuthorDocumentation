@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Compatibility Matrix</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbccompatibility_matrix"></a>Compatibility Matrix</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table describes the compatibility of the types of
+    applications and drivers defined previously in this chapter.</font></p>
+
+    <table border="1" cellpadding="5" cols="4" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="31%"><b>Application type<br>
+            and version</b></td>
+
+            <td class="label" width="21%"><b>32-bit ODBC 2.<i>x<br></i>driver</b></td>
+
+            <td class="label" width="20%"><b>ODBC 3.<i>x</i><br>
+            driver</b></td>
+
+            <td class="label" width="28%"><b>ISO and X/Open&#8211;<br>
+            compliant driver</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">16-bit application, any version</td>
+
+            <td width="21%">Compatible</td>
+
+            <td width="20%">Compatible</td>
+
+            <td width="28%">Compatible</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure 2.<i>x</i> application</td>
+
+            <td width="21%">Compatible</td>
+
+            <td width="20%">Compatible</td>
+
+            <td width="28%">Not compatible [3]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure 2.<i>x</i> recompiled application</td>
+
+            <td width="21%">Compatible</td>
+
+            <td width="20%">Compatible [1]</td>
+
+            <td width="28%">Not compatible [3]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure 2.<i>x</i> Unicode application</td>
+
+            <td width="21%">Compatible</td>
+
+            <td width="20%">Compatible [1]</td>
+
+            <td width="28%">Not Compatible [3]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure X/Open and ISO&nbsp;&#8211;&nbsp;compliant application</td>
+
+            <td width="21%">Not compatible</td>
+
+            <td width="20%">Compatible [2]</td>
+
+            <td width="28%">Compatible [2]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure 3.0 application</td>
+
+            <td width="21%">Not compatible</td>
+
+            <td width="20%">Compatible</td>
+
+            <td width="28%">Not compatible [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Pure 3.5 (or higher) application</td>
+
+            <td width="21%">Not compatible</td>
+
+            <td width="20%">Compatible</td>
+
+            <td width="28%">Not compatible [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="31%">Replaced application</td>
+
+            <td width="21%">Compatible</td>
+
+            <td width="20%">Compatible</td>
+
+            <td width="28%">Not compatible [3]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1] The application must recompile using ODBC 3.5 (or
+    higher) headers with the UNICODE option (if it is a Unicode application) and must set ODBCVER to 0x0250.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2] The application must compile using ODBC 3.5 (or higher)
+    headers, and link with the ODBC Driver Manager. It must also set the header flag ODBC_STD.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3] This configuration can potentially fail to work because
+    there are features in ODBC 2.<i>x</i> that are not in the standards, such as bookmarks.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4] This configuration can potentially fail to work because
+    there are features in ODBC 3.x that are not in the standards, such as bookmarks.</font></p>
+</body>
+</html>

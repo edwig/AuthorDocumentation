@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Argument Value Checks</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcargument_value_checks"></a>Argument Value
+    Checks</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The Driver Manager checks the following types of arguments. Unless
+    otherwise noted, the Driver Manager returns SQL_ERROR for errors in argument values.</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Environment, connection, and statement handles usually cannot be
+        null pointers. The Driver Manager returns SQL_INVALID_HANDLE when it finds a null handle.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Required pointer arguments, such as <i>OutputHandlePtr</i> in
+        <b>SQLAllocHandle</b> and <i>CursorName</i> in <b>SQLSetCursorName</b>, cannot be null pointers.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Option flags that do not support driver-specific values must be a
+        legal value. For example, <i>Operation</i> in <b>SQLSetPos</b> must be SQL_POSITION, SQL_REFRESH, SQL_UPDATE,
+        SQL_DELETE, or SQL_ADD.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Option flags must be supported in the version of ODBC supported by
+        the driver. For example, <i>InfoType</i> in <b>SQLGetInfo</b> cannot be SQL_ASYNC_MODE (introduced in ODBC 3.0) when
+        calling an ODBC 2.0 driver.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Column and parameter numbers must be greater than 0 or greater than
+        or equal to 0, depending on the function. The driver must check the upper limit of these argument values based on the
+        current result set or SQL statement.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Length/indicator arguments and data buffer length arguments must
+        contain appropriate values. For example, the argument that specifies the length of a table name in <b>SQLColumns</b>
+        (<i>NameLength3</i>) must be SQL_NTS or a value greater than 0; <i>BufferLength</i> in <b>SQLDescribeCol</b> must be
+        greater than or equal to 0. The driver might also need to check these arguments. For example, it might check that
+        <i>NameLength3</i> is less than or equal to the maximum length of a table name in the data source.</font></li>
+    </ul>
+</body>
+</html>

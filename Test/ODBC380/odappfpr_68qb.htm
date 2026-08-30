@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Row Status</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcrow_status"></a>Row Status</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The cursor library creates a buffer in the cache for the row status. The
+    cursor library retrieves values for the row status array (specified with the SQL_ATTR_ROW_STATUS_PTR statement attribute)
+    from this buffer. For each row, the cursor library sets this buffer to:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_ROW_DELETED when it executes a positioned delete statement on
+        the row.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_ROW_ERROR when it encounters an error retrieving the row from
+        the data source with <b>SQLFetch</b>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_ROW_SUCCESS when it successfully fetches the row from the data
+        source with <b>SQLFetch</b>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_ROW_UPDATED when it executes a positioned update statement on
+        the row.</font></li>
+    </ul>
+</body>
+</html>

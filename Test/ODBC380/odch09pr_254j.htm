@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Describing Parameters</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdescribing_parameters"></a>Describing
+    Parameters</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLBindParameter</b> has arguments that describe the parameter: its
+    SQL type, precision, and scale. The driver uses this information, or <i>metadata</i>, to convert the parameter value to the
+    type needed by the data source. At first glance, it might seem that the driver is in a better position to know the
+    parameter metadata than the application; after all, the driver can easily discover the metadata for a result set column. As
+    it turns out, this is not the case. First, most data sources do not provide a way for the driver to discover parameter
+    metadata. Second, most applications already know the metadata.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If an SQL statement is hard-coded in the application, then the
+    application writer already knows the type of each parameter. If an SQL statement is constructed by the application at run
+    time, the application can determine the metadata as it builds the statement. For example, when the application constructs
+    the clause</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>WHERE OrderID = ?
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">it can call <b>SQLColumns</b> for the OrderID column.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The only situation in which the application cannot easily determine the
+    parameter metadata is when the user enters a parameterized statement. In this case, the application calls <b>SQLPrepare</b>
+    to prepare the statement, <b>SQLNumParams</b> to determine the number of parameters, and <b>SQLDescribeParam</b> to
+    describe each parameter. However, as was noted earlier, most data sources do not provide a way for the driver to discover
+    parameter metadata, so <b>SQLDescribeParam</b> is not widely supported.</font></p>
+</body>
+</html>

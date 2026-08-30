@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>The ODBC Solution</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcthe_odbc_solution"></a>The ODBC Solution</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Our final question, then, is how does ODBC standardize database access?
+    There are two architectural requirements:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Applications must be able to access multiple DBMSs using the same
+        source code without recompiling or relinking.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Applications must be able to access multiple DBMSs
+        simultaneously.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There is one more question, due to marketplace reality:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Which DBMS features should ODBC expose? Only features that are
+        common to all DBMSs or any feature that is available in any DBMS?</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC solves these problems in the following manner:</font></p>
+
+    <ul type="disc">
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>ODBC is a call-level interface.</b> To solve the problem of how
+            applications access multiple DBMSs using the same source code, ODBC defines a standard CLI. This contains all of
+            the functions in the CLI specifications from X/Open and ISO/IEC and provides additional functions commonly required
+            by applications.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">A different library, or driver, is required for each
+            DBMS that supports ODBC. The driver implements the functions in the ODBC API. To use a different driver, the
+            application does not need to be recompiled or relinked. Instead, the application simply loads the new driver and
+            calls the functions in it. To access multiple DBMSs simultaneously, the application loads multiple drivers. How
+            drivers are supported is operating system&nbsp;&nbsp;&#8211;&nbsp;&nbsp;specific. For example, on the Windows
+            operating system, drivers are dynamic-link libraries (DLLs).</font></p>
+        </li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>ODBC defines a standard SQL grammar.</b> In addition to a
+            standard call-level interface, ODBC defines a standard SQL grammar. This grammar is based on the X/Open SQL CAE
+            specification. Differences between the two grammars are minor and primarily due to the differences between the SQL
+            grammar required by embedded SQL (X/Open) and a CLI (ODBC). There are also some extensions to the grammar to expose
+            commonly available language features not covered by the X/Open grammar.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">Applications can submit statements using ODBC or
+            DBMS-specific grammar. If a statement uses ODBC grammar that is different from DBMS-specific grammar, the driver
+            converts it before sending it to the data source. However, such conversions are rare because most DBMSs already use
+            standard SQL grammar.</font></p>
+        </li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>ODBC provides a Driver Manager to manage simultaneous access to
+            multiple DBMSs.</b> Although the use of drivers solves the problem of accessing multiple DBMSs simultaneously, the
+            code to do this can be complex. Applications that are designed to work with all drivers cannot be statically linked
+            to any drivers. Instead, they must load drivers at run time and call the functions in them through a table of
+            function pointers. The situation becomes more complex if the application uses multiple drivers
+            simultaneously.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">Rather than forcing each application to do this, ODBC
+            provides a Driver Manager. The Driver Manager implements all of the ODBC functions&#8212;mostly as pass-through
+            calls to ODBC functions in drivers&#8212;and is statically linked to the application or loaded by the application
+            at run time. Thus, the application calls ODBC functions by name in the Driver Manager, rather than by pointer in
+            each driver.</font></p>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">When an application needs a particular driver, it
+            first requests a connection handle with which to identify the driver, and then requests that the Driver Manager
+            load the driver. The Driver Manager loads the driver and stores the address of each function in the driver. To call
+            an ODBC function in the driver, the application calls that function in the Driver Manager and passes the connection
+            handle for the driver. The Driver Manager then calls the function using the address it stored earlier.</font></p>
+        </li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>ODBC exposes a significant number of DBMS features but does not
+            require drivers to support all of them.</b> If ODBC exposed only features that are common to all DBMSs, it would be
+            of little use; after all, the reason so many different DBMSs exist today is that they have different features. If
+            ODBC exposed every feature that is available in any DBMS, it would be impossible for drivers to implement.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">Instead, ODBC exposes a significant number of
+            features&#8212;more than are supported by most DBMSs&#8212;but requires drivers to implement only a subset of those
+            features. Drivers implement the remaining features only if they are supported by the underlying DBMS or if they
+            choose to emulate them. Thus, applications can be written to exploit the features of a single DBMS as exposed by
+            the driver for that DBMS, to use only those features used by all DBMSs, or to check for support of a particular
+            feature and react accordingly.</font></p>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">So that an application can determine what features a
+            driver and DBMS support, ODBC provides two functions (<b>SQLGetInfo</b> and <b>SQLGetFunctions</b>) that return
+            general information about the driver and DBMS capabilities and a list of functions the driver supports. ODBC also
+            defines API and SQL grammar conformance levels, which specify broad ranges of features supported by the driver. For
+            more information, see &#8220;<a href="odch04pr_3zhv.htm">Conformance Levels</a>&#8221; in Chapter 4, &#8220;ODBC
+            Fundamentals.&#8221;</font></p>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">It is important to remember that ODBC defines a
+            common interface for all of the features it exposes. Because of this, applications contain feature-specific code,
+            not DBMS-specific code, and can use any drivers that expose those features. One advantage of this is that
+            applications do not need to be updated when the features supported by a DBMS are enhanced; instead, when an updated
+            driver is installed, the application automatically uses the features because its code is feature-specific, not
+            driver- or DBMS-specific.</font></p>
+        </li>
+    </ul>
+</body>
+</html>

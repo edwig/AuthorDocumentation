@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>How to Run Convert DSN Demo</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbchow_to_run_convert_dsn_demo"></a></sup>How to Run
+    Convert DSN Demo</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">You can run the Convert DSN Demo by building the debug or nondebug
+    version and double-clicking the \Samples\Odbc\Convdsn\Ndebug32\Convdsn.exe or \Samples\Odbc\Convdsn\Debug32\Convdsn.exe
+    file in Windows Explorer, or by clicking <b>Start</b>, then <b>Run</b>, and typing
+    <b>\&lt;path&gt;\CONVDSN.EXE</b>.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">ODBC Sample Trace DLL</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The ODBC 3.51 Driver Manager has an improved tracing mechanism that
+    allows developers to implement their own trace DLLs. These can be used to provide more information than the standard driver
+    manager trace DLL (Odbctrac.dll).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The standard trace DLL is a part of the ODBC 3.51 redistributable
+    components, and ODBC vendors are required to ship this DLL unmodified from the original source whenever they ship ODBC core
+    components. However, it is possible to also develop and ship a custom trace DLL to provide more functionality than the
+    standard one.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">How to Use the Alternative Trace DLL</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To get the driver manager to use an alternative trace DLL, use the ODBC
+    Administrator to set the trace DLL path and name.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This will cause the driver manager to use your custom trace DLL. If this
+    key is not defined, the driver manager uses the standard trace DLL (Odbctrac.dll).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A trace DLL must export an entry point named TraceSQL<i>xxxx</i> for
+    each ODBC 3.5 function, where <i>xxxx</i> is the name of the function (<b>TraceSQLConnect</b>, for example). This trace
+    function will be called upon entry to the ODBC function. Trace functions take as arguments the standard arguments for the
+    ODBC function, but they return a "magic cookie" that the driver manager will pass back to the trace DLL when the function
+    exits.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In addition to the TraceSQL<i>xxxx</i> functions, a trace DLL must
+    export the following:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">TraceReturn, which logs the return code of a function.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">TraceOpenLogFile, which opens a log file.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">TraceCloseLogFile, which closes a log file.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">TraceVersion, which passes back the TRACE_VERSION
+        constant.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The prototypes and definitions of these functions are in
+    DOTRACE.C.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>For security purposes, the
+    trace DLL must be installed in the Windows system (or System32) directory. The driver manager will refuse to use a trace
+    DLL from any other directory. This prevents users from installing the trace DLL on locked-down systems.</font></p>
+
+    <p>To use this sample trace DLL, copy STRACE.DLL to the System directory, and use the ODBC Administrator (Odbcad32) to
+    select STRACE.DLL as your custom DLL.</p>
+
+    <h1>ODBC Connection Pooling Performance Monitoring</h1>
+
+    <p>The batch file in this directory (ODBCPM.BAT) will enable performance monitoring counters for ODBC connection pooling.
+    Connection pooling allows one application to reuse open connection handles, which saves round trips to the server. When the
+    application calls <b>SQLDisconnect</b> with a connected handle, the driver manager adds the connection to a list of free
+    connections for that driver or environment. When <b>SQLDriverConnect</b> or <b>SQLConnect</b> is called with a connection
+    string and connection options that are compatible with the pooled connection, the driver manager will return this pooled
+    connection to the application.</p>
+
+    <p>If no compatible requests are made within the timeout period specified for that driver, then the pooled connection will
+    actually be disconnected from the driver. The timeout period for the driver is specified in the registry under
+    HKEY_LOCAL_MACHINE\SOFTWARE\Odbc\Odbcinst.ini\<i>DriverName\</i>CPTimeout.</p>
+
+    <p>Connection pooling is typically used for Web server applications, which tend to create many short-lived connections.</p>
+
+    <h2>How to Enable/Disable Performance Monitoring</h2>
+
+    <p>To enable performance monitoring, run <b>odbcpm enable</b>. To disable monitoring, run <b>odbcpm disable</b>.</p>
+
+    <p>To see the counters, run the <b>perfmon</b> program. Select the ODBC Connection Pooling object.</p>
+
+    <p>For more information, see SQL_ATTR_CONNECTION_POOLING under <b>SQLSetEnvAttr</b> in this file.</p>
+</body>
+</html>

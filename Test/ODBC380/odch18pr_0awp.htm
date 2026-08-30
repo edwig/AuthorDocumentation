@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>ODBC Translators Subkey</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcodbc_translators_subkey"></a>ODBC Translators
+    Subkey</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The values under the ODBC Translators subkey list the installed
+    translators. The format of these values is:</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="22%"><b>Name</b></td>
+
+            <td class="label" width="22%"><b>Data type</b></td>
+
+            <td class="label" width="56%"><b>Data</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="22%"><i>translator-desc</i></td>
+
+            <td width="22%">REG_SZ</td>
+
+            <td width="56%"><b>Installed</b></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">where <i>translator-desc</i> is defined by the translator
+    developer.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, suppose a user has installed the Microsoft Code Page
+    Translator and a custom ASCII to EBCDIC translator. The values under the ODBC Translators subkey might be:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>MS Code Page Translator: REG_SZ : Installed
+ASCII to EBCDIC: REG_SZ : Installed.
+</code></font>
+</pre>
+</body>
+</html>

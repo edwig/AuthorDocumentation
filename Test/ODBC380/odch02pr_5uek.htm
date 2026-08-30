@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Static SQL</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstatic_sql"></a>Static SQL</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The embedded SQL shown in the &#8220;<a href=
+    "odch02pr_4dph.htm">Embedded SQL Example</a>&#8221; section is known as static SQL. It is called static SQL because the SQL
+    statements in the program are static; that is, they do not change each time the program is run. As described in the
+    previous section, these statements are compiled when the rest of the program is compiled.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Static SQL works well in many situations. In fact, it can be used in any
+    application for which the data access can be determined at program design time. For example, an order entry program always
+    uses the same statement to insert a new order, and an airline reservation system always uses the same statement to change
+    the status of a seat from available to reserved. Each of these statements would be generalized through the use of host
+    variables; different values can be inserted in a sales order and different seats can be reserved. Because such statements
+    can be hard-coded in the program, such programs have the advantage that the statements need to be parsed, validated, and
+    optimized only once, at compile time. This results in relatively fast code.</font></p>
+</body>
+</html>

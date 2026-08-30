@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLGetData in the Cursor Library</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlgetdata_in_the_cursor_library"></a>SQLGetData in the
+    Cursor Library</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The cursor library implements <b>SQLGetData</b> by first constructing a
+    <b>SELECT</b> statement with a <b>WHERE</b> clause that enumerates the values stored in its cache for each bound column in
+    the current row. It then executes the <b>SELECT</b> statement to reselect the row and calls <b>SQLGetData</b> in the driver
+    to retrieve the data from the data source (as opposed to the cache).</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Caution</b> The <b>WHERE</b> clause constructed by the
+    cursor library to identify the current row can fail to identify any rows, identify a different row, or identify more than
+    one row. For more information, see &#8220;<a href="odappfpr_701f.htm">Constructing Searched Statements</a>&#8221; earlier
+    in this appendix.</font></p>
+
+    <p>If the SQL_ATTR_USE_BOOKMARKS statement attribute is set to SQL_UB_VARIABLE, <b>SQLGetData</b> can be called on column 0
+    to return bookmark data.</p>
+
+    <p>Calls to <b>SQLGetData</b> are subject to the following restrictions:</p>
+
+    <ul type="disc">
+        <li><b>SQLGetData</b> cannot be called for forward-only cursors.<br>
+        <br></li>
+
+        <li><b>SQLGetData</b> can only be called when a <b>SELECT</b> statement generated the result set, the <b>SELECT</b>
+        statement did not contain a join, a <b>UNION</b> clause, or a <b>GROUP BY</b> clause, and any columns that used an
+        alias or expression in the select list were not bound with <b>SQLBindCol</b>.<br>
+        <br></li>
+
+        <li>If the driver supports only one active statement, the cursor library fetches the rest of the result set before
+        executing the <b>SELECT</b> statement and calling <b>SQLGetData</b>.</li>
+    </ul>
+</body>
+</html>

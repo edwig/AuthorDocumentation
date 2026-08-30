@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLGetDiagRec</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlgetdiagrec"></a>SQLGetDiagRec</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced:ODBC 3.0<br>
+    Standards Compliance:ISO 92</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLGetDiagRec</b> returns the current values of multiple fields of a
+    diagnostic record that contains error, warning, and status information. Unlike <b>SQLGetDiagField</b>, which returns one
+    diagnostic field per call, <b>SQLGetDiagRec</b> returns several commonly used fields of a diagnostic record, including the
+    SQLSTATE, the native error code, and the diagnostic message text.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQLRETURN <b>SQLGetDiagRec</b>(<br>
+    SQLSMALLINT<i>HandleType</i>,<br>
+    SQLHANDLE<i>Handle</i>,<br>
+    SQLSMALLINT<i>RecNumber</i>,<br>
+    SQLCHAR *<i>Sqlstate</i>,<br>
+    SQLINTEGER *<i>NativeErrorPtr</i>,<br>
+    SQLCHAR *<i>MessageText</i>,<br>
+    SQLSMALLINT<i>BufferLength</i>,<br>
+    SQLSMALLINT *<i>TextLengthPtr</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>HandleType</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    A handle type identifier that describes the type of handle for which diagnostics are required. Must be one of the
+    following:</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">SQL_HANDLE_ENV<br>
+    SQL_HANDLE_DBC<br>
+    SQL_HANDLE_STMT<br>
+    SQL_HANDLE_DESC</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>Handle</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    A handle for the diagnostic data structure, of the type indicated by <i>HandleType</i>. If <i>HandleType</i> is
+    SQL_HANDLE_ENV, <i>Handle</i> can be either a shared or unshared environment handle.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>RecNumber</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Indicates the status record from which the application seeks information. Status records are numbered from 1.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>SQLState</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to a buffer in which to return a five-character SQLSTATE code pertaining to the diagnostic record <i>RecNumber</i>.
+    The first two characters indicate the class; the next three indicate the subclass. This information is contained in the
+    SQL_DIAG_SQLSTATE diagnostic field. For more information, see &#8220;<a href="odch15pr_09ir.htm">SQLSTATEs</a>&#8221; in
+    Chapter 15, &#8220;Diagnostics.&#8221;</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>NativeErrorPtr</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to a buffer in which to return the native error code, specific to the data source. This information is contained in
+    the SQL_DIAG_NATIVE diagnostic field.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>MessageText</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to a buffer in which to return the diagnostic message text string. This information is contained in the
+    SQL_DIAG_MESSAGE_TEXT diagnostic field. For the format of the string, see the &#8220;<a href="odch15pr_35wz.htm">Diagnostic
+    Messages</a>&#8221; section of Chapter 15, &#8220;Diagnostics.&#8221;</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>BufferLength</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Length (in bytes) of the *<i>MessageText</i> buffer. There is no maximum length of the diagnostic message text. If the
+    value returned in <i>*MessageText</i> is of a Unicode string (when calling <b>SQLGetDiagRecW</b>), the <i>BufferLength</i>
+    argument must be an even number.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>TextLengthPtr</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to a buffer in which to return the total number of bytes (excluding the number of bytes required for the
+    null-termination character) available to return in <i>*MessageText</i>. If the number of bytes available to return is
+    greater than <i>BufferLength</i>, then the diagnostic message text in <i>*MessageText</i> is truncated to
+    <i>BufferLength</i> minus the length of a null-termination character.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or
+    SQL_INVALID_HANDLE.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLGetDiagRec</b> does not post diagnostic records for itself. It
+    uses the following return values to report the outcome of its own execution:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_SUCCESS: The function successfully returned diagnostic
+        information.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_SUCCESS_WITH_INFO: The *<i>MessageText</i> buffer was too small
+        to hold the requested diagnostic message. No diagnostic records were generated. To determine that a truncation
+        occurred, the application must compare <i>BufferLength</i> to the actual number of bytes available, which is written to
+        *<i>StringLengthPtr</i>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_INVALID_HANDLE: The handle indicated by <i>HandleType</i> and
+        <i>Handle</i> was not a valid handle.<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2">SQL_ERROR: One of the following occurred:</font>
+
+            <ul type="disc">
+                <li><font face="Verdana, Arial, Helvetica" size="2"><i>RecNumber</i> was negative or 0.<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2"><i>BufferLength</i> was less than zero.</font></li>
+            </ul>
+        </li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">SQL_NO_DATA: <i>RecNumber</i> was greater than the number of
+        diagnostic records that existed for the handle specified in <i>Handle.</i> The function also returns SQL_NO_DATA for
+        any positive <i>RecNumber</i> if there are no diagnostic records for <i>Handle</i>.</font></li>
+    </ul>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application typically calls <b>SQLGetDiagRec</b> when a previous call
+    to an ODBC function has returned SQL_SUCCESS or SQL_SUCCESS_WITH_INFO. However, because any ODBC function can post zero or
+    more diagnostic records each time it is called, an application can call <b>SQLGetDiagRec</b> after any ODBC function call.
+    An application can call <b>SQLGetDiagRec</b> multiple times to return some or all of the records in the diagnostic data
+    structure. ODBC imposes no limit to the number of diagnostic records that can be stored at any one time.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLGetDiagRec</b> cannot be used to return fields from the header of
+    the diagnostic data structure (the <i>RecNumber</i> argument must be greater than 0). The application should call
+    <b>SQLGetDiagField</b> for this purpose.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLGetDiagRec</b> retrieves only the diagnostic information most
+    recently associated with the handle specified in the <i>Handle</i> argument. If the application calls another ODBC
+    function, except <b>SQLGetDiagRec</b>, <b>SQLGetDiagField</b>, or <b>SQLError</b>, any diagnostic information from the
+    previous calls on the same handle is lost.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can scan all diagnostic records by looping, incrementing
+    <i>RecNumber</i>, as long as <b>SQLGetDiagRec</b> returns SQL_SUCCESS. Calls to <b>SQLGetDiagRec</b> are non-destructive to
+    the header and record fields. The application can call <b>SQLGetDiagRec</b> again at a later time to retrieve a field from
+    a record, as long as no other function, except <b>SQLGetDiagRec</b>, <b>SQLGetDiagField</b>, or <b>SQLError</b>, has been
+    called in the interim. The application can also retrieve a count of the total number of diagnostic records available by
+    calling <b>SQLGetDiagField</b> to retrieve the value of the SQL_DIAG_NUMBER field, and then call <b>SQLGetDiagRec</b> that
+    many times.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For a description of the fields of the diagnostic data structure, see
+    <b>SQLGetDiagField</b>. For more information, see &#8220;<a href="odch15pr_0yck.htm">Using SQLGetDiagRec and
+    SQLGetDiagField</a>&#8221; and &#8220;<a href="odch15pr_76uc.htm">Implementing SQLGetDiagRec and SQLGetDiagField</a>&#8221;
+    in Chapter 15, &#8220;Diagnostics.&#8221;</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b><i>HandleType</i> Argument</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Each handle type can have diagnostic information associated with it. The
+    <i>HandleType</i> argument denotes the handle type of the <i>Handle</i> argument.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some header and record fields cannot be returned for all types of
+    handles: environment, connection, statement, and descriptor. Those handles for which a field is not applicable are
+    indicated in the &#8220;Header Field&#8221; and &#8220;Record Fields&#8221; sections in <a href=
+    "odch21gpr_009w.htm">SQLGetDiagField</a>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A call to <b>SQLGetDiagRec</b> will return SQL_INVALID_HANDLE if
+    <i>HandleType</i> is SQL_HANDLE_SENV, which denotes a shared environment handle. However, if <i>HandleType</i> is
+    SQL_HANDLE_ENV, <i>Handle</i> can be either a shared or unshared environment handle.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Related Functions</b></font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="49%"><b>For information about</b></td>
+
+            <td class="label" width="51%"><b>See</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="49%">Obtaining a field of a diagnostic record or a field of the diagnostic header</td>
+
+            <td width="51%"><a href="odch21gpr_009w.htm">SQLGetDiagField</a></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

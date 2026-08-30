@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Standard Programming Interface</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstandard_programming_interface"></a>Standard Programming
+    Interface</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The programming interface is perhaps the most obvious candidate for
+    standardization. In fact, when ODBC was being developed, ANSI and ISO already provided standards for embedded SQL and SQL
+    modules. Although no standards existed for a database CLI, the SQL Access Group &#8212; an industry consortium of database
+    vendors &#8212; was considering whether to create one; parts of ODBC later became the basis for their work.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">One of the requirements for ODBC was that a single application binary
+    had to work with multiple DBMSs. It is for this reason that ODBC does not use embedded SQL or module languages. Although
+    the language in embedded SQL and module languages is standardized, each is tied to DBMS-specific precompilers. Thus,
+    applications must be recompiled for each DBMS and the resulting binaries work only with a single DBMS. While this is
+    acceptable for the low-volume applications found in the mini-computer and mainframe worlds, it is unacceptable in the
+    personal computer world. First, it is a logistical nightmare to deliver multiple versions of high-volume,
+    &#8220;shrink-wrapped&#8221; software to customers; second, personal computer applications often need to access multiple
+    DBMSs simultaneously.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">On the other hand, a call-level interface can be implemented through
+    libraries, or database drivers, that reside on each local machine; a different driver is required for each DBMS. Because
+    modern operating systems can load such libraries (such as dynamic-link libraries on the Windows operating system) at run
+    time, a single application can not only access data from different DBMSs without recompilation, but can also access data
+    from multiple databases simultaneously; as new database drivers become available, users can just install these on their
+    computers without having to modify, recompile, or relink their database applications. Furthermore, a call-level interface
+    was a good candidate for ODBC because Windows &#8212; the platform for which ODBC was originally developed &#8212; already
+    made extensive use of such libraries.</font></p>
+</body>
+</html>

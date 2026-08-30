@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Executing Batches</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcexecuting_batches"></a>Executing Batches</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Before an application executes a batch of statements, it should first
+    check whether they are supported. To do this, the application calls <b>SQLGetInfo</b> with the SQL_BATCH_SUPPORT,
+    SQL_PARAM_ARRAY_ROW_COUNTS, and SQL_PARAM_ARRAY_SELECTS options. The first option returns whether row
+    count&#8211;generating and result set&#8211;generating statements are supported in explicit batches and procedures, while
+    the latter two options return information about the availability of row counts and result sets in parameterized
+    execution.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Batches of statements are executed through <b>SQLExecute</b> or
+    <b>SQLExecDirect</b>. For example, the following call executes an explicit batch of statements to open a new sales
+    order.</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLCHAR *BatchStmt =
+ "INSERT INTO Orders (OrderID, CustID, OpenDate, SalesPerson, Status)"
+  "VALUES (2002, 1001, {fn CURDATE()}, 'Garcia', 'OPEN');"
+ "INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (2002, 1, 1234, 10);"
+ "INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (2002, 2, 987, 8);"
+ "INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (2002, 3, 566, 17);"
+ "INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (2002, 4, 412, 500)";
+
+SQLExecDirect(hstmt, BatchStmt, SQL_NTS);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When a batch of result-generating statements is executed, it returns one
+    or more row counts or result sets. For information about how to retrieve these, see &#8220;<a href=
+    "odch11pr_6ovn.htm">Multiple Results</a>&#8221; in Chapter 11, &#8220;Retrieving Results (Advanced).&#8221;</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If a batch of statements includes parameter markers, these are numbered
+    in increasing parameter order as they are in any other statement. For example, the following batch of statements has
+    parameters numbered from 1 to 21; those in the first <b>INSERT</b> statement are numbered 1 to 5 and those in the last
+    <b>INSERT</b> statement are numbered 18 to 21.</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>INSERT INTO Orders (OrderID, CustID, OpenDate, SalesPerson, Status)
+ VALUES (?, ?, ?, ?, ?);
+INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (?, ?, ?, ?);
+INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (?, ?, ?, ?);
+INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (?, ?, ?, ?);
+INSERT INTO Lines (OrderID, Line, PartID, Quantity) VALUES (?, ?, ?, ?);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For more information about parameters, see &#8220;<a href=
+    "odch09pr_2tpv.htm">Statement Parameters</a>,&#8221; later in this chapter.</font></p>
+</body>
+</html>

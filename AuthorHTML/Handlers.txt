@@ -1,0 +1,111 @@
+STANDARD HANDLERS
+=================
+
+Element     Handler         What
+----------- --------------  -------------------------------------------------------
+ALL         OnClick         At mouse click
+ALL         OnDblClick      At mouse double click
+ALL         OnKeyPress      At a key
+ALL         OnKeyDown
+ALL         OnKeyup
+ALL         OnMouseDown
+ALL         OnMouseMove
+ALL         OnMouseOut
+ALL         OnMouseOver
+ALL         OnMouseUp
+ALL2        OnBlur
+All2        OnFocus
+BODY        OnLoad
+BODY        OnUnload
+INPUT       OnChange
+INPUT       OnSelect
+SELECT      OnChange
+TEXTAREA    OnChange
+TEXTAREA    OnSelect
+
+IE-5 HANDLERS
+=============
+
+Element      Handler           What
+------------ ----------------- --------------------------------------------------------
+ALL          OnAfterUpdate     After update <SCRIPT FOR=element onafterupdate=...
+ALL          OnBeforeUpdate    Before update <SCRIPT FOR=element onbeforeupdate
+ALL          OnDataAvailable   If data for script available <SCRIPT FOR=element
+ALL          OnDatasetChanged  If data changed in <SCRIPT FOR=element
+ALL          OnDatasetComplete If all data loaded in <SCRIPT FOR=element
+ALL          OnDragStart
+ALL          OnerrorUpdate
+ALL          OnFilterChange
+ALL          OnHelp
+ALL          OnRowEnter
+ALL          OnRowExit
+ALL			  OnSelectStart
+All2		  OnCellChange
+All2		  OnCopy
+ALl2		  OnCut
+All2		  OnDrag
+All2		  OnDragEnd
+All2		  OnDragEnter
+All2		  OnDragLeave
+All2		  OnDragOver
+All2		  OnDrop
+ALl2		  OnLoseCapture
+All2		  OnPaste
+ALl2		  OnPropertyChange
+ALl2		  OnReadyStateChange
+All2		  OnResize
+All2		  OnRowsDelete
+All2		  OnRowsInserted
+All2		  OnScroll
+All3		  OnActivate
+All3		  OnBeforeDeactivate
+All3		  OnControlSelect
+All3		  OnDeactivate
+All3		  OnLayoutComplete
+All3		  OnMouseEnter
+All3		  OnMouseLeave
+All3		  OnMove	    -- not implemented
+ALl3		  OnMoveEnd	-- not implemented
+All3		  OnMoveStart	-- not implemented
+ALl3		  Onpage	-- not implemented
+All3		  OnResizeEnd
+All3		  OnResizeStart
+ALl4		  OnBeforeActivate
+All4		  OnFocusIn
+All4		  OnFocusOut
+All4		  OnMouseWheel
+BODY		  OnBeforeUnload
+BODY		  OnSelect
+BODY		  OnAfterPrint
+BODY		  OnBeforePrint
+IMG			  OnAbort
+IMG			  OnError
+IMG			  OnLoad
+Document2	  OnBeforeEditFocus
+Document2     OnCellChange
+Document2	  OnContextMenu
+Document2	  OnPropertyChange
+Document2	  OnRowsDelete
+Document2	  OnStop
+Document4	  OnControlSelect
+Document4	  OnSelectionChange
+Document5	  OnActivate
+Document5	  OnBeforeActivate
+Document5	  OnBeforeDeActivate
+Document5     OnDeactivate
+Document5	  OnFocusIn
+Document5	  OnFocusOut
+DOcument5	  OnMouseWheel
+INPUT		  OnAbort
+INPUT		  OnError
+INPUT		  OnLoad
+MARQUEE		  OnBounce
+MARQUEE	      OnFinish
+MARQUEE       OnStart
+OBJECT		  OnError
+OBJECT		  OnReadyStateChange
+SCRIPT	      OnError
+STYLE	      OnError
+STYLE         OnLoad
+STYLE         OnReadyStateChange
+TABLE         OnReadyStateChange

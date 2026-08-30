@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Converting Data from C to SQL Data Types</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconverting_data_from_c_to_sql_data_types"></a>Converting
+    Data from C to SQL Data Types</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an application calls <b>SQLExecute</b> or <b>SQLExecDirect</b>, the
+    driver retrieves the data for any parameters bound with <b>SQLBindParameter</b> from storage locations in the application.
+    When an application calls <b>SQLSetPos</b>, the driver retrieves the data for an update or add operation from columns bound
+    with <b>SQLBindCol</b>. For data-at-execution parameters, the application sends the parameter data with <b>SQLPutData</b>.
+    If necessary, the driver converts the data from the data type specified by the <i>ValueType</i> argument in
+    <b>SQLBindParameter</b> to the data type specified by the <i>ParameterType</i> argument in <b>SQLBindParameter,</b> and
+    then sends the data to the data source.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table shows the supported conversions from ODBC C data
+    types to ODBC SQL data types. A filled circle indicates the default conversion for an SQL data type (the C data type from
+    which the data will be converted when the value of <i>ValueType</i> or the SQL_DESC_CONCISE_TYPE descriptor field is
+    SQL_C_DEFAULT). A hollow circle indicates a supported conversion.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The format of the converted data is not affected by the Windows country
+    setting.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="apd1b.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The tables in the following sections describe how the driver or data
+    source converts data sent to the data source; drivers are required to support conversions from all ODBC C data types to the
+    ODBC SQL data types that they support. For a given ODBC C data type, the first column of the table lists the legal input
+    values of the <i>ParameterType</i> argument in <b>SQLBindParameter</b>. The second column lists the outcomes of a test that
+    the driver performs to determine if it can convert the data. The third column lists the SQLSTATE returned for each outcome
+    by <b>SQLExecDirect</b>, <b>SQLExecute</b>, <b>SQLBulkOperations</b>, <b>SQLSetPos</b>, or <b>SQLPutData</b>. Data is sent
+    to the data source only if SQL_SUCCESS is returned.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the <i>ParameterType</i> argument in <b>SQLBindParameter</b> contains
+    the identifier of an ODBC SQL data type that is not shown in the table for a given C data type, <b>SQLBindParameter</b>
+    returns SQLSTATE 07006 (Restricted data type attribute violation). If the <i>ParameterType</i> argument contains a
+    driver-specific identifier and the driver does not support the conversion from the specific ODBC C data type to that
+    driver-specific SQL data type, <b>SQLBindParameter</b> returns SQLSTATE HYC00 (Optional feature not
+    implemented).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the <i>ParameterValuePtr</i> and <i>StrLen_or_IndPtr</i> arguments
+    specified in <b>SQLBindParameter</b> are both null pointers, that function returns SQLSTATE HY009 (Invalid use of null
+    pointer). Though it is not shown in the tables, an application sets the value of the length/indicator buffer pointed to by
+    the <i>StrLen_or_IndPtr</i> argument of <b>SQLBindParameter</b> or the value of the <i>StrLen_or_IndPtr</i> argument of
+    <b>SQLPutData</b> to SQL_NULL_DATA to specify a NULL SQL data value. (The <i>StrLen_or_IndPtr</i> argument corresponds to
+    the SQL_DESC_OCTET_LENGTH_PTR field of the APD.) The application sets these values to SQL_NTS to specify that the value in
+    *<i>ParameterValuePtr</i> in <b>SQLBindParameter</b> or *<i>DataPtr</i> in <b>SQLPutData</b> (pointed to by the
+    SQL_DESC_DATA_PTR field of the APD) is a null-terminated string.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following terms are used in the tables:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Byte length of data</b> is the number of bytes of SQL data
+        available to send to the data source, regardless of whether the data will be truncated before it is sent to the data
+        source. For string data, this does not include space for the null-termination character.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Column byte length</b> is the number of bytes required to store
+        the data at the data source.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Character byte length</b> is the maximum number of bytes needed
+        to display data in character form. This is as defined for each SQL data type in the section &#8220;<a href=
+        "odappdpr_5x0l.htm">Display Size</a>&#8221; earlier in this appendix, except character byte length is in bytes, while
+        the display size is in characters.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Number of digits</b> is the number of characters used to
+        represent a number, including the minus sign, decimal point, and exponent (if needed).<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Words in <i>italics</i> represent elements of the SQL grammar. For
+        the syntax of grammar elements, see Appendix C, &#8220;<a href="odappcpr_0mcy.htm">SQL Grammar</a>.&#8221;</font></li>
+    </ul>
+</body>
+</html>

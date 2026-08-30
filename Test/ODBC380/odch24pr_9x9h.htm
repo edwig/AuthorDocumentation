@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html dir="ltr">
+<head>
+    <title>SQLDriverToDataSource</title>
+    <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+    <link disabled rel="stylesheet" type="text/css" href="msdn_ie3.css">
+    <style type="text/css">
+@import url( msdn_ie4.css );
+    </style>
+    <meta name="GENERATOR" content="AuthorDocumentation">
+</head>
+
+<body>
+    <font size="2" face="Verdana, Arial, Helvetica">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font size="2" face="Verdana, Arial, Helvetica"><a name=
+    "odbcsqldrivertodatasource"></a>SQLDriverToDataSource</font></h1>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica"><b>SQLDriverToDataSource</b> supports translations for ODBC drivers.
+    This function is not called by ODBC-enabled applications; applications request translation through
+    <b>SQLSetConnectAttr</b>. The driver associated with the <i>ConnectionHandle</i> specified in <b>SQLSetConnectAttr</b>
+    calls the specified DLL to perform translations of all data flowing from the driver to the data source. A default
+    translation DLL can be specified in the ODBC initialization file.</font></p>
+
+    <p class="label"><font size="2" face="Verdana, Arial, Helvetica"><b>Syntax</b></font></p>
+
+    <p><font size="2" face="Verdana, Arial, Helvetica">BOOL <b>SQLDriverToDataSource</b>(<br>
+    &nbsp;&nbsp;&nbsp;UDWORD&nbsp;&nbsp;&nbsp;<i>fOption</i>,<br>
+    &nbsp;&nbsp;&nbsp;SWORD&nbsp;&nbsp;&nbsp;<i>fSqlType</i>,<br>
+    &nbsp;&nbsp;&nbsp;PTR&nbsp;&nbsp;&nbsp;<i>rgbValueIn</i>,<br>
+    &nbsp;&nbsp;&nbsp;SDWORD&nbsp;&nbsp;&nbsp;<i>cbValueIn</i>,<br>
+    &nbsp;&nbsp;&nbsp;PTR&nbsp;&nbsp;&nbsp;<i>rgbValueOut</i>,<br>
+    &nbsp;&nbsp;&nbsp;SDWORD&nbsp;&nbsp;&nbsp;<i>cbValueOutMax</i>,<br>
+    &nbsp;&nbsp;&nbsp;SDWORD *&nbsp;&nbsp;&nbsp;<i>pcbValueOut</i>,<br>
+    &nbsp;&nbsp;&nbsp;UCHAR *&nbsp;&nbsp;&nbsp;<i>szErrorMsg</i>,<br>
+    &nbsp;&nbsp;&nbsp;SWORD&nbsp;&nbsp;&nbsp;<i>cbErrorMsgMax</i>,<br>
+    &nbsp;&nbsp;&nbsp;SWORD *&nbsp;&nbsp;&nbsp;<i>pcbErrorMsg</i>);</font></p>
+
+    <p class="label"><font size="2" face="Verdana, Arial, Helvetica"><b>Arguments</b></font></p>
+
+    <p class="dt"><font size="2" face="Verdana, Arial, Helvetica"><i>fOption</i></font></p>
+
+    <p class="indent"><font size="2" face="Verdana, Arial, Helvetica">[Input]<br>
+    Option value.</font></p>
+
+    <p class="dt"><font size="2" face="Verdana, Arial, Helvetica"><i>fSqlType</i></font></p>
+
+    <p class="indent"><font size="2" face="Verdana, Arial, Helvetica">[Input]<br>
+    The ODBC SQL data type. This argument tells the driver how to convert <i>rgbValueIn</i> into a form acceptable by the data
+    source. For a list of valid SQL data types, see the &#8220;<a href="odappdpr_8fcj.htm">SQL Data Types</a>&#8221; section in
+    Appendix D, &#8220;Data Types.&#8221;</font></p>
+
+    <p class="dt"><font size="2" face="Verdana, Arial, Helvetica"><i>rgbValueIn</i></font></p>
+
+    <p class="indent"><font size="2" face="Verdana, Arial, Helvetica">[Input]<br>
+    Value to translate.</font></p>
+
+    <p class="dt"><font size="2" face="Verdana, Arial, Helvetica"><i>cbValueIn</i></font></p>
+
+    <p class="indent"><font size="2" face="Verdana, Arial, Helvetica">[Input]<br>
+    Length of <i>rgbValueIn</i>.</font></p>
+
+    <p class="dt"><font size="2" face="Verdana, Arial, Helvetica"><i>rgbValueOut</i></font></p>
+
+    <p class="indent"><font size="2" face="Verdana, Arial, Helvetica">[Output]<br>
+    Result of the translation.</font></p>
+
+    <p class="atl"><font size="2" face="Verdana, Arial, Helvetica"><b>Note</b>&nbsp;&nbsp;&nbsp;The translation DLL does not
+    null-terminate this value.</font></p>
+
+    <p class="dt"><i>cbValueOutMax</i></p>
+
+    <p class="indent">[Input]<br>
+    Length of <i>rgbValueOut</i>.</p>
+
+    <p class="dt"><i>pcbValueOut</i></p>
+
+    <p class="indent">[Output]<br>
+    The total number of bytes (excluding the null-termination byte) available to return in <i>rgbValueOut</i>.</p>
+
+    <p class="tl">For character or binary data, if this is greater than or equal to <i>cbValueOutMax</i>, the data in
+    <i>rgbValueOut</i> is truncated to <i>cbValueOutMax</i> bytes.</p>
+
+    <p class="tl">For all other data types, the value of <i>cbValueOutMax</i> is ignored and the translation DLL assumes that
+    the size of <i>rgbValueOut</i> is the size of the default C data type of the SQL data type specified with
+    <i>fSqlType</i>.</p>
+
+    <p class="tl">The <i>pcbValueOut</i> argument can be a null pointer.</p>
+
+    <p class="dt"><i>szErrorMsg</i></p>
+
+    <p class="indent">[Output]<br>
+    Pointer to storage for an error message. This is an empty string unless the translation failed.</p>
+
+    <p class="dt"><i>cbErrorMsgMax</i></p>
+
+    <p class="indent">[Input]<br>
+    Length of <i>szErrorMsg</i>.</p>
+
+    <p class="dt"><i>pcbErrorMsg</i></p>
+
+    <p class="indent">[Output]<br>
+    Pointer to the total number of bytes (excluding the null-termination byte) available to return in <i>szErrorMsg</i>. If
+    this is greater than or equal to <i>cbErrorMsg</i>, the data in <i>szErrorMsg</i> is truncated to <i>cbErrorMsgMax</i>
+    minus the null-termination character. The <i>pcbErrorMsg</i> argument can be a null pointer.</p>
+
+    <p class="label"><b>Returns</b></p>
+
+    <p>TRUE if the translation was successful.</p>
+
+    <p>FALSE if the translation failed.</p>
+
+    <p class="label"><b>Comments</b></p>
+
+    <p>The driver calls <b>SQLDriverToDataSource</b> to translate <i>all</i> data (SQL statements, parameters, and so on)
+    passing from the driver to the data source. The translation DLL may not translate some data, depending on the data&#8217;s
+    type and the purpose of the translation DLL. For example, a DLL that translates character data from one code page to
+    another ignores all numeric and binary data.</p>
+
+    <p>The value of <i>fOption</i> is set to the value of <i>vParam</i> specified by calling <b>SQLSetConnectAttr</b> with the
+    SQL_ATTR_TRANSLATE_OPTION attribute. It is a 32-bit value that has a specific meaning for a given translation DLL. For
+    example, it could specify a certain character set translation.</p>
+
+    <p>If the same buffer is specified for <i>rgbValueIn</i> and <i>rgbValueOut</i>, the translation of data in the buffer will
+    be performed in place.</p>
+
+    <p>Note that, although <i>cbValueIn</i>, <i>cbValueOutMax</i>, and <i>pcbValueOut</i> are of the type SDWORD,
+    <b>SQLDriverToDataSource</b> does not necessarily support huge pointers.</p>
+
+    <p>If <b>SQLDriverToDataSource</b> returns FALSE, data truncation may have occurred during translation. If
+    <i>pcbValueOut</i>, the number of bytes available to return in the output buffer, is greater than <i>cbValueOutMax</i>, the
+    length of the output buffer, then truncation occurred. The driver must determine whether or not the truncation was
+    acceptable. If truncation did not occur, the <b>SQLDriverToDataSource</b> returned FALSE due to another error. In either
+    case, a specific error message is returned in <i>szErrorMsg</i>.</p>
+
+    <p>For more information about translating data, see &#8220;<a href="odch17pr_5ier.htm">Translation DLLs</a>&#8221; in
+    Chapter 17, &#8220;Programming Considerations.&#8221;</p>
+
+    <p class="label"><b>Related Functions</b></p>
+
+    <table border="1" rules="rows" cellpadding="5" width="587" frame="below" cols="2">
+        <tbody>
+            <tr valign="top">
+                <td class="label" width="50%"><b>For information about</b></td>
+
+                <td class="label" width="50%"><b>See</b></td>
+            </tr>
+
+            <tr valign="top">
+                <td width="50%">Translating data returned from the data source</td>
+
+                <td width="50%"><a href="odch24pr_0raq.htm">SQLDataSourceToDriver</a></td>
+            </tr>
+
+            <tr valign="top">
+                <td width="50%">Returning the setting of a connection attribute</td>
+
+                <td width="50%"><a href="odch21fpr_0j1u.htm">SQLGetConnectAttr</a></td>
+            </tr>
+
+            <tr valign="top">
+                <td width="50%">Setting a connection attribute</td>
+
+                <td width="50%"><a href="odch21jpr_4zn6.htm">SQLSetConnectAttr</a></td>
+            </tr>
+        </tbody>
+    </table><br>
+</body>
+</html>

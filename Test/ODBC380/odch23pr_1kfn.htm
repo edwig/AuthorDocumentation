@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLManageDataSources</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlmanagedatasources"></a>SQLManageDataSources</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced: ODBC 2.0</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLManageDataSources</b> displays a dialog box with which users can
+    set up, add, and delete data sources in the system information.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">BOOL <b>SQLManageDataSources</b>(<br>
+    &nbsp;&nbsp;&nbsp;HWND&nbsp;&nbsp;&nbsp;<i>hwnd</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>hwnd</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Parent window handle.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLManageDataSources</b> returns FALSE if <i>hwnd</i> is not a valid
+    window handle. Otherwise, it returns TRUE.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When <b>SQLManageDataSources</b> returns FALSE, an associated
+    <i>*pfErrorCode</i> value may be obtained by calling <b>SQLInstallerError</b>. The following table lists the
+    <i>*pfErrorCode</i> values that can be returned by <b>SQLInstallerError</b> and explains each one in the context of this
+    function.</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="27%"><b><i>*pfErrorCode</i></b></td>
+
+            <td class="label" width="24%"><b>Error</b></td>
+
+            <td class="label" width="49%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            GENERAL_ERR</td>
+
+            <td width="24%">General installer error</td>
+
+            <td width="49%">An error occurred for which there was no specific installer error.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            REQUEST_<br>
+            FAILED</td>
+
+            <td width="24%"><i>Request</i> failed</td>
+
+            <td width="49%">The call to <b>ConfigDSN</b> failed.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            INVALID__HWND</td>
+
+            <td width="24%">Invalid window handle</td>
+
+            <td width="49%">The <i>hwnd</i> argument was invalid or NULL.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            OUT_OF_MEM</td>
+
+            <td width="24%">Out of memory</td>
+
+            <td width="49%">The installer could not perform the function because of a lack of memory.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="label"></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">Managing Data Sources</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLManageDataSources</b> initially displays the <b>ODBC Data Source
+    Administrator</b> dialog box.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch23e.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The dialog box displays the data sources listed in the system
+    information under three tabs: <b>User DSN</b>, <b>System DSN</b>, and <b>File DSN</b>. If the user double-clicks a data
+    source or selects a data source and clicks <b>Configure</b>, <b>SQLManageDataSources</b> calls <b>ConfigDSN</b> in the
+    setup DLL with the ODBC_CONFIG_DSN option.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user clicks <b>Add,</b> <b>SQLManageDataSources</b> displays the
+    <b>Create New Data Source</b> dialog box, shown in the following figure.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch23f.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The dialog box displays a list of installed drivers. If the user
+    double-clicks a driver or selects a driver and clicks <b>OK</b>, <b>SQLManageDataSources</b> calls <b>ConfigDSN</b> in the
+    setup DLL and passes it the ODBC_ADD_DSN option.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user selects a data source and clicks <b>Remove</b>,
+    <b>SQLManageDataSources</b> asks if the user wants to delete the data source. If the user clicks <b>Yes</b>,
+    <b>SQLManageDataSources</b> calls <b>ConfigDSN</b> in the setup DLL with the ODBC_REMOVE_DSN option.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Add Data Source</b> dialog box is used to add or delete either a
+    user data source, a system data source, or a file data source.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>System DSNs</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Create New Data Source</b> dialog box allows you to add a system
+    data source to your local computer or delete one, or to set the configuration for a system data source.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A data source set up with a system data-source name (DSN) can be used by
+    more than one user on the same machine. It can also be used by a system-wide service, which can then gain access to the
+    data source even if no user is logged onto the machine.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A System DSN is registered in the HKEY_LOCAL_MACHINE entry in the system
+    information, rather than the HKEY_CURRENT_USER entry. It is not tied to one user who logs on with his or her particular
+    user name and password, but can be used by any user of that machine, or by an automatic system-wide service. The System DSN
+    is, however, tied to one machine. It does not support the capability of using remote DSNs between machines. System DSNs are
+    registered as follows in the system information:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">HKEY_LOCAL_MACHINE<br>
+    &nbsp;&nbsp;&nbsp;SOFTWARE<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBC<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBC.INI</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>User DSNs</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">DSNs created for individual users will be called User DSNs, to
+    distinguish them from System DSNs. User DSNs are registered as follows in the system information:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">HKEY_CURRENT_USER<br>
+    &nbsp;&nbsp;&nbsp;SOFTWARE<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBC<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBC.INI</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>File DSNs</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A file data source does not have a data source name, as does a machine
+    data source, and is not registered to any one user or machine. The connection information for that data source is contained
+    in a .dsn file that can be copied to any machine. A file data source can be shareable, in which case the .dsn file resides
+    on a network and can be used simultaneously by multiple users on the network as long as the user has the appropriate driver
+    installed. A file data source can also be unshareable, in which case it can only be used on a single machine.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For more information on file data sources, see &#8220;<a href=
+    "odch06pr_16lv.htm">Connecting Using File Data Sources</a>&#8221; in Chapter 6, &#8220;Connecting to a Data Source or
+    Driver,&#8221; or see <a href="odch21dpr_4ed0.htm">SQLDriverConnect</a>.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">Managing Drivers</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user clicks the <b>ODBC Drivers</b> tab in the <b>ODBC Data
+    Source Administrator</b> dialog box, <b>SQLManageDataSources</b> displays a list of ODBC driver installed on the system,
+    and information about the drivers. The date displayed is the creation date of the driver.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch23g.gif" border="0"></font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">Tracing Options</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user clicks the <b>Tracing</b> tab in the <b>ODBC Data Source
+    Administrator</b> dialog box, <b>SQLManageDataSources</b> displays tracing options.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch23h.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user selects or clears any of the check boxes in the <b>When to
+    trace</b> section of the tab page, and clicks <b>OK</b>, <b>SQLManageDataSources</b> sets the <b>Trace</b> keyword in the
+    [ODBC] section of the system information to 1 or 0 accordingly. If <b>All the time</b> is chosen, tracing is performed for
+    each subsequent connection; if <b>One-time only</b> is chosen, tracing is performed for the duration of the connection
+    only.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user clicks <b>Start Tracing Now</b>, and then clicks <b>OK</b>,
+    <b>SQLManageDataSources</b> enables tracing manually for all applications currently running on the machine.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the user specifies the name of a trace file in the <b>Log file
+    Path</b> text box, then clicks <b>OK</b>, <b>SQLManageDataSources</b> sets the <b>TraceFile</b> keyword in the [ODBC]
+    section of the system information to the specified name.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For more information on tracing, see &#8220;<a href=
+    "odch17pr_4e3r.htm">Tracing</a>&#8221; in Chapter 17, &#8220;Programming Considerations.&#8221; For more information about
+    the <b>Trace</b>, <b>TraceAutoStop</b>, and <b>TraceFile</b> keywords, see &#8220;<a href="odch19pr_7yrd.htm">ODBC
+    Subkey</a>&#8221; in Chapter 19, &#8220;Configuring Data Sources.&#8221;</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Related Functions</b></font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="48%"><b>For information about</b></td>
+
+            <td class="label" width="52%"><b>See</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">Creating data sources</td>
+
+            <td width="52%"><a href="odch23pr_4kv9.htm">SQLCreateDataSource</a></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

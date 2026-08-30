@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Fetch All (Results Menu)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="fetch_all"></a>Fetch All (Results Menu)</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Fetch All</b> function tool fetches all remaining rows in all
+    pending result sets on the current <i>StatementHandle</i>. If any columns were bound, after <b>Fetch All</b> has completed
+    these will contain the values from the last row of the last result set. The <b>Fetch All</b> function tool performs the
+    following actions:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLGetFunctions</b> to determine if the driver supports
+        <b>SQLMoreResults</b>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLFetch</b> until it returns SQL_NO_DATA.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">If the driver supports it, calls <b>SQLMoreResults</b>. If
+        <b>SQLMoreResults</b> returns SQL_SUCCESS or SQL_SUCCESS_WITH_INFO, the <b>Fetch All</b> function tool returns to step
+        2. Otherwise, it stops.</font></li>
+    </ol>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLFetch in the Cursor Library</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlfetch_in_the_cursor_library"></a>SQLFetch in the Cursor
+    Library</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When the cursor library is used, calls to <b>SQLFetch</b> cannot be
+    mixed with calls to either <b>SQLFetchScroll</b> or <b>SQLExtendedFetch</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If <b>SQLFetch</b> is called with SQL_ATTR_ROW_ARRAY_SIZE set to a value
+    greater than 1, the cursor library will pass the call to the driver. If the driver is an ODBC 2.<i>x</i> driver, the rowset
+    size will be ignored and the call to <b>SQLFetch</b> will return a single row of data.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the cursor library is used with an ODBC 2.<i>x</i> driver, a bind
+    offset (as defined by the SQL_ATTR_ROW_BIND_OFFSET_PTR statement attribute) is not used when <b>SQLFetch</b> is
+    called.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When the cursor library is loaded, an application cannot call
+    <b>SQLFetch</b> to fetch bookmark columns. The cursor library passes the call to <b>SQLFetch</b> through to the driver, but
+    the function calls to enable bookmarks and bind the bookmark column are intercepted by the cursor library.</font></p>
+</body>
+</html>

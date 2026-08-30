@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLConfigDataSource</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlconfigdatasource"></a>SQLConfigDataSource</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced: ODBC 1.0</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLConfigDataSource</b> adds, modifies, or deletes data
+    sources.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">BOOL <b>SQLConfigDataSource</b>(<br>
+    &nbsp;&nbsp;&nbsp;HWND&nbsp;&nbsp;&nbsp;<i>hwndParent</i>,<br>
+    &nbsp;&nbsp;&nbsp;WORD&nbsp;&nbsp;&nbsp;<i>fRequest</i>,<br>
+    &nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszDriver</i>,<br>
+    &nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszAttributes</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>hwndParent</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Parent window handle. The function will not display any dialog boxes if the handle is null.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>fRequest</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Type of request. <i>fRequest</i> must contain one of the following values:</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_ADD_DSN: Add a new user data source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_CONFIG_DSN: Configure (modify) an existing user data
+    source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_REMOVE_DSN: Remove an existing user data
+    source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_ADD_SYS_DSN: Add a new system data source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_CONFIG_SYS_DSN: Modify an existing system data
+    source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_REMOVE_SYS_DSN: Remove an existing system data
+    source.</font></p>
+
+    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">ODBC_REMOVE_DEFAULT_DSN: Remove the default data source
+    specification section from the system information. It also removes the default driver specification section from the
+    ODBCINST.INI entry in the system information. (This <i>fRequest</i> performs the same function as the deprecated
+    <b>SQLRemoveDefaultDataSource</b> function.) When this option is specified, all of the other parameters in the call to
+    <b>SQLConfigDataSource</b> should be NULLs; if they are not NULL, they will be ignored.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszDriver</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Driver description (usually the name of the associated DBMS) presented to users instead of the physical driver
+    name.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszAttributes</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    List of attributes in the form of keyword-value pairs. For more information, see <a href="odch22pr_786m.htm">ConfigDSN</a>
+    in Chapter 22, &#8220;Setup DLL Function Reference.&#8221;</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The function returns TRUE if it is successful, FALSE if it fails. If no
+    entry exists in the system information when this function is called, the function returns FALSE.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When <b>SQLConfigDataSource</b> returns FALSE, an associated
+    <i>*pfErrorCode</i> value may be obtained by calling <b>SQLInstallerError</b>. The following table lists the
+    <i>*pfErrorCode</i> values that can be returned by <b>SQLInstallerError</b> and explains each one in the context of this
+    function.</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="28%"><b><i>*pfErrorCode</i></b></td>
+
+            <td class="label" width="24%"><b>Error</b></td>
+
+            <td class="label" width="48%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            GENERAL_ERR</td>
+
+            <td width="24%">General installer error</td>
+
+            <td width="48%">An error occurred for which there was no specific installer error.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            INVALID_HWND</td>
+
+            <td width="24%">Invalid window handle</td>
+
+            <td width="48%">The <i>hwndParent</i> argument was invalid or NULL.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            INVALID_<br>
+            REQUEST_TYPE</td>
+
+            <td width="24%">Invalid type of request</td>
+
+            <td width="48%">
+                The <i>fRequest</i> argument was not one of the following:
+
+                <p>ODBC_ADD_DSN<br>
+                ODBC_CONFIG_DSN<br>
+                ODBC_REMOVE_DSN<br>
+                ODBC_ADD_SYS_DSN<br>
+                ODBC_CONFIG_SYS_DSN<br>
+                ODBC_REMOVE_SYS_DSN<br>
+                ODBC_REMOVE_DEFAULT_DSN</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            INVALID_NAME</td>
+
+            <td width="24%">Invalid driver or translator name</td>
+
+            <td width="48%">The <i>lpszDriver</i> argument was invalid. It could not be found in the registry.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            INVALID_<br>
+            KEYWORD_<br>
+            VALUE</td>
+
+            <td width="24%">Invalid keyword-value pairs</td>
+
+            <td width="48%">The <i>lpszAttributes</i> argument contained a syntax error.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            REQUEST_<br>
+            FAILED</td>
+
+            <td width="24%"><i>Request</i> failed</td>
+
+            <td width="48%">The installer could not perform the operation requested by the <i>fRequest</i> argument. The call
+            to <b>ConfigDSN</b> failed.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            LOAD_LIBRARY_<br>
+            FAILED</td>
+
+            <td width="24%">Could not load the driver or translator setup library</td>
+
+            <td width="48%">The driver setup library could not be loaded.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="28%">ODBC_ERROR_<br>
+            OUT_OF_MEM</td>
+
+            <td width="24%">Out of memory</td>
+
+            <td width="48%">The installer could not perform the function because of a lack of memory.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLConfigDataSource</b> uses the value of <i>lpszDriver</i> to read
+    the full path of the setup DLL for the driver from the system information. It loads the DLL and calls <b>ConfigDSN</b> with
+    the same arguments that were passed to it.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLConfigDataSource</b> returns FALSE if it is unable to find or load
+    the setup DLL, or if the user cancels the dialog box. Otherwise, it returns the status it received from
+    <b>ConfigDSN</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLConfigDataSource</b> maps the System DSN <i>fRequest</i>s to the
+    User DSN <i>fRequest</i>s (ODBC_ADD_SYS_DSN to ODBC_ADD_DSN, ODBC_CONFIG_SYS_DSN to ODBC_CONFIG_DSN, and
+    ODBC_REMOVE_SYS_DSN to ODBC_REMOVE_DSN). To distinguish user and System DSNs, <b>SQLConfigDataSource</b> sets the installer
+    configuration mode according to the following table. Prior to returning, <b>SQLConfigDataSource</b> resets configuration
+    mode to BOTHDSN.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="48%"><b><i>fRequest</i></b></td>
+
+            <td class="label" width="52%"><b>Configuration mode</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_ADD_DSN</td>
+
+            <td width="52%">USERDSN_ONLY</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_CONFIG_DSN</td>
+
+            <td width="52%">USERDSN_ONLY</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_REMOVE_DSN</td>
+
+            <td width="52%">USERDSN_ONLY</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_ADD_SYS_DSN</td>
+
+            <td width="52%">SYSTEMDSN_ONLY</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_CONFIG_SYS_DSN</td>
+
+            <td width="52%">SYSTEMDSN_ONLY</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">ODBC_REMOVE_SYS_DSN</td>
+
+            <td width="52%">SYSTEMDSN_ONLY</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Related Functions</b></font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="56%"><b>For information about</b></td>
+
+            <td class="label" width="44%"><b>See</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="56%">Adding, modifying, or removing a data source</td>
+
+            <td width="44%"><a href="odch22pr_786m.htm">ConfigDSN</a> (in the setup DLL)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="56%">Removing a data source name from the system information</td>
+
+            <td width="44%"><a href="odch23pr_3trd.htm">SQLRemoveDSNFromIni</a></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="56%">Adding a data source name to the system information</td>
+
+            <td width="44%"><a href="odch23pr_5mjt.htm">SQLWriteDSNToIni</a></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

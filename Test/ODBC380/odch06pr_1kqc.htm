@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Connecting with SQLBrowseConnect</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconnecting_with_sqlbrowseconnect"></a>Connecting with
+    SQLBrowseConnect</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLBrowseConnect</b>, like <b>SQLDriverConnect</b>, uses a connection
+    string. However, by using <b>SQLBrowseConnect</b>, an application can construct a complete connection string at run time.
+    This allows the application to do two things:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Build its own dialog boxes to prompt for this information, thereby
+        retaining control over its &#8220;look and feel.&#8221;<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Browse the system for data sources that can be used by a particular
+        driver, possibly in several steps. For example, the user might first browse the network for servers and, after choosing
+        a server, browse the server for databases accessible by the driver.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application calls <b>SQLBrowseConnect</b> and passes a connection
+    string, known as the <i>browse request connection string</i>, that specifies a driver or data source. The driver returns a
+    connection string, known as the <i>browse result connection string</i>, that contains keywords, possible values (if the
+    keyword accepts a discrete set of values), and user-friendly names. The application builds a dialog box with the
+    user-friendly names and prompts the user for values. It then builds a new browse request connection string from these
+    values and returns this to the driver with another call to <b>SQLBrowseConnect</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because connection strings are passed back and forth, the driver can
+    provide several levels of browsing by returning a new connection string when the application returns the old one. For
+    example, the first time an application calls <b>SQLBrowseConnect</b>, the driver might return keywords to prompt the user
+    for a server name. When the application returns the server name, the driver might return keywords to prompt the user for a
+    database. The browsing process would be complete after the application returned the database name.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Each time <b>SQLBrowseConnect</b> returns a new browse result connection
+    string, it returns SQL_NEED_DATA as its return code. This tells the application that the connection process is not
+    complete. Until <b>SQLBrowseConnect</b> returns SQL_SUCCESS, the connection is in a Need Data state and cannot be used for
+    other purposes, such as to set a connection attribute. The application can terminate the connection browsing process by
+    calling <b>SQLDisconnect</b>.</font></p>
+</body>
+</html>

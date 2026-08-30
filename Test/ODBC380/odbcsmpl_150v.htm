@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>How To Run Admin Demo</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbchow_to_run_admin_demo"></a></sup>How to Run Admin
+    Demo</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">You can run the Admin Demo by double-clicking the ADMNDEMO.EXE file in
+    Windows Explorer, or by clicking <b>Start</b>, then <b>Run</b>, and typing <b>\&lt;path&gt;\ADMNDEMO.EXE</b>.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Admin Demo Command-Line Switches</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Admin Demo supports command-line switches to automatically connect to
+    data sources, execute SQL scripts, and trace ODBC function calls. The switches are:</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>/D[connection-string]</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This switch specifies a connection string for <b>SQLDriverConnect</b>.
+    See the driver documentation for the precise syntax of this string. For example:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code> /D[DSN=myserver;UID=Smith;PWD=Sesame;]
+</code></font>
+</pre>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Except for the /T option,
+    the /D option must be specified for any other option to work.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>/Ffilename</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This switch specifies the full path of a file to execute in the same
+    manner used for the <b>File/Execute</b> menu item.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>/O:option</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This switch specifies a set of options that determine how the file
+    specified with /F is executed. Each option is separated by a colon.</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">T&#8212;The statement terminator, either CR (default) or
+        '&lt;value&gt;'<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">M&#8212;Maximum statement size (default is 1000)</font></li>
+    </ul>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>/Tfilename</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This switch specifies the full path of a file to use for tracing of ODBC
+    statements made by Admin Demo. This filename is used as a parameter to the <b>SQLSetConnectAttr</b> function with the
+    SQL_ATTR_TRACEFILE option.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>/Xoption</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Set this switch to 'Y' to force Admin Demo to exit once all other
+    switches have been processed; set it to 'N' (the default) to leave Admin Demo running.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Examples</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In the following example, the statement terminator is the semicolon and
+    the maximum statement size is 500:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>/O:T';':M500
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In the next example, the statement terminator is a carriage
+    return-linefeed character. The maximum statement size is 2500:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>/O:TCR:M2500</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In the final example, all options are used:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>ADMNDEMO.EXE /FC:\SQLADMIN\BACKUP.SQL
+ /D[DSN=myserver;UID=Smith;PWD=;]
+ /O:TCR:M2000 /TC:\TMP\ADMNDEMO.LOG /XN
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When Admin Demo is run, ODBC calls are logged to the C:\TMP\ADMNDEMO.LOG
+    file, and Admin Demo connects to 'myserver' as user 'Smith' with no password. Once connected, the file
+    C:\SQLADMIN\BACKUP.SQL is executed using a carriage return-linefeed character as a statement terminator with a maximum
+    statement size of 2000. After the file has been executed, the application releases control to the user instead of
+    exiting.</font></p>
+</body>
+</html>

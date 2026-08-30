@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Setup Program</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsetup_program"></a>Setup Program</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The user runs the setup program to start the setup process. The setup
+    program is written by the application or driver developer. In addition to installing ODBC components, it can install other
+    software. For example, application developers might use the same setup program to install both ODBC components and their
+    application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Developers can write the setup program from scratch, using the Windows
+    SDK setup utilities or setup software from other vendors. This gives them complete control over the setup program&#8217;s
+    look and feel. The setup program can be written to install additional software, such as an ODBC application. For more
+    information on the Windows SDK setup utilities, see the Windows SDK documentation.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">How much of the installation is actually done by the setup program
+    depends on what functions it calls in the installer DLL. The installer DLL contains functions to install ODBC components in
+    the following ways:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Install individual ODBC components</b>. The setup program calls
+        <b>SQLInstallDriverManager</b>, <b>SQLInstallDriverEx</b>, or <b>SQLInstallTranslatorEx</b> in the installer DLL to
+        retrieve the path of the directory in which the component is to be installed and to add information about the component
+        to the registry. Note that these functions do not actually copy files; the setup program does this using the
+        information in the arguments of these functions.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The installer DLL contains functions to remove ODBC components in the
+    following ways:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Remove individual ODBC components</b>. The setup program calls
+        <b>SQLRemoveDriverManager</b>, <b>SQLRemoveDriver</b>, or <b>SQLRemoveTranslator</b> in the installer DLL to decrement
+        a component&#8217;s usage count in the registry and, if the component&#8217;s new usage count falls to 0, remove all
+        information about the component from the registry. Note that these functions do not actually remove the files for the
+        component; the setup program does this if the new usage count falls to 0.</font></li>
+    </ul>
+</body>
+</html>

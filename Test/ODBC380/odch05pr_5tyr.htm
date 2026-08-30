@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Step 4a: Fetch the Results</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstep_4a__fetch_the_results"></a>Step 4a: Fetch the
+    Results</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The next step is to fetch the results, as shown in the following
+    figure.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr14.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the statement executed in Step 3, &#8220;Build and Execute an SQL
+    Statement,&#8221; was a <b>SELECT</b> statement or a catalog function, the application first calls <b>SQLNumResultCols</b>
+    to determine the number of columns in the result set. This step is not necessary if the application already knows the
+    number of result set columns, such as when the SQL statement is hard-coded in a vertical or custom application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Next, the application retrieves the name, data type, precision, and
+    scale of each result set column with <b>SQLDescribeCol</b>. Again, this is not necessary for applications such as vertical
+    and custom applications that already know this information. It passes this information to <b>SQLBindCol</b>, which binds an
+    application variable to a column in the result set.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application now calls <b>SQLFetch</b> to retrieve the first row of
+    data and place the data from that row in the variables bound with <b>SQLBindCol</b>. If there is any long data in the row,
+    it then calls <b>SQLGetData</b> to retrieve that data. The application continues to call <b>SQLFetch</b> and
+    <b>SQLGetData</b> to retrieve additional data. After it has finished fetching data, it calls <b>SQLCloseCursor</b> to close
+    the cursor.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For a complete description of retrieving results, see Chapter 10,
+    &#8220;<a href="odch10pr_9iu7.htm">Retrieving Results (Basic)</a>&#8221; and Chapter 11, &#8220;<a href=
+    "odch11pr_9mxr.htm">Retrieving Results (Advanced)</a>.&#8221;</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application now returns to Step 3, &#8220;Build and Execute an SQL
+    Statement,&#8221; to execute another statement in the same transaction; or proceeds to Step 5, &#8220;Commit the
+    Transaction,&#8221; to commit or roll back the transaction.</font></p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Show Cursor Settings (Stmt Menu)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="show_cursor_settings"></a>Show Cursor Settings (Stmt
+    Menu)</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Show Cursor Settings</b> function tool displays the value of all
+    cursor parameters for the current cursor, including the cursor type, the cursor&#8217;s concurrency, the rowset size set
+    for calls to <b>SQLExtendedFetch</b>, and the rowset size set for calls to <b>SQLFetch</b> or <b>SQLFetchScroll</b>. This
+    tool performs the following actions:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLGetStmtAttr</b> with <i>Attribute</i> set to
+        SQL_ATTR_CURSOR_TYPE.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLGetStmtAttr</b> with <i>Attribute</i> set to
+        SQL_ATTR_CURSOR_CONCURRENCY.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLGetStmtAttr</b> with <i>Attribute</i> set to
+        SQL_ATTR_ROW_ARRAY_SIZE.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLGetStmtAttr</b> with <i>Attribute</i> set to
+        SQL_ROWSET_SIZE.</font></li>
+    </ol>
+</body>
+</html>

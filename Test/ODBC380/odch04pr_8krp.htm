@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Descriptor Field Conformance</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdescriptor_field_conformance"></a>Descriptor Field
+    Conformance</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table indicates the conformance level of each ODBC
+    descriptor header field, where this is well-defined.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Function</b></td>
+
+            <td class="label" width="50%"><b>Conformance level</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_ALLOC_TYPE</td>
+
+            <td width="50%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_ARRAY_SIZE</td>
+
+            <td width="50%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_ARRAY_STATUS_PTR</td>
+
+            <td width="50%">Core (for APD, IPR, and IRD); Level 1 (for ARD)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_BIND_OFFSET_PTR</td>
+
+            <td width="50%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_BIND_TYPE</td>
+
+            <td width="50%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_COUNT</td>
+
+            <td width="50%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%">SQL_DESC_ROWS_PROCESSED_PTR</td>
+
+            <td width="50%">Core</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table indicates the conformance level of each ODBC
+    descriptor record field, where this is well-defined.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="51%"><b>Function</b></td>
+
+            <td class="label" width="49%"><b>Conformance level</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_AUTO_UNIQUE_VALUE</td>
+
+            <td width="49%">Level 2</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_BASE_COLUMN_NAME</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_BASE_TABLE_NAME</td>
+
+            <td width="49%">Level 1</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_CASE_SENSITIVE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_CATALOG_NAME</td>
+
+            <td width="49%">Level 2</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_CONCISE_TYPE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_DATA_PTR</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_DATETIME_INTERVAL_<br>
+            CODE</td>
+
+            <td width="49%">Core [1]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_DATETIME_INTERVAL_<br>
+            PRECISION</td>
+
+            <td width="49%">Core [1]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_DISPLAY_SIZE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_FIXED_PREC_SCALE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_INDICATOR_PTR</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_LABEL</td>
+
+            <td width="49%">Level 2</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_LENGTH</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_LITERAL_PREFIX</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_LITERAL_SUFFIX</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_LOCAL_TYPE_NAME</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_NAME</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_NULLABLE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_OCTET_LENGTH</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_OCTET_LENGTH_PTR</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_PARAMETER_TYPE</td>
+
+            <td width="49%">Core/Level 2 [2]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_PRECISION</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_ROWVER</td>
+
+            <td width="49%">Level 1</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_SCALE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_SCHEMA_NAME</td>
+
+            <td width="49%">Level 1</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_SEARCHABLE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_TABLE_NAME</td>
+
+            <td width="49%">Level 1</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_TYPE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_TYPE_NAME</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_UNNAMED</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_UNSIGNED</td>
+
+            <td width="49%">Core</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="51%">SQL_DESC_UPDATABLE</td>
+
+            <td width="49%">Core</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]Support for these record fields is required only if the
+    driver supports the applicable data types.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]For Core-level conformance, the driver must support
+    SQL_PARAM_INPUT. For Level 2 interface conformance, the driver must also support SQL_PARAM_INPUT_OUTPUT and
+    SQL_PARAM_OUTPUT.</font></p>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Retrieving Data Type Information with SQLGetTypeInfo</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name=
+    "odbcretrieving_data_type_information_with_sqlgettypeinfo"></a>Retrieving Data Type Information with
+    SQLGetTypeInfo</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the mappings from underlying SQL data types to ODBC type
+    identifiers are approximate, ODBC provides a function (<b>SQLGetTypeInfo</b>) through which a driver can completely
+    describe each SQL data type in the data source. This function returns a result set, each row of which describes the
+    characteristics of a single data type, such as name, type identifier, precision, scale, and nullability.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This information generally is used by generic applications that allow
+    the user to create and alter tables. Such applications call <b>SQLGetTypeInfo</b> to retrieve the data type information and
+    then present some or all of it to the user. Such applications need to be aware of two things:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">More than one SQL data type can map to a single type identifier,
+        which can make it difficult to determine which data type to use. To solve this, the result set is ordered first by type
+        identifier and second by closeness to the type identifier&#8217;s definition. In addition, data source&#8211;defined
+        data types take precedence over user-defined data types. For example, suppose that a data source defines the INTEGER
+        and COUNTER data types to be the same except that COUNTER is auto-incrementing. Suppose also that the user-defined type
+        WHOLENUM is a synonym of INTEGER. Each of these types maps to SQL_INTEGER. In the <b>SQLGetTypeInfo</b> result set,
+        INTEGER appears first, followed by WHOLENUM and then COUNTER. WHOLENUM appears after INTEGER because it is user-defined
+        but before COUNTER because it more closely matches the definition of the SQL_INTEGER type identifier.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">ODBC does not define data type names for use in <b>CREATE TABLE</b>
+        and <b>ALTER TABLE</b> statements. Instead, the application should use the name returned in the TYPE_NAME column of the
+        result set returned by <b>SQLGetTypeInfo</b>. The reason for this is that although most of SQL does not vary much
+        across DBMSs, data type names vary tremendously. Rather than forcing drivers to parse SQL statements and replace
+        standard data type names with DBMS-specific data type names, ODBC requires applications to use the DBMS-specific names
+        in the first place.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Note that <b>SQLGetTypeInfo</b> does not necessarily describe all of the
+    data types an application can encounter. In particular, result sets might contain data types not directly supported by the
+    data source. For example, the data types of the columns in result sets returned by catalog functions are defined by ODBC
+    and these data types might not be supported by the data source. To determine the characteristics of the data types in a
+    result set, an application calls <b>SQLColAttribute</b>.</font></p>
+</body>
+</html>

@@ -1,0 +1,122 @@
+## Running in Visual Studio Environment
+
+# User-specific files 
+*.suo
+*.user
+*.exe
+*.bak
+*.userosscache
+*.sln.docstates
+.suo/
+
+# Project specific files
+bin_Debugx64/
+bin_Releasex64/
+Builds/
+ 
+# User-specific files (MonoDevelop/Xamarin Studio) 
+*.userprefs
+ 
+# Build results 
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ib/
+
+# Visual Studio cache/options directory 
+**/.vs/
+ 
+# MSTest test Results 
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+CallCenter/
+ 
+# NUNIT 
+*.VisualState.xml
+TestResult.xml
+
+
+*_i.c
+*_p.c
+*_i.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Chutzpah Test files 
+_Chutzpah*
+
+# Visual C++ cache files 
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+ 
+# Visual Studio profiler 
+*.psess
+*.vsp
+*.vspx
+*.sap
+ 
+# TFS 2012 Local Workspace 
+$tf/
+ 
+ 
+# Guidance Automation Toolkit 
+*.gpState
+
+ 
+ 
+# Visual Studio cache files 
+# files ending in .cache can be ignored 
+*.[Cc]ache
+# but keep track of directories ending in .cache 
+!*.[Cc]ache/
+ 
+# Others 
+ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+node_modules/
+orleans.codegen.cs
+ 
+# Visual Studio 6 workspace options file 
+*.opt
+
+# Installer results
+Setup_*.exe

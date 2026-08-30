@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Result-Generating and Result-Free Statements</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name=
+    "odbcresult_generating_and_result_free_statements"></a>Result-Generating and Result-Free Statements</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL statements can be loosely divided into the following five
+    categories:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Result set</b>&nbsp;&#8211;&nbsp;<b>generating statements</b>.
+        These are SQL statements that generate a result set. For example, a <b>SELECT</b> statement.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Row count</b>&nbsp;&#8211;&nbsp;<b>generating statements</b>.
+        These are SQL statements that generate a count of affected rows. For example, an <b>UPDATE</b> or <b>DELETE</b>
+        statement.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Data Definition Language (DDL) statements</b>. These are SQL
+        statements that modify the structure of the database. For example, <b>CREATE TABLE</b> or <b>DROP INDEX</b>.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Context-changing statements</b>. These are SQL statements that
+        change the context of a database. For example, the <b>USE</b> and <b>SET</b> statements in SQL Server.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Administrative statements</b>. These are SQL statements used for
+        administrative purposes in a database. For example, <b>GRANT</b> and <b>REVOKE</b>.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL statements in the first two categories are collectively known as
+    <i>result-generating statements</i>. SQL statements in the latter three categories are collectively known as <i>result-free
+    statements</i>. ODBC defines the semantics of batches that include only result-generating statements. These semantics vary
+    widely and are therefore data source&nbsp;&#8211;&nbsp;specific. For example, the SQL Server driver does not support
+    dropping an object, and then referring to or re-creating the same object, in the same batch. Thus, the term <i>batch</i> as
+    used in this manual refers only to batches of result-generating statements.</font></p>
+</body>
+</html>

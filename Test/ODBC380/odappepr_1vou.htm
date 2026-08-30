@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQL92 Cast Function</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsql_92_cast_function"></a>SQL92 CAST Function</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The CAST function defined in SQL92 is equivalent to the CONVERT function
+    defined in ODBC. The syntax of the equivalent functions is as follows:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>{ fn CONVERT (value-exp, data-type)} /* ODBC
+CAST (value-exp AS data-type) /* SQL92
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The SQL92 CAST function mandates which data types can be converted to
+    which other data types. (For more information, see the SQL92 specification.) The CAST function is supported at the FIPS
+    Transitional level.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can determine support for the CAST function as
+    follows:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Call <b>SQLGetInfo</b> with the SQL_SQL_CONFORMANCE information
+        type. If the return value for the information type is SQL_SC_FIPS127_2_TRANSITIONAL, SQL_SC_SQL92_INTERMEDIATE, or
+        SQL_SC_SQL92_FULL, then the CAST function is supported.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">If the return value of the SQL_SQL_CONFORMANCE information type is
+        SQL_SC_ENTRY_LEVEL or 0, then call <b>SQLGetInfo</b> with the SQL_SQL92_VALUE_EXPRESSIONS information type. If the
+        SQL_SVE_CAST bit is set, then the CAST function is supported.</font></li>
+    </ol>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Trace File</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbctrace_file"></a>Trace File</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application specifies the trace file either by setting the
+    <b>TraceFile</b> keyword in the ODBC.INI registry entry, or by calling <b>SQLSetConnectAttr</b> with the SQL_ATTR_TRACEFILE
+    connection attribute. If the file does not exist when tracing is enabled, the Driver Manager will create the file. Each
+    application should have its own dedicated trace file to avoid contention. An application can use more than one trace file;
+    an application's setup program can provide the user with a choice of trace files. If tracing is enabled dynamically, an
+    application can also display trace results, rather than logging to the trace file.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The trace file provides a log of each ODBC function call with the data
+    types and values of all arguments. It logs all input functions, and all returned functions with return codes and error
+    states.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In ODBC 3.x, parameters to connection functions are not provided to the
+    trace DLL.</font></p>
+</body>
+</html>

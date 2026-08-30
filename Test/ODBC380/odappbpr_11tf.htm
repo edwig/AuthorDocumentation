@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Environment Transitions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcenvironment_transitions"></a>Environment
+    Transitions</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC environments have the following three states.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="13%"><b>State</b></td>
+
+            <td class="label" width="87%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">E0</td>
+
+            <td width="87%">Unallocated environment</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">E1</td>
+
+            <td width="87%">Allocated environment, unallocated connection</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">E2</td>
+
+            <td width="87%">Allocated environment, allocated connection</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following tables show how each ODBC function affects the environment
+    state.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLAllocHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">E1 [1]</td>
+
+            <td width="31%">-- [4]</td>
+
+            <td width="39%">-- [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [2]</td>
+
+            <td width="31%">E2 [5]<br>
+            (HY010) [6]</td>
+
+            <td width="39%">-- [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [3]</td>
+
+            <td width="31%">(IH)</td>
+
+            <td width="39%">-- [4]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DBC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT or SQL_HANDLE_DESC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]Calling <b>SQLAllocHandle</b> with
+    <i>OutputHandlePtr</i> pointing to a valid handle overwrites that handle. This may be an application programming
+    error.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]The SQL_ATTR_ODBC_VERSION environment attribute had been
+    set on the environment.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[6]The SQL_ATTR_ODBC_VERSION environment attribute had not
+    been set on the environment.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLDataSources and SQLDrivers</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH)</td>
+
+            <td width="31%">-- [1]<br>
+            (HY010) [2]</td>
+
+            <td width="39%">-- [1]<br>
+            (HY010) [2]</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The SQL_ATTR_ODBC_VERSION environment attribute had been
+    set on the environment.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The SQL_ATTR_ODBC_VERSION environment attribute had not
+    been set on the environment.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLEndTran</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [1]</td>
+
+            <td width="31%">-- [3]<br>
+            (HY010) [4]</td>
+
+            <td width="39%">-- [3]<br>
+            (HY010) [4]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [2]</td>
+
+            <td width="31%">(IH)</td>
+
+            <td width="39%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DBC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]The SQL_ATTR_ODBC_VERSION environment attribute had been
+    set on the environment.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]The SQL_ATTR_ODBC_VERSION environment attribute had not
+    been set on the environment.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFreeHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [1]</td>
+
+            <td width="31%">E0</td>
+
+            <td width="39%">(HY010)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [2]</td>
+
+            <td width="31%">(IH)</td>
+
+            <td width="39%">-- [4]<br>
+            E1 [5]</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [3]</td>
+
+            <td width="31%">(IH)</td>
+
+            <td width="39%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DBC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[3]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT or SQL_HANDLE_DESC.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[4]There were other allocated connection
+    handles.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[5]The connection handle specified in <i>Handle</i> was the
+    only allocated connection handle.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetDiagField and SQLGetDiagRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [1]</td>
+
+            <td width="31%">--</td>
+
+            <td width="39%">--</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH) [2]</td>
+
+            <td width="31%">(IH)</td>
+
+            <td width="39%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_ENV.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DBC, SQL_HANDLE_STMT, or SQL_HANDLE_DESC.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetEnvAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH)</td>
+
+            <td width="31%">-- [1]<br>
+            (HY010) [2]</td>
+
+            <td width="39%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The SQL_ATTR_ODBC_VERSION environment attribute had been
+    set on the environment.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The SQL_ATTR_ODBC_VERSION environment attribute had not
+    been set on the environment.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetEnvAttr</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="570">
+        <tr valign="top">
+            <td class="label" width="30%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="31%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="39%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="30%">(IH)</td>
+
+            <td width="31%">-- [1]<br>
+            (HY010) [2]</td>
+
+            <td width="39%">(HY011)</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]The SQL_ATTR_ODBC_VERSION environment attribute had been
+    set on the environment.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]The <i>Attribute</i> argument was not
+    SQL_ATTR_ODBC_VERSION and the SQL_ATTR_ODBC_VERSION environment attribute had not been set on the environment.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">All Other ODBC Functions</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="29%"><b>E0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="30%"><b>E1<br>
+            Allocated</b></td>
+
+            <td class="label" width="41%"><b>E2<br>
+            Connection</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="29%">(IH)</td>
+
+            <td width="30%">(IH)</td>
+
+            <td width="41%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

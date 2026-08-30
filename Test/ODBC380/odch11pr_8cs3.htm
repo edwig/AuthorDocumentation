@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Retrieving Bookmarks</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcretrieving_bookmarks"></a>Retrieving Bookmarks</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the application will use bookmarks, it must set the
+    SQL_ATTR_USE_BOOKMARKS statement attribute to SQL_UB_VARIABLE before preparing or executing the statement. This is
+    necessary because building and maintaining bookmarks can be an expensive operation, so bookmarks should be enabled only
+    when an application can make good use of them.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Bookmarks are returned as column 0 of the result set. There are three
+    ways an application can retrieve them:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Bind column 0 of the result set. <b>SQLFetch</b> or
+        <b>SQLFetchScroll</b> returns the bookmarks for each row in the rowset along with the data for other bound columns.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Call <b>SQLSetPos</b> to position to a row in the rowset, then call
+        <b>SQLGetData</b> for column 0. Note that if a driver supports bookmarks, it must always support the ability to call
+        <b>SQLGetData</b> for column 0, even if it does not allow applications to call <b>SQLGetData</b> for other columns
+        before the last bound column.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Call <b>SQLBulkOperations</b> with the <i>Operation</i> argument
+        set to SQL_ADD, and column 0 bound. The cursor inserts the row and returns the bookmark for the row in the bound
+        buffer.</font></li>
+    </ul>
+</body>
+</html>

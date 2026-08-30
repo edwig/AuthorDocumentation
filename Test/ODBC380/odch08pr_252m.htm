@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Catalog Position</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbccatalog_position"></a>Catalog Position</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The position of a catalog name in an identifier and how it is separated
+    from the rest of the identifier varies from data source to data source. For example, in an Xbase data source, the catalog
+    name is a directory and, in Windows, is separated from the table name (which is a file name) by a backslash (\). The
+    following figure illustrates this condition.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch0801.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In a SQL Server data source, the catalog is a database and is separated
+    from the schema and table names by a period (.).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch0802.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In an Oracle data source, the catalog is also the database, but follows
+    the table name and is separated from the schema and table names by an at sign (@).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="ch0803.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine the catalog separator and the location of the catalog name,
+    an application calls <b>SQLGetInfo</b> with the SQL_CATALOG_NAME_SEPARATOR and SQL_CATALOG_LOCATION options. Interoperable
+    applications should construct identifiers according to these values.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When quoting identifiers that contain more than one part, applications
+    must be careful to quote each part separately and not quote the character that separates the identifiers. For example, the
+    following statement to select all of the rows and columns of an Xbase table quotes the catalog (\XBASE\SALES\CORP) and
+    table (PARTS.DBF) names, but not the catalog separator (\):</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT * FROM "\XBASE\SALES\CORP"\"PARTS.DBF"
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following statement to select all of the rows and columns of an
+    Oracle table quotes the catalog (Sales), schema (Corporate), and table (Parts) names, but not the catalog (@) or schema (.)
+    separators:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT * FROM "Corporate"."Parts"@"Sales"
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For information about quoting identifiers, see the next section,
+    &#8220;<a href="odch08pr_7jhv.htm">Quoted Identifiers</a>.&#8221;</font></p>
+</body>
+</html>

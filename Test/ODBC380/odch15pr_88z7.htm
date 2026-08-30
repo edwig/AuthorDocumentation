@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Sequence of Status Records</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsequence_of_status_records"></a>Sequence of Status
+    Records</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If two or more status records are returned, the Driver Manager and
+    driver rank them according to the following rules. The record with the highest rank is the first record. The source of a
+    record (Driver Manager, driver, gateway, and so on) is not considered when ranking records.</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Errors</b>. Status records that describe errors have the highest
+        rank. Among error records, records that indicate a transaction failure or possible transaction failure outrank all
+        other records. If two or more records describe the same error condition, then SQLSTATEs defined by the X/Open CLI
+        specification (classes 03 through HZ) outrank ODBC- and driver-defined SQLSTATEs.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Implementation-defined No Data values</b>. Status records that
+        describe driver-defined No Data values (class 02) have the second highest rank.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Warnings</b>. Status records that describe warnings (class 01)
+        have the lowest rank. If two or more records describe the same warning condition, then warning SQLSTATEs defined by the
+        X/Open CLI specification outrank ODBC- and driver-defined SQLSTATEs.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If there are two or more records with the highest rank, it is undefined
+    which record is the first record. The order of all other records is undefined. In particular, because warnings may appear
+    before errors, applications should check all status records when a function returns a value other than
+    SQL_SUCCESS.</font></p>
+</body>
+</html>

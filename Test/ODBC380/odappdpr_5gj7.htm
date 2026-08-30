@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Rules for Conversions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcrules_for_conversions"></a>Rules for
+    Conversions</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The rules in this section apply for conversions involving numeric
+    literals. For the purposes of these rules, the following terms are defined:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>Store assignment:</i> When you are sending data into a table
+        column in a database. This occurs during calls to <b>SQLExecute</b>, <b>SQLExecDirect</b>, and <b>SQLSetPos</b>. During
+        store assignment, &#8220;target&#8221; refers to a database column, and &#8220;source&#8221; refers to data in
+        application buffers.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>Retrieval assignment:</i> When you are retrieving data from the
+        database into application buffers. This occurs during calls to <b>SQLFetch</b>, <b>SQLGetData</b>,
+        <b>SQLFetchScroll</b>, and <b>SQLSetPos</b>. During retrieval assignment, &#8220;target&#8221; refers to the
+        application buffers, and &#8220;source&#8221; refers to the database column.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>CS:</i> The value in the character source.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>NT:</i> The value in the numeric target.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>NS</i>: The value in the numeric source.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><i>CT</i>: The value in the character target.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Precision of an exact numeric literal: the number of digits it
+        contains.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The scale of an exact numeric literal: the number of digits to the
+        right of the expressed or implied period.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The precision of an approximate numeric literal: the precision of
+        its mantissa.</font></li>
+    </ul>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">Character Source to Numeric Target</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The rules for converting from a character source (CS) to a numeric
+    target (NT) are:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Replace CS with the value obtained by removing any leading or
+        trailing spaces in CS. If CS is not a valid <i>numeric-literal</i>, SQLSTATE 22018 (Invalid character value for cast
+        specification) is returned.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Replace CS with the value obtained by removing leading zeroes
+        before the decimal point, trailing zeroes after the decimal point, or both.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Convert CS to NT. If the conversion results in a loss of
+        significant digits, then SQLSTATE 22003 (Numeric value out of range) is returned. If the conversion results in the loss
+        of non-significant digits, then SQLSTATE 01S07 (Fractional truncation) is returned.</font></li>
+    </ol>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">Numeric Source to Character Target</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The rules for converting from a numeric source (NS) to a character
+    target (CT) are:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Let LT be the length in characters of CT. For retrieval assignment,
+        LT is equal to the length of the buffer in characters minus the number of bytes in the null-termination character for
+        this character set.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Cases:</font></li>
+    </ol>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">If NS is an exact numeric type, then let YP equal the shortest
+        character string that conforms to the definition of <i>exact-numeric-literal</i> such that the scale of YP is the same
+        as the scale of NS, and the interpreted value of YP is the absolute value of NS.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">If NS is an approximate numeric type, then let YP be a character
+        string as follows:<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2">Case:</font>
+
+            <ul type="disc">
+                <li><font face="Verdana, Arial, Helvetica" size="2">If NS is equal to 0, then YP is 0.<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2">Let YSN be the shortest character string that conforms to
+                the definition of exact-<i>numeric-literal</i> and whose interpreted value is the absolute value of NS. If the
+                length of YSN is less than the (<i>precision</i> + 1) of the data type of NS, then let YP equal YSN.<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2">Otherwise, YP is the shortest character string that
+                conforms to the definition of <i>approximate-numeric-literal</i> whose interpreted value is the absolute value
+                of NS and whose <i>mantissa</i> consists of a single <i>digit</i> that is not '0', followed by a <i>period</i>
+                and an <i>unsigned-integer</i>.</font></li>
+            </ul>
+        </li>
+    </ul>
+
+    <ol start="3">
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2">Case:</font>
+
+            <ul type="disc">
+                <li><font face="Verdana, Arial, Helvetica" size="2">If NS is less than 0, then let Y be the result of:<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2">'-' || YP<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2">where '||' is the string concatenation operator.<br>
+                <br></font></li>
+
+                <li><font face="Verdana, Arial, Helvetica" size="2">Otherwise, let Y equal YP.</font></li>
+            </ul>
+        </li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Let LY be the length in characters of Y.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Case:</font></li>
+    </ol>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">If LY equals LT, then CT is set to Y.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">If LY is less than LT, then CT is set to Y extended on the right by
+        appropriate number of spaces.<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2">Otherwise (LY &gt; LT), copy the first LT characters of Y into CT.
+            Case:</font>
+
+            <ul type="disc">
+                <li><font face="Verdana, Arial, Helvetica" size="2">If this is a store assignment, return the error SQLSTATE
+                22001 (String data, right truncated).<br>
+                <br></font></li>
+
+                <li>
+                    <font face="Verdana, Arial, Helvetica" size="2">If this is retrieval assignment, return the warning
+                    SQLSTATE 01004 (String data, right truncated). When the copy results in the loss of fractional digits
+                    (other than trailing zeros), then it is driver-defined whether one of the following occurs:</font>
+
+                    <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">(1) The driver truncates the string in Y to
+                    an appropriate scale (which can be zero also) and writes the result into CT.<br>
+                    (2) The driver rounds the string in Y to an appropriate scale (which can be zero also) and writes the
+                    result into CT.<br>
+                    (3) The driver neither truncates nor rounds, but just copies the first LT characters of Y into
+                    CT.</font></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

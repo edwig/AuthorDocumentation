@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Custom Applications</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbccustom_applications"></a>Custom Applications</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Custom applications typically perform a specific task for a few DBMSs.
+    For example, an application might retrieve data from a single DBMS and generate a report, or it might transfer data among
+    several DBMSs. What these applications have in common is that these DBMSs are known before the application is written and
+    are unlikely to change over the life of the application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The custom application thus requires little or no interoperability. The
+    application developer can choose a single driver for each DBMS and code directly to those drivers. The application can
+    safely contain driver-specific code to exploit the capabilities of those drivers and might even make calls to the native
+    database API to use functionality not supported by ODBC.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The major interoperability concern of most custom applications is
+    whether the target DBMSs will change in the future. If so, this process can be simplified by writing more interoperable
+    code to start with. However, such changing of DBMSs is rare and generally entails a large amount of work. Because of this,
+    developers of custom applications rarely choose to increase interoperability at the expense of functionality, because they
+    can recode that functionality when they change DBMSs.</font></p>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLInstallerError</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlinstallererror"></a>SQLInstallerError</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced: ODBC 3.0</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLInstallerError</b> returns error or status information for the
+    ODBC installer functions.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">RETCODE <b>SQLInstallerError</b>(<br>
+    &nbsp;&nbsp;&nbsp;WORD&nbsp;&nbsp;&nbsp;<i>iError</i>,<br>
+    &nbsp;&nbsp;&nbsp;DWORD *&nbsp;&nbsp;&nbsp;<i>pfErrorCode</i>,<br>
+    &nbsp;&nbsp;&nbsp;LPSTR &nbsp;&nbsp;&nbsp;<i>lpszErrorMsg</i>,<br>
+    &nbsp;&nbsp;&nbsp;WORD &nbsp;&nbsp;&nbsp;<i>cbErrorMsgMax</i>,<br>
+    &nbsp;&nbsp;&nbsp;WORD *&nbsp;&nbsp;&nbsp;<i>pcbErrorMsg</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>iError</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Error record number. Valid numbers are from 1 to 8.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>pfErrorCode</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Installer error code. (For more information, see &#8220;Comments.&#8221;)</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszErrorMsg</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to storage for the error message text.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>cbErrorMsgMax</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Maximum length of the <i>szErrorMsg</i> buffer. This must be less than or equal to SQL_MAX_MESSAGE_LENGTH minus the
+    null-termination character.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>cbErrorMsgMax</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Maximum length of the <i>szErrorMsg</i> buffer. This must be less than or equal to SQL_MAX_MESSAGE_LENGTH minus the
+    null-termination character.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>pcbErrorMsg</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointer to the total number of bytes (excluding the null-termination character) available to return in <i>lpszErrorMsg</i>.
+    If the number of bytes available to return is greater than or equal to <i>cbErrorMsgMax</i>, the error message text in
+    <i>lpszErrorMsg</i> is truncated to <i>cbErrorMsgMax</i> minus the null-termination character bytes. The <i>pcbErrorMsg</i>
+    argument can be a null pointer.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_NO_DATA, or
+    SQL_ERROR.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLInstallerError</b> does not post error values for itself.
+    <b>SQLInstallerError</b> returns SQL_NO_DATA when it is unable to retrieve any error information (in which case
+    <i>pfErrorCode</i> is undefined). If <b>SQLInstallerError</b> cannot access error values for any reason that would normally
+    return SQL_ERROR, <b>SQLInstallerError</b> returns SQL_ERROR, but does not post any error values. If either the
+    <i>lpszErrorMsg</i> argument is NULL, the <i>cbErrorMsgMax</i> is less than or equal to 0, then this function returns
+    SQL_ERROR. If the buffer for the error message is too short, <b>SQLInstallerError</b> returns SQL_SUCCESS_WITH_INFO, and
+    returns the correct <i>pfErrorCode</i> value for <b>SQLInstallerError</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine whether a truncation occurred in the error message, an
+    application can compare the value in the <i>cbErrorMsgMax</i> argument to the actual length of the message text written to
+    the <i>pcbErrorMsg</i> argument. If truncation does occur, the correct buffer length should be allocated for
+    <i>lpszErrorMsg</i> and <b>SQLInstallerError</b> should be called again with the corresponding <i>iError</i>
+    record.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application calls <b>SQLInstallerError</b> when a previous call to
+    the ODBC installer function returns FALSE. ODBC installer and driver or translator setup functions post zero or more errors
+    only when the function fails (returns FALSE); therefore, an application calls <b>SQLInstallerError</b> only after an ODBC
+    installer function fails.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The ODBC installer error queue is flushed each time a new installer
+    function is called. Therefore, an application cannot expect to retrieve errors for functions other than from the last
+    installer function call.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To retrieve multiple errors for a function call, an application calls
+    <b>SQLInstallerError</b> multiple times.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When there is no additional information, <b>SQLInstallerError</b>
+    returns SQL_NO_DATA, the <i>pfErrorCode</i> argument is undefined, the <i>pcbErrorMsg</i> argument equals 0, and the
+    <i>lpszErrorMsg</i> argument contains a single null-termination character (unless the <i>cbErrorMsgMax</i> argument is
+    equal to 0).</font></p>
+</body>
+</html>

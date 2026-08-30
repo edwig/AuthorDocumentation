@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Manual-Commit Mode</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcmanual_commit_mode"></a>Manual-Commit Mode</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>In manual-commit mode,</i> applications must explicitly complete
+    transactions by calling <b>SQLEndTran</b> to commit them or roll them back. This is the normal transaction mode for most
+    relational databases.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Transactions in ODBC do not have to be explicitly initiated. Instead, a
+    transaction begins implicitly whenever the application starts operating on the database. If the data source requires
+    explicit transaction initiation, the driver must provide it whenever the application executes a statement requiring a
+    transaction and there is no current transaction.</font></p>
+</body>
+</html>

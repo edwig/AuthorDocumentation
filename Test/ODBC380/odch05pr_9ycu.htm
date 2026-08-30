@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Step 5: Commit the Transaction</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstep_5__commit_the_transaction"></a>Step 5: Commit the
+    Transaction</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr16.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The fifth step is to call <b>SQLEndTran</b> to commit or roll back the
+    transaction. The application performs this step only if it set the transaction commit mode to manual commit; if the
+    transaction commit mode is auto-commit, which is the default, the transaction is automatically committed when the statement
+    is executed. For more information, see Chapter 14, &#8220;<a href="odch14pr_38c3.htm">Transactions</a>.&#8221;</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To execute a statement in a new transaction, the application returns to
+    Step 3. To disconnect from the data source, the application proceeds to Step 6.</font></p>
+</body>
+</html>

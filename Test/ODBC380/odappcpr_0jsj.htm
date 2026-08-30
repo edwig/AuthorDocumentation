@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>GUID Escape Sequences</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcguid_escape_sequences"></a>GUID Escape
+    Sequences</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC uses escape sequences for GUID literals. The syntax of this escape
+    sequence is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">{<i>guid</i> '<i>nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn</i>'}</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-guid-escape</i> ::=<i><br>
+    &nbsp; ODBC-esc-initiator guid</i> '<i>guid-value</i>' <i>ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>guid-value</i> ::= <i>clock-low-value guid-separator
+    clock-middle-value guid-separator clock-high-value guid-separator clock-seq-value guid-separator node-value</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>guid-separator</i> ::= -</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>clock-low-value</i> ::= <i>hex_digit hex_digit hex_digit hex_digit
+    hex_digit hex_digit hex_digit hex_digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>clock-middle-value</i> ::= <i>hex_digit hex_digit hex_digit
+    hex_digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>clock-high-value</i> ::= <i>hex_digit hex_digit hex_digit
+    hex_digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>clock-seq-value</i> ::= <i>hex_digit hex_digit hex_digit
+    hex_digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>clock-node-value</i> ::= <i>hex_digit hex_digit hex_digit hex_digit
+    hex_digit hex_digit hex_digit hex_digit hex_digit hex_digit hex_digit hex_digit</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>hex_digit</i> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C |
+    D | E | F</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The GUID literal escape sequence is supported if the GUID data type is
+    supported by the data source. An application should call <b>SQLGetTypeInfo</b> to determine whether this data type is
+    supported.</font></p>
+</body>
+</html>

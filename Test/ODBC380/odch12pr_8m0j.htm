@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Fetching Rows with SQLBulkOperations</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcfetching_rows_with_sqlbulkoperations"></a>Fetching Rows
+    with SQLBulkOperations</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Data can be refetched into a rowset using bookmarks by a call to
+    <b>SQLBulkOperations.</b> The rows to be fetched are identified by the bookmarks in a bound bookmark column. Columns with a
+    value of SQL_COLUMN_IGNORE are not fetched.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To perform bulk fetches with <b>SQLBulkOperations</b>, the
+    application:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">Retrieves and caches the bookmarks of all rows to be updated. If
+        there is more than one bookmark and column-wise binding is used, the bookmarks are stored in an array; if there is more
+        than one bookmark and row-wise binding is used, the bookmarks are stored in an array of row structures.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Sets the SQL_ATTR_ROW_ARRAY_SIZE statement attribute to the number
+        of rows to fetch, and binds the buffer containing the bookmark value, or the array of bookmarks, to column 0.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Sets the value in the length/indicator buffer of each column as
+        necessary. This is the byte length of the data or SQL_NTS for columns bound to string buffers, the byte length of the
+        data for columns bound to binary buffers, and SQL_NULL_DATA for any columns to be set to NULL. The application sets the
+        value in the length/indicator buffer of those columns which are to be set to their default (if one exists) or NULL (if
+        one does not) to SQL_COLUMN_IGNORE.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Calls <b>SQLBulkOperations</b> with the <i>Operation</i> argument
+        set to SQL_FETCH_BY_BOOKMARK.</font></li>
+    </ol>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There is no need for the application to use the row operation array to
+    prevent the operation to be performed on certain columns. The application selects the rows it wants to fetch by copying
+    only the bookmarks for those rows into the bound bookmark array.</font></p>
+</body>
+</html>

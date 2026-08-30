@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Sql Batch Files</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbcsql_batch_files"></a></sup>SQL Batch
+    Files</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Execute</b> command in the <b>File</b> menu enables you to
+    execute SQL statements stored in a text file. This is useful for running scripts, such as backups. When this option is
+    selected, the <b>Execute File</b> dialog box appears.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Execute File Dialog Box Options</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">You use the <b>Execute File</b> dialog box to identify SQL batch files.
+    The options for the dialog box are as follows:</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Terminator</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Use this box to specify the character or characters that terminate an
+    SQL statement. If <b>Carriage Return</b> is selected, the \r\n string is used. If <b>Character</b> is selected, the value
+    in the edit box is used.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following example shows the CARRTN.SQL batch file, which uses
+    carriage returns to terminate statements:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>CREATE TABLE SALES (SALESNUM INTEGER, CUSTOMER CHAR(10))
+INSERT INTO SALES VALUES (10, 'Harry')
+INSERT INTO SALES VALUES (20, 'June')
+SELECT * FROM SALES
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The next example file, SQLSRVR.SQL, shows how you can run a script for
+    SQL Server that uses 'GO' to indicate the end of a block of statements:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>CREATE TABLE Sales (SalesNum integer, Customer char(10))
+GO
+INSERT INTO Sales VALUES (10, 'Harry')
+INSERT INTO Sales VALUES (20, 'June')
+GO
+SELECT * FROM Sales
+GO
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The third example file, ORACLE.SQL, shows the use of semicolons (;) to
+    terminate SQL statements:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>CREATE TABLE SALES
+(SALESNUM NUMBER, CUSTOMER CHAR(10));
+INSERT INTO SALES VALUES (10, 'Harry');
+INSERT INTO SALES VALUES (20, 'June');
+SELECT * FROM SALES;
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the terminator is never actually sent to the server, you could
+    take a script designed for SQL Server (with the 'GO' terminator) and run it against Oracle. Only the SQL statements would
+    be sent. Provided the SQL grammar is compatible, it will work on either platform.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Maximum Statement Length</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Use this box to specify the maximum statement length to be used. The
+    statement length must be from 100 to 9999. This value is used to allocate global memory into which the file is read. If a
+    statement is longer than this value, Admin Demo executes only the part of the statement that it has read. This is likely to
+    cause a syntax error. The default of 1000 should be sufficient for nearly all batch files.<br></font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Batch File Limitations</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The execution method is not particularly sophisticated. Because of this,
+    the following limitations should be kept in mind:</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Extended SQL</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The only SQL statements that can be executed are those that the data
+    source can process. That is, there is no special batch control mechanism in Admin Demo. Using SQL extensions such as
+    <b>WHILE</b> and <b>IF</b> must be limited to data sources that can interpret them. For example, you might use various
+    conditional statements when creating a stored procedure in SQL Server or Oracle. Admin Demo makes no attempt to distinguish
+    between them.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Maximum File Size</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because only "Max Length" bytes are read from the file at a time, there
+    should be no real limit on the overall size of the file being executed. However, the maximum statement size can be no
+    longer than "Max Length," which is defined to be 100 to 9999.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Terminator Parsing</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The search algorithm simply fills the buffer to the specified maximum by
+    reading sequentially from the file. A search for the terminator string starts at the beginning of the buffer. When found,
+    it is replaced with a null terminator, and all carriage returns (assuming the terminator is not a carriage return) are
+    removed before the statement is executed. This means that carriage returns embedded in data will be stripped.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An attempt is made to skip over data strings wherever possible (with the
+    exception of carriage returns). For example, if your terminator is the semicolon (;) character, executing the following
+    file:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT ';', Customer FROM Sales;
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">is identical to executing the following:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT ';', Customer FROM Sales
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">and</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT 'A line 
+ of data' FROM Sales
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">is identical to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT 'A line of data' FROM Sales
+</code></font>
+</pre>
+</body>
+</html>

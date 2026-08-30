@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Retrieving Results (Advanced)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcretrieving_results__advanced_"></a>Overview of Retrieving
+    Results (Advanced)</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can specify that an offset is added to bound data buffer
+    addresses and the corresponding length/indicator buffer addresses when <b>SQLBulkOperations</b>, <b>SQLFetch</b>,
+    <b>SQLFetchScroll</b>, or <b>SQLSetPos</b> is called. The results of these additions determine the addresses used in these
+    operations.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Bind offsets allow an application to change bindings without calling
+    <b>SQLBindCol</b> for previously bound columns. A call to <b>SQLBindCol</b> to rebind data changes the buffer address and
+    the length/indicator pointer. Rebinding with an offset, on the other hand, simply adds an offset to the existing bound data
+    buffer address and length/indicator buffer address. When offsets are used, the bindings are a &#8220;template&#8221; of how
+    the application buffers are laid out and the application can move this &#8220;template&#8221; to different areas of memory
+    by changing the offset. A new offset can be specified at any time, and is always added to the originally bound
+    values.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To specify a bind offset, the application sets the
+    SQL_ATTR_ROW_BIND_OFFSET_PTR statement attribute to the address of an SQLINTEGER buffer. Before the application calls a
+    function that uses the bindings, such as <b>SQLBulkOperations</b>, <b>SQLFetch</b>, <b>SQLFetchScroll</b>, or
+    <b>SQLSetPos</b>, it places an offset in bytes in this buffer, as long as neither the data buffer address nor the
+    length/indicator buffer address is 0, and the bound column is in the result set. The sum of the address and the offset must
+    be a valid address. (This means that either or both of the offset and the address to which the offset is added can be
+    invalid, as long as the sum of them is a valid address.) The SQL_ATTR_ROW_BIND_OFFSET_PTR statement attribute is a pointer
+    so that the offset value can be applied to more than one set of binding data, all of which can be changed by changing one
+    offset value. An application must make sure that the pointer remains valid until the cursor is closed.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Binding offsets are not
+    supported by ODBC 2.<i>x</i> drivers.</font></p>
+</body>
+</html>

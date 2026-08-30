@@ -1,0 +1,1107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{27919799-9DC8-4132-810C-B72623492961}</ProjectGuid>
+    <RootNamespace>AuthorHTML</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Develop\Codejock\MFC\1640\Source;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Develop\Codejock\MFC\1640\Lib\vc140;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Develop\Codejock\MFC\1640\Source;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Develop\Codejock\MFC\1640\Lib\vc120;$(LibraryPath)</LibraryPath>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Bin_$(Configuration)$(Platform)\</OutDir>
+    <IntDir>Builds\$(Platform)\$(Configuration)\</IntDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Bin_$(Configuration)$(Platform)\</OutDir>
+    <IntDir>Builds\$(Platform)\$(Configuration)\</IntDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>$(ProjectDir);Dialogs;HTML;Project;Tools;Frames;CSS;Main;res;scintilla;HTMLTidy;GridControl;$(SolutionDir)BaseLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;SCI_LEXER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;version.lib;imm32.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(OutDir)$(ProjectName).exe" (
+echo Copy the result to the deployment directory
+mkdir "$(SolutionDir)..\bin"
+copy "$(OutDir)$(ProjectName).exe"  "$(SolutionDir)..\bin
+)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>$(ProjectDir);Dialogs;HTML;Project;Tools;Frames;CSS;Main;res;scintilla;HTMLTidy;GridControl;$(SolutionDir)BaseLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SCI_LEXER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;version.lib;imm32.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+    <Manifest>
+      <OutputManifestFile>$(IntDir)_bin\$(TargetFileName).embed.manifest</OutputManifestFile>
+    </Manifest>
+    <ManifestResourceCompile>
+      <ResourceOutputFileName>$(IntDir)_bin\$(TargetFileName).embed.manifest.res</ResourceOutputFileName>
+    </ManifestResourceCompile>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST "$(OutDir)hhc.exe" (
+echo Copy the MS help compiler to the bin directory
+copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
+)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Css\CSS.cpp" />
+    <ClCompile Include="Css\CSS_miscal.cpp" />
+    <ClCompile Include="Css\CSS_optimizer.cpp" />
+    <ClCompile Include="Css\CSS_parse.cpp" />
+    <ClCompile Include="Css\CSS_prepare.cpp" />
+    <ClCompile Include="Css\CSS_print.cpp" />
+    <ClCompile Include="Dialogs\AddressCombo.cpp" />
+    <ClCompile Include="Dialogs\ALinkCommandDlg.cpp" />
+    <ClCompile Include="Dialogs\ALinkDlg.cpp" />
+    <ClCompile Include="Dialogs\AnchorDlg.cpp" />
+    <ClCompile Include="Dialogs\AreaDlg.cpp" />
+    <ClCompile Include="Dialogs\AutosizerDlg.cpp" />
+    <ClCompile Include="Dialogs\BookmarkDialog.cpp" />
+    <ClCompile Include="Dialogs\BrokenLinksDlg.cpp" />
+    <ClCompile Include="Dialogs\ButtonDlg.cpp" />
+    <ClCompile Include="Dialogs\CharacterDialog.cpp" />
+    <ClCompile Include="Dialogs\CommentDialog.cpp" />
+    <ClCompile Include="Dialogs\Compilation.cpp" />
+    <ClCompile Include="Dialogs\CSSPage1Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage2Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage3Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage4Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage5Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage6Dlg.cpp" />
+    <ClCompile Include="Dialogs\CSSPage7Dlg.cpp" />
+    <ClCompile Include="Dialogs\DivTextDlg.cpp" />
+    <ClCompile Include="Dialogs\FieldsetDlg.cpp" />
+    <ClCompile Include="Dialogs\FileDialog.cpp" />
+    <ClCompile Include="Dialogs\FindReplaceDialog.cpp" />
+    <ClCompile Include="Dialogs\FindTopicDlg.cpp" />
+    <ClCompile Include="Dialogs\FontDlg.cpp" />
+    <ClCompile Include="Dialogs\FormButtonDlg.cpp" />
+    <ClCompile Include="Dialogs\FormDlg.cpp" />
+    <ClCompile Include="Dialogs\FormFieldDlg.cpp" />
+    <ClCompile Include="Dialogs\FormImageDlg.cpp" />
+    <ClCompile Include="Dialogs\FormLabelDlg.cpp" />
+    <ClCompile Include="Dialogs\FormSelectDlg.cpp" />
+    <ClCompile Include="Dialogs\FormTextareaDlg.cpp" />
+    <ClCompile Include="Dialogs\GeneralIDDlg.cpp" />
+    <ClCompile Include="Dialogs\GetURL.cpp" />
+    <ClCompile Include="Dialogs\GlobalSetPage1Dlg.cpp" />
+    <ClCompile Include="Dialogs\GlobalSettingsDlg.cpp" />
+    <ClCompile Include="Dialogs\HeadingDlg.cpp" />
+    <ClCompile Include="Dialogs\HRDialog.cpp" />
+    <ClCompile Include="Dialogs\ImageDlg.cpp" />
+    <ClCompile Include="Dialogs\ImportDlg.cpp" />
+    <ClCompile Include="Dialogs\IndexChooseDlg.cpp" />
+    <ClCompile Include="Dialogs\IndexPropDlg.cpp" />
+    <ClCompile Include="Dialogs\InlineFrameDlg.cpp" />
+    <ClCompile Include="Dialogs\KeywordDlg.cpp" />
+    <ClCompile Include="Dialogs\LayerDlg.cpp" />
+    <ClCompile Include="Dialogs\MapDialog.cpp" />
+    <ClCompile Include="Dialogs\MarqueeDialog.cpp" />
+    <ClCompile Include="Dialogs\NavigateHyperlink.cpp" />
+    <ClCompile Include="Dialogs\NewFileDlg.cpp" />
+    <ClCompile Include="Dialogs\NewSelectorDlg.cpp" />
+    <ClCompile Include="Dialogs\ObjectDlg.cpp" />
+    <ClCompile Include="Dialogs\OptionDlg.cpp" />
+    <ClCompile Include="Dialogs\ParagraphDlg.cpp" />
+    <ClCompile Include="Dialogs\ParametersDlg.cpp" />
+    <ClCompile Include="Dialogs\ProjectDlg.cpp" />
+    <ClCompile Include="Dialogs\ScriptDlg.cpp" />
+    <ClCompile Include="Dialogs\SnapGridDlg.cpp" />
+    <ClCompile Include="Dialogs\SpanDivDlg.cpp" />
+    <ClCompile Include="Dialogs\SpellingDlg.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Dialogs\SpellOptionsDlg.cpp" />
+    <ClCompile Include="Dialogs\StartupDlg.cpp" />
+    <ClCompile Include="Dialogs\StyleSheetDlg.cpp" />
+    <ClCompile Include="Dialogs\StyleSheetImportsDlg.cpp" />
+    <ClCompile Include="Dialogs\StyleSheetsDlg.cpp" />
+    <ClCompile Include="Dialogs\Sweep.cpp" />
+    <ClCompile Include="Dialogs\TableCaptionDlg.cpp" />
+    <ClCompile Include="Dialogs\TableProperties.cpp" />
+    <ClCompile Include="Dialogs\TablePropPage1.cpp" />
+    <ClCompile Include="Dialogs\TablePropPage2.cpp" />
+    <ClCompile Include="Dialogs\TablePropPage3.cpp" />
+    <ClCompile Include="Dialogs\TagEventDlg.cpp" />
+    <ClCompile Include="Dialogs\TagEventsDlg.cpp" />
+    <ClCompile Include="Dialogs\TOCDlg.cpp" />
+    <ClCompile Include="Dialogs\TopicProperties.cpp" />
+    <ClCompile Include="Dialogs\TopicPropPage1.cpp" />
+    <ClCompile Include="Dialogs\TopicPropPage2.cpp" />
+    <ClCompile Include="Dialogs\TopicPropPage3.cpp" />
+    <ClCompile Include="Dialogs\TopicPropPage4.cpp" />
+    <ClCompile Include="Dialogs\TopicPropPage5.cpp" />
+    <ClCompile Include="Dialogs\WindowDefDlg.cpp" />
+    <ClCompile Include="Dialogs\WindowDefPage1.cpp" />
+    <ClCompile Include="Dialogs\WindowDefPage2.cpp" />
+    <ClCompile Include="Dialogs\WindowDefPage3.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage4.cpp" />
+    <ClCompile Include="Dialogs\WindowDefPage5.cpp" />
+    <ClCompile Include="Frames\ChildFrm.cpp" />
+    <ClCompile Include="Frames\CompilePane.cpp" />
+    <ClCompile Include="Frames\DirTreeCtrl.cpp" />
+    <ClCompile Include="Frames\ExplorerView.cpp" />
+    <ClCompile Include="Frames\IndexTreeCtrl.cpp" />
+    <ClCompile Include="Frames\IndexView.cpp" />
+    <ClCompile Include="Frames\MainFrm.cpp" />
+    <ClCompile Include="Frames\OpenFiles.cpp" />
+    <ClCompile Include="Frames\PageLink2.cpp" />
+    <ClCompile Include="Frames\ProjectPane.cpp" />
+    <ClCompile Include="Frames\ProjectView.cpp" />
+    <ClCompile Include="Frames\RegExp.cpp" />
+    <ClCompile Include="Frames\SettingsManager.cpp" />
+    <ClCompile Include="Frames\SortStringArray.cpp" />
+    <ClCompile Include="Frames\TOCtreeCtrl.cpp" />
+    <ClCompile Include="Frames\TOCView.cpp" />
+    <ClCompile Include="GridControl\GridCell.cpp" />
+    <ClCompile Include="GridControl\GridCellBase.cpp" />
+    <ClCompile Include="GridControl\GridCtrl.cpp" />
+    <ClCompile Include="GridControl\GridDropTarget.cpp" />
+    <ClCompile Include="GridControl\InPlaceEdit.cpp" />
+    <ClCompile Include="GridControl\TitleTip.cpp" />
+    <ClCompile Include="Html\HTMLAnchor.cpp" />
+    <ClCompile Include="Html\HTMLArea.cpp" />
+    <ClCompile Include="Html\HTMLBody.cpp" />
+    <ClCompile Include="Html\HTMLCaption.cpp" />
+    <ClCompile Include="Html\HTMLDomNode.cpp" />
+    <ClCompile Include="Html\HTMLElement.cpp" />
+    <ClCompile Include="Html\HTMLFieldset.cpp" />
+    <ClCompile Include="HTML\HTMLFrameSet.cpp" />
+    <ClCompile Include="Html\HTMLHeading.cpp" />
+    <ClCompile Include="Html\HTMLHR.cpp" />
+    <ClCompile Include="Html\HTMLIFrame.cpp" />
+    <ClCompile Include="Html\HTMLImg.cpp" />
+    <ClCompile Include="Html\HTMLInput.cpp" />
+    <ClCompile Include="Html\HTMLObject.cpp" />
+    <ClCompile Include="Html\HTMLScript.cpp" />
+    <ClCompile Include="Html\HTMLStyle.cpp" />
+    <ClCompile Include="Html\HTMLTable.cpp" />
+    <ClCompile Include="Html\HTMLTableCell.cpp" />
+    <ClCompile Include="Html\HTMLTableRow.cpp" />
+    <ClCompile Include="Html\HTMLTableSection.cpp" />
+    <ClCompile Include="Main\AuMessageBox.cpp" />
+    <ClCompile Include="Main\AuthorHTML.cpp" />
+    <ClCompile Include="Main\AuthorHTMLControlSite.cpp" />
+    <ClCompile Include="Main\HTMLDocEditDesigner.cpp" />
+    <ClCompile Include="Main\HTMLEdDoc.cpp" />
+    <ClCompile Include="Main\HTMLEdView.cpp" />
+    <ClCompile Include="Main\HtmlEdView02.cpp" />
+    <ClCompile Include="Main\ImgArea.cpp" />
+    <ClCompile Include="Main\IMGControlSite.cpp" />
+    <ClCompile Include="Main\Misc.cpp" />
+    <ClCompile Include="Main\Spelling.cpp" />
+    <ClCompile Include="Main\StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Project\DocumentFile.cpp" />
+    <ClCompile Include="Project\Glossary.cpp" />
+    <ClCompile Include="project\ImportCHM.cpp" />
+    <ClCompile Include="Project\IndexEntry.cpp" />
+    <ClCompile Include="Project\IndexFile.cpp" />
+    <ClCompile Include="Project\ProjectFile.cpp" />
+    <ClCompile Include="Project\TOC.cpp" />
+    <ClCompile Include="Project\TOCEntry.cpp" />
+    <ClCompile Include="Project\WindowDefinition.cpp" />
+    <ClCompile Include="Tools\AuthorButton.cpp" />
+    <ClCompile Include="Tools\AuthorImage.cpp" />
+    <ClCompile Include="Tools\CheckWorkshop.cpp" />
+    <ClCompile Include="Tools\CIcon.cpp" />
+    <ClCompile Include="Tools\CImages.cpp" />
+    <ClCompile Include="Tools\ControlsInfo.cpp" />
+    <ClCompile Include="Tools\DIB.cpp" />
+    <ClCompile Include="Scintilla\ScintillaChildFrm.cpp" />
+    <ClCompile Include="Scintilla\ScintillaCtrl.cpp" />
+    <ClCompile Include="Scintilla\ScintillaHTMLView.cpp" />
+    <ClCompile Include="Scintilla\ScintillaScriptDoc.cpp" />
+    <ClCompile Include="Scintilla\ScintillaScriptView.cpp" />
+    <ClCompile Include="Scintilla\ScintillaView.cpp" />
+    <ClCompile Include="Scintilla\AutoComplete.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CallTip.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CellBuffer.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CharClassify.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ContractionState.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Document.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\DocumentAccessor.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Editor.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ExternalLexer.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Indicator.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\KeyMap.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\KeyWords.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexCPP.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexCSS.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexHTML.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexVB.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LineMarker.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\PlatWin.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\PropSet.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\RESearch.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaBase.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaWin.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Style.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\StyleContext.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\UniConversion.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ViewStyle.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\WindowAccessor.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scintilla\XPM.cxx">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\access.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\alloc.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrask.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrdict.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrget.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrs.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\buffio.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\charsets.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\clean.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\config.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\entities.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\fileio.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\iconvtc.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\istack.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\lexer.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\localize.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\mappedio.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\parser.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\pprint.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\streamio.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tagask.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tags.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tidylib.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tmbstr.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\utf8.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\win32tc.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Tools\ScanBOM.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Css\CSS.h" />
+    <ClInclude Include="Css\umap.hpp" />
+    <ClInclude Include="Dialogs\AddressCombo.h" />
+    <ClInclude Include="Dialogs\ALinkCommandDlg.h" />
+    <ClInclude Include="Dialogs\ALinkDlg.h" />
+    <ClInclude Include="Dialogs\AnchorDlg.h" />
+    <ClInclude Include="Dialogs\AreaDlg.h" />
+    <ClInclude Include="Dialogs\AutosizerDlg.h" />
+    <ClInclude Include="Dialogs\BookmarkDialog.h" />
+    <ClInclude Include="Dialogs\BrokenLinksDlg.h" />
+    <ClInclude Include="Dialogs\ButtonDlg.h" />
+    <ClInclude Include="Dialogs\CharacterDialog.h" />
+    <ClInclude Include="Dialogs\CommentDialog.h" />
+    <ClInclude Include="Dialogs\Compilation.h" />
+    <ClInclude Include="Dialogs\CSSPage1Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage2Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage3Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage4Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage5Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage6Dlg.h" />
+    <ClInclude Include="Dialogs\CSSPage7Dlg.h" />
+    <ClInclude Include="Dialogs\DivTextDlg.h" />
+    <ClInclude Include="Dialogs\FieldsetDlg.h" />
+    <ClInclude Include="Dialogs\FileDialog.h" />
+    <ClInclude Include="Dialogs\FindReplaceDialog.h" />
+    <ClInclude Include="Dialogs\FindTopicDlg.h" />
+    <ClInclude Include="Dialogs\FontDlg.h" />
+    <ClInclude Include="Dialogs\FormButtonDlg.h" />
+    <ClInclude Include="Dialogs\FormDlg.h" />
+    <ClInclude Include="Dialogs\FormFieldDlg.h" />
+    <ClInclude Include="Dialogs\FormImageDlg.h" />
+    <ClInclude Include="Dialogs\FormLabelDlg.h" />
+    <ClInclude Include="Dialogs\FormSelectDlg.h" />
+    <ClInclude Include="Dialogs\FormTextareaDlg.h" />
+    <ClInclude Include="Dialogs\GeneralIDDlg.h" />
+    <ClInclude Include="Dialogs\GetURL.h" />
+    <ClInclude Include="Dialogs\GlobalSetPage1Dlg.h" />
+    <ClInclude Include="Dialogs\GlobalSettingsDlg.h" />
+    <ClInclude Include="Dialogs\HeadingDlg.h" />
+    <ClInclude Include="Dialogs\HRDialog.h" />
+    <ClInclude Include="Dialogs\ImageDlg.h" />
+    <ClInclude Include="Dialogs\ImportDlg.h" />
+    <ClInclude Include="Dialogs\IndexChooseDlg.h" />
+    <ClInclude Include="Dialogs\IndexPropDlg.h" />
+    <ClInclude Include="Dialogs\InlineFrameDlg.h" />
+    <ClInclude Include="Dialogs\KeywordDlg.h" />
+    <ClInclude Include="Dialogs\LayerDlg.h" />
+    <ClInclude Include="Dialogs\MapDialog.h" />
+    <ClInclude Include="Dialogs\MarqueeDialog.h" />
+    <ClInclude Include="Dialogs\NavigateHyperlink.h" />
+    <ClInclude Include="Dialogs\NewFileDlg.h" />
+    <ClInclude Include="Dialogs\NewSelectorDlg.h" />
+    <ClInclude Include="Dialogs\ObjectDlg.h" />
+    <ClInclude Include="Dialogs\OptionDlg.h" />
+    <ClInclude Include="Dialogs\ParagraphDlg.h" />
+    <ClInclude Include="Dialogs\ParametersDlg.h" />
+    <ClInclude Include="Dialogs\ProjectDlg.h" />
+    <ClInclude Include="Dialogs\ScriptDlg.h" />
+    <ClInclude Include="Dialogs\SnapGridDlg.h" />
+    <ClInclude Include="Dialogs\SpanDivDlg.h" />
+    <ClInclude Include="Dialogs\SpellingDlg.h" />
+    <ClInclude Include="Dialogs\SpellOptionsDlg.h" />
+    <ClInclude Include="Dialogs\StartupDlg.h" />
+    <ClInclude Include="Dialogs\StyleSheetDlg.h" />
+    <ClInclude Include="Dialogs\StyleSheetImportsDlg.h" />
+    <ClInclude Include="Dialogs\StyleSheetsDlg.h" />
+    <ClInclude Include="Dialogs\SweepDlg.h" />
+    <ClInclude Include="Dialogs\TableCaptionDlg.h" />
+    <ClInclude Include="Dialogs\TableProperties.h" />
+    <ClInclude Include="Dialogs\TablePropPage1.h" />
+    <ClInclude Include="Dialogs\TablePropPage2.h" />
+    <ClInclude Include="Dialogs\TablePropPage3.h" />
+    <ClInclude Include="Dialogs\TagEventDlg.h" />
+    <ClInclude Include="Dialogs\TagEventsDlg.h" />
+    <ClInclude Include="Dialogs\TOCDlg.h" />
+    <ClInclude Include="Dialogs\TopicProperties.h" />
+    <ClInclude Include="Dialogs\TopicPropPage1.h" />
+    <ClInclude Include="Dialogs\TopicPropPage2.h" />
+    <ClInclude Include="Dialogs\TopicPropPage3.h" />
+    <ClInclude Include="Dialogs\TopicPropPage4.h" />
+    <ClInclude Include="Dialogs\TopicPropPage5.h" />
+    <ClInclude Include="Dialogs\WindowDefDlg.h" />
+    <ClInclude Include="Dialogs\WindowDefPage1.h" />
+    <ClInclude Include="Dialogs\WindowDefPage2.h" />
+    <ClInclude Include="Dialogs\WindowDefPage3.h" />
+    <ClInclude Include="Dialogs\WindowDefPage4.h" />
+    <ClInclude Include="Dialogs\WindowDefPage5.h" />
+    <ClInclude Include="Frames\ChildFrm.h" />
+    <ClInclude Include="Frames\CompilePane.h" />
+    <ClInclude Include="Frames\DirTreeCtrl.h" />
+    <ClInclude Include="Frames\ExplorerView.h" />
+    <ClInclude Include="Frames\IndexTreeCtrl.h" />
+    <ClInclude Include="Frames\IndexView.h" />
+    <ClInclude Include="Frames\MainFrm.h" />
+    <ClInclude Include="Frames\OpenFiles.h" />
+    <ClInclude Include="Frames\PageLink2.h" />
+    <ClInclude Include="Frames\ProjectPane.h" />
+    <ClInclude Include="Frames\ProjectView.h" />
+    <ClInclude Include="Frames\RegExp.h" />
+    <ClInclude Include="Frames\SettingsManager.h" />
+    <ClInclude Include="Frames\SortStringArray.h" />
+    <ClInclude Include="Frames\TOCTreeCtrl.h" />
+    <ClInclude Include="Frames\TOCView.h" />
+    <ClInclude Include="GridControl\CellRange.h" />
+    <ClInclude Include="GridControl\GridCell.h" />
+    <ClInclude Include="GridControl\GridCellBase.h" />
+    <ClInclude Include="GridControl\GridCtrl.h" />
+    <ClInclude Include="GridControl\GridDropTarget.h" />
+    <ClInclude Include="GridControl\InPlaceEdit.h" />
+    <ClInclude Include="GridControl\MemDC.h" />
+    <ClInclude Include="GridControl\TitleTip.h" />
+    <ClInclude Include="Html\HTMLAnchor.h" />
+    <ClInclude Include="Html\HTMLArea.h" />
+    <ClInclude Include="Html\HTMLBody.h" />
+    <ClInclude Include="Html\HTMLCaption.h" />
+    <ClInclude Include="Html\HTMLDomNode.h" />
+    <ClInclude Include="Html\HTMLElement.h" />
+    <ClInclude Include="Html\HTMLFieldset.h" />
+    <ClInclude Include="HTML\HTMLFrameSet.h" />
+    <ClInclude Include="Html\HTMLHeading.h" />
+    <ClInclude Include="Html\HTMLHR.h" />
+    <ClInclude Include="Html\HTMLIFrame.h" />
+    <ClInclude Include="Html\HTMLImg.h" />
+    <ClInclude Include="Html\HTMLInput.h" />
+    <ClInclude Include="Html\HTMLObject.h" />
+    <ClInclude Include="Html\HTMLScript.h" />
+    <ClInclude Include="Html\HTMLStyle.h" />
+    <ClInclude Include="Html\HTMLTable.h" />
+    <ClInclude Include="Html\HTMLTableCell.h" />
+    <ClInclude Include="Html\HTMLTableRow.h" />
+    <ClInclude Include="Html\HTMLTableSection.h" />
+    <ClInclude Include="Main\AuthorHTML.h" />
+    <ClInclude Include="Main\AuthorHTMLControlSite.h" />
+    <ClInclude Include="Main\BasisUI.h" />
+    <ClInclude Include="Main\HTMLDocEditDesigner.h" />
+    <ClInclude Include="Main\HTMLEdDoc.h" />
+    <ClInclude Include="Main\HTMLEdView.h" />
+    <ClInclude Include="Main\ImgArea.h" />
+    <ClInclude Include="Main\IMGControlSite.h" />
+    <ClInclude Include="Main\Misc.h" />
+    <ClInclude Include="Main\Spelling.h" />
+    <ClInclude Include="Main\StdAfx.h" />
+    <ClInclude Include="Main\targetver.h" />
+    <ClInclude Include="Main\Version.h" />
+    <ClInclude Include="Project\DocumentFile.h" />
+    <ClInclude Include="Project\Glossary.h" />
+    <ClInclude Include="project\ImportCHM.h" />
+    <ClInclude Include="Project\IndexEntry.h" />
+    <ClInclude Include="Project\IndexFile.h" />
+    <ClInclude Include="Project\ProjectFile.h" />
+    <ClInclude Include="Project\TOC.h" />
+    <ClInclude Include="Project\TOCEntry.h" />
+    <ClInclude Include="Project\WindowDefinition.h" />
+    <ClInclude Include="Tools\AuthorButton.h" />
+    <ClInclude Include="Tools\AuthorImage.h" />
+    <ClInclude Include="Tools\CheckWorkshop.h" />
+    <ClInclude Include="Tools\CIcon.h" />
+    <ClInclude Include="Tools\CNamenMap.h" />
+    <ClInclude Include="Tools\DIB.h" />
+    <ClInclude Include="Tools\ImageDefinitions.h" />
+    <ClInclude Include="Tools\Images.h" />
+    <ClInclude Include="Tools\RefCounted.h" />
+    <ClInclude Include="Tools\ScanBOM.h" />
+    <ClInclude Include="Tools\StringArray.h" />
+    <ClInclude Include="Scintilla\ScintillaChildFrm.h" />
+    <ClInclude Include="Scintilla\ScintillaCtrl.h" />
+    <ClInclude Include="Scintilla\ScintillaHTMLView.h" />
+    <ClInclude Include="Scintilla\ScintillaScriptDoc.h" />
+    <ClInclude Include="Scintilla\ScintillaScriptView.h" />
+    <ClInclude Include="Scintilla\ScintillaView.h" />
+    <ClInclude Include="Scintilla\Accessor.h" />
+    <ClInclude Include="Scintilla\AutoComplete.h" />
+    <ClInclude Include="Scintilla\CallTip.h" />
+    <ClInclude Include="Scintilla\CellBuffer.h" />
+    <ClInclude Include="Scintilla\CharClassify.h" />
+    <ClInclude Include="Scintilla\ContractionState.h" />
+    <ClInclude Include="Scintilla\Document.h" />
+    <ClInclude Include="Scintilla\DocumentAccessor.h" />
+    <ClInclude Include="Scintilla\Editor.h" />
+    <ClInclude Include="Scintilla\ExternalLexer.h" />
+    <ClInclude Include="Scintilla\Indicator.h" />
+    <ClInclude Include="Scintilla\KeyMap.h" />
+    <ClInclude Include="Scintilla\KeyWords.h" />
+    <ClInclude Include="Scintilla\LineMarker.h" />
+    <ClInclude Include="Scintilla\Partitioning.h" />
+    <ClInclude Include="Scintilla\Platform.h" />
+    <ClInclude Include="Scintilla\PlatformRes.h" />
+    <ClInclude Include="Scintilla\PropSet.h" />
+    <ClInclude Include="Scintilla\RESearch.h" />
+    <ClInclude Include="Scintilla\SciLexer.h" />
+    <ClInclude Include="Scintilla\Scintilla.h" />
+    <ClInclude Include="Scintilla\ScintillaBase.h" />
+    <ClInclude Include="Scintilla\SplitVector.h" />
+    <ClInclude Include="Scintilla\SString.h" />
+    <ClInclude Include="Scintilla\Style.h" />
+    <ClInclude Include="Scintilla\StyleContext.h" />
+    <ClInclude Include="Scintilla\SVector.h" />
+    <ClInclude Include="Scintilla\UniConversion.h" />
+    <ClInclude Include="Scintilla\ViewStyle.h" />
+    <ClInclude Include="Scintilla\WindowAccessor.h" />
+    <ClInclude Include="Scintilla\XPM.h" />
+    <ClInclude Include="HTMLTidy\access.h" />
+    <ClInclude Include="HTMLTidy\attrdict.h" />
+    <ClInclude Include="HTMLTidy\attrs.h" />
+    <ClInclude Include="HTMLTidy\buffio.h" />
+    <ClInclude Include="HTMLTidy\charsets.h" />
+    <ClInclude Include="HTMLTidy\clean.h" />
+    <ClInclude Include="HTMLTidy\config.h" />
+    <ClInclude Include="HTMLTidy\entities.h" />
+    <ClInclude Include="HTMLTidy\fileio.h" />
+    <ClInclude Include="HTMLTidy\forward.h" />
+    <ClInclude Include="HTMLTidy\iconvtc.h" />
+    <ClInclude Include="HTMLTidy\lexer.h" />
+    <ClInclude Include="HTMLTidy\mappedio.h" />
+    <ClInclude Include="HTMLTidy\message.h" />
+    <ClInclude Include="HTMLTidy\parser.h" />
+    <ClInclude Include="HTMLTidy\platform.h" />
+    <ClInclude Include="HTMLTidy\pprint.h" />
+    <ClInclude Include="HTMLTidy\streamio.h" />
+    <ClInclude Include="HTMLTidy\tags.h" />
+    <ClInclude Include="HTMLTidy\tidy-int.h" />
+    <ClInclude Include="HTMLTidy\tidy.h" />
+    <ClInclude Include="HTMLTidy\tidyenum.h" />
+    <ClInclude Include="HTMLTidy\tmbstr.h" />
+    <ClInclude Include="HTMLTidy\utf8.h" />
+    <ClInclude Include="HTMLTidy\version.h" />
+    <ClInclude Include="HTMLTidy\win32tc.h" />
+    <ClInclude Include="res\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\alg.bmp" />
+    <None Include="Res\alg32.bmp" />
+    <None Include="Res\AlphaFind.bmp" />
+    <None Include="Res\arrows.bmp" />
+    <None Include="Res\arrows_wide.bmp" />
+    <None Include="res\AuthorHTML.ico" />
+    <None Include="res\AuthorHTML.rc2" />
+    <None Include="Res\bitmap3.bmp" />
+    <None Include="Res\bitmap4.bmp" />
+    <None Include="res\bmp00001.bmp" />
+    <None Include="Res\bmp00002.bmp" />
+    <None Include="Res\buttons1.bmp" />
+    <None Include="Res\buttons2.bmp" />
+    <None Include="Res\compilebar.bmp" />
+    <None Include="Res\computer.bmp" />
+    <None Include="images\cone.jpg" />
+    <None Include="images\cssbi.html" />
+    <None Include="images\cssborders.html" />
+    <None Include="images\cssbox.html" />
+    <None Include="images\csstext.html" />
+    <None Include="Res\documents.bmp" />
+    <None Include="images\empty.jpg" />
+    <None Include="res\explorer_state_list.bmp" />
+    <None Include="Res\ExplorerBar.bmp" />
+    <None Include="res\HTMLEdDoc.ico" />
+    <None Include="res\icon1.ico" />
+    <None Include="Res\iconasterisk.bmp" />
+    <None Include="Res\iconexclamation.bmp" />
+    <None Include="Res\iconhand.bmp" />
+    <None Include="Res\iconquestion.bmp" />
+    <None Include="res\id_toolb.bmp" />
+    <None Include="Res\idr_scin.ico" />
+    <None Include="images\image.html" />
+    <None Include="Res\intern1.bmp" />
+    <None Include="Res\intern2.bmp" />
+    <None Include="Res\keyword.bmp" />
+    <None Include="Res\keywords.bmp" />
+    <None Include="Res\linkbar.bmp" />
+    <None Include="Res\Margin.cur" />
+    <None Include="Res\office.bmp" />
+    <None Include="Res\PaneIcons.bmp" />
+    <None Include="images\paragraph.html" />
+    <None Include="Res\project.bmp" />
+    <None Include="Res\projectbar.bmp" />
+    <None Include="Res\science.bmp" />
+    <None Include="Res\signs.bmp" />
+    <None Include="test.html" />
+    <None Include="Res\toc.bmp" />
+    <None Include="Res\tocbar.bmp" />
+    <None Include="res\Toolbar.bmp" />
+    <None Include="res\toolbar1.bmp" />
+    <None Include="Res\windows.bmp" />
+    <None Include="writing.bmp" />
+    <None Include="Res\writing.bmp" />
+    <None Include="glyphs\yellow\tag-abr.gif" />
+    <None Include="glyphs\yellow\tag-acr.gif" />
+    <None Include="glyphs\yellow\tag-adr.gif" />
+    <None Include="glyphs\yellow\tag-anchor.gif" />
+    <None Include="glyphs\yellow\tag-app.gif" />
+    <None Include="glyphs\yellow\tag-ara.gif" />
+    <None Include="glyphs\yellow\tag-b.gif" />
+    <None Include="glyphs\yellow\tag-bas.gif" />
+    <None Include="glyphs\yellow\tag-bdo.gif" />
+    <None Include="glyphs\yellow\tag-big.gif" />
+    <None Include="glyphs\yellow\tag-blq.gif" />
+    <None Include="glyphs\yellow\tag-body.gif" />
+    <None Include="glyphs\yellow\tag-br.gif" />
+    <None Include="glyphs\yellow\tag-bsf.gif" />
+    <None Include="glyphs\yellow\tag-btn.gif" />
+    <None Include="glyphs\yellow\tag-cit.gif" />
+    <None Include="glyphs\yellow\tag-clg.gif" />
+    <None Include="glyphs\yellow\tag-cod.gif" />
+    <None Include="glyphs\yellow\tag-comment.gif" />
+    <None Include="glyphs\yellow\tag-cpt.gif" />
+    <None Include="glyphs\yellow\tag-ctr.gif" />
+    <None Include="glyphs\yellow\tag-dd.gif" />
+    <None Include="glyphs\yellow\tag-del.gif" />
+    <None Include="glyphs\yellow\tag-dir.gif" />
+    <None Include="glyphs\yellow\tag-div.gif" />
+    <None Include="glyphs\yellow\tag-dl.gif" />
+    <None Include="glyphs\yellow\tag-dt.gif" />
+    <None Include="glyphs\yellow\tag-em.gif" />
+    <None Include="glyphs\yellow\tag-fld.gif" />
+    <None Include="glyphs\yellow\tag-fnt.gif" />
+    <None Include="glyphs\yellow\tag-for.gif" />
+    <None Include="glyphs\yellow\tag-frm.gif" />
+    <None Include="glyphs\yellow\tag-fst.gif" />
+    <None Include="glyphs\yellow\tag-h1.gif" />
+    <None Include="glyphs\yellow\tag-h2.gif" />
+    <None Include="glyphs\yellow\tag-h3.gif" />
+    <None Include="glyphs\yellow\tag-h4.gif" />
+    <None Include="glyphs\yellow\tag-h5.gif" />
+    <None Include="glyphs\yellow\tag-h6.gif" />
+    <None Include="glyphs\yellow\tag-hed.gif" />
+    <None Include="glyphs\yellow\tag-hr.gif" />
+    <None Include="glyphs\yellow\tag-html.gif" />
+    <None Include="glyphs\yellow\tag-i.gif" />
+    <None Include="glyphs\yellow\tag-ifr.gif" />
+    <None Include="glyphs\yellow\tag-img.gif" />
+    <None Include="glyphs\yellow\tag-inp.gif" />
+    <None Include="glyphs\yellow\tag-ins.gif" />
+    <None Include="glyphs\yellow\tag-isx.gif" />
+    <None Include="glyphs\yellow\tag-kbd.gif" />
+    <None Include="glyphs\yellow\tag-lbl.gif" />
+    <None Include="glyphs\yellow\tag-lgn.gif" />
+    <None Include="glyphs\yellow\tag-li.gif" />
+    <None Include="glyphs\yellow\tag-lnk.gif" />
+    <None Include="glyphs\yellow\tag-lst.gif" />
+    <None Include="glyphs\yellow\tag-map.gif" />
+    <None Include="glyphs\yellow\tag-marq.gif" />
+    <None Include="glyphs\yellow\tag-men.gif" />
+    <None Include="glyphs\yellow\tag-met.gif" />
+    <None Include="glyphs\yellow\tag-nbr.gif" />
+    <None Include="glyphs\yellow\tag-nfr.gif" />
+    <None Include="glyphs\yellow\tag-nsc.gif" />
+    <None Include="glyphs\yellow\tag-obj.gif" />
+    <None Include="glyphs\yellow\tag-ol.gif" />
+    <None Include="glyphs\yellow\tag-opg.gif" />
+    <None Include="glyphs\yellow\tag-opt.gif" />
+    <None Include="glyphs\yellow\tag-p.gif" />
+    <None Include="glyphs\yellow\tag-pi.gif" />
+    <None Include="glyphs\yellow\tag-pre.gif" />
+    <None Include="glyphs\yellow\tag-prm.gif" />
+    <None Include="glyphs\yellow\tag-q.gif" />
+    <None Include="glyphs\yellow\tag-s.gif" />
+    <None Include="glyphs\yellow\tag-scr.gif" />
+    <None Include="glyphs\yellow\tag-slc.gif" />
+    <None Include="glyphs\yellow\tag-sml.gif" />
+    <None Include="glyphs\yellow\tag-smp.gif" />
+    <None Include="glyphs\yellow\tag-spn.gif" />
+    <None Include="glyphs\yellow\tag-stk.gif" />
+    <None Include="glyphs\yellow\tag-stl.gif" />
+    <None Include="glyphs\yellow\tag-sub.gif" />
+    <None Include="glyphs\yellow\tag-sup.gif" />
+    <None Include="glyphs\yellow\tag-tbd.gif" />
+    <None Include="glyphs\yellow\tag-tbl.gif" />
+    <None Include="glyphs\yellow\tag-td.gif" />
+    <None Include="glyphs\yellow\tag-tft.gif" />
+    <None Include="glyphs\yellow\tag-th.gif" />
+    <None Include="glyphs\yellow\tag-thd.gif" />
+    <None Include="glyphs\yellow\tag-tr.gif" />
+    <None Include="glyphs\yellow\tag-tt.gif" />
+    <None Include="glyphs\yellow\tag-ttl.gif" />
+    <None Include="glyphs\yellow\tag-txt.gif" />
+    <None Include="glyphs\yellow\tag-u.gif" />
+    <None Include="glyphs\yellow\tag-ul.gif" />
+    <None Include="glyphs\yellow\tag-var.gif" />
+    <None Include="Glyphs\yellow\tag-wbr.gif" />
+    <None Include="glyphs\yellow\tag-xmp.gif" />
+    <None Include="glyphs\anchor.gif" />
+    <None Include="glyphs\green\anchor.gif" />
+    <None Include="glyphs\green\br.gif" />
+    <None Include="glyphs\br.gif" />
+    <None Include="glyphs\green\comment.gif" />
+    <None Include="glyphs\comment.gif" />
+    <None Include="glyphs\divbgn.gif" />
+    <None Include="glyphs\green\divbgn.gif" />
+    <None Include="glyphs\divend.gif" />
+    <None Include="glyphs\green\divend.gif" />
+    <None Include="glyphs\green\formbgn.gif" />
+    <None Include="glyphs\formbgn.gif" />
+    <None Include="glyphs\formend.gif" />
+    <None Include="glyphs\green\formend.gif" />
+    <None Include="glyphs\green\h1begin.gif" />
+    <None Include="glyphs\h1begin.gif" />
+    <None Include="glyphs\h1end.gif" />
+    <None Include="glyphs\green\h1end.gif" />
+    <None Include="glyphs\green\h2begin.gif" />
+    <None Include="glyphs\h2begin.gif" />
+    <None Include="glyphs\h2end.gif" />
+    <None Include="glyphs\green\h2end.gif" />
+    <None Include="glyphs\green\h3bgn.gif" />
+    <None Include="glyphs\h3bgn.gif" />
+    <None Include="glyphs\h3end.gif" />
+    <None Include="glyphs\green\h3end.gif" />
+    <None Include="glyphs\green\pbgn.gif" />
+    <None Include="glyphs\pbgn.gif" />
+    <None Include="glyphs\green\pend.gif" />
+    <None Include="glyphs\pend.gif" />
+    <None Include="glyphs\script.gif" />
+    <None Include="glyphs\green\script.gif" />
+    <None Include="glyphs\spanbgn.gif" />
+    <None Include="glyphs\green\spanbgn.gif" />
+    <None Include="glyphs\green\spanend.gif" />
+    <None Include="glyphs\spanend.gif" />
+    <None Include="glyphs\style.gif" />
+    <None Include="glyphs\green\style.gif" />
+    <None Include="glyphs\table.gif" />
+    <None Include="glyphs\green\table.gif" />
+    <None Include="glyphs\green\trans.gif" />
+    <None Include="glyphs\trans.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\AuthorHTML.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Main;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Main;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\compile.ico" />
+    <Image Include="res\explorer.ico" />
+    <Image Include="res\keyword.ico" />
+    <Image Include="res\pagelinks.ico" />
+    <Image Include="res\project.ico" />
+    <Image Include="res\tocview.ico" />
+    <Image Include="res\window.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="res\AuthorHTML.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Data Source Example</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdata_source_example"></a>Data Source Example</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">On computers running Microsoft Windows NT Server, Microsoft Windows NT
+    Workstation, or Microsoft Windows 95, machine data source information is stored in the registry. Depending on which
+    registry key the information is stored under, the data source is known as a <i>user data source</i> or a <i>system data
+    source</i>. User data sources are stored under the HKEY_CURRENT_USER key and are available only to the current user. System
+    data sources are stored under the HKEY_LOCAL_MACHINE key and can be used by more than one user on one machine. They can
+    also be used by system-wide services, which can then gain access to the data source even if no user is logged on to the
+    machine. For more information about user and system data sources, see <a href="odch23pr_1kfn.htm">SQLManageDataSources</a>
+    in Chapter 23, &#8220;Installer DLL Function Reference.&#8221;</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Suppose a user has three user data sources: Personnel and Inventory,
+    which use an Oracle DBMS; and Payroll, which uses a Microsoft SQL Server DBMS. The registry values for data sources might
+    be:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">HKEY_CURRENT_USER<br>
+    SOFTWARE<br>
+    ODBC<br>
+    ODBC.INI</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC Data Sources<br>
+    Personnel : REG_SZ : Oracle<br>
+    Inventory : REG_SZ : Oracle<br>
+    Payroll : REG_SZ : SQL Server</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">and the registry values for the Payroll data source might be:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">HKEY_CURRENT_USER<br>
+    SOFTWARE<br>
+    ODBC<br>
+    ODBC.INI<br>
+    Payroll<br>
+    Driver : REG_SZ : C:\WINDOWS\SYSTEM\SQLSRVR.DLL<br>
+    Description : REG_SZ : Payroll database<br>
+    Server : REG_SZ : PYRLL1<br>
+    FastConnectOption : REG_SZ : No<br>
+    UseProcForPrepare : REG_SZ : Yes<br>
+    OEMTOANSI : REG_SZ : No<br>
+    LastUser : REG_SZ : smithjo<br>
+    Database : REG_SZ : Payroll<br>
+    Language : REG_SZ :</font></p>
+</body>
+</html>

@@ -1,0 +1,39 @@
+TODO
+====
+1) Toolbar above explorer view not implemented
+
+BUGS
+====
+1) Bookmarks have various bugs
+   - Bookmark without contents are not selectable
+   - Name cannot be changed
+3) Script dialog Type/Language in script are dependent on each other
+4) Scripts in page not in  topic-properties (4th tab)
+5) Marquee text editting, if text out of sight
+6) if map covers the whole image, the image is unreachable other than the right-click menu
+7) Width of the CSS dialog is to small. Tooltips for the rest of the text.
+8) Double-click on images or areas nested deeper than level 1 under body
+   - recursive client-area calculating
+   - find a IHTML property for the client-area
+
+RECURRING ISSUES
+================
+- Altering CSS sheets sets a need to save-and-reload the page. 
+  Rendering of the styles will otherwise not follow.
+  Tried: Document2.location.reload -> doesn't work
+         Document3.recalc          -> doesn't work
+  Work around: Navigate2(full-url)
+- @media is not implemented. Implement? No, IE does not support!
+- various "%" and "px" interfaces on boxes (zoom / width&height on layers)
+- BUG in Tidy: it treats MARQUEE as an in-line element instead of a block element
+- BROWSE MODE must react other then normal EDIT mode !!!
+- DEBUG PROJECT: /HHP="C:\develop\html\test\callcenter - kopie\callcenter.hhp"
+- TAGS: COL / COLGROUP not to be supported in AuthorDocumentation
+- TAGS: BDO not to be implemented: Tidy/CSS should first support Unicode!
+  Whole program should be Unicode implementation
+- TAGS: BASE. No: the HPP project provides the base. Later on implementation
+  of a basic WebHelp, <BASE> should be reconsidered.
+- Alternating between WEB view and SOURCE views drops changes in the last view
+  Take a look at: ChildForm::SwapView(int ID)
+  Take a look at: HTMLEdView::UpdateView()
+  Read all comments there!!

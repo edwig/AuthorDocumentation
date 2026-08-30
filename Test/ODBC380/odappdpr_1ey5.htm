@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Transferring Data in its Binary Form</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbctransferring_data_in_its_binary_form"></a>Transferring
+    Data in its Binary Form</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can safely transfer data in the internal form used by
+    that DBMS between two data sources that use the same DBMS and hardware platform. For a given piece of data, the SQL data
+    types must be the same in the source and target data sources. The C data type is SQL_C_BINARY.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When the application calls <b>SQLFetch</b>, <b>SQLFetchScroll</b>, or
+    <b>SQLGetData</b> to retrieve the data from the source data source, the driver retrieves the data from the data source and
+    transfers it, without conversion, to a storage location of type SQL_C_BINARY. When the application calls
+    <b>SQLBulkOperations</b>, <b>SQLExecute</b>, <b>SQLExecDirect</b>, <b>SQLPutData, or SQLSetPos</b> to send the data to the
+    target data source, the driver retrieves the data from the storage location and transfers it, without conversion, to the
+    target data source.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Applications that transfer
+    any data (except binary data) in this manner are not interoperable among DBMSs.</font></p>
+
+    <p><b>SQLCopyDesc</b> can be used to copy row bindings from the source DBMS to parameter bindings in the target DBMS.</p>
+</body>
+</html>

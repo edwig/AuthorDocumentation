@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLWriteFileDSN</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlwritefiledsn"></a>SQLWriteFileDSN</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced: ODBC 3.0</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLWriteFileDSN</b> writes information to a File DSN.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">BOOL <b>SQLWriteFileDSN(</b><br>
+    &nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszFileName,<br></i>&nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszAppName,<br>
+    </i>
+    &nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszKeyName,<br></i>&nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszString</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszFileName</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Pointer to the name of the File DSN. A DSN extension is appended to all file names that do not already have a DSN
+    extension.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszAppName</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Pointer to the name of the application. This is &#8220;ODBC&#8221; for the ODBC section.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszKeyName</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    Pointer to the name of the key to be read. See &#8220;Comments&#8221; for reserved keywords.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszString</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    Pointed to the string associated with the key to be written. The maximum length of the string pointed to by this argument
+    is 32,767 bytes.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The function returns TRUE if it is successful, FALSE if it
+    fails.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When <b>SQLWriteFileDSN</b> returns FALSE, an associated
+    <i>*pfErrorCode</i> value may be obtained by calling <b>SQLInstallerError</b>. The following table lists the
+    <i>*pfErrorCode</i> values that can be returned by <b>SQLInstallerError</b> and explains each one in the context of this
+    function.</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="26%"><b><i>*pfErrorCode</i></b></td>
+
+            <td class="label" width="25%"><b>Error</b></td>
+
+            <td class="label" width="49%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="26%">ODBC_ERROR_<br>
+            GENERAL_ERR</td>
+
+            <td width="25%">General installer error</td>
+
+            <td width="49%">An error occurred for which there was no specific installer error.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="26%">ODBC_ERROR_<br>
+            INVALID_<br>
+            PATH</td>
+
+            <td width="25%">Invalid install path</td>
+
+            <td width="49%">The path of the file name specified in the <i>lpszFileName</i> argument was invalid.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="26%">ODBC_ERROR_<br>
+            INVALID_<br>
+            REQUEST_TYPE</td>
+
+            <td width="25%">Invalid type of request</td>
+
+            <td width="49%">The <i>lpszAppName</i>, <i>lpszKeyName</i>, or <i>lpszString</i> argument was NULL.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC reserves the section name [ODBC] in which to store the connection
+    information. The reserved keywords for this section are the same as those reserved for a connect string in
+    <b>SQLDriverConnect</b> (for more information, see the <a href="odch21dpr_4ed0.htm">SQLDriverConnect</a> function
+    description).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Applications may use these reserved keywords to write information
+    directly to a File DSN. If an application wants to create or modify the DSN-less connection string associated with a File
+    DSN, it can call <b>SQLWriteFileDSN</b> for any of the reserved connection string keywords in the [ODBC]
+    section.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the <i>lpszString</i> argument is a null pointer, the keyword pointed
+    to by the <i>lpszKeyName</i> argument will be deleted from the .dsn file. If the <i>lpszString</i> and <i>lpszKeyName</i>
+    arguments are both null pointers, the section pointed to by the <i>lpszAppName</i> argument will be deleted from the .dsn
+    file.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Related Functions</b></font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="48%"><b>For information about</b></td>
+
+            <td class="label" width="52%"><b>See</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">Reading information from File DSNs</td>
+
+            <td width="52%"><a href="odch23pr_4qzy.htm">SQLReadFileDSN</a></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

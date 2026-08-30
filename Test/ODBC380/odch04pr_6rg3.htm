@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>State Transitions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstate_transitions"></a>State Transitions</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC defines discrete <i>states</i> for each environment, each
+    connection, and each statement. For example, the environment has three possible states: Unallocated (in which no
+    environment is allocated), Allocated (in which an environment is allocated but no connections are allocated), and
+    Connection (in which an environment and one or more connections are allocated). Connections have seven possible states;
+    statements have thirteen possible states.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A particular item, as identified by its handle, moves from one state to
+    another when the application calls a certain function or functions and passes the handle to that item. Such movement is
+    called a <i>state transition</i>. For example, allocating an environment handle with <b>SQLAllocHandle</b> moves the
+    environment from Unallocated to Allocated, and freeing that handle with <b>SQLFreeHandle</b> returns it from Allocated to
+    Unallocated. ODBC defines a limited number of legal state transitions, which is another way of saying that functions must
+    be called in a certain order.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some functions, such as <b>SQLGetConnectAttr</b>, do not affect state at
+    all. Other functions affect the state of a single item. For example, <b>SQLDisconnect</b> moves a connection from a
+    Connection state to an Allocated state. Finally, some functions affect the state of more than one item. For example,
+    allocating a connection handle with <b>SQLAllocHandle</b> moves a connection from an Unallocated to an Allocated state and
+    moves the environment from an Allocated to a Connection state.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If an application calls a function out of order, the function returns a
+    <i>state transition error</i>. For example, if an environment is in a Connection state and the application calls
+    <b>SQLFreeHandle</b> with that environment handle, <b>SQLFreeHandle</b> returns SQLSTATE HY010 (Function sequence error),
+    because it can be called only when the environment is in an Allocated state. By defining this as an invalid state
+    transition, ODBC prevents the application from freeing the environment while there are active connections.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some state transitions are inherent in the design of ODBC. For example,
+    it is not possible to allocate a connection handle without first allocating an environment handle, because the function
+    that allocates a connection handle requires an environment handle. Other state transitions are enforced by the Driver
+    Manager and the drivers. For example, <b>SQLExecute</b> executes a prepared statement. If the statement handle passed to it
+    is not in a Prepared state, <b>SQLExecute</b> returns SQLSTATE HY010 (Function sequence error).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">From the application&#8217;s point of view, state transitions are
+    generally straightforward: Legal state transitions tend to go hand-in-hand with the flow of a well-written application.
+    State transitions are more complex for the Driver Manager and the drivers, because they must track the state of the
+    environment, each connection, and each statement. Most of this work is done by the Driver Manager; the majority of the work
+    that must be done by drivers occurs with statements with pending results.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Parts 1 and 2 of this manual (&#8220;Introduction to ODBC&#8221; and
+    &#8220;Developing Applications and Drivers&#8221;) tend not to explicitly mention state transitions. Instead, they describe
+    the order in which functions must be called. For example, Chapter 9, &#8220;Executing SQL Statements,&#8221; states that a
+    statement must be prepared with <b>SQLPrepare</b> before it can be executed with <b>SQLExecute</b>. For a complete
+    description of states and state transitions, including which transitions are checked by the Driver Manager and which must
+    be checked by drivers, see Appendix B, &#8220;<a href="odappbpr_5v3n.htm">ODBC State Transition
+    Tables</a>.&#8221;</font></p>
+</body>
+</html>

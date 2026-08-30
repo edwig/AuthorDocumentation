@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Installation Components</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcinstallation_components"></a>Installation
+    Components</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The installation process starts when the user runs the setup program.
+    The setup program works in conjunction with the <i>installer DLL</i> and a <i>driver setup DLL</i> for each driver. Both
+    the setup program and the installer DLL use the arguments in the <b>SQLInstallDriverEx</b> and
+    <b>SQLInstallTranslatorEx</b> functions to determine which files to copy or delete for each component. The following figure
+    shows the relationship between these installation components.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr29.gif" border="0"></font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Installation components</b></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Important&nbsp;&nbsp;&nbsp;</b>The ODBC.INF file that
+    was used in ODBC 2.<i>x</i> to describe the files required by each ODBC component is not used in ODBC 3.x. Drivers that
+    ship ODBC 3.x components do not need to create an ODBC.INF file. The removal of <b>SQLInstallDriver</b> and
+    <b>SQLInstallODBC</b>, and the deprecation of <b>SQLInstallTranslator</b>, have rendered ODBC.INF unnecessary. The driver
+    information that used to be in the Driver Keyword sections of ODBC.INF is now provided in the <i>lpszDriver</i> argument in
+    <b>SQLInstallDriverEx</b>. The translator information that used to be in the [ODBC Translator] and Translator Specification
+    sections of ODBC.INF is now provided in the <i>lpszTranslator</i> argument of <b>SQLInstallTranslatorEx</b>. These changes
+    allow the ODBC Installer to be more portable across platforms.</font></p>
+</body>
+</html>

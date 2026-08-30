@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Retrieving Results (Basic)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcretrieving_results__basic_"></a>Overview of Retrieving
+    Results (Basic)</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A <i>result set</i> is a set of rows on the data source that matches
+    certain criteria. It is a conceptual table that results from a query and that is available to an application in tabular
+    form. <b>SELECT</b> statements, catalog functions, and some procedures create result sets. For example, the first SQL
+    statement creates a result set containing all the rows and all the columns in the Orders table, and the second SQL
+    statement creates a result set containing OrderID, SalesPerson, and Status columns for the rows in the Orders table in
+    which the Status is OPEN.</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT * FROM Orders
+SELECT OrderID, SalesPerson, Status FROM Orders WHERE Status = 'OPEN'
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A result set can be empty, which is different from no result set at all.
+    For example, the following SQL statement creates an empty result set:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SELECT * FROM Orders WHERE 1 = 2
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An empty result set is no different from any other result set except
+    that it has no rows. For example, the application can retrieve metadata for the result set, can attempt to fetch rows, and
+    must close the cursor over the result set.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The process of retrieving rows from the data source and returning them
+    to the application is called <i>fetching</i>. This chapter explains the basic parts of that process. For information about
+    more advanced topics, such as block and scrollable cursors, see &#8220;<a href="odch11pr_2x6b.htm">Block Cursors</a>&#8221;
+    and &#8220;<a href="odch11pr_5er7.htm">Scrollable Cursors</a>&#8221; in Chapter 11, &#8220;Retrieving Results
+    (Advanced).&#8221; For information about updating, deleting, and inserting rows, see Chapter 12, &#8220;<a href=
+    "odch12pr_92e9.htm">Updating Data</a>.&#8221;</font></p>
+</body>
+</html>

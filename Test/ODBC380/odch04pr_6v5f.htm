@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Connection Handles</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconnection_handles"></a>Connection Handles</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A <i>connection</i> consists of a driver and a data source. A connection
+    handle identifies each connection. The connection handle defines not only which driver to use, but which data source to use
+    with that driver. Within a piece of code that implements ODBC (the Driver Manager or a driver), the connection handle
+    identifies a structure that contains connection information, such as:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">The connection&#8217;s state<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current connection-level diagnostics<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The handles of statements and descriptors currently allocated on
+        the connection<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current settings of each connection attribute</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC does not prevent multiple simultaneous connections, if the driver
+    supports them. Thus, in a particular ODBC environment, multiple connection handles might point to a variety of drivers and
+    data sources, the same driver and a variety of data sources, or even multiple connections to the same driver and data
+    source. Some drivers limit the number of active connections they support; the SQL_MAX_DRIVER_CONNECTIONS option in
+    <b>SQLGetInfo</b> specifies how many active connections a particular driver supports.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Connection handles are used primarily when connecting to the data source
+    (<b>SQLConnect</b>, <b>SQLDriverConnect</b>, or <b>SQLBrowseConnect</b>), disconnecting from the data source
+    (<b>SQLDisconnect</b>), getting information about the driver and data source (<b>SQLGetInfo</b>), retrieving diagnostics
+    (<b>SQLGetDiagField</b> and <b>SQLGetDiagRec</b>) and performing transactions (<b>SQLEndTran</b>). They are also used when
+    setting and getting connection attributes (<b>SQLSetConnectAttr</b> and <b>SQLGetConnectAttr</b>) and when getting the
+    native format of an SQL statement (<b>SQLNativeSql</b>).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Connection handles are allocated with <b>SQLAllocHandle</b> and freed
+    with <b>SQLFreeHandle</b>.</font></p>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Serializability</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcserializability"></a>Serializability</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Ideally, transactions should be <i>serializable</i>. Transactions are
+    said to be serializable if the results of running transactions simultaneously are the same as the results of running them
+    serially, that is, one after the other. It is not important which transaction executes first, only that the result does not
+    reflect any mixing of the transactions.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, suppose transaction A multiplies data values by 2 and
+    transaction B adds 1 to data values. Now suppose that there are two data values: 0 and 10. If these transactions are run
+    one after another, the new values will be 1 and 21 if transaction A is run first, or 2 and 22 if transaction B is run
+    first. But what if the order in which the two transactions are run is different for each value? If transaction A is run
+    first on the first value and transaction B is run first on the second value, the new values will be 1 and 22. If this order
+    is reversed, the new values are 2 and 21. The transactions are serializable if 1, 21 and 2, 22 are the only possible
+    results. The transactions are not serializable if 1, 22 or 2, 21 is a possible result.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">So why is serializability desirable? In other words, why is it important
+    that it appears that one transaction finishes before the next transaction starts? Consider the following problem. A
+    salesman is entering orders at the same time a clerk is sending out bills. Suppose the salesman enters an order from
+    Company X but does not commit it; the salesman is still talking to the representative from Company X. The clerk requests a
+    list of all open orders and discovers the order for Company X and sends them a bill. Now the representative from Company X
+    decides they want to change their order, so the salesman changes it before committing the transaction. Company X gets an
+    incorrect bill.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the salesman&#8217;s and clerk&#8217;s transactions were
+    serializable, this problem would never have occurred. Either the salesman&#8217;s transaction would have finished before
+    the clerk&#8217;s transaction started, in which case the clerk would have sent out the correct bill, or the clerk&#8217;s
+    transaction would have finished before the salesman&#8217;s transaction started, in which case the clerk would not have
+    sent a bill to Company X at all.</font></p>
+</body>
+</html>

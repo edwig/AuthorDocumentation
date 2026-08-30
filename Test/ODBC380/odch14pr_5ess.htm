@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Concurrency Control</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconcurrency_control"></a>Concurrency Control</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">With increased transaction isolation usually comes reduced
+    <i>concurrency</i>, or the ability of two transactions to use the same data at the same time. The reason for this is that
+    transaction isolation is usually implemented by locking rows and, as more rows are locked, fewer transactions can be
+    completed without being blocked at least temporarily by a locked row. While reduced concurrency is generally accepted as a
+    trade-off for the higher transaction isolation levels necessary to maintain database integrity, it can become a problem in
+    interactive applications with high read/write activity that use cursors.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, suppose an application executes the SQL statement <b>SELECT
+    * FROM Orders</b>. It calls <b>SQLFetchScroll</b> to scroll around the result set and allows the user to update, delete, or
+    insert orders. After the user updates, deletes, or inserts an order, the application commits the transaction.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the isolation level is Repeatable Read, the transaction
+    might&#8212;depending on how it is implemented&#8212;lock each row returned by <b>SQLFetchScroll</b>. If the isolation
+    level is Serializable, the transaction might lock the entire Orders table. In either case, the transaction releases its
+    locks only when it is committed or rolled back. Thus, if the user spends a lot of time reading orders and very little time
+    updating, deleting, or inserting them, the transaction could easily lock a large number of rows, making them unavailable to
+    other users.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Note that this is a problem even if the cursor is read-only and the
+    application only allows the user to read existing orders. In this case, the application commits the transaction&#8212;and
+    releases locks&#8212;when it calls <b>SQLCloseCursor</b> (in auto-commit mode) or <b>SQLEndTran</b> (in manual-commit
+    mode).</font></p>
+</body>
+</html>

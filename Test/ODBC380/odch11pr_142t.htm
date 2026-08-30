@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Rowset Size</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcrowset_size"></a>Rowset Size</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Which rowset size to use depends on the application. Screen-based
+    applications commonly follow one of two strategies. The first is to set the rowset size to the number of rows displayed on
+    the screen; if the user resizes the screen, the application changes the rowset size accordingly. The second is to set the
+    rowset size to a larger number, such as 100, which reduces the number of calls to the data source. The application scrolls
+    locally within the rowset when possible and fetches new rows only when it scrolls outside the rowset.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Other applications, such as reports, tend to set the rowset size to the
+    largest number of rows the application can reasonably handle&#8212;with a larger rowset, the network overhead per row is
+    sometimes reduced. Exactly how large a rowset can be depends on the size of each row and the amount of memory
+    available.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Rowset size is set by a call to <b>SQLSetStmtAttr</b> with an
+    <i>Attribute</i> argument of SQL_ATTR_ROW_ARRAY_SIZE. The application can change the rowset size, bind new rowset buffers
+    (by calling <b>SQLBindCol</b> or specifying a binding offset) even after rows have been fetched, or both. The implications
+    of changing the rowset size depend on the function:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>SQLFetch</b> and <b>SQLFetchScroll</b> use the rowset size at
+        the time of the call to determine how many rows to fetch. Note, however, that <b>SQLFetchScroll</b> with a
+        <i>FetchOrientation</i> of SQL_FETCH_NEXT increments the cursor based on the rowset of the previous fetch, and then
+        fetches a rowset based on the current rowset size.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>SQLSetPos</b> uses the rowset size that is in effect as of the
+        preceding call to <b>SQLFetch</b> or <b>SQLFetchScroll</b>, because <b>SQLSetPos</b> operates on a rowset that has
+        already been set. <b>SQLSetPos</b> also will pick up the new rowset size if <b>SQLBulkOperations</b> has been called
+        after the rowset size was changed.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>SQLBulkOperations</b> uses the rowset size in effect at the time
+        of the call, because it performs operations on a table independent of any fetched rowset.</font></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Binding Parameters by Name (Named Parameters)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcbinding_parameters_by_name__named_parameters_"></a>Binding
+    Parameters by Name (Named Parameters)</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Certain DBMSs allow an application to specify the parameters to a stored
+    procedure by name, instead of by position in the procedure call. Such parameters are called <i>named parameters</i>. ODBC
+    supports the use of named parameters. In ODBC, named parameters are used only in calls to stored procedures, and cannot be
+    used in other SQL statements.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The driver checks the value of the SQL_DESC_UNNAMED field of the IPD to
+    determine whether named parameters are used. If SQL_DESC_UNNAMED is not set to SQL_UNNAMED, the driver uses the name in the
+    SQL_DESC_NAME field of the IPD to identify the parameter. To bind the parameter, an application can call
+    <b>SQLBindParameter</b> to specify the parameter information, and then call <b>SQLSetDescField</b> to set the SQL_DESC_NAME
+    field of the IPD. When named parameters are used, the order of the parameter in the procedure call is not important, and
+    the parameter&#8217;s record number is ignored.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The difference between unnamed parameters and named parameters is in the
+    relationship between the record number of the descriptor and the parameter number in the procedure. When unnamed parameters
+    are used, the first parameter marker is related to the first record in the parameter descriptor, which in turn is related
+    to the first parameter (in creation order) in the procedure call. When named parameters are used, the first parameter
+    marker is still related to the first record of the parameter descriptor, but the relationship between the record number of
+    the descriptor and the parameter number in the procedure does not exist anymore. Named parameters do not use the mapping of
+    the descriptor record number to the procedure parameter position; it is replaced by the mapping of the descriptor record
+    name to the procedure parameter name.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>If automatic population of
+    the IPD is enabled, the driver will populate the descriptor such that the order of the descriptor records will match the
+    order of the parameters in the procedure definition, even if named parameters are used.</font></p>
+
+    <p>If a named parameter is used, all parameters must be named parameters. If any parameter is not a named parameter, then
+    all parameters must not be named parameters. If there were a mixture of named parameters and unnamed parameters, the
+    behavior would be driver-dependent.</p>
+
+    <p>As an example of named parameters, suppose a SQL Server stored procedure has been defined as follows:</p>
+    <pre>
+<code>CREATE PROCEDURE test @title_id int = 1, @quote char(30) AS &lt;blah&gt;
+</code>
+</pre>
+
+    <p>In this procedure, the first parameter, @title_id, has a default value of 1. An application can use the following code
+    to invoke this procedure such that it specifies only one dynamic parameter. This parameter is a named parameter with the
+    name &#8220;@quote&#8221;.</p>
+    <pre>
+<code>// prepare the procedure invocation statement.
+SQLPrepare(hstmt, "{call test(?)}", SQL_NTS);
+
+// populate record 1 of ipd.
+SQLBindParameter(hstmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_CHAR, 
+       30, 0, szQuote, 0, &amp;cbValue);
+
+// get ipd handle and set the SQL_DESC_NAMED and SQL_DESC_UNNAMED fields for record #1.
+SQLGetStmtAttr(hstmt, SQL_ATTR_IMP_PARAM_DESC, &amp;hIpd, 0, 0);
+SQLSetDescField(hIpd, 1, SQL_DESC_NAME, "@quote", SQL_NTS);
+SQLSetDescField(hIpd, 1, SQL_DESC_UNNAMED, SQL_NAMED, 0);
+
+// assuming that szQuote has been appropriately initialized, 
+// execute
+SQLExecute(hstmt);
+</code>
+</pre>
+</body>
+</html>

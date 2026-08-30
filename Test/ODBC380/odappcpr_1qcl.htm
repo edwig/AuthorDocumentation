@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Scalar Function Escape Sequence</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcscalar_function_escape_sequence"></a>Scalar Function
+    Escape Sequence</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC uses escape sequences for scalar functions. The syntax of this
+    escape sequence is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{fn</b> <i>scalar-function</i><b>}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-scalar-function-escape</i> ::=<br>
+    &nbsp; <i>ODBC-esc-initiator</i> fn <i>scalar-function ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>scalar-function</i> ::= <i>function-name</i>
+    (<i>argument-list</i>)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">(The definitions for the non-terminals <i>function-name</i> and
+    <i>function-name</i> (<i>argument-list</i>) are derived from the list of scalar functions in Appendix E, &#8220;Scalar
+    Functions.&#8221;)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine if the data source supports procedures and the driver
+    supports the ODBC procedure invocation syntax, an application can call <b>SQLGetInfo</b>. For more information, see
+    Appendix E, &#8220;<a href="odappepr_3wc3.htm">Scalar Functions</a>.&#8221;</font></p>
+</body>
+</html>

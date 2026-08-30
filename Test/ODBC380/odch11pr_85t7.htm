@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Scrolling by Bookmark</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcscrolling_by_bookmark"></a>Scrolling by
+    Bookmark</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When fetching rows with <b>SQLFetchScroll</b>, an application can use a
+    bookmark as a basis for selecting the starting row. This is a form of absolute addressing because it does not depend on the
+    current cursor position. To scroll to a bookmarked row, the application calls <b>SQLFetchScroll</b> with a
+    <i>FetchOrientation</i> of SQL_FETCH_BOOKMARK. This operation uses the bookmark pointed to by the
+    SQL_ATTR_FETCH_BOOKMARK_PTR statement attribute. It returns the rowset starting with the row identified by that bookmark.
+    An application can specify an offset for this operation in the <i>FetchOffset</i> argument of the call to
+    <b>SQLFetchScroll</b>. When an offset is specified, the first row of the returned rowset is determined by adding the number
+    in the <i>FetchOffset</i> argument to the number of the row identified by the bookmark. This use of the <i>FetchOffset</i>
+    argument is not supported when used with ODBC 2.<i>x</i> drivers; when an application calls <b>SQLFetchScroll</b> in an
+    ODBC 2.<i>x</i> driver with <i>FetchOrientation</i> set to SQL_FETCH_BOOKMARK, the <i>FetchOffset</i> argument must be set
+    to 0.</font></p>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Transaction Isolation Levels</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbctransaction_isolation_levels"></a>Transaction Isolation
+    Levels</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>Transaction isolation levels</i> are a measure of the extent to which
+    transaction isolation succeeds. In particular, transaction isolation levels are defined by the presence or absence of the
+    following phenomena:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Dirty Reads</b>. A <i>dirty read</i> occurs when a transaction
+        reads data that has not yet been committed. For example, suppose transaction 1 updates a row. Transaction 2 reads the
+        updated row before transaction 1 commits the update. If transaction 1 rolls back the change, transaction 2 will have
+        read data that is considered never to have existed.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Nonrepeatable Reads</b>. A <i>nonrepeatable read</i> occurs when
+        a transaction reads the same row twice but gets different data each time. For example, suppose transaction 1 reads a
+        row. Transaction 2 updates or deletes that row and commits the update or delete. If transaction 1 rereads the row, it
+        retrieves different row values or discovers that the row has been deleted.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Phantoms</b>. A <i>phantom</i> is a row that matches the search
+        criteria but is not initially seen. For example, suppose transaction 1 reads a set of rows that satisfy some search
+        criteria. Transaction 2 generates a new row (either through an update or insert) that matches the search criteria for
+        transaction 1. If transaction 1 reexecutes the statement that reads the rows, it gets a different set of
+        rows.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The four transaction isolation levels (as defined by SQL-92) are defined
+    in terms of these phenomena. In the following table, an &#8220;X&#8221; marks each phenomenon that can occur:</font></p>
+
+    <table border="1" cellpadding="5" cols="4" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="33%"><b>Transaction isolation level</b></td>
+
+            <td class="label" width="19%"><b>Dirty<br>
+            reads</b></td>
+
+            <td class="label" width="29%"><b><br>
+            Nonrepeatable reads</b></td>
+
+            <td class="label" width="19%"><b><br>
+            Phantoms</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="33%">Read uncommitted</td>
+
+            <td width="19%">X</td>
+
+            <td width="29%">X</td>
+
+            <td width="19%">X</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="33%">Read committed</td>
+
+            <td width="19%">--</td>
+
+            <td width="29%">X</td>
+
+            <td width="19%">X</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="33%">Repeatable read</td>
+
+            <td width="19%">--</td>
+
+            <td width="29%">--</td>
+
+            <td width="19%">X</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="33%">Serializable</td>
+
+            <td width="19%">--</td>
+
+            <td width="29%">--</td>
+
+            <td width="19%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table describes simple ways that a DBMS might implement
+    the transaction isolation levels.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Important&nbsp;&nbsp;&nbsp;</b>Most DBMSs use more
+    complex schemes than these to increase concurrency. These examples are provided for illustrative purposes only. In
+    particular, ODBC does not prescribe how particular DBMSs isolate transactions from each other.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="25%"><b>Transaction isolation</b></td>
+
+            <td class="label" width="75%"><b>Possible implementation</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">Read uncommitted</td>
+
+            <td width="75%">Transactions are not isolated from each other. If the DBMS supports other transaction isolation
+            levels, it ignores whatever mechanism it uses to implement those levels. So that they do not adversely affect other
+            transactions, transactions running at the Read Uncommitted level are usually read-only.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">Read committed</td>
+
+            <td width="75%">
+                The transaction waits until rows write-locked by other transactions are unlocked; this prevents it from reading
+                any &#8220;dirty&#8221; data.
+
+                <p>The transaction holds a read lock (if it only reads the row) or write lock (if it updates or deletes the
+                row) on the current row to prevent other transactions from updating or deleting it. The transaction releases
+                read locks when it moves off the current row. It holds write locks until it is committed or rolled back.</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">
+                <p>Repeatable read</p>
+            </td>
+
+            <td width="75%">
+                The transaction waits until rows write-locked by other transactions are unlocked; this prevents it from reading
+                any &#8220;dirty&#8221; data.
+
+                <p>The transaction holds read locks on all rows it returns to the application and write locks on all rows it
+                inserts, updates, or deletes. For example, if the transaction includes the SQL statement <b>SELECT * FROM
+                Orders</b>, the transaction read-locks rows as the application fetches them. If the transaction includes the
+                SQL statement <b>DELETE FROM Orders WHERE Status = 'CLOSED'</b>, the transaction write-locks rows as it deletes
+                them.</p>
+
+                <p>Because other transactions cannot update or delete these rows, the current transaction avoids any
+                nonrepeatable reads. The transaction releases its locks when it is committed or rolled back.</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">Serializable</td>
+
+            <td width="75%">
+                The transaction waits until rows write-locked by other transactions are unlocked; this prevents it from reading
+                any &#8220;dirty&#8221; data.
+
+                <p>The transaction holds a read lock (if it only reads rows) or write lock (if it can update or delete rows) on
+                the range of rows it affects. For example, if the transaction includes the SQL statement <b>SELECT * FROM
+                Orders</b>, the range is the entire Orders table; the transaction read-locks the table and does not allow any
+                new rows to be inserted into it. If the transaction includes the SQL statement <b>DELETE FROM Orders WHERE
+                Status = 'CLOSED'</b>, the range is all rows with a Status of &#8220;CLOSED&#8221;; the transaction write-locks
+                all rows in the Orders table with a Status of &#8220;CLOSED&#8221; and does not allow any rows to be inserted
+                or updated such that the resulting row has a Status of &#8220;CLOSED&#8221;.</p>
+
+                <p>Because other transactions cannot update or delete the rows in the range, the current transaction avoids any
+                nonrepeatable reads. Because other transactions cannot insert any rows in the range, the current transaction
+                avoids any phantoms. The transaction releases its lock when it is committed or rolled back.</p>
+            </td>
+        </tr>
+    </table><br>
+
+    <p>It is important to note that the transaction isolation level does not affect a transaction&#8217;s ability to see its
+    own changes; transactions can always see any changes they make. For example, a transaction might consist of two
+    <b>UPDATE</b> statements, the first of which raises the pay of all employees by 10 percent and the second of which sets the
+    pay of any employees over some maximum amount to that amount. This succeeds as a single transaction only because the second
+    <b>UPDATE</b> statement can see the results of the first.</p>
+</body>
+</html>

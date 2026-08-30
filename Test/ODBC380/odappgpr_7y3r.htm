@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLSetParam Mapping</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlsetparam_mapping"></a>SQLSetParam Mapping</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLSetParam</b> continues to be mapped on top of
+    <b>SQLBindParameter</b> as in ODBC 2.<i>x</i>. Even though it is conceptually similar to <b>SQLBindParam</b>, the Driver
+    Manager does not map <b>SQLSetParam</b> to <b>SQLBindParam</b>. This is because certain existing ODBC 2.<i>x</i> drivers
+    use the special value of <i>BufferLength</i> (SQL_SETPARAM_VALUE_MAX) that the Driver Manager generates when it maps
+    <b>SQLSetParam</b> on top of <b>SQLBindParameter</b> to determine when it is called by a 1.<i>x</i> ODBC
+    application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A call to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLSetParam(hstmt, ipar, fCType, fSqlType, cbColDef, ibScale, rgbValue, pcbValue)
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">will result in:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLBindParameter(StatementHandle, ParameterNumber, SQL_PARAM_INPUT_OUTPUT, ValueType,                  ParameterType, ColumnSize, DecimalDigits, ParameterValuePtr,                     SQL_SETPARAM_VALUE_MAX, StrLen_or_IndPtr)
+</code></font>
+</pre>
+</body>
+</html>

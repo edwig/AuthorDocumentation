@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>What Cursor Demo Demonstrates</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbcwhat_cursor_demo_demonstrates"></a></sup>What Cursor
+    Demo Demonstrates</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Cursor Demo takes advantage of the block cursor, scrolling, positioned
+    update, and delete capabilities of the ODBC Cursor Library. For more information about the ODBC Cursor Library, see the
+    <i>Microsoft ODBC Programmer&#8217;s Reference</i>.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Features</font></h2>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Scrollable Result Set Windows</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This feature provides a scrolling window over a result set. Individual
+    rows in the result set can be selected and updated, if the data source supports positioned updates. Result sets can be
+    generated either by queries or by activating the ODBC functions that return a result set, such as
+    <b>SQLTables</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Each <b>Results</b> window is an MDI child window of the
+    <b>Connection</b> window in which the operation was performed. This means that disconnecting from a <b>Connection</b>
+    window closes all <b>Results</b> windows created from that <b>Connection</b> window.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Statement Options Dialog Box</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Optional run modes are configurable with the <b>Stmt</b> menu&#8217;s
+    <b>Options</b> command. The <b>Options</b> dialog box is dynamic. Selecting an option changes the dialog box configuration
+    to match the requirements of the option.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Multithreaded Support for Windows NT</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Cursor Demo supports multithreading under Windows NT when compiled with
+    the "thread" option. For more information about compiling with the "thread" option, see "<a href="odbcsmpl_9ga7.htm">How to
+    Build Cursor Demo</a>," later in this file.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Limitations</font></h2>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">One Active Connection Window</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Cursor Demo can open only single connections. If the driver has the
+    capability, Cursor Demo will support multiple statements over the connection.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Number of Rows Fetched and Rowset Size</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The maximum number of rows Cursor Demo displays is set using the
+    <b>Stmt</b> menu&#8217;s <b>Options</b> command. The <b>Rowset Size</b> option defaults to 10; the maximum is
+    65500.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Simplistic Memory Management</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Cursor Demo does not handle out-of-memory conditions very gracefully.
+    Make sure you have sufficient memory to run the program and load your data.</font></p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Driver Guidelines for Backward Compatibility</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdriver_guidelines_for_backward_compatibility"></a>Overview
+    of Driver Guidelines for Backward Compatibility</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This appendix provides information for driver writers working on ODBC
+    3.<i>x</i> drivers that need to support ODBC 2.<i>x</i> applications. Changes between ODBC 2.<i>x</i> and ODBC 3.<i>x</i>
+    fall into three categories; for more information about these categories, see &#8220;<a href="odch17pr_0m1x.htm">Backward
+    Compatibility and Standards Compliance</a>&#8221; in Chapter 17, &#8220;Programming Considerations.&#8221;</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>New Features</b>. New features are features that exist in ODBC
+        3.<i>x</i> and not in ODBC 2.<i>x</i>. ODBC 3.<i>x</i> drivers generally do not have to worry about backward
+        compatibility with new features because ODBC 2.<i>x</i> applications never use it. The sole exception to this is
+        features related to <b>SQLFetch</b>, <b>SQLFetchScroll</b>, <b>SQLSetPos</b>, and <b>SQLExtendedFetch</b>; for more
+        information, see &#8220;<a href="odappgpr_5drt.htm">Block Cursors, Scrollable Cursors, and Backward
+        Compatibility</a>,&#8221; later in this appendix.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Duplicated Features</b>. Duplicated features are features that
+        are implemented differently in ODBC 3.<i>x</i> and ODBC 2.<i>x</i>. ODBC 3.<i>x</i> drivers do not have to worry about
+        backward compatibility with duplicated features because the Driver Manager always maps ODBC 2.<i>x</i> features to ODBC
+        3.<i>x</i> features when calling an ODBC 3.<i>x</i> driver. Thus, an ODBC 3.<i>x</i> driver sees only ODBC 3.<i>x</i>
+        features. For more information about these mappings, see &#8220;<a href="odappgpr_9rlf.htm">Mapping Deprecated
+        Functions</a>,&#8221; later in this appendix.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Behavioral Changes</b>. Behavior changes are features that are
+        handled differently in ODBC 3.<i>x</i> and ODBC 2.<i>x</i>. ODBC 3.<i>x</i> drivers have to worry about behavior
+        changes and act in response to the SQL_ATTR_ODBC_VERSION environment attribute set by the application. For more
+        information, see &#8220;<a href="odappgpr_12lv.htm">Behavioral Changes and ODBC 3.x Drivers</a>,&#8221; later in this
+        appendix.</font></li>
+    </ul>
+</body>
+</html>

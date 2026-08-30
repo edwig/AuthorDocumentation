@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLBindParam Mapping</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlbindparam_mapping"></a>SQLBindParam Mapping</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLBindParam</b> cannot truly be called deprecated because it was
+    never there in ODBC; however, it does still represent duplicated functionality, since the Driver Manager needs to export it
+    because ISO and X/Open&nbsp;&#8211;&nbsp;compliant applications will be using it. Because <b>SQLBindParameter</b> contains
+    all the functionality of <b>SQLBindParam</b>, <b>SQLBindParam</b> will be mapped on top of <b>SQLBindParameter</b> (when
+    the underlying driver is an ODBC 3.x driver). An ODBC 3.x driver does not need to implement <b>SQLBindParam</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When the following call to <b>SQLBindParam</b> is made:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLBindParam(StatementHandle, ParameterNumber, ValueType, ParameterType, ColumnSize,              DecimalDigits, ParameterValuePtr, StrLen_or_IndPtr)
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">the Driver Manager calls <b>SQLBindParameter</b> in the driver as
+    follows:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLBindParameter(StatementHandle, ParameterNumber, SQL_PARAM_INPUT, ValueType,                     ParameterType, ColumnSize, DecimalDigits, ParameterValuePtr,                     BufferLength, StrLen_or_IndPtr)
+</code></font>
+</pre>
+</body>
+</html>

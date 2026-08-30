@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Scrolling and Fetching Rows</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcscrolling_and_fetching_rows"></a>Scrolling and Fetching
+    Rows</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When using a scrollable cursor, applications call <b>SQLFetchScroll</b>
+    to position the cursor and fetch rows. <b>SQLFetchScroll</b> supports relative scrolling (next, prior, and relative
+    <i>n</i> rows), absolute scrolling (first, last, and row <i>n</i>), and positioning by bookmark. The
+    <i>FetchOrientation</i> and <i>FetchOffset</i> arguments in <b>SQLFetchScroll</b> specify which rowset to fetch, as shown
+    in the following diagrams.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr20_2.gif" border="0"></font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Fetching next, prior, first, and last
+    rowsets</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="pr20_1.gif" border="0"></font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Fetching absolute, relative, and bookmarked
+    rowsets</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLFetchScroll</b> positions the cursor to the specified row and
+    returns the rows in the rowset starting with that row. If the specified rowset overlaps the end of the result set, a
+    partial rowset is returned. If the specified rowset overlaps the start of the result set, the first rowset in the result
+    set is usually returned; for complete details, see the <a href="odch21epr_5m24.htm">SQLFetchScroll</a> function
+    description.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In some cases, the application may want to position the cursor without
+    retrieving any data. For example, it might want to test whether a row exists or just get the bookmark for the row without
+    bringing other data across the network. To do this, it sets the SQL_ATTR_RETRIEVE_DATA statement attribute to SQL_RD_OFF.
+    Note that the variable bound to the bookmark column (if any) is always updated, regardless of the setting of this statement
+    attribute.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">After the rowset has been retrieved, the application can call
+    <b>SQLSetPos</b> to position to a particular row in the rowset or refresh rows in the rowset. For more information on using
+    <b>SQLSetPos</b>, see &#8220;<a href="odch12pr_7q2b.htm">Updating Data with SQLSetPos</a>&#8221; in Chapter 12,
+    &#8220;Updating Data.&#8221;</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Scrolling is supported in
+    ODBC 2.<i>x</i> drivers by <b>SQLExtendedFetch</b>. For more information, see &#8220;Block Cursors, Scrollable Cursors, and
+    Backward Compatibility&#8221; in Appendix G, &#8220;<a href="odappgpr_6u0p.htm">Driver Guidelines for Backward
+    Compatibility.</a>&#8221;</font></p>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Converting Data from SQL to C Data Types</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconverting_data_from_sql_to_c_data_types"></a>Converting
+    Data from SQL to C Data Types</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an application calls <b>SQLFetch</b>, <b>SQLFetchScroll</b>, or
+    <b>SQLGetData</b>, the driver retrieves the data from the data source. If necessary, it converts the data from the data
+    type in which the driver retrieved it to the data type specified by the <i>TargetType</i> argument in <b>SQLBindCol</b> or
+    <b>SQLGetData.</b> Finally, it stores the data in the location pointed to by the <i>TargetValuePtr</i> argument in
+    <b>SQLBindCol</b> or <b>SQLGetData</b> (and the SQL_DESC_DATA_PTR field of the ARD).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table shows the supported conversions from ODBC SQL data
+    types to ODBC C data types. A filled circle indicates the default conversion for an SQL data type (the C data type to which
+    the data will be converted when the value of <i>TargetType</i> is SQL_C_DEFAULT). A hollow circle indicates a supported
+    conversion.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For an ODBC 3.x application working with an ODBC 2.<i>x</i> driver,
+    conversion from driver-specific data types may not be supported.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The format of the converted data is not affected by the Windows country
+    setting.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><img src="apd1a.gif" border="0"></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The tables in the following sections describe how the driver or data
+    source converts data retrieved from the data source; drivers are required to support conversions to all ODBC C data types
+    from the ODBC SQL data types that they support. For a given ODBC SQL data type, the first column of the table lists the
+    legal input values of the <i>TargetType</i> argument in <b>SQLBindCol</b> and <b>SQLGetData</b>. The second column lists
+    the outcomes of a test, often using the <i>BufferLength</i> argument specified in <b>SQLBindCol</b> or <b>SQLGetData</b>,
+    which the driver performs to determine if it can convert the data. For each outcome, the third and fourth columns list the
+    values placed in the buffers specified by the <i>TargetValuePtr</i> and <i>StrLen_or_IndPtr</i> arguments specified in
+    <b>SQLBindCol</b> or <b>SQLGetData</b> after the driver has attempted to convert the data. (The <i>StrLen_or_IndPtr</i>
+    argument corresponds to the SQL_DESC_OCTET_LENGTH_PTR field of the ARD.) The last column lists the SQLSTATE returned for
+    each outcome by <b>SQLFetch</b>, <b>SQLFetchScroll</b>, or <b>SQLGetData</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the <i>TargetType</i> argument in <b>SQLBindCol</b> or
+    <b>SQLGetData</b> contains an identifier for an ODBC C data type not shown in the table for a given ODBC SQL data type,
+    <b>SQLFetch</b>, <b>SQLFetchScroll</b>, or <b>SQLGetData</b> returns SQLSTATE 07006 (Restricted data type attribute
+    violation). If the <i>TargetType</i> argument contains an identifier that specifies a conversion from a driver-specific SQL
+    data type to an ODBC C data type and this conversion is not supported by the driver, <b>SQLFetch</b>,
+    <b>SQLFetchScroll</b>, or <b>SQLGetData</b> returns SQLSTATE HYC00 (Optional feature not implemented).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Though it is not shown in the tables, the driver returns SQL_NULL_DATA
+    in the buffer specified by the <i>StrLen_or_IndPtr</i> argument when the SQL data value is NULL. For an explanation of the
+    use of <i>StrLen_or_IndPtr</i> when multiple calls are made to retrieve data, see the <a href=
+    "odch21gpr_682p.htm">SQLGetData</a> function description. When SQL data is converted to character C data, the character
+    count returned in *<i>StrLen_or_IndPtr</i> does not include the null-termination byte. If <i>TargetValuePtr</i> is a null
+    pointer, <b>SQLGetData</b> returns SQLSTATE HY009 (Invalid use of null pointer); in <b>SQLBindCol</b>, this unbinds the
+    column.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following terms and conventions are used in the tables:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Byte length of data</b> is the number of bytes of C data
+        available to return in *<i>TargetValuePtr</i>, regardless of whether the data will be truncated before it is returned
+        to the application. For string data, this does not include the space for the null-termination character.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Character byte length</b> is the total number of bytes needed to
+        display the data in character format. This is as defined for each C data type in the section &#8220;<a href=
+        "odappdpr_5x0l.htm">Display Size</a>&#8221; earlier in this appendix, except character byte length is in bytes, while
+        the display size is in characters.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Words in <i>italics</i> represent function arguments or elements of
+        the SQL grammar. For the syntax of grammar elements, see Appendix C, &#8220;<a href="odappcpr_0mcy.htm">SQL
+        Grammar</a>.&#8221;</font></li>
+    </ul>
+</body>
+</html>

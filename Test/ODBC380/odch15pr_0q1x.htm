@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>DBMS-Based Driver Diagnostic Example</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdbms_based_driver_diagnostic_example"></a>DBMS-Based
+    Driver Diagnostic Example</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A DBMS-based driver sends requests to a DBMS and returns information to
+    the application through the Driver Manager. Because the driver is the component that interfaces with the Driver Manager, it
+    formats and returns arguments for <b>SQLGetDiagRec</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, if a Microsoft driver for DEC&#8217;s Rdb using
+    SQL/Services encountered an invalid cursor name, it might return the following values from <b>SQLGetDiagRec</b>:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLSTATE:   "34000"
+Native Error: 0
+Diagnostic Msg: "[Microsoft][ODBC Rdb Driver]Invalid cursor name: EMPLOYEE_CURSOR."
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the error occurred in the driver, it added prefixes to the
+    diagnostic message for the vendor ([Microsoft]) and the driver ([ODBC Rdb Driver]).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the DBMS could not find the table EMPLOYEE, the driver might format
+    and return the following values from <b>SQLGetDiagRec</b>:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLSTATE:   "42S02"
+Native Error: -1
+Diagnostic Msg: "[Microsoft][ODBC Rdb Driver][Rdb] %SQL-F-RELNOTDEF, Table EMPLOYEE "
+      "is not defined in schema."
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the error occurred in the data source, the driver added a prefix
+    for the data source identifier ([Rdb]) to the diagnostic message. Because the driver was the component that interfaced with
+    the data source, it added prefixes for its vendor ([Microsoft]) and identifier ([ODBC Rdb Driver]) to the diagnostic
+    message.</font></p>
+</body>
+</html>

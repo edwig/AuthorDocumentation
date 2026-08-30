@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>DDL Statements</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcddl_statements"></a>DDL Statements</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Data Definition Language (DDL) statements vary tremendously among DBMSs.
+    ODBC SQL defines statements for the most common data definition operations: creating and dropping tables, indexes, and
+    views; altering tables; and granting and revoking privileges. All other DDL statements are data source&#8211;specific.
+    Thus, interoperable applications cannot perform some data definition operations. In general, this is not a problem, because
+    such operations tend to be highly DBMS-specific and are best left to the proprietary database administration software
+    shipped with most DBMSs or the setup program shipped with the driver.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Another problem in data definition is that data type names also vary
+    tremendously among DBMSs. Rather than defining standard data type names and forcing drivers to convert them to
+    DBMS-specific names, <b>SQLGetTypeInfo</b> provides a way for applications to discover DBMS-specific data type names.
+    Interoperable applications should use these names in SQL statements to create and alter tables; the names listed in
+    Appendix C, &#8220;<a href="odappcpr_0mcy.htm">SQL Grammar</a>,&#8221; and Appendix D, &#8220;<a href=
+    "odappdpr_8kab.htm">Data Types</a>,&#8221; are examples only.</font></p>
+</body>
+</html>

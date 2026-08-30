@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLInstallTranslator Mapping</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlinstalltranslator_mapping"></a>SQLInstallTranslator
+    Mapping</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an ODBC 2.<i>x</i> application calls <b>SQLInstallTranslator</b>
+    through an ODBC 3.x driver, the Driver Manager maps the call to <b>SQLInstallTranslatorEx</b>. An application should not
+    call <b>SQLInstallTranslator</b> in the ODBC 3.x Driver Manager with the <i>lpszInfFile</i> argument set to a value other
+    than NULL. The ODBC.INF file used in ODBC 2.<i>x</i> is no longer supported in ODBC 3.x, even for backward
+    compatibility.</font></p>
+</body>
+</html>

@@ -1,0 +1,105 @@
+Spelling algorithme
+===================
+
+A) Specify underline style object
+---------------------------------
+1) Get IHTMLDocument2 -> IHTMLDocument4
+2) IHTMLDocument4->CreateRenderStyle(NULL,&IHTMLRenderStyle)
+3) Set the render style to your style
+   IHTMLRenderStyle->put_textDecoration(L"underline");
+   IHTMLRenderStyle->put_textUnderlineStyle(L"wave");
+   IHTMLRenderStyle->put_textDecorationColor(L"red");
+Keep the object in the HTMLEdView or in MainFrm.
+
+B) Iterate through the text
+---------------------------
+1) Create a IHTMLSelectionObject from doc.
+   IHTMLDocument2->get_selection(&IHTMLSelectionObject);
+2) Create a txtRange from the selection object
+   IHTMLSelectionObject->createRange(&IHTMLTxtRange);
+3) For all IHTMLElements in the document body
+       Place TxtRange at the text
+       IHTMLTxtRange->MoveToElementText(IHTMLElement);
+       both ends at the start of myself
+       IHTMLTxtRange->setEndPoint("EndToStart",IHTMLTxtRange) 
+       move end 1 word foreward
+       IHTMLTxtRange->moveEnd("word",1,&actual)
+
+       do while text
+          IHTMLTxtRange->get_text(&CComBSTR)
+          CHECK SPELLING of CComBSTR
+          if not correct -> MarkupFunction(IHTMLTxtRange) -> C
+          move begin and end 1 word
+          IHTMLTxtRange->moveEnd  ("word",1,&actual)
+          IHTMLTxtRange->moveStart("word",1,&actual)
+       end
+
+C) MarkupFunction a IHTMLTxtRange as underlined
+-----------------------------------------------
+1) Get the display services
+   IHTMLDocument2->QueryInterface(&IID_IDisplayServices)
+2) Get two display pointers
+   IDisplayServices->CreateDisplayPointer(&IDisplayPointer_left)
+   IDisplayServices->CreateDisplayPointer(&IDisplayPointer_right)
+3) Get the markup services
+   IHTMLDocument2->QueryInterface(&IID_IMarkupServices)
+4) Create 2 IMarkupPointers
+   IMarkupServices->CreateMarkupPointer(&IMarkupPointer_left)
+   IMarkupServices->CreateMarkupPointer(&IMarkupPointer_right)
+5) Set the markup pointers to the TxtRange
+   IMarkupServices->MovePointersToRange
+                    (IHTMLTxtRange         // Comes from B)
+                    ,IMarkupPointer_left
+                    ,IMarkupPOinter_right)
+5) Associate the markup pointers with the display pointers
+   IDisplayPointer_left ->MoveToMarkupPointer(IMarkupPointer_left)
+   IDisplayPointer_right->MoveToMarkupPointer(IMarkupPointer_right)
+6) Get the IHighlightRenderingServices
+   IHTMLDocument2->QueryInterface(&IID_IHiglightRenderingServices)
+7) Create a IHighlightSegment
+   IHighlightRenderingServices->AddSegment
+                (IDisplayPointer_left
+                ,IDisplayPointer_right
+                ,IRenderStyle             // Comes from A)
+                ,&IHighlightSegment)
+8) This segment is kept as a marker to be later erased from the document
+   Segment should be kept in a map or a vector.
+   (misspelled word) / IHighLightSegment
+
+D) Add the add of a word
+------------------------
+1) Loop through the map/vector
+   if (misspelled word) is added to dictionary
+      - Remove from map
+      - Erase spelling segment -> E
+
+E) Erase a spelling segment
+---------------------------
+1) Take a IHighlightSegment
+2) Find the IHighLightRenderingServices
+   IHTMLDocument2->QueryInterface(&IID_IHiglightRenderingServices)
+3) Remove the segment
+   IHighlightRenderingServices->RemoveSegment(IHighlightSegment)
+4) Drop the segment from your map and release it
+
+D) Dictionary file
+------------------
+It's just a txt file with all the words sorted out
+
+aard
+aardvark
+....
+beta
+...
+zwoerd
+
+The file is read-in sequentially and parsed into a data structure 
+along with the 'soundex' value (See D.Knuth). Words are primarily
+found by their soundex value as in "multimap<soundex,string>
+
+
+0100100110101011
+0100000110101011
+---------------- -
+0000100000000000 >>= 1
+

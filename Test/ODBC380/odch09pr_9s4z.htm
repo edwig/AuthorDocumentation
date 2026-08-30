@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>When to Use Procedures</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcwhen_to_use_procedures"></a>When to Use
+    Procedures</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There are a number of advantages to using procedures, all based on the
+    fact that using procedures moves SQL statements from the application to the data source. What is left in the application is
+    an interoperable procedure call. These advantages include:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Performance</b>. Procedures are usually the fastest way to
+        execute SQL statements. Like prepared execution, the statement is compiled and executed in two separate steps. Unlike
+        prepared execution, procedures are executed only at run time. They are compiled at a different time.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Business rules</b>. A <i>business rule</i> is a rule about the
+        way in which a company does business. For example, only someone with the title Sales Person might be allowed to add new
+        sales orders. Placing these rules in procedures allows individual companies to customize vertical applications by
+        rewriting the procedures called by the application without having to modify the application code. For example, an order
+        entry application might call the procedure InsertOrder with a fixed number of parameters; exactly how InsertOrder is
+        implemented can vary from company to company.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Replaceability</b>. Closely related to placing business rules in
+        procedures is the fact that procedures can be replaced without recompiling the application. If a business rule changes
+        after a company has bought and installed an application, the company can change the procedure containing that rule.
+        From the application&#8217;s standpoint, nothing has changed; it still calls a particular procedure to accomplish a
+        particular task.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>DBMS-specific SQL</b>. Procedures provide a way for applications
+        to exploit DBMS-specific SQL and still remain interoperable. For example, a procedure on a DBMS that supports
+        control-of-flow statements in SQL might trap and recover from errors, while a procedure on a DBMS that does not support
+        control-of-flow statements might simply return an error.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Procedures survive transactions</b>. On some data sources, the
+        access plans for all prepared statements on a connection are deleted when a transaction is committed or rolled back. By
+        placing SQL statements in procedures, which are permanently stored in the data source, the statements survive the
+        transaction. Whether the procedures survive in a prepared, partially prepared, or unprepared state is
+        DBMS-specific.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Separate development</b>. Procedures can be developed separately
+        from the rest of the application. In large corporations, this might provide a way to further exploit the skills of
+        highly specialized programmers. In other words, application programmers can write user-interface code and database
+        programmers can write procedures.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Procedures are generally used by vertical and custom applications. These
+    applications tend to perform fixed tasks, and it is possible to hard-code procedure calls in them. For example, an order
+    entry application might call the procedures InsertOrder, DeleteOrder, UpdateOrder, and GetOrders.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There is little reason to call procedures from generic applications.
+    Procedures are generally written to perform a task in the context of a particular application and so have no use to generic
+    applications. For example, a spreadsheet has no reason to call the InsertOrder procedure just mentioned. Furthermore,
+    generic applications should not construct procedures at run time in hopes of providing faster statement execution; not only
+    is this likely to be slower than prepared or direct execution, it also requires DBMS-specific SQL statements.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An exception to this is application-development environments, which
+    often provide a way for programmers to build SQL statements that execute procedures and may provide a way for programmers
+    to test procedures. Such environments call <b>SQLProcedures</b> to list available procedures and <b>SQLProcedureColumns</b>
+    to list the input, input/output, and output parameters, the procedure return value, and the columns of any result sets
+    created by a procedure. However, such procedures must be developed beforehand on each data source; doing so requires
+    DBMS-specific SQL statements.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There are three major disadvantages to using procedures. The first is
+    that procedures must be written and compiled for each DBMS with which the application is to run. While this is not a
+    problem for custom applications, it can significantly increase development and maintenance time for vertical applications
+    designed to run with a number of DBMSs.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The second disadvantage is that many DBMSs do not support procedures.
+    Again, this is most likely to be a problem for vertical applications designed to run with a number of DBMSs. To determine
+    whether procedures are supported, an application calls <b>SQLGetInfo</b> with the SQL_PROCEDURES option.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The third disadvantage, which is particularly applicable to application
+    development environments, is that ODBC does not define a standard grammar for creating procedures. Thus, although
+    applications can call procedures interoperably, they cannot create them interoperably.</font></p>
+</body>
+</html>

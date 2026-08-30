@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Binding Parameter Markers</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcbinding_parameter_markers"></a>Binding Parameter
+    Markers</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application binds parameters by calling <b>SQLBindParameter</b>.
+    <b>SQLBindParameter</b> binds one parameter at a time. With it, the application specifies:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">The parameter number. Parameters are numbered in increasing
+        parameter order in the SQL statement, starting with the number 1. While it is legal to specify a parameter number that
+        is higher than there are parameters in the SQL statement, the parameter value will be ignored when the statement is
+        executed.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The parameter type (input, input/output, or output). Except for
+        parameters in procedure calls, all parameters are input parameters. For more information, see &#8220;<a href=
+        "odch09pr_7egj.htm">Procedure Parameters</a>,&#8221; later in this chapter.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The C data type, address, and byte length of the variable bound to
+        the parameter. The driver must be able to convert the data from the C data type to the SQL data type or an error is
+        returned. For a list of supported conversions, see Appendix D, &#8220;<a href="odappdpr_8kab.htm">Data
+        Types</a>.&#8221;<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The SQL data type, precision, and scale of the parameter
+        itself.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The address of a length/indicator buffer. It provides the byte
+        length of binary or character data, specifies that the data is NULL, or specifies that the data will be sent with
+        <b>SQLPutData</b>. For more information, see &#8220;<a href="odch04pr_7z5f.htm">Using Length/Indicator
+        Values</a>&#8221; in Chapter 4, &#8220;ODBC Fundamentals.&#8221;</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, the following code binds <i>SalesPerson</i> and
+    <i>CustID</i> to parameters for the SalesPerson and CustID columns. Because <i>SalesPerson</i> contains character data,
+    which is variable length, the code specifies the byte length of <i>SalesPerson</i> (11) and binds
+    <i>SalesPersonLenOrInd</i> to contain the byte length of the data in <i>SalesPerson</i>. This information is not necessary
+    for <i>CustID</i> because it contains integer data, which is of fixed length.</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLCHAR   SalesPerson[11];
+SQLINTEGER  SalesPersonLenOrInd, CustIDInd;
+SQLUINTEGER CustID;
+
+// Bind SalesPerson to the parameter for the SalesPerson column and
+// CustID to the parameter for the CustID column.
+SQLBindParameter(hstmt1, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_CHAR, 10, 0,
+       SalesPerson, sizeof(SalesPerson), &amp;SalesPersonLenOrInd);
+SQLBindParameter(hstmt1, 2, SQL_PARAM_INPUT, SQL_C_ULONG, SQL_INTEGER, 10, 0,
+       &amp;CustID, 0, &amp;CustIDInd);
+
+// Set the values of the salesperson and customer ID variables and length/indicators.
+strcpy(SalesPerson, "Garcia");
+SalesPersonLenOrInd = SQL_NTS;
+CustID = 1331;
+CustIDInd = 0;
+
+// Execute a statement to get data for all orders made to the specified
+// customer by the specified salesperson.
+SQLExecDirect(hstmt1,"SELECT * FROM Orders WHERE SalesPerson=? AND CustID=?",SQL_NTS);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When <b>SQLBindParameter</b> is called, the driver stores this
+    information in the structure for the statement. When the statement is executed, it uses the information to retrieve the
+    parameter data and send it to the data source.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>In ODBC 1.0, parameters were
+    bound with <b>SQLSetParam</b>. The Driver Manager maps calls between <b>SQLSetParam</b> and <b>SQLBindParameter</b>,
+    depending on the versions of ODBC used by the application and driver.</font></p>
+</body>
+</html>

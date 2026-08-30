@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Length of Column Data</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbclength_of_column_data"></a>Length of Column
+    Data</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The cursor library creates a buffer in the cache for each
+    length/indicator buffer bound to the result set with <b>SQLBindCol</b>. It uses the values in these buffers to construct a
+    <b>WHERE</b> clause when it emulates positioned update or delete statements. It updates these buffers from the rowset
+    buffers when it fetches data from the data source and when it executes positioned update statements.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the C type of a data buffer is SQL_C_CHAR or SQL_C_BINARY, and the
+    length/indicator value is SQL_NTS, the string length of the data is put into the length/indicator buffer.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note</b> The cursor library does not update its cache
+    for a column if *<i>StrLen_or_IndPtr</i> in the corresponding rowset buffer is SQL_DATA_AT_EXEC or the result of the
+    SQL_LEN_DATA_AT_EXEC macro.</font></p>
+</body>
+</html>

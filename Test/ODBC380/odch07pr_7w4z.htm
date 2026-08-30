@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Ordinary Arguments</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcordinary_arguments"></a>Ordinary Arguments</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When a catalog function string argument is an ordinary argument, it is
+    treated as a literal string. An ordinary argument accepts neither a string search pattern, nor a list of values. The case
+    of an ordinary argument is significant, and quote characters in the string are taken literally. These arguments are treated
+    as ordinary arguments if the SQL_ATTR_METADATA_ID statement attribute is set to SQL_FALSE; they are treated as identifier
+    arguments instead if this attribute is set to SQL_TRUE.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If an ordinary argument is set to a null pointer and the argument is a
+    required argument, the function returns SQL_ERROR and SQLSTATE HY009 (Invalid use of null pointer). If an ordinary argument
+    is set to a null pointer and the argument is not a required argument, the argument&#8217;s behavior is driver-dependent.
+    The following arguments are required arguments:</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Function</b></td>
+
+            <td class="label" width="50%"><b>Required arguments</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>SQLColumnPrivileges</b></td>
+
+            <td width="50%"><i>TableName</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>SQLForeignKeys</b></td>
+
+            <td width="50%"><i>PKTableName</i>, <i>FKTableName</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>SQLPrimaryKeys</b></td>
+
+            <td width="50%"><i>TableName</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>SQLSpecialColumns</b></td>
+
+            <td width="50%"><i>TableName</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>SQLStatistics</b></td>
+
+            <td width="50%"><i>TableName</i></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

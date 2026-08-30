@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>szLogPrintf</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="szlogprintf"></a>szLogPrintf</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Description</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>szLogPrintf</b> prints output from an auto test on the screen, in a
+    log file, or both.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>C Prototype</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>BOOL szLogPrintf</b>(<br>
+    lpSERVERINFO <i>lpServer</i>, /* Input:&nbsp; Test information */<br>
+    BOOL <i>fForce</i>, /* Input:&nbsp; Force screen output */<br>
+    LPSTR <i>szFmt</i>, /* Input:&nbsp; Format string */<br>
+    <b>...</b>); /* Input:&nbsp; Arguments for format string */</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpServer</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">The <i>lpServer</i> argument is a SERVERINFO structure
+    containing information that includes the output window handle, the log file name, and where to send output. The SERVERINFO
+    structure is defined in the AUTOTEST.H file. For information about the members of the structure, see the <i>lpServer</i>
+    argument in <b>AutoTestFunc</b>.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">When <b>AutoTestFunc</b> calls <b>szLogPrintf</b>, it
+    should pass the value of <i>lpServer</i> that was passed to it by ODBC Test.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>fForce</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">If TRUE, <b>szLogPrintf</b> writes the output to the
+    screen regardless of the <i>fScreen</i> member of the <i>lpServer</i> argument. If FALSE, <b>szLogPrintf</b> writes the
+    output to the screen only if the <i>fScreen</i> member of the <i>lpServer</i> argument is TRUE.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>szFmt</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">A null-terminated format string compatible with the
+    <b>wsprintf</b> function.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><b>...</b></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">Arguments for the format string specified in the
+    <i>szFmt</i> argument.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Return Value</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">TRUE if the function successfully logged the output; otherwise, FALSE.
+    If FALSE is returned, a message box appears that allows the user to turn off logging.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Auto tests should call this function to log all output from
+    tests.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Code Example</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">See <b>AutoTestFunc</b>.</font></p>
+</body>
+</html>

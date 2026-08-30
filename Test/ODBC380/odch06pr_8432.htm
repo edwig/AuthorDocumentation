@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Establishing a Connection</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcestablishing_a_connection"></a>Establishing a
+    Connection</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">After allocating environment and connection handles and setting any
+    connection attributes, the application is ready to connect to the data source or driver. There are three different
+    functions the application can use to do this: <b>SQLConnect</b> (Core interface conformance level), <b>SQLDriverConnect</b>
+    (Core), and <b>SQLBrowseConnect</b> (Level 1). Each of the three is designed to be used in a different scenario. Before
+    connecting, the application can determine which of these functions is supported with the <b>ConnectFunctions</b> keyword
+    returned by <b>SQLDrivers</b>.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Some drivers limit the
+    number of active connections they support. An application calls <b>SQLGetInfo</b> with the SQL_MAX_DRIVER_CONNECTIONS
+    option to determine how many active connections a particular driver supports.</font></p>
+</body>
+</html>

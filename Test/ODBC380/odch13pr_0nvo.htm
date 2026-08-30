@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Automatic Population of the IPD</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcautomatic_population_of_the_ipd"></a>Automatic Population
+    of the IPD</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some drivers are capable of setting the fields of the IPD after a
+    parameterized query has been prepared. The descriptor fields are automatically populated with information about the
+    parameter, including the data type, precision, scale, and other characteristics. This is equivalent to supporting
+    <b>SQLDescribeParam</b>. This information can be particularly valuable to an application when it has no other way to
+    discover it, such as when an ad-hoc query is performed with parameters that the application does not know about.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application determines whether the driver supports automatic
+    population by calling <b>SQLGetConnectAttr</b> with an <i>Attribute</i> of SQL_ATTR_AUTO_IPD. If SQL_TRUE is returned, the
+    driver supports it, and the application can enable it by setting the SQL_ATTR_ENABLE_AUTO_IPD statement attribute to
+    SQL_TRUE.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When automatic population is supported and enabled, the driver populates
+    the fields of the IPD after an SQL statement containing parameter markers has been prepared by a call to <b>SQLPrepare</b>.
+    An application can retrieve this information by calling <b>SQLGetDescField</b> or <b>SQLGetDescRec</b>, or
+    <b>SQLDescribeParam</b>. The application can use the information to bind the most appropriate application buffer for a
+    parameter, or to specify a data conversion for it.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Automatic population of the IPD may produce a performance penalty. An
+    application can turn it off by resetting the SQL_ATTR_ENABLE_AUTO_IPD statement attribute to SQL_FALSE (which is the
+    default value).</font></p>
+</body>
+</html>

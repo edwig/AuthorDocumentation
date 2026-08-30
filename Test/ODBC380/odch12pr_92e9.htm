@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Updating Data</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcupdating_data"></a>Overview of Updating Data</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Applications can update data either by executing SQL statements or by
+    calling <b>SQLSetPos</b> or <b>SQLBulkOperations</b>. <b>UPDATE</b>, <b>DELETE</b>, and <b>INSERT</b> statements act
+    directly on the data source and are usually supported by drivers. Searched update and delete statements contain a
+    specification of the rows to change. Positioned update and delete statements and <b>SQLSetPos</b> act on the data source
+    through a cursor and are less widely supported.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Whether cursors can detect changes made to the result set with the
+    methods described in this chapter depends on the type of the cursor and how it is implemented. Forward-only cursors do not
+    revisit rows and therefore will not detect any changes. For information about whether scrollable cursors can detect
+    changes, see &#8220;<a href="odch11pr_5er7.htm">Scrollable Cursors</a>&#8221; in Chapter 11, &#8220;Retrieving Results
+    (Advanced).&#8221;</font></p>
+</body>
+</html>

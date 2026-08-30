@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Explicitly Allocated Descriptors</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcexplicitly_allocated_descriptors"></a>Explicitly Allocated
+    Descriptors</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can explicitly allocate an application descriptor on a
+    connection at any time it is connected to the database. By specifying that descriptor handle as an attribute of a statement
+    handle using <b>SQLSetStmtAttr</b>, the application directs the driver to use that descriptor in place of the corresponding
+    implicitly allocated application descriptors. The application cannot specify alternate implementation
+    descriptors.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can associate an explicitly allocated descriptor with
+    more than one statement. Only when an application is actually connected to the database can a descriptor be an explicitly
+    allocated descriptor. The application can free such a descriptor explicitly, or implicitly by freeing its
+    connection.</font></p>
+</body>
+</html>

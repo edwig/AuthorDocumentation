@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Connection Pooling</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconnection_pooling_overview"></a>Connection
+    Pooling</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Connection pooling enables an application to use a connection from a
+    pool of connections that do not need to be re-established for each use. You can use the <b>Connection Pooling</b> tab in
+    the ODBC Administrator to alter the connection retry wait time and connection timeout period for any selected driver. You
+    can also use it to enable and disable performance monitoring.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When the ODBC Driver Manager detects that a database server is
+    unavailable, it waits for a certain amount of time before it attempts to connect again. You can adjust the waiting time by
+    setting the Retry Wait Time value in seconds in the dialog box for a specific driver. You can set the connection timeout
+    period in the same way.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For more information about connection pooling, see &#8220;<a href=
+    "odch06pr_2dev.htm">Connection Pooling</a>&#8221; in Chapter 6 of the <i>ODBC Programmer&#8217;s Reference</i>.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Performance Monitoring</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Performance monitoring tracks connection performance by recording a
+    variety of statistics. These statistics can be customized by the developer to include such items as:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">The number of connections made to data sources per second.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The number of disconnections made from data sources per second.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The number of connections to the pool per second.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The number of disconnections from the pool per second.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Connections currently active.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current number of connections being used by applications.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Connections currently free.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current number of connections available for connection
+        requests.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">You must specify your own monitoring parameters. Samples for performance
+    monitoring have been included with this version of ODBC.</font></p>
+</body>
+</html>

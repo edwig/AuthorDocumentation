@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Connection Attributes</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconnection_attributes"></a>Connection
+    Attributes</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Connection attributes are characteristics of the connection. For
+    example, because transactions occur at the connection level, the transaction isolation level is a connection attribute.
+    Similarly, the login timeout, or number of seconds to wait while trying to connect before timing out, is a connection
+    attribute.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Connection attributes are set with <b>SQLSetConnectAttr</b> and their
+    current settings retrieved with <b>SQLGetConnectAttr</b>. If <b>SQLSetConnectAttr</b> is called before the driver is
+    loaded, the Driver Manager stores the attributes in its connection structure and sets them in the driver as part of the
+    connection process. There is no requirement that an application set any connection attributes; all connection attributes
+    have defaults, some of which are driver specific.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A connection attribute can be set before or after connection, or either,
+    depending on the attribute and the driver. The login timeout (SQL_ATTR_LOGIN_TIMEOUT) applies to the connection process and
+    is effective only if set before connecting. The attributes that specify whether to use the ODBC cursor library
+    (SQL_ATTR_ODBC_CURSORS) and the network packet size (SQL_ATTR_PACKET_SIZE) must be set before connecting. The reason for
+    this is that the ODBC cursor library resides between the Driver Manager and the driver, and therefore must be loaded before
+    the driver.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The attributes to specify whether a data source is read-only or
+    read-write (SQL_ATTR_ACCESS_MODE) and the current catalog (SQL_ATTR_CURRENT_CATALOG) can be set before or after connecting,
+    depending on the driver. However, interoperable applications set them before connecting because some drivers do not support
+    changing these after connecting.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some connection attributes have a default before the connection is made,
+    while others do not. Those that do are SQL_ATTR_ACCESS_MODE, SQL_ATTR_AUTOCOMMIT, SQL_ATTR_LOGIN_TIMEOUT,
+    SQL_ATTR_ODBC_CURSORS, SQL_ATTR_TRACE, and SQL_ATTR_TRACEFILE.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The translation connection attributes (SQL_ATTR_TRANSLATE_DLL and
+    SQL_ATTR_TRANSLATE_OPTION) must be set after connecting.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">All other connection attributes can be set at any time. For more
+    information, see the <a href="odch21jpr_4zn6.htm">SQLSetConnectAttr</a> function description. (Connection attributes cannot
+    be set on the environment level by a call to <b>SQLSetEnvAttr</b>.)</font></p>
+</body>
+</html>

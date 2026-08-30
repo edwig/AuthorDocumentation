@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Returning SQL_NO_DATA</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcreturning_sql_no_data"></a>Returning
+    SQL_NO_DATA</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an ODBC 2.<i>x</i> application working with an ODBC 3.x driver
+    calls <b>SQLExecDirect</b>, <b>SQLExecute</b>, or <b>SQLParamData</b>, and a searched update or delete statement was
+    executed but did not affect any rows at the data source, the ODBC 3.x driver should return SQL_SUCCESS. When an ODBC 3.x
+    application working with an ODBC 3.x driver calls <b>SQLExecDirect</b>, <b>SQLExecute</b>, or <b>SQLParamData</b> with the
+    same result, the ODBC 3.x driver should return SQL_NO_DATA.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If a searched update or delete statement in a batch of statements does
+    not affect any rows at the data source, <b>SQLMoreResults</b> returns SQL_SUCCESS. It cannot return SQL_NO_DATA, because
+    that would mean that there are no more results, not that there is a result from a searched update/delete that affected no
+    rows.</font></p>
+</body>
+</html>

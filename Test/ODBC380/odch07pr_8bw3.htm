@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Schema Views</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcschema_views"></a>Schema Views</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application can retrieve metadata information from the DBMS either by
+    calling ODBC catalog functions or by using INFORMATION_SCHEMA views. The views are defined by the ANSI SQL92
+    standard.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If supported by the DBMS and the driver, the INFORMATION_SCHEMA views
+    provide a more powerful and comprehensive means of retrieving metadata than the ODBC catalog functions provide. An
+    application can execute its own custom <b>SELECT</b> statement against one of these views, can join views, or can perform a
+    union on views. While offering greater utility and a wider range of metadata, INFORMATION_SCHEMA views are not often
+    supported by the DBMS. This may change as more DBMSs and drivers achieve compliance with SQL92.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine which views are supported, an application calls
+    <b>SQLGetInfo</b> with the SQL_INFO_SCHEMA_VIEWS option. To retrieve metadata from a supported view, the application
+    executes a <b>SELECT</b> statement that specifies the schema information required.</font></p>
+</body>
+</html>

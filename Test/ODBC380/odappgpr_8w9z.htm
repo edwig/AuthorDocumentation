@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLError Mapping</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlerror_mapping"></a>SQLError Mapping</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an application calls <b>SQLError</b> through an ODBC 3.x driver,
+    the call to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLError(henv, hdbc, hstmt, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax,             pcbErrorMsg) 
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">is mapped to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>SQLGetDiagRec(HandleType, Handle, RecNumber, szSqlstate, pfNativeErrorPtr, szErrorMsg,               cbErrorMsgMax, pcbErrorMsg)
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">with the <i>HandleType</i> argument set to the value SQL_HANDLE_ENV,
+    SQL_HANDLE_DBC, or SQL_HANDLE_STMT, as appropriate, and the <i>Handle</i> argument set to the value in <i>henv</i>,
+    <i>hdbc</i>, or <i>hstmt</i>, as appropriate. The <i>RecNumber</i> argument is determined by the Driver Manager.</font></p>
+</body>
+</html>

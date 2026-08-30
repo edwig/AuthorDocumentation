@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Errors and Batches</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcerrors_and_batches"></a>Errors and Batches</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an error occurs while executing a batch of SQL statements, one of
+    four things can happen; which one happens is data source&nbsp;&#8211;&nbsp;specific and may even depend on the statements
+    included in the batch.</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">No statements in the batch are executed.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">No statements in the batch are executed and the transaction is
+        rolled back.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">All of the statements before the error statement are executed.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">All of the statements except the error statement are
+        executed.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In the first two cases, <b>SQLExecute</b> and <b>SQLExecDirect</b>
+    return SQL_ERROR. In the latter two cases, they may return SQL_SUCCESS_WITH_INFO or SQL_SUCCESS, depending on the
+    implementation. In all cases, further error information can be retrieved with <b>SQLGetDiagField</b>, <b>SQLGetDiagRec</b>,
+    or <b>SQLError</b>. However, the nature and depth of this information is data source&nbsp;&#8211;&nbsp;specific.
+    Furthermore, this information is unlikely to exactly identify the statement in error.</font></p>
+</body>
+</html>

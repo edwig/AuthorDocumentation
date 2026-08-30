@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Setting Tracing Options</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsetting_tracing_options"></a>Setting Tracing
+    Options</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The <b>Tracing</b> tab of the <b>Administrator</b> dialog box enables
+    you to configure the way ODBC function calls are traced.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>The <b>Trace ODBC Calls</b>
+    box in the <b>Tracing</b> tab does not take precedence over the <b>ODBC Test Tools</b> menu <b>Trace</b> command. For more
+    information, see &#8220;<a href="odbctest_4y47.htm">ODBC Test Overview</a>.&#8221;</font></p>
+
+    <h2>How Tracing Works</h2>
+
+    <p>When you activate tracing from the <b>Tracing</b> tab, the Driver Manager will log all ODBC function calls for all
+    subsequently run applications. ODBC function calls from applications running before tracing is activated are not logged.
+    ODBC function calls are recorded in a log file you specify.</p>
+
+    <p>Tracing ceases only after you click <b>Stop Tracing Now</b>. Keep in mind that while tracing is on, the log file
+    continues to increase in size, and that this affects the performance of your ODBC applications.</p>
+
+    <p>For more information about tracing, see &#8220;<a href="odch17pr_4e3r.htm">Tracing</a>&#8221; in Chapter 17,
+    &#8220;Programming Considerations,&#8221; in the <i>ODBC Programmer&#8217;s Reference</i>.</p>
+
+    <h2>Enabling and Disabling Tracing</h2>
+
+    <p class="label"><b>To enable tracing</b></p>
+
+    <ol>
+        <li>Make sure the ODBC Administrator is running. (See &#8220;<a href="sdkodbcadminoverview_2qwi.htm">Running the ODBC
+        Administrator</a>.&#8221;)<br>
+        <br></li>
+
+        <li>On the <b>Tracing</b> tab, click <b>Start Tracing Now</b> to enable tracing. Tracing can be enabled whether a
+        connection has been made or not. After it is clicked, the <b>Start Tracing Now</b> button is replaced by a <b>Stop
+        Tracing Now</b> button, which can be used to disable the tracing.<br>
+        <br></li>
+
+        <li>To change the path and file name of the log file, enter text in the <b>Log File Path</b> text box. This box
+        displays the path and file name for the file that the tracing information will be stored in. The default path and file
+        name (Sql.log) are taken from the system information. To specify a new file, either enter a new path and file name, or
+        click <b>Browse</b> and select a directory and file.<br>
+        <br></li>
+
+        <li>To select a trace DLL other than Odbctrac.dll to perform tracing, enter a path and file name in the <b>Custom Trace
+        DLL</b> text box. The Odbctrac.dll file that is shipped with the ODBC SDK can be replaced by a custom DLL of your
+        choice. Enter the path and file name of the custom DLL, or click <b>Select DLL</b> to browse the directories for the
+        custom DLL.<br>
+        <br></li>
+
+        <li>Click <b>OK</b>.</li>
+    </ol>
+
+    <p>The <b>Administrator</b> dialog box closes.</p>
+
+    <p class="indent"><b>Note&nbsp;&nbsp;&nbsp;</b>If tracing was enabled in the <b>When To Trace</b> control of the
+    <b>Tracing</b> tab, all ODBC applications that you run after you close the <b>Data Sources</b> dialog box will have all
+    ODBC function calls appended to the file you selected. If tracing was enabled with the <b>Start Tracing Now</b> button,
+    tracing ends when the <b>Administrator</b> dialog box is closed.</p>
+
+    <p class="label"><b>To disable tracing</b></p>
+
+    <ol>
+        <li>Make sure the ODBC Administrator is running. (See &#8220;<a href="sdkodbcadminoverview_2qwi.htm">Running the ODBC
+        Administrator</a>.&#8221;)<br>
+        <br></li>
+
+        <li>Click the <b>Tracing</b> tab, then click <b>Stop Tracing Now</b>.</li>
+    </ol>
+
+    <h2>Enabling and Disabling Visual Studio Analyzer Tracing</h2>
+
+    <p>Visual Studio&#8482; Analyzer Tracing provides performance and debugging information about the ODBC layer. All outbound
+    events will be fired at the top-level interface to present as accurate a picture as possible regarding time spent in ODBC
+    components. Visual Studio Analyzer Tracing requires any event source to register when the source is set up. For more
+    information about this type of tracing, see the white paper &#8220;<a href=
+    "mk:@MSITStore:wp200.chm::/sdktechartoverview_44zb.htm">ODBC 3.7 Visual Studio Analyzer Events</a></p>
+
+    <p>" within Microsoft Data Access Technical Articles<i>.</i></p>
+
+    <p class="label"><b>To enable Visual Studio Analyzer Tracing</b></p>
+
+    <ol>
+        <li>Make sure the ODBC Administrator is running. (See &#8220;<a href="sdkodbcadminoverview_2qwi.htm">Running the ODBC
+        Administrator</a>&#8221;.)<br>
+        <br></li>
+
+        <li>On the <b>Tracing</b> tab, click <b>Start Visual Studio Analyzer Tracing</b> to enable continuous Visual Studio
+        Analyzer tracing.
+
+            <p class="tl">After it is clicked, the <b>Start Visual Studio Analyzer Tracing</b> button is replaced by a <b>Stop
+            Visual Studio Analyzer Tracing</b> button, which can be used to disable the tracing.</p>
+
+            <p class="tl">Ignore the <b>Log File Path</b> text box. The path and file name of the log file are irrelevant
+            because events are written to the Visual Studio Analyzer.</p>
+        </li>
+
+        <li>To select a trace DLL other than Odbctrac.dll to perform tracing, enter a path and file name in the <b>Custom Trace
+        DLL</b> text box. Click <b>Select DLL</b> to browse the directories for the custom DLL.<br>
+        <br></li>
+
+        <li>Click <b>OK</b>. The <b>Administrator</b> dialog box closes. Visual Studio Analyzer tracing continues recording to
+        the analyzer until the <b>Stop Visual Studio Analyzer Tracing</b> button is clicked after opening the
+        Administrator.</li>
+    </ol>
+
+    <p class="label"><b>To disable Visual Studio Analyzer Tracing</b></p>
+
+    <ol>
+        <li>Make sure the ODBC Administrator is running. (See &#8220;<a href="sdkodbcadminoverview_2qwi.htm">Running the ODBC
+        Administrator</a>.&#8221;)<br>
+        <br></li>
+
+        <li>On the <b>Tracing</b> tab, click <b>Stop Visual Studio Analyzer Tracing</b>.</li>
+    </ol>
+
+    <p>After you click the <b>Stop Visual Studio Analyzer Tracing</b> button, it is replaced by a <b>Start</b> <b>Visual Studio
+    Analyzer Tracing</b> button, which you can use to enable tracing.</p>
+</body>
+</html>

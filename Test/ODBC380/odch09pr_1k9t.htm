@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Retrieving Output Parameters by SQLGetData</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcretrieving_output_parameters_by_sqlgetdata"></a>Retrieving
+    Output Parameters by SQLGetData</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An application may retrieve bound output parameters by calling
+    <b>SQLBindParameter</b>, in which case output values are present in the application variables to which the respective
+    parameters are bound. If the output parameters are unbound, on the other hand, the application can read argument values by
+    calling <b>SQLGetData</b>. The application may use both these techniques if some parameters are bound and some are
+    unbound.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For unbound output parameters following the highest-numbered bound
+    parameter, portable applications obtain the parameter data by calling <b>SQLGetData</b> in ascending order of parameter
+    number. It is driver-defined whether an application can obtain parameter data in a different sequence. It is driver-defined
+    whether parameter data for lower-numbered, unbound parameters is available.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application can achieve type conversion of the parameter data by
+    specifying in the call to <b>SQLGetData</b> either the desired target type or the value SQL_APD_TYPE, which means that the
+    APD indicates the desired target type even though the parameter is unbound.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If the length of the unbound output parameter value exceeds the length
+    of the application's buffer, <b>SQLGetData</b> may be called multiple times to obtain the value of a single parameter of
+    SQL_CHAR or SQL_VARCHAR type in pieces of manageable size.</font></p>
+</body>
+</html>

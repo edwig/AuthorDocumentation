@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Allocating and Freeing Buffers</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcallocating_and_freeing_buffers"></a>Allocating and Freeing
+    Buffers</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">All buffers are allocated and freed by the application. If a buffer is
+    not deferred, it need only exist for the duration of the call to a function. For example, <b>SQLGetInfo</b> returns the
+    value associated with a particular option in the buffer pointed to by the <i>InfoValuePtr</i> argument. This buffer can be
+    freed immediately after the call to <b>SQLGetInfo</b>, as shown in the following code example:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLSMALLINT InfoValueLen;
+SQLCHAR   *InfoValuePtr = malloc(50);  // Allocate InfoValuePtr.
+
+SQLGetInfo(hdbc, SQL_DBMS_NAME, (SQLPOINTER)InfoValuePtr, 50,
+     &amp;InfoValueLen);
+
+free(InfoValuePtr);       // OK to free InfoValuePtr.
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because deferred buffers are specified in one function and used in
+    another, it is an application programming error to free a deferred buffer while the driver still expects it to exist. For
+    example, the address of the *<i>ValuePtr</i> buffer is passed to <b>SQLBindCol</b> for later use by <b>SQLFetch</b>. This
+    buffer cannot be freed until the column is unbound, such as with a call to <b>SQLBindCol</b> or <b>SQLFreeStmt</b> as shown
+    in the following code example:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLRETURN rc;
+SQLINTEGER  ValueLenOrInd;
+SQLHSTMT  hstmt;
+
+// Allocate ValuePtr
+SQLCHAR  *ValuePtr = malloc(50);
+
+// Bind ValuePtr to column 1. It is an error to free ValuePtr here.
+SQLBindCol(hstmt, 1, SQL_C_CHAR, ValuePtr, 50, &amp;ValueLenOrInd);
+
+// Fetch each row of data and place the value for column 1 in *ValuePtr. Code
+// to check if rc equals SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.
+while ((rc = SQLFetch(hstmt)) != SQL_NO_DATA) {
+ // It is an error to free ValuePtr here.
+}
+
+// Unbind ValuePtr from column 1.  It is now OK to free ValuePtr.
+SQLFreeStmt(hstmt, SQL_UNBIND);
+free(ValuePtr);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Such an error is easily made by declaring the buffer locally in a
+    function; the buffer is freed when the application leaves the function. For example, the following code causes undefined
+    and probably fatal behavior in the driver:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLRETURN rc; 
+SQLHSTMT  hstmt;
+
+BindAColumn(hstmt);
+
+// Fetch each row of data and try to place the value for column 1 in *ValuePtr. Because
+// ValuePtr has been freed, the behavior is undefined and probably fatal. Code to check
+// if rc equals SQL_ERROR or SQL_SUCCESS_WITH_INFO not shown.
+while ((rc = SQLFetch(hstmt)) != SQL_NO_DATA) {}
+
+ .
+ .
+ .
+
+void BindAColumn(SQLHSTMT hstmt)  // WARNING! This function won't work!
+{
+ // Declare ValuePtr locally.
+ SQLCHAR  ValuePtr[50];
+ SQLINTEGER ValueLenOrInd;
+
+ // Bind rgbValue to column.
+ SQLBindCol(hstmt, 1, SQL_C_CHAR, ValuePtr, sizeof(ValuePtr), &amp;ValueLenOrInd);
+
+ // ValuePtr is freed when BindAColumn exits.
+}
+</code></font>
+</pre>
+</body>
+</html>

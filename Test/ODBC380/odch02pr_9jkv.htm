@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Structured Query Language (SQL)</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcstructured_query_language__sql_"></a>Structured Query
+    Language (SQL)</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A typical DBMS allows users to store, access, and modify data in an
+    organized, efficient way. Originally, the users of DBMSs were programmers. Accessing the stored data required writing a
+    program in a programming language such as COBOL. While these programs were often written to present a relatively friendly
+    interface to a non-technical user, access to the data itself required the services of a knowledgeable programmer. Casual
+    access to the data was not practical.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Users were not entirely happy with this situation. While they could
+    access data, it often required convincing a DBMS programmer to write special software. For example, if a sales department
+    wanted to see the total sales in the previous month by each of its salespeople, and it wanted this information ranked in
+    order by each salesperson&#8217;s length of service in the company, it had two choices: Either a program already existed
+    that allowed the information to be accessed in exactly this way, or the department had to ask a programmer to write such a
+    program. In many cases, this was more work than it was worth, and it was always an expensive solution for one-time, or
+    ad-hoc, inquiries. As more and more users wanted easy access, this problem grew larger and larger.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Allowing users to access data on an ad-hoc basis required giving them a
+    language in which to express their requests. A single request to a database is defined as a query; such a language is
+    called a query language. Many query languages were developed for this purpose but one of these became the most popular:
+    Structured Query Language, invented at IBM in the 1970s. It is more commonly known by its acronym, SQL, and is pronounced
+    both as &#8220;ess-cue-ell&#8221; and &#8220;sequel&#8221;; this manual uses the former pronunciation. SQL became an ANSI
+    standard in 1986 and an ISO standard in 1987; it is used today in a great many database management systems.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Although SQL solved the ad-hoc needs of users, the need for data access
+    by computer programs did not go away. In fact, most database access still was (and is) programmatic, in the form of
+    regularly scheduled reports and statistical analyses, data entry programs such as those used for order entry, and data
+    manipulation programs, such as those used to reconcile accounts and generate work orders.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">These programs also use SQL, using one of the following three
+    techniques:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Embedded SQL</b>, in which SQL statements are embedded in a host
+        language such as C or COBOL.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>SQL Modules</b>, in which SQL statements are compiled on the
+        DBMS and called from a host language.<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>Call-Level Interface</b>, or CLI, which consists of functions
+            called to pass SQL statements to the DBMS and to retrieve results from the DBMS.</font>
+
+            <p class="atl"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>It is a historical
+            accident that the term Call-Level Interface is used instead of Application Programming Interface (API), another
+            term for the same thing. In the database world, API is used to describe SQL itself: It is the API to a
+            DBMS.</font></p>
+        </li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Of these choices, embedded SQL is the most commonly used, although most
+    major DBMSs support proprietary CLIs.</font></p>
+</body>
+</html>

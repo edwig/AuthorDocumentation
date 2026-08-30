@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Pattern Value Arguments</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcpattern_value_arguments"></a>Pattern Value
+    Arguments</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some arguments in the catalog functions, such as the <i>TableName</i>
+    argument in <b>SQLTables</b>, accept search patterns. These arguments accept search patterns if the SQL_ATTR_METADATA_ID
+    statement attribute is set to SQL_FALSE; they are identifier arguments that do not accept a search pattern if this
+    attribute is set to SQL_TRUE.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The search pattern characters are:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">An underscore (_), which represents any single character.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">A percent sign (%), which represents any sequence of zero or more
+        characters.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">An escape character, which is driver-specific and is used to
+        include underscores, percent signs, and the escape character as literals.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The escape character is retrieved with the SQL_SEARCH_PATTERN_ESCAPE
+    option in <b>SQLGetInfo</b>. It must precede any underscore, percent sign, or escape character in an argument that accepts
+    search patterns to include that character as a literal. For example:</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>Search pattern</b></td>
+
+            <td class="label" width="79%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">%A%</td>
+
+            <td width="79%">All identifiers containing the letter A</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">ABC_</td>
+
+            <td width="79%">All four character identifiers starting with ABC</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">ABC\_</td>
+
+            <td width="79%">The identifier ABC_, assuming the escape character is a backslash (\)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">\\%</td>
+
+            <td width="79%">All identifiers starting with a backslash (\), assuming the escape character is a backslash</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Special care must be taken to escape search pattern characters in
+    arguments that accept search patterns. This is particularly true for the underscore character, which is commonly used in
+    identifiers. A common mistake in applications is to retrieve a value from one catalog function and pass that value to a
+    search pattern argument in another catalog function. For example, suppose an application retrieves the table name MY_TABLE
+    from the result set for <b>SQLTables</b> and passes this to <b>SQLColumns</b> to retrieve a list of columns in MY_TABLE.
+    Instead of getting the columns for MY_TABLE, the application will get the columns for all the tables that match the search
+    pattern MY_TABLE, such as MY_TABLE, MY1TABLE, MY2TABLE, and so on.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>ODBC 2.<i>x</i> drivers do
+    not support search patterns in the <i>CatalogName</i> argument in <b>SQLTables</b>. ODBC 3.x drivers accept search patterns
+    in this argument if the SQL_ATTR_ ODBC_VERSION environment attribute is set to SQL_OV_ODBC3; they do not accept search
+    patterns in this argument if it is set to SQL_OV_ODBC2.</font></p>
+
+    <p>Passing a null pointer to a search pattern argument does not constrain the search for that argument; that is, a null
+    pointer and the search pattern % (any characters) are equivalent. However, a zero-length search pattern&#8212;that is, a
+    valid pointer to a string of length zero&#8212;matches only the empty string (&#8220;&#8221;).</p>
+</body>
+</html>

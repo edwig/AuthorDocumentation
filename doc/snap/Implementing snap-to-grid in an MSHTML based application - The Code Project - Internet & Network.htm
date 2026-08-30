@@ -1,0 +1,1650 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0121)mhtml:file://H:\snap\Implementing snap-to-grid in an MSHTML based application - The Code Project - Internet & Network.mht -->
+<HTML><HEAD><TITLE>Implementing snap-to-grid in an MSHTML based application - The Code Project - Internet & Network</TITLE>
+<META http-equiv=Reply-to content=mailto:webmaster@codeproject.com>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content=en-US name=MS.LOCALE>
+<META 
+content="How to implement snap-to-grid and draw the grid in MSHTML based applications." 
+name=Description>
+<META content=kbArticle name=Search.TopicType>
+<META content="Rob Manderson" name=Author>
+<META content="24 Apr 2004 14:00:00 GMT" name=Search.PublishDate>
+<META content="24 Apr 2004 14:00:00 GMT" name=Search.RevisedDate>
+<META 
+content="Free source code, , Visual C++, MFC, Windows, MSHTML, Grid, IHTMLPainter, IHTMLElementBehavior" 
+name=keywords>
+<META 
+content="Article content copyright Rob Manderson, 2004, everthing else Copyright © CodeProject, 1999-2006, All Rights Reserved." 
+name=Copyright><LINK title="CodeProject Lounge Postings" 
+href="http://www.codeproject.com/webservices/LoungeRSS.aspx" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - All topics" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - MFC / C++" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - C#" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - ASP.NET" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4" 
+type=application/rss+xml rel=alternate><LINK 
+title="CodeProject Latest articles - .NET" 
+href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5" 
+type=application/rss+xml rel=alternate><LINK href="/favicon.ico" type=image/ico 
+rel=icon><LINK href="/favicon.ico" rel="SHORTCUT ICON"><LINK 
+href="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/global.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript 
+src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/oncopy.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+if (top != self) top.location.href = location.href;
+if (typeof(DemoUrl) != "undefined")
+	document.write('<me' + 'ta http' + '-equiv="re' + 'fresh" con' + 'tent="1;url=' + DemoUrl + '">');
+</SCRIPT>
+
+<META content="MSHTML 6.00.5730.11" name=GENERATOR></HEAD>
+<BODY style="MARGIN: 0px" oncopy="return copyCode();" text=black vLink=navy 
+aLink=red link=blue bgColor=white><!-- COPYRIGHT 2006 I/PRO Corporation ALL RIGHTS RESERVED. - Page view auditing -->
+<SCRIPT language=JavaScript type=text/javascript>
+var LSPT="";
+LSPT += "?durl=" + escape(document.URL);
+LSPT += "&hostname=" + location.hostname;
+LSPT += "&url=" + location.pathname;
+LSPT += "&query=" + escape(location.search) + escape(location.hash);
+LSPT += "&referrer=" + escape(document.referrer);
+LSPT += "&browser=" + escape(navigator.appName);
+LSPT += "&version=" + escape(navigator.appVersion);
+LSPT += "&os=" + escape(navigator.platform);
+LSPT += "&xdomain=codeproject.com";
+LSPT += "&custid=codeproject";
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+document.write('<img src=http://'+'content.ipro.com/images/pixel.gif'+LSPT+' height="1" width="1" style="position:absolute; top:0px; left:0px">');
+</SCRIPT>
+<NOSCRIPT><IMG style="LEFT: 0px; POSITION: absolute; TOP: 0px" height=1 src="" 
+width=1> </NOSCRIPT><!-- END I/PRO PAGE TAG -->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=HeaderLogo><A href="http://www.codeproject.com/"><IMG height=90 
+      alt=Home 
+      src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht4D(1).tmp" 
+      border=0></A></TD>
+    <TD class=HeaderBanner><SPAN id=AdBanner4>
+      <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=2267&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FMainsoft%5FGHQ3%5F728x90v2%2Egif&C=False&id=2267&cb=5497497\" alt=\"Code .NET / Build Java / Run Linux\" border=0 width=728 height=90></a>");</SCRIPT>
+      </SPAN></TD></TR>
+  <TR>
+    <TD colSpan=2>
+      <TABLE class=MemberNavBar cellSpacing=0 cellPadding=5 width="100%" 
+      border=0>
+        <TBODY>
+        <TR vAlign=center>
+          <TD class=smallText style="FONT-WEIGHT: bold">3,624,929 members and 
+            growing! &nbsp; 4,696 now online. </TD>
+          <TD class=userNavText align=right><A 
+            href="http://www.codeproject.com/script/profile/whos_who.asp?id=54805">edwig 
+            </A>| <A 
+            href="http://www.codeproject.com/script/profile/modify.asp?ct=/internet/snaptogrid.asp"><B>My 
+            Settings</B></A> | <A 
+            href="http://www.codeproject.com/script/profile/bookmark_list.asp">My 
+            Bookmarks</A> | <A 
+            href="http://www.codeproject.com/script/articles/list_articles.asp?userid=54805">My 
+            Articles</A> | <A 
+            href="http://www.codeproject.com/script/profile/logoff.asp?ct=/internet/snaptogrid.asp">Sign 
+            out</A> </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD colSpan=2>
+      <TABLE class=SiteNavBar id=tblSiteToolbar cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://www.codeproject.com/">Home</A></TD>
+          <TD noWrap><A 
+            href="http://www.codeproject.com/index.asp?cat=2">MFC/C++</A></TD>
+          <TD><A href="http://www.codeproject.com/index.asp?cat=3">C#</A></TD>
+          <TD noWrap><A 
+            href="http://www.codeproject.com/index.asp?cat=4">ASP.NET</A></TD>
+          <TD><A href="http://www.codeproject.com/index.asp?cat=5">.NET</A></TD>
+          <TD noWrap><A 
+            href="http://www.codeproject.com/index.asp?cat=6">VB.NET</A></TD>
+          <TD class=SelCat noWrap><A 
+            href="http://www.codeproject.com/index.asp?cat=1">All Topics</A></TD>
+          <TD width="100%">&nbsp;</TD>
+          <TD>
+            <DIV id=MenuPos 
+            style="WIDTH: 380px; POSITION: relative; TOP: 1px; HEIGHT: 22px">
+            <TABLE id=MPH 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; HEIGHT: 20px; BORDER-RIGHT-WIDTH: 0px" 
+            cellSpacing=0 cellPadding=0 width=380>
+              <TBODY>
+              <TR vAlign=center>
+                <TD 
+                style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+                noWrap><A 
+                  href="http://www.codeproject.com/info/faq.asp">Help!</A></TD>
+                <TD 
+                style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+                noWrap><A 
+                  href="http://www.codeproject.com/info/latest.asp">Articles</A></TD>
+                <TD 
+                style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+                noWrap><A 
+                  href="http://www.codeproject.com/script/comments/forums.asp">Message 
+                  Boards</A></TD>
+                <TD 
+                style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+                noWrap><A 
+                  href="http://www.codeproject.com/store/">StoreFront</A></TD>
+                <TD 
+                style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+                noWrap><A 
+                  href="http://www.codeproject.com/lounge.asp">Lounge</A></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE>
+      <SCRIPT type=text/javascript>function Go(){return}</SCRIPT>
+
+      <SCRIPT 
+      src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/cpmenu_var.js" 
+      type=text/javascript></SCRIPT>
+
+      <SCRIPT 
+      src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/menu10_com.js" 
+      type=text/javascript></SCRIPT>
+
+      <SCRIPT type=text/javascript>
+var MPH = document.getElementById("MPH");
+if (MPH) MPH.style.display='none';
+</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=2>
+      <TABLE class=ArticleHeader cellSpacing=0 cellPadding=3 width="100%">
+        <TBODY>
+        <TR vAlign=top>
+          <TD class=smallText style="PADDING-RIGHT: 10px"><A 
+            href="http://www.codeproject.com/?cat=1">All Topics</A>, <A 
+            href="http://www.codeproject.com/?cat=2">MFC / C++</A> &gt;&gt; <A 
+            href="http://www.codeproject.com/internet/">Internet &amp; 
+            Network</A> &gt;&gt; <A 
+            href="http://www.codeproject.com/internet/#General">General</A><BR><BR>
+            <DIV style="FONT-WEIGHT: bold; FONT-SIZE: 16pt">Implementing 
+            snap-to-grid in an MSHTML based application</DIV><B>By <A 
+            href="http://www.codeproject.com/script/Articles/list_articles.asp?userid=10631">Rob 
+            Manderson</A></B>. <BR><BR>
+            <DIV style="FONT-SIZE: 12px">How to implement snap-to-grid and draw 
+            the grid in MSHTML based applications.</DIV></TD>
+          <TD class=smallText style="WIDTH: 200px">C++ (VC7.1)<BR>Windows 
+            (WinXP, Win2K, Win2003, Win95, NT4, Win98, WinME)<BR>MFC, Win32, VS 
+            (VS.NET2003)<BR>Dev<BR><SPAN 
+            style="PADDING-RIGHT: 2ex">Posted</SPAN>: <B>25 Apr 
+            2004</B><BR><SPAN style="PADDING-RIGHT: 3ex">Views</SPAN>: 
+            <B>21,261</B> </TD></TR></TD></TR></TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR vAlign=top>
+          <TD class=LHNavBar rowSpan=2><!-- Yes, there are IE hacks that will allow us to create a min-width DIV 
+	     (eg http://www.webreference.com/programming/min-width/) but I couldn't
+	     be arsed. Wait for it in v2.0 -->
+            <TABLE class=MemberNavBar 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-BOTTOM: 10px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            cellSpacing=0>
+              <TBODY>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht50(1).tmp" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.amazon.com/gp/redirect.html?link_code=ur2&amp;tag=thecodeprojec-20&amp;camp=1789&amp;creative=9325&amp;location=/gp/browse%3Fnode=5">Programming 
+                  books</A></TD></TR>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD></TD></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht53(1).tmp" 
+                  width=16></TD>
+                <TD class=smallText><A 
+                  href="http://www.codeproject.com/store/"><B>Ultimate 
+                  Combo<BR>MFC tools $449</B></A></TD></TR>
+              <TR vAlign=top>
+                <TD></TD>
+                <TD></TD></TR></TR>
+              <TR vAlign=top>
+                <TD><IMG height=16 
+                  src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht56(1).tmp" 
+                  width=16></TD>
+                <TD class=SmallText><A 
+                  href="http://www.codeproject.com/script/recommend/form.asp?guid=snaptogrid%2Finternet4%2F25%2F2004">Send 
+                  to a friend</A></TD></TR></TBODY></TABLE>
+            <CENTER>
+            <SCRIPT language=javascript>document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2524&cb=5497505\" border=0 frameborder=0 scrolling=no width=160 height=600></IFRAME>");</SCRIPT>
+            </CENTER><BR><BR><IMG height=1 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+            width=160> </TD>
+          <TD width="100%">
+            <TABLE class=SearchHeaderBar cellSpacing=0 width="100%">
+              <TBODY>
+              <TR>
+                <TD vAlign=center noWrap align=right width="60%">
+                  <FORM style="MARGIN: 0px" name=Search action=/info/search.asp 
+                  method=post><B>Search &nbsp;</B><INPUT class=smallText 
+                  style="WIDTH: 200px" name=target> <SELECT 
+                  style="FONT-WEIGHT: bold; FONT-SIZE: 8pt" name=st> <OPTION 
+                    value=kw selected>Articles</OPTION> <OPTION 
+                    value=au>Authors</OPTION></SELECT> <INPUT style="FONT-WEIGHT: bold; FONT-SIZE: 8pt" type=submit value=" Go! "> 
+                  &nbsp; </FORM></TD>
+                <TD class=tinyText noWrap><A 
+                  href="http://www.codeproject.com/info/search.asp">Advanced 
+                  Search</A><BR><A 
+                  href="http://www.codeproject.com/script/articles/sections.asp">Sitemap</A> 
+                </TD></TR></TBODY></TABLE>
+            <TABLE width="100%">
+              <TBODY>
+              <TR vAlign=top>
+                <TD class=SmallText noWrap>
+                  <TABLE>
+                    <TBODY>
+                    <TR>
+                      <TD class=smallText noWrap><IMG 
+                        src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht5C(1).tmp" 
+                        align=absMiddle> <A 
+                        href="http://www.codeproject.com/internet/snaptogrid.asp?print=true" 
+                        target=_print>Print</A></TD>
+                      <TD class=smallText noWrap><IMG 
+                        src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht5F(1).tmp" 
+                        align=absMiddle><A 
+                        href="http://www.codeproject.com/script/submit/ReportProblem.asp?GUID=snaptogrid%2Finternet4%2F25%2F2004">Broken 
+                        Article?</A></TD>
+                      <TD class=smallText noWrap><IMG 
+                        src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht62(1).tmp" 
+                        align=absMiddle><A 
+                        href="http://www.codeproject.com/script/profile/add_bookmark.asp?t=0&amp;ct=%2Finternet%2Fsnaptogrid%2Easp&amp;guid=snaptogrid%2Finternet4%2F25%2F2004">Bookmark</A></TD>
+                      <TD class=smallText noWrap><IMG 
+                        src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht65(1).tmp" 
+                        align=absMiddle> <A 
+                        href="http://www.codeproject.com/internet/snaptogrid.asp#__comments">Discuss</A></TD></TR></TBODY></TABLE></TD>
+                <TD noWrap align=right><A name=__top></A>
+                  <TABLE>
+                    <TBODY>
+                    <TR>
+                      <TD class=smallText align=right>16 votes for this 
+                        article.</TD>
+                      <TD>
+                        <TABLE cellSpacing=0 cellPadding=0 border=2>
+                          <TBODY>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht68(1).tmp" 
+                              width=20 border=0></TD>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht68(1).tmp" 
+                              width=20 border=0></TD>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht68(1).tmp" 
+                              width=20 border=0></TD>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht68(1).tmp" 
+                              width=20 border=0></TD>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht68(1).tmp" 
+                              width=13 border=0><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht6B(1).tmp" 
+                              width=7 border=0></TD></TR></TBODY></TABLE></TD></TR>
+                    <TR>
+                      <TD class=smallText align=right colSpan=2><A 
+                        title="Calculated as rating x Log10(# votes)" 
+                        href="http://www.codeproject.com/script/articles/top_articles.asp?st=2">Popularity: 
+                        5.6</A>. Rating: <B>4.65</B> out of 
+                  5.</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD class=ArticlePane><SPAN id=intelliTXT>
+            <DIV id=contentdiv><!-- Article Starts --><!-- Download Links -->
+            <UL class=download>
+              <LI><A 
+              href="http://www.codeproject.com/internet/snaptogrid/snaptogrid_src.zip">Download 
+              source files - 5 Kb</A> 
+              <LI><A 
+              href="http://www.codeproject.com/internet/snaptogrid/snaptogrid_demo.zip">Download 
+              demo project - 300 Kb</A> </LI></UL><!-- Article image -->
+            <P><IMG height=399 alt="Sample Image - snaptogrid.jpg" 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht6E(1).tmp" 
+            width=476></P><!-- Add the rest of your HTML here -->
+            <H2>Introduction</H2>Part of my current project requires the ability 
+            to edit custom HTML documents. I'm using MSHTML (the core component 
+            of Microsoft Internet Explorer) in edit mode via 
+            <CODE>CHtmlEditView</CODE>. Whilst it has it's problems MSHTML has a 
+            couple of overwhelming advantages. It's free and it can be assumed 
+            to be present on almost every Windows computer you'll ever 
+            encounter. It's also not terribly difficult to work with. 
+            <P>The documents I'm working with contain images and 
+            <CODE>LABEL</CODE> controls, all absolutely positioned. The act of 
+            editing consists pretty much of replacing boilerplate text and 
+            images and moving them around on the screen. A nice to have is 
+            snap-to-grid so everything can be easily lined up, and a visual 
+            representation of the grid.</P>
+            <H2>Prior Art</H2>A search on MSDN using 'snap to grid' located a 
+            match for MSHTML in code downloads (URL not included because they 
+            change) and a sample file called <CODE>EditHost.exe</CODE> which is 
+            a self extracting executable. The sample includes the source code 
+            for an MSHTML host which implements exactly the functionality I 
+            wanted. The sample is, however, a non MFC c++ application and the 
+            stuff of interest is wrapped up in a bunch of ATL classes. 
+            <P>Because my application is an MFC SDI application using the 
+            document/view architecture I decided to reimplement their solution 
+            using MFC. I chose not to try and use their ATL classes as presented 
+            because of some requirements imposed by the MFC document/view 
+            architecture. This didn't, however, stop me nicking some of their 
+            code :)</P>
+            <H2>Basics</H2>The functionality I wanted to implement falls into 
+            two pieces. The first is snap-to-grid. This basically requires the 
+            ability to intercept attempts to move or resize an element on the 
+            screen, receive the coordinates and modify those coordinates to 
+            enforce 'snap' granularity. The second piece is the ability to draw 
+            a grid on the MSHTML display surface. 
+            <P>Let's consider each of these pieces in turn. 
+            <H2>Implementing snap-to-grid</H2>MSHTML introduced the 
+            <CODE>IHTMLEditHost</CODE> COM interface in version 5.5 specifically 
+            to support snap-to-grid. You won't find an implementation of this 
+            interface in the standard libraries that ship with the Platform SDK 
+            - it's one you're expected to implement. In addition to the standard 
+            3 methods in <CODE>IUnknown</CODE> (I won't mention the standard 3 
+            methods anymore) it has one method, <CODE>SnapRect()</CODE> which 
+            MSHTML calls whenever you try to move or resize anything in the 
+            document you're currently editing. The parameters are an 
+            <CODE>IHTMLElement</CODE> interface for the selected element, the 
+            new rectangle (screen coordinates) for the element and a parameter 
+            specifying which drag handle is being used. 
+            <P>The element interface is useful because you can use it to query 
+            HTML attributes on the selected object. For example, you might want 
+            to be able to specify that a particular object is locked in place. 
+            You can set an attribute on the object specifying this. The 
+            <CODE>SnapRect</CODE> method could query the attribute and force the 
+            element back to it's original location and size if it was set. I use 
+            this functionality in my application but the code isn't presented 
+            here because I don't want to get bogged down in a bunch of support 
+            code.</P>
+            <P>The new rectangle is a pointer to a <CODE>RECT</CODE> containing 
+            the <I>new</I> coordinates of the object. If you change the 
+            coordinates inside your <CODE>SnapRect()</CODE> method the object 
+            moves to match your changes.</P>
+            <P>The drag handle is used to decide which, if any, coordinates in 
+            the <CODE>RECT</CODE> should be altered to force 'snap-to-grid'.</P>
+            <P>I said above that you are expected to implement 
+            <CODE>IHTMLEditHost</CODE> which begs the question of how MSHTML 
+            gets the interface you've implemented. It gets the interface in a 
+            two step process. The first step is to request an 
+            <CODE>IServiceProvider</CODE> interface on the host (your 
+            application). If it gets that interface it then requests an 
+            <CODE>IHTMLEditHost</CODE> interface by calling 
+            <CODE>IServiceProvider::QueryService()</CODE>.</P>
+            <H3>Telling MSHTML to use your IHTMLEditHost 
+            implementation</H3>Glossing over a lot of detail, the 
+            <CODE>CHtmlEditView</CODE> and <CODE>CHtmlView</CODE> classes 
+            implement a custom OLE control site. Both classes host MSHTML and 
+            provide a 'parent' interface that MSHTML can use to query for 
+            interfaces of interest. The stock class that handles the custom OLE 
+            control site is called <CODE>CHtmlControlSite</CODE>. The class only 
+            implements the <CODE>IDocHostUIHandler</CODE> interface which MSHTML 
+            uses to determine whether it should display Scollbars and suchlike. 
+            <A 
+            href="http://www.codeproject.com/internet/htmlimagecapture.asp">(See 
+            my article here for some discussion of 
+            <CODE>CHtmlControlSite</CODE>)</A>[<A title="New Window" 
+            href="http://www.codeproject.com/internet/htmlimagecapture.asp" 
+            target=_blank>^</A>] 
+            <P>
+            <P>We can't derive a new class from <CODE>CHtmlControlSite</CODE> 
+            for two reasons. The first is that the class definition isn't in a 
+            header file, it's in <CODE>viewhtml.cpp</CODE>. More importantly, if 
+            we try to derive a class from <CODE>CHtmlControlSite</CODE> the <A 
+            href="http://www.codeproject.com/com/mfccominterfacemacros.asp">MFC 
+            COM Interface Macros</A>[<A title="New Window" 
+            href="http://www.codeproject.com/com/mfccominterfacemacros.asp" 
+            target=_blank>^</A>] will bite us in the bum. Our only recourse is 
+            to reimplement the class, which we do as class 
+            <CODE>CHtmlEditControlSite</CODE>.</P>
+            <P>In the following code I'm not presenting the entirety of the 
+            class definition. We're going to take it piece by piece. The entire 
+            class definition is, naturally, included in the download. Our 
+            replacement <CODE>CHtmlEditControlSite</CODE> class starts out 
+            looking like this.</P><PRE lang=c++><SPAN class=cpp-keyword>class</SPAN> CHTMLEditControlSite : <SPAN class=cpp-keyword>public</SPAN> COleControlSite
+{
+<SPAN class=cpp-keyword>public</SPAN>:
+                    CHTMLEditControlSite(COleControlContainer* pParentWnd);
+
+    CHtmlView       *GetView() <SPAN class=cpp-keyword>const</SPAN>;
+
+<SPAN class=cpp-keyword>protected</SPAN>:
+<SPAN class=cpp-comment>// Implementation</SPAN>
+    DECLARE_INTERFACE_MAP()
+
+    <SPAN class=cpp-comment>//  This is the implementation of the IDocHostUIHandler interface</SPAN>
+    <SPAN class=cpp-comment>//  MSHMTL gets this interface from us so we have to reference count it.</SPAN>
+    BEGIN_INTERFACE_PART(DocHostUIHandler, IDocHostUIHandler)
+        STDMETHOD(ShowContextMenu)(DWORD, LPPOINT, LPUNKNOWN, LPDISPATCH);
+        STDMETHOD(GetHostInfo)(DOCHOSTUIINFO*);
+        STDMETHOD(ShowUI)(DWORD, LPOLEINPLACEACTIVEOBJECT, LPOLECOMMANDTARGET, 
+                          LPOLEINPLACEFRAME, LPOLEINPLACEUIWINDOW);
+        STDMETHOD(HideUI)(<SPAN class=cpp-keyword>void</SPAN>);
+        STDMETHOD(UpdateUI)(<SPAN class=cpp-keyword>void</SPAN>);
+        STDMETHOD(EnableModeless)(BOOL);
+        STDMETHOD(OnDocWindowActivate)(BOOL);
+        STDMETHOD(OnFrameWindowActivate)(BOOL);
+        STDMETHOD(ResizeBorder)(LPCRECT, LPOLEINPLACEUIWINDOW, BOOL);
+        STDMETHOD(TranslateAccelerator)(LPMSG, <SPAN class=cpp-keyword>const</SPAN> GUID*, DWORD);
+        STDMETHOD(GetOptionKeyPath)(OLECHAR **, DWORD);
+        STDMETHOD(GetDropTarget)(LPDROPTARGET, LPDROPTARGET*);
+        STDMETHOD(GetExternal)(LPDISPATCH*);
+        STDMETHOD(TranslateUrl)(DWORD, OLECHAR*, OLECHAR **);
+        STDMETHOD(FilterDataObject)(LPDATAOBJECT , LPDATAOBJECT*);
+    END_INTERFACE_PART(DocHostUIHandler)
+
+    <SPAN class=cpp-comment>//  This is the implementation of the IServiceProvider interface</SPAN>
+    <SPAN class=cpp-comment>//  MSHMTL gets this interface from us so we have to reference count it.</SPAN>
+    BEGIN_INTERFACE_PART(ServiceProvider, IServiceProvider)
+        STDMETHOD(QueryService)(REFGUID, REFIID, <SPAN class=cpp-keyword>void</SPAN> **);
+    END_INTERFACE_PART(ServiceProvider)
+
+    <SPAN class=cpp-comment>//  This is the implementation of the IHTMLEditHost interface</SPAN>
+    <SPAN class=cpp-comment>//  MSHMTL gets this interface from us so we have to reference count it.</SPAN>
+    BEGIN_INTERFACE_PART(HTMLEditHost, IHTMLEditHost)
+        STDMETHOD(SnapRect)(IHTMLElement *pIElement, RECT *prcNew,
+                            ELEMENT_CORNER eHandle);
+
+                    XHTMLEditHost();
+
+        <SPAN class=cpp-keyword>int</SPAN>         m_iSnap;
+    END_INTERFACE_PART(HTMLEditHost)
+};
+</PRE>The <CODE>DocHostUIHandler</CODE> stuff is a literal copy from 
+            the MFC implementation of <CODE>CHtmlControlSite</CODE>. It pretty 
+            much delegates everything to virtual functions on the view class 
+            which is derived directly or indirectly from <CODE>CHtmlView</CODE>. 
+
+            <P>The <CODE>ServiceProvider</CODE> is our implementation of the 
+            <CODE>IServiceProvider</CODE> interface. Recall that MSHTML calls 
+            this interface asking for an <CODE>IHTMLEditHost</CODE> interface. 
+            It won't mind in the least if an attempt to get an 
+            <CODE>IServiceProvider</CODE> interface or an 
+            <CODE>IHTMLEditHost</CODE> interface fails but if the attempt to get 
+            an <CODE>IHTMLEditHost</CODE> interface succeeds MSHTML will call 
+            <CODE>IHTMLEditHost::SnapRect()</CODE> as appropriate. 
+            <P>Our implementation of 
+            <CODE>ServiceProvider::QueryService()</CODE> looks like this.</P><PRE lang=c++>STDMETHODIMP CHTMLEditControlSite::XServiceProvider::QueryService(REFGUID guidService,
+                                                     REFIID riid, 
+                                                     <SPAN class=cpp-keyword>void</SPAN> **ppObj)
+{
+    METHOD_PROLOGUE_EX_(CHTMLEditControlSite, ServiceProvider)
+
+    HRESULT hr = E_NOINTERFACE;
+
+    *ppObj = NULL;
+
+    <SPAN class=cpp-keyword>if</SPAN> (guidService == SID_SHTMLEditHost &amp;&amp; riid == IID_IHTMLEditHost)
+    {
+        *ppObj = (<SPAN class=cpp-keyword>void</SPAN> **) &amp;pThis-&gt;m_xHTMLEditHost;
+        hr = S_OK;
+    }
+
+    <SPAN class=cpp-keyword>return</SPAN> hr;
+}
+</PRE>This checks if the service being requested is the MSHTML 
+            <CODE>IEditHost</CODE> interface. If so it returns a pointer to our 
+            <CODE>IHTMLEditHost</CODE> implementation. Our 
+            <CODE>IHTMLEditHost</CODE> declaration was shown above. The 
+            constructor <CODE>XHTMLEditHost()</CODE> initialises snapping to 8 
+            pixel boundaries. The real guts of the interface is in our 
+            implementation of <CODE>SnapRect()</CODE> which looks like this. <PRE lang=c++>STDMETHODIMP CHTMLEditControlSite::XHTMLEditHost::SnapRect(
+                  IHTMLElement * <SPAN class=cpp-comment>/*pIElement*/</SPAN>, 
+                  RECT * prcNew, 
+                  ELEMENT_CORNER eHandle)
+{
+    <SPAN class=cpp-keyword>if</SPAN> (GetAsyncKeyState(VK_CONTROL) &amp; <SPAN class=cpp-literal>0x10000000</SPAN>)
+        <SPAN class=cpp-comment>//  If the control key is down return (no snap).</SPAN>
+        <SPAN class=cpp-keyword>return</SPAN> S_OK;
+
+    LONG lWidth = prcNew-&gt;right - prcNew-&gt;left;
+    LONG lHeight = prcNew-&gt;bottom - prcNew-&gt;top;
+
+    <SPAN class=cpp-keyword>switch</SPAN> (eHandle)
+    {
+    <SPAN class=cpp-keyword>case</SPAN> ELEMENT_CORNER_NONE:
+        prcNew-&gt;top = ((prcNew-&gt;top + (m_iSnap / <SPAN class=cpp-literal>2</SPAN>)) / m_iSnap) * m_iSnap;
+        prcNew-&gt;left = ((prcNew-&gt;left + (m_iSnap / <SPAN class=cpp-literal>2</SPAN>)) / m_iSnap) * m_iSnap;
+        prcNew-&gt;bottom = prcNew-&gt;top + lHeight;
+        prcNew-&gt;right = prcNew-&gt;left + lWidth;
+        <SPAN class=cpp-keyword>break</SPAN>;
+   
+    <SPAN class=cpp-comment>//  Other cases</SPAN>
+    .
+    .
+    .
+}
+</PRE>Which does the appropriate arithmetic to force the 
+            <CODE>prcNew</CODE> rectangle onto snap boundaries depending on 
+            which resize handle was selected. The 
+            <CODE>GetAsyncKeyState(VK_CONTROL) &amp; <SPAN 
+            class=cpp-literal>0x10000000</SPAN></CODE> tests to see if the 
+            control key (either one of them) is down. If so it exits 
+            immmediately, allowing the user to override our snap-to-grid 
+            functionality by holding down the control key as they drag the 
+            object around on the drawing surface. 
+            <H2>Drawing the grid</H2>This is a little more difficult. MSHTML 
+            doesn't arbitrarily ask us for an interface this time around, 
+            instead we have to register an element behavio(u)r with MSHTML at 
+            the appropriate time and then request or supply the necessary 
+            interfaces. The appropriate time is, of course, when our document 
+            has been loaded. 
+            <P></P>
+            <P>Of course, whilst you can grab a device context handle to any 
+            MSHTML window and paint on it, what you really want is to paint the 
+            grid <I>before</I> MSHTML renders the rest of it's display. Does the 
+            end user really want your gridlines drawn on top of their content? 
+            Achieving the correct painting order requires&nbsp;a bit of 
+            dancing&nbsp;with MSHTML.</P>
+            <H3>Element behaviors</H3>were added to Microsoft Internet Explorer 
+            version 5. They provide a 'hook' which can be used to modify the way 
+            a particular element behaves within an HTML page. The behavior can 
+            be many things but the one we're interested in is how the element is 
+            rendered. You can specify an element behavior on any element within 
+            the page as long as that element can return an 
+            <CODE>IHTMLElement2</CODE> interface. We register an element 
+            behavior by creating an object that implements the 
+            <CODE>IElementBehaviorFactory</CODE> interface and passing its 
+            address to the <CODE>IHTMLElement2::addBehavior</CODE> function. 
+            MSHTML then, as it renders the document, calls the behavior factory 
+            passing a bunch of parameters specifying exactly <I>which</I> 
+            behavior it wants for this particlular element, as specified by that 
+            element, and only for elements that have behaviors attached in HTML 
+            or those which have had <CODE>addBehavior</CODE> called on them. The 
+            element behavior factory then returns an 
+            <CODE>IElementBehavior</CODE> interface to an object that implements 
+            the behavior. 
+            <P>Given that we want to draw a grid on the background of the entire 
+            document an obvious starting place is with the document interface 
+            itself, <CODE>IHTMLDocument2</CODE>. Unfortunately this doesn't work 
+            because the document itself isn't an element, it's an element 
+            container. We need to go down one level and get an interface to the 
+            body of the document. Even though it's the body it's still an 
+            <CODE>IHTMLElement2</CODE> interface, meaning we could go even 
+            deeper and draw a grid on a single element on the page if we wanted 
+            to. 
+            <P>Once we've got a pointer to the body element of the document we 
+            add our behavior factory to it. Sometime later MSHTML calls our 
+            behavior factory requesting an <CODE>IElementBehavior</CODE> 
+            interface. We dutifully return one. MSHTML then calls the 
+            <CODE>IElementBehavior::Init()</CODE> function on our element 
+            behavior object, passing a pointer to an 
+            <CODE>IElementBehaviorSite</CODE> interface. Our application then 
+            calls <CODE>QueryInterface()</CODE> on the 
+            <CODE>IElementBehaviorSite</CODE> requesting an 
+            <CODE>IHTMLPaintSite</CODE> interface. Once we get the 
+            <CODE>IHTMLPaintSite</CODE> interface we invalidate the rectangle it 
+            represents which, since we requested it on the body of our HTML 
+            document, means we're invalidating the entire MSHTML display 
+            surface. MSHTML obliges by repainting the display surface and, in 
+            the process, requests an <CODE></CODE>IHTMLPainter</CODE> interface 
+            and calls its <CODE>Draw()</CODE> method, which is where we draw the 
+            grid. Phew!</P>
+            <P>Maybe a diagram will help</P>
+            <P><IMG height=423 alt="Sample Image - maximum width is 600 pixels" 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht71(1).tmp" 
+            width=467></P>Arrow endpoints indicate the destination of the 
+            interface. 
+            <H2>The Grid code</H2>
+            <P>I won't clutter this article with repeated blocks of 
+            <CODE>BEGIN_INTERFACE_PART</CODE>/<CODE>END_INTERFACE_PART</CODE> 
+            macros. I'll assume you understand how the MFC COM Interface Macros 
+            work and continue with the code of interest. Let's look first at the 
+            code that initiates the entire process, the code that installs the 
+            grid handler. This is part of the outer class, 
+            <CODE>CHTMLEditControlSite</CODE> and it's called by our 
+            application.</P><PRE lang=c++><SPAN class=cpp-keyword>void</SPAN> CHTMLEditControlSite::InstallGrid(IHTMLDocument2 *pDoc)
+{
+    HRESULT hr;
+
+    IHTMLElement  *pBody = NULL;
+    IHTMLElement2 *pBody2;
+    VARIANT       vFactory;
+
+    <SPAN class=cpp-keyword>if</SPAN> (pDoc == (IHTMLDocument2 *) NULL)
+        <SPAN class=cpp-keyword>return</SPAN>;
+
+    <SPAN class=cpp-comment>// Get IHTMLElement and IHTMLElement2 interfaces for the body</SPAN>
+    hr = pDoc-&gt;get_body(&amp;pBody);
+
+    <SPAN class=cpp-keyword>if</SPAN> (pBody == (IHTMLElement *) NULL)
+        <SPAN class=cpp-keyword>return</SPAN>;
+
+    hr = pBody-&gt;QueryInterface(IID_IHTMLElement2, (<SPAN class=cpp-keyword>void</SPAN> **) &amp;pBody2);
+
+    <SPAN class=cpp-keyword>if</SPAN> (pBody2 == (IHTMLElement2 *) NULL)
+    {
+        pBody-&gt;Release();
+        <SPAN class=cpp-keyword>return</SPAN>;
+    }
+
+    <SPAN class=cpp-keyword>if</SPAN> (m_gridCookie)
+    {
+        VARIANT_BOOL dummy;
+        hr = pBody2-&gt;removeBehavior(m_gridCookie, &amp;dummy);
+        m_gridCookie = NULL;
+    }
+
+    <SPAN class=cpp-comment>// Convert the grid factory pointer to the proper VARIANT data type </SPAN>
+    <SPAN class=cpp-comment>// for IHTMLElement2::AddBehavior</SPAN>
+    V_VT(&amp;vFactory) = VT_UNKNOWN;
+    V_UNKNOWN(&amp;vFactory) = &amp;m_xHTMLElementBehaviorFactory;
+
+    <SPAN class=cpp-comment>// Add Grid behavior</SPAN>
+    hr = pBody2-&gt;addBehavior(NULL, &amp;vFactory, &amp;m_gridCookie);
+
+    <SPAN class=cpp-comment>// Release resources</SPAN>
+    hr = pBody-&gt;Release();
+    hr = pBody2-&gt;Release();
+    <SPAN class=cpp-keyword>return</SPAN>;
+}
+</PRE>this starts out by obtaining an <CODE>IHTMLElement</CODE> 
+            interface to the body of the document. Once we've got that we get an 
+            <CODE>IHTMLElement2</CODE> interface. When we've got our 
+            <CODE>IHTMLElement2</CODE> interface we call 
+            <CODE>addBehavior</CODE> on it passing a pointer to our element 
+            behavior factory. <CODE>addBehavior</CODE> returns us a cookie which 
+            we'll need later to remove the behavior. 
+            <P>Not much of interest happens until MSHTML has requested a bunch 
+            of other interfaces from us. Our behavior factory is called and we 
+            return a pointer to our <CODE>IElementBehavior</CODE> interface. 
+            MSHTML then calls our <CODE>IElementBehavior::Init()</CODE> method 
+            which looks like this.</P><PRE lang=c++ style="LEFT: 10px; TOP: 5416px">STDMETHODIMP CHTMLEditControlSite::XHTMLElementBehavior::Init(
+                                       IElementBehaviorSite *pBehaviorSite)
+{
+    HRESULT hr = pBehaviorSite-&gt;QueryInterface(IID_IHTMLPaintSite, 
+                                        (void **) &amp;m_spPaintSite);
+
+    if (m_spPaintSite != (IHTMLPaintSite *) NULL)
+        m_spPaintSite-&gt;InvalidateRect(NULL);
+
+    return hr;
+}
+</PRE>The method receives an <CODE>IElementBehaviorSite</CODE> 
+            interface pointer. Not by coincidence this represents the body 
+            object in the document (it's the body because we used the body 
+            interface when we registered the behavior factory). We get a pointer 
+            to an <CODE>IHTMLPaintSite</CODE> interface through the behavior 
+            site interface. Once we've got that we can invalidate the display 
+            surface and force repaints whenever we want. 
+            <P>Meantime MSHTML queries us for an <CODE>IHTMLPainter</CODE> 
+            interface. One thing it needs to know is our Z-order. Should we be 
+            called first so MSHTML can paint stuff over what we've painted, or 
+            do we get last crack at the display surface? So MSHTML calls our 
+            <CODE>IHTMLPainter::GetPainterInfo()</CODE>method which looks like 
+            this.</P><PRE lang=c++>STDMETHODIMP CHTMLEditControlSite::XHTMLPainter::GetPainterInfo(
+                                       HTML_PAINTER_INFO *pInfo)
+{
+    <SPAN class=cpp-keyword>if</SPAN> (pInfo == NULL)
+        <SPAN class=cpp-keyword>return</SPAN> E_POINTER;
+
+    pInfo-&gt;lFlags = HTMLPAINTER_TRANSPARENT;
+    pInfo-&gt;lZOrder = HTMLPAINT_ZORDER_BELOW_CONTENT;
+
+    memset(&amp;pInfo-&gt;iidDrawObject, <SPAN class=cpp-literal>0</SPAN>, <SPAN class=cpp-keyword>sizeof</SPAN>(IID));
+
+    pInfo-&gt;rcExpand.left = <SPAN class=cpp-literal>0</SPAN>;
+    pInfo-&gt;rcExpand.right = <SPAN class=cpp-literal>0</SPAN>;
+    pInfo-&gt;rcExpand.top = <SPAN class=cpp-literal>0</SPAN>;
+    pInfo-&gt;rcExpand.bottom = <SPAN class=cpp-literal>0</SPAN>;
+
+    <SPAN class=cpp-keyword>return</SPAN> S_OK;
+}
+</PRE>which tells MSHTML to call us first. 
+            <P>Now it's drawing time. This code is trivial. MSHTML calls our 
+            <CODE>IHTMLPainter::Draw()</CODE> method giving us the device 
+            context we should paint onto. All we do is draw our grid.</P><PRE lang=c++>STDMETHODIMP CHTMLEditControlSite::XHTMLPainter::Draw(
+                                       RECT rcBounds, 
+                                       RECT <SPAN class=cpp-comment>/*rcUpdate*/</SPAN>, 
+                                       LONG <SPAN class=cpp-comment>/*lDrawFlags*/</SPAN>, 
+                                       HDC hdc, 
+                                       LPVOID <SPAN class=cpp-comment>/*pvDrawObject*/</SPAN>)
+{
+    <SPAN class=cpp-keyword>if</SPAN> (m_bGrid != FALSE)
+    {
+        HPEN redPen = (HPEN) CreatePen(PS_DOT, <SPAN class=cpp-literal>0</SPAN>, RGB(<SPAN class=cpp-literal>0xff</SPAN>, <SPAN class=cpp-literal>0x99</SPAN>, <SPAN class=cpp-literal>0x99</SPAN>));
+        HPEN oldPen = (HPEN) SelectObject(hdc, redPen);
+
+        <SPAN class=cpp-keyword>long</SPAN> lFirstLine = rcBounds.left + m_iGrid;
+
+        <SPAN class=cpp-keyword>for</SPAN> (<SPAN class=cpp-keyword>int</SPAN> i = lFirstLine; i &lt;= rcBounds.right; i += m_iGrid)
+        {
+            MoveToEx(hdc, i, rcBounds.top, NULL);
+            LineTo(hdc, i, rcBounds.bottom);
+        }
+
+        lFirstLine = rcBounds.top + m_iGrid;
+
+        <SPAN class=cpp-keyword>for</SPAN> (i = lFirstLine ; i &lt;= rcBounds.bottom; i += m_iGrid)
+        {
+            MoveToEx(hdc, rcBounds.left, i,  NULL);
+            LineTo(hdc, rcBounds.right, i);
+        }
+
+        SelectObject(hdc, oldPen);
+        DeleteObject(redPen);
+    }
+
+    <SPAN class=cpp-keyword>return</SPAN> S_OK;
+}
+</PRE>
+            <H2>Using the code</H2>In your <CODE>CHTMLEditView</CODE> derived 
+            view class header you need to add this function prototype. It's not 
+            documented in MSDN but fortunately it's a <CODE><SPAN 
+            class=cpp-keyword>public</SPAN> <SPAN 
+            class=cpp-keyword>virtual</SPAN></CODE> function. <PRE lang=c++><SPAN class=cpp-keyword>virtual</SPAN> BOOL CreateControlSite(COleControlContainer* pContainer,
+                                         COleControlSite** ppSite,
+                                         UINT nID, REFCLSID clsid);
+</PRE>and add a <CODE>CHTMLEditControlSite</CODE> member variable to 
+            the data declarations in the header. I call it 
+            <CODE>m_pEditSite</CODE>. Add this function to your view 
+            implementation file. <PRE lang=c++>BOOL CMyHTMLEditView::CreateControlSit(
+                                         COleControlContainer* pContainer,
+                                         COleControlSite** ppSite, UINT <SPAN class=cpp-comment>/* nID */</SPAN>,
+                                         REFCLSID <SPAN class=cpp-comment>/* clsid */</SPAN>)
+{
+    ASSERT(ppSite != NULL);
+
+    *ppSite = m_pEditSite = <SPAN class=cpp-keyword>new</SPAN> CHTMLEditControlSite(pContainer);
+    <SPAN class=cpp-keyword>return</SPAN> TRUE;
+}
+</PRE>At an appropriate place in your view class (maybe 
+            <CODE>OnDownloadComplete()</CODE>) add a call to 
+            <CODE>m_pEditSite-&gt;InstallGrid()</CODE>. <PRE lang=c++><SPAN class=cpp-keyword>void</SPAN> CMyHTMLEditView::OnDownloadComplete()
+{
+    CHtmlEditView::OnDownloadComplete();
+
+    <SPAN class=cpp-comment>//  other code you need...</SPAN>
+    m_pDoc = (IHTMLDocument2 *) GetHtmlDocument();
+    m_pEditSite-&gt;InstallGrid(m_pDoc);
+    m_pEditSite-&gt;Grid(TRUE);
+}
+</PRE>
+            <P>Once you've got the grid installed for this document you can 
+            toggle it off and on by calling 
+            <CODE>CHTMLEditControlSite::Grid()</CODE> passing <CODE>TRUE</CODE> 
+            or <CODE>FALSE</CODE>. If you navigate to another document you must 
+            call <CODE>CHTMLEditControlSite::InstallGrid()</CODE> again to 
+            reinstall the grid handler. </P>
+            <H2>AddRef() and Release() notes</H2>
+            <P>If you look through the source code you may notice that in some 
+            places I handle <CODE>AddRef()</CODE> and <CODE>Release()</CODE> 
+            correctly whilst in other places I don't. This isn't laziness or 
+            lack of knowledge by me. The fact is that, unless I've seriously 
+            misunderstood COM reference counting, MSHTML doesn't seem to fully 
+            follow the reference counting rules. Sometimes it calls 
+            <CODE>Release()</CODE> on the interface pointers we gave it, 
+            sometimes it doesn't. Our <CODE>CHTMLEditControlSite</CODE> class is 
+            derived from <CODE>CCmdTarget</CODE> which implements reference 
+            counting on our behalf. As I discussed in my previous article <A 
+            href="http://www.codeproject.com/com/mfccominterfacemacros.asp">MFC 
+            COM Interface Macros</A>[<A title="New Window" 
+            href="http://www.codeproject.com/com/mfccominterfacemacros.asp" 
+            target=_blank>^</A>] the <CODE>CCmdTarget</CODE> destructor asserts 
+            (in debug builds) that the reference counter is less than or equal 
+            to 1. I found out by trial and error which interfaces ought to 
+            implement correct reference counting and which ones oughtn't. As it 
+            happens it doesn't matter that we're not correctly implementing COM 
+            reference counting given that our class is embedded as a member of 
+            the view class and won't go away until the view class goes away. One 
+            could argue that in this instance no interface within our class need 
+            implement correct reference counting but I prefer to do it the 
+            correct way whenever I can.</P>
+            <H2>Notes on the demo program</H2>The demo uses a hardcoded 
+            reference to an HTML page which, in turn has a hardcoded reference 
+            to the image file. You may need to tweak either the HTML page 
+            reference or the image reference within the HTML page. 
+            <H2>History</H2>
+            <P>25 April 2004 - Initial version. 
+            </P><!-- Article Ends --></DIV></SPAN>
+            <SCRIPT 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/togglePre.js" 
+            type=text/javascript></SCRIPT>
+
+            <H2>About Rob Manderson</H2>
+            <DIV style="OVERFLOW: hidden">
+            <TABLE border=0>
+              <TBODY>
+              <TR vAlign=top>
+                <TD class=smallText noWrap><IMG 
+                  src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/%257BEED88168-7E4C-41C5-93F7-5888FBFF3D55%257D.jpg"><BR></TD>
+                <TD class=smallText>I've been programming for 31 years - 
+                  started in machine language on the National Semiconductor 
+                  SC/MP chip, moved via the 8080 to the Z80 - graduated through 
+                  HP Rocky Mountain Basic and HPL - then to C and C++.<BR><BR>I 
+                  used (20 or so years ago when I worked for Hewlett Packard) to 
+                  repair HP Oscilloscopes and Spectrum Analysers - for a while 
+                  there I was the one repairing DC to daylight SpecAns in the 
+                  Asia Pacific area. <BR><BR>Afterward I was the fourth team 
+                  member added to the Australia Post EPOS project at Unisys 
+                  Australia. We grew to become an A$400 million project. I wrote 
+                  a few device drivers for the project under Microsoft OS/2 v 
+                  1.3 - did hardware qualification and was part of the rollout 
+                  team dealing directly with the customer. <BR><BR>Born and bred 
+                  in Melbourne Australia, now living in Scottsdale Arizona USA, 
+                  became a US Citizen on September 29th, 2006.<BR><BR>I work (in 
+                  the USA) for a Singapore based company that does semiconductor 
+                  burn-in and test systems. I'm responsible for the software. 
+                  Think of it as the reverse of outsourcing.<BR><BR>Oh, I'm also 
+                  a Kentucky Colonel. <A 
+                  href="http://www.kycolonels.org/">http://www.kycolonels.org/</A> 
+
+                  <P class=smallText>Click <A 
+                  href="http://www.codeproject.com/script/profile/whos_who.asp?vt=arts&amp;id=10631">here</A> 
+                  to view Rob Manderson's online 
+            profile.</P></TD></TR></TBODY></TABLE></DIV><BR>
+            <TABLE cellPadding=4 width="100%" border=0>
+              <TBODY>
+              <TR vAlign=top>
+                <TD width="100%">
+                  <H2>Other popular Internet &amp; Network articles:</H2>
+                  <UL>
+                    <LI><A 
+                    href="http://www.codeproject.com/internet/ndk.asp">Network 
+                    Development Kit 2.0</A> 
+                    <DIV class=smallText>Network Development Kit is a set of 
+                    simple classes for a client-server architecture.</DIV>
+                    <LI><A 
+                    href="http://www.codeproject.com/internet/drvfltip.asp">Developing 
+                    Firewalls for Windows 2000/XP</A> 
+                    <DIV class=smallText>An article about developing Firewalls 
+                    for Windows 2000/XP.</DIV>
+                    <LI><A 
+                    href="http://www.codeproject.com/internet/csmtpconn.asp">CSMTPConnection 
+                    v1.36</A> 
+                    <DIV class=smallText>An MFC class to encapsulate the SMTP 
+                    protocol.</DIV>
+                    <LI><A 
+                    href="http://www.codeproject.com/internet/YourOwnSecureProtocol.asp">Build 
+                    your own cryptographically safe server/client protocol</A> 
+                    <DIV class=smallText>This article presents all you need to 
+                    implement your own secure protocol using variable keysize 
+                    RSA encryption/decryption, digital signing, multi precision 
+                    library, Diffie-Hellman key exchange, Rijndael, and more. 
+                    Everything is converged into a secure IOCP client/server 
+                    chat server.</DIV></LI></UL></TD>
+                <TD width=360>
+                  <SCRIPT language=javascript>document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2504&cb=5497510\" border=0 frameborder=0 scrolling=no width=300 height=250></IFRAME>");</SCRIPT>
+                </TD></TR></TBODY></TABLE>
+            <TABLE cellSpacing=0 cellPadding=1 width="100%" bgColor=#ff9900 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%">
+                  <TABLE cellSpacing=0 cellPadding=4 width="100%" 
+                  bgColor=#fbedbb border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=smalltext vAlign=center>[<A 
+                        href="http://www.codeproject.com/internet/snaptogrid.asp#__top">Top</A>]</TD>
+                      <TD vAlign=center noWrap align=right>You voted <B>5</B> 
+                        for this article. 
+            </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><BR>
+            <CENTER>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD 
+                style="PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BACKGROUND-COLOR: #eee" 
+                width=120 height=60>
+                  <DIV align=center>
+                  <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=2245&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FToolbox%5F120x60%2Egif&C=False&id=2245&cb=5497514\" alt=\"\" border=0 width=120 height=60></a>");</SCRIPT>
+                  </DIV></TD>
+                <TD width=100>&nbsp;</TD>
+                <TD width=468 height=60><SPAN id=AdBanner5>
+                  <SCRIPT language=javascript>document.write("<a href=\"/script/admentor/admentorredir.asp?id=2353&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FWholeTomato%5FAutoSuggest%5F468x60%2Egif&C=False&id=2353&cb=5497500\" alt=\"The intellisense upgrade for Visual Studio .NET - make your IDE as smart as you.\" border=0 width=468 height=60></a>");</SCRIPT>
+                  </SPAN></TD></TR></TBODY></TABLE></CENTER><A name=__comments></A>
+            <SCRIPT language=JavaScript>
+
+function MsgVoteForm(MemberID, MsgID)
+{
+	document.write("<span id=\"MVF" + MsgID + "\">");
+	document.write("Rate this message: ");
+	for (var i=1; i<=5;i++)
+	{
+		document.write("<a href='#xx" + MsgID.toString() + "xx' title='give this message a vote of " + i.toString());
+		document.write("' onclick='return RateMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", ");
+		document.write(i.toString() + ")'><b>" + i.toString() + "</b></a> ");
+	}
+	document.write(" (out of 5)");
+	document.writeln("</span>");
+	
+	document.write("<br />Report as <a href='#xx" + MsgID.toString() + "xx' title='Mark as Spam' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-1)'>Spam</a> or ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' title='Mark as Abuse' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-2)'>Abuse</a>");
+}
+
+function RetypeForm(MemberID, MsgID)
+{
+	var types = [
+				 {pic:'news_general.gif',  id: 1},
+	             {pic:'news_info.gif',     id: 2},
+	             {pic:'news_question.gif', id: 4},
+	             {pic:'news_answer.gif',   id: 8},
+	             {pic:'news_game.gif',     id: 16},
+	             {pic:'news_spam.gif',     id: 32}
+	            ];
+	
+	document.write("<span id=\"RTF" + MsgID + "\">");
+	for (var i=0;i<types.length;i++)
+	{
+		document.write("<a href='/script/comments/retype?msg=" + MsgID.toString());
+		document.write("&mid=" + MemberID.toString() + "&type=" + types[i].id + "'>");
+		document.write("<img border=0 src='/script/images/" + types[i].pic + "'></a><br />");
+	}
+	document.writeln("</span>");
+}
+
+function ReportMsg(userid, msgid, score)
+{
+	if (confirm("Are you sure you want to report this message?") == true)
+		return RateMsg(userid, msgid, score);
+	else return false;
+}
+
+
+function RateMsg(userid, msgid, score)
+{
+
+   var req = new ActiveXObject("Msxml2.XMLHTTP"); 
+
+   req.onreadystatechange = function()
+   {
+      if ( req.readyState == 4 )
+      {
+         if ( req.status == 200 )
+         {
+         	var respText = req.responseText;
+         	var re = new RegExp("\<div\>([^\<]*)\</div\>", "g");
+         	var match = re.exec(respText);
+         	status.innerHTML = "<b>" + (match)?match[1]:"An error occured" + "</b>";
+         }
+         else
+         {
+            status.innerHTML = "<b style='color:red'>Failed!" + req.statusText + "</b>";
+         }
+      }
+   }
+   
+   var status = document.getElementById("MVF" + msgid);
+   if (!status) return;  // should never happen...   
+   status.innerHTML = "<b style='color:green'>Voting...</b>";
+   
+   var strAction = "/script/comments/vote.asp?js=1&user="+userid+"&msg="+msgid+"&score="+score;
+   req.open("GET", strAction, true);
+   req.send(null);
+   return false;
+}
+
+</SCRIPT>
+
+            <SCRIPT language=JavaScript>
+var Selected = "";
+
+var AdTime = new Date();
+
+
+// Ensures the expanded message appears reasonably close to where 
+// it should appear: on screen, and if possible, under the mouse cursor.
+function SwitchMessage(e)
+{
+   if ( !e ) e = window.event;
+   var target = e.target ? e.target : e.srcElement;
+
+   // is it a post?
+   while ( target && target.id != 'DynMessLink' )
+      target = target.parentNode;
+   if ( !target || target.id != 'DynMessLink' )
+      return;
+
+   if (Selected)
+   {
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+         body.style.display = 'none';
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#FEF9E7';
+   }
+
+   if (Selected == target.name) // just collapse
+      Selected="";
+   else
+   {
+      Selected = target.name;
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+      {
+         if (body.style.display=='none')
+            body.style.display='';
+         else
+            body.style.display = 'none';
+      }
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#99CCFF';
+
+      if ( body && head && body.style.display != 'none' )
+      {
+         // the bit that keeps the post on-screen and under the cursor
+         //var dif = (getRealPos(head, "Top") + head.offsetHeight/2) - (document.body.scrollTop+e.clientY);
+         //document.body.scrollTop += dif;
+         document.body.scrollTop = getRealPos(head, "Top") - document.body.clientHeight/10;
+         EnsureMessageVisible(target.name, true);
+      }
+   }
+
+   if ( e.preventDefault )
+      e.preventDefault();
+   else
+      e.returnValue = false;
+   return false;
+}
+
+// does its best to make a message visible on-screen (vs. scrolled off somewhere).
+function EnsureMessageVisible(msgID, bShowTop) {
+   var msgHeader = document.getElementById(msgID + "_h0");
+   var msgBody = document.getElementById(msgID + "_h1");
+
+   // determine scroll position of top and bottom
+   var scrollContainer = document.body;
+   var top = getRealPos(msgHeader, 'Top');
+   var bottom = getRealPos(msgBody, 'Top') + msgBody.offsetHeight;
+
+   // if not already visible, scroll to make it so
+   if ( scrollContainer.scrollTop > top && !bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+   if ( scrollContainer.scrollTop+scrollContainer.clientHeight < bottom )
+      scrollContainer.scrollTop = bottom-scrollContainer.clientHeight;
+   if ( scrollContainer.scrollTop > top && bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+}
+
+// utility
+function getRealPos(i,which)
+{
+   iPos = 0
+   while (i!=null)
+   {
+      iPos += i["offset" + which];
+      i = i.offsetParent;
+   }
+   return iPos
+}
+
+
+</SCRIPT>
+
+            <DIV id=_MessageBoard onclick=SwitchMessage(event)>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#ff9900 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%">
+                  <TABLE id=ForumTable cellSpacing=1 cellPadding=0 width="100%" 
+                  bgColor=#ff9900 border=0>
+                    <FORM 
+                    action=/script/comments/app/do_filtermessages.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611 
+                    method=post>
+                    <TBODY>
+                    <TR>
+                      <TD>
+                        <TABLE cellSpacing=0 cellPadding=3 width="100%" 
+                        bgColor=white border=0>
+                          <TBODY>
+                          <TR bgColor=#fbedbb>
+                            <TD class=smalltext noWrap><A 
+                              href="http://www.codeproject.com/script/comments/faq.asp"><IMG 
+                              height=16 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht74(1).tmp" 
+                              width=16 align=absMiddle border=0> 
+                            <B>FAQ</B></A>&nbsp;</TD>
+                            <TD class=smalltext vAlign=top noWrap 
+                              align=right>Message score threshold <SELECT 
+                              class=smalltext size=1 name=noise><OPTION 
+                                value=1>1.0</OPTION> <OPTION 
+                                value=2>2.0</OPTION> <OPTION value=3 
+                                selected>3.0</OPTION> <OPTION 
+                                value=4>4.0</OPTION> <OPTION 
+                              value=5>5.0</OPTION></SELECT>&nbsp;&nbsp;</TD>
+                            <TD class=smalltext vAlign=center noWrap align=right 
+                            colSpan=2><A 
+                              href="http://www.codeproject.com/script/comments/search_comments.asp?forumid=39611"><IMG 
+                              height=15 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht77(1).tmp" 
+                              width=16 border=0> Search comments</A> &nbsp;</TD>
+                            <TD vAlign=top align=right><INPUT class=FormButton type=submit value="Set Options" name=submit></TD></TR>
+                          <TR bgColor=#ff9900>
+                            <TD width="100%">&nbsp;</TD>
+                            <TD class=smalltext vAlign=top noWrap 
+                              align=right>View <SELECT class=smalltext size=1 
+                              name=expand><OPTION value=0>Normal 
+                                (slow)</OPTION> <OPTION value=2>Preview 
+                                (slow)</OPTION> <OPTION value=5 selected>Message 
+                                View</OPTION> <OPTION value=6>Topic 
+                                View</OPTION> <OPTION value=1>Thread 
+                                View</OPTION> <OPTION value=3>Expanded 
+                                (Supporters only)</OPTION></SELECT>&nbsp;&nbsp;</TD>
+                            <TD class=smalltext vAlign=top noWrap>Per page 
+                              <SELECT class=smalltext size=1 
+                                name=perpage><OPTION value=10>10</OPTION> 
+                                <OPTION value=25 selected>25</OPTION> <OPTION 
+                                value=50>50</OPTION></SELECT></TD>
+                            <TD 
+                    colSpan=2>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></FORM>
+                    <TR bgColor=#fbedbb>
+                      <TD><A name=xx0xx></A>
+                        <TABLE cellPadding=2 width="100%" bgColor=#fbedbb 
+                        border=0>
+                          <TBODY>
+                          <TR>
+                            <TD class=messagetitle><IMG height=16 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7A(1).tmp" 
+                              width=16 align=top border=0><A class=HoverLink 
+                              title="Add a new message to the discussions" 
+                              href="http://www.codeproject.com/script/comments/user_new.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611" 
+                              target=_top name=HoverNL><B>New Message</B></A></TD>
+                            <TD class=messagetitle>Msgs 1 to 5 of 5 (Total: 5) 
+                              (<A 
+                              href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611">Refresh</A>)</TD>
+                            <TD noWrap align=right><FONT 
+                              class=messagetitle><SPAN 
+                              class=HoverLink>First</SPAN> <SPAN 
+                              class=HoverLink>Prev</SPAN> <SPAN 
+                              class=HoverLink>Next</SPAN> <SPAN 
+                              class=HoverLink>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN> 
+                              </FONT></TD></TR></TBODY></TABLE></TD></TR>
+                    <TR bgColor=white>
+                      <TD>
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=2 bgColor=#fbedbb 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD class=messagetitle 
+                                width="100%">Subject&nbsp;</TD>
+                                <TD class=messagetitle noWrap 
+                                width=140>Author&nbsp;</TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT 
+                                class=messagetitle>Date&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR>
+                          <TR id=1015728_h0 bgColor=#fef9e7>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD bgColor=white><A name=xx1015728xx></A><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD class=messagetitle width="100%"><A 
+                                class=messagetitle id=DynMessLink 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611&amp;select=1015728#xx1015728xx" 
+                                name=1015728><B>if I remove the style from the 
+                                Image it does not works , Why ?</B></A></TD>
+                                <TD vAlign=bottom noWrap><A 
+                                href="http://www.codeproject.com/script/profile/whos_who.asp?id=905821"><IMG 
+                                title="Click for User Profile" height=15 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht80(1).tmp" 
+                                width=14 border=0></A>&nbsp;</TD>
+                                <TD noWrap width=140><FONT 
+                                class=messagetitle><B>nabil_shams</B>&nbsp;</FONT></TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT class=messagetitle><B>6:35 14 
+                                Jan 
+                            '05</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR id=1015728_h1 style="DISPLAY: none">
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht83(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD width="100%" bgColor=#d5eaff>
+                                <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD>
+                                <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>&lt;IMG 
+                                style="Z-INDEX: 101; LEFT: 0px; POSITION: 
+                                absolute; TOP: 0px" alt="" 
+                                src="file:///C:\usr\src\GridDemo\GridDemo\CHANGABLE_PIC.gif"&gt;<BR><BR>&lt;IMG 
+                                alt="" 
+                                src="file:///C:\usr\src\GridDemo\GridDemo\CHANGABLE_PIC.gif"&gt;<BR><BR><BR>I 
+                                want to disable the Drag and drop of HTMLElemnts 
+                                , is it possoble by implementing IHTMLEdithost 
+                                interface. <BR>Your Application works with only 
+                                Absoulte Image styles 
+<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=1015728">Reply</A> 
+                                | <A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=1015728">Email</A> 
+                                | <A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;tid=1015728&amp;forumid=39611&amp;select=1015728#xx1015728xx">View 
+                                Thread</A> | <A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?msg=1015728#xx1015728xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>Score: 2.0 (1 
+                                vote).
+                                <SCRIPT language=Javascript>MsgVoteForm(905821,1015728);</SCRIPT>
+                                 
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR>
+                          <TR height=1>
+                            <TD bgColor=#ff9900><IMG height=1 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1></TD></TR>
+                          <TR id=985997_h0 bgColor=#fef9e7>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD bgColor=white><A name=xx985997xx></A><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD class=messagetitle width="100%"><A 
+                                class=messagetitle id=DynMessLink 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611&amp;select=985997#xx985997xx" 
+                                name=985997><B>Use this code if you don't want 
+                                the user to resize images</B></A></TD>
+                                <TD vAlign=bottom noWrap><A 
+                                href="http://www.codeproject.com/script/profile/whos_who.asp?id=295338"><IMG 
+                                title="Click for User Profile" height=15 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht80(1).tmp" 
+                                width=14 border=0></A>&nbsp;</TD>
+                                <TD noWrap width=140><FONT 
+                                class=messagetitle><B>Leonhardt 
+                                Wille</B>&nbsp;</FONT></TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT class=messagetitle><B>10:48 2 
+                                Dec 
+                            '04</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR id=985997_h1 style="DISPLAY: none">
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht83(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD width="100%" bgColor=#d5eaff>
+                                <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD>
+                                <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>I don't 
+                                want the user to change the size of 
+                                images.<BR>You can do this with the code in this 
+                                article.<BR>All you have to do is add the member 
+                                variable <CODE>RECT rcOld</CODE> to the 
+                                <CODE>XHTMLEditHost</CODE> interface and change 
+                                the SnapRect member function als follows:<BR><PRE lang=c++><BR>STDMETHODIMP CHTMLEditControlSite::XHTMLEditHost::SnapRect(IHTMLElement * /*pIElement*/, RECT * prcNew, ELEMENT_CORNER eHandle)<BR>{<BR>	prcNew-&gt;bottom=rcOld.bottom;<BR>	prcNew-&gt;left=rcOld.left;<BR>	prcNew-&gt;top=rcOld.top;<BR>	prcNew-&gt;right=rcOld.right;	<BR><BR>	rcOld.bottom	=prcNew-&gt;bottom;<BR>	rcOld.left		=prcNew-&gt;left;<BR>	rcOld.top		=prcNew-&gt;top;<BR>	rcOld.right		=prcNew-&gt;right;<BR>	return S_OK;	<BR>}<BR></PRE><BR><BR>Many 
+                                thanks to Rob again. <BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=985997">Reply</A> 
+                                | <A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=985997">Email</A> 
+                                | <A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;tid=985997&amp;forumid=39611&amp;select=985997#xx985997xx">View 
+                                Thread</A> | <A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?msg=985997#xx985997xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(295338,985997);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR>
+                          <TR height=1>
+                            <TD bgColor=#ff9900><IMG height=1 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1></TD></TR>
+                          <TR id=863316_h0 bgColor=#fef9e7>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD bgColor=white><A name=xx863316xx></A><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD class=messagetitle width="100%"><A 
+                                class=messagetitle id=DynMessLink 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611&amp;select=863316#xx863316xx" 
+                                name=863316><B>IElementBehavior help 
+                                sought</B></A></TD>
+                                <TD vAlign=bottom noWrap><A 
+                                href="http://www.codeproject.com/script/profile/whos_who.asp?id=72055"><IMG 
+                                title="Click for User Profile" height=15 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht80(1).tmp" 
+                                width=14 border=0></A>&nbsp;</TD>
+                                <TD noWrap width=140><FONT 
+                                class=messagetitle><B>andyh</B>&nbsp;</FONT></TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT class=messagetitle><B>3:42 29 
+                                Jun 
+                            '04</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR id=863316_h1 style="DISPLAY: none">
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht83(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD width="100%" bgColor=#d5eaff>
+                                <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD>
+                                <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Nice 
+                                article, one of very few relating to IElement* 
+                                <IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht86(1).tmp" 
+                                align=absMiddle>. In my book that makes you an 
+                                expert so I thought I would ask for help.<BR>I 
+                                have implemented a rendering behavior registered 
+                                so that it can be used as a valid HTML tag, 
+                                (albeit with a namespace prefix). If works fine 
+                                except for one small but significant problem. I 
+                                have implemented the IElementBehaviorLayout 
+                                interface to allow it to reserve space during te 
+                                page layout process. The "GetLayoutInfo()" 
+                                method is called but none of the other members. 
+                                Thus the element is invisible, (I think its 
+                                width is 0). I have found that if I specify a 
+                                style-"width:0" ten the layout engine does call 
+                                the GetSize() member and all is well. I can even 
+                                set the style width progamatically in the 
+                                bevaior Init method.<BR>Both seem to be somewhat 
+                                suspect methods of getting things to work. Do 
+                                you happen to know or are you able to guess what 
+                                might be wrong?<BR><BR>Thanks Andy H 
+                                <BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=863316">Reply</A> 
+                                | <A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=863316">Email</A> 
+                                | <A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;tid=863316&amp;forumid=39611&amp;select=863316#xx863316xx">View 
+                                Thread</A> | <A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?msg=863316#xx863316xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(72055,863316);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR>
+                          <TR height=1>
+                            <TD bgColor=#ff9900><IMG height=1 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1></TD></TR>
+                          <TR id=839830_h0 bgColor=#fef9e7>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD bgColor=white><A name=xx839830xx></A><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD class=messagetitle width="100%"><A 
+                                class=messagetitle id=DynMessLink 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611&amp;select=839830#xx839830xx" 
+                                name=839830><B>Need to hide HTML caret when in 
+                                GridLayout mode</B></A></TD>
+                                <TD vAlign=bottom noWrap><A 
+                                href="http://www.codeproject.com/script/profile/whos_who.asp?id=625169"><IMG 
+                                title="Click for User Profile" height=15 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht80(1).tmp" 
+                                width=14 border=0></A>&nbsp;</TD>
+                                <TD noWrap width=140><FONT 
+                                class=messagetitle><B>marwan2003</B>&nbsp;</FONT></TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT class=messagetitle><B>15:39 2 
+                                Jun 
+                            '04</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR id=839830_h1 style="DISPLAY: none">
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht83(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD width="100%" bgColor=#d5eaff>
+                                <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD>
+                                <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Nice 
+                                work. I wonder if you know how to hide the html 
+                                caret when I am using the grid layout mode? I 
+                                tried to use the Hide method of the IHTMLCaret 
+                                but clicking on the body element bring the caret 
+                                back to visible.<BR>Thanks 
+                                <BR><BR>Marwan<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=839830">Reply</A> 
+                                | <A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=839830">Email</A> 
+                                | <A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;tid=839830&amp;forumid=39611&amp;select=839830#xx839830xx">View 
+                                Thread</A> | <A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?msg=839830#xx839830xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(625169,839830);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR>
+                          <TR height=1>
+                            <TD bgColor=#ff9900><IMG height=1 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1></TD></TR>
+                          <TR id=802304_h0 bgColor=#fef9e7>
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD bgColor=white><A name=xx802304xx></A><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD class=messagetitle width="100%"><A 
+                                class=messagetitle id=DynMessLink 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;forumid=39611&amp;select=802304#xx802304xx" 
+                                name=802304><B>Very good timing</B></A></TD>
+                                <TD vAlign=bottom noWrap><A 
+                                href="http://www.codeproject.com/script/profile/whos_who.asp?id=45035"><IMG 
+                                title="Click for User Profile" height=15 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht80(1).tmp" 
+                                width=14 border=0></A>&nbsp;</TD>
+                                <TD noWrap width=140><FONT 
+                                class=messagetitle><B>Jubjub</B>&nbsp;</FONT></TD>
+                                <TD style="WIDTH: 9em" noWrap align=right 
+                                width=120><FONT class=messagetitle><B>19:11 25 
+                                Apr 
+                            '04</B>&nbsp;</FONT></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR id=802304_h1 style="DISPLAY: none">
+                            <TD width="100%">
+                              <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                              border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><IMG 
+                                src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht83(1).tmp" 
+                                align=absMiddle>&nbsp;</TD>
+                                <TD width="100%" bgColor=#d5eaff>
+                                <TABLE cellSpacing=5 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD>
+                                <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                                border=0>
+                                <TBODY>
+                                <TR>
+                                <TD colSpan=2><FONT class=messagecontent>Hi 
+                                Rob,<BR><BR>you seem to come up with articles 
+                                just in time for something I am interested in 
+                                implementing. I am looking at creating a very 
+                                simple HTMLEditor plugin into an project that I 
+                                am working on at the moment, and I think this 
+                                sort of functionality would be just 
+                                perfect.<BR><BR>Outstanding work 
+                                again!!<BR><BR>Jubjub 
+<BR>&nbsp;</FONT></TD></TR>
+                                <TR vAlign=top>
+                                <TD class=messagetitle>[<A 
+                                title="Reply to this current thread" 
+                                href="http://www.codeproject.com/script/comments/user_reply.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=802304">Reply</A> 
+                                | <A 
+                                title="Email a reply to the author of this message" 
+                                href="http://www.codeproject.com/script/comments/user_mail.asp?main=/internet/snaptogrid.asp&amp;df=100&amp;forumid=39611&amp;select=802304">Email</A> 
+                                | <A 
+                                title="View only messages within this thread" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?df=100&amp;tid=802304&amp;forumid=39611&amp;select=802304#xx802304xx">View 
+                                Thread</A> | <A 
+                                title="Get the URL for this message" 
+                                href="http://www.codeproject.com/internet/snaptogrid.asp?msg=802304#xx802304xx">Get 
+                                Link</A>]</TD>
+                                <TD class=messagetitle align=right>
+                                <SCRIPT language=Javascript>MsgVoteForm(45035,802304);</SCRIPT>
+                                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD><IMG height=5 
+                              src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht59(1).tmp" 
+                              width=1 border=0></TD></TR></TBODY></TABLE></TD></TR>
+                    <TR bgColor=#fbedbb>
+                      <TD>
+                        <TABLE cellPadding=2 width="100%">
+                          <TBODY>
+                          <TR>
+                            <TD class=messagetitle>Last Visit: 15:04 Wednesday 
+                              13th December, 2006</TD>
+                            <TD noWrap align=right><FONT 
+                              class=messagetitle><SPAN 
+                              class=HoverLink>First</SPAN> <SPAN 
+                              class=HoverLink>Prev</SPAN> <SPAN 
+                              class=HoverLink>Next</SPAN> <SPAN 
+                              class=HoverLink>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN> 
+                              </FONT></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+            <P class=smallText><IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht7D(1).tmp" 
+            align=absMiddle> General comment &nbsp;&nbsp; <IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht89(1).tmp" 
+            align=absMiddle> News / Info &nbsp;&nbsp; <IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht8C(1).tmp" 
+            align=absMiddle> Question &nbsp;&nbsp; <IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht8F(1).tmp" 
+            align=absMiddle> Answer &nbsp;&nbsp; <IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht92(1).tmp" 
+            align=absMiddle> Joke / Game &nbsp;&nbsp; <IMG 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht95(1).tmp" 
+            align=absMiddle> Admin message</P><BR>
+            <TABLE cellSpacing=5 width="100%">
+              <TBODY>
+              <TR vAlign=top>
+                <TD class=smallText>Updated: 25 Apr 2004 </TD>
+                <TD class=SmallText align=right>Article content copyright Rob 
+                  Manderson, 2004<BR>everything else Copyright © <A 
+                  href="mailto:webmaster@codeproject.com">CodeProject</A>, 
+                  1999-2006</A>. <BR>Web10 | <A 
+                  href="http://www.codeproject.com/info/MediaKit">Advertise on 
+                  The Code Project</A> | <A 
+                  href="http://www.codeproject.com/info/privacy.asp">Privacy</A> 
+                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+      <SCRIPT 
+      src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/front.asp" 
+      type=text/javascript></SCRIPT>
+      <BR>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+        <TBODY>
+        <TR>
+          <TD bgColor=#ff9900 height=1><IMG height=1 
+            src="Implementing%20snap-to-grid%20in%20an%20MSHTML%20based%20application%20-%20The%20Code%20Project%20-%20Internet%20&amp;%20Network_files/mht98(1).tmp"></TD></TR>
+        <TR>
+          <TD align=middle><FONT size=1><A 
+            href="http://www.theultimatetoolbox.com/">The Ultimate Toolbox</A> • 
+            <A href="http://www.aspalliance.com/">ASP Alliance</A> • <A 
+            href="http://www.developerfusion.co.uk/">Developer Fusion</A> • <A 
+            href="http://www.developersdex.com/">Developersdex</A> • <A 
+            href="http://www.devguru.com/">DevGuru</A> • <A 
+            href="http://www.programmersheaven.com/">Programmers Heaven</A> • <A 
+            href="http://www.planet-source-code.com/">Planet Source Code</A> • 
+            <A href="http://www.tek-tips.com/">Tek-Tips Forums</A> • 
+        </FONT></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE></BODY></HTML>

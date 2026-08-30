@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Driver Architecture</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdriver_architecture"></a>Driver Architecture</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Driver architecture falls into two categories, depending on which
+    software processes SQL statements:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>File-based drivers</b>. The driver accesses the physical data
+        directly. In this case, the driver acts as both driver and data source; that is, it processes ODBC calls and SQL
+        statements. For example, dBASE drivers are file-based drivers because dBASE does not provide a stand-alone database
+        engine the driver can use. It is important to note that developers of file-based drivers must write their own database
+        engines.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>DBMS-based drivers</b>. The driver accesses the physical data
+        through a separate database engine. In this case the driver processes only ODBC calls; it passes SQL statements to the
+        database engine for processing. For example, Oracle drivers are DBMS-based drivers because Oracle has a stand-alone
+        database engine the driver uses. Where the database engine resides is immaterial. It can reside on the same machine as
+        the driver or a different machine on the network; it might even be accessed through a gateway.</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Driver architecture is generally interesting only to driver writers;
+    that is, driver architecture generally makes no difference to the application. However, the architecture can affect whether
+    an application can use DBMS-specific SQL. For example, Microsoft Access provides a stand-alone database engine. If a
+    Microsoft Access driver is DBMS-based&#8212;it accesses the data through this engine&#8212;the application can pass
+    Microsoft Access&#8211;SQL statements to the engine for processing.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">However, if the driver is file-based&#8212;that is, it contains a
+    proprietary engine that accesses the Microsoft Access .mdb file directly&#8212;any attempts to pass Microsoft
+    Access&#8211;specific SQL statements to the engine are likely to result in syntax errors. The reason is that the
+    proprietary engine is likely to implement only ODBC SQL.</font></p>
+</body>
+</html>

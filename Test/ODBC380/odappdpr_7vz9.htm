@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>C to SQL: Time</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcc_to_sql__time"></a>C to SQL: Time</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The identifier for the time ODBC C data type is:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL_C_TYPE_TIME</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table shows the ODBC SQL data types to which time C data
+    may be converted. For an explanation of the columns and terms in the table, see &#8220;<a href=
+    "odappdpr_744z.htm">Converting Data from C to SQL Data Types</a>.&#8221;</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="600">
+        <tr valign="top">
+            <td class="label" width="37%"><b><br>
+            SQL type identifier</b></td>
+
+            <td class="label" width="48%"><b><br>
+            Test</b></td>
+
+            <td class="label" width="15%"><b>SQL-<br>
+            STATE</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="37%">SQL_CHAR<br>
+            SQL_VARCHAR<br>
+            SQL_LONGVARCHAR</td>
+
+            <td width="48%">
+                Column byte length &gt;= 8.
+
+                <p>Column byte length &lt; 8.</p>
+
+                <p>Data value is not a valid time.</p>
+            </td>
+
+            <td width="15%">
+                n/a
+
+                <p>22001</p>
+
+                <p>22008</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="37%">SQL_WCHAR<br>
+            SQL_WVARCHAR<br>
+            SQL_WLONGVARCHAR</td>
+
+            <td width="48%">
+                Column character length &gt;= 8.
+
+                <p>Column character length &lt; 8.</p>
+
+                <p>Data value is not a valid time.</p>
+            </td>
+
+            <td width="15%">
+                n/a
+
+                <p>22001</p>
+
+                <p>22008</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="37%">SQL_TYPE_TIME</td>
+
+            <td width="48%">
+                Data value is a valid time.
+
+                <p>Data value is not a valid time.</p>
+            </td>
+
+            <td width="15%">
+                n/a
+
+                <p>22007</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="37%">SQL_TYPE_<br>
+            TIMESTAMP</td>
+
+            <td width="48%">
+                Data value is a valid time. [a]
+
+                <p>Data value is not a valid time.</p>
+            </td>
+
+            <td width="15%">
+                n/a
+
+                <p>22007</p>
+            </td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[a]The date portion of the timestamp is set to the current
+    date and the fractional seconds portion of the timestamp is set to zero.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For information about what values are valid in a SQL_C_TYPE_TIME
+    structure, see &#8220;<a href="odappdpr_40j7.htm">C Data Types</a>&#8221; earlier in this appendix.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When time C data is converted to character SQL data, the resulting
+    character data is in the &#8220;<i>hh</i>:<i>mm</i>:<i>ss</i>&#8221; format.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The driver ignores the length/indicator value when converting data from
+    the time C data type and assumes that the size of the data buffer is the size of the time C data type. The length/indicator
+    value is passed in the <i>StrLen_or_Ind</i> argument in <b>SQLPutData</b> and in the buffer specified with the
+    <i>StrLen_or_IndPtr</i> argument in <b>SQLBindParameter</b>. The data buffer is specified with the <i>DataPtr</i> argument
+    in <b>SQLPutData</b> and the <i>ParameterValuePtr</i> argument in <b>SQLBindParameter</b>.</font></p>
+</body>
+</html>

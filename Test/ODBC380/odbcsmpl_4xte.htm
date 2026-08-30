@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Query Demo Menus and Toolbar</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbcquery_demo_menus_and_toolbar"></a></sup>Query Demo
+    Menus and Toolbar</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">This section briefly describes the menu and toolbar commands in Query
+    Demo. For more information about the ODBC functions that are executed by many of the menu items, see the <i>Microsoft ODBC
+    Programmer&#8217;s Reference</i>.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Login Menu</font></h2>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Command</b></td>
+
+            <td class="label" width="50%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Connect</b></td>
+
+            <td width="50%">Calls <b>SQLConnect</b> to connect to a data source and provides a dialog box for entering
+            connection information.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Driver Connect</b></td>
+
+            <td width="50%">Calls <b>SQLDriverConnect</b> to connect to a driver and a data source.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Disconnect</b></td>
+
+            <td width="50%">Disconnects from statement and connection handles.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Exit</b></td>
+
+            <td width="50%">Exits Query Demo.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Query Menu</font></h2>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Command</b></td>
+
+            <td class="label" width="50%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Execute SQL</b></td>
+
+            <td width="50%">Executes the SQL query you typed in the <b>Statement</b> window.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>New Query</b></td>
+
+            <td width="50%">Opens a new <b>Statement</b> window in which you can type an SQL query.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Window Menu</font></h2>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Command</b></td>
+
+            <td class="label" width="50%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Tile</b></td>
+
+            <td width="50%">Tiles all child windows, including <b>Connection</b> and <b>Statement</b> windows.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Cascade</b></td>
+
+            <td width="50%">Cascades all windows in the Query Demo workspace.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Arrange Icons</b></td>
+
+            <td width="50%">Arranges all minimized components along the bottom of the Query Demo workspace.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Close All</b></td>
+
+            <td width="50%">Closes all open <b>Connection</b> and <b>Statement</b> windows.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Help Menu</font></h2>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="50%"><b>Command</b></td>
+
+            <td class="label" width="50%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>Help</b></td>
+
+            <td width="50%">Opens the ODBC Samples help file.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="50%"><b>About</b></td>
+
+            <td width="50%">Displays version information for Query Demo.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Toolbar</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The toolbar contains:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">A <b>Connection</b> window list box, listing connected data
+        sources.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">A <b>Statement</b> window list box, listing open statement
+        handles.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">A button to open a new <b>Statement</b> window (same as <b>New
+        Query</b> in the <b>Query</b> menu).<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">A button to execute SQL statements (same as <b>Execute SQL</b> in
+        the <b>Query</b> menu).</font></li>
+    </ul>
+</body>
+</html>

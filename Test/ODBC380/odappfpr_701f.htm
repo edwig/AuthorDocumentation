@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Constructing Searched Statements</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconstructing_searched_statements"></a>Constructing
+    Searched Statements</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To support positioned update and delete statements, the cursor library
+    constructs a searched <b>UPDATE</b> or <b>DELETE</b> statement from the positioned statement. To support calls to
+    <b>SQLGetData</b> in a block of data, the cursor library constructs a searched <b>SELECT</b> statement to create a result
+    set containing the current row of data. In each of these statements, the <b>WHERE</b> clause enumerates the values stored
+    in the cache for each bound column that returns SQL_PRED_SEARCHABLE or SQL_PRED_BASIC for the SQL_DESC_SEARCHABLE field
+    identifier in <b>SQLColAttribute</b>.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Caution</b> The <b>WHERE</b> clause constructed by the
+    cursor library to identify the current row can fail to identify any rows, identify a different row, or identify more than
+    one row.</font></p>
+
+    <p>If a positioned update or delete statement affects more than one row, the cursor library updates the row status array
+    only for the row on which the cursor is positioned and returns SQL_SUCCESS_WITH_INFO and SQLSTATE 01001 (Cursor operation
+    conflict). If the statement does not identify any rows, the cursor library does not update the row status array and returns
+    SQL_SUCCESS_WITH_INFO and SQLSTATE 01001 (Cursor operation conflict). An application can call <b>SQLRowCount</b> to
+    determine the number of rows that were updated or deleted.</p>
+
+    <p>If the <b>SELECT</b> clause used to position the cursor for a call to <b>SQLGetData</b> identifies more than one row,
+    <b>SQLGetData</b> is not guaranteed to return the correct data. If it does not identify any rows, <b>SQLGetData</b> returns
+    SQL_NO_DATA.</p>
+
+    <p>If an application conforms to the following guidelines, the <b>WHERE</b> clause constructed by the cursor library should
+    uniquely identify the current row, except when this is impossible, such as when the data source contains duplicate
+    rows.</p>
+
+    <ul type="disc">
+        <li><b>Bind columns that uniquely identify the row.</b> If the bound columns do not uniquely identify the row, the
+        <b>WHERE</b> clause constructed by the cursor library might identify more than one row. In a positioned update or
+        delete statement, such a clause might cause more than one row to be updated or deleted. In a call to <b>SQLGetData</b>,
+        such a clause might cause the driver to return data for the wrong row. Binding all the columns in a unique key
+        guarantees that each row is uniquely identified.<br>
+        <br></li>
+
+        <li><b>Allocate data buffers large enough that no truncation occurs.</b> The cursor library&#8217;s cache is a copy of
+        the values in the rowset buffers bound to the result set with <b>SQLBindCol</b>. If data is truncated when it is placed
+        in these buffers, it will also be truncated in the cache. A <b>WHERE</b> clause constructed from truncated values might
+        not correctly identify the underlying row in the data source.<br>
+        <br></li>
+
+        <li><b>Specify non-null length buffers for binary C data.</b> The cursor library allocates length buffers in its cache
+        only if the <i>StrLen_or_IndPtr</i> argument in <b>SQLBindCol</b> is non-null. When the <i>TargetType</i> argument is
+        SQL_C_BINARY, the cursor library requires the length of the binary data to construct a <b>WHERE</b> clause from the
+        data. If there is no length buffer for a SQL_C_BINARY column and the application calls <b>SQLGetData</b> or attempts to
+        execute a positioned update or delete statement, the cursor library returns SQL_ERROR and SQLSTATE SL014 (A positioned
+        request was issued and not all column count fields were buffered).<br>
+        <br></li>
+
+        <li><b>Specify non-null length buffers for nullable columns.</b> The cursor library allocates length buffers in its
+        cache only if the <i>StrLen_or_IndPtr</i> argument in <b>SQLBindCol</b> is non-null. Because SQL_NULL_DATA is stored in
+        the length buffer, the cursor library assumes that any column for which no length buffer is specified is non-nullable.
+        If no length column is specified for a nullable column, the cursor library constructs a <b>WHERE</b> clause that uses
+        the data value for the column. This clause will not correctly identify the row.</li>
+    </ul>
+</body>
+</html>

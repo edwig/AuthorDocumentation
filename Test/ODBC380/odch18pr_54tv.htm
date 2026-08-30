@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Translator Specification Subkeys</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbctranslator_specification_subkeys"></a>Translator
+    Specification Subkeys</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Each translator listed in the ODBC Translators subkey has a subkey of
+    its own. This subkey has the same name as the corresponding value under the ODBC Translators subkey. The values under this
+    subkey list the full paths of the translator and translator setup DLLs and the usage count. The formats of the values
+    are:</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="22%"><b>Name</b></td>
+
+            <td class="label" width="26%"><b>Data type</b></td>
+
+            <td class="label" width="52%"><b>Data</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="22%">Translator</td>
+
+            <td width="26%">REG_SZ</td>
+
+            <td width="52%"><i>translator-DLL-path</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="22%">Setup</td>
+
+            <td width="26%">REG_SZ</td>
+
+            <td width="52%"><i>setup-DLL-path</i></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="22%">UsageCount</td>
+
+            <td width="26%">REG_DWORD</td>
+
+            <td width="52%"><i>count</i></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, suppose the Microsoft Code Page Translator has a
+    translation DLL named MSCPXL32.DLL, that the translator setup functions are in the same DLL, and that the translator has
+    been installed three times. The values under the Microsoft Code Page Translator subkey might be:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>Translator : REG_SZ : C:\WINDOWS\SYSTEM32\MSCPXL32.DLL
+Setup : REG_SZ : C:\WINDOWS\SYSTEM32\MSCPXL32.DLL
+UsageCount : REG_DWORD : 0x3
+</code></font>
+</pre>
+</body>
+</html>

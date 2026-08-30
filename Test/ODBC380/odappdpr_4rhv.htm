@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>64-Bit Integer Structures</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbc64_bit_integer_structures"></a>64-Bit Integer
+    Structures</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The C type for the SQL_C_SBIGINT and SQL_C_UBIGINT data type identifiers
+    on Microsoft C compilers is _int64. When a compiler other than a Microsoft C compiler is used, the C type might be
+    different. If the compiler supports 64-bit integers natively, the driver or application should define ODBCINT64 to be the
+    native 64-bit integer type. If the compiler does not support 64-bit integers natively, an application or driver can define
+    the following structures to ensure that it has access to this data:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>typedef struct{
+SQLUINTEGER dwLowWord;
+SQLUINTEGER dwHighWord;
+} SQLUBIGINT
+
+typedef struct{
+SQLUINTEGER dwLowWord;
+SQLINTEGER sdwHighWord;
+} SQLBIGINT
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">These structures should be aligned to an 8-byte boundary because a
+    64-bit integer is aligned to the 8-byte boundary.</font></p>
+</body>
+</html>

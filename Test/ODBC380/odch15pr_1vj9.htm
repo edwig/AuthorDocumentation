@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Gateways Diagnostic Example</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcgateways_diagnostic_example"></a>Gateways Diagnostic
+    Example</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In a gateway architecture, a driver sends requests to a gateway that
+    supports ODBC. The gateway sends the requests to a DBMS. Because it is the component that interfaces with the Driver
+    Manager, the driver formats and returns arguments for <b>SQLGetDiagRec</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For example, if DEC based a gateway to Rdb on Microsoft Open Data
+    Services, and Rdb could not find the table EMPLOYEE, the gateway might generate this diagnostic message:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size=
+"2"><code>"[42S02][-1][DEC][ODS Gateway][Rdb]%SQL-F-RELNOTDEF, Table EMPLOYEE is not defined "
+ "in schema."
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the error occurred in the data source, the gateway added a
+    prefix for the data source identifier ([Rdb]) to the diagnostic message. Because the gateway was the component that
+    interfaced with the data source, it added prefixes for its vendor ([DEC]) and identifier ([ODS Gateway]) to the diagnostic
+    message. Note that it also added the SQLSTATE value and the Rdb error code to the beginning of the diagnostic message. This
+    permitted it to preserve the semantics of its own message structure and still supply the ODBC diagnostic information to the
+    driver. The driver parses the error information attached to the error statement by the gateway.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because the gateway driver is the component that interfaces with the
+    Driver Manager, it would use the preceding diagnostic message to format and return the following values from
+    <b>SQLGetDiagRec</b>:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLSTATE:   "42S02"
+Native Error: -1
+Diagnostic Msg: "[DEC][ODS Gateway][Rdb]%SQL-F-RELNOTDEF, Table EMPLOYEE is not "
+      "defined in schema."
+</code></font>
+</pre>
+</body>
+</html>

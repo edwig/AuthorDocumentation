@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Vertical Applications</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcvertical_applications"></a>Vertical
+    Applications</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Vertical applications typically perform a well-defined task against a
+    single DBMS. For example, an order entry application tracks the orders in a company. What these types of applications have
+    in common is that the database schema is usually designed by the application developer and, while the application might
+    work with a number of different DBMSs, it works with a single DBMS for a single customer.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because vertical applications usually require certain functionality,
+    such as scrollable cursors or transactions, they rarely support all DBMSs. Instead, they tend to be highly interoperable
+    among a limited set of DBMSs. Typically, vertical application developers choose to support those DBMSs that represent a
+    large fraction of the market and ignore the rest. They might even choose to support specific drivers for those DBMSs to
+    reduce their testing and product support costs.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Because vertical applications can support a known set of DBMSs, they
+    sometimes contain driver- or DBMS-specific code. However, such code is best kept to a minimum, because it requires extra
+    time to maintain.</font></p>
+</body>
+</html>

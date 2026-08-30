@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Type Identifiers</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbctype_identifiers"></a>Type Identifiers</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To describe SQL and C data types, ODBC defines two sets of <i>type
+    identifiers</i>. A type identifier describes the type of an SQL column or a C buffer. It is a <b>#define</b> value and is
+    generally passed as a function argument or returned in metadata. For example, the following call to <b>SQLBindParameter</b>
+    binds a variable of type SQL_DATE_STRUCT to a date parameter in an SQL statement. The C type identifier SQL_C_TYPE_DATE
+    specifies the type of the <i>Date</i> variable, and the SQL type identifier SQL_TYPE_DATE specifies the type of the dynamic
+    parameter.</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQL_DATE_STRUCT Date;
+SQLINTEGER  DateInd = 0;
+SQLBindParameter(hstmt, 1, SQL_PARAM_INPUT, SQL_C_TYPE_DATE, SQL_TYPE_DATE, 0, 0,
+       &amp;Date, 0, &amp;DateInd);
+</code></font>
+</pre>
+</body>
+</html>

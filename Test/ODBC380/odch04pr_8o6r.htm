@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Interface Conformance Levels</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcinterface_conformance_levels"></a>Interface Conformance
+    Levels</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The purpose of leveling is to inform the application what features are
+    available to it from the driver. A leveling scheme based on functions does not sufficiently achieve this goal. In ODBC 3.x,
+    drivers are classified based on the features they possess. Supporting the feature may include supporting the function; it
+    may also include supporting a descriptor field, a statement attribute, a &#8220;Y&#8221; value for an information type
+    returned by <b>SQLGetInfo</b>, and so on.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To simplify specification of interface conformance, ODBC defines three
+    conformance levels. To meet a particular conformance level, a driver must satisfy all of the requirements of that
+    conformance level. Conformance with a given level implies complete conformance with all lower levels.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Conformance levels do not always divide neatly into support for a
+    specific list of ODBC functions, but specify supported features as listed in the following sections. To provide support for
+    a feature, a driver must support some or all forms of calls to certain ODBC functions (for more information, see
+    &#8220;<a href="odch04pr_0q3p.htm">Function Conformance</a>&#8221;), setting certain attributes (for more information, see
+    &#8220;<a href="odch04pr_5ov9.htm">Attribute Conformance</a>&#8221;), and certain descriptor fields (for more information,
+    see &#8220;<a href="odch04pr_8krp.htm">Descriptor Field Conformance</a>&#8221;).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application discovers a driver&#8217;s interface conformance level
+    by connecting to a data source, and calling <b>SQLGetInfo</b> with the SQL_ODBC_INTERFACE_CONFORMANCE option.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Drivers are free to implement features beyond the level to which they
+    claim complete conformance. Applications discover any such additional capabilities by calling <b>SQLGetFunctions</b> (to
+    determine which ODBC functions are present) and <b>SQLGetInfo</b> (to query various other ODBC capabilities).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There are three ODBC interface conformance levels: Core, Level 1, and
+    Level 2.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>These conformance levels
+    have different requirements than the ODBC API conformance levels of the same name in ODBC 2.<i>x</i>. In particular, all
+    the features implied by ODBC 2.<i>x</i> API conformance Level 1 are now part of the Core interface conformance level. As a
+    result, many ODBC drivers may report Core-level interface conformance.</font></p>
+</body>
+</html>

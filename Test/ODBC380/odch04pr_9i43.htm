@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Data Type Conversions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdata_type_conversions"></a>Data Type
+    Conversions</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Data can be converted from one type to another at one of four times:
+    when data is transferred from one application variable to another (C to C), when data in an application variable is sent to
+    a statement parameter (C to SQL), when data in a result set column is returned in an application variable (SQL to C), and
+    when data is transferred from one data source column to another (SQL to SQL).</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Any conversion that occurs when data is transferred from one application
+    variable to another is outside the scope of this document.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When an application binds a variable to a result set column or statement
+    parameter, it implicitly specifies a data type conversion in its choice of the data type of the application variable. For
+    example, suppose a column contains integer data. If the application binds an integer variable to the column, it specifies
+    that no conversion be done; if it binds a character variable to the column, it specifies that the data be converted from
+    integer to character.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC defines how data is converted between each SQL and C data type.
+    Basically, it supports all reasonable conversions, such as character to integer and integer to float, and does not support
+    ill-defined conversions, such as float to date. Drivers are required to support all conversions for each SQL data type they
+    support. For a complete list of conversions between SQL and C data types, see &#8220;<a href="odappdpr_4o4z.htm">Converting
+    Data from SQL to C Data Types</a>&#8221; and &#8220;<a href="odappdpr_744z.htm">Converting Data from C to SQL Data
+    Types</a>&#8221; in Appendix D, &#8220;Data Types.&#8221;</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC also defines a scalar function for converting data from one SQL
+    data type to another. The <b>CONVERT</b> scalar function is mapped by the driver to the underlying scalar function or
+    functions defined to perform conversions in the data source. Because it is mapped to DBMS-specific functions, ODBC does not
+    define how these conversions work or what conversions must be supported. An application discovers what conversions are
+    supported by a particular driver and data source through the SQL_CONVERT options in <b>SQLGetInfo</b>. For more information
+    about the <b>CONVERT</b> scalar function, see &#8220;<a href="odch08pr_34df.htm">Escape Sequences in ODBC</a>&#8221; in
+    Chapter 8, &#8220;SQL Statements&#8221; and Appendix E, &#8220;<a href="odappepr_3wc3.htm">Scalar
+    Functions</a>.&#8221;</font></p>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Escape Sequences in ODBC</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcescape_sequences_in_odbc"></a>Escape Sequences in
+    ODBC</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A number of language features, such as outer joins and scalar function
+    calls, are commonly implemented by DBMSs. However, the syntaxes for these features tend to be DBMS-specific, even when
+    standard syntaxes are defined by the various standards bodies. Because of this, ODBC defines escape sequences that contain
+    standard syntaxes for the following language features:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Date, time, timestamp, and datetime interval literals<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Scalar functions such as numeric, string, and data type conversion
+        functions<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">LIKE predicate escape character<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Outer joins<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Procedure calls</font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The escape sequence used by ODBC is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{</b><i>extension</i><b>}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The escape sequence is recognized and parsed by drivers, which replace
+    the escape sequences with DBMS-specific grammar. For more information about escape sequence syntax, see Appendix C,
+    &#8220;<a href="odappcpr_0mcy.htm">SQL Grammar</a>.&#8221;</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>In ODBC 2.<i>x</i>, this was
+    the standard syntax of the escape sequence:</font></p>
+
+    <p class="indent"><b>--(*vendor(</b><i>vendor-name</i><b>), product(</b><i>product-name</i><b>)</b> <i>extension</i>
+    <b>*)--</b></p>
+
+    <p class="indent">In addition to this syntax, a shorthand syntax was defined of the form: <b>{</b><i>extension</i><b>}</b>.
+    In ODBC 3.<i>x</i>, the long form of the escape sequence has been deprecated, and the shorthand form is used
+    exclusively.</p>
+
+    <p>Because the escape sequences are mapped by the driver to DBMS-specific syntaxes, an application can use either the
+    escape sequence or DBMS-specific syntax. However, applications that use the DBMS-specific syntax will not be interoperable.
+    When using the escape sequence, applications should make sure that the SQL_ATTR_NOSCAN statement attribute is turned off,
+    which it is by default. Otherwise, the escape sequence will be sent directly to the data source, where it will generally
+    cause a syntax error.</p>
+
+    <p>Drivers support only those escape sequences that they can map to underlying language features. For example, if the data
+    source does not support outer joins, neither will the driver. To determine which escape sequences are supported, an
+    application calls <b>SQLGetTypeInfo</b> and <b>SQLGetInfo</b>. For more information, see the next section, &#8220;<a href=
+    "odch08pr_5wfn.htm">Date, Time, and Timestamp Literals</a>.&#8221;</p>
+</body>
+</html>

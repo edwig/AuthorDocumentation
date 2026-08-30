@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQL to C: Time</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsql_to_c__time"></a>SQL to C: Time</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The identifier for the time ODBC SQL data type is:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">SQL_TYPE_TIME</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following table shows the ODBC C data types to which time SQL data
+    may be converted. For an explanation of the columns and terms in the table, see &#8220;<a href=
+    "odappdpr_4o4z.htm">Converting Data from SQL to C Data Types</a>.&#8221;</font></p>
+
+    <table border="1" cellpadding="5" cols="5" frame="below" rules="rows" width="618">
+        <tr valign="top">
+            <td class="label" width="25%"><b><br>
+            C type identifier</b></td>
+
+            <td class="label" width="25%"><b><br>
+            Test</b></td>
+
+            <td class="label" width="19%"><b><br>
+            *<i>TargetValuePtr</i></b></td>
+
+            <td class="label" width="18%"><b>*<i>StrLen_or<br>
+            _IndPtr</i></b></td>
+
+            <td class="label" width="13%"><b>SQL-<br>
+            STATE</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">SQL_C_CHAR</td>
+
+            <td width="25%">
+                <i>BufferLength</i> &gt; Character byte length
+
+                <p><i>9</i> &lt;= <i>BufferLength</i> &lt;= Character byte length</p>
+
+                <p><i>BufferLength</i> &lt; 9</p>
+            </td>
+
+            <td width="19%">
+                Data<br>
+
+                <p>Truncated data [a]<br></p>
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="18%">
+                Length of data in bytes
+
+                <p>Length of data in bytes</p>
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="13%">
+                n/a<br>
+
+                <p>01004<br></p>
+
+                <p>22003</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">SQL_C_WCHAR</td>
+
+            <td width="25%">
+                <i>BufferLength</i> &gt; Character length
+
+                <p><i>9</i> &lt;= <i>BufferLength</i> &lt;= Character length</p>
+
+                <p><i>BufferLength</i> &lt; 9</p>
+            </td>
+
+            <td width="19%">
+                Data<br>
+
+                <p>Truncated data [a]<br></p>
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="18%">
+                Length of data in characters
+
+                <p>Length of data in characters</p>
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="13%">
+                n/a<br>
+
+                <p>01004<br></p>
+
+                <p>22003</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">SQL_C_BINARY</td>
+
+            <td width="25%">
+                Byte length of data &lt;= <i>BufferLength</i>
+
+                <p>Byte length of data &gt; <i>BufferLength</i></p>
+            </td>
+
+            <td width="19%">
+                Data<br>
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="18%">
+                Length of data in bytes
+
+                <p>Undefined</p>
+            </td>
+
+            <td width="13%">
+                n/a<br>
+
+                <p>22003</p>
+            </td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">SQL_C_TYPE_TIME</td>
+
+            <td width="25%">None [b]</td>
+
+            <td width="19%">Data</td>
+
+            <td width="18%">6 [d]</td>
+
+            <td width="13%">n/a</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="25%">SQL_C_TYPE_<br>
+            TIMESTAMP</td>
+
+            <td width="25%">None [b]</td>
+
+            <td width="19%">Data [c]</td>
+
+            <td width="18%">16 [d]</td>
+
+            <td width="13%">n/a</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[a]The fractional seconds of the time are
+    truncated.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[b]The value of <i>BufferLength</i> is ignored for this
+    conversion. The driver assumes that the size of *<i>TargetValuePtr</i> is the size of the C data type.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[c]The date fields of the timestamp structure are set to
+    the current date and the fractional seconds field of the timestamp structure is set to zero.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[d]This is the size of the corresponding C data
+    type.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When time SQL data is converted to character C data, the resulting
+    string is in the &#8220;<i>hh</i>:<i>mm</i>:<i>ss</i>&#8221; format. This format is not affected by the Windows country
+    setting.</font></p>
+</body>
+</html>

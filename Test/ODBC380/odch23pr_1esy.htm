@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLRemoveDriver</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqlremovedriver"></a>SQLRemoveDriver</font></h1>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Conformance</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Version Introduced: ODBC 3.0</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Summary</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLRemoveDriver</b> changes or removes information about the driver
+    from the ODBCINST.INI entry in the system information.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Syntax</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">BOOL <b>SQLRemoveDriver (</b><br>
+    &nbsp;&nbsp;&nbsp;LPCSTR&nbsp;&nbsp;&nbsp;<i>lpszDriver</i>,<br>
+    &nbsp;&nbsp;&nbsp;BOOL&nbsp;&nbsp;&nbsp;<i>fRemoveDSN</i>,<br>
+    &nbsp;&nbsp;&nbsp;LPDWORD&nbsp;&nbsp;&nbsp;<i>lpdwUsageCount</i>);</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Arguments</b></font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpszDriver</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Input]<br>
+    The name of the driver as registered in the ODBCINST.INI key of the system information.</font></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>fRemoveDSN</i> [Input]<br>
+    The valid values are:<br>
+    &nbsp;&nbsp;&nbsp;TRUE:<br>
+    Remove DSNs associated with the driver specified in <i>lpszDriver</i>.<br>
+    &nbsp;&nbsp;&nbsp;FALSE:<br>
+    &nbsp;&nbsp;&nbsp;Do not remove DSNs associated with the driver specified in<br>
+    &nbsp;&nbsp;&nbsp;<i>lpszDriver</i>.</font></p>
+
+    <p class="indent"></p>
+
+    <p class="dt"><font face="Verdana, Arial, Helvetica" size="2"><i>lpdwUsageCount</i></font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2">[Output]<br>
+    The usage count of the driver after this function has been called.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Returns</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The function returns TRUE if it is successful, FALSE if it fails. If no
+    entry exists in the system information when this function is called, the function returns FALSE.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Diagnostics</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">When <b>SQLRemoveDriver</b> returns FALSE, an associated
+    <i>*pfErrorCode</i> value may be obtained by calling <b>SQLInstallerError</b>. The following table lists the
+    <i>*pfErrorCode</i> values that can be returned by <b>SQLInstallerError</b> and explains each one in the context of this
+    function.</font></p>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="27%"><b><i>*pfErrorCode</i></b></td>
+
+            <td class="label" width="24%"><b>Error</b></td>
+
+            <td class="label" width="49%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            GENERAL_ERR</td>
+
+            <td width="24%">General installer error</td>
+
+            <td width="49%">An error occurred for which there was no specific installer error.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            COMPONENT_<br>
+            NOT_FOUND</td>
+
+            <td width="24%">Component not found in registry</td>
+
+            <td width="49%">The installer could not remove the driver information because it either did not exist in the
+            registry or could not be found in the registry.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            INVALID_NAME</td>
+
+            <td width="24%">Invalid driver or translator name</td>
+
+            <td width="49%">The <i>lpszDriver</i> argument was invalid.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            USAGE_<br>
+            UPDATE_<br>
+            FAILED</td>
+
+            <td width="24%">Could not increment or decrement the component usage count</td>
+
+            <td width="49%">The installer failed to decrement the usage count of the driver.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            REQUEST_<br>
+            FAILED</td>
+
+            <td width="24%">Request failed</td>
+
+            <td width="49%">The <i>fRemoveDSN</i> argument was TRUE; however, one or more DSNs could not be removed. The call
+            to <b>SQLConfigDriver</b> with the ODBC_REMOVE_DRIVER request failed.</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="27%">ODBC_ERROR_<br>
+            OUT_OF_MEM</td>
+
+            <td width="24%">Out of memory</td>
+
+            <td width="49%">The installer could not perform the function because of a lack of memory.</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Comments</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLRemoveDriver</b> complements the <a href=
+    "odch23pr_0vy0.htm">SQLInstallDriverEx</a> function, and updates the component usage count in the system information. This
+    function should only be called from a setup application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLRemoveDriver</b> will decrement the component usage count value by
+    1. If the component usage count goes to 0, then the following will occur:</font></p>
+
+    <ol>
+        <li><font face="Verdana, Arial, Helvetica" size="2">The <b>SQLConfigDriver</b> function with the ODBC_REMOVE_DRIVER
+        option will be called. If the <i>fRemoveDSN</i> option is set to TRUE, the <b>ConfigDSN</b> function calls
+        <b>SQLRemoveDSNFromIni</b> to remove all the data sources associated with the driver specified in <i>lpszDriver.</i> If
+        the <i>fRemoveDSN</i> option is set to FALSE, the data sources will not be deleted.<br>
+        <br></font></li>
+
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2">The driver entry in the system information will be removed. The
+            driver entry is in the following system information location, under the driver name:</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">HKEY_LOCAL_MACHINE<br>
+            &nbsp;&nbsp;&nbsp;SOFTWARE<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBC<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ODBCINST.INI</font></p>
+        </li>
+    </ol>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLRemoveDriver</b> does not actually remove any files. The calling
+    program is responsible for deleting files, and maintaining the file usage count. Only after both the component usage count
+    and the file usage count have reached zero is a file physically deleted. Some files in a component can be deleted, and
+    others not deleted, depending upon whether the files are used by other applications that have incremented the file usage
+    count.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLRemoveDriver</b> is also called as part of an upgrade process. If
+    an application detects that it has to perform an upgrade, and it has previously installed the driver, then the driver
+    should be removed, then reinstalled. <b>SQLRemoveDriver</b> should first be called to decrement the component usage count,
+    then <b>SQLInstallDriverEx</b> should then be called to increment the component usage count. The application setup program
+    must physically replace the old files with the new files. The file usage count will remain the same, and other applications
+    that use the older version files will now use the newer version.</font></p>
+
+    <p class="label"><font face="Verdana, Arial, Helvetica" size="2"><b>Related Functions</b></font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="48%"><b>For information about</b></td>
+
+            <td class="label" width="52%"><b>See</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">Adding, modifying, or removing a driver</td>
+
+            <td width="52%"><a href="odch22pr_29wy.htm">ConfigDriver</a> (in the Setup DLL)</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">Adding, modifying, or removing a driver</td>
+
+            <td width="52%"><a href="odch23pr_98aa.htm">SQLConfigDriver</a></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="48%">Installing a driver</td>
+
+            <td width="52%"><a href="odch23pr_0vy0.htm">SQLInstallDriverEx</a></td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

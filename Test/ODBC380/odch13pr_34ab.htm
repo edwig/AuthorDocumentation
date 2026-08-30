@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Using Concise Functions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcusing_concise_functions"></a>Using Concise
+    Functions</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Some ODBC functions gain implicit access to descriptors. Application
+    writers may find them more convenient than calling <b>SQLSetDescField</b> or <b>SQLGetDescField</b>. These functions are
+    called <i>concise</i> functions because they perform a number of functions, including setting or getting descriptor fields.
+    Some concise functions let an application set or retrieve several related descriptor fields in a single function
+    call.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Concise functions can be called without first retrieving a descriptor
+    handle for use as an argument. These functions work with the descriptor fields associated with the statement handle that
+    they are called on.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The concise functions <b>SQLBindCol</b> and <b>SQLBindParameter</b> bind
+    a column or parameter by setting the descriptor fields that correspond to their arguments. Each of these functions performs
+    more tasks than simply setting descriptors. <b>SQLBindCol</b> and <b>SQLBindParameter</b> provide a complete specification
+    of the binding of a data column or dynamic parameter. An application can, however, change individual details of a binding
+    by calling <b>SQLSetDescField</b> or <b>SQLSetDescRec</b>, and can completely bind a column or parameter by making a series
+    of suitable calls to these functions.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The concise functions <b>SQLColAttribute</b>, <b>SQLDescribeCol</b>,
+    <b>SQLDescribeParam</b>, <b>SQLNumParams</b>, and <b>SQLNumResultCols</b> retrieve values in descriptor fields.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLSetDescRec</b> and <b>SQLGetDescRec</b> are concise functions
+    that, with one call, set or get multiple descriptor fields that affect the data type and storage of column or parameter
+    data. <b>SQLSetDescRec</b> is an effective way to change the binding of column or parameter data in one step.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLSetStmtAttr</b> and <b>SQLGetStmtAttr</b> serve as concise
+    functions in some cases (see &#8220;<a href="odch13pr_2df7.htm">Descriptor Fields</a>&#8221; earlier in this
+    chapter).</font></p>
+</body>
+</html>

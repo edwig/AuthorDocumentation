@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQL_ARD_TYPE</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsql_ard_type"></a>SQL_ARD_TYPE</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The SQL_ARD_TYPE type identifier is used to indicate that the data in a
+    buffer will be of the type specified in the SQL_DESC_CONCISE_TYPE field of the ARD. SQL_ARD_TYPE is entered in the
+    <i>TargetType</i> argument of a call to <b>SQLGetData</b> instead of a specific data type, and enables an application to
+    change the data type of the buffer by changing the descriptor field. This value ties the data type of the
+    <i>*TargetValuePtr</i> buffer to the descriptor field. (SQL_ARD_TYPE is not entered in a call to <b>SQLBindCol</b> or
+    <b>SQLBindParameter</b> because the type of the bound buffer is already tied to the SQL_DESC_TYPE and SQL_DESC_CONCISE_TYPE
+    fields, and can be changed at any time by changing either of those fields.)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The SQL_ARD_TYPE type identifier can be used to specify non-default
+    values for leading precision and seconds precision of interval data types, and precision and scale values for the
+    SQL_C_NUMERIC data type. For more information, see &#8220;<a href="odappdpr_61ir.htm">Overriding Default Leading and
+    Seconds Precision for Interval Data Types</a>&#8221; and &#8220;<a href="odappdpr_6u9f.htm">Overriding Default Precision
+    and Scale for Numeric Data Types</a>&#8221; later in this appendix.</font></p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Unicode Drivers</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcunicode_drivers"></a>Unicode Drivers</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Whether a driver should be a Unicode driver or an ANSI driver depends
+    entirely on the nature of the data source. If the data source supports Unicode data, the driver should be a Unicode driver.
+    If the data source only supports ANSI data, the driver should remain an ANSI driver.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A Unicode driver must export <b>SQLConnectW</b> in order to be
+    recognized as a Unicode driver by the Driver Manager.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A Unicode driver must accept Unicode functions (with a suffix of "W")
+    and store Unicode data. It can also accept ANSI functions, but is not required to. (The Driver Manager does not pass an
+    ANSI function call with the "A" suffix to the driver, but converts it to an ANSI function call without the suffix, then
+    passes it to the driver.)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A Unicode driver must be able to return result sets in either Unicode or
+    ANSI, depending on the application's binding. If an application binds to SQL_C_CHAR, then the Unicode driver must convert
+    SQL_WCHAR data to SQL_CHAR. Note that the driver manager will map SQL_C_WCHAR to SQL_C_CHAR for ANSI drivers, but does no
+    mapping for Unicode drivers.</font></p>
+</body>
+</html>

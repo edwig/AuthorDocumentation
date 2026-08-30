@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Setting Up the Cursor</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsetting_up_the_cursor"></a>Setting Up the
+    Cursor</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application can specify the cursor type before executing a statement
+    that creates a result set. It does this with the SQL_ATTR_CURSOR_TYPE statement attribute. If the application does not
+    explicitly specify a type, a forward-only cursor will be used. To get a mixed cursor, an application specifies a
+    keyset-driven cursor but declares a keyset size less than the result set size.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For keyset-driven and mixed cursors, the application can also specify
+    the keyset size. It does this with the SQL_ATTR_KEYSET_SIZE statement attribute. If the keyset size is set to 0&#8212;which
+    is the default&#8212;the keyset size is set to the result set size and a keyset-driven cursor is used. Note that the keyset
+    size can be changed after the cursor has been opened.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The application can also set the rowset size; for more information, see
+    &#8220;<a href="odch11pr_9x0z.htm">Using Block Cursors</a>,&#8221; earlier in this chapter.</font></p>
+</body>
+</html>

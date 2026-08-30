@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Environment Handles</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcenvironment_handles"></a>Environment Handles</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">An <i>environment</i> is a global context in which to access data;
+    associated with an environment is any information that is global in nature, such as:</font></p>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">The environment&#8217;s state<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current environment-level diagnostics<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The handles of connections currently allocated on the
+        environment<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">The current settings of each environment attribute<br>
+        <br></font></li>
+    </ul>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Within a piece of code that implements ODBC (the Driver Manager or a
+    driver), an environment handle identifies a structure to contain this information.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Environment handles are not frequently used in ODBC applications. They
+    are always used in calls to <b>SQLDataSources</b> and <b>SQLDrivers</b> and sometimes used in calls to
+    <b>SQLAllocHandle</b>, <b>SQLEndTran</b>, <b>SQLFreeHandle</b>, <b>SQLGetDiagField</b>, and
+    <b>SQLGetDiagRec</b>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Each piece of code that implements ODBC (the Driver Manager or a driver)
+    contains one or more environment handles. For example, the Driver Manager maintains a separate environment handle for each
+    application that is connected to it. Environment handles are allocated with <b>SQLAllocHandle</b> and freed with
+    <b>SQLFreeHandle</b>.</font></p>
+</body>
+</html>

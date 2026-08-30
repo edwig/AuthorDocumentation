@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>What Admin Demo Demonstrates</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><sup><a name="odbcwhat_admin_demo_demonstrates"></a></sup>What Admin
+    Demo Demonstrates</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Admin Demo uses the ODBC API to enable you to connect to a data source,
+    execute SQL statements, run scripts, and perform other special tasks. In addition, Admin Demo can list information (such as
+    data types, functions, and general ODBC information) about the data source being used.</font></p>
+
+    <p class="indent"><font face="Verdana, Arial, Helvetica" size="2"><b>Note&nbsp;&nbsp;&nbsp;</b>Admin Demo is provided as a
+    sample. It is not designed to replace proprietary DBMS tools, because there are some tasks that can only be done with
+    DBMS-specific tools. Instead, Admin Demo and its source code are supplied as an example of how to write a general-purpose,
+    ODBC-enabled application for performing system operations on different data sources.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Features</font></h2>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Connection Windows</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Admin Demo enables you to connect to multiple data sources. The only
+    limits on connections are those imposed by each driver and the amount of memory available on the system. Each new
+    connection creates a multiple-document interface (MDI) child Connection window from which SQL statements can be
+    executed.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Input and Output Windows</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There are two panes in each Connection window. The input (upper) pane
+    enables you to edit a file, enter new statements, and execute those statements. The output (lower) pane is used to log
+    error and diagnostic messages.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To toggle between the input and output panes, press <small>f6</small>.
+    If a Results window is currently active, pressing F6 causes the cursor to activate the Connection window that owns that
+    Results window.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Results Windows</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The output from operations that produce result sets, such as executing
+    SQL statements or invoking ODBC catalog functions, is displayed in a Results window. Each Results window is an MDI child
+    window of the Connection window in which the operation was performed. This means that disconnecting from a Connection
+    window closes all Results windows created from that Connection window.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Limitations of Admin Demo</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Admin Demo is a useful sample application, but not a polished product.
+    It is up to you to improve its performance and functionality. Here are some of the limitations you need to be aware
+    of.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Maximum Rows Fetched in a Result Set: 1000</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The maximum number of rows that can be fetched in a result set is 1000.
+    Each fetched row is placed in a structure that is added to an owner-drawn list box. Because the operating system limits the
+    number of elements in a list box to 1000, Admin Demo cannot handle more records than this limit.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">Simplistic Memory Management</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The memory management scheme used in Admin Demo is also very limited.
+    When Admin Demo needs memory, it calls <b>GlobalAlloc</b>. This is not the most efficient method because it can cause
+    memory fragmentation and poor performance.</font></p>
+
+    <h3><font face="Verdana, Arial, Helvetica" size="2">No Asynchronous Operation</font></h3>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Admin Demo does not take advantage of the asynchronous capabilities of
+    some ODBC drivers. It executes a query and fetches the result set synchronously, limiting performance for long
+    queries.</font></p>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2">Other Limitations</font></h2>
+
+    <ul type="disc">
+        <li><font face="Verdana, Arial, Helvetica" size="2">Maximum connections: limited by driver and memory<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Maximum result sets: limited by user and memory<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2">Maximum rowset buffer size: 64 KB</font></li>
+    </ul>
+</body>
+</html>

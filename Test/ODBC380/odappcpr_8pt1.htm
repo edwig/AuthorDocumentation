@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Procedure Call Escape Sequence</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcprocedure_call_escape_sequence"></a>Procedure Call Escape
+    Sequence</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC uses escape sequences for procedure calls. The syntax of this
+    escape sequence is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>{</b>[?=]<b>call</b>
+    <i>procedure-name</i>[<b>(</b>[<i>parameter</i>][,[<i>parameter</i>]]...<b>)</b>]<b>}</b></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In BNF notation, the syntax is as follows:</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-procedure-escape</i> ::=<br>
+    | <i>ODBC-esc-initiator</i> [?=] call <i>procedure ODBC-esc-terminator</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>procedure</i> ::= <i>procedure-name</i> | <i>procedure-name</i>
+    (<i>procedure-parameter-list</i>)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>procedure-identifier</i> ::= <i>user-defined-name</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>procedure-name</i> ::= <i>procedure-identifier</i><br>
+    | <i>owner-name</i>.<i>procedure-identifier</i><br>
+    | <i>catalog-name catalog-separator</i> <i>procedure-identifier</i><br>
+    | <i>catalog-name catalog-separator</i> [<i>owner-name</i>].<i>procedure-identifier</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">(The third syntax is valid only if the data source does not support
+    owners.)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>owner-name</i> ::= <i>user-defined-name</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>catalog-name</i> ::= <i>user-defined-name</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>catalog-separator</i> ::=
+    {<i>implementation-defined</i>}<i><br></i>(The catalog separator is returned through <b>SQLGetInfo</b> with the
+    SQL_CATALOG_NAME_SEPARATOR information option.)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>procedure-parameter-list</i> ::= <i>procedure-parameter</i><br>
+    | <i>procedure-parameter</i>, <i>procedure-parameter-list</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>procedure-parameter</i> ::= <i>dynamic-parameter</i> | <i>literal</i>
+    | <i>empty-string</i></font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>empty-string</i> ::=</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-initiator</i> ::= {</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><i>ODBC-esc-terminator</i> ::= }</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">(If a procedure parameter is an empty string, the procedure uses the
+    default value for that parameter.)</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">To determine if the data source supports procedures and the driver
+    supports the ODBC procedure invocation syntax, an application can call <b>SQLGetInfo</b> with the SQL_PROCEDURES
+    information type.</font></p>
+</body>
+</html>

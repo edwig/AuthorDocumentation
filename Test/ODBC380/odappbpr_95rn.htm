@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Descriptor Transitions</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcdescriptor_transitions"></a>Descriptor
+    Transitions</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">ODBC descriptors have the following three states.</font></p>
+
+    <table border="1" cellpadding="5" cols="2" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="13%"><b>State</b></td>
+
+            <td class="label" width="87%"><b>Description</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">D0</td>
+
+            <td width="87%">Unallocated descriptor</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">D1i</td>
+
+            <td width="87%">Implicitly allocated descriptor</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="13%">D1e</td>
+
+            <td width="87%">Explicitly allocated descriptor</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The following tables show how each ODBC function affects the descriptor
+    state.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLAllocHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">D1i [1]</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">D1e [2]</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DESC.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLCopyDesc</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">(IH)</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLFreeHandle</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">-- [1]</td>
+
+            <td width="17%">D0</td>
+
+            <td width="62%">--</td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">(IH) [2]</td>
+
+            <td width="17%">(HY017)</td>
+
+            <td width="62%">D0</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_STMT.</font></p>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[2]This row shows transitions when <i>HandleType</i> was
+    SQL_HANDLE_DESC.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLGetDescField and SQLGetDescRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">(IH)</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">SQLSetDescField and SQLSetDescRec</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">(IH) [1]</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+
+    <p class="mini"><font face="Verdana, Arial, Helvetica" size="2">[1]This row shows transitions when <i>DescriptorHandle</i>
+    was the handle of an ARD, APD, or IPD, or (for <b>SQLSetDescField</b>) when <i>DescriptorHandle</i> was the handle of an
+    IRD and <i>FieldIdentifier</i> was SQL_DESC_ARRAY_STATUS_PTR or SQL_DESC_ROWS_PROCESSED_PTR.</font></p>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2">All Other ODBC Functions</font></h1>
+
+    <table border="1" cellpadding="5" cols="3" frame="below" rules="rows" width="587">
+        <tr valign="top">
+            <td class="label" width="21%"><b>D0<br>
+            Unallocated</b></td>
+
+            <td class="label" width="17%"><b>D1i<br>
+            Implicit</b></td>
+
+            <td class="label" width="62%"><b>D1e<br>
+            Explicit</b></td>
+        </tr>
+
+        <tr valign="top">
+            <td width="21%">--</td>
+
+            <td width="17%">--</td>
+
+            <td width="62%">--</td>
+        </tr>
+    </table><font face="Verdana, Arial, Helvetica" size="2"><br></font>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Consistency Check</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcconsistency_check"></a>Consistency Check</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">A consistency check is performed by the driver automatically whenever an
+    application sets the SQL_DESC_DATA_PTR field of the APD, ARD, or IPD. Whenever this field is set, the driver checks that
+    the value of the SQL_DESC_TYPE field and the values applicable to the SQL_DESC_TYPE field in the same record are valid and
+    consistent.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The SQL_DESC_DATA_PTR field of an IPD is not normally set; however, an
+    application can do so to force a consistency check of IPD fields. The value that the SQL_DESC_DATA_PTR field of the IPD is
+    set to is not actually stored, and cannot be retrieved by a call to <b>SQLGetDescField</b> or <b>SQLGetDescRec</b>; the
+    setting is made only to force the consistency check. A consistency check cannot be performed on an IRD.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">For more information on the consistency check, see <a href=
+    "odch21jpr_0q3n.htm">SQLSetDescRec</a>.</font></p>
+</body>
+</html>

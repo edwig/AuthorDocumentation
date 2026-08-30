@@ -1,0 +1,2045 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a4869f42-2ab7-4597-9649-e60049eb1d08}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\CSS">
+      <UniqueIdentifier>{1fa677c1-f782-466d-8688-c0aa07d0b132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogs">
+      <UniqueIdentifier>{c4f8a7c9-7ea4-4e9f-80a8-7dbe59868bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Frames">
+      <UniqueIdentifier>{6ad7e3dc-e644-472a-bc39-a542b8f48ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HTML">
+      <UniqueIdentifier>{75dce093-8e6d-4f18-9e65-7564beb034be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main">
+      <UniqueIdentifier>{15275027-b51a-49ea-a562-5e00a573d234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Project">
+      <UniqueIdentifier>{bec0e90b-f66e-4604-a3ce-17baa7c512ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{5338cd58-716e-4b12-9d24-93731d84753b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scintilla">
+      <UniqueIdentifier>{3f6bb92a-1006-447c-92c8-62b0fe34102f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scintilla\ScintillaControl">
+      <UniqueIdentifier>{01b26290-8549-44ba-8ce6-6d698e195520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HTMLTidy">
+      <UniqueIdentifier>{00c496eb-a110-412c-8425-865e8065eaa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{21600ff0-ae5c-4c5a-b568-5bc79503c997}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\GIFS Yellow">
+      <UniqueIdentifier>{2df1585c-a7cd-424d-80b5-7b1062b8f917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\GIFS Green">
+      <UniqueIdentifier>{c26c8a0f-1982-4d34-8f92-b2e1b0588577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GridControl">
+      <UniqueIdentifier>{3210784a-ca08-447f-b373-6732cfe8aebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Frames\Header Files">
+      <UniqueIdentifier>{778d24a4-09ac-4b18-9993-14f7256266fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CSS\Header Files">
+      <UniqueIdentifier>{9adbdbc3-2f57-451b-93bc-b827a3e81224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogs\Header Files">
+      <UniqueIdentifier>{c6dc6108-2708-4cd2-848b-2c493928ddc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HTML\Header Files">
+      <UniqueIdentifier>{fbc06030-dc33-4256-8a6d-37e6aec108d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GridControl\Header Files">
+      <UniqueIdentifier>{d6820e52-66fe-423e-8334-3de0f0e163cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HTMLTidy\Header Files">
+      <UniqueIdentifier>{f07198ca-3242-4ad4-be0b-dab21ac66e41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main\Header Files">
+      <UniqueIdentifier>{56604db8-e463-4813-88e9-4761329876a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Project\Header Files">
+      <UniqueIdentifier>{6fbd2283-dfc6-4ccc-81ea-6807d5cb4e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scintilla\Header Files">
+      <UniqueIdentifier>{37f0d04d-5435-4f55-a194-6014659576e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scintilla\Header Files\ScintillaControlHeaders">
+      <UniqueIdentifier>{2f5f8fae-cc3a-45b9-8573-3f163cbe8f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\Header Files">
+      <UniqueIdentifier>{02eb3177-4133-4c96-a898-61a4188c935f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{5784cbc4-271b-4b4a-80cb-b2e8e23131e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Css\CSS.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Css\CSS_miscal.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Css\CSS_optimizer.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Css\CSS_parse.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Css\CSS_prepare.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Css\CSS_print.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AddressCombo.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AnchorDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AreaDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AutosizerDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\BookmarkDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\BrokenLinksDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ButtonDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CharacterDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CommentDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\Compilation.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage1Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage2Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage3Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage4Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage5Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage6Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\CSSPage7Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\DivTextDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FieldsetDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FileDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FindReplaceDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FindTopicDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FontDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormButtonDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormFieldDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormImageDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormLabelDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormSelectDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\FormTextareaDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\GeneralIDDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\GetURL.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\GlobalSetPage1Dlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\GlobalSettingsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\HeadingDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\HRDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ImageDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\IndexPropDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\InlineFrameDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\KeywordDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\LayerDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\MarqueeDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\NavigateHyperlink.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\NewFileDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\NewSelectorDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ObjectDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ParagraphDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ProjectDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ScriptDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\SnapGridDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\SpanDivDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\SpellingDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\SpellOptionsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\StyleSheetDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\StyleSheetImportsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\StyleSheetsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\Sweep.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TableCaptionDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TableProperties.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TablePropPage1.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TablePropPage2.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TablePropPage3.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TagEventDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TagEventsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TOCDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicProperties.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicPropPage1.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicPropPage2.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicPropPage3.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicPropPage4.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage1.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage2.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage3.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage4.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\WindowDefPage5.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\ChildFrm.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\CompilePane.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\DirTreeCtrl.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\ExplorerView.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\IndexTreeCtrl.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\IndexView.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\MainFrm.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\OpenFiles.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\PageLink2.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\ProjectPane.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\ProjectView.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\RegExp.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\SettingsManager.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\SortStringArray.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\TOCtreeCtrl.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames\TOCView.cpp">
+      <Filter>Source Files\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLAnchor.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLArea.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLBody.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLCaption.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLDomNode.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLElement.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLFieldset.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLHeading.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLHR.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLIFrame.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLImg.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLInput.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLObject.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLScript.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLStyle.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLTable.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLTableCell.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLTableRow.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Html\HTMLTableSection.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\AuMessageBox.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\AuthorHTML.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\AuthorHTMLControlSite.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\HTMLDocEditDesigner.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\HTMLEdDoc.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\HTMLEdView.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\HtmlEdView02.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\ImgArea.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\IMGControlSite.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Misc.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Spelling.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\DocumentFile.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Glossary.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\IndexEntry.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\IndexFile.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\ProjectFile.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\TOC.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\TOCEntry.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\WindowDefinition.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\AuthorButton.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\AuthorImage.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\CIcon.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\CImages.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\ControlsInfo.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\DIB.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaChildFrm.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaCtrl.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaHTMLView.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaScriptDoc.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaScriptView.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaView.cpp">
+      <Filter>Source Files\Scintilla</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\AutoComplete.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CallTip.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CellBuffer.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\CharClassify.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ContractionState.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Document.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\DocumentAccessor.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Editor.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ExternalLexer.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Indicator.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\KeyMap.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\KeyWords.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexCPP.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexCSS.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexHTML.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LexVB.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\LineMarker.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\PlatWin.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\PropSet.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\RESearch.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaBase.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ScintillaWin.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\Style.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\StyleContext.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\UniConversion.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\ViewStyle.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\WindowAccessor.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla\XPM.cxx">
+      <Filter>Source Files\Scintilla\ScintillaControl</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\access.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\alloc.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrask.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrdict.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrget.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\attrs.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\buffio.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\charsets.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\clean.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\config.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\entities.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\fileio.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\iconvtc.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\istack.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\lexer.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\localize.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\mappedio.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\parser.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\pprint.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\streamio.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tagask.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tags.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tidylib.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\tmbstr.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\utf8.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLTidy\win32tc.c">
+      <Filter>Source Files\HTMLTidy</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\StartupDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ImportDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\MapDialog.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="project\ImportCHM.cpp">
+      <Filter>Source Files\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\OptionDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\IndexChooseDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ALinkDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ALinkCommandDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\GridCell.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\GridCellBase.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\GridCtrl.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\GridDropTarget.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\InPlaceEdit.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="GridControl\TitleTip.cpp">
+      <Filter>Source Files\GridControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\ParametersDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="HTML\HTMLFrameSet.cpp">
+      <Filter>Source Files\HTML</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\TopicPropPage5.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\ScanBOM.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\StdAfx.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\CheckWorkshop.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Css\CSS.h">
+      <Filter>Source Files\CSS\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Css\umap.hpp">
+      <Filter>Source Files\CSS\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\AddressCombo.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\AnchorDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\AreaDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\AutosizerDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\BookmarkDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\BrokenLinksDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ButtonDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CharacterDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CommentDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\Compilation.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage1Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage2Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage3Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage4Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage5Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage6Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\CSSPage7Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\DivTextDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FieldsetDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FileDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FindReplaceDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FindTopicDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FontDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormButtonDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormFieldDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormImageDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormLabelDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormSelectDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\FormTextareaDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\GeneralIDDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\GetURL.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\GlobalSetPage1Dlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\GlobalSettingsDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\HeadingDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\HRDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ImageDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\IndexPropDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\InlineFrameDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\KeywordDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\LayerDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\MarqueeDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\NavigateHyperlink.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\NewFileDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\NewSelectorDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ObjectDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ParagraphDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ProjectDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ScriptDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\SnapGridDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\SpanDivDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\SpellingDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\SpellOptionsDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\StyleSheetDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\StyleSheetImportsDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\StyleSheetsDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\SweepDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TableCaptionDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TableProperties.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TablePropPage1.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TablePropPage2.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TablePropPage3.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TagEventDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TagEventsDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TOCDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicProperties.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicPropPage1.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicPropPage2.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicPropPage3.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicPropPage4.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefPage1.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefPage2.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefPage3.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefPage4.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\WindowDefPage5.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\ChildFrm.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\CompilePane.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\DirTreeCtrl.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\ExplorerView.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\IndexTreeCtrl.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\IndexView.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\MainFrm.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\OpenFiles.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\PageLink2.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\ProjectPane.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\ProjectView.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\RegExp.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\SettingsManager.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\SortStringArray.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\TOCTreeCtrl.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames\TOCView.h">
+      <Filter>Source Files\Frames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLAnchor.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLArea.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLBody.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLCaption.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLDomNode.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLElement.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLFieldset.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLHeading.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLHR.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLIFrame.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLImg.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLInput.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLObject.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLScript.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLStyle.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLTable.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLTableCell.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLTableRow.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Html\HTMLTableSection.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\AuthorHTML.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\AuthorHTMLControlSite.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\BasisUI.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\HTMLDocEditDesigner.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\HTMLEdDoc.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\HTMLEdView.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\ImgArea.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\IMGControlSite.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Misc.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Spelling.h">
+      <Filter>Source Files\Main\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\DocumentFile.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Glossary.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\IndexEntry.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\IndexFile.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\ProjectFile.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\TOC.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\TOCEntry.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\WindowDefinition.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\AuthorButton.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\AuthorImage.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\CIcon.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\CNamenMap.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\DIB.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\ImageDefinitions.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Images.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\RefCounted.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\StringArray.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaChildFrm.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaCtrl.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaHTMLView.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaScriptDoc.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaScriptView.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaView.h">
+      <Filter>Source Files\Scintilla\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Accessor.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\AutoComplete.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\CallTip.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\CellBuffer.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\CharClassify.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ContractionState.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Document.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\DocumentAccessor.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Editor.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ExternalLexer.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Indicator.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\KeyMap.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\KeyWords.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\LineMarker.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Partitioning.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Platform.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\PlatformRes.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\PropSet.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\RESearch.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\SciLexer.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Scintilla.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ScintillaBase.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\SplitVector.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\SString.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\Style.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\StyleContext.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\SVector.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\UniConversion.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\ViewStyle.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\WindowAccessor.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scintilla\XPM.h">
+      <Filter>Source Files\Scintilla\Header Files\ScintillaControlHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\access.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\attrdict.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\attrs.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\buffio.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\charsets.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\clean.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\config.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\entities.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\fileio.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\forward.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\iconvtc.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\lexer.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\mappedio.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\message.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\parser.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\platform.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\pprint.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\streamio.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\tags.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\tidy-int.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\tidy.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\tidyenum.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\tmbstr.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\utf8.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\version.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLTidy\win32tc.h">
+      <Filter>Source Files\HTMLTidy\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\StartupDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ImportDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\MapDialog.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="project\ImportCHM.h">
+      <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\OptionDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\IndexChooseDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ALinkDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ALinkCommandDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\CellRange.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\GridCell.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\GridCellBase.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\GridCtrl.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\GridDropTarget.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\InPlaceEdit.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\MemDC.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridControl\TitleTip.h">
+      <Filter>Source Files\GridControl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\ParametersDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTML\HTMLFrameSet.h">
+      <Filter>Source Files\HTML\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\TopicPropPage5.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\ScanBOM.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\StdAfx.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\targetver.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Version.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\CheckWorkshop.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\alg.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\alg32.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\AlphaFind.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\arrows.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\arrows_wide.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\AuthorHTML.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\AuthorHTML.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\bitmap3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\bitmap4.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\bmp00001.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\bmp00002.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\buttons1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\buttons2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\compilebar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\computer.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\cone.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\cssbi.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\cssborders.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\cssbox.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\csstext.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\documents.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\empty.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\explorer_state_list.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\ExplorerBar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\HTMLEdDoc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\iconasterisk.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\iconexclamation.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\iconhand.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\iconquestion.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\id_toolb.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\idr_scin.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\image.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\intern1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\intern2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\keyword.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\keywords.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\linkbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\Margin.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\office.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\PaneIcons.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\paragraph.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\project.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\projectbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\science.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\signs.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="test.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\toc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\tocbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\toolbar1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\windows.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="writing.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\writing.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-abr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-acr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-adr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-anchor.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-app.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ara.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-b.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-bas.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-bdo.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-big.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-blq.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-body.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-br.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-bsf.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-btn.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-cit.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-clg.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-cod.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-comment.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-cpt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ctr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-dd.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-del.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-dir.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-div.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-dl.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-dt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-em.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-fld.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-fnt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-for.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-frm.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-fst.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h1.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h2.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h3.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h4.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h5.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-h6.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-hed.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-hr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-html.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-i.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ifr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-img.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-inp.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ins.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-isx.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-kbd.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-lbl.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-lgn.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-li.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-lnk.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-lst.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-map.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-marq.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-men.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-met.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-nbr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-nfr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-nsc.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-obj.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ol.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-opg.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-opt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-p.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-pi.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-pre.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-prm.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-q.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-s.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-scr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-slc.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-sml.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-smp.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-spn.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-stk.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-stl.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-sub.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-sup.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-tbd.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-tbl.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-td.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-tft.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-th.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-thd.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-tr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-tt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ttl.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-txt.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-u.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-ul.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-var.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="Glyphs\yellow\tag-wbr.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\yellow\tag-xmp.gif">
+      <Filter>Resource Files\GIFS Yellow</Filter>
+    </None>
+    <None Include="glyphs\anchor.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\anchor.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\br.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\br.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\comment.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\comment.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\divbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\divbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\divend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\divend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\formbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\formbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\formend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\formend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h1begin.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h1begin.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h1end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h1end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h2begin.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h2begin.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h2end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h2end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h3bgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h3bgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\h3end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\h3end.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\pbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\pbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\pend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\pend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\script.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\script.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\spanbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\spanbgn.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\spanend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\spanend.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\style.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\style.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\table.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\table.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\green\trans.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+    <None Include="glyphs\trans.gif">
+      <Filter>Resource Files\GIFS Green</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\AuthorHTML.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\tocview.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\keyword.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\explorer.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\window.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\project.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\pagelinks.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\compile.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

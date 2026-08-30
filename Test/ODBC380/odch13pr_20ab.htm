@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Freeing Descriptors</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcfreeing_descriptors"></a>Freeing Descriptors</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Explicitly allocated descriptors can be freed either explicitly by
+    calling <b>SQLFreeHandle</b> with <i>HandleType</i> of SQL_HANDLE_DESC, or implicitly when the connection handle is freed.
+    When an explicitly allocated descriptor is freed, all statement handles to which the freed descriptor applied automatically
+    revert to the descriptors implicitly allocated for them.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Implicitly allocated descriptors can only be freed by calling
+    <b>SQLDisconnect</b>, which drops any statements or descriptors open on the connection, or by calling <b>SQLFreeHandle</b>
+    with a <i>HandleType</i> of SQL_HANDLE_STMT to free a statement handle and all the implicitly allocated descriptors
+    associated with the statement. An implicitly allocated descriptor cannot be freed by calling <b>SQLFreeHandle</b> with a
+    <i>HandleType</i> of SQL_HANDLE_DESC.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Even when freed, an implicitly allocated descriptor remains valid, and
+    <b>SQLGetDescField</b> can be called on its fields.</font></p>
+</body>
+</html>

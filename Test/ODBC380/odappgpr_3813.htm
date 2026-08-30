@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>SQLTransact Mapping</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h2><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcsqltransact_mapping"></a>SQLTransact Mapping</font></h2>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2"><b>SQLTransact</b> is now replaced by <b>SQLEndTran</b>. The major
+    difference between the two functions is that <b>SQLEndTran</b> contains an argument <i>HandleType</i>, which specifies the
+    scope of the work to be done. The <i>HandleType</i> argument can specify the environment or the connection handle. The
+    following call to <b>SQLTransact</b>:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLTransact (henv, hdbc, fType)
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">is mapped to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLEndTran (SQL_HANDLE_DBC, ConnectionHandle, CompletionType);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">if <i>ConnectionHandle</i> is not equal to SQL_NULL_HDBC. The
+    <i>ConnectionHandle</i> argument is set to the value of <i>hdbc</i>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">It is mapped to:</font></p>
+    <pre>
+<font face="Verdana, Arial, Helvetica" size="2"><code>SQLEndTran (SQL_HANDLE_ENV, EnvironmentHandle, CompletionType);
+</code></font>
+</pre>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">if <i>ConnectionHandle</i> is equal to SQL_NULL_HDBC. The
+    <i>EnvironmentHandle</i> argument is set to the value of <i>henv</i>.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">In both of these cases, the <i>CompletionType</i> argument is set to the
+    same value as <i>fType</i>.</font></p>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+
+    <title>Choosing a Data Source or Driver</title>
+    <link disabled rel="stylesheet" href="msdn_ie3.css" type="text/css">
+    <style type="text/css">
+@import url(msdn_ie4.css);
+    </style>
+</head>
+
+<body>
+    <font face="Verdana, Arial, Helvetica" size="2">
+    <!--TOOLBAR_START-->
+     
+    <!--TOOLBAR_EXEMPT-->
+     
+    <!--TOOLBAR_END--></font>
+
+    <h1><font face="Verdana, Arial, Helvetica" size="2"><a name="odbcchoosing_a_data_source_or_driver"></a>Choosing a Data
+    Source or Driver</font></h1>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">The data source or driver used by an application is sometimes hard-coded
+    in the application. For example, a custom application written by an MIS department to transfer data from one data source to
+    another would contain the names of those data sources &#8212; the application simply would not work with any other data
+    sources. Another example is a vertical application, such as one used for order entry. Such an application always uses the
+    same data source, which has a predefined schema known by the application.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">Other applications choose the data source or driver at run time.
+    Usually, these are generic applications that do ad hoc queries, such as a spreadsheet that uses ODBC to import data. Such
+    applications usually list the available data sources or drivers and let users choose the ones they want to work with.
+    Whether a generic application lists data sources, drivers, or both often depends on whether the application uses DBMS- or
+    file-based drivers.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">DBMS-based drivers usually require a fairly complex set of connection
+    information, such as the network address, network protocol, database name, and so on. The purpose of a data source is to
+    hide all of this information. Hence, the data source paradigm lends itself to use with DBMS-based drivers. An application
+    can display a list of data sources to the user in one of two ways. It can call <b>SQLDriverConnect</b> with the <b>DSN</b>
+    (Data Source Name) keyword and no associated value; the Driver Manager will display a list of data source names. If the
+    application wants control over the appearance of the list, it calls <b>SQLDataSources</b> to retrieve a list of available
+    data sources and constructs its own dialog box. This function is implemented by the Driver Manager and can be called before
+    any drivers are loaded. The application then calls a connection function and passes it the name of the chosen data
+    source.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">If a data source is not specified, the default data source indicated by
+    the system information is used. (For more information, see &#8220;<a href="odch19pr_5kjd.htm">Default Subkey</a>&#8221; in
+    Chapter 19, &#8220;Configuring Data Sources.&#8221;) If <b>SQLConnect</b> is called with a <i>ServerName</i> argument that
+    cannot be found, is a null pointer, or is &#8220;DEFAULT&#8221;, the Driver Manager connects to the default data source.
+    The default data source is also used if the connection string used in a call to <b>SQLDriverConnect</b> or
+    <b>SQLBrowseConnect</b> contains the DSN keyword set to &#8220;DEFAULT&#8221;, or the data source is not found.
+    Additionally, the default data source is used if the connection string used in a call to <b>SQLDriverConnect</b> does not
+    contain the DSN keyword.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">With file-based drivers, it is possible to use a file paradigm. For data
+    stored on the local machine, users often know that their data is in a particular file, such as EMPLOYEE.DBF. Rather than
+    choosing an unknown data source, it is easier for such users to choose the file they know. To implement this, the
+    application first calls <b>SQLDrivers</b>. This function is implemented by the Driver Manager and can be called before any
+    drivers are loaded. <b>SQLDrivers</b> returns a list of available drivers; it also returns values for the <b>FileUsage</b>
+    and <b>FileExtns</b> keywords. The <b>FileUsage</b> keyword explains whether file-based drivers treat files as tables, such
+    as Xbase, or databases, such as Microsoft Access. The <b>FileExtns</b> keyword lists the file extensions the driver
+    recognizes, such as .dbf for an Xbase driver. Using this information, the application constructs a dialog box with which
+    the user chooses a file. Based on the extension of the chosen file, the application then connects directly to the driver by
+    calling <b>SQLDriverConnect</b> with the <b>DRIVER</b> keyword.</font></p>
+
+    <p><font face="Verdana, Arial, Helvetica" size="2">There is nothing to stop an application from using a data source with a
+    file-based driver or calling <b>SQLDriverConnect</b> with the <b>DRIVER</b> keyword to connect directly to a DBMS-based
+    driver. Here are several common uses of the <b>DRIVER</b> keyword for DBMS-based drivers:</font></p>
+
+    <ul type="disc">
+        <li>
+            <font face="Verdana, Arial, Helvetica" size="2"><b>Not creating data sources.</b> For example, a custom application
+            might use a particular driver and database. If the driver name and all information needed to connect to the
+            database is hard-coded in the application, users do not need to create a data source on their computer to run the
+            application &#8212; all they need to do is install the application and driver.</font>
+
+            <p class="tl"><font face="Verdana, Arial, Helvetica" size="2">A disadvantage of this method is that the application
+            must be recompiled and redistributed if the connection information changes. If a data source name is hard-coded in
+            the application instead of complete connection information, then each user only needs to change the information in
+            the data source.</font></p>
+        </li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Accessing a particular DBMS a single time.</b> For example, a
+        spreadsheet that retrieves data by calling ODBC functions might contain the <b>DRIVER</b> keyword to identify a
+        particular driver. Because the driver name is meaningful to any users that have that driver, the spreadsheet could be
+        passed among those users. If the spreadsheet contained a data source name, each user would have to create the same data
+        source to use the spreadsheet.<br>
+        <br></font></li>
+
+        <li><font face="Verdana, Arial, Helvetica" size="2"><b>Browsing the system for all databases accessible to a particular
+        driver.</b> For more information, see &#8220;<a href="odch06pr_1kqc.htm">Connecting with SQLBrowseConnect</a>,&#8221;
+        later in this chapter.</font></li>
+    </ul>
+</body>
+</html>
