@@ -2041,5 +2041,35 @@
     <Image Include="res\compile.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="CHMProject_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CHMProject_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="CHMFile_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CHMFile_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HTMLFile_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\HTMLFile_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HTMLFile_new_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\HTMLFile_new_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="CHMProject_new_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CHMProject_new_32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

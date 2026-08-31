@@ -14,6 +14,7 @@
 #include "AuthorHTML.h"
 #include "ImportCHM.h"
 #include "Misc.h"
+#include "CheckWorkshop.h"
 
 ImportCHM::ImportCHM()
 {
@@ -32,6 +33,13 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   m_directory = p_directory;
   m_filename = p_filename;
 
+  CheckWorkshop workshop;
+  if(!workshop.CheckHTMLHelpWorkshop())
+  {
+    theApp.Panic("HTML Help Workshop is not installed. Cannot continue compiling the help file.");
+    return false;
+  }
+  
   // Check for values
   if(m_filename.IsEmpty() || m_directory.IsEmpty())
   {
@@ -42,14 +50,7 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   {
     m_directory += "\\";
   }
-  // Register original CWD (Current Working Directory)
-  char original[MAX_PATH];
-  GetCurrentDirectory(MAX_PATH,original);
-  if(!m_directory.IsEmpty())
-  {
-    // Change to starting directory
-    SetCurrentDirectory(m_directory);
-  }
+
   // Copy the file to the directory
   CString file = Misc::FilenamePart(m_filename);
   CString newFile = m_directory + file;
@@ -60,12 +61,19 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
     theApp.MessageBoxA(message,"Decompile error",MB_OK|MB_ICONERROR);
     return false;
   }
+
+  // Register original CWD (Current Working Directory)
+  char original[MAX_PATH];
+  GetCurrentDirectory(MAX_PATH,original);
+  if(!m_directory.IsEmpty())
+  {
+    // Change to starting directory
+    SetCurrentDirectory(m_directory);
+  }
+
   // Build arguments
-  char buffer[MAX_PATH];
-  GetWindowsDirectory(buffer,MAX_PATH);
-  CString program;
-  program.Format("%s\\hh.exe",buffer);
-  CString arguments = "-decompile . " + file;
+  CString program   = "\"" + workshop.HTMLHelpWorkshopPath() + "\\hhc.exe\"";
+  CString arguments = "-decompile . \"" + file + "\"";
 
   // Decompile the CHM file
   int ret = Misc::StartProgramma(program,arguments,false,true,false);
@@ -73,21 +81,22 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   {
     CString message = "Cannot start the decompile program in the default Windows directory (hh.exe)";
     theApp.MessageBox(message,"Decompile error",MB_OK|MB_ICONERROR);
-    return false;
+    retval = false;
   }
   else
   {
     retval = true;
-  }
-  CString relative;
-  m_firstTOCfile = FindFirstWithExtension(".hhc",m_directory,relative);
-  m_firstKEYfile = FindFirstWithExtension(".hhk",m_directory,relative);
-  m_firstHHPfile = FindFirstWithExtension(".hhp",m_directory,relative);
 
-  // Create a default project file
-  if(m_firstHHPfile.IsEmpty())
-  {
-    WriteDefaultProjectfile();
+    CString relative;
+    m_firstTOCfile = FindFirstWithExtension(".hhc",m_directory,relative);
+    m_firstKEYfile = FindFirstWithExtension(".hhk",m_directory,relative);
+    m_firstHHPfile = FindFirstWithExtension(".hhp",m_directory,relative);
+
+    // Create a default project file
+    if(m_firstHHPfile.IsEmpty())
+    {
+      WriteDefaultProjectfile();
+    }
   }
   // Restore the original CWD
   SetCurrentDirectory(original);
@@ -233,4 +242,3 @@ ImportCHM::FindFirstWithExtension(CString p_extension,CString& p_directory,CStri
   }
   return CString("");
 }
-

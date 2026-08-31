@@ -17,7 +17,6 @@
 #include "ChildFrm.h"
 #include "ImportDlg.h"
 #include "ProjectFile.h"
-#include "afxdialogex.h"
 #include <io.h>
 
 // StartupDlg dialog
@@ -67,10 +66,21 @@ StartupDlg::OnInitDialog()
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
   m_list.InsertColumn(0,"Projects / Files",LVCFMT_LEFT,280);
 
+  SetButtonImages();
   GetRecentProjectList();
 
   // Don't do the focus by way of the CDialog
   return FALSE;
+}
+
+void
+StartupDlg::SetButtonImages()
+{
+  m_buttonOpenProject.SetImage(IDB_CHM_PROJECT);
+  m_buttonOpenFile   .SetImage(IDB_HTML_FILE);
+  m_buttonNewProject .SetImage(IDB_CHM_NEWPROJECT);
+  m_buttonNewFile    .SetImage(IDB_HTML_NEWFILE);
+  m_buttonImport     .SetImage(IDB_CHM_FILE);
 }
 
 void
@@ -79,14 +89,14 @@ StartupDlg::SetButtonText(bool p_project)
   if(p_project)
   {
     // Projects displayed
-    m_buttonOpenProject.SetWindowText("&OPEN\nProject by dialog");
-    m_buttonOpenFile.   SetWindowText("Get the list\nof recent files");
+    m_buttonOpenProject.SetWindowText("\n&OPEN\nProject by dialog");
+    m_buttonOpenFile.SetWindowText("\nGet the list\nof recent files");
   }
   else
   {
     // Files displayed
-    m_buttonOpenProject.SetWindowText("Get the list\nof recent projects");
-    m_buttonOpenFile.   SetWindowText("OPEN\n&File by dialog");
+    m_buttonOpenProject.SetWindowText("\nGet the list\nof recent projects");
+    m_buttonOpenFile.SetWindowText("\nOPEN\n&File by dialog");
   }
 }
 

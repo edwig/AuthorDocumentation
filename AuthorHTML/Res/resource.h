@@ -276,9 +276,15 @@
 #define IDI_COMPILE_VIEW                313
 #define ID_VIEW_APPLOOK_OFF_2007_BLUE   314
 #define ID_VIEW_APPLOOK_OFF_2007_BLACK  315
+#define IDB_CHM_PROJECT                 315
 #define ID_VIEW_APPLOOK_OFF_2007_SILVER 316
+#define IDB_CHM_FILE                    316
 #define ID_VIEW_APPLOOK_OFF_2007_AQUA   317
+#define IDB_HTML_FILE                   317
 #define ID_VIEW_APPLOOK_WINDOWS_7       318
+#define IDB_HTML_NEWFILE                318
+#define IDB_BITMAP4                     319
+#define IDB_CHM_NEWPROJECT              319
 #define IDR_POPUP_TABS                  795
 #define ID_COLOR_BLUE                   797
 #define ID_COLOR_YELLOW                 798
@@ -1766,7 +1772,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        314
+#define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         33179
 #define _APS_NEXT_CONTROL_VALUE         1438
 #define _APS_NEXT_SYMED_VALUE           109

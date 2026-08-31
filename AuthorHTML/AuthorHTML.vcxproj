@@ -1088,8 +1088,18 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="CHMFile_32.bmp" />
+    <Image Include="CHMProject_32.bmp" />
+    <Image Include="CHMProject_new_32.bmp" />
+    <Image Include="HTMLFile_32.bmp" />
+    <Image Include="HTMLFile_new_32.bmp" />
+    <Image Include="res\CHMFile_32.bmp" />
+    <Image Include="res\CHMProject_32.bmp" />
+    <Image Include="res\CHMProject_new_32.bmp" />
     <Image Include="res\compile.ico" />
     <Image Include="res\explorer.ico" />
+    <Image Include="res\HTMLFile_32.bmp" />
+    <Image Include="res\HTMLFile_new_32.bmp" />
     <Image Include="res\keyword.ico" />
     <Image Include="res\pagelinks.ico" />
     <Image Include="res\project.ico" />

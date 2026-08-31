@@ -32,6 +32,7 @@ protected:
   void GetRecentProjectList();
   void GetRecentFileList();
   void SetButtonText(bool p_project);
+  void SetButtonImages();
 
   bool        m_listsProjects;
   CListCtrl   m_list;
@@ -42,6 +43,8 @@ protected:
   CMFCButton  m_buttonImport;
   CMFCButton  m_buttonHelp;
   CMFCButton  m_buttonCancel;
+
+  CBitmap     m_project;
 
 	DECLARE_MESSAGE_MAP()
 public:

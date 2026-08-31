@@ -94,6 +94,14 @@ IDR_COMPILEBAR          BITMAP                  "compilebar.bmp"
 
 IDB_WRITING             BITMAP                  "writing.bmp"
 
+IDB_CHM_PROJECT         BITMAP                  "CHMProject_32.bmp"
+
+IDB_HTML_FILE           BITMAP                  "HTMLFile_32.bmp"
+
+IDB_HTML_NEWFILE        BITMAP                  "HTMLFile_new_32.bmp"
+
+IDB_CHM_NEWPROJECT      BITMAP                  "CHMProject_new_32.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -3213,11 +3221,11 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "Startup"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    PUSHBUTTON      "&OPEN\nRecent Project",IDC_OPENPROJECT,7,7,106,39,BS_ICON | BS_MULTILINE
-    PUSHBUTTON      "OPEN\n&Recent File",IDC_OPENFILE,7,54,106,39,BS_ICON | BS_MULTILINE
-    PUSHBUTTON      "&NEW\nDocumentation Project",IDC_NEWPROJECT,7,101,106,39,BS_ICON | BS_MULTILINE
-    PUSHBUTTON      "NEW\n&Documentation file",IDC_NEWFILE,7,148,106,39,BS_ICON | BS_MULTILINE
-    PUSHBUTTON      "&IMPORT\nNew Project",IDC_IMPORT,7,195,106,39,BS_ICON | BS_MULTILINE
+    PUSHBUTTON      "&OPEN\nRecent Project",IDC_OPENPROJECT,7,7,106,39,BS_ICON | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "OPEN\n&Recent File",IDC_OPENFILE,7,54,106,39,BS_MULTILINE
+    PUSHBUTTON      "\n&NEW\nDocumentation Project",IDC_NEWPROJECT,7,101,106,39,BS_MULTILINE
+    PUSHBUTTON      "\nNEW\n&Documentation file",IDC_NEWFILE,7,148,106,39,BS_MULTILINE
+    PUSHBUTTON      "\n&IMPORT\nNew Project",IDC_IMPORT,7,195,106,39,BS_MULTILINE
     CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,132,7,190,226
     PUSHBUTTON      "&Help",IDHELP,132,242,90,14
     PUSHBUTTON      "&Cancel",IDCANCEL,232,242,90,14
@@ -6190,6 +6198,11 @@ BEGIN
     0
 END
 
+IDD_STARTUP AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -6624,6 +6637,24 @@ LANGUAGE LANG_DUTCH, SUBLANG_DUTCH
 IDC_CURSOR1             CURSOR                  "Margin.cur"
 
 #endif    // Dutch (Netherlands) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United Kingdom) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CHM_FILE            BITMAP                  "CHMFile_32.bmp"
+
+#endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
