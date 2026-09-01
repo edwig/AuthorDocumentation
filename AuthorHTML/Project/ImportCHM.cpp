@@ -33,13 +33,6 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   m_directory = p_directory;
   m_filename = p_filename;
 
-  CheckWorkshop workshop;
-  if(!workshop.CheckHTMLHelpWorkshop())
-  {
-    theApp.Panic("HTML Help Workshop is not installed. Cannot continue compiling the help file.");
-    return false;
-  }
-  
   // Check for values
   if(m_filename.IsEmpty() || m_directory.IsEmpty())
   {
@@ -54,11 +47,19 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   // Copy the file to the directory
   CString file = Misc::FilenamePart(m_filename);
   CString newFile = m_directory + file;
+
+  if(file.Find(' ') >= 0)
+  {
+    theApp.Panic("CHM files cannot have a space in the name in order for the decompilation to work!");
+    return false;
+  }
+
+  // Do the copy
   if(CopyFile(m_filename,newFile,TRUE) == FALSE)
   {
     CString message;
     message.Format("Cannot copy the file [%s] to the directory [%s]",m_filename.GetString(),m_directory.GetString());
-    theApp.MessageBoxA(message,"Decompile error",MB_OK|MB_ICONERROR);
+    theApp.Panic("Decompilation error");
     return false;
   }
 
@@ -72,14 +73,22 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   }
 
   // Build arguments
-  CString program   = "\"" + workshop.HTMLHelpWorkshopPath() + "\\hhc.exe\"";
-  CString arguments = "-decompile . \"" + file + "\"";
+  CString program;
+  CString arguments = "-decompile . " + file;
+
+  // Find the decompiler
+  program.GetEnvironmentVariable("windir");
+#if defined _M_IX86
+  program += "\\system32\\hh.exe";
+#else
+  program += "\\syswow64\\hh.exe";
+#endif
 
   // Decompile the CHM file
-  int ret = Misc::StartProgramma(program,arguments,false,true,false);
+  short ret = (short) Misc::StartProgramma(program,arguments,false,true,false);
   if(ret < 0)
   {
-    CString message = "Cannot start the decompile program in the default Windows directory (hh.exe)";
+    CString message = "Cannot start the decompile program in the default Windows directory (hhc.exe)";
     theApp.MessageBox(message,"Decompile error",MB_OK|MB_ICONERROR);
     retval = false;
   }
@@ -91,6 +100,12 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
     m_firstTOCfile = FindFirstWithExtension(".hhc",m_directory,relative);
     m_firstKEYfile = FindFirstWithExtension(".hhk",m_directory,relative);
     m_firstHHPfile = FindFirstWithExtension(".hhp",m_directory,relative);
+
+    m_firstHTMfile = FindFirstWithExtension(".htm", m_directory,relative);
+    if(m_firstHTMfile.IsEmpty())
+    {
+      m_firstHTMfile = FindFirstWithExtension(".html",m_directory,relative);
+    }
 
     // Create a default project file
     if(m_firstHHPfile.IsEmpty())
@@ -118,12 +133,12 @@ ImportCHM::WriteDefaultProjectfile()
     return false;
   }
   fprintf(fout,"[OPTIONS]\n");
-  fprintf(fout,"Compiled file=%s\n",  (LPCTSTR)projectName);
+  fprintf(fout,"Compiled file=%s.chm\n",(LPCTSTR)projectName);
   fprintf(fout,"Compatibility=\n");
-  fprintf(fout,"Title=%s\n",          (LPCTSTR)projectName);
-  fprintf(fout,"Contents File=%s\n",  (LPCTSTR)m_firstTOCfile);
-  fprintf(fout,"Index File=%s\n",     (LPCTSTR)m_firstKEYfile);
-  fprintf(fout,"Default Topic=\n");
+  fprintf(fout,"Title=%s\n",            (LPCTSTR)projectName);
+  fprintf(fout,"Contents File=%s\n",    (LPCTSTR)m_firstTOCfile);
+  fprintf(fout,"Index File=%s\n",       (LPCTSTR)m_firstKEYfile);
+  fprintf(fout,"Default Topic=%s\n",    (LPCTSTR)m_firstHTMfile);
   fprintf(fout,"Default Window=main\n");
   fprintf(fout,"Default Font=\n");
   fprintf(fout,"Error log file=\n");
@@ -140,7 +155,12 @@ ImportCHM::WriteDefaultProjectfile()
   fprintf(fout,"Flat=no\n");
   fprintf(fout,"\n");
   fprintf(fout,"[WINDOWS]\n");
-  fprintf(fout,"main="","","","","","","","","",0x420,0,0x0,[0,0,0,0],0x0,0x0,,0,0,0\n");
+  fprintf(fout,"main=\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"\",\"\",\"\",\"\",0x21420,0,0x4204e,[0,0,1024,768],0xb0000,0x0,,0,0,0\n"
+              ,projectName.GetString()
+              ,m_firstTOCfile.GetString()
+              ,m_firstKEYfile.GetString()
+              ,m_firstHTMfile.GetString()
+              ,m_firstHTMfile.GetString());
   fprintf(fout,"\n");
   fprintf(fout,"[FILES]\n");
 
@@ -188,7 +208,12 @@ ImportCHM::GetProjectFiles(CString& p_directory,CString& p_relative,FILE* fout)
       else
       {
         // Print out to the project file
-        fprintf(fout,"%s%s\n",(LPCTSTR)p_relative,(LPCTSTR)FindData.cFileName);
+        CString file(FindData.cFileName);
+        CString extens = Misc::ExtensionPart(file);
+        if(extens.Compare(".chm"))
+        {
+          fprintf(fout,"%s%s\n",(LPCTSTR)p_relative,(LPCTSTR)FindData.cFileName);
+        }
       }
     } 
     while (FindNextFile(SearchHandle, &FindData));

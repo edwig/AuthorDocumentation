@@ -30,4 +30,6 @@ private:
   CString   m_firstTOCfile;
   CString   m_firstKEYfile;
   CString   m_firstHHPfile;
+
+  CString   m_firstHTMfile;
 };
