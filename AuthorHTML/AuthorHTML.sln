@@ -5,6 +5,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDD3983B-85D6-4BDE-B8C7-A503123D5E1C}"
 	ProjectSection(SolutionItems) = preProject
 		Handlers.txt = Handlers.txt
+		..\Installer.nsi = ..\Installer.nsi
 		SpellingAlgorithme.txt = SpellingAlgorithme.txt
 		TODO.txt = TODO.txt
 	EndProjectSection
