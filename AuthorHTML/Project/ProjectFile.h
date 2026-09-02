@@ -34,6 +34,7 @@ public:
   ~ProjectFile();
    void    SweepProject();
    void    ResetSweeped();
+   void    ResetMetadataRead();
    bool    WriteProjectFile();
    bool    ReadProjectFile();
    bool    AddDocumentFile   (CString sHtmlFile);

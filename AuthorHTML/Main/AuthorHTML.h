@@ -51,6 +51,7 @@ public:
   Spelling* GetSpeller();
   void      ResetSpeller();
   void      ReSweepProject();
+  void      ReSweepIndex();
   void      SuppressMessage(CString message);
   bool      IsSuppressedMessage(CString message);
   void      OpenTypedDocumentFile(CString& file);
@@ -127,6 +128,7 @@ private:
   // Started on a HPP project file
   CString            m_project;
   bool               m_sweep; 
+  bool               m_reindex;
   ProjectFile*       m_projectFile;
   TOC*               m_contentFile;
   IndexFile*         m_indexFile;
@@ -180,6 +182,13 @@ inline void
 AuthorHTMLApp::ReSweepProject()
 {
   m_sweep = true;
+}
+
+inline void
+AuthorHTMLApp::ReSweepIndex()
+{
+  m_sweep   = true;
+  m_reindex = true;
 }
 
 inline CRecentFileList*   

@@ -12,6 +12,7 @@
 #include "stdafx.h"
 #include "AuthorHTML.h"
 #include "TopicProperties.h"
+#include "MainFrm.h"
 #include "HTMLBody.h"
 #include "HTMLFrameSet.h"
 
@@ -24,6 +25,7 @@ TopicPropertiesDlg::TopicPropertiesDlg(CWnd*         pParent
                                       ,CComPtr<IHTMLDocument2> pDoc
                                       ,CString       base)
                    :CDialog(TopicPropertiesDlg::IDD, pParent)
+                   ,m_document(pDocument)
                    ,m_firstTab(0)
                    ,m_hasBody(false)
 {
@@ -162,12 +164,29 @@ TopicPropertiesDlg::UpdateProperties()
   {
     m_page5->UpdateProperties();
   }
+
+  if(m_page3->GetChanged())
+  {
+    AuthorHTMLApp* app = reinterpret_cast<AuthorHTMLApp*>(AfxGetApp());
+    if(app)
+    {
+      app->ReSweepIndex();
+    }
+  }
+}
+
+void
+TopicPropertiesDlg::SaveDocument()
+{
+  MainFrame* main = reinterpret_cast<MainFrame*>(theApp.m_pMainWnd);
+  main->SendMessage(WM_COMMAND,ID_FILE_SAVE);
 }
 
 void
 TopicPropertiesDlg::OnBnClickedOk()
 {
   UpdateProperties();
+  SaveDocument();
   m_renamed = m_page1->RenameBaseFile();
   OnOK();
 }
@@ -182,6 +201,7 @@ void
 TopicPropertiesDlg::OnBnClickedApply()
 {
   UpdateProperties();
+  SaveDocument();
 }
 
 void 

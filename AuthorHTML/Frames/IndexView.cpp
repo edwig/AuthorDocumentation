@@ -175,55 +175,51 @@ IndexView::OnIndex_RClick (NMHDR*, LRESULT* pResult)
 void 
 IndexView::OnNewKeyword()
 {
-  IndexEntry* old   = NULL;
+  IndexEntry* old   = nullptr;
   IndexEntry* entry = new IndexEntry();
-  HTREEITEM hCurSel = m_wndExplorer.GetNextItem(TVI_ROOT, TVGN_CARET);
-  HTREEITEM parent  = NULL;
-
-  if (hCurSel)
-  {
-    parent = m_wndExplorer.GetParentItem(hCurSel);
-    old = (IndexEntry*) m_wndExplorer.GetItemData(hCurSel);
-  }
-  else
-  {
-    parent = hCurSel = m_wndExplorer.GetRootItem();
-  }
-  IndexFile* index = theApp.GetIndex();
-  index->AddEntry(old,entry); //new
-  // Add to tree
-  HTREEITEM newItem = m_wndExplorer.InsertItem(entry->GetTitle(),parent,hCurSel);
-  m_wndExplorer.SetItemData(newItem,(DWORD_PTR)entry);
-  m_wndExplorer.RedisplayEntry(newItem,entry);
-
-  // Reselect the entry
-  m_wndExplorer.ReSelectItem(parent,entry);
-
+  HTREEITEM last    = m_wndExplorer.GetNextItem(TVI_ROOT,TVGN_LASTVISIBLE);
+  HTREEITEM parent  = nullptr;
+  
   CString base = theApp.GetBaseDirectory();
   IndexPropDlg dlg(this,base,entry);
   if(dlg.DoModal() == IDOK)
   {
+    // Create new entry
+    IndexFile* index = theApp.GetIndex();
+    index->AddEntry(old,entry);
+
+    // Add to tree
+    HTREEITEM newItem = m_wndExplorer.InsertItem(entry->GetTitle(),parent,last);
+    m_wndExplorer.SetItemData(newItem,(DWORD_PTR)entry);
     m_wndExplorer.RedisplayEntry(newItem,entry);
+
+    // Reselect the entry
+    m_wndExplorer.ReSelectItem(parent,entry);
+  }
+  else
+  {
+    delete entry;
   }
 }
 
 void 
 IndexView::OnNewSubkey()
 {
-  IndexEntry* old   = NULL;
+  IndexEntry* old   = nullptr;
   IndexEntry* entry = new IndexEntry();
-  HTREEITEM hCurSel = m_wndExplorer.GetNextItem(TVI_ROOT, TVGN_CARET);
+  HTREEITEM hCurSel = m_wndExplorer.GetNextItem(TVI_ROOT,TVGN_CARET);
   HTREEITEM parent  = NULL;
   IndexFile* index  = theApp.GetIndex();
 
-  if (hCurSel)
+  if(hCurSel)
   {
     parent = m_wndExplorer.GetParentItem(hCurSel);
     old = (IndexEntry*) m_wndExplorer.GetItemData(hCurSel);
   }
   else
   {
-    parent = hCurSel = m_wndExplorer.GetRootItem();
+    parent  = nullptr;
+    hCurSel = m_wndExplorer.GetNextItem(TVI_ROOT,TVGN_LASTVISIBLE);
   }
   index->AddChild(old,entry);
 

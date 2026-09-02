@@ -28,6 +28,7 @@ TopicPropPage3Dlg::TopicPropPage3Dlg(CWnd* pParent
                   ,m_htmlDoc(pDoc)
                   ,m_base(base)
                   ,m_doc(doc)
+                  ,m_changed(false)
 {
 }
 
@@ -281,6 +282,7 @@ TopicPropPage3Dlg::OnBnClickedUp()
     ScriptsToList();
     UpdateData(Data2Controls);
     m_list.SetItemState(now-1,LVNI_SELECTED,LVNI_SELECTED);
+    m_changed = true;
   }
   m_list.SetFocus();
 }
@@ -300,6 +302,7 @@ TopicPropPage3Dlg::OnBnClickedEdit()
     {
       FillPage();
       UpdateData(Data2Controls);
+      m_changed = true;
     }
   }
   m_list.SetFocus();
@@ -322,6 +325,7 @@ TopicPropPage3Dlg::OnBnClickedNew()
     m_keywords.push_back(def);
     ScriptsToList();
     UpdateData(Data2Controls);
+    m_changed = true;
   }
   else
   {
@@ -366,6 +370,7 @@ TopicPropPage3Dlg::OnBnClickedDelete()
         CString filename = m_doc->GetFilename();
         IndexFile* index = theApp.GetIndex();
         index->DeleteEntry(keyword,filename);
+        m_changed = true;
       }
     }
   }
@@ -383,6 +388,13 @@ TopicPropPage3Dlg::OnBnClickedDown()
     ScriptsToList();
     UpdateData(Data2Controls);
     m_list.SetItemState(now+1,LVNI_SELECTED,LVNI_SELECTED);
+    m_changed = true;
   }
   m_list.SetFocus();
+}
+
+bool
+TopicPropPage3Dlg::GetChanged()
+{
+  return m_changed;
 }

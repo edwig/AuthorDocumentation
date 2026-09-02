@@ -32,6 +32,8 @@ public:
   bool ReadIndexFile();
   bool WriteIndexFile();
   bool NeedSaving();
+  void RemovePageIndexes();
+  void RemovePageIndexes(IndexEntry& p_entry);
   void DisplayIndexInTree(IndexTreeCtrl* tree);
   void InsertIndex(IndexTreeCtrl * tree,HTREEITEM item,IndexEntry* entry,int level);
   void AddEntry(IndexEntry* here,IndexEntry* toinsert);

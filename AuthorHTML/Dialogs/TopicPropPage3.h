@@ -45,6 +45,7 @@ public:
   void UpdateProperties();
   void ResetScripts();
   void ShowFocus();
+  bool GetChanged();
 
 // Dialog Data
 	enum { IDD = IDD_TOPIC_PROPPAGE3 };
@@ -64,6 +65,7 @@ private:
   CListCtrl               m_list;
   KeywordVector           m_keywords;
   CString                 m_base;
+  bool                    m_changed;
   // Controls
   AD_Button   m_buttonUp;
   AD_Button   m_buttonEdit;

@@ -697,6 +697,16 @@ ProjectFile::AddExistingDocument(CString htmlFile)
   m_needSaving = true;
 }
 
+// Reset, so we can read the keywords again
+void
+ProjectFile::ResetMetadataRead()
+{
+  for(auto& doc : m_documents)
+  {
+    doc.second->DidReadMetaData(false);
+  }
+}
+
 void
 ProjectFile::ResetSweeped()
 {

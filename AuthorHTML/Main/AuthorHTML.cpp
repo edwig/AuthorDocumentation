@@ -389,6 +389,15 @@ AuthorHTMLApp::OnIdle(LONG lCount)
       // Reset m_sweep prior to the sweeping proces
       // Sweeping can so re-sweep the project after adding files
       m_sweep = false;
+
+      // Remove page indexes
+      if(m_reindex && m_indexFile)
+      {
+        m_reindex = false;
+        m_indexFile->RemovePageIndexes();
+        m_projectFile->ResetSweeped();
+        m_projectFile->ResetMetadataRead();
+      }
       m_projectFile->SweepProject();
     }
   }

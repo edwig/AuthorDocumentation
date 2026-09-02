@@ -570,7 +570,6 @@ IndexFile::DeleteEntry(IndexEntry* entry)
 //
 //////////////////////////////////////////////////////////////////////////
 
-
 void
 IndexFile::AddKeywords(CString keywords,DocumentFile* doc)
 {
@@ -674,4 +673,23 @@ IndexFile::SortIndex()
 {
   MainFrame::SetStatusText("Sorting the index ...");
   m_list.SortEntries();
+}
+
+// Remove indexes before a reindex sweep
+void
+IndexFile::RemovePageIndexes()
+{
+  RemovePageIndexes(m_list);
+}
+
+void
+IndexFile::RemovePageIndexes(IndexEntry& p_entry)
+{
+  for(auto& index : p_entry.GetChildren())
+  {
+    if(index->GetInHHK() == false)
+    {
+      p_entry.DeleteChild(index);
+    }
+  }
 }

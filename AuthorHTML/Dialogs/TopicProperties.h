@@ -39,10 +39,12 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+  virtual void SaveDocument();
 
 private:
   void UpdateProperties();
 
+  DocumentFile*           m_document;
   bool                    m_renamed;
   bool                    m_hasBody;    // Otherwise: frameset!
   CTabCtrl	              m_tabControl;

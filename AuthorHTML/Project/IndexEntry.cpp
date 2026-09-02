@@ -17,12 +17,18 @@
 #include "IndexEntry.h"
 
 IndexEntry::IndexEntry()
+           :m_inHHK(true)
+           ,m_parent(nullptr)
+           ,m_aliasEntry(nullptr)
+           ,m_deleteMarker(false)
 {
 }
 
 IndexEntry::IndexEntry(CString title)
            :m_title(title)
            ,m_inHHK(true)
+           ,m_parent(nullptr)
+           ,m_aliasEntry(nullptr)
            ,m_deleteMarker(false)
 {
 }
