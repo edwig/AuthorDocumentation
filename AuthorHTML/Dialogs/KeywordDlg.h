@@ -40,6 +40,7 @@ private:
   void UpdateProperties();
   void ReComposite();
   void CheckType();
+  void CheckWord(CString& p_word);
 
   HtmlElement* m_elem;
   CString      m_base;

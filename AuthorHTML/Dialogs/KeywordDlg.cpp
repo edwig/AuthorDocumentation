@@ -90,7 +90,7 @@ KeywordDlg::FillPage()
   int ind = m_def->m_type == "Index" ? 0 : 1;
   m_comboType.SetCurSel(ind);
 
-  // Fill tekstfields
+  // Fill text fields
   m_composite = m_def->m_composite;
   m_level1    = m_def->m_level1;
   m_level2    = m_def->m_level2;
@@ -111,6 +111,21 @@ KeywordDlg::CheckType()
     m_level5.Empty();
     ReComposite();
     UpdateData(Data2Controls);
+  }
+}
+
+void
+KeywordDlg::CheckWord(CString& p_word)
+{
+  // Check for illegal characters in the keyword
+  int pos = p_word.Find(',');
+  if (pos >= 0)
+  {
+    CString message;
+    message.Format("Illegal character ',' in keyword '%s'.\n"
+                   "Please remove the comma and try again.", p_word);
+    theApp.Panic(message);
+    p_word.Empty();
   }
 }
 
@@ -141,34 +156,46 @@ KeywordDlg::ReComposite()
 {
   CString composite;
   composite = m_level1;
-  if(!m_level2.IsEmpty())
+  if(!m_level1.IsEmpty())
   {
-    composite += "," + m_level2;
-    if(!m_level3.IsEmpty())
+    if(!m_level2.IsEmpty())
     {
-      composite += "," + m_level3;
-      if(!m_level4.IsEmpty())
+      composite += "," + m_level2;
+      if(!m_level3.IsEmpty())
       {
-        composite += "," + m_level4;
-        if(!m_level5.IsEmpty())
+        composite += "," + m_level3;
+        if(!m_level4.IsEmpty())
         {
-          composite += "," + m_level5;
+          composite += "," + m_level4;
+          if(!m_level5.IsEmpty())
+          {
+            composite += "," + m_level5;
+          }
+        }
+        else
+        {
+          m_level5.Empty();
         }
       }
       else
       {
-        m_level5 = "";
+        m_level4.Empty();
+        m_level5.Empty();
       }
     }
     else
     {
-      m_level4 = "";
+      m_level3.Empty();
+      m_level4.Empty();
+      m_level5.Empty();
     }
   }
   else
   {
-    m_level3 = "";
-    m_level4 = "";
+    m_level2.Empty();
+    m_level3.Empty();
+    m_level4.Empty();
+    m_level5.Empty();
   }
   m_composite = composite;
   UpdateData(Data2Controls);
@@ -197,6 +224,7 @@ void
 KeywordDlg::OnEnChangeLevel1()
 {
   UpdateData();
+  CheckWord(m_level1);
   ReComposite();
 }
 
@@ -204,6 +232,7 @@ void
 KeywordDlg::OnEnChangeLevel2()
 {
   UpdateData();
+  CheckWord(m_level2);
   ReComposite();
 }
 
@@ -211,6 +240,7 @@ void
 KeywordDlg::OnEnChangeLevel3()
 {
   UpdateData();
+  CheckWord(m_level3);
   ReComposite();
 }
 
@@ -218,6 +248,7 @@ void
 KeywordDlg::OnEnChangeLevel4()
 {
   UpdateData();
+  CheckWord(m_level4);
   ReComposite();
 }
 
@@ -225,6 +256,7 @@ void
 KeywordDlg::OnEnChangeLevel5()
 {
   UpdateData();
+  CheckWord(m_level5);
   ReComposite();
 }
 
