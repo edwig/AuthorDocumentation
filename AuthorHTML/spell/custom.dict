@@ -1,6 +1,7 @@
 # Custom Dictionary
 # Author Dictionary
-0'postcode'
+0'Special
+1postcode'
 032bits
 064bits
 0AANTAL
@@ -25,8 +26,10 @@
 1enter
 1hef
 1lient
-1omposer
+1olumn
+2mposer
 1reating
+1urrent
 0DBS
 1OC4all
 1aarnaast
@@ -55,6 +58,7 @@
 2x
 3ed
 3ing
+1or
 1unctioneel
 0GEEFKLASSE
 2HEELGETAL
@@ -63,7 +67,8 @@
 1ourmet
 0HEEFTEIGENSCHAP
 5METHODE
-1et
+1ere
+2t
 1ierdoor
 4onder
 0IBS
@@ -74,6 +79,7 @@
 1n
 2dien
 2leiding
+2teger
 1s
 1t
 0KLASSEID
@@ -91,6 +97,7 @@
 1uisklik
 0NL
 1aar
+1ext
 1iets
 1u
 0ODBCQueryTool
@@ -109,10 +116,13 @@
 3tly
 1erformance
 1lease
-1ostgreSQL
+1osition
+3tgreSQL
 1roduct
 3nto
+1seudocolumns
 0Redenen
+2ference
 2leasenotes
 2port
 2sultaat
@@ -140,13 +150,16 @@
 3se
 3y
 2is
-1ot
+1o
+2t
 0Uitwerking
 1nicode
 1pdate
 2graded
+1sed
 0VADERKLASSE
-1anuit
+1alue
+2nuit
 2rious
 1ertaaltabellen
 1oor
@@ -156,7 +169,8 @@
 0WORTELKLASSE
 1e
 2lcome
-1hile
+1hich
+3le
 1indows
 1ordt
 0You
@@ -198,6 +212,7 @@
 1ugfixes
 0centric
 1odes
+2lumns
 2mmands
 3piling
 4letes
@@ -209,7 +224,9 @@
 0databases
 4pump'
 4source
-4types
+4type
+8s
+1bspace
 1eelvenster
 ;s
 2gradation
@@ -222,6 +239,7 @@
 0edwig
 1igenschappen
 2ndgebruikers
+1valuates
 0faster
 1ilesystem
 1ollowing
@@ -240,11 +258,14 @@
 2ïnstantieerd
 0helps
 1ighest
+4ly
 2storieboom
 1oofdklassen
 5venster
 1uidige
-0incoreect
+0identifies
+1ncoreect
+2dentifies
 2formatievenster
 2gedrukt
 4richt
@@ -303,6 +324,8 @@
 1erformend
 3manently
 1rograms
+1seudo's
+6columns
 0queries
 5ng
 4yvenster
@@ -323,6 +346,7 @@
 3urn
 6s
 2write
+1ows
 0saving
 1cripting
 1eperate
@@ -335,6 +359,7 @@
 1tal’
 3rting
 5venster
+3tements
 2reams
 3ings
 1ubklasse
@@ -358,6 +383,7 @@
 1xt
 0uitgedraaid
 3staande
+1niquely
 1pdated
 1sing
 0variabelen

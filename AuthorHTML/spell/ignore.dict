@@ -1,6 +1,8 @@
 # Ignore Dictionary
 # Author Dictionary
 0
+1
+
 0'Save'
 2low
 0AppData
@@ -8,5 +10,6 @@
 0Roaming
 0SQLExecute
 0UserTypes
-0csv
+0columns'
+1sv
 0trt

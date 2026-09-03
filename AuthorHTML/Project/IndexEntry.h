@@ -11,6 +11,7 @@ typedef struct _IndexDocument
 {
   CString       m_title;
   DocumentFile* m_document;
+  CString       m_bookmark;
 }
 IndexDocument;
 

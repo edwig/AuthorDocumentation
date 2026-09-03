@@ -108,7 +108,7 @@ TopicPropPage3Dlg::ScriptsToList()
   for(unsigned int ind = 0; ind < m_keywords.size(); ++ind)
   {
     KeywordDef* def = &(m_keywords[ind]);
-    CString type = def->m_type == KeywordType::KLink ? "Index" : "A-Link";
+    CString type = def->m_type == KeywordType::KLink ? "Index" : "Associative";
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, type, 0, 0, 0, 0);
     m_list.SetItemText(ind,1,def->m_level1);
     m_list.SetItemText(ind,2,def->m_level2);

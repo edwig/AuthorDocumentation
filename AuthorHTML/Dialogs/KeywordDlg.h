@@ -35,6 +35,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 private:
   void FillPage();
+  void SyncFocus();
   void UpdateProperties();
   void ReComposite();
   void CheckType();

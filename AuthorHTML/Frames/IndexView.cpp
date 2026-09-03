@@ -280,6 +280,10 @@ IndexView::OnEditPage()
       if(inddoc)
       {
         path = inddoc->m_document->GetFilename();
+        if(!inddoc->m_bookmark.IsEmpty())
+        {
+          path += _T("#") + inddoc->m_bookmark;
+        }
       }
     }
     if(!path.IsEmpty())

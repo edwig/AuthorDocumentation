@@ -95,7 +95,7 @@ IndexPropDlg::OnInitDialog()
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
   m_list.InsertColumn(0,"Title",    LVCFMT_LEFT,300);
   m_list.InsertColumn(1,"Filename", LVCFMT_LEFT,300);
-  m_list.InsertColumn(2,"Author",   LVCFMT_LEFT,200);
+  m_list.InsertColumn(2,"Bookmark", LVCFMT_LEFT,200);
 
   // All target descriptions
   vector<string> all;
@@ -127,6 +127,8 @@ IndexPropDlg::RedisplayPages()
 {
   int ind = 0;
   m_list.DeleteAllItems();
+  m_bookmark.Empty();
+
   IndDocMap& docmap = m_entry->GetDocuments();
   IndDocMap::iterator it = docmap.begin();
   while(it != docmap.end())
@@ -137,15 +139,21 @@ IndexPropDlg::RedisplayPages()
     {
       CString title = id->m_title;
       CString file  = doc->GetFilename();
-      CString auth  = doc->GetAuthor();
+      CString bookm = id->m_bookmark;
       if(!ind && m_spBrowser)
       {
+        m_displayFile = file;
         CString URL = m_base + file;
+        if(!bookm.IsEmpty())
+        {
+          URL += _T("#") + bookm;
+          m_bookmark = bookm;
+        }
         m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
       }
       m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, title, 0, 0, 0, 0);
       m_list.SetItemText(ind,1,file);
-      m_list.SetItemText(ind,2,auth);
+      m_list.SetItemText(ind,2,bookm);
     }
     ++ind;
     ++it;
@@ -218,11 +226,17 @@ IndexPropDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
   }
   if(found)
   {
+    // Synchronize with the combo box of bookmarks
+    int ind = m_comboBM.FindString(-1, m_bookmark);
+    if (ind >= 0)
+    {
+      m_comboBM.SetCurSel(ind);
+    }
     UpdateData(Data2Controls);
   }
 }
 
-void
+bool
 IndexPropDlg::ScrollIntoView(CString bookmark)
 {
   // Now read the bookmarks from the document (if any)
@@ -256,13 +270,18 @@ IndexPropDlg::ScrollIntoView(CString bookmark)
           CComVariant top;
           V_VT(&top) = VT_BOOL;
           V_I4(&top) = VARIANT_TRUE;
-          elem->scrollIntoView(top);
-          return;
+          hr = elem->scrollIntoView(top);
+          if(SUCCEEDED(hr))
+          {
+            return true;
+          }
         }
       }
     }
   }
+  return false;
 }
+
 void 
 IndexPropDlg::OnEnChangeKeyword()
 {
@@ -304,7 +323,8 @@ IndexPropDlg::OnBnClickedFind()
     {
       href = relative;
     }
-    CString URL = m_base + href;
+    m_displayFile = href;
+    CString URL   = m_base + href;
     m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
 
     CString title = "No title yet";
@@ -321,6 +341,7 @@ IndexPropDlg::OnBnClickedFind()
       CString mess;
       mess.Format("The page [%s] is not a part of the project",href.GetString());
       theApp.ErrorMessage(mess);
+      m_displayFile.Empty();
     }
   }
 }
@@ -372,11 +393,18 @@ IndexPropDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
   LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
   char filename[256];
   char title   [256];
+  char bookmark[256];
   m_list.GetItemText(pNMLV->iItem,0,title   ,256);
   m_list.GetItemText(pNMLV->iItem,1,filename,256);
+  m_list.GetItemText(pNMLV->iItem,2,bookmark,256);
   if(m_spBrowser)
   {
+    m_displayFile = filename;
     CString URL = m_base + filename;
+    if (bookmark[0])
+    {
+      URL += CString("#") + bookmark;
+    }
     m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
   }
   *pResult = 0;
@@ -385,6 +413,25 @@ IndexPropDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
 void 
 IndexPropDlg::OnCbnSelchangeBookmarks()
 {
+  int ind = m_comboBM.GetCurSel();
+  if (ind >= 0)
+  {
+    CString bookmark;
+    m_comboBM.GetLBText(ind,bookmark);
+    if(ScrollIntoView(bookmark))
+    {
+      m_bookmark = bookmark;
+      IndDocMap& docmap = m_entry->GetDocuments();
+      for(auto& doc : docmap)
+      {
+        if(doc->m_document->GetFilename().CompareNoCase(m_displayFile) == 0)
+        {
+          doc->m_bookmark = bookmark;
+          break;
+        }
+      }
+    }
+  }
 }
 
 void 

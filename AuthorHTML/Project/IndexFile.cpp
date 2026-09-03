@@ -110,8 +110,13 @@ IndexFile::WriteList(FILE* file,IndexEntry* list,int level)
       DocumentFile* dfile = doc->m_document;
       if(dfile)
       {
+        CString localfile = dfile->GetFilename();
+        if (!doc->m_bookmark.IsEmpty())
+        {
+          localfile += CString("#") + doc->m_bookmark;
+        }
         WriteParameter(file,levelString,"Name", doc->m_title);
-        WriteParameter(file,levelString,"Local",dfile->GetFilename());
+        WriteParameter(file,levelString,"Local",localfile);
       }
     }
     WriteParameter(file,levelString,"WindowName",list->GetWindowName());
@@ -278,25 +283,6 @@ IndexFile::ReadProperties(FILE* file)
 bool
 IndexFile::ReadList(FILE* file,IndexEntry* list,int level)
 {
-  //  <ul>
-  //    <li><object type="text/sitemap">
-  //    <param name="Name" value="Hergebruikte deelvensters">
-  //    <param name="Name" value="Inleiding standaard componenten">
-  //    <param name="Local" value="Taal\Inleiding_standaard_componenten.htm">
-  //    </object>
-  //    <li><object type="text/sitemap">
-  //    <param name="Name" value="ALS">
-  //    <param name="Name" value="ALS DAN (toekenning)">
-  //    <param name="Local" value="Taal\ALS_DAN_(toekenning).htm">
-  //    <param name="Name" value="ALS DAN EINDALS (commando)">
-  //    <param name="Local" value="Taal\ALS_DAN_EINDALS_(commando).htm">
-  //    <param name="Name" value="DECLAREER (commando)">
-  //    <param name="Local" value="Taal\DECLAREER_(commando).htm">
-  //    </object>
-  //    <ul>
-  //    ..
-  //    </ul>
-  //  </ul>
   CString word;
 
   if(level >= RECURSION_MAX_LEVEL)

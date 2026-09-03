@@ -32,7 +32,7 @@ public:
 protected:
 	void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
   void OnDocumentComplete(LPDISPATCH pDisp,LPVARIANT pURL);
-  void ScrollIntoView(CString bookmark);
+  bool ScrollIntoView(CString bookmark);
 
 	DECLARE_MESSAGE_MAP()
   DECLARE_EVENTSINK_MAP()
@@ -49,6 +49,7 @@ private:
   CString     m_frame;
   CString     m_window;
   CString     m_comment;
+  CString     m_displayFile;
   CString     m_bookmark;
   bool        m_inHHK;
   AD_Button   m_buttonDelete;

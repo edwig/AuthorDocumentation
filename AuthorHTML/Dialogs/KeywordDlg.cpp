@@ -75,8 +75,9 @@ KeywordDlg::OnInitDialog()
   m_comboType.AddString("Associative link keyword");  // A-Link
 
   FillPage();
+  SyncFocus();
 
-  return TRUE;
+  return FALSE;
 }
 
 void
@@ -95,6 +96,31 @@ KeywordDlg::FillPage()
   m_level4    = m_keyword->m_level4;
   m_level5    = m_keyword->m_level5;
   ReComposite();
+}
+
+void
+KeywordDlg::SyncFocus()
+{
+  CWnd* w1 = GetDlgItem(IDC_LEVEL1);
+  CWnd* w2 = GetDlgItem(IDC_LEVEL2);
+  CWnd* w3 = GetDlgItem(IDC_LEVEL3);
+  CWnd* w4 = GetDlgItem(IDC_LEVEL4);
+  CWnd* w5 = GetDlgItem(IDC_LEVEL5);
+  bool key = (m_type == KeywordType::KLink);
+
+  if(key)
+  {
+         if(m_level1.IsEmpty()) w1->SetFocus();
+    else if(m_level2.IsEmpty()) w2->SetFocus();
+    else if(m_level3.IsEmpty()) w3->SetFocus();
+    else if(m_level4.IsEmpty()) w4->SetFocus();
+    else if(m_level5.IsEmpty()) w5->SetFocus();
+  }
+  else
+  {
+    // Associative links have only one level
+    w1->SetFocus();
+  }
 }
 
 void

@@ -97,12 +97,22 @@ IndexEntry::AddChildIndex(IndexEntry* entry,bool sorted /*=false*/)
 void
 IndexEntry::AddDocument(CString title,CString filename)
 {
+  // Split the bookmark
+  CString bookmark;
+  if(filename.Find('#') > 0)
+  {
+    bookmark = filename.Mid (filename.Find('#') + 1);
+    filename = filename.Left(filename.Find('#'));
+  }
+
   IndexDocument* doc = new IndexDocument();
   doc->m_title    = title;
   doc->m_document = theApp.GetProjectFile()->FindDocumentFile(filename);
+  doc->m_bookmark = bookmark;
+
   if(doc->m_document)
   {
-    // Keep this as a reference as indexentries for this document
+    // Keep this as a reference as index entries for this document
     doc->m_document->RelateToIndexEntry(this);
   }
   m_documents.push_back(doc);
