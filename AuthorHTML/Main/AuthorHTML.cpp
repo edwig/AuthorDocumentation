@@ -1045,7 +1045,7 @@ AuthorHTMLApp::MessageBox(const CString& tekst
   MainFrame::SetStatusText(tekst);
   HWND focuswin = ::GetFocus();
 
-  AuMessageBox msg(m_pMainWnd,tekst.GetString(),titel.GetString(),knoppen);
+  AuMessageBox msg(m_pMainWnd,titel.GetString(), tekst.GetString(),knoppen);
   int id = msg.DoModal();
   CString resultstr = msg.GeefResultaat(id);
   if(::IsWindow(focuswin)) 

@@ -459,7 +459,7 @@ void
 CHTMLEdView::OnInsertAreaPolygon()
 {
   m_designer.SetNewShape(AREA_POLYGON);
-  AreaMessage("polygon","first-point","click on all other polygon points");
+  AreaMessage("polygon","first-point","click on all other polygon points,\nand end by clicking on the beginning point");
 }
 
 void
