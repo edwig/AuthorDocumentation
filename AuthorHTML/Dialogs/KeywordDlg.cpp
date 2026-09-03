@@ -15,14 +15,10 @@
 
 IMPLEMENT_DYNAMIC(KeywordDlg, CDialog)
 
-KeywordDlg::KeywordDlg(CWnd*        pParent
-                      ,HtmlElement* elem
-                      ,CString      p_base
-                      ,KeywordDef*  def)
-           :CDialog(KeywordDlg::IDD, pParent)
-           ,m_elem(elem)
-           ,m_base(p_base)
-           ,m_def(def)
+KeywordDlg::KeywordDlg(CWnd*        p_parent
+                      ,KeywordDef*  p_keyword)
+           :CDialog(KeywordDlg::IDD,p_parent)
+           ,m_keyword(p_keyword)
 {
 }
 
@@ -48,7 +44,7 @@ KeywordDlg::DoDataExchange(CDataExchange* pDX)
     CWnd* w3 = GetDlgItem(IDC_LEVEL3);
     CWnd* w4 = GetDlgItem(IDC_LEVEL4);
     CWnd* w5 = GetDlgItem(IDC_LEVEL5);
-    bool key = m_type == "Index";
+    bool key = (m_type == KeywordType::KLink);
     w2->EnableWindow(!m_level1.IsEmpty() && key);
     w3->EnableWindow(!m_level2.IsEmpty() && key);
     w4->EnableWindow(!m_level3.IsEmpty() && key);
@@ -74,8 +70,9 @@ KeywordDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-  m_comboType.AddString("Composite index keyword");
-  m_comboType.AddString("Associative link keyword");
+  // Link types
+  m_comboType.AddString("Composite index keyword");   // K-Link
+  m_comboType.AddString("Associative link keyword");  // A-Link
 
   FillPage();
 
@@ -86,24 +83,24 @@ void
 KeywordDlg::FillPage()
 {
   // Fill combobox
-  m_type  = m_def->m_type;
-  int ind = m_def->m_type == "Index" ? 0 : 1;
+  m_type  = m_keyword->m_type;
+  int ind = m_keyword->m_type == KeywordType::KLink ? 0 : 1;
   m_comboType.SetCurSel(ind);
 
   // Fill text fields
-  m_composite = m_def->m_composite;
-  m_level1    = m_def->m_level1;
-  m_level2    = m_def->m_level2;
-  m_level3    = m_def->m_level3;
-  m_level4    = m_def->m_level4;
-  m_level5    = m_def->m_level5;
+  m_composite = m_keyword->m_composite;
+  m_level1    = m_keyword->m_level1;
+  m_level2    = m_keyword->m_level2;
+  m_level3    = m_keyword->m_level3;
+  m_level4    = m_keyword->m_level4;
+  m_level5    = m_keyword->m_level5;
   ReComposite();
 }
 
 void
 KeywordDlg::CheckType()
 {
-  if(m_type != "Index")
+  if(m_type != KeywordType::KLink)
   {
     m_level2.Empty();
     m_level3.Empty();
@@ -123,7 +120,7 @@ KeywordDlg::CheckWord(CString& p_word)
   {
     CString message;
     message.Format("Illegal character ',' in keyword '%s'.\n"
-                   "Please remove the comma and try again.", p_word);
+                   "Please remove the comma and try again.", p_word.GetString());
     theApp.Panic(message);
     p_word.Empty();
   }
@@ -132,23 +129,14 @@ KeywordDlg::CheckWord(CString& p_word)
 void
 KeywordDlg::UpdateProperties()
 {
-  // Set Keyword type
-  if(m_def->m_type == "Index")
-  {
-    m_elem->SetAttribute("name","MS-HKWD",ALWAYS);
-  }
-  else
-  {
-    m_elem->SetAttribute("name","MS-HAID",ALWAYS);
-  }
   // Set content
-  m_def->m_composite = m_composite;
-  m_def->m_level1    = m_level1;
-  m_def->m_level2    = m_level2;
-  m_def->m_level3    = m_level3;
-  m_def->m_level4    = m_level4;
-  m_def->m_level5    = m_level5;
-  m_elem->SetAttribute("content",m_composite,ALWAYS);
+  m_keyword->m_type      = m_type;
+  m_keyword->m_composite = m_composite;
+  m_keyword->m_level1    = m_level1;
+  m_keyword->m_level2    = m_level2;
+  m_keyword->m_level3    = m_level3;
+  m_keyword->m_level4    = m_level4;
+  m_keyword->m_level5    = m_level5;
 }
 
 void
@@ -207,9 +195,8 @@ KeywordDlg::OnCbnSelchangeLinktype()
   int ind = m_comboType.GetCurSel();
   if(ind >= 0)
   {
-    CString type = (ind == 0) ? "Index" : "Association";
-    m_def->m_type = type;
-    m_type = type;
+    m_type = (ind == 0) ? KeywordType::KLink : KeywordType::ALink;
+    m_keyword->m_type = m_type;
     CheckType();
     UpdateData(Data2Controls);
   }

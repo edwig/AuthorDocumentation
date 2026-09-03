@@ -21,10 +21,8 @@ class KeywordDlg : public CDialog
 	DECLARE_DYNAMIC(KeywordDlg)
 
 public:
-	KeywordDlg(CWnd*        pParent
-            ,HtmlElement* elem
-            ,CString      base
-            ,KeywordDef*  def); 
+	KeywordDlg(CWnd*       p_parent
+            ,KeywordDef* p_keyword); 
 	virtual ~KeywordDlg();
   BOOL OnInitDialog();
 
@@ -42,12 +40,10 @@ private:
   void CheckType();
   void CheckWord(CString& p_word);
 
-  HtmlElement* m_elem;
-  CString      m_base;
-  KeywordDef*  m_def;
+  KeywordDef*  m_keyword;
   CComboBox    m_comboType;
 
-  CString      m_type;
+  KeywordType  m_type;
   CString      m_composite;
   CString      m_level1;
   CString      m_level2;

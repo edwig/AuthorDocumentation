@@ -34,18 +34,6 @@ TopicPropPage3Dlg::TopicPropPage3Dlg(CWnd* pParent
 
 TopicPropPage3Dlg::~TopicPropPage3Dlg()
 {
-  ResetScripts();
-}
-
-void
-TopicPropPage3Dlg::ResetScripts()
-{
-  for(unsigned int ind = 0;ind < m_keywords.size(); ++ind)
-  {
-    KeywordDef* def = &(m_keywords[ind]);
-    def->keyword->Release();
-  }
-  m_keywords.clear();
 }
 
 void TopicPropPage3Dlg::DoDataExchange(CDataExchange* pDX)
@@ -65,7 +53,7 @@ void TopicPropPage3Dlg::DoDataExchange(CDataExchange* pDX)
 
     m_buttonUp  .EnableWindow(now > 0);
     m_buttonDown.EnableWindow(now < (num -1) && (now >= 0));
-    // Only Edit/delete button if we ar at a line
+    // Only Edit/delete button if we are at a line
     m_buttonEdit  .EnableWindow(now >= 0);
     m_buttonDelete.EnableWindow(now >= 0);
   }
@@ -102,7 +90,6 @@ TopicPropPage3Dlg::OnInitDialog()
 void
 TopicPropPage3Dlg::FillPage()
 {
-  ResetScripts();
   GetHeadKeywords();
   ScriptsToList();
 }
@@ -110,6 +97,8 @@ TopicPropPage3Dlg::FillPage()
 void
 TopicPropPage3Dlg::UpdateProperties()
 {
+  RemoveHeadKeywords();
+  RewriteHeadKeywords();
 }
 
 void
@@ -119,7 +108,8 @@ TopicPropPage3Dlg::ScriptsToList()
   for(unsigned int ind = 0; ind < m_keywords.size(); ++ind)
   {
     KeywordDef* def = &(m_keywords[ind]);
-    m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, def->m_type, 0, 0, 0, 0);
+    CString type = def->m_type == KeywordType::KLink ? "Index" : "A-Link";
+    m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, type, 0, 0, 0, 0);
     m_list.SetItemText(ind,1,def->m_level1);
     m_list.SetItemText(ind,2,def->m_level2);
     m_list.SetItemText(ind,3,def->m_level3);
@@ -197,15 +187,8 @@ TopicPropPage3Dlg::GetHeadKeywords()
                    (key.CompareNoCase("MS-HAID") == 0)  )
                 {
                   CString keywords = element.GetAttribute("content");
-                  KeywordDef def;
-
-                  def.keyword = meta.p;
-                  def.m_type  = key.CompareNoCase("MS-HKWD") == 0 ? "Index" : "Association";
-                  def.m_composite = keywords;
-                  AddKeywords(&def,keywords);
-                  def.keyword->AddRef();
-
-                  m_keywords.push_back(def);
+                  KeywordType type = key.CompareNoCase("MS-HKWD") == 0 ? KeywordType::KLink : KeywordType::ALink;
+                  AddKeywords(type,keywords);
                 }
               }
             }
@@ -217,33 +200,186 @@ TopicPropPage3Dlg::GetHeadKeywords()
 }
 
 void
-TopicPropPage3Dlg::AddKeywords(KeywordDef* def,CString keywords)
+TopicPropPage3Dlg::RemoveHeadKeywords()
+{
+  CComPtr<IHTMLElementCollection> coll;
+
+  HRESULT hr = m_htmlDoc->get_all(&coll);
+  if (SUCCEEDED(hr))
+  {
+    CComBSTR name = L"head";
+    CComVariant selector;
+    V_VT(&selector) = VT_BSTR;
+    V_BSTR(&selector) = name;
+    CComPtr<IDispatch> tdisp;
+    hr = coll->tags(selector, &tdisp);
+    CComQIPtr<IHTMLElementCollection, &IID_IHTMLElementCollection> tagscol = tdisp;
+    if (SUCCEEDED(hr))
+    {
+      CComVariant ask;
+      V_VT(&ask) = VT_I4;
+      V_I4(&ask) = 0;
+      CComPtr<IDispatch> item;
+      hr = tagscol->item(ask, ask, &item);
+      CComQIPtr<IHTMLHeadElement, &IID_IHTMLHeadElement> head = item;
+      if (SUCCEEDED(hr) && head.p)
+      {
+        IDispatch* disp;
+        CComQIPtr<IHTMLElement, &IID_IHTMLElement> pElem = item;
+        hr = pElem->get_children(&disp);
+        CComQIPtr<IHTMLElementCollection, &IID_IHTMLElementCollection> headcol = disp;
+        if (SUCCEEDED(hr) && headcol.p)
+        {
+          name = L"meta";
+          V_BSTR(&selector) = name;
+          CComPtr<IDispatch> sdisp;
+          hr = headcol->tags(selector, &sdisp);
+          CComQIPtr<IHTMLElementCollection, &IID_IHTMLElementCollection> scriptcol = sdisp;
+          if (SUCCEEDED(hr) && scriptcol.p)
+          {
+            long count = 0;
+            scriptcol->get_length(&count);
+            for (int ind = 0; ind < count; ++ind)
+            {
+              V_I4(&ask) = ind;
+              IDispatch* idisp;
+              hr = scriptcol->item(ask, ask, &idisp);
+              CComQIPtr<IHTMLMetaElement, &IID_IHTMLMetaElement> meta = idisp;
+              if (SUCCEEDED(hr) && meta.p)
+              {
+                // its a meta tag in the head, check it's name
+                CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = idisp;
+                HtmlElement element(elem);
+
+                CString key = element.GetAttribute("name");
+                if((key.CompareNoCase("MS-HKWD") == 0) ||
+                   (key.CompareNoCase("MS-HAID") == 0))
+                {
+                  CComQIPtr<IHTMLDOMNode, &IID_IHTMLDOMNode> dom = elem.p;
+                  hr = dom->removeNode(VARIANT_TRUE,nullptr);
+                  if(SUCCEEDED(hr))
+                  {
+                    // Adjust index since we removed an element
+                    --ind;
+                    --count;
+                  }
+                  else
+                  {
+                    CString message;
+                    message.Format("Failed to remove meta tag [%s] from head", key.GetString());
+                    theApp.Panic(message);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void 
+TopicPropPage3Dlg::RewriteHeadKeywords()
+{
+  for(size_t ind = 0; ind < m_keywords.size(); ++ind)
+  {
+    // Rewriting head keywords
+    KeywordDef* def = &(m_keywords[ind]);
+    if(!def->m_level1.IsEmpty())
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
+      HtmlElement keyword(elem);
+      keyword.SetAttribute("name",   def->m_type == KeywordType::KLink ? "MS-HKWD" : "MS-HAID");
+      keyword.SetAttribute("content",def->m_level1);
+    }
+    if(!def->m_level2.IsEmpty())
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
+      HtmlElement keyword(elem);
+      keyword.SetAttribute("name",   "MS-HKWD");
+      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2);
+    }
+    if(!def->m_level3.IsEmpty())
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
+      HtmlElement keyword(elem);
+      keyword.SetAttribute("name",   "MS-HKWD");
+      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3);
+    }
+    if(!def->m_level4.IsEmpty())
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
+      HtmlElement keyword(elem);
+      keyword.SetAttribute("name",   "MS-HKWD");
+      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3 + ", " + def->m_level4);
+    }
+    if(!def->m_level5.IsEmpty())
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
+      HtmlElement keyword(elem);
+      keyword.SetAttribute("name",   "MS-HKWD");
+      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3 + ", " + def->m_level4 + ", " + def->m_level5);
+    }
+  }
+}
+
+void
+TopicPropPage3Dlg::AddKeywords(KeywordType p_type, CString p_keywords)
 {
   CString keyword;
-  int level = 0;
+  int     level     = 0;
+  int     longest   = 0;
+  bool    newDef    = false;
+  KeywordDef* kwdef = nullptr;
 
-  // Break into seperate strings.
-  while(keywords.GetLength() > 0) 
+  // Find matching keyword
+  for (unsigned int ind = 0; ind < m_keywords.size(); ++ind)
   {
-    int pos = keywords.Find(',');
+    KeywordDef* def = &(m_keywords[ind]);
+    if(def->m_type == p_type && p_keywords.Find(def->m_composite) == 0)
+    {
+      if(def->m_composite.GetLength() > longest)
+      {
+        longest = def->m_composite.GetLength();
+        kwdef   = def;
+      }
+    }
+  }
+
+  // Not seen previously?
+  if(!kwdef)
+  {
+    kwdef = new KeywordDef();
+    kwdef->m_type = p_type;
+    newDef = true;
+  }
+
+  // New composite
+  kwdef->m_composite = p_keywords;
+
+  // Break into separate strings.
+  while(p_keywords.GetLength() > 0) 
+  {
+    int pos = p_keywords.Find(',');
     if(pos >= 0)
     {
-      keyword  = keywords.Left(pos);
-      keywords = keywords.Mid(pos);
-      keywords.TrimLeft(',');
+      keyword    = p_keywords.Left(pos);
+      p_keywords = p_keywords.Mid(pos);
+      p_keywords.TrimLeft(',');
     }
     else
     {
-      keyword  = keywords;
-      keywords = "";
+      keyword  = p_keywords;
+      p_keywords.Empty();
     }
     switch(level)
     {
-      case 0: def->m_level1 = keyword; break;
-      case 1: def->m_level2 = keyword; break;
-      case 2: def->m_level3 = keyword; break;
-      case 3: def->m_level4 = keyword; break;
-      case 4: def->m_level5 = keyword; break;
+      case 0: kwdef->m_level1 = keyword; break;
+      case 1: kwdef->m_level2 = keyword; break;
+      case 2: kwdef->m_level3 = keyword; break;
+      case 3: kwdef->m_level4 = keyword; break;
+      case 4: kwdef->m_level5 = keyword; break;
       default:break; 
     }
     ++level;
@@ -252,8 +388,14 @@ TopicPropPage3Dlg::AddKeywords(KeywordDef* def,CString keywords)
   {
     CString message;
     message.Format("Composite index keyword truncated after 5 levels.\n"
-                   "Remaining keywords: %s %s",keyword.GetString(),keywords.GetString());
+                   "Remaining keywords: %s %s",keyword.GetString(),p_keywords.GetString());
     theApp.MessageBox(message,"Index keywords",MB_OK|MB_ICONERROR);
+  }
+
+  // Store all new keyword
+  if (newDef)
+  {
+    m_keywords.push_back(*kwdef);
   }
 }
 
@@ -295,12 +437,10 @@ TopicPropPage3Dlg::OnBnClickedEdit()
   if(now < num)
   {
     KeywordDef* def = &(m_keywords[now]);
-    CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = def->keyword;
-    HtmlElement keyword(elem);
-    KeywordDlg dlg(this,&keyword,m_base,def);
+    KeywordDlg dlg(this,def);
     if(dlg.DoModal() == IDOK)
     {
-      FillPage();
+      ScriptsToList();
       UpdateData(Data2Controls);
       m_changed = true;
     }
@@ -311,25 +451,16 @@ TopicPropPage3Dlg::OnBnClickedEdit()
 void 
 TopicPropPage3Dlg::OnBnClickedNew()
 {
-  CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
-  CComQIPtr<IHTMLMetaElement,&IID_IHTMLMetaElement> meta = elem;
   KeywordDef def;
-  def.keyword = meta;
-  def.m_type  = "Index";
-  meta.p->AddRef();
-  HtmlElement keyword(elem);
-  keyword.SetAttribute("name","MS-HKWD");
-  KeywordDlg dlg(this,&keyword,m_base,&def);
+  def.m_type = KeywordType::KLink;
+
+  KeywordDlg dlg(this,&def);
   if(dlg.DoModal() == IDOK)
   {
     m_keywords.push_back(def);
     ScriptsToList();
     UpdateData(Data2Controls);
     m_changed = true;
-  }
-  else
-  {
-    keyword.Remove();
   }
   m_list.SetFocus();
 }
@@ -344,34 +475,22 @@ TopicPropPage3Dlg::OnBnClickedDelete()
     CString mess;
     KeywordDef* def = &(m_keywords[now]);
     CString keyword = def->m_composite;
-    CString type    = def->m_type == "Index" ? "Index keyword" : "Associative link";
+    CString type    = def->m_type == KeywordType::KLink ? "Index keyword" : "Associative link";
     mess.Format("Do you want to delete the %s [%s] ?",type.GetString(),keyword.GetString());
-    if(theApp.MessageBox(mess,"Delete?",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    if (theApp.MessageBox(mess, "Delete?", MB_YESNO | MB_ICONQUESTION) == IDYES)
     {
-      KeywordDef* kdef = &(m_keywords[now]);
-      CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> dom = kdef->keyword;
-      HRESULT hr = dom->removeNode(VARIANT_TRUE,NULL);
-      if(SUCCEEDED(hr))
+      KeywordVector::iterator it = m_keywords.begin();
+      while (now)
       {
-        KeywordVector::iterator it = m_keywords.begin();
-        while(now)
-        {
-          ++it;
-          --now;
-        }
-        // Release the DOM pointer
-        kdef->keyword->Release();
-        // Erase from vector scripts
-        m_keywords.erase(it);
-        // Rebuild visual list
-        ScriptsToList();
-        UpdateData(Data2Controls);
-
-        CString filename = m_doc->GetFilename();
-        IndexFile* index = theApp.GetIndex();
-        index->DeleteEntry(keyword,filename);
-        m_changed = true;
+        ++it;
+        --now;
       }
+      // Erase from vector scripts
+      m_keywords.erase(it);
+      // Rebuild visual list
+      ScriptsToList();
+      UpdateData(Data2Controls);
+      m_changed = true;
     }
   }
   m_list.SetFocus();

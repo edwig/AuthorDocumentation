@@ -14,19 +14,31 @@
 #include "resource.h"
 #include "DocumentFile.h"
 
+//          | K-Link                 | A-Link
+//          ------------------------ | ----------------------
+// tag      | MS-HKWD                | MS-HAID
+// content  | Composite K-Link       | Composite A-Link
+// API      | HH_KEYWORD_LOOKUP      | HH_ALINK_LOOKUP
+// Use      | Visible for users      | Invisible for applications
+//          | searchable             | Fuzzy app search
+
+enum class KeywordType
+{
+  KLink,
+  ALink
+};
+
 typedef struct _KeywordDef
 {
-  IHTMLMetaElement* keyword;
-  CString m_type;       // K-Link, A-Link
-  CString m_composite;  // Composite K-Link
-  CString m_level1;
-  CString m_level2;
-  CString m_level3;
-  CString m_level4;
-  CString m_level5;
+  KeywordType m_type;       // K-Link or A-Link
+  CString     m_composite;  // Composite K-Link
+  CString     m_level1;
+  CString     m_level2;
+  CString     m_level3;
+  CString     m_level4;
+  CString     m_level5;
 }
 KeywordDef;
-
 
 typedef std::vector<KeywordDef> KeywordVector;
 
@@ -43,7 +55,6 @@ public:
 	virtual ~TopicPropPage3Dlg();
   virtual BOOL OnInitDialog();
   void UpdateProperties();
-  void ResetScripts();
   void ShowFocus();
   bool GetChanged();
 
@@ -57,8 +68,10 @@ protected:
 private:
   void FillPage();
   void GetHeadKeywords();
+  void RemoveHeadKeywords();
+  void RewriteHeadKeywords();
   void ScriptsToList();
-  void AddKeywords(KeywordDef* def,CString keywords);
+  void AddKeywords(KeywordType p_type,CString p_keywords);
 
   CComPtr<IHTMLDocument2> m_htmlDoc;
   DocumentFile*           m_doc;
