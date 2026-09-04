@@ -164,6 +164,7 @@ private:
   void    OnCreate_DockCommandBars();
   void    OnCreate_DockDockingPanes();
   void    OnCreate_SetDockingIcons();
+  void    OnCreate_MenuPersonalization();
 
   UINT    GetMsieVersion();
   BOOL    IsPlatformNT();

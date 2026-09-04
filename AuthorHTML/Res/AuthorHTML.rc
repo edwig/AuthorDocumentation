@@ -596,10 +596,10 @@ BEGIN
         MENUITEM "N&ew Project",                ID_FILE_NEWPROJECT
         MENUITEM "&Open File...",               ID_FILE_OPEN
         MENUITEM "Open &URL...",                ID_FILE_OPENURL
-        MENUITEM "Ope&n Project...",            33163
+        MENUITEM "Ope&n Project...",            ID_FILE_OPENPROJECT
         MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
-        MENUITEM "&Close Project...",           33162
+        MENUITEM "&Close Project...",           ID_CLOSEPROJECT
         MENUITEM SEPARATOR
         MENUITEM "Startup &Dialog...",          ID_STARTUP
         MENUITEM SEPARATOR
@@ -790,9 +790,12 @@ BEGIN
     END
     POPUP "Tool&s"
     BEGIN
-        MENUITEM "Project &settings...",        33164
+        MENUITEM "Project &settings...",        ID_TOOLS_PROJECT
         MENUITEM "&Window definitions...",      ID_WINDOWDEFS
         MENUITEM "&Broken Links...",            ID_TOOLS_BROKENLINKS
+        MENUITEM SEPARATOR
+        MENUITEM "Compile CHM Project",         ID_COMPILE_HELP
+        MENUITEM "View compiled CHM",           ID_READHELP
         MENUITEM SEPARATOR
         MENUITEM "Import a CHM...",             ID_IMPORTCHM
         MENUITEM "&Preferences...",             ID_TOOLS_PREFERENCES
@@ -6595,10 +6598,10 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_COMPILE_HELP         "Compile help project"
+    ID_COMPILE_HELP         "Compile help project\nCompile"
     ID_CLEAR_COMPILE        "Erase the results of the last compilation"
     ID_CLOSE_COMPILE        "Close the compilation pane"
-    ID_READHELP             "Preview the help project"
+    ID_READHELP             "Preview the help project\nPreview"
     ID_CLOSEPROJECT         "Close the current help project"
     ID_FILE_OPENPROJECT     "Open a documentation project"
     ID_TOOLS_PROJECT        "Change the general project settings"

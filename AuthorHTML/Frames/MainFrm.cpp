@@ -199,22 +199,7 @@ MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
   }
 
   // enable menu personalization (most-recently used commands)
-  // TODO: define your own basic commands, ensuring that each pulldown menu has at least one basic command.
-  CList<UINT,UINT> lstBasicCommands;
-
-  lstBasicCommands.AddTail(ID_FILE_NEW);
-  lstBasicCommands.AddTail(ID_FILE_OPEN);
-  lstBasicCommands.AddTail(ID_FILE_SAVE);
-  lstBasicCommands.AddTail(ID_FILE_PRINT);
-  lstBasicCommands.AddTail(ID_APP_EXIT);
-  lstBasicCommands.AddTail(ID_EDIT_CUT);
-  lstBasicCommands.AddTail(ID_EDIT_PASTE);
-  lstBasicCommands.AddTail(ID_EDIT_UNDO);
-  lstBasicCommands.AddTail(ID_APP_ABOUT);
-  lstBasicCommands.AddTail(ID_VIEW_STATUS_BAR);
-  lstBasicCommands.AddTail(ID_VIEW_TOOLBAR);
-
-  CMFCToolBar::SetBasicCommands(lstBasicCommands);
+  OnCreate_MenuPersonalization();
 
   // Switch the order of document name and application name on the window title bar. This
   // improves the usability of the taskbar because the document name is visible with the thumbnail.
@@ -466,7 +451,7 @@ MainFrame::OnCreate_Platform()
   UINT version = GetMsieVersion();
   if(version < 60)
   {
-    // Nummerous IDispatch interfaces are different per MS-IE version.
+    // Numerous IDispatch interfaces are different per MS-IE version.
     // Must be tested at every change of the checked version. (See HTMLEdView, Misc, Dialogs)
     // Look for "IHTML*" and "IID_IHTML*" interfaces.
     theApp.ErrorMessage("AuthorDocumentation cannot run if MS-Internet-Explorer version < 6.0! Sorry");
@@ -476,7 +461,171 @@ MainFrame::OnCreate_Platform()
   ResetMsieSettings();
 }
 
-static LPCTSTR g_registration = "Software\\" REGISTER_APP "\\" APPLICATION_NAME "\\" _T("Workspace\\Layout");
+// enable menu personalization (most-recently used commands)
+// Effectively enabling ALL menu items to prevent double clicking
+// every time we want to use a menu item. (Boring!)
+void
+MainFrame::OnCreate_MenuPersonalization()
+{
+  CList<UINT, UINT> lstBasicCommands;
+
+  // FILE
+  lstBasicCommands.AddTail(ID_FILE_NEW);
+  lstBasicCommands.AddTail(ID_FILE_NEWPROJECT);
+  lstBasicCommands.AddTail(ID_FILE_OPEN);
+  lstBasicCommands.AddTail(ID_FILE_OPENURL);
+  lstBasicCommands.AddTail(ID_FILE_OPENPROJECT);
+  lstBasicCommands.AddTail(ID_FILE_SAVE);
+  lstBasicCommands.AddTail(ID_FILE_SAVE_AS);
+  lstBasicCommands.AddTail(ID_CLOSEPROJECT);
+  lstBasicCommands.AddTail(ID_STARTUP);
+  lstBasicCommands.AddTail(ID_FILE_PRINT);
+  lstBasicCommands.AddTail(ID_FILE_PRINTPREVIEW);
+  lstBasicCommands.AddTail(ID_FILE_PRINT_SETUP);
+  lstBasicCommands.AddTail(ID_APP_EXIT);
+  // EDIT
+  lstBasicCommands.AddTail(ID_EDIT_UNDO);
+  lstBasicCommands.AddTail(ID_EDIT_REDO32873);
+  lstBasicCommands.AddTail(ID_EDIT_CUT);
+  lstBasicCommands.AddTail(ID_EDIT_COPY);
+  lstBasicCommands.AddTail(ID_EDIT_PASTE);
+  lstBasicCommands.AddTail(ID_EDIT_SELECT_ALL);
+  lstBasicCommands.AddTail(ID_BUTTON_BOLD);
+  lstBasicCommands.AddTail(ID_BUTTON_ITALIC);
+  lstBasicCommands.AddTail(ID_EDIT_REPLACE_AA);
+  lstBasicCommands.AddTail(ID_EDIT_FIND);
+  lstBasicCommands.AddTail(ID_EDIT_REPLACE);
+  lstBasicCommands.AddTail(ID_EDIT_REMOVEHYPERLINK);
+  lstBasicCommands.AddTail(ID_EDIT_COMMENT);
+  lstBasicCommands.AddTail(ID_EDIT_CHECKSPELLING);
+  lstBasicCommands.AddTail(ID_EDIT_SPELLINGOPTIONS);
+  // VIEW 
+  lstBasicCommands.AddTail(ID_VIEW_THEMES);
+  lstBasicCommands.AddTail(ID_VIEW_STATUS_BAR);
+  lstBasicCommands.AddTail(ID_PANE_TOC);
+  lstBasicCommands.AddTail(ID_PANE_KEYWORDS);
+  lstBasicCommands.AddTail(ID_PANE_LINKS);
+  lstBasicCommands.AddTail(ID_PANE_PROJECT);
+  lstBasicCommands.AddTail(ID_PANE_EXPLORER);
+  lstBasicCommands.AddTail(ID_PANE_DOCUMENTS);
+  lstBasicCommands.AddTail(ID_PANE_COMPILE);
+  lstBasicCommands.AddTail(ID_VIEW_WEB);
+  lstBasicCommands.AddTail(ID_VIEW_SOURCE);
+  lstBasicCommands.AddTail(ID_VIEW_BROWSE);
+  lstBasicCommands.AddTail(ID_VIEW_TABLEBORDERS);
+  lstBasicCommands.AddTail(ID_VIEW_TAGS);
+  lstBasicCommands.AddTail(ID_GRID_SHOWGRID);
+  lstBasicCommands.AddTail(ID_GRID_SNAPTOGRID);
+  lstBasicCommands.AddTail(ID_GRID_GRIDPROPERTIES);
+  lstBasicCommands.AddTail(ID_VIEW_SPECIALTEST);
+  // INSERT
+  lstBasicCommands.AddTail(ID_BUTTON_HYPERLINK);
+  lstBasicCommands.AddTail(ID_BUTTON_IMAGE);
+  lstBasicCommands.AddTail(ID_INSERT_IFRAME);
+  lstBasicCommands.AddTail(ID_INSERT_HORIZONTALLINE);
+  lstBasicCommands.AddTail(ID_INSERT_SYMBOL);
+  lstBasicCommands.AddTail(ID_MARQUEE);
+  lstBasicCommands.AddTail(ID_INSERT_COMMENT);
+  lstBasicCommands.AddTail(ID_INSERT_LAYER);
+  lstBasicCommands.AddTail(ID_INSERT_FILE);
+  lstBasicCommands.AddTail(ID_INSERT_FORM);
+  lstBasicCommands.AddTail(ID_FORM_FIELD);
+  lstBasicCommands.AddTail(ID_FORM_BUTTON);
+  lstBasicCommands.AddTail(ID_FORM_TEXTAREA);
+  lstBasicCommands.AddTail(ID_FORM_SELECTIONLIST);
+  lstBasicCommands.AddTail(ID_FORM_IMAGE);
+  lstBasicCommands.AddTail(ID_FORM_LABEL);
+  lstBasicCommands.AddTail(ID_FORM_FIELDSET);
+  lstBasicCommands.AddTail(ID_INSERT_BUTTON);
+  lstBasicCommands.AddTail(ID_INSERT_ALINK);
+  lstBasicCommands.AddTail(ID_INSERT_ALINK_COMMAND);
+  lstBasicCommands.AddTail(ID_INSERT_SCRIPT);
+  lstBasicCommands.AddTail(ID_INSERT_OBJECT);
+  lstBasicCommands.AddTail(ID_INSERT_BREAK);
+  lstBasicCommands.AddTail(ID_INSERT_BREAKBELOWIMAGES);
+  // FORMAT
+  lstBasicCommands.AddTail(ID_EDIT_FONT);
+  lstBasicCommands.AddTail(ID_FORMAT_PARAGRAPH);
+  lstBasicCommands.AddTail(ID_CSSSTYLESHEETS);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_ACRONYM);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_ADDRESS);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_BLOCKQUOTE);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_CITATION);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_INLINEQUOTATION);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_BIG);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_SMALLER);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_DELETEDTEXT);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_INSERTEDTEXT);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_CODE);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_KEYBOARD);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_PREFORMATTED);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_SAMPLE);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_TELETYPETEXT);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_SUBSCRIPT);
+  lstBasicCommands.AddTail(ID_TEXTSTYLES_SUPERSCRIPT);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_PARAGRAPH);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING1);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING2);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING3);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING4);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING5);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_HEADING6);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_ADDRESS);
+  lstBasicCommands.AddTail(ID_PARAGRAPHSTYLES_PREFORMAT);
+  lstBasicCommands.AddTail(ID_BUTTON_BOLD);
+  lstBasicCommands.AddTail(ID_BUTTON_ITALIC);
+  lstBasicCommands.AddTail(ID_EDIT_REPLACE_AA);
+  lstBasicCommands.AddTail(ID_BUTTON_COLOR);
+  lstBasicCommands.AddTail(ID_BUTTON_NOFORMAT);
+  lstBasicCommands.AddTail(ID_BUTTON_NUMBERLIST);
+  lstBasicCommands.AddTail(ID_BUTTON_BULLETLIST);
+  lstBasicCommands.AddTail(ID_BUTTON_OUTDENT);
+  lstBasicCommands.AddTail(ID_BUTTON_INDENT);
+  lstBasicCommands.AddTail(ID_BUTTON_LEFTJUSTIFY);
+  lstBasicCommands.AddTail(ID_BUTTON_CENTERJUSTIFY);
+  lstBasicCommands.AddTail(ID_BUTTON_RIGHTJUSTIFY);
+  lstBasicCommands.AddTail(ID_BUTTON_JUSTIFY);
+  lstBasicCommands.AddTail(ID_FORMAT_ABSOLUTEPOSITIONELEMENT);
+  lstBasicCommands.AddTail(ID_FORMAT_STATICELEMENT);
+  // TABLE
+  lstBasicCommands.AddTail(ID_TABLE_INSERT);
+  lstBasicCommands.AddTail(ID_TABLE_INSERTROWABOVE);
+  lstBasicCommands.AddTail(ID_TABLE_INSERTROWBELOW);
+  lstBasicCommands.AddTail(ID_TABLE_INSERTCOLUMNLEFT);
+  lstBasicCommands.AddTail(ID_TABLE_INSERTCOLUMNRIGHT);
+  lstBasicCommands.AddTail(ID_TABLE_DELETEROW);
+  lstBasicCommands.AddTail(ID_TABLE_DELETECOLUMN);
+  lstBasicCommands.AddTail(ID_TABLE_COMBINECELLS);
+  lstBasicCommands.AddTail(ID_TABLE_SPLITCELL);
+  lstBasicCommands.AddTail(ID_CELL_TOP);
+  lstBasicCommands.AddTail(ID_CELL_MIDDLE);
+  lstBasicCommands.AddTail(ID_CELL_BOTTOM);
+  lstBasicCommands.AddTail(ID_TABLE_TABLEPROPERTIES);
+  lstBasicCommands.AddTail(ID_TABLE_CELLPROPERTIES);
+  // TOOLS
+  lstBasicCommands.AddTail(ID_TOOLS_PROJECT);
+  lstBasicCommands.AddTail(ID_WINDOWDEFS);
+  lstBasicCommands.AddTail(ID_TOOLS_BROKENLINKS);
+  lstBasicCommands.AddTail(ID_COMPILE_HELP);
+  lstBasicCommands.AddTail(ID_READHELP);
+  lstBasicCommands.AddTail(ID_IMPORTCHM);
+  lstBasicCommands.AddTail(ID_TOOLS_PREFERENCES);
+  // WINDOW
+  lstBasicCommands.AddTail(ID_PROPERTIES);
+  lstBasicCommands.AddTail(ID_WINDOW_CASCADE);
+  lstBasicCommands.AddTail(ID_WINDOW_TILE_HORZ);
+  lstBasicCommands.AddTail(ID_WINDOW_TILE_VERT);
+  lstBasicCommands.AddTail(ID_WINDOW_ARRANGE);
+  // HELP
+  lstBasicCommands.AddTail(ID_HELP_HELPINDEX);
+  lstBasicCommands.AddTail(ID_HELP_RELEASENOTES);
+  lstBasicCommands.AddTail(ID_REFERENCEMANUALS_MICROSOFTHTML);
+  lstBasicCommands.AddTail(ID_REFERENCEMANUALS_W3CHTML4);
+  lstBasicCommands.AddTail(ID_REFERENCEMANUALS_W3CCSS2);
+  lstBasicCommands.AddTail(ID_APP_ABOUT);
+
+  CMFCToolBar::SetBasicCommands(lstBasicCommands);
+}
 
 // This function is important to assure that Internet Explorer will work as expected
 // If the following Registry Keys have the wrong value, Internet Explorer
@@ -490,95 +639,6 @@ MainFrame::ResetMsieSettings()
   Misc::RegWriteDword (_HKCU, _T("Software\\Microsoft\\Internet Explorer\\Settings"), _T("Always Use My Font Size"), 0);
   Misc::RegWriteString(_HKCU, _T("Software\\Microsoft\\Internet Explorer\\Main"),     _T("Display Inline Images"),   _T("yes"));
 }
-
-// int 
-// MainFrame::OnCreateControl(LPCREATECONTROLSTRUCT lpCreateControl)
-// {
-//   // This function is called by the Extreme Tool Kit application framework.
-//   // This function handles the creation of the controls that are placed
-//   // on the CommandBars.  The LPCREATECONTROLSTRUCT structure contains information
-//   // about the control to create.
-//   //const int nDropHeight = 600;
-// 
-//   // Create the Style combo box
-//   if (lpCreateControl->nID == ID_FMTBAR_CLASSNAME)
-//   {
-//     CXTPControlComboBox* classNameCombo = GetClassNameCombo();
-//     if(!classNameCombo)
-//     {
-//       classNameCombo = (CXTPControlComboBox*)CXTPControlComboBox::CreateObject();
-//       if(!classNameCombo)
-//       {
-//         TRACE0("Failed to create class-name combo-box\n");
-//         return FALSE;
-//       }
-//       CString hint = EDIT_HINT;
-//       classNameCombo->SetWidth(WIDHT_CLASSNAME);
-//       classNameCombo->SetDropDownListStyle();
-//       classNameCombo->GetListBoxCtrl()->ModifyStyle(0,CBS_SORT,0);
-//       classNameCombo->SetEditHint(hint);
-//       classNameCombo->SetTooltip (hint);
-//       //m_classNameCombo->ModifyListBoxStyle(0,CBS_SORT);
-//       //m_classNameCombo->SetEditStyle(CBS_SORT);
-//       // TODO naar Update_ui handler per view
-//       classNameCombo->SetFlags(xtpFlagManualUpdate);
-//       classNameCombo->SetCurSel(-1);
-// 
-//       lpCreateControl->pControl = classNameCombo;
-//       return TRUE;
-//     }
-//   }
-// 
-//   if(lpCreateControl->nID == ID_FMTBAR_FONTNAME)
-//   {
-//     CXTPControlFontComboBox* fontNameCombo = GetFontNameCombo();
-//     if(!fontNameCombo)
-//     {
-//       fontNameCombo = new CXTPControlFontComboBox();
-//       if(!fontNameCombo)
-//       {
-//         TRACE0("Failed to create font-name combo-box\n");
-//         return FALSE;
-//       }
-//       CString hint = FONT_HINT;
-//       fontNameCombo->SetWidth(WIDTH_FONTNAME);
-//       fontNameCombo->SetDropDownListStyle();
-//       fontNameCombo->SetEditHint(hint);
-//       fontNameCombo->SetTooltip (hint);
-//       // TODO naar Update_ui handler per view
-//       fontNameCombo->SetFlags(xtpFlagManualUpdate);
-//       fontNameCombo->SetCurSel(-1);
-//       lpCreateControl->pControl = fontNameCombo;
-//       return TRUE;
-//     }
-//   }
-//   if(lpCreateControl->nID == ID_FMTBAR_FONTSIZE)
-//   {
-//     CXTPControlComboBox* fontSizeCombo = GetFontSizeCombo();
-//     if(!fontSizeCombo)
-//     {
-//       fontSizeCombo = (CXTPControlComboBox*)CXTPControlComboBox::CreateObject();
-//       if(!fontSizeCombo)
-//       {
-//         TRACE0("Failed to create font-size combo-box\n");
-//         return FALSE;
-//       }
-//       CString hint = SIZE_HINT;
-//       fontSizeCombo->SetWidth(WIDTH_FONTSIZE);
-//       fontSizeCombo->SetDropDownListStyle();
-//       fontSizeCombo->ModifyListBoxStyle(0,CBS_SORT);
-//       fontSizeCombo->SetFlags(xtpFlagManualUpdate);
-//       fontSizeCombo->SetEditHint(hint);
-//       fontSizeCombo->SetTooltip (hint);
-//       //m_fontSizeCombo->GetEditCtrl()->SetFont(&m_font);
-//       fontSizeCombo->SetCurSel(-1);
-// 
-//       lpCreateControl->pControl = fontSizeCombo;
-//       return TRUE;
-//     }
-//   }
-//   return FALSE;
-// }
 
 CMFCToolBarComboBoxButton*
 MainFrame::GetClassNameCombo()
@@ -650,137 +710,6 @@ MainFrame::PreTranslateMessage (MSG* pMsg)
   }
   return CMDIFrameWnd::PreTranslateMessage(pMsg);
 }
-
-// LRESULT 
-// MainFrame::OnDockingPaneNotify(WPARAM wParam, LPARAM lParam)
-// {
-//   if (wParam == XTP_DPN_SHOWWINDOW)
-//   {
-//     // get a pointer to the docking pane being shown.
-//     CXTPDockingPane* pPane = (CXTPDockingPane*)lParam;
-//     int nIndex = pPane->GetID();
-//     if (!pPane->IsValid())
-//     {
-//       if(nIndex == ID_PANE_DOCUMENTS)
-//       {
-//         if(!m_openFiles.m_hWnd)
-//         {
-//           m_openFiles.CreatePane(this);
-//         }
-//         pPane->Attach(&m_openFiles);
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_EXPLORER)
-//       {
-//         if(!m_wndExplorerView.m_hWnd)
-//         {
-//           m_wndExplorerView.CreatePane(this);
-//         }
-//         pPane->Attach(&m_wndExplorerView);
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_TOC)
-//       {
-//         if(!m_wndTOCView.m_hWnd)
-//         {
-//           m_wndTOCView.CreatePane(this);
-//         }
-//         pPane->Attach(&m_wndTOCView);
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_KEYWORDS)
-//       {
-//         if(!m_wndIndexView.m_hWnd)
-//         {
-//           m_wndIndexView.CreatePane(this);
-//         }
-//         pPane->Attach(&m_wndIndexView);
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_PROJECT)
-//       {
-//         if(!m_wndProjectView)
-//         {
-//           if(!m_wndProjectView.m_hWnd)
-//           {
-//             m_wndProjectView.CreatePane(this);
-//           }
-//           pPane->Attach(&m_wndProjectView);
-//         }
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_COMPILE)
-//       {
-//         if(!m_wndCompileView)
-//         {
-//           if(!m_wndCompileView.m_hWnd)
-//           {
-//             m_wndCompileView.CreatePane(this);
-//           }
-//           pPane->Attach(&m_wndCompileView);
-//         }
-//         return TRUE;
-//       }
-//       if(nIndex == ID_PANE_LINKS)
-//       {
-//         if(!m_wndPageLink2View)
-//         {
-//           if(!m_wndPageLink2View.m_hWnd)
-//           {
-//             m_wndPageLink2View.CreatePane(this);
-//           }
-//           pPane->Attach(&m_wndPageLink2View);
-//         }
-//         return TRUE;
-//       }
-//     }
-//   }
-//   if (wParam == XTP_DPN_RCLICK)
-//   {
-//     CPoint pos;
-//     GetCursorPos(&pos);
-// 
-//     CMenu menu;
-//     VERIFY(menu.LoadMenu(IDR_PANES));
-//     CMenu* pPopup = menu.GetSubMenu(0);
-//     CXTPCommandBars::TrackPopupMenu(pPopup
-//                                    ,TPM_RIGHTBUTTON
-//                                    ,pos.x
-//                                    ,pos.y
-//                                    ,this);
-//     return TRUE;
-//   }
-//   return FALSE;
-// }
-
-// void 
-// MainFrame::OnCustomize()
-// {
-//   // Get a pointer to the command bars object.
-//   CXTPCommandBars* pCommandBars = GetCommandBars();
-//   if(pCommandBars != NULL)
-//   {
-//     // Instanciate the customize dialog object.
-//     CXTPCustomizeSheet dlg(pCommandBars);
-// 
-//     // Add the options page to the customize dialog.
-//     CXTPCustomizeOptionsPage pageOptions(&dlg);
-//     dlg.AddPage(&pageOptions);
-// 
-//     // Add the commands page to the customize dialog.
-//     CXTPCustomizeCommandsPage* pCommands = dlg.GetCommandsPage();
-//     pCommands->AddCategories(IDR_MAINFRAME);
-// 
-//     // Use the command bar manager to initialize the
-//     // customize dialog.
-//     pCommands->InsertAllCommandsCategory();
-//     pCommands->InsertBuiltInMenus(IDR_MAINFRAME);
-//     pCommands->InsertNewMenuCategory();
-// 
-//     // Dispaly the dialog.
-//     dlg.DoModal();
-//   }
-// }
 
 void MainFrame::OnWindowManager()
 {
@@ -1010,29 +939,6 @@ MainFrame::OnDestroyChild (CMDIChildWnd* pWnd)
     // Reset the classname combo
     CString hint = EDIT_HINT;
 
-//     CMFCToolBarComboBoxButton* classNameCombo = GetClassNameCombo();
-//     classNameCombo->ResetContent();
-//     classNameCombo->SetCurSel(0);
-//     // classNameCombo->SetEditHint(hint);
-//     // classNameCombo->SetTooltip (hint);
-// 
-//     // Reset the font combo
-//     CString font_hint = FONT_HINT;
-//     CMFCToolBarFontComboBox* fontNameCombo = GetFontNameCombo();
-//     // Font combo box must **NOT** reset it's content.
-//     // fontNameCombo->ResetContent();
-//     fontNameCombo->SetCurSel(-1);
-//     // fontNameCombo->SetEditHint(font_hint);
-//     // fontNameCombo->SetTooltip (font_hint);
-//     
-//     // Reset the font size combo
-//     CString size_hint = SIZE_HINT;
-//     CMFCToolBarComboBoxButton* fontSizeCombo = GetFontSizeCombo();
-//     fontSizeCombo->ResetContent();
-//     fontSizeCombo->SetCurSel(0);
-//     // fontSizeCombo->SetEditHint(size_hint);
-//     // fontSizeCombo->SetTooltip (size_hint);
-
     // See if we were the last action
     ProjectFile* project = theApp.GetProjectFile();
     if(project == NULL)
@@ -1235,8 +1141,7 @@ BOOL MainFrame::OnToolTipText (UINT, NMHDR* pNMHDR, LRESULT* pResult)
   *pResult = 0;
 
   // bring the tooltip window above other popup windows
-  ::SetWindowPos(pNMHDR->hwndFrom, HWND_TOP, 0, 0, 0, 0,
-    SWP_NOACTIVATE|SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);
+  ::SetWindowPos(pNMHDR->hwndFrom, HWND_TOP, 0, 0, 0, 0,SWP_NOACTIVATE|SWP_NOSIZE|SWP_NOMOVE|SWP_NOOWNERZORDER);
 
   return TRUE;    // message was handled
 }
