@@ -146,10 +146,9 @@ bool
 TopicPropPage1Dlg::RenameBaseFile()
 {
   bool renamed = false;
-  CString oldFilename = m_document->GetFilename();
-  CString curFilename = theApp.GetBaseDirectory() + m_fileName;
+  CString oldFilename = Misc::RemoveBasePart(theApp.GetBaseDirectory(),m_document->GetFilename());
 
-  if(curFilename.CompareNoCase(oldFilename) != 0)
+  if(m_fileName.CompareNoCase(oldFilename) != 0)
   {
     CString message;
     message.Format("Would you like to change the filename of this topic?\n"

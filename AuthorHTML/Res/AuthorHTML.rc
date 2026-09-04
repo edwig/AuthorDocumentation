@@ -797,7 +797,10 @@ BEGIN
         MENUITEM "Compile CHM Project",         ID_COMPILE_HELP
         MENUITEM "View compiled CHM",           ID_READHELP
         MENUITEM SEPARATOR
+        MENUITEM "Close project",               ID_CLOSEPROJECT
+        MENUITEM "Startup...",                  ID_STARTUP
         MENUITEM "Import a CHM...",             ID_IMPORTCHM
+        MENUITEM SEPARATOR
         MENUITEM "&Preferences...",             ID_TOOLS_PREFERENCES
     END
     POPUP "&Window"
@@ -6617,6 +6620,7 @@ STRINGTABLE
 BEGIN
     ID_FILE_NEWPROJECT      "Create a new documentation project"
     ID_TOOLS_BROKENLINKS    "Display a list of broken links in the project"
+    ID_STARTUP              "Show the startup dialog"
     ID_INSERT_ALINK         "Insert an associative keyword link for this topic"
     ID_INSERT_ALINK_COMMAND "Insert a link-command to an associative keyword search"
 END

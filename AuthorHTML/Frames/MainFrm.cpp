@@ -482,6 +482,7 @@ MainFrame::OnCreate_MenuPersonalization()
   lstBasicCommands.AddTail(ID_FILE_PRINT);
   lstBasicCommands.AddTail(ID_FILE_PRINTPREVIEW);
   lstBasicCommands.AddTail(ID_FILE_PRINT_SETUP);
+  lstBasicCommands.AddTail(ID_FILE_PAGESETUP);
   lstBasicCommands.AddTail(ID_APP_EXIT);
   // EDIT
   lstBasicCommands.AddTail(ID_EDIT_UNDO);
