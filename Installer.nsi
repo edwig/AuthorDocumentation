@@ -3,13 +3,13 @@
 ; File      : Installer.nsi
 ; Written by: W.E. Huisman
 ;
-; Date of last change: 01-09-2026
-; Version:             1.0.1
+; Date of last change: 04-09-2026
+; Version:             1.0.2
 ;-------------------------------------------------------
  !define PRODUCT_NAME                         "AuthorDocumentation"
  !define PRODUCT_VERSION                      "1.0"
- !define PRODUCT_SP                           "1"
- !define PRODUCT_BUILDNUMBER                  "936"
+ !define PRODUCT_SP                           "2"
+ !define PRODUCT_BUILDNUMBER                  "944"
  !define PRODUCT_PUBLISHER                    "EDO"
  !define PRODUCT_WEB_SITE                     "https://github.com/edwig/AuthorDocumentation"
  !define PRODUCT_DIR_REGKEY                   "Software\Microsoft\Windows\CurrentVersion\App Paths\${PRODUCT_NAME}"
@@ -44,7 +44,7 @@
 ;--------------------------------------------------------------------------------------------------------
  ; Places it in the standard installation folder
  ; IIS is never in program files, but in it's own directory under MS-Windows
- InstallDir  "C:\Program Files\EDO\AuthorDocumentation"
+ InstallDir  "$LOCALAPPDATA\Programs\EDO\AuthorDocumentation"
 
 ;--------------------------------------------------------------------------------------------------------
  ; MUI Settings

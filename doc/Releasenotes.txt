@@ -1,0 +1,32 @@
+RELEASENOTES AuthorDocumentation (AuthorHTML)
+=============================================
+
+Version 1.0.2
+-------------
+1) Rebuilding the index view after changing an index keyword
+   on the topic-properties dialog (3th tab)
+2) Checking that index words do NOT contain a comma (,)
+3) Reworking of the index editting 
+4) Rewritten the K-Link keywords logic in the HTML file
+   so that the index is correctly filled-in without having to
+   worry about entering the keyword multiple times
+5) Fix for the help on the draw a polygon area functions
+   so that it becomes clear that you have to click on the beginning
+   point againt o close the polygon
+6) The top menu's now all show all items so that the menu is stable
+7) Fixed the constant questioning to rename the topic file on the
+   filesystem after editting one of the topic properties.
+
+Version 1.0.1
+-------------
+1) Added the htmlhelp.exe installer file (with the help compiler)
+   and added a note for Microsoft about the rights.
+2) Fully roundtrip decompiling-compiling by correcting the default
+   HHP file that the decompilation writes.
+3) Expanding on the icon artwork on the startup dialog
+4) Various corrections on the URL paths of topic files.
+
+Version 1.0.0
+-------------
+1) Initial deployment on github
+   Product had been in use for more than 15 years now.

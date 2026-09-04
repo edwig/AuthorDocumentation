@@ -1,6 +1,7 @@
 TODO
 ====
 1) Toolbar above explorer view not implemented
+2) Whole program should be Unicode implementation
 
 BUGS
 ====
@@ -27,10 +28,8 @@ RECURRING ISSUES
 - various "%" and "px" interfaces on boxes (zoom / width&height on layers)
 - BUG in Tidy: it treats MARQUEE as an in-line element instead of a block element
 - BROWSE MODE must react other then normal EDIT mode !!!
-- DEBUG PROJECT: /HHP="C:\develop\html\test\callcenter - kopie\callcenter.hhp"
 - TAGS: COL / COLGROUP not to be supported in AuthorDocumentation
 - TAGS: BDO not to be implemented: Tidy/CSS should first support Unicode!
-  Whole program should be Unicode implementation
 - TAGS: BASE. No: the HPP project provides the base. Later on implementation
   of a basic WebHelp, <BASE> should be reconsidered.
 - Alternating between WEB view and SOURCE views drops changes in the last view
