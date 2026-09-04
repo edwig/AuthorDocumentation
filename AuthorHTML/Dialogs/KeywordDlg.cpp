@@ -174,16 +174,16 @@ KeywordDlg::ReComposite()
   {
     if(!m_level2.IsEmpty())
     {
-      composite += "," + m_level2;
+      composite += ", " + m_level2;
       if(!m_level3.IsEmpty())
       {
-        composite += "," + m_level3;
+        composite += ", " + m_level3;
         if(!m_level4.IsEmpty())
         {
-          composite += "," + m_level4;
+          composite += ", " + m_level4;
           if(!m_level5.IsEmpty())
           {
-            composite += "," + m_level5;
+            composite += ", " + m_level5;
           }
         }
         else

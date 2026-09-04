@@ -325,7 +325,7 @@ TopicPropPage3Dlg::RewriteHeadKeywords()
 }
 
 void
-TopicPropPage3Dlg::AddKeywords(KeywordType p_type, CString p_keywords)
+TopicPropPage3Dlg::AddKeywords(KeywordType p_type,CString p_keywords)
 {
   CString keyword;
   int     level     = 0;
@@ -366,7 +366,9 @@ TopicPropPage3Dlg::AddKeywords(KeywordType p_type, CString p_keywords)
     {
       keyword    = p_keywords.Left(pos);
       p_keywords = p_keywords.Mid(pos);
+      keyword.Trim();
       p_keywords.TrimLeft(',');
+      p_keywords.Trim();
     }
     else
     {

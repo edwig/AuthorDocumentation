@@ -89,7 +89,6 @@ GLYPHTABLE yellow_glyphs[] =
  ,{ "code",      "cod.gif",    2, 3, 3, 4, 38, 16 }   // Code
  ,{ "col",       "col.gif",    2, 3, 3, 4, 30, 16 }   // Columnar data
  ,{ "comment",   "com.gif",    0, 3, 3, 4, 19, 16 }   // Comment
- ,{ "comment",   "com.gif",    1, 3, 3, 4, 0,  0  }
  ,{ "caption",   "cpt.gif",    0, 3, 3, 4, 54, 16 }
  ,{ "caption",   "cpt.gif",    1, 3, 3, 4, 54, 16 }
  ,{ "center",    "ctr.gif",    2, 3, 3, 4, 16, 44 }   // Centered text
