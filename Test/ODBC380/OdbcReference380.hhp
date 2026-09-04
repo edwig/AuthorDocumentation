@@ -4,7 +4,7 @@ Compatibility=1.1 or later
 Title=ODBC
 Contents File=OdbcReference380.hhc
 Index File=OdbcReference380.hhk
-Default Topic=
+Default Topic=sdkODBCoverview_4vcn.htm
 Default Window=main
 Default Font=
 Error log file=CompileErrors.log
@@ -21,7 +21,7 @@ Enhanced decompilation=yes
 Flat=no
 
 [WINDOWS]
-main="","C:\Develop\HTML\Test\ODBC380\OdbcReference380.hhc","C:\Develop\HTML\Test\ODBC380\OdbcReference380.hhk","","","","","","",0x20520,0,0x280e,[80,44,945,1037],0x0,0x0,,0,0,0
+main="","C:\Develop\HTML\Test\ODBC380\OdbcReference380.hhc","C:\Develop\HTML\Test\ODBC380\OdbcReference380.hhk","","","odch21apr_8yed.htm","API","","",0x20520,0,0x4280e,[50,24,1098,933],0x0,0x0,,0,0,0
 
 [FILES]
 apd1a.gif
