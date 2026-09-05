@@ -16,6 +16,10 @@ Version 1.0.2
 6) The top menu's now all show all items so that the menu is stable
 7) Fixed the constant questioning to rename the topic file on the
    filesystem after editting one of the topic properties.
+8) The default installation folder in the installer is now moved to
+   %APPDATA%\Local\Programs\EDO\AuthorDocumentation\AuthorHTML
+   This is make sure we can re-write our custom dictionaries while
+   spell-checking our HTML topic files.
 
 Version 1.0.1
 -------------

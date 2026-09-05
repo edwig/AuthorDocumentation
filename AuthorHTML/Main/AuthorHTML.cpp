@@ -370,7 +370,6 @@ AuthorHTMLApp::Panic(CString message)
   CString mess;
   mess.Format("Panic: AuthorHTML cannot continue. A serious condition has arisen:\n%s",message.GetString());
   MessageBox(mess,"PANIC!!",MB_OK|MB_ICONHAND);
-  exit(3);
 }
 
 BOOL 

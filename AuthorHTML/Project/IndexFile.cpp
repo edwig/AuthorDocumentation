@@ -52,39 +52,50 @@ IndexFile::WriteIndexFile()
   }
   MainFrame::SetStatusText("Writing index file: " + m_indexFilename);
 
-  FILE* file = fopen(m_indexFilename,"w");
-  if(!file)
+  // See if really necessary
+  if (!m_needSaving)
+  {
+    return true;
+  }
+  Misc::ResetTokenizer();
+
+  WinFile file(m_indexFilename.GetString());
+  file.Open(winfile_write | open_trans_text, attrib_normal,AUTHOR_HTML_ENCODING);
+
+  if(!file.GetIsOpen())
   {
     return false;
   }
-  fprintf(file,"<html>\n");
-  fprintf(file,"<!-- Sitemap 1.0 -->\n");
+  file.Write(_T("<html>\n"));
+  file.Write(_T("<!-- Sitemap 1.0 -->\n"));
+
   WriteProperties(file);
   WriteList(file,&m_list,0);
-  fprintf(file,"</html>\n");
-  fclose(file);
+
+  file.Write(_T("</html>\n"));
+  file.Close();
   m_needSaving = false;
   return true;
 }
 
 void
-IndexFile::WriteProperties(FILE* file)
+IndexFile::WriteProperties(WinFile& file)
 {
   //  <object type="text/site properties">
   //    <param name="FrameName" value="right">
   //    <param name="SiteType" value="index">
   //   </object>
-  fprintf(file,"<object type=\"text/site properties\">\n");
-  fprintf(file,"  <param name=\"SiteType\" value=\"index\">\n");
+  file.Write(_T("<object type=\"text/site properties\">\n"));
+  file.Write(_T("  <param name=\"SiteType\" value=\"index\">\n"));
   if(!m_frameName.IsEmpty())
   {
-    fprintf(file,"  <param name=\"FrameName\" value=\"%s\">\n",(LPCTSTR)m_frameName);
+    file.Format(_T("  <param name=\"FrameName\" value=\"%s\">\n"),m_frameName.GetString());
   }
-  fprintf(file,"</object>\n");
+  file.Write(_T("</object>\n"));
 }
 
 void
-IndexFile::WriteList(FILE* file,IndexEntry* list,int level)
+IndexFile::WriteList(WinFile& file,IndexEntry* list,int level)
 {
   if(list->GetInHHK() == false)
   {
@@ -101,7 +112,7 @@ IndexFile::WriteList(FILE* file,IndexEntry* list,int level)
   CString title = list->GetTitle();
   if(!title.IsEmpty())
   {
-    fprintf(file,"%s<li><object type=\"text/sitemap\">\n",(LPCTSTR)levelString);
+    file.Format(_T("%s<li><object type=\"text/sitemap\">\n"), levelString.GetString());
     WriteParameter(file,levelString,"Name",title);
 
     for(unsigned int num = 0; num < list->GetDocuments().size(); ++num)
@@ -122,28 +133,28 @@ IndexFile::WriteList(FILE* file,IndexEntry* list,int level)
     WriteParameter(file,levelString,"WindowName",list->GetWindowName());
     WriteParameter(file,levelString,"FrameName", list->GetFrameName());
     WriteParameter(file,levelString,"Comment",   list->GetComment());
-    fprintf(file,"%s    </object>\n",(LPCTSTR)levelString);
+    file.Format(_T("%s</object>\n"), levelString.GetString());
   }
   if(list->GetChildren().size() > 0)
   {
-    fprintf(file,"%s<ul>\n",(LPCTSTR)levelString);
+    file.Format(_T("%s<ul>\n"), levelString.GetString());
     for(unsigned int num = 0; num < list->GetChildren().size(); ++num)
     {
       WriteList(file,list->GetChildren()[num],(level + 1));
     }
-    fprintf(file,"%s</ul>\n",(LPCTSTR)levelString);
+    file.Format(_T("%s</ul>\n"), levelString.GetString());
   }
 }
 
 void
-IndexFile::WriteParameter(FILE* file,CString& levelString,const char* name,CString value)
+IndexFile::WriteParameter(WinFile& file,CString& levelString,LPCTSTR name,CString value)
 {
   if(value.IsEmpty())
   {
     return;
   }
   value.Replace("\"","\'");
-  fprintf(file,"%s        <param name=\"%s\" value=\"%s\">\n",(LPCSTR)levelString,name,(LPCSTR)value);
+  file.Format(_T("%s    <param name=\"%s\" value=\"%s\">\n"),levelString.GetString(),name,value.GetString());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -162,16 +173,18 @@ IndexFile::ReadIndexFile()
   MainFrame::SetStatusText("Reading index file: " + m_indexFilename);
 
   Reset();
-  FILE* file = fopen(m_indexFilename,"r");
-  if(!file)
+
+  WinFile file(m_indexFilename.GetString());
+  file.Open(winfile_read | open_trans_text);
+  if(!file.GetIsOpen())
   {
     return false;
   }
-  Misc::SkipBOM(file);
 
   bool result = true;
   try
   {
+    Misc::ResetTokenizer();
     Misc::SkipToken(file,PF_HTML,m_linenumber);
     ReadComment(file);
     Misc::SkipToken(file,PF_HEAD,m_linenumber);
@@ -189,13 +202,13 @@ IndexFile::ReadIndexFile()
     theApp.ErrorMessage(message);
     result = false;
   }
-  fclose(file);
+  file.Close();
   m_needSaving = false;
   return result;
 }
 
 void
-IndexFile::ReadComment(FILE* file)
+IndexFile::ReadComment(WinFile& file)
 {
   // <!-- Sitemap 1.0 -->
   // <!-- Sitemap 1.0-->
@@ -219,7 +232,7 @@ IndexFile::ReadComment(FILE* file)
 }
 
 void
-IndexFile::ReadProperties(FILE* file)
+IndexFile::ReadProperties(WinFile& file)
 {
   //  <object type="text/site properties">
   //    <param name="FrameName" value="right">
@@ -281,7 +294,7 @@ IndexFile::ReadProperties(FILE* file)
 }
 
 bool
-IndexFile::ReadList(FILE* file,IndexEntry* list,int level)
+IndexFile::ReadList(WinFile& file,IndexEntry* list,int level)
 {
   CString word;
 
@@ -406,7 +419,7 @@ IndexFile::ReadList(FILE* file,IndexEntry* list,int level)
 }
 
 TOCToken
-IndexFile::GetIndexParameter(FILE* file,int num,CString& name,CString& value)
+IndexFile::GetIndexParameter(WinFile& file,int num,CString& name,CString& value)
 {
   CString word;
   // Get image number

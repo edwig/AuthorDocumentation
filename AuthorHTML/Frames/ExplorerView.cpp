@@ -118,9 +118,20 @@ CExplorerView::SaveTree()
 {
 }
 
-void CExplorerView::OnExplorerCommand(UINT)
+void CExplorerView::OnExplorerCommand(UINT p_command)
 {
-	// TODO: Add your command handler code here
+  switch (p_command)
+  {
+    case ID_EXPLORER_PARENT:      break;
+    case ID_EXPLORER_NEW:         break;
+    case ID_EXPLORER_LIBRARY:     OnAddToProject();
+                                  return;
+    case ID_EXPLORER_RENAME:      break;
+    case ID_EXPLORER_DELETE:      break;
+    case ID_EXPLORER_PROPERTIES:  break;
+    case ID_EXPLORER_SEARCH:      break;
+  }
+  theApp.Panic("Not implemented yet!");
 }
 
 void
@@ -168,13 +179,7 @@ CExplorerView::OnFpwOpen ()
     }
     else
     {
-      //VERIFY(::SetCurrentDirectory(path));
-      // TODO
-      // CDocManagerExt::SetFileOpenPath(path);
-      // 31.03.2003 bug fix, Attempt to open File dialog for a specified folder in File explorer fails 
-      //                     if any file alredy open from another location
       theApp.OnCmdMsg(ID_FILE_OPEN, 0, 0, 0);
-      //CDocManagerExt::SetFileOpenPath("");
     }
   }
 }

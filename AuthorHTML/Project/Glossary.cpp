@@ -7,12 +7,12 @@
 // Written by: ir W.E. Huisman
 // Dates:      2007 - 2026
 //
-// Description: Registration of payload files in the CHM
-//              Mostly images and stylesheets
+// Description: Registration of the glossary entries in a Microsoft HTML Help project
 //
 #include <StdAfx.h>
 #include "Glossary.h"
 #include "Misc.h"
+#include "Version.h"
 
 Glossary::Glossary()
 {
@@ -27,45 +27,46 @@ bool
 Glossary::ReadFromFile(CString p_filename)
 {
   p_filename.MakeLower();
-  p_filename.TrimRight(".hhp");
-  p_filename += ".glo";
+  p_filename.TrimRight(_T(".hhp"));
+  p_filename += _T(".glo");
   m_filename = p_filename;
 
-  FILE* file = fopen(p_filename.GetString(),"r");
-  if(file)
+  WinFile file(p_filename.GetString());
+  if(file.Open(winfile_read | open_trans_text))
   {
     CString name;
     CString desc;
-    char buffer[1024];
+    XString buffer;
 
-    Misc::SkipBOM(file);
-
-    while(fgets(buffer,1024,file))
+    while(file.Read(buffer))
     {
-      int len = (int) strlen(buffer);
-      if(len && buffer[len-1] == '\n')
+      int len = buffer.GetLength();
+      if(len && buffer.GetAt(len - 1) == _T('\n'))
       {
-        buffer[--len] = 0;
+        buffer = buffer.Left(len - 1);
       }
-      if(_strnicmp(buffer,"NAME=",5) == 0)
+      if(buffer.Left(5).CompareNoCase(_T("NAME=")) == 0)
       {
         if(!name.IsEmpty() && !desc.IsEmpty())
         {
           AddToGlossary(name,desc);
         }
-        // New defintion
-        name = &buffer[5];
-        desc = "";
+        // New definition
+        name = buffer.Mid(5).Trim();
+        desc.Empty();
       }
       else
       {
         // Part of the description
-        if(!desc.IsEmpty()) desc += "\n";
+        if(!desc.IsEmpty())
+        {
+          desc += _T("\n");
+        }
         desc += buffer;
       }
     }
     AddToGlossary(name,desc);
-    fclose(file);
+    file.Close();
     return true;
   }
   return false;
@@ -79,20 +80,21 @@ Glossary::WriteToFile()
     // Nothing to be done
     return true;
   }
-  FILE* file = fopen(m_filename.GetString(),"w");
-  if(file)
+  WinFile file(m_filename.GetString());
+  if(file.Open(winfile_write | open_trans_text,attrib_none,AUTHOR_HTML_ENCODING))
   {
     GlossaryMap::iterator it = m_glos.begin();
     while(it != m_glos.end())
     {
       CString name = it->first;
-      CString desc = it->second;
+      XString desc = it->second;
+
       // Some programs like RoboHelp will crash if glossary 'NAME' is not in uppercase!!
-      fprintf(file,"NAME=%s\n",(LPCTSTR)name);
-      fprintf(file,desc);
-      if(desc[((int)strlen(desc))-1] != '\n')
+      file.Format(_T("NAME=%s\n"),name.GetString());
+      file.Write(desc);
+      if(desc.GetLength() > 0 && desc.GetAt(desc.GetLength() - 1) != _T('\n'))
       {
-        fputc('\n',file);
+        file.Write(_T("\n"));
       }
       ++it;
     }

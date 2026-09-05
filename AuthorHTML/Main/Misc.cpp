@@ -2694,9 +2694,21 @@ const  char* TOKEN_START     = "<\"";
 const  char* TOKEN_SEPERATOR = ">= \"\'";
 static CString lastWord      = "";
 static TOCToken lastToken    = PF_NOTOKEN;
+static XString  currentstring;
+static TCHAR    ungetchbuffer[2] = { 0,0 };
+
+// Call before use
+void
+Misc::ResetTokenizer()
+{
+  lastWord.Empty();
+  lastToken = PF_NOTOKEN;
+  currentstring.Empty();
+  ungetchbuffer[0] = 0;
+}
 
 bool
-Misc::SkipToken(FILE *file,TOCToken expect,long& linenumber)
+Misc::SkipToken(WinFile& file,TOCToken expect,long& linenumber)
 {
   CString word;
   TOCToken token = GetToken(file,word,linenumber);
@@ -2715,8 +2727,36 @@ Misc::PushToken(CString& word,TOCToken token)
   lastToken = token;
 }
 
+int
+Misc::GetNextTokenChar(WinFile& file)
+{
+  int c = 0;
+  if (ungetchbuffer[0])
+  {
+    c = ungetchbuffer[0];
+    ungetchbuffer[0] = 0;
+    return c;
+  }
+  if(currentstring.GetLength() == 0)
+  {
+    if (!file.Read(currentstring))
+    {
+      return EOF;
+    }
+  }
+  c = currentstring.GetAt(0);
+  currentstring = currentstring.Mid(1);
+  return c;
+}
+
+void
+Misc::UngetNextTokenChar(int c)
+{
+  ungetchbuffer[0] = (TCHAR)c;
+}
+
 TOCToken
-Misc::GetToken(FILE* file,CString& word,long& linenumber)
+Misc::GetToken(WinFile& file,CString& word,long& linenumber)
 {
   int c = 0;
   int index = 0;
@@ -2736,7 +2776,7 @@ Misc::GetToken(FILE* file,CString& word,long& linenumber)
   // And closing '>' after another seperator, eg: ">
   while(true)
   {
-    if((c = fgetc(file)) == EOF)
+    if((c = GetNextTokenChar(file)) == EOF)
     {
       return PF_EOF;
     }
@@ -2746,14 +2786,14 @@ Misc::GetToken(FILE* file,CString& word,long& linenumber)
     }
     if(!isspace(c) && (c != '>'))
     {
-      ungetc(c,file);
+      UngetNextTokenChar(c);
       break;
     }
   }
   // Get the token
   while(true)
   {
-    if((c = fgetc(file)) == EOF)
+    if((c = GetNextTokenChar(file)) == EOF)
     {
       return PF_EOF;
     }
@@ -2765,7 +2805,7 @@ Misc::GetToken(FILE* file,CString& word,long& linenumber)
     buffer[index++] = c;
     buffer[index  ] = 0;
 
-    if((index > 1) && strchr(TOKEN_SEPERATOR,c))
+    if((index > 1) && _tcschr(TOKEN_SEPERATOR,c))
     {
       if(dostring && c == '\"')
       {
@@ -2775,12 +2815,12 @@ Misc::GetToken(FILE* file,CString& word,long& linenumber)
       //if(!(c == ' ' && dostring))
       if(!dostring)
       {
-        ungetc(c,file);
+        UngetNextTokenChar(c);
         buffer[--index] = 0;
         break;
       }
     }
-    if(strchr(TOKEN_START,c))
+    if(_tcschr(TOKEN_START,c))
     {
       // Chop of leading spaces
       index = 0;
@@ -2795,28 +2835,28 @@ Misc::GetToken(FILE* file,CString& word,long& linenumber)
   {
     return PF_STRING;
   }
-  strupr(buffer);
-  if(strcmp(buffer,"HTML")   == 0) return PF_HTML;
-  if(strcmp(buffer,"HEAD")   == 0) return PF_HEAD;
-  if(strcmp(buffer,"BODY")   == 0) return PF_BODY;
-  if(strncmp(buffer,"!--",3) == 0) return PF_COMMENT;
-  if(strcmp(buffer,"=")      == 0) return PF_EQUAL;
-  if(strcmp(buffer,"OBJECT") == 0) return PF_OBJECT;
-  if(strcmp(buffer,"UL")     == 0) return PF_LIST;
-  if(strcmp(buffer,"LI")     == 0) return PF_LISTITEM;
-  if(strcmp(buffer,"A")      == 0) return PF_ANCHOR;
-  if(strcmp(buffer,"BR")     == 0) return PF_BREAK;
-  if(strcmp(buffer,"/HTML")  == 0) return PF_ENDHTML;
-  if(strcmp(buffer,"/HEAD")  == 0) return PF_ENDHEAD;
-  if(strcmp(buffer,"/BODY")  == 0) return PF_ENDBODY;
-  if(strcmp(buffer,"/OBJECT")== 0) return PF_ENDOBJECT;
-  if(strcmp(buffer,"/UL")    == 0) return PF_ENDLIST;
-  if(strcmp(buffer,"/LI")    == 0) return PF_ENDLISTITEM;
-  if(strcmp(buffer,"/A")     == 0) return PF_ENDANCHOR;
-  if(strcmp(buffer,"TYPE")   == 0) return PF_TYPE;
-  if(strcmp(buffer,"PARAM")  == 0) return PF_PARAM;
-  if(strcmp(buffer,"NAME")   == 0) return PF_NAME;
-  if(strcmp(buffer,"VALUE")  == 0) return PF_VALUE;
+     _tcsupr(buffer);
+  if(_tcscmp(buffer,"HTML")   == 0) return PF_HTML;
+  if(_tcscmp(buffer,"HEAD")   == 0) return PF_HEAD;
+  if(_tcscmp(buffer,"BODY")   == 0) return PF_BODY;
+  if(_tcsncmp(buffer,"!--",3) == 0) return PF_COMMENT;
+  if(_tcscmp(buffer,"=")      == 0) return PF_EQUAL;
+  if(_tcscmp(buffer,"OBJECT") == 0) return PF_OBJECT;
+  if(_tcscmp(buffer,"UL")     == 0) return PF_LIST;
+  if(_tcscmp(buffer,"LI")     == 0) return PF_LISTITEM;
+  if(_tcscmp(buffer,"A")      == 0) return PF_ANCHOR;
+  if(_tcscmp(buffer,"BR")     == 0) return PF_BREAK;
+  if(_tcscmp(buffer,"/HTML")  == 0) return PF_ENDHTML;
+  if(_tcscmp(buffer,"/HEAD")  == 0) return PF_ENDHEAD;
+  if(_tcscmp(buffer,"/BODY")  == 0) return PF_ENDBODY;
+  if(_tcscmp(buffer,"/OBJECT")== 0) return PF_ENDOBJECT;
+  if(_tcscmp(buffer,"/UL")    == 0) return PF_ENDLIST;
+  if(_tcscmp(buffer,"/LI")    == 0) return PF_ENDLISTITEM;
+  if(_tcscmp(buffer,"/A")     == 0) return PF_ENDANCHOR;
+  if(_tcscmp(buffer,"TYPE")   == 0) return PF_TYPE;
+  if(_tcscmp(buffer,"PARAM")  == 0) return PF_PARAM;
+  if(_tcscmp(buffer,"NAME")   == 0) return PF_NAME;
+  if(_tcscmp(buffer,"VALUE")  == 0) return PF_VALUE;
 
   return PF_NOTOKEN;
 }

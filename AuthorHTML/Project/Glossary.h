@@ -7,8 +7,7 @@
 // Written by: ir W.E. Huisman
 // Dates:      2007 - 2026
 //
-// Description: Registration of payload files in the CHM
-//              Mostly images and stylesheets
+// Description: Registration of the glossary entries in a Microsoft HTML Help project
 //
 #pragma once
 #include <map>

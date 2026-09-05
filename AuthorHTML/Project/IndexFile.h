@@ -16,6 +16,7 @@
 #include "IndexTreeCtrl.h"
 #include "DocumentFile.h"
 #include "Misc.h"
+#include <WinFile.h>
 
 // This is a general saftye precaution. There is no real technical limit
 // to the number of levels in a index tree. But if there are more than 100
@@ -50,14 +51,14 @@ public:
 
 private:
   void Reset();
-  void ReadComment(FILE* file);
-  void ReadProperties(FILE* file);
-  bool ReadList(FILE* file,IndexEntry* list,int level);
-  void WriteProperties(FILE* file);
-  void WriteList(FILE* file,IndexEntry* list,int level);
-  TOCToken GetIndexParameter(FILE* file,int num,CString& name,CString& value);
-  void ParameterError(const char* error,int num);
-  void WriteParameter(FILE* file,CString& levelString,const char* name,CString value);
+  void ReadComment    (WinFile& file);
+  void ReadProperties (WinFile& file);
+  bool ReadList       (WinFile& file,IndexEntry* list,int level);
+  void WriteProperties(WinFile& file);
+  void WriteList      (WinFile& file,IndexEntry* list,int level);
+  void WriteParameter (WinFile& file,CString& levelString, LPCTSTR name, CString value);
+  TOCToken GetIndexParameter(WinFile& file,int num,CString& name,CString& value);
+  void ParameterError(LPCTSTR error,int num);
 
   CString m_indexFilename;
   long    m_linenumber;

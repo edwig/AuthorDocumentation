@@ -912,7 +912,7 @@ WinFile::TranslateInputBuffer(std::string& p_string8,std::wstring& p_string16)
           m_encoding == Encoding::BE_UTF16 )
   {
     XString output;
-    XString charset = (m_encoding == Encoding::LE_UTF16) ? _T("utf-16") : _T("unicodeFFFE");
+    XString charset;
     bool foundBOM = false;
     if(!TryConvertWideString((const BYTE*)p_string16.c_str(),(int)p_string16.size(),charset,output,foundBOM))
     {

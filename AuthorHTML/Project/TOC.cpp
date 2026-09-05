@@ -56,17 +56,24 @@ TOC::WriteTOCFile()
   }
   MainFrame::SetStatusText("Writing TOC file: " + m_tocFilename);
 
-  FILE* file = fopen(m_tocFilename,"w");
-  if(!file)
+  // See if really necessary
+  if(!m_needSaving)
+  {
+    return true;
+  }
+
+  WinFile file(m_tocFilename.GetString());
+  file.Open(winfile_write | open_trans_text, attrib_normal,AUTHOR_HTML_ENCODING);
+  if(!file.GetIsOpen())
   {
     return false;
   }
-  fprintf(file,"<html>\n");
-  fprintf(file,"<!-- Sitemap 1.0 -->\n");
+  file.Write(_T("<html>\n"));
+  file.Write(_T("<!-- Sitemap 1.0 -->\n"));
   WriteProperties(file);
   WriteList(file,&m_list,0);
-  fprintf(file,"</html>\n");
-  fclose(file);
+  file.Write(_T("</html>\n"));
+  file.Close();
 
   // Reset saving
   m_needSaving = false;
@@ -74,7 +81,7 @@ TOC::WriteTOCFile()
 }
 
 void
-TOC::WriteProperties(FILE* file)
+TOC::WriteProperties(WinFile& p_file)
 {
   //<object type="text/site properties">
   //  <param name="SiteType" value="toc">
@@ -82,25 +89,25 @@ TOC::WriteProperties(FILE* file)
   //  <param name="Window Styles" value="0x800002">
   //  <param name="ExWindow Styles" value="0x100">
   //</object>
-  fprintf(file,"<object type=\"text/site properties\">\n");
-  fprintf(file,"  <param name=\"SiteType\" value=\"toc\">\n");
+  p_file.Write(_T("<object type=\"text/site properties\">\n"));
+  p_file.Write(_T("  <param name=\"SiteType\" value=\"toc\">\n"));
   if(m_imageWidth)
   {
-    fprintf(file,"  <param name=\"Image Width\" value=\"%d\">\n",m_imageWidth);
+    p_file.Format(_T("  <param name=\"Image Width\" value=\"%d\">\n"), m_imageWidth);
   }
   if(m_windowStyles)
   {
-    fprintf(file,"  <param name=\"Window Styles\" value=\"0x%x\">\n",m_windowStyles);
+    p_file.Format(_T("  <param name=\"Window Styles\" value=\"0x%x\">\n"), m_windowStyles);
   }
   if(m_ExWindowStyles)
   {
-    fprintf(file,"  <param name=\"ExWindow Styles\" value=\"0x%x\">\n",m_ExWindowStyles);
+    p_file.Format(_T("  <param name=\"ExWindow Styles\" value=\"0x%x\">\n"), m_ExWindowStyles);
   }
-  fprintf(file,"</object>\n");
+  p_file.Write(_T("</object>\n"));
 }
 
 void
-TOC::WriteList(FILE* file,TOCEntry* list,int level)
+TOC::WriteList(WinFile& p_file,TOCEntry* list,int level)
 {
   //<ul>
   //    <li><object type="text/sitemap">
@@ -126,35 +133,38 @@ TOC::WriteList(FILE* file,TOCEntry* list,int level)
     CString image;
     image.Format("%d",list->GetImageNumber() + 1);
     if(image == "0") image = "";
-    fprintf(file,"%s<li><object type=\"text/sitemap\">\n",(LPCTSTR)levelString);
-    WriteParameter(file,levelString,"Name",       (LPCTSTR)list->GetTitle());
-    WriteParameter(file,levelString,"Local",      (LPCTSTR)list->GetDocumentFilename());
-    WriteParameter(file,levelString,"Comment",    (LPCTSTR)list->GetComment());
-    WriteParameter(file,levelString,"FrameName",  (LPCTSTR)list->GetFrameName());
-    WriteParameter(file,levelString,"WindowName", (LPCTSTR)list->GetWindowName());
-    WriteParameter(file,levelString,"ImageNumber",image);
-    fprintf(file,"%s    </object>\n",(LPCTSTR)levelString);
+
+    p_file.Format(_T("%s<li><object type=\"text/sitemap\">\n"), levelString.GetString());
+
+    WriteParameter(p_file,levelString,"Name",       list->GetTitle());
+    WriteParameter(p_file,levelString,"Local",      list->GetDocumentFilename());
+    WriteParameter(p_file,levelString,"Comment",    list->GetComment());
+    WriteParameter(p_file,levelString,"FrameName",  list->GetFrameName());
+    WriteParameter(p_file,levelString,"WindowName", list->GetWindowName());
+    WriteParameter(p_file,levelString,"ImageNumber",image);
+
+    p_file.Format(_T("%s</object>\n"),levelString.GetString());
   }
   if(list->GetChildren().size() > 0)
   {
-    fprintf(file,"%s<ul>\n",(LPCTSTR)levelString);
+    p_file.Format(_T("%s<ul>\n"), levelString.GetString());
     for(unsigned int num = 0; num < list->GetChildren().size(); ++num)
     {
-      WriteList(file,list->GetChildren()[num],(level + 1));
+      WriteList(p_file,list->GetChildren()[num],(level + 1));
     }
-    fprintf(file,"%s</ul>\n",(LPCTSTR)levelString);
+    p_file.Format(_T("%s</ul>\n"), levelString.GetString());
   }
 }
 
 void
-TOC::WriteParameter(FILE* file,CString& levelString,const char* name,CString value)
+TOC::WriteParameter(WinFile& p_file,CString& levelString,LPCTSTR name,CString value)
 {
   if(value.IsEmpty())
   {
     return;
   }
   value.Replace("\"","\'");
-  fprintf(file,"%s        <param name=\"%s\" value=\"%s\">\n", (LPCTSTR)levelString,name, (LPCTSTR)value);
+  p_file.Format(_T("%s    <param name=\"%s\" value=\"%s\">\n"), levelString.GetString(),name,value.GetString());
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -173,20 +183,21 @@ TOC::ReadTOCFile()
   MainFrame::SetStatusText("Reading TOC file: " + m_tocFilename);
 
   Reset();
-  FILE* file = fopen(m_tocFilename,"r");
-  if(!file)
+  WinFile file(m_tocFilename.GetString());
+  file.Open(winfile_read | open_trans_text);
+  if(!file.GetIsOpen())
   {
     return false;
   }
-  Misc::SkipBOM(file);
 
   bool result = true;
   try
   {
-    // HHC TOC parser must be realy relaxed!!!!!
+    // HHC TOC parser must be really relaxed!!!!!
     // A lot of old code is hanging around (in Microsoft)
-    // Where body and head tokens do not have the oposing end-token
+    // Where body and head tokens do not have the opposing end-token
 
+    Misc::ResetTokenizer();
     Misc::SkipToken(file,PF_HTML,m_linenumber);
     ReadComment(file);
     Misc::SkipToken(file,PF_HEAD,m_linenumber);
@@ -204,13 +215,13 @@ TOC::ReadTOCFile()
     theApp.ErrorMessage(message);
     result = false;
   }
-  fclose(file);
+  file.Close();
   m_needSaving = false;
   return result;
 }
 
 void
-TOC::ReadComment(FILE* file)
+TOC::ReadComment(WinFile& file)
 {
   // <!-- Sitemap 1.0 -->
   CString word;
@@ -233,7 +244,7 @@ TOC::ReadComment(FILE* file)
 }
 
 void
-TOC::ReadProperties(FILE* file)
+TOC::ReadProperties(WinFile& file)
 {
   //<object type="text/site properties">
   //  <param name="SiteType" value="toc">
@@ -321,7 +332,7 @@ TOC::ReadProperties(FILE* file)
 //  </ul>
 //</ul>
 bool
-TOC::ReadList(FILE* file,TOCEntry* list,int level)
+TOC::ReadList(WinFile& file,TOCEntry* list,int level)
 {
   // Check on too deep recursion
   if(level >= RECURSION_MAX_LEVEL)
@@ -440,7 +451,7 @@ TOC::ReadList(FILE* file,TOCEntry* list,int level)
 }
 
 TOCToken
-TOC::GetTOCParameter(FILE* file,int num,CString& name,CString& value)
+TOC::GetTOCParameter(WinFile& file,int num,CString& name,CString& value)
 {
   CString word;
   // Get image number
@@ -478,7 +489,7 @@ TOC::GetTOCParameter(FILE* file,int num,CString& name,CString& value)
 }
 
 void
-TOC::ParameterError(const char* error,int num)
+TOC::ParameterError(LPCTSTR error,int num)
 {
   CString message;
   message.Format(error,num);

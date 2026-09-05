@@ -11,14 +11,11 @@
 //
 #pragma once
 
-#if _MSC_VER <= 1200 // Visual Studio 6.0
-#error "This code is written for Visual Studio 7 or higher"
-#endif
-
 // Remove warning CRegKey::SetValue is deprecated
 #pragma warning(disable : 4996)
 
 #include "StdAfx.h"
+#include <WinFile.h>
 #include <afxtoolbarcomboboxbutton.h>
 #include <atlbase.h>    // CComPtr
 #include <afxhtml.h>    // CHtmlEditView
@@ -217,10 +214,13 @@ public:
   static int      FontSizeToPointSize(int fontsize);
 
   // PROJECT HHC HHK type of files parsing
-  static TOCToken GetToken (FILE* file,CString& word,  long& linenumber);
-  static bool     SkipToken(FILE* file,TOCToken expect,long& linenumber);
+  static void     ResetTokenizer();
+  static TOCToken GetToken (WinFile& file,CString& word,  long& linenumber);
+  static bool     SkipToken(WinFile& file,TOCToken expect,long& linenumber);
   static void     PushToken(CString& word,TOCToken token);
   static void     SkipBOM(FILE* p_file);
+  static int      GetNextTokenChar(WinFile& file);
+  static void     UngetNextTokenChar(int c);
 
   // Renaming file references
   static bool     ReplaceFilenameExtra(CString& p_base

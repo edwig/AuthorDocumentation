@@ -23,6 +23,7 @@
 #include "tidy.h"
 #include "buffio.h"
 #include "RegExp.h"
+#include <WinFile.h>
 #include <io.h>
 
 ProjectFile::ProjectFile(CString p_projectfile)
@@ -210,78 +211,80 @@ ProjectFile::WriteProjectFile()
   {
     return true;
   }
-  FILE* file = fopen(m_projectFilename,"w");
-  if(!file)
+  WinFile file(m_projectFilename.GetString());
+  file.Open(winfile_write | open_trans_text,attrib_normal,AUTHOR_HTML_ENCODING);
+
+  if(!file.GetIsOpen())
   {
     return false;
   }
   // 1) WRITE ALL THE OPTIONS
-  fprintf(file,"[OPTIONS]\n");
-  fprintf(file,"Compiled file=%s\n",  (LPCTSTR)m_compiledName);
-  fprintf(file,"Compatibility=%s\n",  (LPCTSTR)m_compatibility);
-  fprintf(file,"Title=%s\n",          (LPCTSTR)m_title);
-  fprintf(file,"Contents File=%s\n",  (LPCTSTR)m_contentsFile);
-  fprintf(file,"Index File=%s\n",     (LPCTSTR)m_indexFile);
-  fprintf(file,"Default Topic=%s\n",  (LPCTSTR)m_defaultTopic);
-  fprintf(file,"Default Window=%s\n", (LPCTSTR)m_defaultWindow);
-  fprintf(file,"Default Font=%s\n",   (LPCTSTR)m_defaultFont);
-  fprintf(file,"Error log file=%s\n", (LPCTSTR)m_errorLogFile);
-  fprintf(file,"Custom tab=%s\n",     (LPCTSTR)m_customTab);
-  fprintf(file,"Language=%s\n",       (LPCTSTR)m_language);
-  fprintf(file,"Full text search stop list file=%s\n", (LPCTSTR)m_stopFile);
-  fprintf(file,"Display compile progress=%s\n", m_displayProgress     ? "yes" : "no");
-  fprintf(file,"Display compile notes=%s\n",    m_displayCompileNotes ? "yes" : "no");
-  fprintf(file,"Full-text search=%s\n",         m_fullTextSearch      ? "yes" : "no");
-  fprintf(file,"Binary index=%s\n",             m_binaryIndex         ? "yes" : "no");
-  fprintf(file,"Binary TOC=%s\n",               m_binaryTOC           ? "yes" : "no");
-  fprintf(file,"Auto index=%s\n",               m_autoIndex           ? "yes" : "no");
-  fprintf(file,"Enhanced decompilation=%s\n",   m_enhancedDecompile   ? "yes" : "no");
-  fprintf(file,"Flat=%s\n",                     m_flat                ? "yes" : "no");
-  if (m_glossary.HasEntries())
+  file.Write(_T("[OPTIONS]\n"));
+  file.Format(_T("Compiled file=%s\n"),   m_compiledName.GetString());
+  file.Format(_T("Compatibility=%s\n"),   m_compatibility.GetString());
+  file.Format(_T("Title=%s\n"),           m_title.GetString());
+  file.Format(_T("Contents File=%s\n"),   m_contentsFile.GetString());
+  file.Format(_T("Index File=%s\n"),      m_indexFile.GetString());
+  file.Format(_T("Default Topic=%s\n"),   m_defaultTopic.GetString());
+  file.Format(_T("Default Window=%s\n"),  m_defaultWindow.GetString());
+  file.Format(_T("Default Font=%s\n"),    m_defaultFont.GetString());
+  file.Format(_T("Error log file=%s\n"),  m_errorLogFile.GetString());
+  file.Format(_T("Custom tab=%s\n"),      m_customTab.GetString());
+  file.Format(_T("Language=%s\n"),        m_language.GetString());
+  file.Format(_T("Full text search stop list file=%s\n"), m_stopFile.GetString());
+  file.Format(_T("Display compile progress=%s\n"), m_displayProgress  ? "yes" : "no");
+  file.Format(_T("Display compile notes=%s\n"), m_displayCompileNotes ? "yes" : "no");
+  file.Format(_T("Full-text search=%s\n"),      m_fullTextSearch      ? "yes" : "no");
+  file.Format(_T("Binary index=%s\n"),          m_binaryIndex         ? "yes" : "no");
+  file.Format(_T("Binary TOC=%s\n"),            m_binaryTOC           ? "yes" : "no");
+  file.Format(_T("Auto index=%s\n"),            m_autoIndex           ? "yes" : "no");
+  file.Format(_T("Enhanced decompilation=%s\n"),m_enhancedDecompile   ? "yes" : "no");
+  file.Format(_T("Flat=%s\n"),                  m_flat                ? "yes" : "no");
+
+  if(m_glossary.HasEntries())
   {
-    fprintf(file,"Custom tab=\"&Glossary\",HHActiveX.GlossaryPane\n");
+    file.Write(_T("Custom tab=\"&Glossary\",HHActiveX.GlossaryPane\n"));
   }
-  fprintf(file,"\n");
+  file.Write(_T("\n"));
 
   // 2) WRITE ALL WINDOWS
-  fprintf(file,"[WINDOWS]\n");
+  file.Write(_T("[WINDOWS]\n"));
   WindowMap::iterator wit;
   for(wit = m_windows.begin(); wit != m_windows.end(); ++wit)
   {
     WindowDefinition* win = wit->second;
-    fprintf(file,"%s\n", (LPCTSTR)win->DefinitionString());
+    file.Format(_T("%s\n"),win->DefinitionString().GetString());
   }
-  fprintf(file,"\n");
+  file.Write(_T("\n"));
 
   // 3) WRITE ALL FILES
-  fprintf(file,"[FILES]\n");
+  file.Write(_T("[FILES]\n"));
   DocumentMap::iterator it;
   for(it = m_documents.begin(); it != m_documents.end();++it)
   {
     DocumentFile* doc = it->second;
-    fprintf(file,"%s\n", (LPCTSTR)doc->GetFilename());
+    file.Format(_T("%s\n"),doc->GetFilename().GetString());
   }
   // Glossary goes in the files section
   if(m_glossary.HasEntries())
   {
     CString fileName = m_glossary.GetFilename();
     fileName = Misc::FilenamePart(fileName);
-    fprintf(file,"%s\n", (LPCTSTR)fileName);
+    file.Format(_T("%s\n"), fileName.GetString());
   }
-  fprintf(file,"\n");
+  file.Write(_T("\n"));
 
   // 4) WRITE ALIASSES
-  fprintf(file,"[ALIAS]\n");
+  file.Write(_T("[ALIAS]\n"));
 
   // 5) WRITE MAP
-  fprintf(file,"[MAP]\n");
+  file.Write(_T("[MAP]\n"));
 
   // 6) WRITE TEXT POPUPS
-  fprintf(file,"[TEXT POPUPS]\n");
+  file.Write(_T("[TEXT POPUPS]\n"));
 
   // 7) MERGE FILES
-
-  fclose(file);
+  file.Close();
 
   // Reset saving
   m_needSaving = false;
@@ -300,13 +303,15 @@ ProjectFile::ReadProjectFile()
   Reset();
   MainFrame::SetStatusText("Reading project file: " + m_projectFilename);
 
-
-  FILE* file = fopen(m_projectFilename,"r");
-  if(!file)
+  WinFile file(m_projectFilename.GetString());
+  file.Open(winfile_read | open_trans_text);
+  if(!file.GetIsOpen())
   {
     return false;
   }
-  char buffer[MAX_LINELEN];
+  Misc::ResetTokenizer();
+
+  XString buffer;
   bool options = false;
   bool windows = false;
   bool files   = false;
@@ -314,14 +319,12 @@ ProjectFile::ReadProjectFile()
   bool maps    = false;
   bool popups  = false;
 
-  Misc::SkipBOM(file);
-
-  while(fgets(buffer,MAX_LINELEN,file) != NULL)
+  while(file.Read(buffer))
   {
-    int len = (int)strlen(buffer);
-    if((len > 0) && (buffer[len-1] == '\n'))
+    int len = buffer.GetLength();
+    if((len > 0) && (buffer.GetAt(len - 1) == _T('\n')))
     {
-      buffer[--len] = 0;
+      buffer = buffer.Left(buffer.GetLength() - 1);
     }
     if(len < 2)
     {
@@ -329,37 +332,37 @@ ProjectFile::ReadProjectFile()
       continue;
     }
     // RECOGNIZE OUR SECTION !!
-    if(strncmp(buffer,"[OPTIONS]",9) == 0)
+    if(buffer.Left(9).Compare(_T("[OPTIONS]")) == 0)
     {
       options = true;
       windows = files = aliases = maps = popups = false;
       continue;
     }
-    if(strncmp(buffer,"[WINDOWS]",9) == 0)
+    if(buffer.Left(9).Compare(_T("[WINDOWS]")) == 0)
     {
       windows = true;
       options = files = aliases = maps = popups = false;
       continue;
     }
-    if(strncmp(buffer,"[FILES]",7) == 0)
+    if(buffer.Left(7).Compare(_T("[FILES]")) == 0)
     {
       files = true;
       options = windows = aliases = maps = popups = false;
       continue;
     }
-    if(strncmp(buffer,"[ALIAS]",7) == 0)
+    if(buffer.Left(7).Compare(_T("[ALIAS]")) == 0)
     {
       aliases = true;
       options = windows = files = maps = popups = false;
       continue;
     }
-    if(strncmp(buffer,"[MAP]",6) == 0)
+    if(buffer.Left(5).Compare(_T("[MAP]")) == 0)
     {
       maps = true;
       options = windows = files = aliases = popups = false;
       continue;
     }
-    if(strncmp(buffer,"[TEXT POPUPS]",13) == 0)
+    if(buffer.Left(13).Compare(_T("[TEXT POPUPS]")) == 0)
     {
       popups = true;
       options = windows = files = aliases = maps = false;
@@ -369,24 +372,29 @@ ProjectFile::ReadProjectFile()
     if(options)
     {
       // OPTIONS IN THE HEADER OF THE PROJECT FILE
-      char* assign = strchr(buffer,'=');
-      char* value  = assign;
-      *value++ = 0;
+      CString value;
+      int assign = buffer.Find('=');
+      if (assign > 0)
+      {
+        value  = buffer.Mid(assign + 1);
+        buffer = buffer.Left(assign);
+      }
       CString theOption(buffer);
       CString theValue (value);
+      int     unsupported = 0;
 
-           if(theOption.CompareNoCase("compiled file")   == 0)    m_compiledName  = theValue;
-      else if(theOption.CompareNoCase("compatibility")   == 0)    m_compatibility = theValue;
-      else if(theOption.CompareNoCase("title")           == 0)    m_title         = theValue;
-      else if(theOption.CompareNoCase("contents file")   == 0)    m_contentsFile  = theValue;
-      else if(theOption.CompareNoCase("index file")      == 0)    m_indexFile     = theValue;
-      else if(theOption.CompareNoCase("default topic")   == 0)    m_defaultTopic  = theValue;
-      else if(theOption.CompareNoCase("default window")  == 0)    m_defaultWindow = theValue; 
-      else if(theOption.CompareNoCase("default font")    == 0)    m_defaultFont   = theValue;
-      else if(theOption.CompareNoCase("error log file")  == 0)    m_errorLogFile  = theValue;
-      else if(theOption.CompareNoCase("custom tab")      == 0)    m_customTab     = theValue;
-      else if(theOption.CompareNoCase("language")        == 0)    m_language      = theValue;
-      else if(theOption.CompareNoCase("full text search stop list file") == 0) m_stopFile = theValue;
+           if(theOption.CompareNoCase("compiled file")            == 0) m_compiledName        = theValue;
+      else if(theOption.CompareNoCase("compatibility")            == 0) m_compatibility       = theValue;
+      else if(theOption.CompareNoCase("title")                    == 0) m_title               = theValue;
+      else if(theOption.CompareNoCase("contents file")            == 0) m_contentsFile        = theValue;
+      else if(theOption.CompareNoCase("index file")               == 0) m_indexFile           = theValue;
+      else if(theOption.CompareNoCase("default topic")            == 0) m_defaultTopic        = theValue;
+      else if(theOption.CompareNoCase("default window")           == 0) m_defaultWindow       = theValue; 
+      else if(theOption.CompareNoCase("default font")             == 0) m_defaultFont         = theValue;
+      else if(theOption.CompareNoCase("error log file")           == 0) m_errorLogFile        = theValue;
+      else if(theOption.CompareNoCase("custom tab")               == 0) m_customTab           = theValue;
+      else if(theOption.CompareNoCase("language")                 == 0) m_language            = theValue;
+      else if(theOption.CompareNoCase("full text search stop list file") == 0) m_stopFile     = theValue;
       else if(theOption.CompareNoCase("display compile progress") == 0) m_displayProgress     = (theValue.CompareNoCase("yes")==0 ? true : false);
       else if(theOption.CompareNoCase("display compile notes")    == 0) m_displayCompileNotes = (theValue.CompareNoCase("yes")==0 ? true : false);
       else if(theOption.CompareNoCase("full-text search")         == 0) m_fullTextSearch      = (theValue.CompareNoCase("yes")==0 ? true : false);
@@ -395,6 +403,18 @@ ProjectFile::ReadProjectFile()
       else if(theOption.CompareNoCase("Enhanced decompilation")   == 0) m_enhancedDecompile   = (theValue.CompareNoCase("yes")==0 ? true : false);
       else if(theOption.CompareNoCase("binary toc")               == 0) m_binaryTOC           = (theValue.CompareNoCase("yes")==0 ? true : false);
       else if(theOption.CompareNoCase("flat")                     == 0) m_flat                = (theValue.CompareNoCase("yes")==0 ? true : false);
+      else if(theOption.CompareNoCase("Auto Index")               == 0) unsupported++;
+      else if(theOption.CompareNoCase("Auto TOC")                 == 0) unsupported++;
+      else if(theOption.CompareNoCase("citation")                 == 0) unsupported++;
+      else if(theOption.CompareNoCase("compress")                 == 0) unsupported++;
+      else if(theOption.CompareNoCase("copyright")                == 0) unsupported++;
+      else if(theOption.CompareNoCase("create chi file")          == 0) unsupported++;
+      else if(theOption.CompareNoCase("DBCS")                     == 0) unsupported++;
+      else if(theOption.CompareNoCase("ignore")                   == 0) unsupported++;
+      else if(theOption.CompareNoCase("prefix")                   == 0) unsupported++;
+      else if(theOption.CompareNoCase("sample staging path")      == 0) unsupported++;
+      else if(theOption.CompareNoCase("sample list file")         == 0) unsupported++;
+      else if(theOption.CompareNoCase("tmpdir")                   == 0) unsupported++;
       else 
       {
         CString message;
@@ -407,7 +427,7 @@ ProjectFile::ReadProjectFile()
     else if(windows)
     {
       WindowDefinition* win = new WindowDefinition(this);
-      if(!win->ParseDefinitionString(buffer))
+      if(!win->ParseDefinitionString(buffer.GetString()))
       {
         delete win;
       }
@@ -422,7 +442,7 @@ ProjectFile::ReadProjectFile()
     {
       // Every line now refers to a file
       // ADD A FILE REFERENCE to a HTM(L) FILE or a payload file
-      AddDocumentFile(buffer);
+      AddDocumentFile(buffer.GetString());
     }
     else if(aliases)
     {
@@ -442,7 +462,7 @@ ProjectFile::ReadProjectFile()
       ASSERT(FALSE);
     }
   }
-  fclose(file);
+  file.Close();
   m_needSaving = false;
 
   // Try the glossary file from the project filename
@@ -710,7 +730,7 @@ ProjectFile::ResetMetadataRead()
 void
 ProjectFile::ResetSweeped()
 {
-  // Remove the sweeped indicator
+  // Remove the swiped indicator
   // so we can sweep the documents again
   DocumentMap::iterator it = m_documents.begin();
   while(it != m_documents.end())
@@ -734,7 +754,7 @@ ProjectFile::SweepProject()
     return;
   }
   MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-  MainFrame::SetStatusText("Sweeping the project");
+  MainFrame::SetStatusText("Swiping the project");
 
   DocumentMap::iterator it = m_documents.begin();
   int count = m_documents.size();

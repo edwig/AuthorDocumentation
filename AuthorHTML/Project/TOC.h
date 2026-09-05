@@ -13,6 +13,7 @@
 #include "TOCEntry.h"
 #include "TOCTreeCtrl.h"
 #include "Misc.h"
+#include <WinFile.h>
 
 // This is a general safty precaution. There is no real technical limit
 // to the number of levels in a TOC tree. But if there are more than 100
@@ -42,14 +43,14 @@ public:
 
 private:
   void     Reset();
-  void     ReadProperties(FILE* file);
-  void     ReadComment(FILE* file);
-  bool     ReadList(FILE* file,TOCEntry* list,int level);
-  void     WriteProperties(FILE* file);
-  void     WriteList(FILE* file,TOCEntry* list,int level);
-  void     WriteParameter(FILE* file,CString& levelString,const char* name,CString value);
-  TOCToken GetTOCParameter(FILE* file,int num,CString& name,CString& value);
-  void     ParameterError(const char* error,int num);
+  void     ReadProperties (WinFile& p_file);
+  void     ReadComment    (WinFile& p_file);
+  bool     ReadList       (WinFile& p_file,TOCEntry* list,int level);
+  void     WriteProperties(WinFile& p_file);
+  void     WriteList      (WinFile& p_file,TOCEntry* list,int level);
+  void     WriteParameter (WinFile& p_file,CString& levelString,LPCTSTR name,CString value);
+  TOCToken GetTOCParameter(WinFile& p_file,int num,CString& name,CString& value);
+  void     ParameterError(LPCTSTR error,int num);
 
   CString       m_tocFilename;
   long          m_linenumber;
