@@ -211,7 +211,7 @@ WindowDefPage3::ShowProperties()
   m_buttonTransparent .SetCheck(m_transparent);
 }
 
-void
+bool
 WindowDefPage3::UpdateProperties()
 {
   m_window->SetWinStyle(STYLES_MAXIMIZEBOX, m_maximizeBox);
@@ -244,6 +244,7 @@ WindowDefPage3::UpdateProperties()
   m_window->SetWinExStyle(STYLES_NOPARNOTIFY, m_noNotify);
   m_window->SetWinExStyle(STYLES_LEFTSCROLL,  m_lscroll);
   m_window->SetWinExStyle(STYLES_TRANSPARENT, m_transparent);
+  return true;
 }
 
 // WindowDefPage3 message handlers

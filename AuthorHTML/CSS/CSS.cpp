@@ -4,7 +4,7 @@
 //
 #include "stdafx.h"
 #include "Css.h"
-#include <fstream>
+#include <WinFile.h>
 
 #pragma warning (disable: 4503)
 
@@ -434,50 +434,21 @@ CssStyleSheet::has_errors()
 string 
 CssStyleSheet::file_get_contents(const string filename)
 {
-  ifstream file_input(filename.c_str(),ios::binary);
-  string line, file_contents = "";
-  bool firstline = true;
-
-  if(file_input.bad())
+  WinFile file(filename);
+  if(!file.Open(winfile_read | open_trans_text))
   {
     return "";
   }
-  else
+  XString line;
+  string  file_contents;
+
+  while(file.Read(line))
   {
-    while(file_input.good())
-    {
-      getline(file_input,line);
-      if(firstline)
-      {
-        firstline = false;
-        check_bom(line);
-      }
-      file_contents += (line + "\n");
-    }	    
-  }
-  file_input.close();
+    file_contents += line;
+  }	    
+  file.Close();
 
   return file_contents;
-}
-
-// Check byte order mark
-void
-CssStyleSheet::check_bom(string& line)
-{
-  do 
-  {
-    unsigned char ch = line.front();
-    if(ch == 0xEF || ch == 0xBB || ch == 0xBF ||  // UTF-8
-       ch == 0xFF || ch == 0xFE)                  // UTF-16
-    {
-      line.erase(0,1);
-    }
-    else
-    {
-      break;
-    }
-  } 
-  while(line.size());
 }
 
 // For internal stylesheets

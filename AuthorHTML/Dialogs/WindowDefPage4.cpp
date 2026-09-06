@@ -92,11 +92,13 @@ WindowDefPage4::ShowProperties()
   UpdateData(FALSE);  
 }
 
-void
+bool
 WindowDefPage4::UpdateProperties()
 {
   m_window->SetNavPaneOption(NAVPANE_SIZE_POS,m_remember);
   m_window->SetWindowSizePos(m_left,m_top,m_right,m_bottom);
+
+  return true;
 }
 
 // WindowDefPage4 message handlers

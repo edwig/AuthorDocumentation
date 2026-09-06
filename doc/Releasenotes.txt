@@ -1,6 +1,15 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
+Version 1.0.x
+-------------
+1) Reading/Writing HHP, HHC and HHK files are now implemented with WinFile
+   This makes it possible to read/write the BOM of the files.
+2) Rewritten the read/write of the *.CSS files
+3) Extra checks on the files in the window definition. TOC and HKK must
+   be relative pathnames there.
+
+
 Version 1.0.2
 -------------
 1) Rebuilding the index view after changing an index keyword

@@ -57,7 +57,7 @@ private:
 protected:
   void SetWindowNames();
   void SetProperties();
-  void UpdateProperties();
+  bool UpdateProperties();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()

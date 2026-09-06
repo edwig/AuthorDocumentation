@@ -7,8 +7,6 @@
 #include "css.h"
 #include <cstdlib>
 #include <sstream>
-#include <iostream>
-#include <fstream>
 #include <time.h>
 
 #pragma warning (disable: 4503)
@@ -93,11 +91,10 @@ CssStyleSheet::print_css()
 		return false;
 	}
 
-	ofstream file_output;
-	if(m_filename != "")
+  WinFile file_output(m_filename);
+	if(!m_filename.empty())
 	{
-		file_output.open(m_filename.c_str()); // ,ios::binary);
-		if(file_output.bad())
+    if(!file_output.Open(winfile_write | open_trans_text,attrib_normal,Encoding::UTF8))
 		{
 			if(!m_settings["silent"]) 
       {
@@ -108,7 +105,7 @@ CssStyleSheet::print_css()
 	}
   //else
   //{
-  //  log("No output filename givven",Error);
+  //  log("No output filename given",Error);
   //  return false;
   //}
 	
@@ -256,10 +253,10 @@ CssStyleSheet::print_css()
 
   // NOW REALLY OUTPUT IT TO FILE
   m_theSheet = output_string;
-  if(m_filename != "")
+  if(!m_filename.empty())
   {
-    file_output << output_string;
-    file_output.close();
+    file_output.Write(output_string);
+    file_output.Close();
   }
   return true;
 }

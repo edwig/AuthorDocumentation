@@ -1,7 +1,8 @@
 TODO
 ====
 1) Toolbar above explorer view not implemented
-2) Whole program should be Unicode implementation
+2) Glossary view to be implemented
+
 
 BUGS
 ====
@@ -11,7 +12,9 @@ BUGS
 3) Script dialog Type/Language in script are dependent on each other
 4) Scripts in page not in  topic-properties (4th tab)
 5) Marquee text editting, if text out of sight
-6) if map covers the whole image, the image is unreachable other than the right-click menu
+   In principle it is only edittable in the source view. 
+   But the text should be edittable in the WYSIWYG view as well.
+6) If map covers the whole image, the image is unreachable other than the right-click menu
 7) Width of the CSS dialog is to small. Tooltips for the rest of the text.
 8) Double-click on images or areas nested deeper than level 1 under body
    - recursive client-area calculating
@@ -19,6 +22,14 @@ BUGS
 
 RECURRING ISSUES
 ================
+- HTML Help system is NOT unicode compliant. HHP, HHK, HHC files are ANSI MBCS only
+  Files can be UTF-16 but without a BOM. This is a problem for non-ANSI characters in 
+  the index and table of contents.
+  Other languages can only be supported on Windows where the default locale is set to 
+  the language of the help system. And even then the index and TOC doe not work properly.
+
+  Help pages are editted in the MSHTML editor. The editor is unicode compliant!
+
 - Altering CSS sheets sets a need to save-and-reload the page. 
   Rendering of the styles will otherwise not follow.
   Tried: Document2.location.reload -> doesn't work
@@ -29,9 +40,9 @@ RECURRING ISSUES
 - BUG in Tidy: it treats MARQUEE as an in-line element instead of a block element
 - BROWSE MODE must react other then normal EDIT mode !!!
 - TAGS: COL / COLGROUP not to be supported in AuthorDocumentation
-- TAGS: BDO not to be implemented: Tidy/CSS should first support Unicode!
-- TAGS: BASE. No: the HPP project provides the base. Later on implementation
-  of a basic WebHelp, <BASE> should be reconsidered.
+- TAGS: BDO to be implemented
+- TAGS: BASE. No: the HPP project provides the base. 
+  Later on implementation of a basic WebHelp, <BASE> should be reconsidered.
 - Alternating between WEB view and SOURCE views drops changes in the last view
   Take a look at: ChildForm::SwapView(int ID)
   Take a look at: HTMLEdView::UpdateView()

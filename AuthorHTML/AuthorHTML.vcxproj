@@ -139,6 +139,7 @@ copy "$(OutDir)$(ProjectName).exe"  "$(SolutionDir)..\bin
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <Manifest>
       <OutputManifestFile>$(IntDir)_bin\$(TargetFileName).embed.manifest</OutputManifestFile>

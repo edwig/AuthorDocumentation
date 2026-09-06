@@ -115,8 +115,6 @@ public:
 		string  HtmlSpecials(const string istring, const bool plain);	
 		string  optimise_subvalue(string subvalue, const string property);
 		void    explode_selectors();
-    // Check byte order mark
-    void    check_bom(string& line);
     /* Merges properties like margin */
     void    merge_4value_shorthands(string media, string selector);
     /* Dissolves properties like padding:10px 10px 10px to padding-top:10px;padding-bottom:10px;... */

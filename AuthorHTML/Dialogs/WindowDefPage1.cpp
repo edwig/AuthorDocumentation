@@ -173,7 +173,7 @@ WindowDefPage1::ShowProperties()
   UpdateData(FALSE);
 }
 
-void
+bool
 WindowDefPage1::UpdateProperties()
 {
   m_window->SetNavPaneOption(NAVPANE_TOC_INDEX, m_navigationPane);
@@ -189,6 +189,7 @@ WindowDefPage1::UpdateProperties()
   m_window->SetNavPaneOption(NAVPANE_SHOW_HIDE, m_autoShow);
   m_window->SetNavPaneOption(NAVPANE_SIZE_POS,  m_remember);
   m_window->SetPaneWidth(m_width);
+  return true;
 }
 
 // WindowDefPage1 message handlers

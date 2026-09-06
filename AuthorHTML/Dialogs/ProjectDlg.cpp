@@ -15,6 +15,7 @@
 #include "FindTopicDlg.h"
 #include "Misc.h"
 #include "WindowDefDlg.h"
+#include <StringUtilities.h>
 
 // ProjectDlg dialog
 IMPLEMENT_DYNAMIC(ProjectDlg, CDialog)
@@ -228,6 +229,91 @@ void
 ProjectDlg::OnBnClickedButtonfont()
 {
   // TODO: Add your control notification handler code here
+  std::vector<XString> options;
+  XString font(m_defaultFont);
+  SplitString(font,options, ',',true);
+  if (options.size() < 1)
+  {
+    options.push_back("Verdana");
+    if(options.size() < 2)
+    {
+      options.push_back("10");
+      if (options.size() < 3)
+      {
+        options.push_back("0");
+      }
+    }
+  }
+  CString oldFontName(options[0]);
+  int     oldFontSize(_ttoi(options[1].GetString()));
+
+
+  LOGFONT    lFont;
+  CHOOSEFONT cFont;
+  ZeroMemory(&lFont,sizeof(LOGFONT));
+  ZeroMemory(&cFont,sizeof(CHOOSEFONT));
+ 
+  // Fill logic font based on current font
+  lFont.lfHeight         = -MulDiv(oldFontSize,GetDeviceCaps(GetDC()->m_hDC, LOGPIXELSY),72);
+  lFont.lfWidth          = 0;
+  lFont.lfEscapement     = 0;
+  lFont.lfOrientation    = 0;
+  lFont.lfWeight         = FW_NORMAL;
+  lFont.lfItalic         = FALSE;
+  lFont.lfUnderline      = FALSE;
+  lFont.lfStrikeOut      = FALSE;
+  lFont.lfOutPrecision   = OUT_DEFAULT_PRECIS;
+  lFont.lfClipPrecision  = CLIP_DEFAULT_PRECIS;
+  lFont.lfQuality        = DEFAULT_QUALITY;
+  lFont.lfPitchAndFamily = FF_DONTCARE;
+  _tcscpy_s(lFont.lfFaceName,LF_FACESIZE,oldFontName);
+
+  // Fill choose-a-font structure
+  cFont.iPointSize  = oldFontSize;
+  cFont.nSizeMin    = 8;
+  cFont.nSizeMax    = 28;
+  cFont.lStructSize = sizeof(CHOOSEFONT);
+  cFont.hwndOwner   = GetSafeHwnd();
+  cFont.lpLogFont   = &lFont;
+  cFont.nFontType   = SCREEN_FONTTYPE|PRINTER_FONTTYPE|REGULAR_FONTTYPE;
+  cFont.Flags       = CF_BOTH|CF_INITTOLOGFONTSTRUCT|CF_LIMITSIZE;
+
+  // Now go choose a font
+  if(!ChooseFont(&cFont))
+  {
+    // No other font chosen or CANCEL pressed
+    return;
+  }
+  // Check not-used options and report
+  if(lFont.lfWeight    != FW_NORMAL ||
+     lFont.lfItalic    != FALSE ||
+     lFont.lfUnderline != FALSE ||
+     lFont.lfStrikeOut != FALSE)
+  {
+    theApp.MessageBox(_T("You have chosen a different font weight/style than 'normal'.\n")
+                      _T("Unfortunately, AuthorHTML will ignore this choice and do nothing with it.")
+                     ,_T("WARNING !!")
+                     ,MB_OK | MB_ICONINFORMATION);
+  }
+  // Register the choice
+  bool changed = false;
+  if(_tcslen(lFont.lfFaceName) > 2)
+  {
+    changed = true;
+    options[0] = lFont.lfFaceName;
+  }
+  if(cFont.iPointSize >= 80 && cFont.iPointSize <= 140)
+  {
+    changed = true;
+    XString size;
+    size.Format("%d",(cFont.iPointSize / 10));
+    options[1] = size;
+  }
+  if(changed)
+  {
+    m_defaultFont = options[0] + "," + options[1] + ",0";
+  }
+  UpdateData(FALSE);
 }
 
 void 

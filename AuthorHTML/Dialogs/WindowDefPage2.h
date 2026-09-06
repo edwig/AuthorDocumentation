@@ -26,7 +26,7 @@ public:
 	virtual ~WindowDefPage2();
   BOOL     OnInitDialog();
   void     SetProperties(WindowDefinition* p_window);
-  void     UpdateProperties();
+  bool     UpdateProperties();
 
 // Dialog Data
 	enum { IDD = IDD_WINDOWDEF_PAGE2 };

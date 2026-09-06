@@ -159,15 +159,19 @@ WindowDefDlg::SetProperties()
   m_page5->SetProperties(m_window);
 }
 
-void
+bool
 WindowDefDlg::UpdateProperties()
 {
   m_window->SetTitle(m_title);
-  m_page1->UpdateProperties();
-  m_page2->UpdateProperties();
-  m_page3->UpdateProperties();
-  m_page4->UpdateProperties();
-  m_page5->UpdateProperties();
+
+  bool result = true;
+  if(!m_page1->UpdateProperties()) result = false;
+  if(!m_page2->UpdateProperties()) result = false;
+  if(!m_page3->UpdateProperties()) result = false;
+  if(!m_page4->UpdateProperties()) result = false;
+  if(!m_page5->UpdateProperties()) result = false;
+
+  return result;
 }
 
 
@@ -297,8 +301,10 @@ WindowDefDlg::OnTcnSelchangeTab(NMHDR *pNMHDR, LRESULT *pResult)
 void 
 WindowDefDlg::OnBnClickedOk()
 {
-  UpdateProperties();
-  OnOK();
+  if(UpdateProperties())
+  {
+    OnOK();
+  }
 }
 
 void 

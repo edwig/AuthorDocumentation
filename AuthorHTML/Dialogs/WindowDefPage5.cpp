@@ -87,13 +87,37 @@ WindowDefPage5::ShowProperties()
   UpdateData(FALSE);
 }
 
-void
+bool
 WindowDefPage5::UpdateProperties()
 {
   m_window->SetHHCFile(m_toc);
   m_window->SetHHKFile(m_index);
   m_window->SetDefaultTopic(m_default);
   m_window->SetHomeTopic(m_home);
+
+  // Check all the properties for validity
+  CString base = theApp.GetBaseDirectory();
+  if(access((base + m_toc).GetString(),6) != 0)
+  {
+    theApp.ErrorMessage("The table-of-contents (TOC) file could not be found or has the wrong access rights (read/write)");
+    return false;
+  }
+  if(access((base + m_index).GetString(),6) != 0)
+  {
+    theApp.ErrorMessage("The keyword index file could not be found or has the wrong access rights (read/write)");
+    return false;
+  }
+  if(m_project->FindDocumentFile(m_default) == nullptr)
+  {
+    theApp.ErrorMessage("The default topic file could not be found.");
+    return false;
+  }
+  if (m_project->FindDocumentFile(m_home) == nullptr)
+  {
+    theApp.ErrorMessage("The home topic file could not be found.");
+    return false;
+  }
+  return true;
 }
 
 // WindowDefPage5 message handlers

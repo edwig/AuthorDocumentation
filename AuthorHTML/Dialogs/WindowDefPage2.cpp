@@ -153,7 +153,7 @@ WindowDefPage2::ShowProperties()
   
 }
 
-void
+bool
 WindowDefPage2::UpdateProperties()
 {
   m_window->SetButton(BUTTONS_HIDESHOW, m_hideShow);
@@ -171,6 +171,7 @@ WindowDefPage2::UpdateProperties()
   m_window->SetJump2Text(m_label2);
   m_window->SetJump1Topic(m_file1);
   m_window->SetJump2Topic(m_file2);
+  return true;
 }
 
 // WindowDefPage2 message handlers
