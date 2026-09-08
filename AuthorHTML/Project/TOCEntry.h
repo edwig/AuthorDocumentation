@@ -36,6 +36,7 @@ public:
           ,CString windowName);
  ~TOCEntry();
 
+  void        Reset();
   void        AddTopic(TOCEntry* entry);
   void        AddBetween(TOCEntry* here,TOCEntry* toinsert);
   void        DetachChild(TOCEntry* entry);
@@ -44,6 +45,7 @@ public:
   bool        HasChildren();
   void        MakeBook();
   void        MakePage();
+  int         CountEntries();
 
   // Getters
   CString     GetTitle();

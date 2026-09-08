@@ -15,6 +15,7 @@
 #include "FindTopicDlg.h"
 #include "Misc.h"
 #include "WindowDefDlg.h"
+#include "TOC.h"
 #include <StringUtilities.h>
 
 // ProjectDlg dialog
@@ -45,6 +46,10 @@ void ProjectDlg::DoDataExchange(CDataExchange* pDX)
   DDX_Control(pDX,IDC_TEXTSEARCH,   m_buttonFullSearch);
   DDX_Control(pDX,IDC_BINARYINDEX,  m_buttonBinIndex);
   DDX_Control(pDX,IDC_AUTOINDEX,    m_buttonAutoIndex);
+  DDX_Control(pDX,IDC_AUTOTOC,      m_buttonAutoTOC);
+  DDX_Control(pDX,IDC_FLATTOC,      m_buttonFlatTOC);
+  DDX_Control(pDX,IDC_ENHANCED,     m_buttonEnhanced);
+
   DDX_Control(pDX,IDOK,             m_buttonOK);
   DDX_Control(pDX,IDCANCEL,         m_buttonCancel);
   DDX_Control(pDX,IDC_HELPPROJECT,  m_buttonHelp);
@@ -69,6 +74,9 @@ BEGIN_MESSAGE_MAP(ProjectDlg, CDialog)
   ON_BN_CLICKED   (IDC_TEXTSEARCH,   &ProjectDlg::OnBnClickedTextsearch)
   ON_BN_CLICKED   (IDC_BINARYINDEX,  &ProjectDlg::OnBnClickedBinaryindex)
   ON_BN_CLICKED   (IDC_AUTOINDEX,    &ProjectDlg::OnBnClickedAutoindex)
+  ON_BN_CLICKED   (IDC_AUTOTOC,      &ProjectDlg::OnBnClickedAutoTOC)
+  ON_BN_CLICKED   (IDC_FLATTOC,      &ProjectDlg::OnBnClickedFlatTOC)
+  ON_BN_CLICKED   (IDC_ENHANCED,     &ProjectDlg::OnBnClickedEnhanced)
   ON_BN_CLICKED   (IDOK,             &ProjectDlg::OnBnClickedOk)
   ON_BN_CLICKED   (IDCANCEL,         &ProjectDlg::OnBnClickedCancel)
   ON_BN_CLICKED   (IDC_HELPPROJECT,  &ProjectDlg::OnBnClickedHelpproject)
@@ -88,10 +96,16 @@ ProjectDlg::OnInitDialog()
   m_fullTextSearch = m_project->GetFullTextSearch();
   m_binaryIndex    = m_project->GetBinaryIndex();
   m_autoIndex      = m_project->GetAutoIndex();
+  m_autoTOC        = m_project->GetAutoTOC();
+  m_flatTOC        = m_project->GetFlatTOC();
+  m_enhanced       = m_project->GetEnhancedDecompilation();
 
   m_buttonFullSearch.SetCheck(m_fullTextSearch);
   m_buttonBinIndex  .SetCheck(m_binaryIndex);
   m_buttonAutoIndex .SetCheck(m_autoIndex);
+  m_buttonAutoTOC   .SetCheck(m_autoTOC);
+  m_buttonFlatTOC   .SetCheck(m_flatTOC);
+  m_buttonEnhanced  .SetCheck(m_enhanced);
 
   SetWindowNames();
   UpdateData(FALSE);
@@ -153,6 +167,9 @@ ProjectDlg::UpdateProject()
   m_project->SetFullTextSearch(m_fullTextSearch);
   m_project->SetBinaryIndex(m_binaryIndex);
   m_project->SetAutoIndex(m_autoIndex);
+  m_project->SetAutoTOC(m_autoTOC);
+  m_project->SetFlatTOC(m_flatTOC);
+  m_project->SetEnhancedDecompilation(m_enhanced);
 }
 
 
@@ -372,7 +389,49 @@ ProjectDlg::OnBnClickedEditwindows()
   UpdateData(FALSE);
 }
 
+void
+ProjectDlg::OnBnClickedAutoTOC()
+{
+  m_autoTOC = m_buttonAutoTOC.GetCheck() == TRUE;
+  if(m_autoTOC)
+  {
+    if(theApp.GetTOC()->CountEntries())
+    {
+      if(theApp.MessageBox("You can only use an automatic generated TOC, when the hand-written TOC is empty.\n"
+                           "Would you like to continue to remove the current TOC?"
+                          ,"Table-Of-Contents"
+                          ,MB_YESNO | MB_DEFBUTTON2 | MB_ICONQUESTION) == IDNO)
+      {
+        return;
+      }
+      theApp.GetTOC()->Reset();
+      theApp.ReSweepProject();
+      theApp.ReSweepIndex();
+    }
+    m_flatTOC = true;
+    m_buttonFlatTOC.SetCheck(TRUE);
+  }
+  else
+  {
+    m_autoTOC = false;
+    m_buttonAutoTOC.SetCheck(FALSE);
+  }
+  UpdateData(FALSE);
+}
+
+void
+ProjectDlg::OnBnClickedFlatTOC()
+{
+  m_flatTOC = m_buttonFlatTOC.GetCheck() == TRUE;
+}
+
 void 
+ProjectDlg::OnBnClickedEnhanced()
+{
+  m_enhanced = m_buttonEnhanced.GetCheck() == TRUE;
+}
+
+void
 ProjectDlg::OnBnClickedOk()
 {
   UpdateProject();

@@ -1222,6 +1222,9 @@
 #define IDC_BORDER_COLOR                1435
 #define IDC_FRAMEBORDER                 1436
 #define IDC_FRAMESPACING                1437
+#define IDC_AUTOTOC                     1438
+#define IDC_FLATTOC                     1439
+#define IDC_ENHANCED                    1440
 #define IDM_OPEN                        2000
 #define IDM_NEW                         2001
 #define IDM_SAVECOPYAS                  2002
@@ -1772,9 +1775,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        320
+#define _APS_NEXT_RESOURCE_VALUE        321
 #define _APS_NEXT_COMMAND_VALUE         33179
-#define _APS_NEXT_CONTROL_VALUE         1438
+#define _APS_NEXT_CONTROL_VALUE         1441
 #define _APS_NEXT_SYMED_VALUE           109
 #endif
 #endif

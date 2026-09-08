@@ -60,6 +60,12 @@ TOCEntry::TOCEntry(CString title
 
 TOCEntry::~TOCEntry()
 {
+  Reset();
+}
+
+void
+TOCEntry::Reset()
+{
   // Loose coupling with document
   if(m_document)
   {
@@ -180,4 +186,16 @@ TOCEntry::MakePage()
   {
     m_type = PF_Topic;
   }
+}
+
+int
+TOCEntry::CountEntries()
+{
+  int total = (int)m_children.size();
+
+  for (auto& child : m_children)
+  {
+    total += child->CountEntries();
+  }
+  return total;
 }

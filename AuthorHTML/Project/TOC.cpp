@@ -39,6 +39,8 @@ TOC::Reset()
   m_windowStyles   = 0L;
   m_ExWindowStyles = 0L;
   m_needSaving     = false;
+
+  m_list.Reset();
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -597,4 +599,11 @@ TOC::MoveEntry(TOCEntry* here,TOCEntry* tomove)
   DetachEntry(tomove);
   AddEntry(here,tomove);
   m_needSaving = true;
+}
+
+
+int
+TOC::CountEntries()
+{
+  return m_list.CountEntries();
 }

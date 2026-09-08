@@ -53,6 +53,12 @@ private:
   AD_Checkbox  m_buttonBinIndex;
   bool         m_autoIndex;
   AD_Checkbox  m_buttonAutoIndex;
+  bool         m_autoTOC;
+  AD_Checkbox  m_buttonAutoTOC;
+  bool         m_flatTOC;
+  AD_Checkbox  m_buttonFlatTOC;
+  bool         m_enhanced;
+  AD_Checkbox  m_buttonEnhanced;
 
   AD_Button    m_buttonOK;
   AD_Button    m_buttonCancel;
@@ -68,6 +74,9 @@ public:
   afx_msg void OnBnClickedTextsearch();
   afx_msg void OnBnClickedBinaryindex();
   afx_msg void OnBnClickedAutoindex();
+  afx_msg void OnBnClickedAutoTOC();
+  afx_msg void OnBnClickedFlatTOC();
+  afx_msg void OnBnClickedEnhanced();
   afx_msg void OnBnClickedOk();
   afx_msg void OnBnClickedCancel();
   afx_msg void OnBnClickedHelpproject();

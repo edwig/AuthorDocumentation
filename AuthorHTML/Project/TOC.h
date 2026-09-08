@@ -27,6 +27,7 @@ class TOC
 public:
   TOC(CString tocFilename);
  ~TOC();
+  void Reset();
   bool ReadTOCFile();
   bool WriteTOCFile();
   bool NeedSaving();
@@ -37,12 +38,12 @@ public:
   void DetachEntry(TOCEntry* entry);
   void DeleteEntry(TOCEntry* entry);
   void MoveEntry(TOCEntry* here,TOCEntry* tomove);
+  int  CountEntries();
 
   CString GetFilename();
   void    SetFilename(CString p_filename);
 
 private:
-  void     Reset();
   void     ReadProperties (WinFile& p_file);
   void     ReadComment    (WinFile& p_file);
   bool     ReadList       (WinFile& p_file,TOCEntry* list,int level);

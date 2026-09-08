@@ -77,6 +77,9 @@ public:
    bool         GetBinaryIndex();
    bool         GetSweepRebuildsIndex();
    bool         GetAutoIndex();
+   bool         GetAutoTOC();
+   bool         GetFlatTOC();
+   bool         GetEnhancedDecompilation();
    Glossary*    GetGlossary();
    BrokenMap*   GetBrokenMap();
 
@@ -89,7 +92,10 @@ public:
    void         SetDefaultWindow(CString p_window);
    void         SetFullTextSearch(bool p_fullsearch);
    void         SetBinaryIndex(bool p_binaryIndex);
-   void         SetAutoIndex(bool p_auto);         
+   void         SetAutoIndex(bool p_auto); 
+   void         SetAutoTOC(bool p_auto);
+   void         SetFlatTOC(bool p_auto);
+   void         SetEnhancedDecompilation(bool p_enhanced);
 private:
    void    Reset();
    int     TidyFile          (DocumentFile* docfile,CString filename);
@@ -301,3 +307,38 @@ ProjectFile::BlockSweep()
   m_blockSweepOnce = true;
 }
 
+inline bool
+ProjectFile::GetAutoTOC()
+{
+  return m_autoIndex;
+}
+
+inline bool
+ProjectFile::GetFlatTOC()
+{
+  return m_flat;
+}
+
+inline bool
+ProjectFile::GetEnhancedDecompilation()
+{
+  return m_enhancedDecompile;
+}
+
+inline void
+ProjectFile::SetAutoTOC(bool p_auto)
+{
+  m_autoIndex = p_auto;
+}
+
+inline void
+ProjectFile::SetFlatTOC(bool p_auto)
+{
+  m_flat = p_auto;
+}
+
+inline void
+ProjectFile::SetEnhancedDecompilation(bool p_enhanced)
+{
+  m_enhancedDecompile = p_enhanced;
+}
