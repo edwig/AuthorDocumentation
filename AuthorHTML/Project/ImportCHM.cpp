@@ -59,7 +59,7 @@ ImportCHM::Import(CString &p_directory,CString &p_filename)
   {
     CString message;
     message.Format("Cannot copy the file [%s] to the directory [%s]",m_filename.GetString(),m_directory.GetString());
-    theApp.Panic("Decompilation error");
+    theApp.Panic("Decompilation error:\n" + message);
     return false;
   }
 

@@ -84,6 +84,9 @@ typedef enum _Token
   ,PF_ENDLIST
   ,PF_ENDLISTITEM
   ,PF_ENDANCHOR
+  ,PF_DOCTYPE
+  ,PF_META
+  ,PF_CONTENT
 }
 TOCToken;
 

@@ -17,6 +17,7 @@
 #include "AuthorHTML.h"
 #include "MainFrm.h"
 #include "Misc.h"
+#include <StringUtilities.h>
 
 TOC::TOC(CString tocFile)
     :m_tocFilename(tocFile)
@@ -70,11 +71,17 @@ TOC::WriteTOCFile()
   {
     return false;
   }
-  file.Write(_T("<html>\n"));
+  file.Write(_T("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">\n"));
+  file.Write(_T("<HTML>\n"));
+  file.Write(_T("<HEAD>\n"));
+  file.Format(_T("  <META name=\"%s\" content=\"%s\">\n"),m_generator.GetString(),m_content.GetString());
+  file.Write(_T("</HEAD>\n"));
   file.Write(_T("<!-- Sitemap 1.0 -->\n"));
+  file.Write(_T("<BODY>\n"));
   WriteProperties(file);
   WriteList(file,&m_list,0);
-  file.Write(_T("</html>\n"));
+  file.Write(_T("</BODY>\n"));
+  file.Write(_T("</HTML>\n"));
   file.Close();
 
   // Reset saving
@@ -198,14 +205,14 @@ TOC::ReadTOCFile()
     // HHC TOC parser must be really relaxed!!!!!
     // A lot of old code is hanging around (in Microsoft)
     // Where body and head tokens do not have the opposing end-token
-
+    // 
     Misc::ResetTokenizer();
+    ReadDocType(file);
     Misc::SkipToken(file,PF_HTML,m_linenumber);
+    ReadHeader(file);
     ReadComment(file);
-    Misc::SkipToken(file,PF_HEAD,m_linenumber);
+    Misc::SkipToken(file,PF_BODY,m_linenumber);
     ReadProperties(file);
-    Misc::SkipToken(file,PF_ENDHEAD,m_linenumber);
-    Misc::SkipToken(file,PF_BODY,   m_linenumber);
     ReadList(file,&m_list,0);
     Misc::SkipToken(file,PF_ENDBODY,m_linenumber);
     Misc::SkipToken(file,PF_ENDHTML,m_linenumber);
@@ -221,6 +228,52 @@ TOC::ReadTOCFile()
   m_needSaving = false;
   return result;
 }
+
+// Read past:
+// <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+// 
+void
+TOC::ReadDocType(WinFile& file)
+{
+  CString word;
+  if(!Misc::SkipToken(file,PF_DOCTYPE,m_linenumber))
+  {
+    // Not a DOCTYPE, but we can continue anyway
+    return;
+  }
+  Misc::SkipToken(file,PF_HTML,m_linenumber);
+  Misc::GetToken(file,word,m_linenumber);       // Skip PUBLIC
+  Misc::GetToken(file,word,m_linenumber);       // Skip "-//IETF//DTD HTML//EN"
+}
+
+void 
+TOC::ReadHeader(WinFile& p_file)
+{
+  CString word;
+
+  if(!Misc::SkipToken(p_file,PF_HEAD,m_linenumber))
+  {
+    // No header, but we can continue anyway
+    return;
+  }
+  if(!Misc::SkipToken(p_file,PF_META,m_linenumber))
+  {
+    // No Meta filling of the header, but we can continue anyway
+    return;
+  }
+  Misc::SkipToken  (p_file,PF_NAME, m_linenumber);
+  Misc::SkipToken  (p_file,PF_EQUAL,m_linenumber);
+  if(Misc::GetToken(p_file,word,    m_linenumber) != PF_STRING) throw "does not have a meta generator name";
+  m_generator = word;
+
+  Misc::SkipToken(p_file,PF_CONTENT,m_linenumber);
+  Misc::SkipToken(p_file,PF_EQUAL,  m_linenumber);
+  if(Misc::GetToken(p_file,word,m_linenumber) != PF_STRING) throw "does not have a meta content name";
+  m_content = word;
+
+  Misc::SkipToken(p_file,PF_ENDHEAD,m_linenumber);
+}
+
 
 void
 TOC::ReadComment(WinFile& file)
@@ -252,7 +305,9 @@ TOC::ReadProperties(WinFile& file)
   //  <param name="SiteType" value="toc">
   //  <param name="Image Width" value="16">
   //  <param name="Window Styles" value="0x800002">
-  //  <param name="ExWindow Styles" value="0x100">
+  //  <param name="Background" value="0xFFFFFF">
+  //  <param name="Foregrount" value="0x000000">
+  //  <param name="Font" value="Verdana,9,0">
   //</object>
   CString partialError = "First object before list ";
   CString word;
@@ -300,6 +355,24 @@ TOC::ReadProperties(WinFile& file)
     if(parameterName.CompareNoCase("exwindow styles") == 0)
     {
       Misc::ParseNumber(parameterValue,m_ExWindowStyles);
+    }
+    if(parameterName.CompareNoCase("background") == 0)
+    {
+      sscanf_s(parameterValue,"%x",&m_background);
+    }
+    if(parameterName.CompareNoCase("foreground") == 0)
+    {
+      sscanf_s(parameterValue,"%x",&m_foreground);
+    }
+    if(parameterName.CompareNoCase("font") == 0)
+    {
+      std::vector<XString> parts;
+      SplitString(parameterValue.GetString(),parts,',');
+      m_fontName = parts[0];
+      if(parts.size() > 1)
+      {
+        m_fontSize = atoi(parts[1]);
+      }
     }
   }
   // CHECKS

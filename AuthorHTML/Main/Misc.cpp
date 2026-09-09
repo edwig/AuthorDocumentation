@@ -2838,6 +2838,7 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
      _tcsupr(buffer);
   if(_tcscmp(buffer,"HTML")   == 0) return PF_HTML;
   if(_tcscmp(buffer,"HEAD")   == 0) return PF_HEAD;
+  if(_tcscmp(buffer,"META")   == 0) return PF_META;
   if(_tcscmp(buffer,"BODY")   == 0) return PF_BODY;
   if(_tcsncmp(buffer,"!--",3) == 0) return PF_COMMENT;
   if(_tcscmp(buffer,"=")      == 0) return PF_EQUAL;
@@ -2857,6 +2858,8 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
   if(_tcscmp(buffer,"PARAM")  == 0) return PF_PARAM;
   if(_tcscmp(buffer,"NAME")   == 0) return PF_NAME;
   if(_tcscmp(buffer,"VALUE")  == 0) return PF_VALUE;
+  if(_tcscmp(buffer,"!DOCTYPE")  == 0) return PF_DOCTYPE;
+  if(_tcscmp(buffer,"CONTENT")   == 0) return PF_CONTENT;
 
   return PF_NOTOKEN;
 }

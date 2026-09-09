@@ -44,8 +44,10 @@ public:
   void    SetFilename(CString p_filename);
 
 private:
+  void     ReadDocType    (WinFile& p_file);
+  void     ReadHeader     (WinFile& p_file);
+  void     ReadComment(WinFile& p_file);
   void     ReadProperties (WinFile& p_file);
-  void     ReadComment    (WinFile& p_file);
   bool     ReadList       (WinFile& p_file,TOCEntry* list,int level);
   void     WriteProperties(WinFile& p_file);
   void     WriteList      (WinFile& p_file,TOCEntry* list,int level);
@@ -56,11 +58,18 @@ private:
   CString       m_tocFilename;
   long          m_linenumber;
   bool          m_needSaving;
+  // TOC application
+  CString       m_generator;
+  CString       m_content;
   // TOC site properties
   CString       m_siteType;
   int           m_imageWidth;
   unsigned long m_windowStyles;
   unsigned long m_ExWindowStyles;
+  long          m_background;
+  long          m_foreground;
+  CString       m_fontName;
+  int           m_fontSize;
 
   // This is the TOC!!
   TOCEntry      m_list;

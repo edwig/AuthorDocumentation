@@ -421,8 +421,8 @@ ScriptDlg::OnPaint()
 
   // Get a DC and a proper pen
   CDC* cdc = GetDC();
-  CPen color(0,1,RGB(127,157,185));
-  CPen* old = (CPen*) cdc->SelectObject(color);
+  CPen color(PS_SOLID,1,RGB(127,157,185));
+  CPen* old = reinterpret_cast<CPen*>(cdc->SelectObject(&color));
 
   //Draw the edge around the Scintilla edit control
   cdc->MoveTo(rect.left, rect.top);
@@ -432,7 +432,10 @@ ScriptDlg::OnPaint()
   cdc->LineTo(rect.left, rect.top);
 
   // Restore previous pen and DC
-  cdc->SelectObject(old);
+  if(old)
+  {
+    cdc->SelectObject(old);
+  }
   ReleaseDC(cdc);
 }
 

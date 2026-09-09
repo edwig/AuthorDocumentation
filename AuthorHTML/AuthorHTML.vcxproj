@@ -122,7 +122,7 @@ copy "$(OutDir)$(ProjectName).exe"  "$(SolutionDir)..\bin
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <EnablePREfast>false</EnablePREfast>
       <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
