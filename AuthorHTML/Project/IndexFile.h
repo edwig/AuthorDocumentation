@@ -51,9 +51,13 @@ public:
 
 private:
   void Reset();
+  void ReadDocType    (WinFile& file);
+  void ReadHeader     (WinFile& p_file);
   void ReadComment    (WinFile& file);
   void ReadProperties (WinFile& file);
   bool ReadList       (WinFile& file,IndexEntry* list,int level);
+  void WriteHeader    (WinFile& p_file);
+  void WriteFooter    (WinFile& p_file);
   void WriteProperties(WinFile& file);
   void WriteList      (WinFile& file,IndexEntry* list,int level);
   void WriteParameter (WinFile& file,CString& levelString, LPCTSTR name, CString value);

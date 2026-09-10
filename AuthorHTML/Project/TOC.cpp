@@ -17,6 +17,7 @@
 #include "AuthorHTML.h"
 #include "MainFrm.h"
 #include "Misc.h"
+#include "Version.h"
 #include <StringUtilities.h>
 
 TOC::TOC(CString tocFile)
@@ -71,22 +72,37 @@ TOC::WriteTOCFile()
   {
     return false;
   }
-  file.Write(_T("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">\n"));
-  file.Write(_T("<HTML>\n"));
-  file.Write(_T("<HEAD>\n"));
-  file.Format(_T("  <META name=\"%s\" content=\"%s\">\n"),m_generator.GetString(),m_content.GetString());
-  file.Write(_T("</HEAD>\n"));
-  file.Write(_T("<!-- Sitemap 1.0 -->\n"));
-  file.Write(_T("<BODY>\n"));
+  WriteHeader(file);
   WriteProperties(file);
   WriteList(file,&m_list,0);
-  file.Write(_T("</BODY>\n"));
-  file.Write(_T("</HTML>\n"));
+  WriteFooter(file);
   file.Close();
 
   // Reset saving
   m_needSaving = false;
   return true;
+}
+
+void
+TOC::WriteHeader(WinFile& p_file)
+{
+  CString generator(REGISTER_APP);
+  generator.Replace("\\","-");
+
+  p_file.Write(_T("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">\n"));
+  p_file.Write(_T("<HTML>\n"));
+  p_file.Write(_T("<HEAD>\n"));
+  p_file.Format(_T("  <META name=\"%s\" content=\"Version: %s\">\n"),generator.GetString(),VERSION_NUMBER);
+  p_file.Write(_T("</HEAD>\n"));
+  p_file.Write(_T("<!-- Sitemap 1.0 -->\n"));
+  p_file.Write(_T("<BODY>\n"));
+}
+
+void
+TOC::WriteFooter(WinFile& p_file)
+{
+  p_file.Write(_T("</BODY>\n"));
+  p_file.Write(_T("</HTML>\n"));
 }
 
 void
@@ -98,7 +114,7 @@ TOC::WriteProperties(WinFile& p_file)
   //  <param name="Window Styles" value="0x800002">
   //  <param name="ExWindow Styles" value="0x100">
   //</object>
-  p_file.Write(_T("<object type=\"text/site properties\">\n"));
+  p_file.Write(_T("<OBJECT type=\"text/site properties\">\n"));
   p_file.Write(_T("  <param name=\"SiteType\" value=\"toc\">\n"));
   if(m_imageWidth)
   {
@@ -112,7 +128,7 @@ TOC::WriteProperties(WinFile& p_file)
   {
     p_file.Format(_T("  <param name=\"ExWindow Styles\" value=\"0x%x\">\n"), m_ExWindowStyles);
   }
-  p_file.Write(_T("</object>\n"));
+  p_file.Write(_T("</OBJECT>\n"));
 }
 
 void
@@ -143,25 +159,25 @@ TOC::WriteList(WinFile& p_file,TOCEntry* list,int level)
     image.Format("%d",list->GetImageNumber() + 1);
     if(image == "0") image = "";
 
-    p_file.Format(_T("%s<li><object type=\"text/sitemap\">\n"), levelString.GetString());
+    p_file.Format(_T("%s<LI><OBJECT type=\"text/sitemap\">\n"), levelString.GetString());
 
-    WriteParameter(p_file,levelString,"Name",       list->GetTitle());
-    WriteParameter(p_file,levelString,"Local",      list->GetDocumentFilename());
-    WriteParameter(p_file,levelString,"Comment",    list->GetComment());
+    WriteParameter(p_file,levelString,"Name",       Misc::FormatXMLString(list->GetTitle()));
+    WriteParameter(p_file,levelString,"Local",      Misc::FormatXMLString(list->GetDocumentFilename()));
+    WriteParameter(p_file,levelString,"Comment",    Misc::FormatXMLString(list->GetComment()));
     WriteParameter(p_file,levelString,"FrameName",  list->GetFrameName());
     WriteParameter(p_file,levelString,"WindowName", list->GetWindowName());
     WriteParameter(p_file,levelString,"ImageNumber",image);
 
-    p_file.Format(_T("%s</object>\n"),levelString.GetString());
+    p_file.Format(_T("%s</OBJECT>\n"),levelString.GetString());
   }
   if(list->GetChildren().size() > 0)
   {
-    p_file.Format(_T("%s<ul>\n"), levelString.GetString());
+    p_file.Format(_T("%s<UL>\n"), levelString.GetString());
     for(unsigned int num = 0; num < list->GetChildren().size(); ++num)
     {
       WriteList(p_file,list->GetChildren()[num],(level + 1));
     }
-    p_file.Format(_T("%s</ul>\n"), levelString.GetString());
+    p_file.Format(_T("%s</UL>\n"), levelString.GetString());
   }
 }
 
@@ -250,30 +266,34 @@ void
 TOC::ReadHeader(WinFile& p_file)
 {
   CString word;
+  TOCToken token = PF_EOF;
 
   if(!Misc::SkipToken(p_file,PF_HEAD,m_linenumber))
   {
     // No header, but we can continue anyway
     return;
   }
-  if(!Misc::SkipToken(p_file,PF_META,m_linenumber))
+  token = Misc::GetToken(p_file, word, m_linenumber);
+  if(token == PF_META)
   {
-    // No Meta filling of the header, but we can continue anyway
-    return;
+    token = Misc::GetToken(p_file, word, m_linenumber);
+    if(token == PF_NAME)
+    {
+      Misc::SkipToken  (p_file,PF_EQUAL,m_linenumber);
+      if(Misc::GetToken(p_file,word,    m_linenumber) != PF_STRING) throw "does not have a meta generator name";
+      m_generator = word;
+
+      Misc::SkipToken(p_file,PF_CONTENT,m_linenumber);
+      Misc::SkipToken(p_file,PF_EQUAL,  m_linenumber);
+      if(Misc::GetToken(p_file,word,m_linenumber) != PF_STRING) throw "does not have a meta content name";
+      m_content = word;
+    }
   }
-  Misc::SkipToken  (p_file,PF_NAME, m_linenumber);
-  Misc::SkipToken  (p_file,PF_EQUAL,m_linenumber);
-  if(Misc::GetToken(p_file,word,    m_linenumber) != PF_STRING) throw "does not have a meta generator name";
-  m_generator = word;
-
-  Misc::SkipToken(p_file,PF_CONTENT,m_linenumber);
-  Misc::SkipToken(p_file,PF_EQUAL,  m_linenumber);
-  if(Misc::GetToken(p_file,word,m_linenumber) != PF_STRING) throw "does not have a meta content name";
-  m_content = word;
-
-  Misc::SkipToken(p_file,PF_ENDHEAD,m_linenumber);
+  while (token != PF_ENDHEAD && token != PF_EOF)
+  {
+    token = Misc::GetToken(p_file, word, m_linenumber);
+  }
 }
-
 
 void
 TOC::ReadComment(WinFile& file)

@@ -16,7 +16,8 @@
 #include "ProjectView.h"
 #include "ProjectFile.h"
 #include "NewFileDlg.h"
-#include "float.h"
+#include "Misc.h"
+#include <float.h>
 
 //#define XML_STATE
 
@@ -238,6 +239,17 @@ ProjectView::AddRecords()
 void
 ProjectView::AddRecord(DocumentFile* p_doc)
 {
+  // Do **NOT** add the project files
+  CString filename = p_doc->GetRelativeFilename();
+  CString extens   = Misc::ExtensionPart(filename);
+  if(extens.CompareNoCase(".hhp") == 0 ||
+     extens.CompareNoCase(".hhc") == 0 ||
+     extens.CompareNoCase(".hhk") == 0)
+  {
+    return;
+  }
+
+  // Place in a grid row
   int row = m_grid.InsertRow("");
   m_grid.SetItemData(row,0,(LPARAM)p_doc);
   UpdateRecord(row,p_doc);

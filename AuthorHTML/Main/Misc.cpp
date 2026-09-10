@@ -2652,17 +2652,17 @@ Misc::IsANumber(CString& def,long& number,double& broken)
 int
 Misc::PointSizeToFontSize(int pointsize)
 {
-  switch(pointsize)
+  switch (pointsize)
   {
     // Pointsizes
-    case 1: return 8;
-    case 3: return 12;
-    case 4: return 14;
-    case 5: return 18;
-    case 6: return 24;
-    case 7: return 36;
-    case 2: // Fall through
-    default:return 10;
+  case 1: return 8;
+  case 3: return 12;
+  case 4: return 14;
+  case 5: return 18;
+  case 6: return 24;
+  case 7: return 36;
+  case 2: // Fall through
+  default:return 10;
   }
 }
 
@@ -2671,7 +2671,7 @@ Misc::PointSizeToFontSize(int pointsize)
 int
 Misc::FontSizeToPointSize(int fontsize)
 {
-  switch(fontsize)
+  switch (fontsize)
   {
   case 8:  return 1;
   case 12: return 3;
@@ -2690,12 +2690,13 @@ Misc::FontSizeToPointSize(int fontsize)
 //
 //////////////////////////////////////////////////////////////////////////
 
-const  char* TOKEN_START     = "<\"";
-const  char* TOKEN_SEPERATOR = ">= \"\'";
-static CString lastWord      = "";
-static TOCToken lastToken    = PF_NOTOKEN;
+const  char*    TOKEN_START = "<\"";
+const  char*    TOKEN_SEPERATOR = ">= \"\'";
+static CString  lastWord;
+static TOCToken lastToken = PF_NOTOKEN;
 static XString  currentstring;
 static TCHAR    ungetchbuffer[2] = { 0,0 };
+static bool     normalchar = true;
 
 // Call before use
 void
@@ -2708,22 +2709,22 @@ Misc::ResetTokenizer()
 }
 
 bool
-Misc::SkipToken(WinFile& file,TOCToken expect,long& linenumber)
+Misc::SkipToken(WinFile& file, TOCToken expect, long& linenumber)
 {
   CString word;
-  TOCToken token = GetToken(file,word,linenumber);
-  if(token == expect)
+  TOCToken token = GetToken(file, word, linenumber);
+  if (token == expect)
   {
     return true;
   }
-  PushToken(word,token);
+  PushToken(word, token);
   return false;
 }
 
 void
-Misc::PushToken(CString& word,TOCToken token)
+Misc::PushToken(CString& word, TOCToken token)
 {
-  lastWord  = word;
+  lastWord = word;
   lastToken = token;
 }
 
@@ -2731,13 +2732,15 @@ int
 Misc::GetNextTokenChar(WinFile& file)
 {
   int c = 0;
+  normalchar = true;
+
   if (ungetchbuffer[0])
   {
     c = ungetchbuffer[0];
     ungetchbuffer[0] = 0;
     return c;
   }
-  if(currentstring.GetLength() == 0)
+  if (currentstring.GetLength() == 0)
   {
     if (!file.Read(currentstring))
     {
@@ -2746,6 +2749,36 @@ Misc::GetNextTokenChar(WinFile& file)
   }
   c = currentstring.GetAt(0);
   currentstring = currentstring.Mid(1);
+
+  if(c == '&')
+  {
+    if(currentstring.Find("amp;") == 0)
+    {
+      currentstring = currentstring.Mid(4);
+      return '&';
+    }
+    if(currentstring.Find("lt;") == 0)
+    {
+      currentstring = currentstring.Mid(3);
+      return '<';
+    }
+    if(currentstring.Find("gt;") == 0)
+    {
+      currentstring = currentstring.Mid(3);
+      return '>';
+    }
+    if(currentstring.Find("apos;") == 0)
+    {
+      currentstring = currentstring.Mid(5);
+      return '\'';
+    }
+    if(currentstring.Find("quot;") == 0)
+    {
+      currentstring = currentstring.Mid(5);
+      normalchar = false;
+      return '\"';
+    }
+  }
   return c;
 }
 
@@ -2805,14 +2838,15 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
     buffer[index++] = c;
     buffer[index  ] = 0;
 
+    // Check for end-of-string
+    if (dostring && c == '\"' && normalchar)
+    {
+      buffer[--index] = 0;
+      break;
+    }
+    // Check for end-of-token
     if((index > 1) && _tcschr(TOKEN_SEPERATOR,c))
     {
-      if(dostring && c == '\"')
-      {
-        buffer[--index] = 0;
-        break;
-      }
-      //if(!(c == ' ' && dostring))
       if(!dostring)
       {
         UngetNextTokenChar(c);
@@ -2820,11 +2854,12 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
         break;
       }
     }
-    if(_tcschr(TOKEN_START,c))
+    // Check for start-of-token OR start-of-string
+    if(normalchar && _tcschr(TOKEN_START,c))
     {
       // Chop of leading spaces
       index = 0;
-      if(c == '\"')
+      if (c == '\"')
       {
         dostring = true;
       }
@@ -2864,6 +2899,28 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
   return PF_NOTOKEN;
 }
 
+CString
+Misc::FormatXMLString(const CString& p_string)
+{
+  CString result;
+  TCHAR   c = 0;
+
+  for(int ind = 0; ind < p_string.GetLength(); ++ind)
+  {
+    c = p_string.GetAt(ind);
+    switch(c)
+    {
+      case '&':  result += "&amp;";  break;
+      case '\'': result += "&apos;"; break;
+      case '\"': result += "&quot;"; break;
+      case '<':  result += "&lt;";   break;
+      case '>':  result += "&gt;";   break;
+      default:   result += (TCHAR)c; break;
+    }
+  }
+  return result;
+}
+
 typedef struct _bomTokens
 {
   int m_first;
@@ -2897,11 +2954,11 @@ Misc::SkipBOM(FILE* p_file)
   // Check UTF-8
   if(c1 == 0x0EF)
   {
-    // Check tweede char
+    // Check second char
     int c2 = getc(p_file);
     if(c2 == 0x0BB)
     {
-      // check derde char
+      // check third char
       int c3 = getc(p_file);
       if(c3 == 0x0BF)
       {
@@ -2914,7 +2971,7 @@ Misc::SkipBOM(FILE* p_file)
   }
   else
   {
-    // Geen UTF-8
+    // NOT UTF-8
     ungetc(c1,p_file);
   }
 }
@@ -2923,7 +2980,7 @@ Misc::SkipBOM(FILE* p_file)
 // Takes care of the following
 // - file protocol
 // - basename from the MS-HTML server
-// - javascripts
+// - java scripts
 // - anchor bookmarks
 
 bool

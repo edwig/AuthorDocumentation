@@ -224,6 +224,7 @@ public:
   static void     SkipBOM(FILE* p_file);
   static int      GetNextTokenChar(WinFile& file);
   static void     UngetNextTokenChar(int c);
+  static CString  FormatXMLString(const CString& p_string);
 
   // Renaming file references
   static bool     ReplaceFilenameExtra(CString& p_base

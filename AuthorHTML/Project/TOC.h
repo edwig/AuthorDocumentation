@@ -49,6 +49,8 @@ private:
   void     ReadComment(WinFile& p_file);
   void     ReadProperties (WinFile& p_file);
   bool     ReadList       (WinFile& p_file,TOCEntry* list,int level);
+  void     WriteHeader    (WinFile& p_file);
+  void     WriteFooter    (WinFile& p_file);
   void     WriteProperties(WinFile& p_file);
   void     WriteList      (WinFile& p_file,TOCEntry* list,int level);
   void     WriteParameter (WinFile& p_file,CString& levelString,LPCTSTR name,CString value);
