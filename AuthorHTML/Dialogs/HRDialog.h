@@ -40,14 +40,16 @@ private:
 
   CString m_base;
   HtmlHR  m_hr;
-  UINT    m_size;
-  UINT    m_width;
+  double  m_size;
+  double  m_width;
   BOOL    m_shade;
   CString m_align;
   bool    m_widthInPix;
   CString m_color;
   bool    m_canApply;
   bool    m_hasColor;
+  CString m_wunits;
+  CString m_sunits;
 
   CSpinButtonCtrl m_sizeCtrl;
   CSpinButtonCtrl m_widthCtrl;

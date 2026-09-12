@@ -752,6 +752,9 @@
     <ClCompile Include="Tools\CheckWorkshop.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="CSS\CSS_utils.cpp">
+      <Filter>Source Files\CSS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Css\CSS.h">
@@ -1437,6 +1440,9 @@
     </ClInclude>
     <ClInclude Include="Tools\CheckWorkshop.h">
       <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSS\CSS_utils.h">
+      <Filter>Source Files\CSS\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

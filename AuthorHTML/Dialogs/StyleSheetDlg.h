@@ -35,22 +35,6 @@ class CSSPage5Dlg;
 class CSSPage6Dlg;
 class CSSPage7Dlg;
 
-extern CString
-CSSPropertyGet(CssStyleSheet* css
-              ,string& selector
-              ,string  property
-              ,bool unspec /*=true*/);
-extern void
-CSSPropertyPut(CssStyleSheet* css
-              ,string& selector
-              ,string  property
-              ,CString value
-              ,bool    unspec);
-extern void
-CssSplitValueUnits(CString property,CString& value,CString& units);
-extern CComBSTR
-CssCtoB(CString value);
-
 // StyleSheetDlg dialog
 
 class StyleSheetDlg : public CDialog

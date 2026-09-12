@@ -68,6 +68,8 @@ protected:
   CString     m_frame;
   CString     m_width;
   CString     m_height;
+  CString     m_wunits;
+  CString     m_hunits;
   CString     m_saveEdit;
   int         m_maxItemInObject;
 

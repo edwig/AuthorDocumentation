@@ -47,6 +47,8 @@ protected:
   CString   m_linkVisitedColor;
   CString   m_linkActiveColor;
   CString   m_scroll;
+  CString   m_tunits;
+  CString   m_lunits;
   bool      m_nowrap;
 
   bool      m_doTextColor;

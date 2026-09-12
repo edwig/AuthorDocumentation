@@ -171,7 +171,15 @@ CSSPage5Dlg::OnInitDialog()
   }
   FillPage();
   UpdateData(Data2Controls);
+  InitSpinButtons();
+  InitUnitCombos();
 
+  return TRUE;
+}
+
+void
+CSSPage5Dlg::InitSpinButtons()
+{
   // Margins
   m_spinMT.SetBase(10);
   m_spinML.SetBase(10);
@@ -221,8 +229,29 @@ CSSPage5Dlg::OnInitDialog()
   m_spinH.SetRange(-32000,32000);
   m_spinW.SetPos(atoi(m_width));
   m_spinH.SetPos(atoi(m_height));
+}
 
-  return TRUE;
+void
+CSSPage5Dlg::InitUnitCombos()
+{
+  // Margins
+  CSSComboBoxUnits(m_comboMT,m_marginTUnit);
+  CSSComboBoxUnits(m_comboML,m_marginLUnit);
+  CSSComboBoxUnits(m_comboMR,m_marginRUnit);
+  CSSComboBoxUnits(m_comboMB,m_marginBUnit);
+  // Paddings
+  CSSComboBoxUnits(m_comboPT,m_paddingTUnit);
+  CSSComboBoxUnits(m_comboPL,m_paddingLUnit);
+  CSSComboBoxUnits(m_comboPR,m_paddingRUnit);
+  CSSComboBoxUnits(m_comboPB,m_paddingBUnit);
+  // Offsets
+  CSSComboBoxUnits(m_comboOT,m_offsetTUnit);
+  CSSComboBoxUnits(m_comboOL,m_offsetLUnit);
+  CSSComboBoxUnits(m_comboOR,m_offsetRUnit);
+  CSSComboBoxUnits(m_comboOB,m_offsetBUnit);
+  // Width/Height
+  CSSComboBoxUnits(m_comboW,m_widthUnit);
+  CSSComboBoxUnits(m_comboH,m_heightUnit);
 }
 
 void
@@ -625,7 +654,9 @@ CSSPage5Dlg::OnCbnSelchangeMuT()
   int ind = m_comboMT.GetCurSel();
   if(ind >= 0)
   {
-    m_comboMT.GetLBText(ind,m_marginTUnit);
+    CString newunits;
+    m_comboMT.GetLBText(ind,newunits);
+    m_marginTop = CssConvertToUnit(m_marginTop + m_marginTUnit,newunits,m_marginTUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -637,7 +668,9 @@ CSSPage5Dlg::OnCbnSelchangeMuL()
   int ind = m_comboML.GetCurSel();
   if(ind >= 0)
   {
-    m_comboML.GetLBText(ind,m_marginLUnit);
+    CString newunits;
+    m_comboML.GetLBText(ind,newunits);
+    m_marginLeft = CssConvertToUnit(m_marginLeft + m_marginLUnit,newunits,m_marginLUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -649,7 +682,9 @@ CSSPage5Dlg::OnCbnSelchangeMuR()
   int ind = m_comboMR.GetCurSel();
   if(ind >= 0)
   {
-    m_comboMR.GetLBText(ind,m_marginRUnit);
+    CString newunits;
+    m_comboMR.GetLBText(ind,newunits);
+    m_marginRight = CssConvertToUnit(m_marginRight + m_marginRUnit,newunits,m_marginRUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -661,7 +696,9 @@ CSSPage5Dlg::OnCbnSelchangeMuB()
   int ind = m_comboMR.GetCurSel();
   if(ind >= 0)
   {
-    m_comboMR.GetLBText(ind,m_marginRUnit);
+    CString newunits;
+    m_comboMR.GetLBText(ind,newunits);
+    m_marginBottom = CssConvertToUnit(m_marginBottom + m_marginBUnit,newunits,m_marginBUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -706,7 +743,9 @@ void CSSPage5Dlg::OnCbnSelchangePuT()
   int ind = m_comboPT.GetCurSel();
   if(ind >= 0)
   {
-    m_comboPT.GetLBText(ind,m_paddingTUnit);
+    CString newunits;
+    m_comboPT.GetLBText(ind,newunits);
+    m_paddingTop = CssConvertToUnit(m_paddingTop + m_paddingTUnit,newunits,m_paddingTUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -717,7 +756,9 @@ void CSSPage5Dlg::OnCbnSelchangePuL()
   int ind = m_comboPL.GetCurSel();
   if(ind >= 0)
   {
-    m_comboPL.GetLBText(ind,m_paddingLUnit);
+    CString newunits;
+    m_comboPL.GetLBText(ind,newunits);
+    m_paddingLeft = CssConvertToUnit(m_paddingLeft + m_paddingLUnit,newunits,m_paddingLUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -728,7 +769,9 @@ void CSSPage5Dlg::OnCbnSelchangePuR()
   int ind = m_comboPR.GetCurSel();
   if(ind >= 0)
   {
-    m_comboPR.GetLBText(ind,m_paddingRUnit);
+    CString newunits;
+    m_comboPR.GetLBText(ind,newunits);
+    m_paddingRUnit = CssConvertToUnit(m_paddingRight + m_paddingRUnit,newunits,m_paddingRUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -739,7 +782,9 @@ void CSSPage5Dlg::OnCbnSelchangePuB()
   int ind = m_comboPB.GetCurSel();
   if(ind >= 0)
   {
-    m_comboPB.GetLBText(ind,m_paddingBUnit);
+    CString newunits;
+    m_comboPB.GetLBText(ind,newunits);
+    m_paddingBottom = CssConvertToUnit(m_paddingBottom + m_paddingBUnit,newunits,m_paddingBUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -785,7 +830,9 @@ void CSSPage5Dlg::OnCbnSelchangeOuT()
   int ind = m_comboOT.GetCurSel();
   if(ind >= 0)
   {
-    m_comboOT.GetLBText(ind,m_offsetTUnit);
+    CString newunits;
+    m_comboOT.GetLBText(ind,newunits);
+    m_offsetTop = CssConvertToUnit(m_offsetTop + m_offsetTUnit,newunits,m_offsetTUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -796,7 +843,9 @@ void CSSPage5Dlg::OnCbnSelchangeOuL()
   int ind = m_comboOL.GetCurSel();
   if(ind >= 0)
   {
-    m_comboOL.GetLBText(ind,m_offsetLUnit);
+    CString newunits;
+    m_comboOL.GetLBText(ind,newunits);
+    m_offsetLeft = CssConvertToUnit(m_offsetLeft + m_offsetLUnit,newunits,m_offsetLUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -807,7 +856,9 @@ void CSSPage5Dlg::OnCbnSelchangeOuR()
   int ind = m_comboOR.GetCurSel();
   if(ind >= 0)
   {
-    m_comboOR.GetLBText(ind,m_offsetRUnit);
+    CString newunits;
+    m_comboOR.GetLBText(ind,newunits);
+    m_offsetRight = CssConvertToUnit(m_offsetRight + m_offsetRUnit,newunits,m_offsetRUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -818,7 +869,9 @@ void CSSPage5Dlg::OnCbnSelchangeOuB()
   int ind = m_comboOB.GetCurSel();
   if(ind >= 0)
   {
-    m_comboOB.GetLBText(ind,m_offsetBUnit);
+    CString newunits;
+    m_comboOB.GetLBText(ind,newunits);
+    m_offsetBottom = CssConvertToUnit(m_offsetBottom + m_offsetBUnit,newunits,m_offsetBUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -845,7 +898,9 @@ void CSSPage5Dlg::OnCbnSelchangeWidthUnit()
   int ind = m_comboW.GetCurSel();
   if(ind >= 0)
   {
-    m_comboW.GetLBText(ind,m_widthUnit);
+    CString newunits;
+    m_comboW.GetLBText(ind,newunits);
+    m_width = CssConvertToUnit(m_width + m_widthUnit,newunits,m_widthUnit,true);
   }
   UpdateProperties();
   Redisplay();
@@ -856,7 +911,9 @@ void CSSPage5Dlg::OnCbnSelchangeHeightUnit()
   int ind = m_comboH.GetCurSel();
   if(ind >= 0)
   {
-    m_comboH.GetLBText(ind,m_heightUnit);
+    CString newunits;
+    m_comboH.GetLBText(ind,newunits);
+    m_height = CssConvertToUnit(m_height + m_heightUnit,newunits,m_heightUnit,true);
   }
   UpdateProperties();
   Redisplay();

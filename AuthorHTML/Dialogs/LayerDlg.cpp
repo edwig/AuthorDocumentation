@@ -148,6 +148,12 @@ LayerDlg::FillPage()
   m_height     = CSSPropertyGet(m_css,selector,"height",    false);
   m_left       = CSSPropertyGet(m_css,selector,"left",      false);
   m_top        = CSSPropertyGet(m_css,selector,"top",       false);
+
+  // Make sure we have it in pixels
+  m_width  = CssConvertToUnit(m_width ,"px",m_wunits);
+  m_height = CssConvertToUnit(m_height,"px",m_hunits);
+  m_left   = CssConvertToUnit(m_left,  "px",m_lunits);
+  m_top    = CssConvertToUnit(m_top,   "px",m_tunits);
 }
 
 void
@@ -155,12 +161,13 @@ LayerDlg::UpdateProperties()
 {
   m_elem->SetAttribute("id",m_id);
   string selector = "div";
+  CString pixels;
   CSSPropertyPut(m_css,selector,"z-index",   m_zindex,    false);
   CSSPropertyPut(m_css,selector,"visibility",m_visibility,true);
-  CSSPropertyPut(m_css,selector,"width",     m_width,     false);
-  CSSPropertyPut(m_css,selector,"height",    m_height,    false);
-  CSSPropertyPut(m_css,selector,"left",      m_left,      false);
-  CSSPropertyPut(m_css,selector,"top",       m_top,       false);
+  CSSPropertyPut(m_css,selector,"width",     CssConvertToUnit(m_width  + "px",m_wunits,pixels) + m_wunits, false);
+  CSSPropertyPut(m_css,selector,"height",    CssConvertToUnit(m_height + "px",m_hunits,pixels) + m_hunits, false);
+  CSSPropertyPut(m_css,selector,"left",      CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits, false);
+  CSSPropertyPut(m_css,selector,"top",       CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits, false);
   CSSPropertyPut(m_css,selector,"position",  "absolute",  false);
   if(m_css->print_css())
   {

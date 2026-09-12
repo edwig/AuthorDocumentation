@@ -40,6 +40,7 @@ protected:
 private:
   void Redisplay();
   void FillPage();
+  void InitControls();
   void SetAllSides();
   void SplitBorderProperty(CString  property
                           ,CString& width

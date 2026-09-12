@@ -230,11 +230,12 @@ ImageDlg::FillPage()
   m_hpad   = m_img->GetProperty(HtmlImg::E_HorPad);
   m_vpad   = m_img->GetProperty(HtmlImg::E_VerPad);
 
-  CssSplitValueUnits(m_width, m_width, m_wunits);
-  CssSplitValueUnits(m_height,m_height,m_hunits);
-  CssSplitValueUnits(m_hpad,  m_hpad,  m_hpunits);
-  CssSplitValueUnits(m_vpad,  m_vpad,  m_vpunits);
-  CssSplitValueUnits(m_border,m_border,m_bunits);
+  m_width  = CssConvertToUnit(m_width, "px",m_wunits);
+  m_height = CssConvertToUnit(m_height,"px",m_hunits);
+  m_hpad   = CssConvertToUnit(m_hpad,  "px",m_hpunits);
+  m_vpad   = CssConvertToUnit(m_vpad,  "px",m_vpunits);
+  m_border = CssConvertToUnit(m_border,"px",m_bunits);
+
   if(atoi(m_loop) == -1)
   {
     m_loop = "Infinite";
@@ -245,6 +246,7 @@ void
 ImageDlg::UpdateProperties()
 {
   CString looping(m_loop);
+  CString pixels;
   if(looping.CompareNoCase("Infinite") == 0)
   {
     looping = "-1";
@@ -255,12 +257,12 @@ ImageDlg::UpdateProperties()
   m_img->SetAlt(m_title);
   m_img->SetStart(m_start);
   m_img->SetLoop(looping);
-  m_img->SetProperty(HtmlImg::E_Width,  m_width  + m_wunits);
-  m_img->SetProperty(HtmlImg::E_Height, m_height + m_hunits);
-  m_img->SetProperty(HtmlImg::E_Border, m_border + m_bunits);
+  m_img->SetProperty(HtmlImg::E_Width,  CssConvertToUnit(m_width  + "px",m_wunits, pixels) + m_wunits);
+  m_img->SetProperty(HtmlImg::E_Height, CssConvertToUnit(m_height + "px",m_hunits, pixels) + m_hunits);
+  m_img->SetProperty(HtmlImg::E_Border, CssConvertToUnit(m_border + "px",m_bunits, pixels) + m_bunits);
+  m_img->SetProperty(HtmlImg::E_HorPad, CssConvertToUnit(m_hpad   + "px",m_hpunits,pixels) + m_hpunits);
+  m_img->SetProperty(HtmlImg::E_VerPad, CssConvertToUnit(m_vpad   + "px",m_vpunits,pixels) + m_vpunits);
   m_img->SetProperty(HtmlImg::E_Align,  m_align);
-  m_img->SetProperty(HtmlImg::E_HorPad, m_hpad + m_hpunits);
-  m_img->SetProperty(HtmlImg::E_VerPad, m_vpad + m_vpunits);
 }
 
 #pragma warning (disable:4244) // Double to int conversion

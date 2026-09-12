@@ -8,7 +8,24 @@ Version 1.0.x
 2) Rewritten the read/write of the *.CSS files
 3) Extra checks on the files in the window definition. TOC and HKK must
    be relative pathnames there.
-
+4) Fully support all CSS measurement units:
+   // Absolute size
+   px      // Pixels ( 1/96 of an inch)
+   in      // Inch
+   cm      // Centimeter (1/2.54  of an inch)
+   mm      // Millimeter (1/25.4  of an inch)
+   Q       // Quarter    (1/101.6 of an inch)
+   pt      // Point      (1/72    of an inch)
+   pc      // Pica       (1/6     of an inch)
+   // Relative size
+   %       // Percentage of the browser viewport
+   ex      // Height of the fonts 'x' character
+   em      // Width of the em of a font
+   rem     // Width of the em of the root font
+   vh      // Percentage of the viewport height
+   vw      // Percentage of the viewport width
+   vmin    // Percentage of the minimum of viewport(width and height)
+   vmax    // Percentage of the maximum of viewport(width and height)
 
 Version 1.0.2
 -------------

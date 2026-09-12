@@ -3,50 +3,7 @@
 
 #pragma once
 #include "umap.hpp"
-
-typedef umap<string, string>   pstore;
-typedef umap<string, pstore >  sstore;
-typedef umap<string, sstore>   css_struct;
-
-enum parse_status
-{
-   is     // In a selector
-  ,ip     // In a property
-  ,iv     // In a value
-  ,instr  // In a string
-  ,ic     // In a comment
-  ,at     // In an @ at-block
-};
-
-enum message_type
-{
-   Information
-  ,Warning
-  ,Error
-};
-
-enum token_type
-{
-   AT_START
-  ,AT_END
-  ,SEL_START
-  ,SEL_END
-  ,PROPERTY
-  ,VALUE
-  ,COMMENT
-};
-
-struct token
-{
-  token_type type;
-  string     data;
-};
-
-struct message
-{
-  string       m;
-  message_type t;
-};
+#include "CSS_utils.h"
 
 class CssStyleSheet 
 { 

@@ -181,6 +181,11 @@ TopicPropPage2Dlg::FillPage()
   m_scroll           = m_body.GetProperty(HtmlBody::E_Scroll);
   CString prop       = m_body.GetProperty(HtmlBody::E_BgProperties);
   m_backgroundFixed  = false;
+
+  // Convert to pixels
+  m_marginTop  = CssConvertToUnit(m_marginTop, "px",m_tunits);
+  m_marginLeft = CssConvertToUnit(m_marginLeft,"px",m_lunits);
+
   if(prop.CompareNoCase("fixed") == 0)
   {
     m_backgroundFixed = true;
@@ -254,6 +259,9 @@ void
 TopicPropPage2Dlg::UpdateProperties()
 {
   int red,green,blue;
+  CString top;
+  CString left;
+  CString pixels;
 
   CString fixed = m_backgroundFixed ? "fixed" : "";
   m_body.SetProperty(HtmlBody::E_BgProperties,fixed);
@@ -267,14 +275,22 @@ TopicPropPage2Dlg::UpdateProperties()
   {
     m_marginTop = "";
   }
-  m_body.SetProperty(HtmlBody::E_TopMargin,   m_marginTop);
-  m_body.SetProperty(HtmlBody::E_BottomMargin,m_marginTop);
+  else
+  {
+    top = CssConvertToUnit(m_marginTop + "px",m_tunits,pixels) + m_tunits;
+  }
+  m_body.SetProperty(HtmlBody::E_TopMargin,   top);
+  m_body.SetProperty(HtmlBody::E_BottomMargin,top);
   if(!m_doRightLeft)
   {
     m_marginLeft = "";
   }
-  m_body.SetProperty(HtmlBody::E_LeftMargin,  m_marginLeft);
-  m_body.SetProperty(HtmlBody::E_RightMargin, m_marginLeft);
+  else
+  {
+    left = CssConvertToUnit(m_marginLeft + "px",m_lunits,pixels) + m_lunits;
+  }
+  m_body.SetProperty(HtmlBody::E_LeftMargin,  left);
+  m_body.SetProperty(HtmlBody::E_RightMargin, left);
   
   if(!m_doScroll)
   {

@@ -130,14 +130,14 @@ HRDialog::OnInitDialog()
 void
 HRDialog::ReadProperties()
 {
-  m_widthInPix = true;
-  m_size = atoi(m_hr.GetProperty(HtmlHR::E_Size)); // Always pixels
+  CString size  = m_hr.GetProperty(HtmlHR::E_Size);
   CString width = m_hr.GetProperty(HtmlHR::E_Width);
-  if(width.Find('%') >= 0)
-  {
-    m_widthInPix = false;
-  }
-  m_width = atoi(width);
+
+  size    = CssConvertToUnit(size, "px",m_sunits);
+  width   = CssConvertToUnit(width,"px",m_wunits);
+  m_size  = atof(size);
+  m_width = atof(width);
+
   m_shade = m_hr.GetShade();
   m_align = m_hr.GetProperty(HtmlHR::E_Align);
   m_color = m_hr.GetProperty(HtmlHR::E_Color);
@@ -159,22 +159,21 @@ HRDialog::UpdateProperties()
 {
   int red,green,blue;
   CString s_size,s_width,s_align;
+  CString pixels;
 
   UpdateData(Controls2Data);
   // SIZE
   if(m_size > 0)
   {
-    s_size.Format("%d",m_size);
+    s_size.Format("%f",m_size);
+    s_size = CssConvertToUnit(s_size + "px",m_sunits,pixels) + m_sunits;
   }
   m_hr.SetProperty(HtmlHR::E_Size, s_size);
   // WIDTH
   if(m_width > 0)
   {
-    s_width.Format("%d",m_width);
-    if(!m_widthInPix)
-    {
-      s_width += CString("%");
-    }
+    s_width.Format("%f",m_width);
+    s_width = CssConvertToUnit(s_width + "px",m_sunits,pixels) + m_sunits;
   }
   m_hr.SetProperty(HtmlHR::E_Width,s_width);
   // ALIGN

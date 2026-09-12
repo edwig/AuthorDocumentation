@@ -35,6 +35,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 private:
+  void InitFields();
   void FillPage();
   void UpdateProperties();
 
@@ -62,23 +63,23 @@ private:
   CString     m_mhunits;
 
   // Controls
-  AD_Button         m_buttonChoose;
-  CComboBox     m_comboWUnits;
-  CComboBox     m_comboHUnits;
+  AD_Button       m_buttonChoose;
+  CComboBox       m_comboWUnits;
+  CComboBox       m_comboHUnits;
   CSpinButtonCtrl m_spinWidth;
   CSpinButtonCtrl m_spinHeight;
-  AD_Button         m_buttonNoResize;
-  CComboBox     m_comboHSU;
-  CComboBox     m_comboVSU;
+  AD_Button       m_buttonNoResize;
+  CComboBox       m_comboHSU;
+  CComboBox       m_comboVSU;
   CSpinButtonCtrl m_spinHM;
   CSpinButtonCtrl m_spinVM;
-  CComboBox     m_comboHPU;
-  CComboBox     m_comboVPU;
+  CComboBox       m_comboHPU;
+  CComboBox       m_comboVPU;
   CSpinButtonCtrl m_spinHP;
   CSpinButtonCtrl m_spinVP;
-  CComboBox     m_comboAlign;
-  CComboBox     m_comboScroll;
-  AD_Checkbox   m_buttonBorder;
+  CComboBox       m_comboAlign;
+  CComboBox       m_comboScroll;
+  AD_Checkbox     m_buttonBorder;
   // Standard buttons
   AD_Button     m_buttonID;
   AD_Button     m_buttonEvents;

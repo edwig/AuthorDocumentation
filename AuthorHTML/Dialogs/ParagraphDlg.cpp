@@ -163,7 +163,15 @@ ParagraphDlg::OnInitDialog()
     m_spBrowser = pWnd->GetControlUnknown();
   }
   FillPage();
+  InitControls();
 
+  Redisplay();
+  return TRUE;
+}
+
+void
+ParagraphDlg::InitControls()
+{
   m_spinLeft.SetBase(10);
   m_spinLeft.SetRange(-32000,32000);
   m_spinLeft.SetPos(atoi(m_marginLeft));
@@ -183,8 +191,12 @@ ParagraphDlg::OnInitDialog()
   m_spinWord.SetRange(-32000,32000);
   m_spinWord.SetPos(atoi(m_wordSpacing));
 
-  Redisplay();
-  return TRUE;
+  CSSComboBoxUnits(m_comboTop,    m_marginTopUnit);
+  CSSComboBoxUnits(m_comboLeft,   m_marginLeftUnit);
+  CSSComboBoxUnits(m_comboRight,  m_marginRightUnit);
+  CSSComboBoxUnits(m_comboBottom, m_marginBottomUnit);
+  CSSComboBoxUnits(m_comboIndent, m_textIndentUnit);
+  CSSComboBoxUnits(m_comboSpacing,m_wordSpacingUnit);
 }
 
 void
@@ -441,52 +453,64 @@ ParagraphDlg::OnEnChangeParaSa()
   Redisplay();
 }
 
+// BTU = Before Text Units -> Left margin
 void 
 ParagraphDlg::OnCbnSelchangeParaBtu()
 {
   int ind = m_comboLeft.GetCurSel();
   if(ind >= 0)
   {
-    m_comboLeft.GetLBText(ind,m_marginLeftUnit);
+    CString newunits;
+    m_comboLeft.GetLBText(ind,newunits);
+    m_marginLeft = CssConvertToUnit(m_marginLeft + m_marginLeftUnit,newunits,m_marginLeftUnit,true);
     m_canApply = true;
   }
   UpdateProperties();
   Redisplay();
 }
 
+// ATU = After Text Units -> Right margin
 void 
 ParagraphDlg::OnCbnSelchangeParaAtu()
 {
   int ind = m_comboRight.GetCurSel();
   if(ind >= 0)
   {
-    m_comboRight.GetLBText(ind,m_marginRightUnit);
+    CString newunits;
+    m_comboRight.GetLBText(ind,newunits);
+    m_marginRight = CssConvertToUnit(m_marginRight + m_marginRightUnit,newunits,m_marginRightUnit,true);
     m_canApply = true;
   }
   UpdateProperties();
   Redisplay();
 }
 
+// SBU = Spacing before Units -> Top margin
 void 
 ParagraphDlg::OnCbnSelchangeParaSbu()
 {
   int ind = m_comboTop.GetCurSel();
   if(ind >= 0)
   {
-    m_comboTop.GetLBText(ind,m_marginTopUnit);
+    CString newunits;
+    m_comboTop.GetLBText(ind,newunits);
+    m_marginTop = CssConvertToUnit(m_marginTop + m_marginTopUnit,newunits,m_marginTopUnit,true);
     m_canApply = true;
   }
   UpdateProperties();
   Redisplay();
 }
 
+// SAU = Spacing After Units = Bottom margin
 void 
 ParagraphDlg::OnCbnSelchangeParaSau()
 {
   int ind = m_comboBottom.GetCurSel();
   if(ind >= 0)
   {
-    m_comboBottom.GetLBText(ind,m_marginBottomUnit);
+    CString newunits;
+    m_comboBottom.GetLBText(ind,newunits);
+    m_marginBottom = CssConvertToUnit(m_marginBottom + m_marginBottomUnit,newunits,m_marginBottomUnit,true);
     m_canApply = true;
   }
   UpdateProperties();
@@ -613,7 +637,9 @@ ParagraphDlg::OnCbnSelchangeParaIndentu()
   int ind = m_comboIndent.GetCurSel();
   if(ind >= 0)
   {
-    m_comboIndent.GetLBText(ind,m_textIndentUnit);
+    CString newunits;
+    m_comboIndent.GetLBText(ind,newunits);
+    m_textIndent = CssConvertToUnit(m_textIndent + m_textIndentUnit,newunits,m_textIndentUnit,true);
     m_canApply = true;
   }
   UpdateProperties();
@@ -660,13 +686,16 @@ ParagraphDlg::OnEnChangeParaWs()
   Redisplay();
 }
 
+// WSU = Word Spacing Unit
 void 
 ParagraphDlg::OnCbnSelchangeParaWsu()
 {
   int ind = m_comboWord.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWord.GetLBText(ind,m_wordSpacingUnit);
+    CString newunits;
+    m_comboWord.GetLBText(ind,newunits);
+    m_wordSpacing = CssConvertToUnit(m_wordSpacing + m_wordSpacingUnit,newunits,m_wordSpacingUnit,true);
     m_canApply = true;
   }
   UpdateProperties();

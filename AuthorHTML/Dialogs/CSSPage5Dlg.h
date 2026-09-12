@@ -34,6 +34,8 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
   void OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/);
+  void InitSpinButtons();
+  void InitUnitCombos();
 
 	DECLARE_MESSAGE_MAP()
   DECLARE_EVENTSINK_MAP()

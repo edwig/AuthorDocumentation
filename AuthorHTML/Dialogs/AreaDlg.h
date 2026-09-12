@@ -57,6 +57,11 @@ private:
   CString   m_right;  // x2 radius
   CString   m_bottom; // y2 
   CString   m_polygon;
+  CString   m_lunits;
+  CString   m_runits;
+  CString   m_tunits;
+  CString   m_bunits;
+
   bool      m_nohref;
   bool      m_doPopup;
   bool      m_doBSSCpopup;

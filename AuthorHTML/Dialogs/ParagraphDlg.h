@@ -43,6 +43,7 @@ protected:
 
 private:
   void FillPage();
+  void InitControls();
   void Redisplay();
 
   CComQIPtr<IWebBrowser2>   m_spBrowser;
@@ -71,20 +72,20 @@ private:
   CString     m_wordSpacingUnit;
 
   // Controls
-  CSpinButtonCtrl m_spinLeft;
-  CComboBox     m_comboLeft;
-  CSpinButtonCtrl m_spinRight;
-  CComboBox     m_comboRight;
-  CSpinButtonCtrl m_spinTop;
-  CComboBox     m_comboTop;
-  CSpinButtonCtrl m_spinBottom;
-  CComboBox     m_comboBottom;
-  CComboBox     m_comboAlign;
-  CComboBox     m_comboSpacing;
-  CSpinButtonCtrl m_spinIndent;
-  CComboBox     m_comboIndent;
-  CSpinButtonCtrl m_spinWord;
-  CComboBox     m_comboWord;
+  CSpinButtonCtrl   m_spinLeft;
+  CComboBox         m_comboLeft;
+  CSpinButtonCtrl   m_spinRight;
+  CComboBox         m_comboRight;
+  CSpinButtonCtrl   m_spinTop;
+  CComboBox         m_comboTop;
+  CSpinButtonCtrl   m_spinBottom;
+  CComboBox         m_comboBottom;
+  CComboBox         m_comboAlign;
+  CComboBox         m_comboSpacing;
+  CSpinButtonCtrl   m_spinIndent;
+  CComboBox         m_comboIndent;
+  CSpinButtonCtrl   m_spinWord;
+  CComboBox         m_comboWord;
   AD_Button         m_buttonID;
   AD_Button         m_buttonEvents;
   AD_Button         m_buttonStyle;

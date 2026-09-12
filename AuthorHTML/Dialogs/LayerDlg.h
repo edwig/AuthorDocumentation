@@ -52,8 +52,13 @@ private:
   CString         m_height;
   CString         m_left;
   CString         m_top;
+
+  CString         m_wunits;
+  CString         m_hunits;
+  CString         m_lunits;
+  CString         m_tunits;
   // Controls
-  CComboBox     m_comboVisibility;
+  CComboBox       m_comboVisibility;
   CSpinButtonCtrl m_spinZindex;
   CSpinButtonCtrl m_spinWidth;
   CSpinButtonCtrl m_spinHeight;

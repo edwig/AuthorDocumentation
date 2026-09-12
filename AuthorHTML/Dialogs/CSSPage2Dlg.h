@@ -42,6 +42,7 @@ protected:
 
 private:
   void FillPage();
+  void InitCombos();
   void Redisplay();
 
   CComQIPtr<IWebBrowser2>   m_spBrowser;

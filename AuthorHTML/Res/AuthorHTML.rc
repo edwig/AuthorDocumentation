@@ -2073,22 +2073,22 @@ BEGIN
     EDITTEXT        IDC_PARA_BT,70,18,55,12,ES_AUTOHSCROLL
     CONTROL         "",IDC_SPIN_BT,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,115,17,11,14
     COMBOBOX        IDC_PARA_BTU,133,18,36,122,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    RTEXT           "After text:",IDC_STATIC,14,39,50,8
+    RTEXT           "After text:",IDC_STATIC,14,37,50,8
     EDITTEXT        IDC_PARA_AT,70,35,55,12,ES_AUTOHSCROLL
     CONTROL         "",IDC_SPIN_AT,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,115,33,11,14
     COMBOBOX        IDC_PARA_ATU,133,35,36,123,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    RTEXT           "Indent first line:",IDC_STATIC,11,54,53,8
+    RTEXT           "Indent first line:",IDC_STATIC,11,55,53,8
     EDITTEXT        IDC_PARA_INDENT,70,53,55,12,ES_AUTOHSCROLL
     CONTROL         "",IDC_SPIN_INDENT,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,114,51,11,14
     COMBOBOX        IDC_PARA_INDENTU,133,53,36,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     RTEXT           "Alignment:",IDC_STATIC,176,55,44,8
     COMBOBOX        IDC_PARA_ALIGN,226,53,74,58,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Spacing:",IDC_STATIC,7,73,299,64
-    RTEXT           "Before:",IDC_STATIC,13,86,51,8
+    RTEXT           "Before:",IDC_STATIC,13,85,51,8
     EDITTEXT        IDC_PARA_SB,70,83,55,12,ES_AUTOHSCROLL
     CONTROL         "",IDC_SPIN_SB,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,114,81,11,14
     COMBOBOX        IDC_PARA_SBU,133,83,36,87,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    RTEXT           "After:",IDC_STATIC,13,102,51,8
+    RTEXT           "After:",IDC_STATIC,13,101,51,8
     EDITTEXT        IDC_PARA_SA,70,99,55,12,ES_AUTOHSCROLL
     CONTROL         "",IDC_SPIN_SA,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,114,98,11,14
     COMBOBOX        IDC_PARA_SAU,133,99,36,119,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
@@ -3873,7 +3873,7 @@ BEGIN
         VERTGUIDE, 300
         TOPMARGIN, 7
         BOTTOMMARGIN, 296
-        HORZGUIDE, 48
+        HORZGUIDE, 47
         HORZGUIDE, 65
         HORZGUIDE, 80
         HORZGUIDE, 95
@@ -4877,80 +4877,8 @@ BEGIN
 0x2d78, 0x616c, 0x6772, 0x0065, 
     IDC_SS_FONTSIZE, 0x403, 9, 0
 0x7878, 0x6c2d, 0x7261, 0x6567, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_FS_UNITS, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_FS_UNITS, 0x403, 2, 0
-0x0025, 
     IDC_SS_LINEHEIGHT, 0x403, 7, 0
 0x6f4e, 0x6d72, 0x6c61, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LH_UNITS, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LH_UNITS, 0x403, 2, 0
-0x0025, 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LI_UNITS, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LI_UNITS, 0x403, 2, 0
-0x0025, 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LS_UNITS, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LS_UNITS, 0x403, 2, 0
-0x0025, 
     IDC_SS_FONTWEIGHT, 0x403, 12, 0
 0x6e55, 0x7073, 0x6365, 0x6669, 0x6569, 0x0064, 
     IDC_SS_FONTWEIGHT, 0x403, 8, 0
@@ -5176,70 +5104,6 @@ BEGIN
 0x754f, 0x7374, 0x7465, "\000" 
     IDC_LS_BOTTOM, 0x403, 8, 0
 0x6e49, 0x6568, 0x6972, 0x0074, 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LWU_TOP, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LWU_LEFT, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LWU_RIGHT, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_LWU_BOTTOM, 0x403, 3, 0
-0x7865, "\000" 
     IDC_EXPLORER, 0x376, 160, 0
 0x0000, 0x0000, 0x004c, 0x0000, 0x302a, 0x0000, 0x166d, 0x0000, 0x0001, 
 0x0000, 0x0005, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
@@ -5255,240 +5119,6 @@ END
 
 IDD_SS_PAGE5 DLGINIT
 BEGIN
-    IDC_MU_T, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_MU_T, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_MU_T, 0x403, 2, 0
-0x0025, 
-    IDC_MU_L, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_MU_L, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_MU_L, 0x403, 2, 0
-0x0025, 
-    IDC_MU_R, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_MU_R, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_MU_R, 0x403, 2, 0
-0x0025, 
-    IDC_MU_B, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_MU_B, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_MU_B, 0x403, 2, 0
-0x0025, 
-    IDC_PU_T, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PU_T, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PU_T, 0x403, 2, 0
-0x0025, 
-    IDC_PU_L, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PU_L, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PU_L, 0x403, 2, 0
-0x0025, 
-    IDC_PU_R, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PU_R, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PU_R, 0x403, 2, 0
-0x0025, 
-    IDC_PU_B, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PU_B, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PU_B, 0x403, 2, 0
-0x0025, 
-    IDC_OU_T, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_OU_T, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_OU_T, 0x403, 2, 0
-0x0025, 
-    IDC_OU_L, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_OU_L, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_OU_L, 0x403, 2, 0
-0x0025, 
-    IDC_OU_R, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_OU_R, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_OU_R, 0x403, 2, 0
-0x0025, 
-    IDC_OU_B, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_OU_B, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_OU_B, 0x403, 2, 0
-0x0025, 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_WIDTH_UNIT, 0x403, 2, 0
-0x0025, 
     IDC_MINWIDTH_UNIT, 0x403, 3, 0
 0x7870, "\000" 
     IDC_MINWIDTH_UNIT, 0x403, 3, 0
@@ -5798,60 +5428,6 @@ END
 
 IDD_PARAGRAPH DLGINIT
 BEGIN
-    IDC_PARA_BTU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_BTU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_BTU, 0x403, 2, 0
-0x0025, 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_ATU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_ATU, 0x403, 2, 0
-0x0025, 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_INDENTU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_INDENTU, 0x403, 2, 0
-0x0025, 
     IDC_PARA_ALIGN, 0x403, 12, 0
 0x6e55, 0x7073, 0x6365, 0x6669, 0x6569, 0x0064, 
     IDC_PARA_ALIGN, 0x403, 5, 0
@@ -5862,60 +5438,6 @@ BEGIN
 0x6543, 0x746e, 0x7265, "\000" 
     IDC_PARA_ALIGN, 0x403, 8, 0
 0x754a, 0x7473, 0x6669, 0x0079, 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_SBU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_SBU, 0x403, 2, 0
-0x0025, 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_SAU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_SAU, 0x403, 2, 0
-0x0025, 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x7470, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x6d63, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x6e69, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x6d6d, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x6370, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x6d65, "\000" 
-    IDC_PARA_WSU, 0x403, 3, 0
-0x7865, "\000" 
-    IDC_PARA_WSU, 0x403, 2, 0
-0x0025, 
     IDC_PARA_LINESPACING, 0x403, 7, 0
 0x6953, 0x676e, 0x656c, "\000" 
     IDC_PARA_LINESPACING, 0x403, 10, 0
@@ -5976,30 +5498,6 @@ END
 
 IDD_IFRAME DLGINIT
 BEGIN
-    IDC_COMBO_WU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_WU, 0x403, 2, 0
-0x0025, 
-    IDC_COMBO_HU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_HU, 0x403, 2, 0
-0x0025, 
-    IDC_COMBO_HMU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_HMU, 0x403, 2, 0
-0x0025, 
-    IDC_COMBO_VMU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_VMU, 0x403, 2, 0
-0x0025, 
-    IDC_COMBO_HPU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_HPU, 0x403, 2, 0
-0x0025, 
-    IDC_COMBO_VPU, 0x403, 3, 0
-0x7870, "\000" 
-    IDC_COMBO_VPU, 0x403, 2, 0
-0x0025, 
     IDC_IF_ALIGN, 0x403, 1, 0
 "\000" 
     IDC_IF_ALIGN, 0x403, 4, 0

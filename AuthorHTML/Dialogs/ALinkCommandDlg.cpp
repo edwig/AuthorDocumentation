@@ -262,6 +262,8 @@ ALinkCommandDlg::FillPage()
   // DO NOT USE GETPROPERTY. IGNORE STYLESHEETS
   m_width  = m_object->GetAttribute("width");
   m_height = m_object->GetAttribute("Height");
+  CssConvertToUnit(m_width, "px",m_wunits);
+  CssConvertToUnit(m_height,"px",m_hunits);
 
   // Get keyword items in the list
   ParameterMap* map = m_object->GetParameterMap();
@@ -358,8 +360,10 @@ ALinkCommandDlg::UpdateObject()
       m_object->SetParameter("Frame",m_frame);
     }
     // Width and height
-    m_object->SetAttribute("width", m_width);
-    m_object->SetAttribute("height",m_height);
+    CString pixels;
+    m_object->SetAttribute("width", CssConvertToUnit(m_width  + "px",m_wunits,pixels) + m_wunits);
+    m_object->SetAttribute("height",CssConvertToUnit(m_height + "px",m_hunits,pixels) + m_hunits);
+
     // Read keyword list
     for(int ind = 1; ind < m_list.GetRowCount(); ++ind)
     {

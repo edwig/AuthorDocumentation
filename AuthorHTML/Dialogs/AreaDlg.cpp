@@ -16,6 +16,7 @@
 #include "GeneralIDDlg.h"
 #include "TagEventsDlg.h"
 #include "FileDialog.h"
+#include "CSS_utils.h"
 
 // AreaDlg dialog
 
@@ -293,6 +294,13 @@ AreaDlg::FillPage()
       m_href = m_href.Left(pos2);
     }
   }
+
+  // Make sure we have pixel coords
+  CString pixels;
+  CssConvertToUnit(m_left,  "px",m_lunits,pixels);
+  CssConvertToUnit(m_right, "px",m_runits,pixels);
+  CssConvertToUnit(m_top,   "px",m_tunits,pixels);
+  CssConvertToUnit(m_bottom,"px",m_bunits,pixels);
 }
 
 void
@@ -328,18 +336,25 @@ AreaDlg::UpdateProperties()
   m_area->SetProperty(HtmlArea::E_NoHref,nohref);
   m_area->SetProperty(HtmlArea::E_Title,m_title);
 
+  CString pixels;
   if(m_shape.CompareNoCase("poly") == 0)
   {
     m_area->SetProperty(HtmlArea::E_Coords,m_polygon);
   }
   else if(m_shape.CompareNoCase("rect") == 0)
   {
-    CString coords = m_left + "," + m_top + "," + m_right + "," + m_bottom;
+    CString coords = CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits + "," +
+                     CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits + "," + 
+                     CssConvertToUnit(m_right  + "px",m_runits,pixels) + m_runits +  "," + 
+                     CssConvertToUnit(m_bottom + "px",m_bunits,pixels) + m_bunits;
     m_area->SetProperty(HtmlArea::E_Coords,coords);
   }
   else  // Circle
   {
-    CString coords = m_left + "," + m_top + "," + m_right; // x1,y1,radius!!
+    // x1,y1,radius!!
+    CString coords = CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits + "," +
+                     CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits + "," + 
+                     CssConvertToUnit(m_right  + "px",m_runits,pixels) + m_runits;
     m_area->SetProperty(HtmlArea::E_Coords,coords);
   }
 }

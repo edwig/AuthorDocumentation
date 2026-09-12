@@ -275,9 +275,20 @@ CSSPage2Dlg::OnInitDialog()
   m_buttonColor.EnableOtherButton(_T("More colors"));
 
   // Read in all the attributes
-  m_initDone = true;
   FillPage();
+  InitCombos();
+  m_initDone = true;
+
   return TRUE;
+}
+
+void
+CSSPage2Dlg::InitCombos()
+{
+  CSSComboBoxUnits(m_comboFontSizeUnits,     m_fontSizeUnits);
+  CSSComboBoxUnits(m_comboLineHeightUnits,   m_lineHeigthUnits);
+  CSSComboBoxUnits(m_comboLineIndentUnits,   m_lineIndentUnits);
+  CSSComboBoxUnits(m_comboLetterSpacingUnits,m_letterSpacingUnits);
 }
 
 void
@@ -636,7 +647,9 @@ CSSPage2Dlg::OnCbnSelchangeFsUnits()
   int ind = m_comboFontSizeUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboFontSizeUnits.GetLBText(ind,m_fontSizeUnits);
+    CString newunits;
+    m_comboFontSizeUnits.GetLBText(ind,newunits);
+    m_fontSize = CssConvertToUnit(m_fontSize + m_fontSizeUnits,newunits,m_fontSizeUnits,true);
   }
   else
   {
@@ -666,7 +679,9 @@ CSSPage2Dlg::OnCbnSelchangeLhUnits()
   int ind = m_comboLineHeightUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboLineHeightUnits.GetLBText(ind,m_lineHeigthUnits);
+    CString newunits;
+    m_comboLineHeightUnits.GetLBText(ind,newunits);
+    m_lineHeigth = CssConvertToUnit(m_lineHeigth + m_lineHeigthUnits,newunits,m_lineHeigthUnits,true);
   }
   else
   {
@@ -688,7 +703,9 @@ CSSPage2Dlg::OnCbnSelchangeLiUnits()
   int ind = m_comboLineIndentUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboLineIndentUnits.GetLBText(ind,m_lineIndentUnits);
+    CString newunits;
+    m_comboLineIndentUnits.GetLBText(ind,newunits);
+    m_lineIndent = CssConvertToUnit(m_lineIndent + m_lineIndentUnits,newunits,m_lineIndentUnits,true);
   }
   else
   {
@@ -710,7 +727,9 @@ CSSPage2Dlg::OnCbnSelchangeLsUnits()
   int ind = m_comboLetterSpacingUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboLetterSpacingUnits.GetLBText(ind,m_letterSpacingUnits);
+    CString newunits;
+    m_comboLetterSpacingUnits.GetLBText(ind,newunits);
+    m_letterSpacing = CssConvertToUnit(m_letterSpacing + m_letterSpacingUnits,newunits,m_letterSpacingUnits,true);
   }
   else
   {

@@ -152,8 +152,17 @@ BOOL
 InlineFrameDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
-  FillPage();
 
+  FillPage();
+  InitFields();
+
+  UpdateData(Data2Controls);
+  return TRUE;
+}
+
+void
+InlineFrameDlg::InitFields()
+{
   m_spinWidth.SetBase(10);
   m_spinWidth.SetRange(0,32000);
   m_spinWidth.SetPos(atoi(m_width));
@@ -173,8 +182,12 @@ InlineFrameDlg::OnInitDialog()
   m_spinVP.SetRange(0,32000);
   m_spinVP.SetPos(atoi(m_marginh));
 
-  UpdateData(Data2Controls);
-  return TRUE;
+  CSSComboBoxUnits(m_comboWUnits,m_wunits);
+  CSSComboBoxUnits(m_comboHUnits,m_hunits);
+  CSSComboBoxUnits(m_comboHSU,m_hsunits);
+  CSSComboBoxUnits(m_comboVSU,m_vsunits);
+  CSSComboBoxUnits(m_comboHPU,m_mhunits);
+  CSSComboBoxUnits(m_comboVPU,m_mwunits);
 }
 
 void
@@ -280,7 +293,9 @@ InlineFrameDlg::OnCbnSelchangeComboWu()
   int ind = m_comboWUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWUnits.GetLBText(ind,m_wunits);
+    CString newunits;
+    m_comboWUnits.GetLBText(ind,newunits);
+    m_width = CssConvertToUnit(m_width + m_wunits,newunits,m_wunits,true);
   }
 }
 
@@ -290,7 +305,9 @@ InlineFrameDlg::OnCbnSelchangeComboHu()
   int ind = m_comboHUnits.GetCurSel();
   if(ind >= 0)
   {
-    m_comboHUnits.GetLBText(ind,m_hunits);
+    CString newunits;
+    m_comboHUnits.GetLBText(ind,newunits);
+    m_height = CssConvertToUnit(m_height + m_hunits,newunits,m_hunits,true);
   }
 }
 
@@ -317,7 +334,9 @@ void InlineFrameDlg::OnCbnSelchangeComboHmu()
   int ind = m_comboHSU.GetCurSel();
   if(ind >= 0)
   {
-    m_comboHSU.GetLBText(ind,m_hsunits);
+    CString newunits;
+    m_comboHSU.GetLBText(ind,newunits);
+    m_hspace = CssConvertToUnit(m_hspace + m_hsunits,newunits,m_hsunits,true);
   }
 }
 
@@ -326,7 +345,9 @@ void InlineFrameDlg::OnCbnSelchangeComboVmu()
   int ind = m_comboVSU.GetCurSel();
   if(ind >= 0)
   {
-    m_comboVSU.GetLBText(ind,m_vsunits);
+    CString newunits;
+    m_comboVSU.GetLBText(ind,newunits);
+    m_vspace = CssConvertToUnit(m_vspace + m_vsunits,newunits,m_vsunits,true);
   }
 }
 
@@ -350,7 +371,9 @@ InlineFrameDlg::OnCbnSelchangeComboHpu()
   int ind = m_comboHPU.GetCurSel();
   if(ind >= 0)
   {
-    m_comboHPU.GetLBText(ind,m_mwunits);
+    CString newunits;
+    m_comboHPU.GetLBText(ind,newunits);
+    m_marginw = CssConvertToUnit(m_marginw + m_mwunits,newunits,m_mwunits,true);
   }
 }
 
@@ -360,7 +383,9 @@ InlineFrameDlg::OnCbnSelchangeCombVpu()
   int ind = m_comboVPU.GetCurSel();
   if(ind >= 0)
   {
-    m_comboVPU.GetLBText(ind,m_mhunits);
+    CString newunits;
+    m_comboVPU.GetLBText(ind,newunits);
+    m_marginh = CssConvertToUnit(m_marginh + m_mhunits,newunits,m_mhunits,true);
   }
 }
 

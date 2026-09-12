@@ -61,12 +61,6 @@ void CSSPage4Dlg::DoDataExchange(CDataExchange* pDX)
   DDX_Control(pDX,IDC_LWU_RIGHT,  m_comboWURight);
   DDX_Control(pDX,IDC_LWU_BOTTOM, m_comboWUBottom);
 
-  // Colors
-//   DDX_Text   (pDX,IDC_LC_TOP,     m_borderTColor);
-//   DDX_Text   (pDX,IDC_LC_LEFT,    m_borderLColor);
-//   DDX_Text   (pDX,IDC_LC_RIGHT,   m_borderRColor);
-//   DDX_Text   (pDX,IDC_LC_BOTTOM,  m_borderBColor);
-
   DDX_Control(pDX,IDC_BUT_LC_TOP,   m_buttonTColor);
   DDX_Control(pDX,IDC_BUT_LC_LEFT,  m_buttonLColor);
   DDX_Control(pDX,IDC_BUT_LC_RIGHT, m_buttonRColor);
@@ -163,10 +157,6 @@ BEGIN_MESSAGE_MAP(CSSPage4Dlg, CDialog)
   ON_CBN_SELCHANGE(IDC_LWU_LEFT,    OnCbnSelchangeLwuLeft)
   ON_CBN_SELCHANGE(IDC_LWU_RIGHT,   OnCbnSelchangeLwuRight)
   ON_CBN_SELCHANGE(IDC_LWU_BOTTOM,  OnCbnSelchangeLwuBottom)
-//   ON_EN_KILLFOCUS (IDC_LC_TOP,      OnEnChangeLcTop)
-//   ON_EN_KILLFOCUS (IDC_LC_LEFT,     OnEnChangeLcLeft)
-//   ON_EN_KILLFOCUS (IDC_LC_RIGHT,    OnEnChangeLcRight)
-//   ON_EN_KILLFOCUS (IDC_LC_BOTTOM,   OnEnChangeLcBottom)
   ON_BN_CLICKED     (IDC_BUT_LC_TOP,    OnBnClickedButLcTop)
   ON_BN_CLICKED     (IDC_BUT_LC_LEFT,   OnBnClickedButLcLeft)
   ON_BN_CLICKED     (IDC_BUT_LC_RIGHT,  OnBnClickedButLcRight)
@@ -198,7 +188,14 @@ CSSPage4Dlg::OnInitDialog()
   }
   FillPage();
   UpdateData(Data2Controls);
+  InitControls();
 
+  return TRUE;
+}
+
+void
+CSSPage4Dlg::InitControls()
+{
   m_spinTop.SetBase(10);
   m_spinTop.SetRange(0,32000);
   m_spinTop.SetPos(atoi(m_borderTWidth));
@@ -223,7 +220,10 @@ CSSPage4Dlg::OnInitDialog()
   m_buttonRColor.EnableOtherButton(_T("More colors"));
   m_buttonBColor.EnableOtherButton(_T("More colors"));
 
-  return TRUE;
+  CSSComboBoxUnits(m_comboWUTop,   m_borderTUnits);
+  CSSComboBoxUnits(m_comboWULeft,  m_borderLUnits);
+  CSSComboBoxUnits(m_comboWURight, m_borderRUnits);
+  CSSComboBoxUnits(m_comboWUBottom,m_borderBUnits);
 }
 
 void
@@ -936,7 +936,9 @@ CSSPage4Dlg::OnCbnSelchangeLwuTop()
   int ind = m_comboWUTop.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWUTop.GetLBText(ind,m_borderTUnits);
+    CString newunits;
+    m_comboWUTop.GetLBText(ind,newunits);
+    m_borderTWidth = CssConvertToUnit(m_borderTWidth + m_borderTUnits,newunits,m_borderTUnits,true);
     UpdateProperties();
     Redisplay();
   }
@@ -947,7 +949,9 @@ void CSSPage4Dlg::OnCbnSelchangeLwuLeft()
   int ind = m_comboWULeft.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWULeft.GetLBText(ind,m_borderLUnits);
+    CString newunits;
+    m_comboWULeft.GetLBText(ind,newunits);
+    m_borderLWidth = CssConvertToUnit(m_borderLWidth + m_borderLUnits,newunits,m_borderLUnits,true);
     UpdateProperties();
     Redisplay();
   }
@@ -958,7 +962,9 @@ void CSSPage4Dlg::OnCbnSelchangeLwuRight()
   int ind = m_comboWURight.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWURight.GetLBText(ind,m_borderRUnits);
+    CString newunits;
+    m_comboWURight.GetLBText(ind,newunits);
+    m_borderRWidth = CssConvertToUnit(m_borderRWidth + m_borderRUnits,newunits,m_borderRUnits,true);
     UpdateProperties();
     Redisplay();
   }
@@ -969,7 +975,9 @@ void CSSPage4Dlg::OnCbnSelchangeLwuBottom()
   int ind = m_comboWUBottom.GetCurSel();
   if(ind >= 0)
   {
-    m_comboWUBottom.GetLBText(ind,m_borderBUnits);
+    CString newunits;
+    m_comboWUBottom.GetLBText(ind,newunits);
+    m_borderBWidth = CssConvertToUnit(m_borderBWidth + m_borderBUnits,newunits,m_borderBUnits,true);
     UpdateProperties();
     Redisplay();
   }
