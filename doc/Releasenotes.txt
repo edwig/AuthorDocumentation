@@ -30,6 +30,11 @@ Version 1.0.x
 
 5) Fix for entering bookmarks and hyperlinks again by selecting text and converting
    it into a bookmark or hyperlink by the apropriate command.
+6) Custum dictionaries and ignore lists per selected language, so that the additions 
+   to the standard spelling libraries will be split on a per-language basis.
+7) Spelling correction now corrects for quotes that the browser editor sees as part
+   of the word the spell-correct. The quotes are now not entered in the dictionary
+   any more.
 
 Version 1.0.2
 -------------

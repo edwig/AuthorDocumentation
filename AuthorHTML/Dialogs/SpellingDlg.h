@@ -36,14 +36,18 @@ private:
   void      GetLanguage();
   void      GetAlternatives();
   void      DisplayChanging();
+  void      SplitWordAndQuotes();
+  void      ReApplyQuotes();
 
-  CString   m_word;       // Word to be checked
-  CString   m_corrected;  // Corrected word
-  CString   m_language;   // Current language
-  Spelling* m_speller;    // Speller interface with dictionaries
+  CString   m_word;         // Word to be checked
+  CString   m_corrected;    // Corrected word
+  CString   m_quotesBefore; // Quoting before the word
+  CString   m_quotesAfter;  // Quoting after  the word
+  CString   m_language;     // Current language
+  Spelling* m_speller;      // Speller interface with dictionaries
   // Controls
-  CListBox    m_listSuggestions;
-  CComboBox m_comboLanguage;
+  CListBox      m_listSuggestions;
+  CComboBox     m_comboLanguage;
   AD_Button     m_buttonIgnore;
   AD_Button     m_buttonChange;
   AD_Button     m_buttonAdd;

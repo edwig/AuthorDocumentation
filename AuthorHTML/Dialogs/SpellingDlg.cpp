@@ -26,6 +26,7 @@ SpellingDlg::SpellingDlg(CWnd* pParent
             ,m_word(word)
             ,m_speller(speller)
 {
+  SplitWordAndQuotes();
   m_corrected = m_word;
 }
 
@@ -106,11 +107,11 @@ SpellingDlg::GetAlternatives()
   for(unsigned int ind = 0;ind < all.size(); ++ind)
   {
     CString word = all[ind];
-    if(num > 10 && (word[0] != m_word[0]))
+    if(num > 10 && (tolower(word[0]) != tolower(m_word[0])))
     {
       continue;
     }
-    if(num > 30 && (word[1] != m_word[1]))
+    if(num > 30 && (tolower(word[1]) != tolower(m_word[1])))
     {
       continue;
     }
@@ -137,6 +138,58 @@ SpellingDlg::DisplayChanging()
   int pos = m_listSuggestions.AddString(waiting);
   m_listSuggestions.SetCurSel(pos);
   UpdateData(Data2Controls);
+}
+
+void
+SpellingDlg::SplitWordAndQuotes()
+{
+  static char* quotes = "\'\",.:;";
+  int ind = 0;
+
+  // Get the before quotes
+  for(ind = 0; ind < m_word.GetLength(); ++ind)
+  {
+    TCHAR ch = m_word.GetAt(ind);
+    if(strchr(quotes, ch))
+    {
+      m_quotesBefore += ch;
+    }
+    else break;
+  }
+
+  // Adjust the word
+  if(ind > 0)
+  {
+    m_word = m_word.Mid(ind);
+  }
+  if(m_word.IsEmpty())
+  {
+    return;
+  }
+
+  // Get the after quotes
+  for(ind = m_word.GetLength() - 1; ind >= 0; --ind)
+  {
+    TCHAR ch = m_word.GetAt(ind);
+    if(strchr(quotes,ch) == nullptr)
+    {
+      break;
+    }
+  }
+  if(ind < m_word.GetLength() - 1)
+  {
+    ++ind;
+    m_quotesAfter = m_word.Mid(ind);
+    m_word = m_word.Left(ind);
+  }
+}
+
+
+// Re-add the extra quotes
+void
+SpellingDlg::ReApplyQuotes()
+{
+  m_corrected = m_quotesBefore + m_corrected + m_quotesAfter;
 }
 
 // SpellingDlg message handlers
@@ -182,6 +235,8 @@ SpellingDlg::OnBnClickedSpelIgnore()
 {
   // Revert to original word
   m_speller->AddToIgnore(m_word);
+  
+  ReApplyQuotes();
   EndDialog(IDCONTINUE);
 }
 
@@ -189,6 +244,8 @@ void
 SpellingDlg::OnBnClickedSpelChange()
 {
   // m_corrected will be used
+  // Re-add the extra quotes
+  ReApplyQuotes();
   EndDialog(IDOK);
 }
 
@@ -197,6 +254,7 @@ SpellingDlg::OnBnClickedSpelAdd()
 {
   m_speller->AddToCustom(m_word);
   // original word will be used
+  ReApplyQuotes();
   EndDialog(IDCONTINUE);
 }
 
