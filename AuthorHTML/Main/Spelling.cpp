@@ -244,9 +244,9 @@ Spelling::ReadDictionariesList()
   {
     do
     {
-      if(!(fileinfo.attrib & _A_SUBDIR)         && 
-           stricmp(fileinfo.name,"custom.dict") &&
-           stricmp(fileinfo.name,"ignore.dict") )
+      if(!(fileinfo.attrib & _A_SUBDIR)        && 
+           strstr(fileinfo.name,"custom") == 0 &&
+           strstr(fileinfo.name,"ignore") == 0 )
       {
         // OK, found a dictionary (not the custom/ignore dictionary)
         CString filename = directory + CString(fileinfo.name);
@@ -336,8 +336,9 @@ Spelling::ReadDictionaries()
   extern AuthorHTMLApp theApp;
   CString binDir = theApp.GetBinDirectory();
   CString dictionaryName = binDir + "..\\spell\\" + m_nameMainDictionary;
-  CString dictCustom = binDir + "..\\spell\\custom.dict";
-  CString dictIgnore = binDir + "..\\spell\\ignore.dict";
+  CString basefile   = Misc::FilenamePart(dictionaryName);
+  CString dictCustom = binDir + "..\\spell\\custom_" + basefile;
+  CString dictIgnore = binDir + "..\\spell\\ignore_" + basefile;
 
   if(!m_enable)
   {

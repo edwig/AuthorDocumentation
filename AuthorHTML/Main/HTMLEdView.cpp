@@ -1027,13 +1027,17 @@ void
 CHTMLEdView::OnSpellOptions()
 {
   Spelling* spell = theApp.GetSpeller();
+  CString orglang = spell->GetLanguageName();
   SpellOptionsDlg dialog(this,spell,true);
   if(dialog.DoModal() == IDOK)
   {
     CString language = dialog.GetLanguage();
-    spell->ChangeDictionary(language);
-    // Kick idle time Spelling 
-    m_dirty = true;
+    if(orglang.CompareNoCase(language))
+    {
+      spell->ChangeDictionary(language);
+      // Kick idle time Spelling 
+      m_dirty = true;
+    }
   }
 }
 
