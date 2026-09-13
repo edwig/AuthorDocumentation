@@ -838,7 +838,6 @@ void CGridCtrl::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 // Plans: decrease timer interval over time to speed up selection over time
 void CGridCtrl::OnTimer(UINT_PTR nIDEvent)
 {
-  ASSERT(nIDEvent == WM_LBUTTONDOWN);
   if(nIDEvent != WM_LBUTTONDOWN)
   {
     return;

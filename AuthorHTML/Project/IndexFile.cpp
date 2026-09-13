@@ -101,7 +101,7 @@ IndexFile::WriteProperties(WinFile& file)
   //    <param name="SiteType" value="index">
   //   </object>
   file.Write(_T("<OBJECT type=\"text/site properties\">\n"));
-  file.Write(_T("  <OBJECT name=\"SiteType\" value=\"index\">\n"));
+  file.Write(_T("  <param name=\"SiteType\" value=\"index\">\n"));
   if(!m_frameName.IsEmpty())
   {
     file.Format(_T("  <param name=\"FrameName\" value=\"%s\">\n"),m_frameName.GetString());

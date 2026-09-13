@@ -215,7 +215,7 @@
 #define IDD_AREA                        255
 #define IDR_LINKBAR                     256
 #define IDD_FIELDSET                    258
-#define IDD_SWEEP                       259
+#define IDD_SWIPE                       259
 #define IDR_PANES                       260
 #define IDD_FIELDCHOOSER                261
 #define IDD_FILTEREDIT                  262

@@ -1905,6 +1905,15 @@ CHTMLEdView::OnUpdateAnchor(CCmdUI* pCmdUI)
       inBookmark = true;
     }
   }
+  else
+  {
+    // Possibly convert current selection to a bookmark
+    CString marker = GetCurrentSelectionText();
+    if(!marker.IsEmpty())
+    {
+      inBookmark = true;
+    }
+  }
   pCmdUI->Enable(inBookmark);
 }
 
@@ -1922,6 +1931,15 @@ CHTMLEdView::OnUpdateHyperlink(CCmdUI* pCmdUI)
     if(!href.IsEmpty() && marker.IsEmpty())
     {
       inHyper = true;
+    }
+  }
+  else
+  {
+    // Possibly convert current selection to a hyperlink
+    CString marker = GetCurrentSelectionText();
+    if (!marker.IsEmpty())
+    {
+      inHyper= true;
     }
   }
   pCmdUI->Enable(inHyper);

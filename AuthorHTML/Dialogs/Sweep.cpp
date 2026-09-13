@@ -34,7 +34,7 @@ SweepDlg::~SweepDlg()
 void
 SweepDlg::DoTheInit()
 {
-  Create(IDD_SWEEP,NULL);
+  Create(IDD_SWIPE,NULL);
   ShowWindow(m_show);
   CenterWindow(theApp.m_pMainWnd);
   SetIcon(AfxGetApp()->LoadIcon(MAKEINTRESOURCE(IDR_MAINFRAME)),FALSE);

@@ -121,18 +121,16 @@ ALinkCommandDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-
   // Prepare keyword list
   CString labelText("Associative keyword links");
-  m_list.InsertColumn(labelText);
+  m_list.SetColumnCount(1);
+  m_list.SetRowCount(1);
+  m_list.SetFixedRowCount(1);
   m_list.SetEditable(TRUE);
   m_list.SetListMode(TRUE);
   m_list.EnableDragAndDrop(FALSE);
   m_list.SetSingleRowSelection(TRUE);
-  m_list.SetSingleColSelection(TRUE);
-  m_list.SetRowCount(1);
-  m_list.SetFixedRowCount(1);
-  m_list.InsertItem(0,0,labelText,DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_END_ELLIPSIS|DT_NOPREFIX);
+  m_list.GetCell(0,0)->SetText(labelText);
   m_list.SetColumnWidth(0,500);
 
   FillPage();

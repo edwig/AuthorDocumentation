@@ -139,7 +139,7 @@ ProjectView::InitGrid()
   m_grid.SetColumnCount(COLUMN_TODO + 1);
   m_grid.SetRowCount(1);
   m_grid.SetFixedRowCount(1);
-  m_grid.SetSingleColSelection(TRUE);
+  m_grid.SetListMode(TRUE);
   m_grid.SetSingleRowSelection(TRUE);
   m_grid.SetEditable(FALSE);
   m_grid.SetHeaderSort();
@@ -155,9 +155,9 @@ ProjectView::InitGrid()
   m_grid.GetCell(0, COLUMN_PRIORITY    )->SetText(_T("Priority"));
   m_grid.GetCell(0, COLUMN_TODO        )->SetText(_T("To do"));
 
-  m_grid.SetColumnWidth(0,40);
-  m_grid.SetColumnWidth(1,40);
-  m_grid.SetColumnWidth(2,40);
+  m_grid.SetColumnWidth(0,60);
+  m_grid.SetColumnWidth(1,60);
+  m_grid.SetColumnWidth(2,60);
   m_grid.SetColumnWidth(3,180);
   m_grid.SetColumnWidth(4,180);
   m_grid.SetColumnWidth(5,180);

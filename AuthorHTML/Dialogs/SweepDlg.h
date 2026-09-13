@@ -20,7 +20,7 @@ public:
    SweepDlg(CWnd* pParent,bool show);
   ~SweepDlg();
    // Dialog Data
-	 enum { IDD = IDD_SWEEP };
+	 enum { IDD = IDD_SWIPE };
   
 public:
    void DoTheInit();

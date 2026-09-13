@@ -9,6 +9,7 @@ Version 1.0.x
 3) Extra checks on the files in the window definition. TOC and HKK must
    be relative pathnames there.
 4) Fully support all CSS measurement units:
+   
    // Absolute size
    px      // Pixels ( 1/96 of an inch)
    in      // Inch
@@ -26,6 +27,9 @@ Version 1.0.x
    vw      // Percentage of the viewport width
    vmin    // Percentage of the minimum of viewport(width and height)
    vmax    // Percentage of the maximum of viewport(width and height)
+
+5) Fix for entering bookmarks and hyperlinks again by selecting text and converting
+   it into a bookmark or hyperlink by the apropriate command.
 
 Version 1.0.2
 -------------

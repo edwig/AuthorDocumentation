@@ -520,6 +520,7 @@ MainFrame::OnCreate_MenuPersonalization()
   lstBasicCommands.AddTail(ID_GRID_GRIDPROPERTIES);
   lstBasicCommands.AddTail(ID_VIEW_SPECIALTEST);
   // INSERT
+  lstBasicCommands.AddTail(ID_BUTTON_ANCHOR);
   lstBasicCommands.AddTail(ID_BUTTON_HYPERLINK);
   lstBasicCommands.AddTail(ID_BUTTON_IMAGE);
   lstBasicCommands.AddTail(ID_INSERT_IFRAME);
