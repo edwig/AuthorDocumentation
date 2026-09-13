@@ -1,7 +1,7 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
-Version 1.0.x
+Version 1.0.3
 -------------
 1) Reading/Writing HHP, HHC and HHK files are now implemented with WinFile
    This makes it possible to read/write the BOM of the files.
