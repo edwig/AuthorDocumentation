@@ -335,7 +335,7 @@ IndexFile::ReadProperties(WinFile& file)
     if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equal-sign parameter name=value";
     if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "parameter value is not a string";
     CString parameterValue = word;
-    TRACE("Text/Site properties. Parameter: %s Value:%s\n",parameterName.GetString(),parameterValue.GetString());
+    // TRACE("Text/Site properties. Parameter: %s Value:%s\n",parameterName.GetString(),parameterValue.GetString());
     // 
     if(parameterName.CompareNoCase("sitetype")  == 0) m_siteType  = parameterValue;
     if(parameterName.CompareNoCase("FrameName") == 0) m_frameName = parameterValue;

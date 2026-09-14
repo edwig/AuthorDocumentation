@@ -903,7 +903,7 @@ CHTMLEdView::OnSpellCheckDocument()
   HRESULT hr = m_Doc2->get_body(&body);
   if(SUCCEEDED(hr) && body.p)
   {
-    TRACE("Start spell checking of document\n");
+    // TRACE("Start spell checking of document\n");
     int errors  = 0;
     int changed = 0;
     if(SpellCheck(body,errors,changed))
@@ -3940,7 +3940,7 @@ CHTMLEdView::GetMetaTag(CString p_name)
             meta->get_content(&meta_content);
             CString mname = CW2CT(meta_name);
             CString content = CW2CT(meta_content);
-            TRACE("Meta tag. Name [%s] Content [%s]\n",mname.GetString(),content.GetString());
+            // TRACE("Meta tag. Name [%s] Content [%s]\n",mname.GetString(),content.GetString());
             if(mname.CompareNoCase(p_name) == 0)
             {
               tag_content = content;

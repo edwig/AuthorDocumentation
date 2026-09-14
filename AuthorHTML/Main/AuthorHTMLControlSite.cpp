@@ -675,16 +675,16 @@ CHTMLEditControlSite::XHTMLPainter::Draw(RECT rcBounds, RECT /*rcUpdate*/, LONG 
 
     if(m_horizontal)
     {
-      TRACE("Bounds %d,%d,%d,%d\n",rcBounds.left,rcBounds.right,rcBounds.top,rcBounds.bottom);
-      TRACE("DRAG Horizontal: %d\n",m_dragY);
+      // TRACE("Bounds %d,%d,%d,%d\n",rcBounds.left,rcBounds.right,rcBounds.top,rcBounds.bottom);
+      // TRACE("DRAG Horizontal: %d\n",m_dragY);
       MoveToEx(hdc,rcBounds.left, m_dragY,NULL);
       LineTo  (hdc,rcBounds.right,m_dragY);
       m_dragLine = false;
     }
     else
     {
-      TRACE("Bounds %d,%d,%d,%d\n",rcBounds.left,rcBounds.right,rcBounds.top,rcBounds.bottom);
-      TRACE("DRAG Vertical: %d\n",m_dragX);
+      // TRACE("Bounds %d,%d,%d,%d\n",rcBounds.left,rcBounds.right,rcBounds.top,rcBounds.bottom);
+      // TRACE("DRAG Vertical: %d\n",m_dragX);
       MoveToEx(hdc,m_dragX, rcBounds.top,   NULL);
       LineTo  (hdc,m_dragX, rcBounds.bottom);
     }

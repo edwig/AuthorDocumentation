@@ -67,7 +67,7 @@ void CAddressCombo::FillWithHistory()
 	}
 	else
   {
-    TRACE(_T("Couldn't open registry key\n"));
+    // TRACE(_T("Couldn't open registry key\n"));
   }
 }
 

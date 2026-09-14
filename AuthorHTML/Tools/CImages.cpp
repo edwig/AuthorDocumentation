@@ -1,4 +1,4 @@
-// CPlaatjes.cpp $
+// CPlaatjes.cpp
 //
 #include "Stdafx.h"
 #include "Images.h"

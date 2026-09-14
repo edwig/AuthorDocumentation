@@ -257,7 +257,7 @@ Spelling::ReadDictionariesList()
           dict.name     = name;
           dict.fileName = fileinfo.name;
           m_allDictionaries.push_back(dict);
-          TRACE("Dictionary: %s : %s\n",name.GetString(),filename.GetString());
+          // TRACE("Dictionary: %s : %s\n",name.GetString(),filename.GetString());
         }
       }
     }

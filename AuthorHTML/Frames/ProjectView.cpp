@@ -206,7 +206,7 @@ ProjectView::OnReportItemDblClick(NMHDR* pNMHDR, LRESULT * /*result*/)
   CCellID id = m_grid.GetFocusCell();
 	if(id.row > 0)
 	{
-		TRACE(_T("Double Click on row %d\n"),id.row);
+		// TRACE(_T("Double Click on row %d\n"),id.row);
 
     DocumentFile* doc = reinterpret_cast<DocumentFile*>(m_grid.GetItemData(id.row,0));
     if(doc)

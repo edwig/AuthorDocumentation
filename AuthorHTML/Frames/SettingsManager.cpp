@@ -70,7 +70,7 @@ SettingsManager::ReadSettings()
   }
   else
   {
-    TRACE(_T("Couldn't open registry settings key for read\n"));
+    // TRACE(_T("Couldn't open registry settings key for read\n"));
   }
 }
 
@@ -108,7 +108,7 @@ SettingsManager::WriteSettings()
   }
   else
   {
-    TRACE(_T("Couldn't open registry settings key for write\n"));
+    // TRACE(_T("Couldn't open registry settings key for write\n"));
   }
 }
 
@@ -157,7 +157,7 @@ SettingsManager::ChangeCHMRestrictions(int p_allow, bool p_64bit)
     RegCloseKey(hkUserURL);
     return true;
   }
-  TRACE(_T("Couldn't open registry CHM HTML key for write\n"));
+  // TRACE(_T("Couldn't open registry CHM HTML key for write\n"));
   return false;
 }
 

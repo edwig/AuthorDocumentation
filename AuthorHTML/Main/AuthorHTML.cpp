@@ -1096,7 +1096,7 @@ AuthorHTMLApp::CanExitInstance()
   {
     if(!m_projectFile->WriteProjectFile()) canExit = false;
   }
-  if(m_contentFile && m_contentFile->NeedSaving())
+  if(m_contentFile && m_contentFile->GetNeedSaving())
   {
     if(!m_contentFile->WriteTOCFile()) canExit = false; 
   }

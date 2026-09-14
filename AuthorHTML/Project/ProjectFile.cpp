@@ -894,7 +894,7 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   /* called to free hash tables etc. */
   tidyRelease( tdoc );
 
-  TRACE("File: %s Status: %d.%d\n",filename.GetString(),contentErrors,contentWarnings);
+  // TRACE("File: %s Status: %d.%d\n",filename.GetString(),contentErrors,contentWarnings);
 
   /* return status can be used by scripts */
   if ( contentErrors > 0 )
@@ -938,7 +938,7 @@ ProjectFile::GetDocumentTitle(DocumentFile* docfile,TidyDoc& tdoc)
         {
           title = title.Left(pos);
         }
-        TRACE("TITLE in sweep: %s\n",title.GetString());
+        // TRACE("TITLE in sweep: %s\n",title.GetString());
         docfile->SetTitle(title);
       }
       tidyBufFree(&buf);
@@ -972,7 +972,7 @@ ProjectFile::GetDocumentHeader(DocumentFile* docfile,TidyDoc& tdoc)
           ctmbstr name = tidyAttrValue(attr);
           CString css(name);
           // CSS, Script or other payload link
-          TRACE("LINK/SCRIPT HEAD payload file: %s\n",css.GetString());
+          // TRACE("LINK/SCRIPT HEAD payload file: %s\n",css.GetString());
           AddDocumentFile(css);
         }
         attr = tidyAttrNext(attr);
@@ -1028,7 +1028,7 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
   if(!sContent.IsEmpty() && !sName.IsEmpty())
   {
     // Now we have a content,name pair
-    TRACE("META in sweep: %s: %s\n",sName.GetString(),sContent.GetString());
+    // TRACE("META in sweep: %s: %s\n",sName.GetString(),sContent.GetString());
 
          if(sName.CompareNoCase("AuthorOriginalAuthor") == 0) docfile->SetAuthor   (sContent);
     else if(sName.CompareNoCase("AuthorDocComment")     == 0) docfile->SetComment  (sContent);
@@ -1077,7 +1077,7 @@ ProjectFile::GetDocumentPayload(TidyNode node,DocumentFile* docfile)
           bool hasAnchor = Misc::SplitMidpageAnchor(fileref,file,anchor);
 
           // File link
-          TRACE("ANCHOR/LINK/SCRIPT/IMG/AREA/(I)FRAME payload file: %s\n",file.GetString());
+          // TRACE("ANCHOR/LINK/SCRIPT/IMG/AREA/(I)FRAME payload file: %s\n",file.GetString());
           DocumentFile* other = FindDocumentFile(file);
           if(other == NULL && !file.IsEmpty())
           {
@@ -1254,7 +1254,7 @@ ProjectFile::RenameInOneFile(CString& p_filename,CString& p_old_href,CString& p_
   /* called to free hash tables etc. */
   tidyRelease(tdoc);
 
-  TRACE("File: %s Status: %d.%d\n",p_filename.GetString(),contentErrors,contentWarnings);
+  // TRACE("File: %s Status: %d.%d\n",p_filename.GetString(),contentErrors,contentWarnings);
 
   /* return status can be used by scripts */
   if(contentErrors > 0)
@@ -1292,7 +1292,7 @@ ProjectFile::RenameInHeader(TidyDoc tdoc,CString& p_old_href,CString& p_new_href
         {
           CString new_href;
           CString href = tidyAttrValue(attr);
-          TRACE("Rename in HEAD LINK/SCRIPT payload file: %s\n",href.GetString());
+          // TRACE("Rename in HEAD LINK/SCRIPT payload file: %s\n",href.GetString());
 
           if(Misc::ReplaceFilenameExtra(m_baseDir,p_old_href,p_new_href,href,new_href))
           {
@@ -1343,7 +1343,7 @@ ProjectFile::RenameInElement(TidyDoc tdoc,TidyNode node,CString& p_old_href,CStr
         {
           CString new_href;
           CString href = tidyAttrValue(attr);
-          TRACE("Rename in HEAD LINK/SCRIPT payload file: %s\n",href.GetString());
+          // TRACE("Rename in HEAD LINK/SCRIPT payload file: %s\n",href.GetString());
 
           if(Misc::ReplaceFilenameExtra(m_baseDir,p_old_href,p_new_href,href,new_href))
           {

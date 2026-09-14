@@ -171,7 +171,7 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
               long ycoord = 0;
               pIEventObj->get_clientX(&xcoord);
               pIEventObj->get_clientY(&ycoord);
-              TRACE("DRAG: %d,%d\n",xcoord,ycoord);
+              // TRACE("DRAG: %d,%d\n",xcoord,ycoord);
               if(m_controlSite)
               {
                 m_controlSite->SetDragLine(true
@@ -218,25 +218,25 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
               origin->AddRef();
 
               //ForbidSelection(pSel);
-              TRACE("Out of cell: ");
+              // TRACE("Out of cell: ");
               if(x <= MARGIN)
               {
-                TRACE("Left\n");
+                // TRACE("Left\n");
                 side = CELL_LEFT;
               }
               if(x >= w)
               {
-                TRACE("Right\n");
+                // TRACE("Right\n");
                 side = CELL_RIGHT;
               }
               if(y <= MARGIN)
               {
-                TRACE("Top\n");
+                // TRACE("Top\n");
                 side = CELL_TOP;
               }
               if(y >= h)
               {
-                TRACE("Bottom\n");
+                // TRACE("Bottom\n");
                 side = CELL_BOTTOM;
               }
               if(y <= MARGIN || y >= h) 
