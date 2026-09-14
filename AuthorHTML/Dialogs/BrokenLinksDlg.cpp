@@ -96,7 +96,7 @@ BrokenLinksDlg::OnBnClickedSweep()
   UpdateData(FALSE);
   // Resweep the project
   m_project->ResetSweeped();
-  m_project->SweepProject();
+  m_project->SwipeProject();
   // Fill broken links again
   FillPage();
   UpdateData(FALSE);

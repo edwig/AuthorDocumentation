@@ -397,7 +397,7 @@ AuthorHTMLApp::OnIdle(LONG lCount)
         m_projectFile->ResetSweeped();
         m_projectFile->ResetMetadataRead();
       }
-      m_projectFile->SweepProject();
+      m_projectFile->SwipeProject();
     }
   }
 	else if (lCount == 2)

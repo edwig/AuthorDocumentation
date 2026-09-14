@@ -678,6 +678,7 @@ IndexFile::AddKeywords(CString keywords,DocumentFile* doc)
     }
     
     // Use keyword
+    keyword.Trim();
     IndexEntry* entry = parent->FindEntry(keyword);
     if(!entry || entry->GetInHHK())
     {

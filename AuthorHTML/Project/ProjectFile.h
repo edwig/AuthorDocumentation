@@ -32,7 +32,7 @@ class ProjectFile
 public:
    ProjectFile(CString p_filename);
   ~ProjectFile();
-   void    SweepProject();
+   void    SwipeProject();
    void    ResetSweeped();
    void    ResetMetadataRead();
    bool    WriteProjectFile();
@@ -114,7 +114,7 @@ private:
    CString m_projectFilename;
    CString m_baseDir;
    bool    m_needSaving;
-   bool    m_blockSweepOnce;
+   bool    m_blockSwipeOnce;
    // Options
    CString m_compiledName;
    CString m_title;
@@ -304,7 +304,7 @@ ProjectFile::GetBrokenMap()
 inline void
 ProjectFile::BlockSweep()
 {
-  m_blockSweepOnce = true;
+  m_blockSwipeOnce = true;
 }
 
 inline bool

@@ -83,7 +83,7 @@ public:
   int     GetWidth();
   void    SetHeight(int pHeight);
   int     GetHeight();
-  void    SetSweeped(bool p_sweeped);
+  void    SetSwiped(bool p_sweeped);
   bool    GetSweeped();
 
   // LINKS
@@ -310,7 +310,7 @@ DocumentFile::IsInIndex()
 }
 
 inline void
-DocumentFile::SetSweeped(bool p_sweeped)
+DocumentFile::SetSwiped(bool p_sweeped)
 {
   m_didSweep = p_sweeped;
 }

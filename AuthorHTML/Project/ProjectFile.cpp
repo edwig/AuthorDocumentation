@@ -37,7 +37,7 @@ ProjectFile::ProjectFile(CString p_projectfile)
             ,m_binaryTOC(false)
             ,m_flat(false)
             ,m_needSaving(false)
-            ,m_blockSweepOnce(false)
+            ,m_blockSwipeOnce(false)
             ,m_sweeping(NULL)
 {
   // Base directory is taken from the project file
@@ -736,7 +736,7 @@ ProjectFile::ResetSweeped()
   while(it != m_documents.end())
   {
     DocumentFile* docfile = it->second;
-    docfile->SetSweeped(false);
+    docfile->SetSwiped(false);
     // Next document
     ++it;
   }
@@ -745,12 +745,12 @@ ProjectFile::ResetSweeped()
 }
 
 void    
-ProjectFile::SweepProject()
+ProjectFile::SwipeProject()
 {
   // Block once after an import of a CHM file
-  if(m_blockSweepOnce)
+  if(m_blockSwipeOnce)
   {
-    m_blockSweepOnce = false;
+    m_blockSwipeOnce = false;
     return;
   }
   MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
@@ -790,7 +790,7 @@ ProjectFile::SweepProject()
       }
       m_sweeping = NULL;
     }
-    docfile->SetSweeped(true);
+    docfile->SetSwiped(true);
     // Next document
     ++it;
   }
