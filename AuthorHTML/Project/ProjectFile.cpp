@@ -442,7 +442,7 @@ ProjectFile::ReadProjectFile()
     {
       // Every line now refers to a file
       // ADD A FILE REFERENCE to a HTM(L) FILE or a payload file
-      AddDocumentFile(buffer.GetString());
+      AddDocumentFile("",buffer.GetString());
     }
     else if(aliases)
     {
@@ -496,13 +496,18 @@ ProjectFile::ReadProjectFile()
 }
 
 bool
-ProjectFile::CheckBrokenLink(CString& p_dir,CString& p_file)
+ProjectFile::CheckBrokenLink(CString& p_dir,CString& p_reldir, CString& p_file)
 {
-  CString fullpath = p_dir + p_file;
+  CString fullpath = p_dir + p_reldir + p_file;
   if(_access(fullpath,04) == 0)
   {
     // File exists. No problems
     return false;
+  }
+  // Link to an external source
+  if((p_file.Find("http") == 0) || (p_file.Find("mailto:") == 0))
+  {
+    return true;
   }
   // Register as a broken link
   m_broken.insert(std::make_pair(m_sweeping,p_file));
@@ -513,7 +518,7 @@ ProjectFile::CheckBrokenLink(CString& p_dir,CString& p_file)
 
 // Add document purely by filename
 bool 
-ProjectFile::AddDocumentFile(CString sHtmlFile)
+ProjectFile::AddDocumentFile(CString p_relativeDirectory,CString sHtmlFile)
 {
   bool payload = true;
   CString file = Misc::RemoveBasePart(m_baseDir,sHtmlFile);
@@ -531,13 +536,17 @@ ProjectFile::AddDocumentFile(CString sHtmlFile)
     // Glossary does not goes with the payloads
     return false;
   }
-  if(CheckBrokenLink(m_baseDir,file) == false)
+  if(CheckBrokenLink(m_baseDir,p_relativeDirectory,file) == false)
   {
-    CString searchName = file;
+    CString totalfilename = m_baseDir + p_relativeDirectory + file;
+    CString projectfile   = Misc::ReduceDirectoryPath(totalfilename);
+    CString filename      = projectfile.Mid(m_baseDir.GetLength());
+
+    CString searchName = filename;
     searchName.MakeLower();
     if(m_documents.find(searchName) == m_documents.end())
     {
-      DocumentFile* doc = new DocumentFile(file,payload);
+      DocumentFile* doc = new DocumentFile(filename,payload);
       // Place in htmlFiles map on lower-case name
       m_documents.insert(std::make_pair(searchName,doc));
       m_needSaving = true;
@@ -958,6 +967,7 @@ ProjectFile::GetDocumentHeader(DocumentFile* docfile,TidyDoc& tdoc)
     // No head (yet) in the HTML file
     return;
   }
+
   TidyNode node = tidyGetChild(head);
 
   while(node)
@@ -973,7 +983,7 @@ ProjectFile::GetDocumentHeader(DocumentFile* docfile,TidyDoc& tdoc)
           CString css(name);
           // CSS, Script or other payload link
           // TRACE("LINK/SCRIPT HEAD payload file: %s\n",css.GetString());
-          AddDocumentFile(css);
+          AddDocumentFile(docfile->GetRelativeDirectory(),css);
         }
         attr = tidyAttrNext(attr);
       }
@@ -1081,7 +1091,7 @@ ProjectFile::GetDocumentPayload(TidyNode node,DocumentFile* docfile)
           DocumentFile* other = FindDocumentFile(file);
           if(other == NULL && !file.IsEmpty())
           {
-            if(AddDocumentFile(file))
+            if(AddDocumentFile(docfile->GetRelativeDirectory(),file))
             {
               theApp.ReSweepProject();
               other = FindDocumentFile(file);

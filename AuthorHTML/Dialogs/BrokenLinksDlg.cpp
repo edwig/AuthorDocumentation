@@ -57,6 +57,7 @@ BrokenLinksDlg::OnInitDialog()
 
   FillPage();
 
+  UpdateData(FALSE);
   return FALSE;
 }
 

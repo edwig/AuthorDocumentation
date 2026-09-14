@@ -37,7 +37,7 @@ public:
    void    ResetMetadataRead();
    bool    WriteProjectFile();
    bool    ReadProjectFile();
-   bool    AddDocumentFile   (CString sHtmlFile);
+   bool    AddDocumentFile   (CString p_relDirectory,CString sHtmlFile);
    bool    AddDocumentFile   (DocumentFile* doc);
    bool    RemoveDocumentFile(CString sHtmlFile);
    bool    RemoveDocumentFile(DocumentFile* doc);
@@ -104,7 +104,7 @@ private:
    void    GetDocumentBody   (DocumentFile* docfile,TidyDoc& tdoc);
    void    GetDocumentMeta   (TidyNode node,DocumentFile* docfile);
    void    GetDocumentPayload(TidyNode node,DocumentFile* docfile);
-   bool    CheckBrokenLink   (CString& p_dir,CString& p_file);
+   bool    CheckBrokenLink   (CString& p_dir,CString& p_reldir,CString& p_file);
    // Renaming
    int     RenameInOneFile(CString& p_filename,CString& p_old_href,CString& p_new_href);
    void    RenameInHeader (TidyDoc tdoc,CString& p_old_href,CString& p_new_href);

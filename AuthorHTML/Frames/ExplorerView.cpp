@@ -192,7 +192,7 @@ CExplorerView::OnAddToProject()
   {
     CString path = m_wndExplorer.GetFullPath(hCurSel);
     ProjectFile* project = theApp.GetProjectFile();
-    project->AddDocumentFile(path);
+    project->AddDocumentFile("",path);
   }
 }
 

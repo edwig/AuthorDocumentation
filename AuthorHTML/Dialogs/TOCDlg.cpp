@@ -275,7 +275,7 @@ TOCDlg::CheckDocument(CString& href)
                         ,"Warning"
                         ,MB_YESNO|MB_DEFBUTTON1|MB_ICONWARNING) == IDYES)
     {
-      project->AddDocumentFile(href);
+      project->AddDocumentFile(document->GetRelativeDirectory(),href);
     }
     return false;
   }
