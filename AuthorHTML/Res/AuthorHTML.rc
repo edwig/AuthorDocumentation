@@ -233,6 +233,7 @@ BEGIN
     BUTTON      ID_TOC_MOVEDOWN
     BUTTON      ID_TOC_MOVELEFT
     BUTTON      ID_TOC_MOVERIGHT
+    BUTTON      ID_TOC_PROPERTIES
 END
 
 IDR_KEYWORD_BAR TOOLBAR 16, 15
@@ -6561,6 +6562,7 @@ BEGIN
     ID_STARTUP              "Show the startup dialog"
     ID_INSERT_ALINK         "Insert an associative keyword link for this topic"
     ID_INSERT_ALINK_COMMAND "Insert a link-command to an associative keyword search"
+    ID_TOC_PROP             "Edit the table-of-contents entry"
 END
 
 #endif    // English (United States) resources

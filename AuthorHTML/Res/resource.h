@@ -1758,6 +1758,7 @@
 #define ID_INSERT_ALINK_COMMAND         33176
 #define ID_HTML_STYLESHEETS             33177
 #define ID_STYLESHEETS                  33178
+#define ID_TOC_PROP                     33179
 #define ID_INDICATOR_LINE               61446
 #define IDS_LINE_INDICATOR              61447
 #define ID_INDICATOR_STYLE              61448
@@ -1776,7 +1777,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        321
-#define _APS_NEXT_COMMAND_VALUE         33179
+#define _APS_NEXT_COMMAND_VALUE         33180
 #define _APS_NEXT_CONTROL_VALUE         1441
 #define _APS_NEXT_SYMED_VALUE           109
 #endif
