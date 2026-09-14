@@ -1868,6 +1868,11 @@ Misc::StripPopup(CString fileref)
       }
     }
   }
+  if(file.Find("void(0") == 0)
+  {
+    // Help&Manual does this
+    file.Empty();
+  }
   return file;
 }
 

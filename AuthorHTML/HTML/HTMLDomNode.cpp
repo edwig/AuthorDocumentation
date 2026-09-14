@@ -1,4 +1,14 @@
-// HTMLDomNode
+//////////////////////////////////////////////////////////////////////////
+//
+// System:  AuthorDocumentation
+// Program: AuthorHTML
+// File:    HTMLDomNode.cpp
+//
+// Written by: ir W.E. Huisman
+// Dates:      2007 - 2026
+//
+// Description: Handles the a general NODE in the HTML DOM (Document-Object-Model)
+//
 #include <StdAfx.h>
 #include "HTMLDomNode.h"
 #include "HTmlElement.h"

@@ -743,9 +743,6 @@
     <ClCompile Include="Dialogs\TopicPropPage5.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\ScanBOM.cpp">
-      <Filter>Source Files\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Main\StdAfx.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
@@ -1425,9 +1422,6 @@
     </ClInclude>
     <ClInclude Include="Dialogs\TopicPropPage5.h">
       <Filter>Source Files\Dialogs\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\ScanBOM.h">
-      <Filter>Source Files\Tools\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Main\StdAfx.h">
       <Filter>Configuration</Filter>

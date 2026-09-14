@@ -105,6 +105,13 @@ IDB_CHM_NEWPROJECT      BITMAP                  "CHMProject_new_32.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Cursors
+//
+AFX_IDC_HSPLITBAR       CURSOR  DISCARDABLE     "res\\splith.cur"
+AFX_IDC_VSPLITBAR       CURSOR  DISCARDABLE     "res\\splitv.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Toolbar
 //
 

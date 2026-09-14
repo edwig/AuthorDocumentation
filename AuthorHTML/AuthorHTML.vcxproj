@@ -659,7 +659,6 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tools\ScanBOM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Css\CSS.h" />
@@ -825,7 +824,6 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClInclude Include="Tools\ImageDefinitions.h" />
     <ClInclude Include="Tools\Images.h" />
     <ClInclude Include="Tools\RefCounted.h" />
-    <ClInclude Include="Tools\ScanBOM.h" />
     <ClInclude Include="Tools\StringArray.h" />
     <ClInclude Include="Scintilla\ScintillaChildFrm.h" />
     <ClInclude Include="Scintilla\ScintillaCtrl.h" />

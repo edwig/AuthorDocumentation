@@ -1082,25 +1082,28 @@ ProjectFile::GetDocumentPayload(TidyNode node,DocumentFile* docfile)
           // Strip "javascript:BSSCPopup('file');"
           // Strip "javascript:ADHShowPopup('file');"
           fileref = Misc::StripPopup(fileref);
-          CString file;
-          CString anchor;
-          bool hasAnchor = Misc::SplitMidpageAnchor(fileref,file,anchor);
+          if(!fileref.IsEmpty())
+          {
+            CString file;
+            CString anchor;
+            bool hasAnchor = Misc::SplitMidpageAnchor(fileref,file,anchor);
 
-          // File link
-          // TRACE("ANCHOR/LINK/SCRIPT/IMG/AREA/(I)FRAME payload file: %s\n",file.GetString());
-          DocumentFile* other = FindDocumentFile(file);
-          if(other == NULL && !file.IsEmpty())
-          {
-            if(AddDocumentFile(docfile->GetRelativeDirectory(),file))
+            // File link
+            // TRACE("ANCHOR/LINK/SCRIPT/IMG/AREA/(I)FRAME payload file: %s\n",file.GetString());
+            DocumentFile* other = FindDocumentFile(file);
+            if(other == NULL && !file.IsEmpty())
             {
-              theApp.ReSweepProject();
-              other = FindDocumentFile(file);
+              if(AddDocumentFile(docfile->GetRelativeDirectory(),file))
+              {
+                theApp.ReSweepProject();
+                other = FindDocumentFile(file);
+              }
             }
-          }
-          if(other)
-          {
-            docfile->AddLinkFrom(other,anchor);
-            other->AddLinkToMe(docfile,anchor);
+            if(other)
+            {
+              docfile->AddLinkFrom(other,anchor);
+              other->AddLinkToMe(docfile,anchor);
+            }
           }
         }
         attr = tidyAttrNext(attr);
