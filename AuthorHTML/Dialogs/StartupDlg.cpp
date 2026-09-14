@@ -64,7 +64,7 @@ StartupDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Projects / Files",LVCFMT_LEFT,280);
+  m_list.InsertColumn(0,"Projects / Files",LVCFMT_LEFT,360);
 
   SetButtonImages();
   GetRecentProjectList();
