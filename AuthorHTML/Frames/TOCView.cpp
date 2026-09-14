@@ -519,6 +519,7 @@ TOCView::OnProperties()
     if(dlg.DoModal() == IDOK)
     {
       m_wndExplorer.RedisplayEntry(hCurSel,entry);
+      theApp.GetTOC()->SetNeedSaving();
     }
   }
 }

@@ -30,7 +30,8 @@ public:
   void Reset();
   bool ReadTOCFile();
   bool WriteTOCFile();
-  bool NeedSaving();
+  bool GetNeedSaving();
+  void SetNeedSaving();
   void DisplayTOCInTree(TOCTreeCtrl* tree);
   void InsertTOC(TOCTreeCtrl* tree,HTREEITEM item,TOCEntry* entry,int level);
   void AddEntry(TOCEntry* here,TOCEntry* toinsert);
@@ -90,7 +91,13 @@ TOC::SetFilename(CString p_filename)
 }
 
 inline bool
-TOC::NeedSaving()
+TOC::GetNeedSaving()
 {
   return m_needSaving;
+}
+
+inline void
+TOC::SetNeedSaving()
+{
+  m_needSaving = true;
 }
