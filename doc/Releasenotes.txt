@@ -1,6 +1,17 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
+Version 1.0.4
+-------------
+1) Editting of TOC entries is re-enabled again from the TOC view.
+   A edit icon has been added there to edit the current entry.
+2) The TOC can now save the image number again without altering any other
+   part of the TOC entry properties.
+3) Fix for saving multi-level topic keywords. The second en higher levels
+   are now correctly stripped from leading and trailing spaces.
+4) Fix for the broken link detector. The BrokenLinks Dialog is now 
+   displaying no more false positives.
+
 Version 1.0.3
 -------------
 1) Reading/Writing HHP, HHC and HHK files are now implemented with WinFile
