@@ -935,6 +935,8 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <None Include="images\paragraph.html" />
     <None Include="Res\project.bmp" />
     <None Include="Res\projectbar.bmp" />
+    <None Include="res\res\splith.cur" />
+    <None Include="res\res\splitv.cur" />
     <None Include="Res\science.bmp" />
     <None Include="Res\signs.bmp" />
     <None Include="test.html" />

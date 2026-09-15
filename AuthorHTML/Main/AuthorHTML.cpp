@@ -495,9 +495,13 @@ void
 AuthorHTMLApp::OnFileOpenurl() 
 {
   CGetURL dlg;
-  if(IDOK==dlg.DoModal())	
+  if(IDOK == dlg.DoModal())	
   {
-    OpenTypedDocumentFile(dlg.m_URL);	
+    CString url = dlg.GetURL();
+    if(!url.IsEmpty())
+    {
+      OpenTypedDocumentFile(url);
+    }
   }
 }
 

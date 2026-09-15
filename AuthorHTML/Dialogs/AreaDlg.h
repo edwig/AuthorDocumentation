@@ -40,6 +40,9 @@ protected:
 
 private:
   void FillPage();
+  void FillAddressAndBrowser();
+  void FillTargets();
+  void FillSpins();
   void UpdateProperties();
   void OnDocumentComplete(LPDISPATCH pDisp, LPVARIANT pURL);
   void ScrollIntoView(CString bookmark);
@@ -69,7 +72,7 @@ private:
   CString   m_title;
   CString   m_id;
   // Controls
-  CAddressCombo   m_AddrCombo;
+  AddressCombo    m_addressCombo;
   AD_Button       m_buttonOpen;
   AD_Button       m_buttonGO;
   AD_Checkbox     m_buttonPopup;

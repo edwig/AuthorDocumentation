@@ -63,10 +63,7 @@ void TOCDlg::DoDataExchange(CDataExchange* pDX)
 {
   CDialog::DoDataExchange(pDX);
   DDX_Text   (pDX,IDC_TOC_TITLE,       m_title);
-  if(::IsWindow(m_AddrCombo.m_hWnd))
-  {
-    DDX_Text(pDX, IDC_ADDRCOMBO, m_href);
-  }
+  DDX_Control(pDX,IDC_ADDRCOMBO,       m_addressCombo);
   DDX_Text   (pDX,IDC_EDIT_HYPINFO,    m_comment);
   DDX_Control(pDX,IDC_WINDOW_TARGET,   m_comboWindow);
   DDX_Control(pDX,IDC_FRAME_TARGET,    m_comboFrame);
@@ -104,8 +101,8 @@ void TOCDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(TOCDlg, CDialog)
   ON_EN_CHANGE    (IDC_TOC_TITLE,      OnEnChangeTitle)
-  ON_CONTROL      (CBN_CLOSEUP,IDC_ADDRCOMBO,OnCloseup)
-  ON_CONTROL      (BN_CLICKED,IDC_BTNGO,     OnGo)
+  ON_CBN_CLOSEUP  (IDC_ADDRCOMBO,      OnCloseup)
+  ON_BN_CLICKED   (IDC_BTNGO,          OnGo)
   ON_BN_CLICKED   (IDC_BUTTON_OPEN,    OnBnClickedButtonOpen)
   ON_EN_KILLFOCUS (IDC_EDIT_HYPINFO,   OnEnChangeEditHypinfo)
   ON_CBN_SELCHANGE(IDC_WINDOW_TARGET,  OnCbnSelchangeWindowTarget)
@@ -125,57 +122,69 @@ BOOL
 TOCDlg::OnInitDialog() 
 {
   CDialog::OnInitDialog();
-  IUnknown *pUnk;
 
+  // Create controls;
   CWnd *pWnd = GetDlgItem(IDC_EXPLORER);
-  pUnk = NULL;
   if(pWnd)
   {
     m_spBrowser = pWnd->GetControlUnknown();
   }
-  FillPage();
+  m_imageList.Create(MAKEINTRESOURCE(IDB_TOC),16,0,RGB(255,255,255));
 
-  pWnd = NULL;
-  CRect rcItem;
-  pWnd = GetDlgItem(IDC_PHSTATIC);
-  if(pWnd)
+  // Getting the LRU list of addresses from the registry
+  m_addressCombo.FillWithHistory();
+
+  // Get current TOCEntry properties
+  FillPage();
+  // Fill the controls with the properties
+  FillAddressAndBrowser();
+  FillTargets();
+  FillImageNumbers();
+
+  UpdateData(Data2Controls);
+  return TRUE;
+}
+
+void
+TOCDlg::FillAddressAndBrowser()
+{
+  if(m_href.IsEmpty())
   {
-    pWnd->GetClientRect(rcItem);
-    pWnd->ClientToScreen(rcItem);
-    pWnd->DestroyWindow();
-    ScreenToClient(rcItem);
-    rcItem.bottom += 150;
-    if(m_AddrCombo.Create(WS_VSCROLL|WS_CHILD|WS_VISIBLE|CBS_DROPDOWN|CBS_AUTOHSCROLL,rcItem,this,IDC_ADDRCOMBO))
+    // TOC could be for a #named TOC on same page
+    m_addressCombo.SetCurSel(-1);
+  }
+  else
+  {
+    // TOC is not empty
+    int ind = m_addressCombo.FindString(-1,m_href);
+    if(ind < 0)
     {
-      if(m_href.IsEmpty())
-      {
-        // TOC could be for a #named TOC on same page
-        m_AddrCombo.SetCurSel(-1);
-        //if(m_spBrowser)
-        //{
-        //  m_spBrowser->Navigate(m_base.AllocSysString(),NULL,NULL,NULL,NULL);
-        //}
-      }
-      else
-      {
-        // TOC is not empty
-        int ind = m_AddrCombo.AddString(m_href);
-        m_AddrCombo.SetCurSel(ind);
-        if(m_spBrowser)
-        {
-          CString URL = m_base + m_href;
-          m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
-        }
-      }
+      ind = m_addressCombo.AddString(m_href);
+    }
+    m_addressCombo.SetCurSel(ind);
+    if(m_spBrowser)
+    {
+      CString URL = m_base + m_href;
+      m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
     }
   }
+}
+
+void 
+TOCDlg::FillTargets()
+{
   // All target descriptions
   vector<string> all;
   Misc::GetAllAttributeDisplaynames("target",&all);
-  for(unsigned int ind=0; ind<all.size(); ++ind)
+  for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_comboFrame.AddString(all[ind].c_str());
   }
+}
+
+void
+TOCDlg::FillImageNumbers()
+{
   // Set image numbers;
   m_comboImage.AddString("Default");
   for(int ind = 1; ind < 43; ++ind)
@@ -184,11 +193,6 @@ TOCDlg::OnInitDialog()
     number.Format("%d",ind);
     m_comboImage.AddString(number);
   }
-  // CImagelist
-  m_imageList.Create(MAKEINTRESOURCE(IDB_TOC),16,0,RGB(255,255,255));
-
-  UpdateData(Data2Controls);
-  return TRUE;
 }
 
 void
@@ -270,12 +274,15 @@ TOCDlg::CheckDocument(CString& href)
   DocumentFile* document = project->FindDocumentFile(href);
   if(!document)
   {
-    if(theApp.MessageBox("This document is not a part of this project!\n"
-                         "Would you like to try to add it to the project for future use?"
-                        ,"Warning"
-                        ,MB_YESNO|MB_DEFBUTTON1|MB_ICONWARNING) == IDYES)
+    if(!href.IsEmpty())
     {
-      project->AddDocumentFile(document->GetRelativeDirectory(),href);
+      if(theApp.MessageBox("This document is not a part of this project!\n"
+                           "Would you like to try to add it to the project for future use?"
+                           ,"Warning"
+                           ,MB_YESNO | MB_DEFBUTTON1 | MB_ICONWARNING) == IDYES)
+      {
+        project->AddDocumentFile(document->GetRelativeDirectory(),href);
+      }
     }
     return false;
   }
@@ -405,10 +412,10 @@ TOCDlg::OnEnChangeTitle()
 void 
 TOCDlg::OnCloseup()
 {	
-  int nSel = m_AddrCombo.GetCurSel();
+  int nSel = m_addressCombo.GetCurSel();
   if(CB_ERR != nSel)
   {
-    m_AddrCombo.GetLBText(nSel,m_href);
+    m_addressCombo.GetLBText(nSel,m_href);
     if(m_spBrowser)
     {
       CString URL = m_base + m_href;
@@ -420,7 +427,7 @@ TOCDlg::OnCloseup()
 void 
 TOCDlg::OnGo()
 {
-  m_AddrCombo.GetWindowText(m_href);
+  m_addressCombo.GetWindowText(m_href);
   if(m_spBrowser)
   {
     CString URL = m_base + m_href;
@@ -444,12 +451,12 @@ void TOCDlg::OnBnClickedButtonOpen()
       href = relative;
     }
     CheckDocument(href);
-    int pos = m_AddrCombo.FindString(-1,href);
+    int pos = m_addressCombo.FindString(-1,href);
     if(pos == CB_ERR)
     {
-      pos = m_AddrCombo.AddString(href);
+      pos = m_addressCombo.AddString(href);
     }
-    m_AddrCombo.SetCurSel(pos);
+    m_addressCombo.SetCurSel(pos);
     OnGo();
   }
 }

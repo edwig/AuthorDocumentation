@@ -25,103 +25,116 @@ static char THIS_FILE[] = __FILE__;
 
 
 CGetURL::CGetURL(CWnd* pParent /*=NULL*/)
-	: CDialog(CGetURL::IDD, pParent)
+        :CDialog(CGetURL::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CGetURL)
-	m_URL = _T("");
-	//}}AFX_DATA_INIT
 }
 
-
-void CGetURL::DoDataExchange(CDataExchange* pDX)
+void 
+CGetURL::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CGetURL)
-
-	//}}AFX_DATA_MAP
-	if(::IsWindow(m_AddrCombo.m_hWnd))
-		DDX_Text(pDX, IDC_ADDRCOMBO, m_URL);
+  CDialog::DoDataExchange(pDX);
+  DDX_Control(pDX,IDC_ADDRCOMBO,m_addressCombo);
 }
-
 
 BEGIN_MESSAGE_MAP(CGetURL, CDialog)
-	//{{AFX_MSG_MAP(CGetURL)
-	//}}AFX_MSG_MAP
-	ON_CONTROL(CBN_CLOSEUP,IDC_ADDRCOMBO,OnCloseup)
-	ON_CONTROL(BN_CLICKED,IDC_BTNGO,OnGo)
-  ON_BN_CLICKED(IDC_BUTTON_OPEN, OnBnClickedButtonOpen)
+  ON_CBN_CLOSEUP(IDC_ADDRCOMBO,   OnCloseup)
+  ON_BN_CLICKED (IDC_BTNGO,       OnGo)
+  ON_BN_CLICKED (IDC_BUTTON_OPEN, OnBnClickedButtonOpen)
 END_MESSAGE_MAP()
 
 BEGIN_EVENTSINK_MAP(CGetURL, CDialog)
-	ON_EVENT(CGetURL, IDC_EXPLORER, 0x00000103, OnDocumentComplete, VTS_DISPATCH VTS_VARIANT)
+  ON_EVENT(CGetURL, IDC_EXPLORER, 0x00000103, OnDocumentComplete, VTS_DISPATCH VTS_VARIANT)
 END_EVENTSINK_MAP()
+
 /////////////////////////////////////////////////////////////////////////////
 // CGetURL message handlers
-void CGetURL::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT pURL)
-{
-	CString szURL(COLE2T(pURL->pvarVal->bstrVal));
-	if(::IsWindow(m_AddrCombo.m_hWnd))
-	{
-		m_AddrCombo.SetWindowText(szURL);
-		m_szCurAddr = szURL;
-	}
-	
-}
-void CGetURL::OnOK() 
-{
-	UpdateData();
-	CDialog::OnOK();
-}
 
 BOOL CGetURL::OnInitDialog() 
 {
-	CDialog::OnInitDialog();
-	IUnknown *pUnk;
-	
-	CWnd *pWnd = GetDlgItem(IDC_EXPLORER);
-	pUnk = NULL;
-	if(pWnd)
-		m_spBrowser = pWnd->GetControlUnknown();
+  CDialog::OnInitDialog();
 
-	pWnd = NULL;
-	CRect rcItem;
-	pWnd = GetDlgItem(IDC_PHSTATIC);
-	if(pWnd)
-	{
-		pWnd->GetClientRect(rcItem);
-		pWnd->ClientToScreen(rcItem);
-		pWnd->DestroyWindow();
-		ScreenToClient(rcItem);
-		rcItem.bottom += 150;
-		if(m_AddrCombo.Create(WS_VSCROLL|WS_CHILD|WS_VISIBLE|CBS_DROPDOWN|CBS_AUTOHSCROLL,rcItem,this,IDC_ADDRCOMBO))
-		{
-			m_AddrCombo.SetCurSel(0);
-			m_AddrCombo.GetWindowText(m_szCurAddr);
-			if(m_spBrowser && m_szCurAddr.GetLength())
-				m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
-		}
-	}
-	return TRUE;
+  // Init the browser control
+  CWnd *pWnd = GetDlgItem(IDC_EXPLORER);
+  if(pWnd)
+  {
+    m_spBrowser = pWnd->GetControlUnknown();
+  }
+  m_addressCombo.FillWithHistory();
+
+  FillAddressAndBrowser();
+
+  UpdateData(Data2Controls);
+  return TRUE;
+}
+
+void
+CGetURL::FillAddressAndBrowser()
+{
+  if(m_szCurAddr.IsEmpty())
+  {
+    m_addressCombo.SetCurSel(-1);
+  }
+  else
+  {
+    int ind = m_addressCombo.FindString(-1,m_szCurAddr);
+    if(ind < 0)
+    {
+      ind = m_addressCombo.AddString(m_szCurAddr);
+    }
+    m_addressCombo.SetCurSel(ind);
+    if(m_spBrowser)
+    {
+      m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
+    }
+  }
+}
+
+void
+CGetURL::OnDocumentComplete(LPDISPATCH /*pDisp*/,LPVARIANT pURL)
+{
+  CString szURL(COLE2T(pURL->pvarVal->bstrVal));
+  if(::IsWindow(m_addressCombo.m_hWnd))
+  {
+    m_addressCombo.SetWindowText(szURL);
+    m_szCurAddr = szURL;
+    m_URL       = szURL;
+  }
+
+}
+void CGetURL::OnOK()
+{
+  UpdateData();
+  CDialog::OnOK();
 }
 
 void CGetURL::OnCloseup()
 {	
-	int nSel = m_AddrCombo.GetCurSel();
-	if(CB_ERR != nSel)
-	{
-		m_AddrCombo.GetLBText(nSel,m_szCurAddr);
-		if(m_spBrowser)
-			m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
-
-	}
+  int nSel = m_addressCombo.GetCurSel();
+  if(CB_ERR != nSel)
+  {
+    m_addressCombo.GetLBText(nSel,m_szCurAddr);
+    if(m_spBrowser)
+    {
+      HRESULT res = m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
+      if(SUCCEEDED(res))
+      {
+        m_URL = m_szCurAddr;
+      }
+    }
+  }
 }
 
 void CGetURL::OnGo()
 {
-	m_AddrCombo.GetWindowText(m_szCurAddr);
-	if(m_spBrowser)
-		m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
-
+  m_addressCombo.GetWindowText(m_szCurAddr);
+  if(m_spBrowser)
+  {
+    HRESULT res = m_spBrowser->Navigate(m_szCurAddr.AllocSysString(),NULL,NULL,NULL,NULL);
+    if(SUCCEEDED(res))
+    {
+      m_URL = m_szCurAddr;
+    }
+  }
 }
 
 void CGetURL::OnBnClickedButtonOpen()
@@ -135,8 +148,8 @@ void CGetURL::OnBnClickedButtonOpen()
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
-    int num = m_AddrCombo.AddString(file);
-    m_AddrCombo.SetCurSel(num);
+    int num = m_addressCombo.AddString(file);
+    m_addressCombo.SetCurSel(num);
     OnGo();
   }
 }

@@ -15,36 +15,18 @@
 #include "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////
-// CAddressCombo window
+// AddressCombo window
 
-class CAddressCombo : public CComboBox
+class AddressCombo : public CComboBox
 {
+  DECLARE_DYNAMIC(AddressCombo)
 // Construction
 public:
-	CAddressCombo();
-	void FillWithHistory();
-// Attributes
-public:
+	AddressCombo();
+  virtual ~AddressCombo();
+  void FillWithHistory();
 
-// Operations
-public:
-
-// Overrides
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CAddressCombo)
-	//}}AFX_VIRTUAL
-
-// Implementation
-public:
-	CFont m_font;
-	virtual ~CAddressCombo();
-
-	// Generated message map functions
 protected:
-	//{{AFX_MSG(CAddressCombo)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	//}}AFX_MSG
-
 	DECLARE_MESSAGE_MAP()
 };
 

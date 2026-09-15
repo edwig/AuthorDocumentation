@@ -43,27 +43,28 @@ AreaDlg::~AreaDlg()
 void AreaDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-  DDX_Text   (pDX,IDC_TITLE,  m_title);
+  DDX_Text   (pDX,IDC_TITLE,      m_title);
+  DDX_Control(pDX,IDC_ADDRCOMBO,  m_addressCombo);
   DDX_Control(pDX,IDC_BUTTON_OPEN,m_buttonOpen);
-  DDX_Control(pDX,IDC_GO,     m_buttonGO);
-  DDX_Control(pDX,IDC_POPUP,  m_buttonPopup);
-  DDX_Control(pDX,IDC_NOHREF, m_buttonNoHref);
-  DDX_Control(pDX,IDC_SHAPE,  m_comboShape);
-  DDX_Text   (pDX,IDC_LEFT,   m_left);
-  DDX_Text   (pDX,IDC_TOP,    m_top);
-  DDX_Text   (pDX,IDC_RIGHT,  m_right);
-  DDX_Text   (pDX,IDC_BOTTOM, m_bottom);
-  DDX_Text   (pDX,IDC_POLYGON,m_polygon);
-  DDX_Control(pDX,IDC_SPIN1,  m_spin1);
-  DDX_Control(pDX,IDC_SPIN2,  m_spin2);
-  DDX_Control(pDX,IDC_SPIN3,  m_spin3);
-  DDX_Control(pDX,IDC_SPIN4,  m_spin4);
-  DDX_Control(pDX,IDC_BOOKMARKS,m_comboBM);
-  DDX_Control(pDX,IDC_ID,       m_buttonID);
-  DDX_Control(pDX,IDC_EVENTS,   m_buttonEvents);
-  DDX_Control(pDX,IDOK,         m_buttonOK);
-  DDX_Control(pDX,IDCANCEL,     m_buttonCancel);
-  DDX_Control(pDX,IDC_HELP_AREA,m_buttonHelp);
+  DDX_Control(pDX,IDC_GO,         m_buttonGO);
+  DDX_Control(pDX,IDC_POPUP,      m_buttonPopup);
+  DDX_Control(pDX,IDC_NOHREF,     m_buttonNoHref);
+  DDX_Control(pDX,IDC_SHAPE,      m_comboShape);
+  DDX_Text   (pDX,IDC_LEFT,       m_left);
+  DDX_Text   (pDX,IDC_TOP,        m_top);
+  DDX_Text   (pDX,IDC_RIGHT,      m_right);
+  DDX_Text   (pDX,IDC_BOTTOM,     m_bottom);
+  DDX_Text   (pDX,IDC_POLYGON,    m_polygon);
+  DDX_Control(pDX,IDC_SPIN1,      m_spin1);
+  DDX_Control(pDX,IDC_SPIN2,      m_spin2);
+  DDX_Control(pDX,IDC_SPIN3,      m_spin3);
+  DDX_Control(pDX,IDC_SPIN4,      m_spin4);
+  DDX_Control(pDX,IDC_BOOKMARKS,  m_comboBM);
+  DDX_Control(pDX,IDC_ID,         m_buttonID);
+  DDX_Control(pDX,IDC_EVENTS,     m_buttonEvents);
+  DDX_Control(pDX,IDOK,           m_buttonOK);
+  DDX_Control(pDX,IDCANCEL,       m_buttonCancel);
+  DDX_Control(pDX,IDC_HELP_AREA,  m_buttonHelp);
 
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
@@ -128,24 +129,24 @@ void AreaDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(AreaDlg, CDialog)
-  ON_CONTROL      (CBN_CLOSEUP,IDC_ADDRCOMBO,OnCloseup)
+  ON_CBN_CLOSEUP  (IDC_ADDRCOMBO,  OnCloseup)
   ON_BN_CLICKED   (IDC_BUTTON_OPEN,OnButtonOpen)
-  ON_BN_CLICKED   (IDC_GO,        OnButtonGo)
-  ON_BN_CLICKED   (IDC_POPUP,     OnBnClickedPopup)
-  ON_BN_CLICKED   (IDC_NOHREF,    OnBnClickedNohref)
-  ON_EN_CHANGE    (IDC_TITLE,     OnEnChangeTitle)
-  ON_CBN_SELCHANGE(IDC_SHAPE,     OnCbnSelchangeShape)
-  ON_EN_CHANGE    (IDC_LEFT,      OnEnChangeLeft)
-  ON_EN_CHANGE    (IDC_TOP,       OnEnChangeTop)
-  ON_EN_CHANGE    (IDC_RIGHT,     OnEnChangeRight)
-  ON_EN_CHANGE    (IDC_BOTTOM,    OnEnChangeBottom)
-  ON_EN_CHANGE    (IDC_POLYGON,   OnEnChangePolygon)
-  ON_CBN_SELCHANGE(IDC_BOOKMARKS, OnCbnSelchangeBookmarks)
-  ON_BN_CLICKED   (IDC_ID,        OnBnClickedId)
-  ON_BN_CLICKED   (IDC_EVENTS,    OnBnClickedEvents)
-  ON_BN_CLICKED   (IDOK,          OnBnClickedOk)
-  ON_BN_CLICKED   (IDCANCEL,      OnBnClickedCancel)
-  ON_BN_CLICKED   (IDC_HELP_AREA, OnBnClickedHelpArea)
+  ON_BN_CLICKED   (IDC_GO,         OnButtonGo)
+  ON_BN_CLICKED   (IDC_POPUP,      OnBnClickedPopup)
+  ON_BN_CLICKED   (IDC_NOHREF,     OnBnClickedNohref)
+  ON_EN_CHANGE    (IDC_TITLE,      OnEnChangeTitle)
+  ON_CBN_SELCHANGE(IDC_SHAPE,      OnCbnSelchangeShape)
+  ON_EN_CHANGE    (IDC_LEFT,       OnEnChangeLeft)
+  ON_EN_CHANGE    (IDC_TOP,        OnEnChangeTop)
+  ON_EN_CHANGE    (IDC_RIGHT,      OnEnChangeRight)
+  ON_EN_CHANGE    (IDC_BOTTOM,     OnEnChangeBottom)
+  ON_EN_CHANGE    (IDC_POLYGON,    OnEnChangePolygon)
+  ON_CBN_SELCHANGE(IDC_BOOKMARKS,  OnCbnSelchangeBookmarks)
+  ON_BN_CLICKED   (IDC_ID,         OnBnClickedId)
+  ON_BN_CLICKED   (IDC_EVENTS,     OnBnClickedEvents)
+  ON_BN_CLICKED   (IDOK,           OnBnClickedOk)
+  ON_BN_CLICKED   (IDCANCEL,       OnBnClickedCancel)
+  ON_BN_CLICKED   (IDC_HELP_AREA,  OnBnClickedHelpArea)
 END_MESSAGE_MAP()
 
 BEGIN_EVENTSINK_MAP(AreaDlg, CDialog)
@@ -156,63 +157,65 @@ BOOL
 AreaDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
-  IUnknown *pUnk;
-
   CWnd *pWnd = GetDlgItem(IDC_EXPLORER);
-  pUnk = NULL;
   if(pWnd)
   {
     m_spBrowser = pWnd->GetControlUnknown();
   }
+  m_addressCombo.FillWithHistory();
 
   // Get attributes
   FillPage();
+  // Fill controls with attributes
+  FillAddressAndBrowser();
+  FillTargets();
+  FillSpins();
 
-  // Fill page in browser
-  pWnd = NULL;
-  CRect rcItem;
-  pWnd = GetDlgItem(IDC_PHSTATIC);
-  if(pWnd)
+  UpdateData(Data2Controls);
+  m_initDone = true;
+  return TRUE;
+}
+
+void
+AreaDlg::FillAddressAndBrowser()
+{
+  if(m_href.IsEmpty())
   {
-    pWnd->GetClientRect(rcItem);
-    pWnd->ClientToScreen(rcItem);
-    pWnd->DestroyWindow();
-    ScreenToClient(rcItem);
-    rcItem.bottom += 150;
-    if(m_AddrCombo.Create(WS_VSCROLL|WS_CHILD|WS_VISIBLE|CBS_DROPDOWN|CBS_AUTOHSCROLL
-                         ,rcItem,this,IDC_ADDRCOMBO))
+    // Area could be for a #named anchor on same page
+    m_addressCombo.SetCurSel(-1);
+  }
+  else
+  {
+    // Area is not empty
+    int ind = m_addressCombo.FindString(-1,m_href);
+    if(ind < 0)
     {
-      if(m_href.IsEmpty())
-      {
-        // Anchor could be for a #named anchor on same page
-        m_AddrCombo.SetCurSel(-1);
-        //if(m_spBrowser)
-        //{
-        //  m_spBrowser->Navigate(m_basePage.AllocSysString(),NULL,NULL,NULL,NULL);
-        //}
-      }
-      else
-      {
-        // Anchor is not empty
-        int ind = m_AddrCombo.AddString(m_href);
-        m_AddrCombo.SetCurSel(ind);
-        if(m_spBrowser)
-        {
-          CString URL = m_base + m_href;
-          m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
-        }
-      }
+      ind = m_addressCombo.AddString(m_href);
+    }
+    m_addressCombo.SetCurSel(ind);
+    if(m_spBrowser)
+    {
+      CString URL = m_base + m_href;
+      m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
     }
   }
+}
 
-
+void
+AreaDlg::FillTargets()
+{
   // All target descriptions
   vector<string> all;
   Misc::GetAllAttributeDisplaynames("shape",&all);
-  for(unsigned int ind=0; ind<all.size(); ++ind)
+  for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_comboShape.AddString(all[ind].c_str());
   }
+}
+
+void
+AreaDlg::FillSpins()
+{
   // Spins
   m_spin1.SetBase(10);
   m_spin2.SetBase(10);
@@ -222,10 +225,6 @@ AreaDlg::OnInitDialog()
   m_spin2.SetRange(0,32000);
   m_spin3.SetRange(0,32000);
   m_spin4.SetRange(0,32000);
-
-  UpdateData(Data2Controls);
-  m_initDone = true;
-  return TRUE;
 }
 
 void
@@ -463,10 +462,10 @@ AreaDlg::ScrollIntoView(CString bookmark)
 void 
 AreaDlg::OnCloseup()
 {	
-  int nSel = m_AddrCombo.GetCurSel();
+  int nSel = m_addressCombo.GetCurSel();
   if(CB_ERR != nSel)
   {
-    m_AddrCombo.GetLBText(nSel,m_href);
+    m_addressCombo.GetLBText(nSel,m_href);
     if(m_spBrowser)
     {
       CString URL = m_base + m_href;
@@ -491,12 +490,12 @@ AreaDlg::OnButtonOpen()
     {
       href = relative;
     }
-    int pos = m_AddrCombo.FindString(-1,href);
+    int pos = m_addressCombo.FindString(-1,href);
     if(pos == CB_ERR)
     {
-      pos = m_AddrCombo.AddString(href);
+      pos = m_addressCombo.AddString(href);
     }
-    m_AddrCombo.SetCurSel(pos);
+    m_addressCombo.SetCurSel(pos);
     OnButtonGo();
   }
 }
@@ -504,7 +503,7 @@ AreaDlg::OnButtonOpen()
 void 
 AreaDlg::OnButtonGo()
 {
-  m_AddrCombo.GetWindowText(m_href);
+  m_addressCombo.GetWindowText(m_href);
   if(m_spBrowser)
   {
     CString URL = m_base + m_href;

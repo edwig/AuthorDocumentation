@@ -173,6 +173,7 @@ void
 IMGControlSite::RewriteArea()
 {
   if(m_xHTMLPainter.m_lPartArea && 
+     m_xHTMLPainter.m_spElem    &&
      m_xHTMLPainter.m_lPartID >=0)
   {
     CComPtr<IDispatch> disp;

@@ -55,6 +55,9 @@ protected:
 
 private:
   void FillPage();
+  void FillAddressAndBrowser();
+  void FillTargets();
+  void FillImageNumbers();
   bool UpdateProperties();
   void OnPaintIcon();
 
@@ -77,7 +80,7 @@ private:
   CString m_bookmark;
   CString m_image;
 
-  CAddressCombo   m_AddrCombo;
+  AddressCombo   m_addressCombo;
   CComboBox       m_comboWindow;
   CComboBox       m_comboFrame; // m_targetCombo;
   CComboBox       m_comboImage;

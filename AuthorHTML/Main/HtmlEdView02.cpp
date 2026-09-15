@@ -429,7 +429,7 @@ void
 CHTMLEdView::OnDoubleClickArea(CComPtr<IHTMLElement> pElement)
 {
   HtmlArea area(pElement);
-  AreaDlg diag(this,&area,GetBase());
+  AreaDlg diag(this,&area,theApp.GetBaseDirectory());
   if(diag.DoModal() == IDOK)
   {
     if(diag.GetDoPopup())

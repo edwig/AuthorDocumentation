@@ -10,38 +10,40 @@
 // Description: Dialog for managing the URL
 //
 #pragma once
+#include "addresscombo.h"
+#include "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CGetURL dialog
-#include "addresscombo.h"
-#include "resource.h"
 
 class CGetURL : public CDialog
 {
 public:
-	CGetURL(CWnd* pParent = NULL);   // standard constructor
-	CString m_URL;
+  CGetURL(CWnd* pParent = NULL);
+  CString GetURL() { return m_URL; }
 
-	enum { IDD = IDD_URLDIALOG };
+  enum { IDD = IDD_URLDIALOG };
 
-// Overrides
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
-// Implementation
 protected:
-	void OnGo();
-	void OnCloseup();
-	CString m_szCurAddr;
-	CComQIPtr<IWebBrowser2> m_spBrowser;
-	CAddressCombo m_AddrCombo;
+  virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
-	virtual void OnOK();
-	virtual BOOL OnInitDialog();
+  void OnGo();
+  void OnCloseup();
+  void FillAddressAndBrowser();
 
-	void OnDocumentComplete(LPDISPATCH pDisp, LPVARIANT pURL);
-	DECLARE_MESSAGE_MAP()
-	DECLARE_EVENTSINK_MAP()
+  CString                 m_URL;
+  CString                 m_szCurAddr;
+  CComQIPtr<IWebBrowser2> m_spBrowser;
+  AddressCombo            m_addressCombo;
+
+  virtual void OnOK();
+  virtual BOOL OnInitDialog();
+
+  void OnDocumentComplete(LPDISPATCH pDisp, LPVARIANT pURL);
+
+  DECLARE_MESSAGE_MAP()
+  DECLARE_EVENTSINK_MAP()
+
 public:
   afx_msg void OnBnClickedButtonOpen();
 };

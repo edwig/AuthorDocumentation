@@ -14,6 +14,7 @@
 //
 #include "StdAfx.h"
 #include <Mshtmdid.h>
+#include "AuthorHTML.h"
 #include "HTMLDocEditDesigner.h"
 #include "HtmlTable.h"
 #include "HTMLTableRow.h"
@@ -585,7 +586,7 @@ HTMLDocEditDesigner::AddToImgArea(IHTMLEventObj*  pIEvent
       if(pElem.p)
       {
         HtmlArea area(pElem);
-        AreaDlg diag(NULL,&area,m_view->GetBase());
+        AreaDlg diag(NULL,&area,theApp.GetBaseDirectory());
         if(diag.DoModal() == IDOK)
         {
           if(diag.GetDoPopup())

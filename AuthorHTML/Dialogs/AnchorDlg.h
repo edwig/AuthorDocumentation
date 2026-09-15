@@ -47,6 +47,8 @@ protected:
 
 private:
   void FillPage();
+  void FillAddressAndBrowser();
+  void FillTarget();
   void UpdateProperties();
 
   void OnGo();
@@ -71,7 +73,7 @@ private:
   bool    m_doBSSCpopup;
   bool    m_doADHpopup;
 
-  CAddressCombo   m_AddrCombo;
+  AddressCombo    m_addressCombo;
   CComboBox       m_targetCombo;
   CComboBox       m_relCombo;
   CComboBox       m_revCombo;

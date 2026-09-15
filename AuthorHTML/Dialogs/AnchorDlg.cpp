@@ -52,10 +52,7 @@ AnchorDlg::~AnchorDlg()
 void AnchorDlg::DoDataExchange(CDataExchange* pDX)
 {
   CDialog::DoDataExchange(pDX);
-  if(::IsWindow(m_AddrCombo.m_hWnd))
-  {
-    DDX_Text(pDX, IDC_ADDRCOMBO, m_href);
-  }
+  DDX_Control(pDX,IDC_ADDRCOMBO,       m_addressCombo);
   DDX_Text   (pDX,IDC_EDIT_HYPINFO,    m_title);
   DDX_Control(pDX,IDC_FRAME_TARGET,    m_targetCombo);
   DDX_Control(pDX,IDC_HYPERLINK_FRAME, m_buttonFrame);
@@ -128,8 +125,8 @@ void AnchorDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(AnchorDlg, CDialog)
-  ON_CONTROL      (CBN_CLOSEUP,IDC_ADDRCOMBO,OnCloseup)
-  ON_CONTROL      (BN_CLICKED,IDC_BTNGO,     OnGo)
+  ON_CBN_CLOSEUP  (IDC_ADDRCOMBO,      OnCloseup)
+  ON_BN_CLICKED   (IDC_BTNGO,          OnGo)
   ON_BN_CLICKED   (IDC_BUTTON_OPEN,    OnBnClickedButtonOpen)
   ON_EN_KILLFOCUS (IDC_EDIT_HYPINFO,   OnEnChangeEditHypinfo)
   ON_CBN_SELCHANGE(IDC_FRAME_TARGET,   OnCbnSelchangeFrameTarget)
@@ -160,53 +157,58 @@ AnchorDlg::OnInitDialog()
   {
     m_spBrowser = pWnd->GetControlUnknown();
   }
+  m_addressCombo.FillWithHistory();
+
   FillPage();
 
-  pWnd = NULL;
-  CRect rcItem;
-  pWnd = GetDlgItem(IDC_PHSTATIC);
-  if(pWnd)
-  {
-    pWnd->GetClientRect(rcItem);
-    pWnd->ClientToScreen(rcItem);
-    pWnd->DestroyWindow();
-    ScreenToClient(rcItem);
-    rcItem.bottom += 150;
-    if(m_AddrCombo.Create(WS_VSCROLL|WS_CHILD|WS_VISIBLE|CBS_DROPDOWN|CBS_AUTOHSCROLL,rcItem,this,IDC_ADDRCOMBO))
-    {
-      if(m_href.IsEmpty())
-      {
-        // Anchor could be for a #named anchor on same page
-        m_AddrCombo.SetCurSel(-1);
-        if(m_spBrowser)
-        {
-          m_spBrowser->Navigate(m_basePage.AllocSysString(),NULL,NULL,NULL,NULL);
-        }
-      }
-      else
-      {
-        // Anchor is not empty
-        int ind = m_AddrCombo.AddString(m_href);
-        m_AddrCombo.SetCurSel(ind);
-        if(m_spBrowser)
-        {
-          CString URL = m_base + m_href;
-          m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
-        }
-      }
-    }
-  }
-  // All target descriptions
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("target",&all);
-  for(unsigned int ind=0; ind<all.size(); ++ind)
-  {
-    m_targetCombo.AddString(all[ind].c_str());
-  }
+  FillAddressAndBrowser();
+  FillTarget();
+
   m_buttonFrame.SetCheck(TRUE);
   UpdateData(Data2Controls);
   return TRUE;
 }
+
+void
+AnchorDlg::FillAddressAndBrowser()
+{
+  if(m_href.IsEmpty())
+  {
+    // Anchor could be for a #named anchor on same page
+    m_addressCombo.SetCurSel(-1);
+    if(m_spBrowser)
+    {
+      m_spBrowser->Navigate(m_basePage.AllocSysString(),NULL,NULL,NULL,NULL);
+    }
+  }
+  else
+  {
+    // Anchor is not empty
+    int ind = m_addressCombo.FindString(-1,m_href);
+    if(ind < 0)
+    {
+      ind = m_addressCombo.AddString(m_href);
+    }
+    m_addressCombo.SetCurSel(ind);
+    if(m_spBrowser)
+    {
+      CString URL = m_base + m_href;
+      m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
+    }
+  }
+}
+
+void
+AnchorDlg::FillTarget()
+{
+  // All target descriptions
+  vector<string> all;
+  Misc::GetAllAttributeDisplaynames("target",&all);
+  for(unsigned int ind = 0; ind < all.size(); ++ind)
+  {
+    m_targetCombo.AddString(all[ind].c_str());
+  }
+} 
 
 void
 AnchorDlg::FillPage()
@@ -402,10 +404,10 @@ AnchorDlg::ScrollIntoView(CString bookmark)
 void 
 AnchorDlg::OnCloseup()
 {	
-  int nSel = m_AddrCombo.GetCurSel();
+  int nSel = m_addressCombo.GetCurSel();
   if(CB_ERR != nSel)
   {
-    m_AddrCombo.GetLBText(nSel,m_href);
+    m_addressCombo.GetLBText(nSel,m_href);
     if(m_spBrowser)
     {
       CString URL = m_base + m_href;
@@ -417,7 +419,7 @@ AnchorDlg::OnCloseup()
 void 
 AnchorDlg::OnGo()
 {
-  m_AddrCombo.GetWindowText(m_href);
+  m_addressCombo.GetWindowText(m_href);
   if(m_spBrowser)
   {
     CString URL = m_base + m_href;
@@ -440,12 +442,12 @@ void AnchorDlg::OnBnClickedButtonOpen()
     {
       m_href = relative;
     }
-    int pos = m_AddrCombo.FindString(-1,m_href);
+    int pos = m_addressCombo.FindString(-1,m_href);
     if(pos == CB_ERR)
     {
-      pos = m_AddrCombo.AddString(m_href);
+      pos = m_addressCombo.AddString(m_href);
     }
-    m_AddrCombo.SetCurSel(pos);
+    m_addressCombo.SetCurSel(pos);
     OnGo();
   }
 }

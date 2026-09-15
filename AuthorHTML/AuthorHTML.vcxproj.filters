@@ -2013,6 +2013,12 @@
     <None Include="glyphs\trans.gif">
       <Filter>Resource Files\GIFS Green</Filter>
     </None>
+    <None Include="res\res\splith.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\res\splitv.cur">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\AuthorHTML.rc">
