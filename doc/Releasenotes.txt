@@ -11,6 +11,14 @@ Version 1.0.4
    are now correctly stripped from leading and trailing spaces.
 4) Fix for the broken link detector. The BrokenLinks Dialog is now 
    displaying no more false positives.
+5) Restored the split-cursors for gripping the panes
+6) Resizing of the list on the startup dialog.
+7) Rewritten the addressCombo box for various dialogs to work more correctly
+   with the relative and absolute pathnames.
+8) Broken-links detector is upgraded for better yields on the results.
+   relative paths did lead to false positives, now the relative paths are 
+   resolved to absolute paths before checking.
+9) Fixed URLDlg to open a page outside of an CHM project.
 
 Version 1.0.3
 -------------
