@@ -18,8 +18,8 @@
 
 #define VERSION_MAJOR     1
 #define VERSION_MINOR     0
-#define VERSION_SP        3
-#define BUILD_NUMBER      946
+#define VERSION_SP        4
+#define BUILD_NUMBER      948
 #define VERSION_DATES     "2007 - 2026"
 
 #define STRINGIZE_(x)     #x
