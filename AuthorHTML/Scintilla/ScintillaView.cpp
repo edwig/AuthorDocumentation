@@ -1137,6 +1137,17 @@ void CScintillaView::Serialize(CArchive& ar)
 
     //Read the data in from the file in blocks
     CFile* pFile = ar.GetFile();
+
+    // Check for UTF-8 BOM at start of file and skip it if present so it doesn't appear in the editor
+    BYTE header[3] = {0,0,0};
+    UINT nRead = pFile->Read(header, 3);
+    bool hasUtf8Bom = (nRead == 3 && header[0] == 0xEF && header[1] == 0xBB && header[2] == 0xBF);
+    if (!hasUtf8Bom)
+    {
+      // No BOM - rewind to start
+      pFile->Seek(0, CFile::begin);
+    }
+
     char Buffer[4096];
     int nBytesRead = 0;
     do
@@ -1166,6 +1177,9 @@ void CScintillaView::Serialize(CArchive& ar)
 
     //Write the data in blocks to disk
     CFile* pFile = ar.GetFile();
+    // Always write a UTF-8 BOM so the document is stored as UTF-8 with BOM
+    static const unsigned char utf8BOM[3] = { 0xEF, 0xBB, 0xBF };
+    pFile->Write(utf8BOM, 3);
     for (int i=0; i<nDocLength; i += 4095) //4095 because data will be returned NULL terminated
     {
       int nGrabSize = nDocLength - i;

@@ -93,9 +93,8 @@ BOOL CScintillaCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, U
     SetupDirectAccess();
 
   //If we are running as Unicode, then use the UTF8 codepage
-#ifdef _UNICODE
+  // Always use UTF-8 in the control so it can handle UTF-8 documents
   SetCodePage(SC_CP_UTF8);
-#endif
 
   return bSuccess;
 }
