@@ -89,8 +89,8 @@ TOC::WriteHeader(WinFile& p_file)
   CString generator(REGISTER_APP);
   generator.Replace("\\","-");
 
-  p_file.Write(_T("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">\n"));
-  p_file.Write(_T("<HTML>\n"));
+  p_file.Write(AUTHOR_DOCTYPE);
+  p_file.Write(_T("\n<HTML>\n"));
   p_file.Write(_T("<HEAD>\n"));
   p_file.Format(_T("  <META name=\"%s\" content=\"Version: %s\">\n"),generator.GetString(),VERSION_NUMBER);
   p_file.Write(_T("</HEAD>\n"));

@@ -33,6 +33,7 @@ public:
   bool ReadIndexFile();
   bool WriteIndexFile();
   bool NeedSaving();
+  void SetNeedSaving(bool p_save);
   void RemovePageIndexes();
   void RemovePageIndexes(IndexEntry& p_entry);
   void DisplayIndexInTree(IndexTreeCtrl* tree);
@@ -92,4 +93,11 @@ IndexFile::NeedSaving()
 {
   return m_needSaving;
 }
+
+inline void
+IndexFile::SetNeedSaving(bool p_save)
+{
+  m_needSaving = p_save;
+}
+
 

@@ -57,6 +57,7 @@ public:
   void      OpenTypedDocumentFile(CString& file);
   void      RedisplayTOC  (bool showPane = false);
   void      RedisplayIndex(bool showPane = false);
+  int       GetUniqueDocID();
 
   int                 GetButtonLayout();
   Ref<CAfbeeldingen>  GetImages();
@@ -134,7 +135,9 @@ private:
   IndexFile*         m_indexFile;
   StartupDlg*        m_startup;
 
-  HINSTANCE m_hSciDLL;
+  int                m_uniqueDocID;
+  // The Scintilla DLL handle for the Scintilla editor control
+  HINSTANCE          m_hSciDLL;
 
   CCriticalSection   m_criticalSection;
   CStringList        m_StdioCommand;

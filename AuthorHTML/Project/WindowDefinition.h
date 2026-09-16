@@ -75,6 +75,12 @@
 #define DEFPANE_FAVOURITES  3
 #define DEFPANE_GLOSSARY    4
 
+// Size of the first default window
+#define DEFPANE_LEFT       50   
+#define DEFPANE_TOP        50
+#define DEFPANE_RIGHT    1000
+#define DEFPANE_BOTTOM    900
+
 class ProjectFile;
 
 class WindowDefinition
@@ -85,6 +91,7 @@ public:
 
   CString DefinitionString();
   bool    ParseDefinitionString(CString definition);
+  void    CreateNewDefaultWindow(CString p_project,CString p_topic);
 
   // Setters and getters
   CString GetName();

@@ -68,6 +68,7 @@ AuthorHTMLApp::AuthorHTMLApp()
               ,m_sweep(false)
               ,m_pRecentProjectList(NULL)
               ,m_startup(NULL)
+              ,m_uniqueDocID(0)
 {
 }
 
@@ -364,6 +365,13 @@ AuthorHTMLApp::ParseOptions(CString& commandLine)
   }
 }
 
+// New documents ID
+int
+AuthorHTMLApp::GetUniqueDocID()
+{
+  return ++m_uniqueDocID;
+}
+
 void
 AuthorHTMLApp::Panic(CString message)
 {
@@ -472,8 +480,6 @@ AuthorHTMLApp::OnNewProject()
                     ,""
                     ,0
                     ,"Documentation project (*.hhp)|*.hhp|");
-//                     "Author Documentation Project(*.adp)|*.adp|"
-//                     "All files|*.*");
   if(diag.DoModal() == IDOK)
   {
     CString newProjectFile = diag.GetChosenFile();
@@ -481,12 +487,6 @@ AuthorHTMLApp::OnNewProject()
     {
       m_project = newProjectFile;
       OpenProjectFile(true);
-      MessageBox("Do not forget the following actions:\n\n"
-                 "- Define a default topic page for the project\n"
-                 "- Create a default window definition for the project\n"
-                 "- Alsoo set the default topic in the window definition"
-                ,"DON'T FORGET"
-                ,MB_OK|MB_ICONEXCLAMATION);
     }
   }
 }
@@ -532,6 +532,13 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
     message.Format("Error reading HHP project file: %s",m_project.GetString());
     ErrorMessage(message);
     return;
+  }
+  if(p_create)
+  {
+    // Create all three files: HHP, HHC and HHK
+    OpenContentsFile(m_baseDir + baseName + ".hhc",true);
+    OpenIndexFile   (m_baseDir + baseName + ".hhk",true);
+    m_projectFile->CreateNewDefaultProject(baseName);
   }
 
   // Check minimal contents file

@@ -97,7 +97,7 @@ ProjectFile::GetProjectFilename()
 }
 
 void
-ProjectFile::SetProjectFilename(CString p_filename)
+ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
 {
   CString base = theApp.GetBaseDirectory();
   CString org_project = m_projectFilename;
@@ -141,17 +141,23 @@ ProjectFile::SetProjectFilename(CString p_filename)
   while(it != m_windows.end())
   {
     WindowDefinition* win = it->second;
-    win->SetHHCFile(tocFile);
-    win->SetHHKFile(idxFile);
+    win->SetHHCFile(Misc::FilenamePart(tocFile));
+    win->SetHHKFile(Misc::FilenamePart(idxFile));
     // Volgend window
     ++it;
   }
 
   bool rewritten = true;
   // Write the new files first
-  if(!WriteProjectFile())    rewritten = false;
-  if(!idx->WriteIndexFile()) rewritten = false;
-  if(!toc->WriteTOCFile())   rewritten = false;
+  if(!     WriteProjectFile()) rewritten = false;
+  if(!idx->WriteIndexFile())   rewritten = false;
+  if(!toc->WriteTOCFile())     rewritten = false;
+
+  // Ready creating
+  if(p_create)
+  {
+    return;
+  }
 
   // If successful, remove the old ones
   if(rewritten)
@@ -518,7 +524,7 @@ ProjectFile::CheckBrokenLink(CString& p_dir,CString& p_reldir, CString& p_file)
 
 // Add document purely by filename
 bool 
-ProjectFile::AddDocumentFile(CString p_relativeDirectory,CString sHtmlFile)
+ProjectFile::AddDocumentFile(CString p_relativeDirectory,CString sHtmlFile,bool p_newdoc /* = false */)
 {
   bool payload = true;
   CString file = Misc::RemoveBasePart(m_baseDir,sHtmlFile);
@@ -536,7 +542,9 @@ ProjectFile::AddDocumentFile(CString p_relativeDirectory,CString sHtmlFile)
     // Glossary does not goes with the payloads
     return false;
   }
-  if(CheckBrokenLink(m_baseDir,p_relativeDirectory,file) == false)
+  bool brokenLink = CheckBrokenLink(m_baseDir,p_relativeDirectory,file);
+
+  if(p_newdoc || !brokenLink)
   {
     CString totalfilename = m_baseDir + p_relativeDirectory + file;
     CString projectfile   = Misc::ReduceDirectoryPath(totalfilename);
@@ -872,6 +880,9 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   tidyOptSetInt( tdoc, TidyWrapLen, 128 );
   // No extra generator
   tidyOptSetBool( tdoc, TidyMark, no);
+  // Use UTF-8 with a BOM
+  tidySetOutCharEncoding(tdoc,"utf8");
+  tidyOptSetInt(tdoc,TidyOutputBOM,1);
 
   status = tidyParseFile( tdoc, filename);
   if ( status >= 0 )
@@ -1374,4 +1385,69 @@ ProjectFile::RenameInElement(TidyDoc tdoc,TidyNode node,CString& p_old_href,CStr
     }
     node = tidyGetNext(node);
   }
+}
+
+
+bool
+ProjectFile::CreateNewDefaultProject(CString p_name)
+{
+  p_name = Misc::BasenamePart(p_name);
+
+  m_title               = p_name;
+  m_compiledName        = p_name + ".chm";
+  m_contentsFile        = p_name + ".hhc";
+  m_indexFile           = p_name + ".hhk";
+  m_defaultTopic        = "Intro.html";
+  m_defaultWindow       = "Main";
+  m_defaultFont         = "Verdana,9,0";
+  m_errorLogFile        = "CompileErrors.log";
+  m_customTab           = "";
+  m_language            = "0x409 English (United States)";
+  m_stopFile            = "StopWords.lng";
+  m_compatibility       = "1.1 or later";
+  m_displayProgress     = true;
+  m_displayCompileNotes = true;
+  m_fullTextSearch      = true;
+  m_binaryIndex         = true;
+  m_autoIndex           = true;
+  m_enhancedDecompile   = true;
+  m_binaryTOC           = true;
+  m_flat                = false;
+  
+  // Add a default window
+  AddWindow(m_defaultWindow);
+  WindowDefinition* window =  FindWindowDefinition(m_defaultWindow);
+  if(window)
+  {
+    window->CreateNewDefaultWindow(p_name,m_defaultTopic);
+  }
+
+  // Create the first topic file, which is the default topic file
+  CString newfile = m_baseDir + m_defaultTopic;
+  CString newtitle = "Welcome to " + p_name;
+  if(CHTMLEdDoc::CreateNewDocumentFile(newfile,newtitle))
+  {
+    AddDocumentFile("",newfile,true);
+  }
+
+  // Save everyting!
+  SetProjectFilename(p_name,true);
+
+  // Default TOC entry, which is the default topic file
+  TOCEntry* entry = new TOCEntry(m_title,m_defaultTopic,1,"","","");
+
+  // Write the TOC for the first time
+  TOC* toc = theApp.GetTOC();
+  toc->AddEntry(nullptr,entry);
+  toc->SetNeedSaving();
+  toc->WriteTOCFile();
+
+  // Write the Index for the first time
+  IndexFile* index = theApp.GetIndex(); 
+  index->SetNeedSaving(true);
+  index->WriteIndexFile();
+
+  // Show the new first file
+  theApp.OpenTypedDocumentFile(newfile);
+  return true;
 }

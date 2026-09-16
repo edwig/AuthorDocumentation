@@ -54,6 +54,33 @@ WindowDefinition::Reset()
   m_tabPosition     = 0;
 }
 
+void
+WindowDefinition::CreateNewDefaultWindow(CString p_project,CString p_topic)
+{
+  m_title           = p_project;
+  m_HHCFile         = p_project + ".hhc";
+  m_HHKFile         = p_project + ".hhk";
+  m_defaultTopic    = p_topic;
+  m_homeTopic       = p_topic;
+  m_jump1Topic      = "";
+  m_jump2Topic      = "";
+  m_jump1Text       = "JUMP1";
+  m_jump2Text       = "JUMP2";
+  m_navigationPane  = NAVPANE_TOC_INDEX | NAVPANE_AUTOSYNCH | NAVPANE_SEARCH | NAVPANE_FAVOURITES;
+  m_paneWidth       = 250;
+  m_buttons         = BUTTONS_HIDESHOW | BUTTONS_BACK | BUTTONS_FORWARD | BUTTONS_STOP | BUTTONS_REFRESH | BUTTONS_HOME;
+  m_windowStyles    = STYLES_SYSTEMMENU | STYLES_MINIMIZEBOX | STYLES_MAXIMIZEBOX | STYLES_CLIPSIBLINGS | STYLES_CLIPCHILDREN | STYLES_VERTSCROLL | STYLES_HORZSCROLL | STYLES_POPUP;
+  m_extendedStyles  = STYLES_TOOLWIN;
+  m_win_left        = DEFPANE_LEFT;
+  m_win_top         = DEFPANE_TOP;
+  m_win_right       = DEFPANE_RIGHT;
+  m_win_bottom      = DEFPANE_BOTTOM;
+  m_unknown1        = 0;
+  m_hidePane        = false;
+  m_defaultPane     = 0; // TOC is default
+  m_tabPosition     = 0; // Top
+}
+
 // Values for m_navigationPane
 
 bool

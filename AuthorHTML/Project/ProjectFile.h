@@ -37,11 +37,12 @@ public:
    void    ResetMetadataRead();
    bool    WriteProjectFile();
    bool    ReadProjectFile();
-   bool    AddDocumentFile   (CString p_relDirectory,CString sHtmlFile);
+   bool    AddDocumentFile   (CString p_relDirectory,CString sHtmlFile,bool p_newDoc = false);
    bool    AddDocumentFile   (DocumentFile* doc);
    bool    RemoveDocumentFile(CString sHtmlFile);
    bool    RemoveDocumentFile(DocumentFile* doc);
    bool    NeedSaving();
+   bool    CreateNewDefaultProject(CString p_name);
    // Add an existing document (possibly with metadata and keywords)
    // to the project. Tidy up, read metadata and read keywords
    void    AddExistingDocument(CString htmlFile);
@@ -61,7 +62,7 @@ public:
    
    // Specialized getters/setters
    CString      GetProjectFilename();
-   void         SetProjectFilename(CString p_filename);
+   void         SetProjectFilename(CString p_filename,bool p_create = false);
    // GENERAL GETTERS
    CString      GetContentsFile();
    CString      GetCompiledName();

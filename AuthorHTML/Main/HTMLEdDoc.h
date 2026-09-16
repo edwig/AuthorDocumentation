@@ -15,18 +15,18 @@
 
 class CHTMLEdDoc : public CHtmlEditDoc
 {
-protected: // create from serialization only
-	CHTMLEdDoc();
-	DECLARE_DYNCREATE(CHTMLEdDoc)
-
-// Attributes
-private:
-  int TidyFile();
-	CString m_sSaveFileName;
+protected:
+	// create from serialization only
+  DECLARE_DYNCREATE(CHTMLEdDoc)
+  CHTMLEdDoc();
 public:
-	BOOL m_bDoSaveOnDocCom;
-	BOOL m_bCallNewDocument;
-	BOOL m_bCallCloseDocument;
+  virtual ~CHTMLEdDoc();
+
+#ifdef _DEBUG
+  virtual void AssertValid() const;
+  virtual void Dump(CDumpContext& dc) const;
+#endif
+  
 	BOOL SaveMyDocument();
 	BOOL OnSaveDocument(LPCTSTR lpszFileName);
 	BOOL OnNewDocument();
@@ -37,29 +37,32 @@ public:
   BOOL GetFile(CString& text);
   void SetTitle(LPCTSTR lpszTitle);
   void SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU);
-
   // Create a new empty HTML document
   // Optionally with a document title
   void CreateNewDocument(CString& p_filename,bool p_setTitle = true);
+  static bool CreateNewDocumentFile(CString& p_filename,CString& p_title);
 
   CString GetFromTemplate();
-// Operations
-public:
-// Overrides
-  afx_msg void OnSaveAs();
 
-// Implementation
-public:
-	virtual ~CHTMLEdDoc();
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-#endif
+  BOOL m_bDoSaveOnDocCom;
+  BOOL m_bCallNewDocument;
+  BOOL m_bCallCloseDocument;
 
 protected:
   CString m_fromTemplate;
+
+  // Attributes
+private:
+  int  TidyFile();
+
+  CString m_sSaveFileName;
+
 protected:
 	DECLARE_MESSAGE_MAP()
+
+public:
+  // Overrides
+  afx_msg void OnSaveAs();
 };
 
 inline CString

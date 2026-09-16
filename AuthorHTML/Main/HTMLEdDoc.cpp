@@ -80,22 +80,39 @@ CHTMLEdDoc::CreateNewDocument(CString& p_filename,bool p_setTitle /*=true*/)
   file.Replace(' ','_');
 
   CString fullPath = path + file + ext;
-  FILE* fout = fopen(fullPath,"wb");
-  if(fout)
-  {
-    fprintf(fout,"<html>\n"
-                 "<head>\n"
-                 "    <title>%s</title>\n"
-                 "</head>\n"
-                 "<body></body>\n"
-                 "</html>\n", p_setTitle ? (LPCTSTR)title : "");
-    fclose(fout);
-  }
+  CreateNewDocumentFile(fullPath,p_setTitle ? title : "");
+
   m_sSaveFileName = fullPath;
   m_strPathName   = fullPath;
   m_strTitle      = file;
 }
 
+/*static*/ bool
+CHTMLEdDoc::CreateNewDocumentFile(CString& p_filename,CString& p_title)
+{
+  WinFile file(p_filename.GetString());
+
+  // Create a new HTML file with a basic HTML structure
+  // Make sure the file is UTF-8 encoded, so that we can use Unicode characters in the document
+  if(file.Open(winfile_write | open_trans_text,attrib_none,Encoding::UTF8))
+  {
+    XString document;
+    document.Format("%s\n"
+                    "<html>\n"
+                    "  <head>\n"
+                    "    <title>%s</title>\n"
+                    "    <meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\n"
+                    "    <meta name=\"GENERATOR\" content=\"AuthorDocumentation\">\n"
+                    "  </head>\n"
+                    "  <body>\n"
+                    "  </body>\n"
+                    "</html>\n",AUTHOR_DOCTYPE_TRANS,p_title.GetString());
+    file.Write(document);
+    file.Close();
+    return true;
+  }
+  return false;
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CHTMLEdDoc commands
@@ -133,9 +150,12 @@ BOOL CHTMLEdDoc::OnNewDocument()
           CHTMLEdView* pWeb = frame->GetWebView();
           pWeb->Navigate("about:blank");
 
-          CString newName;
           CDocTemplate* pTemplate = GetDocTemplate();
           ASSERT(pTemplate != NULL);
+          CString newName;
+          newName.Format("%sNewDocument_%d.html"
+                        ,theApp.GetBaseDirectory().GetString()
+                        ,theApp.GetUniqueDocID());
 
           if (!AfxGetApp()->DoPromptFileName(newName
                                             ,AFX_IDS_SAVEFILECOPY
@@ -450,6 +470,10 @@ CHTMLEdDoc::TidyFile()
   tidyOptSetInt( tdoc, TidyWrapLen, 128 );
   // No extra generator
   tidyOptSetBool( tdoc, TidyMark, no);
+
+  // Use UTF-8 with a BOM
+  tidySetOutCharEncoding(tdoc,"utf8");
+  tidyOptSetInt(tdoc,TidyOutputBOM,1);
 
   status = tidyParseFile( tdoc, m_sSaveFileName );
   if ( status >= 0 )

@@ -78,8 +78,8 @@ IndexFile::WriteIndexFile()
 void
 IndexFile::WriteHeader(WinFile& p_file)
 {
-  p_file.Write(_T("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">\n"));
-  p_file.Write(_T("<HTML>\n"));
+  p_file.Write(AUTHOR_DOCTYPE);
+  p_file.Write(_T("\n<HTML>\n"));
   p_file.Write(_T("<HEAD>\n"));
   p_file.Write(_T("</HEAD>\n"));
   p_file.Write(_T("<!-- Sitemap 1.0 -->\n"));

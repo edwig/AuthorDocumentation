@@ -1,6 +1,17 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
+Version 1.0.5
+-------------
+1) Reworked the "New project" function from the start dialog
+   Now creates a full new project with reasonable defaults, a window
+   definition and a default "Intro.html" file with a Table-Of-Contents.
+   Can directly be compiled to a CHM, without having to fill in the
+   project settings and window settings dialogs.
+2) Default storing of the HTML files is changed to UTF-8 with BOM, 
+   so that the files are correctly read by the browser and the help compiler,
+   and that we can correctly use international characters in the HTML files.
+
 Version 1.0.4
 -------------
 1) Editting of TOC entries is re-enabled again from the TOC view.
