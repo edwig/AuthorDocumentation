@@ -458,6 +458,7 @@ CHTMLEdDoc::TidyFile()
   status = 0;
 
   // Do identations
+  tidyOptSetValue(tdoc,TidyDoctype,"loose");
   tidyOptSetInt( tdoc, TidyIndentContent, TidyAutoState );
   tidyOptSetInt( tdoc, TidyIndentSpaces,  4);
   // Write back in same file
@@ -470,7 +471,8 @@ CHTMLEdDoc::TidyFile()
   tidyOptSetInt( tdoc, TidyWrapLen, 128 );
   // No extra generator
   tidyOptSetBool( tdoc, TidyMark, no);
-
+  // Expect utf8 input encoding
+  tidySetInCharEncoding(tdoc,"utf8");
   // Use UTF-8 with a BOM
   tidySetOutCharEncoding(tdoc,"utf8");
   tidyOptSetInt(tdoc,TidyOutputBOM,1);
@@ -484,6 +486,7 @@ CHTMLEdDoc::TidyFile()
   {
     status = tidyRunDiagnostics( tdoc );
   }
+
   status = tidySaveFile( tdoc, m_sSaveFileName );
 
   contentErrors   += tidyErrorCount( tdoc );

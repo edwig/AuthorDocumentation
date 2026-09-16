@@ -870,6 +870,7 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   status = 0;
 
   // Do identations
+  tidyOptSetValue( tdoc, TidyDoctype,"loose");
   tidyOptSetInt( tdoc, TidyIndentContent, TidyAutoState );
   tidyOptSetInt( tdoc, TidyIndentSpaces,  4);
   // Write back in same file
@@ -880,6 +881,8 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   tidyOptSetInt( tdoc, TidyWrapLen, 128 );
   // No extra generator
   tidyOptSetBool( tdoc, TidyMark, no);
+  // Expect to read UTF8
+  tidySetInCharEncoding(tdoc,"utf8");
   // Use UTF-8 with a BOM
   tidySetOutCharEncoding(tdoc,"utf8");
   tidyOptSetInt(tdoc,TidyOutputBOM,1);
@@ -905,6 +908,7 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   // Get the payload from the body
   GetDocumentBody(docfile,tdoc);
 
+  // Saving
   status = tidySaveFile( tdoc, filename);
 
   contentErrors   += tidyErrorCount( tdoc );
