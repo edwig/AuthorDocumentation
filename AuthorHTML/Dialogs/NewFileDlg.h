@@ -39,7 +39,7 @@ protected:
 
   void  FillPage();
   bool  UpdateProperties();
-  void  CreateNewFile();
+  bool  CreateNewFile();
   void  CopyTemplate();
   void  OnDocumentComplete(LPDISPATCH pDisp, LPVARIANT pURL);
 

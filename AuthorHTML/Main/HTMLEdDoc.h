@@ -33,8 +33,8 @@ public:
 	void OnCloseDocument();
 	BOOL OnOpenDocument(LPCTSTR lpszFileName);
 	BOOL IsModified();
-  BOOL InternalSave(CString& saveIt);
-  BOOL GetFile(CString& text);
+  bool InternalSave(CString& saveIt);
+  bool GetFile(CString& text);
   void SetTitle(LPCTSTR lpszTitle);
   void SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU);
   // Create a new empty HTML document

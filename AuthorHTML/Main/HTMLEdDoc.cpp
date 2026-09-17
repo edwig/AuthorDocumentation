@@ -386,61 +386,69 @@ CHTMLEdDoc::SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU)
 }
 
 // Now REALLY save it.
-BOOL
+bool
 CHTMLEdDoc::InternalSave(CString& text)
 {
-  BOOL bRet = FALSE;
-  try
+  bool saved = true;
+  WinFile file(m_sSaveFileName.GetString());
+  if(file.Open(winfile_write | open_trans_text,attrib_normal,Encoding::UTF8))
   {
-		CFile file;
-		if (file.Open(m_sSaveFileName, CFile::modeCreate|CFile::modeWrite))
+    XString buffer(text);
+
+    saved = file.Write(buffer);
+    if(!file.Close())
     {
-      file.Write(text.GetString(),text.GetLength());
-			SetModifiedFlag(FALSE);
-      file.Close();
+      saved = false;
+    }
+    else if(saved)
+    {
+      SetModifiedFlag(FALSE);
       // Register for our menu and the registry
       AfxGetApp()->AddToRecentFileList(m_sSaveFileName);
-			bRet = TRUE;
-    }
-    else
-    {
-      CString message = "Cannot open file for saving: " + m_sSaveFileName;
-      theApp.ErrorMessage(message);
     }
   }
-  catch(...)
+  else
+  {
+    CString message = "Cannot open file for saving: " + m_sSaveFileName;
+    theApp.ErrorMessage(message);
+    saved = false;
+  }
+  if(!saved)
   {
     // Cannot save for any reason
     CString message = "Cannot save file : " + m_sSaveFileName;
     theApp.ErrorMessage(message);
   }
-	return bRet;
+	return saved;
 }
 
-BOOL
+bool
 CHTMLEdDoc::GetFile(CString& text)
 {
-  BOOL bRet = FALSE;
-  try
+  bool read = true;
+  WinFile file(m_sSaveFileName.GetString());
+
+  if(file.Open(winfile_read | open_trans_text))
   {
-    CFile file;
-    if(file.Open(m_sSaveFileName, CFile::modeRead))
+    XString line;
+    while (file.Read(line))
     {
-      int len = file.GetLength();
-      int buf = len + (len / 20); // 5% bigger
-      text.GetBuffer(buf);
-      memset((void*)text.GetString(),0,buf);
-      int readin = file.Read((void*)text.GetString(),buf-1);
-      text.ReleaseBuffer();
+      text += CString(line);
+    }
+    if (!file.Close())
+    {
+      read = false;
     }
   }
-  catch(...)
+  else read = false;
+
+  if(!read)
   {
     // Cannot read for any reason
     CString message = "Cannot read file : " + m_sSaveFileName;
     theApp.ErrorMessage(message);
   }
-  return bRet;
+  return read;
 }
 
 int

@@ -12,6 +12,7 @@
 //
 #include "stdafx.h"
 #include "AuthorHTML.h"
+#include "HTMLEdDoc.h"
 #include "NewFileDlg.h"
 #include "FileDialog.h"
 #include "Misc.h"
@@ -129,76 +130,72 @@ NewFileDlg::UpdateProperties()
 void
 NewFileDlg::CopyTemplate()
 {
+  // Template file
   CString templatename = m_base + m_template;
-  if(_access(templatename,4) == -1)
+  WinFile templateOrigin(templatename.GetString());
+
+  // Open the template file
+  if(templateOrigin.Exists() == false)
   {
     CString mess = "The template [" + m_template + "] does not exist.";
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
   }
-  CFile theTemp;
-  if(!theTemp.Open(templatename,CFile::modeRead))
+  if(!templateOrigin.Open(winfile_read | open_trans_text))
   {
     CString mess = "The template [" + m_template + "] cannot be opened for reading.";
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
   }
+
+  // Target file
   CString filename = m_base + m_filename;
-  CFile theFile;
-  if(!theFile.Open(filename,CFile::modeCreate | CFile::modeReadWrite))
+  WinFile newfile(filename.GetString());
+
+  // Create and open target file in UTF-8 mode
+  if(!newfile.Open(winfile_write | open_trans_text,attrib_normal,Encoding::UTF8))
   {
     CString mess = "The file [" + m_filename + "] could not be created. Check your filesystem";
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
   }
-  // Now copy the template as a byte stream
-  int buf;
-  while(theTemp.Read((void*)&buf,1))
+
+  // Now copy the template as an UTF-8 file
+  XString buffer;
+  while(templateOrigin.Read(buffer))
   {
-    theFile.Write((void*)&buf,1);
+    newfile.Write(buffer);
   }
-  theFile.Close();
-  theTemp.Close();
+
+  // Ready with files
+  templateOrigin.Close();
+  newfile.Close();
 }
 
-// Create new file. Filename and title are garantueed 
+// Create new file. Filename and title are guaranteed 
 // to be filled and valid.
-void
+bool
 NewFileDlg::CreateNewFile()
 {
   CString filename = m_base + m_filename;
-  CFile theFile;
+  WinFile file(filename.GetString());
 
-  if(_access(filename,4) == 0)
+  if(file.Exists())
   {
     CString mess = "The file [" + m_filename + "] does already exist.\n"
                    "Do you want to overwrite this file?";
-    if(theApp.MessageBox(mess,"Overwerite file",MB_YESNO|MB_ICONEXCLAMATION) == IDNO)
+    if(theApp.MessageBox(mess,"Overwrite file",MB_YESNO|MB_ICONEXCLAMATION) == IDNO)
     {
       m_error = true;
-      return;
+      return false;
     }
-    CFile::Remove(filename);
+    file.DeleteFile();
   }
-  if(!theFile.Open(filename,CFile::modeCreate | CFile::modeWrite))
-  {
-    CString mess = "The file [" + m_filename + "] could not be created. Check your filesystem";
-    theApp.ErrorMessage(mess);
-    m_error = true;
-    return;
-  }
-  CString content = "<html>\n"
-                    "  <head>\n"
-                    "    <title>" + m_title + "</title>\n"
-                    "  </head>\n"
-                    "  <body>\n"
-                    "  </body>\n"
-                    "</html>\n";
-  theFile.Write(content.GetString(),content.GetLength());
-  theFile.Close();
+
+  return CHTMLEdDoc::CreateNewDocumentFile(filename,m_title);
 }
 
 // NewFileDlg message handlers
