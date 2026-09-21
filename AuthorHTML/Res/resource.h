@@ -844,6 +844,7 @@
 #define IDC_TIMESPENT                   1087
 #define IDC_TODO_7                      1088
 #define IDC_BUTTON_TEMPLATE             1089
+#define IDC_TOPIC_UA_COMPATIBLE         1441
 #define IDC_BODY_COLOR                  1092
 #define IDC_BUTTON_IMAGE                1093
 #define IDC_MARQUEE_APPLY               1094
@@ -1540,6 +1541,7 @@
 #define ID_BUTTON_ABSOLUTE              32808
 #define ID_BUTTONSTATIC                 32809
 #define ID_BUTTON_STATIC                32809
+#define ID_VIEW_WEB_REDISPLAY           32810
 #define ID_VIEW_TAGS                    32812
 #define ID_VIEW_BROWSE                  32814
 #define ID_VIEW_TABLEBORDERS            32816
@@ -1778,7 +1780,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        321
 #define _APS_NEXT_COMMAND_VALUE         33180
-#define _APS_NEXT_CONTROL_VALUE         1441
+#define _APS_NEXT_CONTROL_VALUE         1442
 #define _APS_NEXT_SYMED_VALUE           109
 #endif
 #endif

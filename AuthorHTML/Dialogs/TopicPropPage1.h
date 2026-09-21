@@ -47,6 +47,7 @@ private:
   int     m_priority;
   int     m_timeSpent;
   int     m_todo;
+  bool    m_uaCompatible;
   // Controls
   AD_Button     m_buttonFile;
   AD_Button     m_buttonTemplate;
@@ -59,6 +60,7 @@ private:
   AD_Checkbox   m_todo5;
   AD_Checkbox   m_todo6;
   AD_Checkbox   m_todo7;
+  AD_Checkbox   m_checkUACompatible;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
@@ -74,6 +76,7 @@ public:
   afx_msg void OnBnClickedTodo5();
   afx_msg void OnBnClickedTodo6();
   afx_msg void OnBnClickedTodo7();
+  afx_msg void OnBnClickedUACompatible();
   afx_msg void OnEnChangeTitle();
   afx_msg void OnEnChangeFilename();
 

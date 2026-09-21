@@ -174,7 +174,7 @@ public:
                                             ,int xHit
                                             ,int yHit
                                             ,CString tag);
-  static CComPtr<IHTMLElement> CreateHeadElement(CComPtr<IHTMLDocument2> doc,ELEMENT_TAG_ID tagID);
+  static CComPtr<IHTMLElement> CreateHeadElement(CComPtr<IHTMLDocument2> doc,ELEMENT_TAG_ID tagID,bool p_first = false);
   static CComPtr<IHTMLElement> CreateChildElement(CComPtr<IHTMLDocument2> p_doc,CComPtr<IHTMLElement> p_parent,ELEMENT_TAG_ID p_tagID);
   static CComPtr<IHTMLElement> AreaToImg(CComPtr<IHTMLDocument2> doc,CComPtr<IHTMLElement> pElement);
   static CComPtr<IHTMLElement> GetByID(CComPtr<IHTMLDocument2>& doc,CString ident);

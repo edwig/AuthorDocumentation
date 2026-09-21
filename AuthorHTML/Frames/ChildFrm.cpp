@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CMDIChildFrame,CMDIChildWndEx)
   ON_MESSAGE(WM_SETTEXT,                      OnSetText)
   ON_COMMAND(ID_VIEW_SOURCE,                  OnViewSource)
   ON_COMMAND(ID_VIEW_WEB,                     OnViewWeb)
+  ON_COMMAND(ID_VIEW_WEB_REDISPLAY,           OnViewWebRedisplay)
   ON_UPDATE_COMMAND_UI(ID_VIEW_WEB,           OnUpdateViewWeb)
   ON_UPDATE_COMMAND_UI(ID_VIEW_SOURCE,        OnUpdateViewSource)
   ON_UPDATE_COMMAND_UI(ID_FMTBAR_CLASSNAME,   OnUpdateClassName)
@@ -263,6 +264,12 @@ void
 CMDIChildFrame::OnViewWeb() 
 {
   SwapView();
+}
+
+void
+CMDIChildFrame::OnViewWebRedisplay()
+{
+  SwapView(ID_VIEW_WEB);
 }
 
 CView*

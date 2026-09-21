@@ -1424,7 +1424,7 @@ Misc::MoveCaretToPoint(CComPtr<IHTMLDocument2> doc,LPPOINT ppt)
 // Create a new element in the HEAD section (by tagid)
 // and return the resulting appended element
 CComPtr<IHTMLElement>
-Misc::CreateHeadElement(CComPtr<IHTMLDocument2> doc,ELEMENT_TAG_ID tagID)
+Misc::CreateHeadElement(CComPtr<IHTMLDocument2> doc,ELEMENT_TAG_ID tagID,bool p_first /*= false*/)
 {
   CComPtr<IHTMLElementCollection> col;
   HRESULT hr = doc->get_all(&col);
@@ -1455,7 +1455,24 @@ Misc::CreateHeadElement(CComPtr<IHTMLDocument2> doc,ELEMENT_TAG_ID tagID)
         {
           CComPtr<IHTMLDOMNode> newNode;
           CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> append = elem;
-          hr = head->appendChild(append,&newNode);
+          if(p_first)
+          {
+            CComVariant first(VT_UNKNOWN);
+            first.vt = VT_EMPTY;
+
+            CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> fchild;
+            head->get_firstChild(&fchild);
+            if(SUCCEEDED(hr) && fchild.p)
+            {
+              first.vt = VT_UNKNOWN;
+              first.punkVal = fchild;
+            }
+            hr = head->insertBefore(append,first,&newNode);
+          }
+          else
+          {
+            hr = head->appendChild(append,&newNode);
+          }
           if(SUCCEEDED(hr))
           {
             return elem;
@@ -1629,7 +1646,8 @@ Misc::MetaTag(CComPtr<IHTMLDocument2>& doc
     return "";
   }
   // META TAG NOT FOUND. CREATE IT
-  CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(doc,TAGID_META);
+  // HttpEquivalent tags must always be created at the beginning of the head section
+  CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(doc,TAGID_META,p_httpEquiv);
   CComQIPtr<IHTMLMetaElement,&IID_IHTMLMetaElement> meta = elem;
   CComBSTR bName = name;
   CComBSTR bValue = *value;

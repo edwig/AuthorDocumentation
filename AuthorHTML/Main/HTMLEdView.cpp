@@ -4293,6 +4293,12 @@ CHTMLEdView::OnProperties()
         Navigate2(m_URL);
       }
     }
+    else
+    {
+      theApp.m_pMainWnd->PostMessage(WM_COMMAND,ID_VIEW_BROWSE,0);
+      theApp.m_pMainWnd->PostMessage(WM_COMMAND,ID_VIEW_WEB_REDISPLAY,0);
+      theApp.m_pMainWnd->PostMessage(WM_COMMAND,ID_VIEW_BROWSE,0);
+    }
   }
   // Delete unneeded dcoumentFile
   if(doNew)

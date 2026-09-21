@@ -49,6 +49,7 @@ protected:
   afx_msg LRESULT OnSetText (WPARAM, LPARAM lParam);
   afx_msg void OnViewSource();
   afx_msg void OnViewWeb();
+  afx_msg void OnViewWebRedisplay();
   afx_msg void OnUpdateViewWeb(CCmdUI* pCmdUI);
   afx_msg void OnUpdateViewSource(CCmdUI* pCmdUI);
   afx_msg void OnUpdateFontSize(CCmdUI* pCmdUI);

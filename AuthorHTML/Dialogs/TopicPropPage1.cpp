@@ -14,6 +14,7 @@
 #include "TopicPropPage1.h"
 #include "MainFrm.h"
 #include "Misc.h"
+#include "WideMessageBox.h"
 
 IMPLEMENT_DYNAMIC(TopicPropPage1Dlg, CDialog)
 
@@ -33,6 +34,7 @@ TopicPropPage1Dlg::TopicPropPage1Dlg(CWnd* pParent
   m_status    = pDocument->GetStatus();
   m_todo      = pDocument->GetToDo();
   m_timeSpent = pDocument->GetTimeSpent();
+  m_uaCompatible = !pDocument->GetCompatible().IsEmpty();
 
   // Get based-file name
   CString fileName  = pDocument->GetFilename();
@@ -65,6 +67,7 @@ void TopicPropPage1Dlg::DoDataExchange(CDataExchange* pDX)
   DDX_Control(pDX,IDC_TODO_5,            m_todo5);
   DDX_Control(pDX,IDC_TODO_6,            m_todo6);
   DDX_Control(pDX,IDC_TODO_7,            m_todo7);
+  DDX_Control(pDX,IDC_TOPIC_UA_COMPATIBLE,m_checkUACompatible);
 }
 
 BEGIN_MESSAGE_MAP(TopicPropPage1Dlg, CDialog)
@@ -79,6 +82,7 @@ BEGIN_MESSAGE_MAP(TopicPropPage1Dlg, CDialog)
   ON_BN_CLICKED   (IDC_TODO_5,        OnBnClickedTodo5)
   ON_BN_CLICKED   (IDC_TODO_6,        OnBnClickedTodo6)
   ON_BN_CLICKED   (IDC_TODO_7,        OnBnClickedTodo7)
+  ON_BN_CLICKED   (IDC_TOPIC_UA_COMPATIBLE, OnBnClickedUACompatible)
 END_MESSAGE_MAP()
 
 BOOL
@@ -121,6 +125,8 @@ TopicPropPage1Dlg::OnInitDialog()
   if(m_todo & TODO_BROWSESEQ)  m_todo6.SetCheck(TRUE);
   if(m_todo & TODO_REVIEW)     m_todo7.SetCheck(TRUE);
 
+  m_checkUACompatible.SetCheck(m_uaCompatible ? TRUE : FALSE);
+
   return TRUE;
 }
 
@@ -137,6 +143,7 @@ TopicPropPage1Dlg::UpdateDocumentFile()
   m_document->SetPriority(m_priority);
   m_document->SetToDo(m_todo);
   m_document->SetTimeSpent(m_timeSpent);
+  m_document->SetCompatible(m_uaCompatible ? "IE=Edge" : "");
 
   // Now synchronize
   m_document->SetOnDocument(m_htmlDoc);
@@ -252,4 +259,32 @@ void TopicPropPage1Dlg::OnBnClickedTodo7()
 {
   if(m_todo7.GetCheck()) m_todo |=  TODO_REVIEW;
   else                   m_todo &= ~TODO_REVIEW;
+}
+
+void 
+TopicPropPage1Dlg::OnBnClickedUACompatible()
+{
+  m_uaCompatible = (m_checkUACompatible.GetCheck() != 0);
+
+  if(m_uaCompatible)
+  {
+    WideMessageBox(GetSafeHwnd()
+                  ,"UA Compatibility mode is ENABLED!\n"
+                   "\n"
+                   "This will enable modern HTML5 and CCS3 features in the display\n" 
+                   "Be aware that this alsoo turns off the capability to show tag icons\n"
+                   "and end-of-paragraph markers in the display."
+                  ,_T("WARNING"),MB_OK | MB_ICONWARNING);
+  }
+  else
+  {
+    WideMessageBox(GetSafeHwnd()
+                  ,"UA Compatibility mode is DISABLED!\n"
+                   "\n"
+                   "This will enable the capability to show the tag icons\n"
+                   "and end-of-paragraph markers in the display,\n"
+                   "But it will turn OFF the modern HTML5 and CCS3 features\n"
+                   "Be aware that the document's display can be affected wrongly."
+                  ,_T("WARNING"),MB_OK | MB_ICONWARNING);
+  }
 }
