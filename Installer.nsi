@@ -3,13 +3,13 @@
 ; File      : Installer.nsi
 ; Written by: W.E. Huisman
 ;
-; Date of last change: 15-09-2026
-; Version:             1.0.4
+; Date of last change: 21-09-2026
+; Version:             1.0.5
 ;-------------------------------------------------------
  !define PRODUCT_NAME                         "AuthorDocumentation"
  !define PRODUCT_VERSION                      "1.0"
- !define PRODUCT_SP                           "4"
- !define PRODUCT_BUILDNUMBER                  "948"
+ !define PRODUCT_SP                           "5"
+ !define PRODUCT_BUILDNUMBER                  "950"
  !define PRODUCT_PUBLISHER                    "EDO"
  !define PRODUCT_WEB_SITE                     "https://github.com/edwig/AuthorDocumentation"
  !define PRODUCT_DIR_REGKEY                   "Software\Microsoft\Windows\CurrentVersion\App Paths\${PRODUCT_NAME}"

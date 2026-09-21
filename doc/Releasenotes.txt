@@ -11,6 +11,10 @@ Version 1.0.5
 2) Default storing of the HTML files is changed to UTF-8 with BOM, 
    so that the files are correctly read by the browser and the help compiler,
    and that we can correctly use international characters in the HTML files.
+3) X-UA-Compatible meta tag can now be set in the topic-properties dialog, 
+   so that the browser can correctly render the HTML files in HTML5 and CSS3.
+   Doing so will however remove the ability to show the tag icons and the
+   end-of-paragraph icons in the browser, since these are not supported in HTML5.
 
 Version 1.0.4
 -------------
