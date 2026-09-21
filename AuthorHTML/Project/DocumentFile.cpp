@@ -57,6 +57,7 @@ DocumentFile::RetrieveFromDocument(CComPtr<IHTMLDocument2>& doc)
   m_author    = Misc::MetaTag(doc,"AuthorOriginalAuthor");
   m_comment   = Misc::MetaTag(doc,"AuthorDocComment");
   m_template  = Misc::MetaTag(doc,"AuthorHTMLTemplate");
+  m_compatible= Misc::MetaTag(doc,"X-UA-Compatible",NULL,true);
   m_status    = atoi(Misc::MetaTag(doc,"AuthorStatus"));
   m_priority  = atoi(Misc::MetaTag(doc,"AuthorPriority"));
   m_timeSpent = atoi(Misc::MetaTag(doc,"AuthorTimeSpent"));
@@ -84,6 +85,7 @@ DocumentFile::SetOnDocument(CComPtr<IHTMLDocument2>& doc)
   Misc::MetaTag(doc,"AuthorOriginalAuthor",&m_author);
   Misc::MetaTag(doc,"AuthorDocComment",    &m_comment);
   Misc::MetaTag(doc,"AuthorHTMLTemplate",  &m_template);
+  Misc::MetaTag(doc,"X-UA-Compatible",     &m_compatible,true);
   Misc::MetaTag(doc,"AuthorStatus",        &status);
   Misc::MetaTag(doc,"AuthorPriority",      &priority);
   Misc::MetaTag(doc,"AuthorTimeSpent",     &timeSpent);

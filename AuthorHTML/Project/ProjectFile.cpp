@@ -1043,7 +1043,7 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
       ctmbstr content = tidyAttrValue(attr);
       sContent = content;
     }
-    if(tidyAttrIsNAME(attr))
+    if(tidyAttrIsNAME(attr) || tidyAttrIsHTTP_EQUIV(attr))
     {
       ctmbstr name = tidyAttrValue(attr);
       sName = name;
@@ -1055,9 +1055,10 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
     // Now we have a content,name pair
     // TRACE("META in sweep: %s: %s\n",sName.GetString(),sContent.GetString());
 
-         if(sName.CompareNoCase("AuthorOriginalAuthor") == 0) docfile->SetAuthor   (sContent);
-    else if(sName.CompareNoCase("AuthorDocComment")     == 0) docfile->SetComment  (sContent);
-    else if(sName.CompareNoCase("AuthorHTMLTemplate")   == 0) docfile->SetTemplate (sContent);
+         if(sName.CompareNoCase("AuthorOriginalAuthor") == 0) docfile->SetAuthor    (sContent);
+    else if(sName.CompareNoCase("AuthorDocComment")     == 0) docfile->SetComment   (sContent);
+    else if(sName.CompareNoCase("AuthorHTMLTemplate")   == 0) docfile->SetTemplate  (sContent);
+    else if(sName.CompareNoCase("X-UA-Compatible")      == 0) docfile->SetCompatible(sContent);
     else if(sName.CompareNoCase("AuthorStatus")         == 0) docfile->SetStatus   (atoi(sContent));
     else if(sName.CompareNoCase("AuthorPriority")       == 0) docfile->SetPriority (atoi(sContent));
     else if(sName.CompareNoCase("AuthorTimeSpent")      == 0) docfile->SetTimeSpent(atoi(sContent));

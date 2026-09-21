@@ -178,7 +178,7 @@ public:
   static CComPtr<IHTMLElement> CreateChildElement(CComPtr<IHTMLDocument2> p_doc,CComPtr<IHTMLElement> p_parent,ELEMENT_TAG_ID p_tagID);
   static CComPtr<IHTMLElement> AreaToImg(CComPtr<IHTMLDocument2> doc,CComPtr<IHTMLElement> pElement);
   static CComPtr<IHTMLElement> GetByID(CComPtr<IHTMLDocument2>& doc,CString ident);
-  static CString  MetaTag(CComPtr<IHTMLDocument2>& doc,CString name,CString* value=NULL);
+  static CString  MetaTag(CComPtr<IHTMLDocument2>& doc,CString name,CString* value=NULL,bool p_httpEquiv=false);
   static CString  BaseTag(CComPtr<IHTMLDocument2>& doc,CString uri, CString target);
   static long     GetUniqueID(CComPtr<IHTMLDocument2>& doc,CString tagname);
   static CString  CreateNewMap(CComPtr<IHTMLDocument2>& doc);

@@ -64,6 +64,8 @@ public:
   CString GetTitle();
   void    SetTemplate(CString pTemplate);
   CString GetTemplate();
+  void    SetCompatible(CString pCompatible);
+  CString GetCompatible();
   void    SetAuthor(CString pAuthor);
   CString GetAuthor();
   void    SetComment(CString pComment);
@@ -115,6 +117,7 @@ private:
   // Actual META DATA
   CString m_title;        // Title of the page
   CString m_template;     // Template page is based on
+  CString m_compatible;   // X-UA-Compatible meta tag (e.g. "IE=Edge")
   CString m_author;       // Original author of the page
   CString m_comment;      // First page comment
   int     m_status;       // 0=progress 1= review 2=complete
@@ -195,10 +198,22 @@ DocumentFile::SetTemplate(CString pTemplate)
   m_template = pTemplate;
 }
 
-inline CString 
+inline CString
 DocumentFile::GetTemplate()
 {
   return m_template;
+}
+
+inline void
+DocumentFile::SetCompatible(CString pCompatible)
+{
+  m_compatible = pCompatible;
+}
+
+inline CString
+DocumentFile::GetCompatible()
+{
+  return m_compatible;
 }
 
 inline void    

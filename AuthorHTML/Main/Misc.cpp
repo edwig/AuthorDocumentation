@@ -1562,8 +1562,9 @@ Misc::AreaToImg(CComPtr<IHTMLDocument2> doc
 
 CString
 Misc::MetaTag(CComPtr<IHTMLDocument2>& doc
-             ,CString name
-             ,CString* value/*=NULL*/)
+              ,CString name
+              ,CString* value/*=NULL*/
+              ,bool p_httpEquiv/*=false*/)
 {
   USES_CONVERSION;
 
@@ -1597,10 +1598,17 @@ Misc::MetaTag(CComPtr<IHTMLDocument2>& doc
             CComQIPtr<IHTMLMetaElement,&IID_IHTMLMetaElement> meta = item;
             CComBSTR meta_name;
             CComBSTR meta_content;
-            meta->get_name(&meta_name);
+            if(p_httpEquiv)
+            {
+              meta->get_httpEquiv(&meta_name);
+            }
+            else
+            {
+              meta->get_name(&meta_name);
+            }
             meta->get_content(&meta_content);
             CString metaName = CW2CT(meta_name);
-            CString content  = CW2CT(meta_content);
+            CString content = CW2CT(meta_content);
             if(!name.IsEmpty() && (metaName.CompareNoCase(name) == 0))
             {
               if(value)
@@ -1623,9 +1631,16 @@ Misc::MetaTag(CComPtr<IHTMLDocument2>& doc
   // META TAG NOT FOUND. CREATE IT
   CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(doc,TAGID_META);
   CComQIPtr<IHTMLMetaElement,&IID_IHTMLMetaElement> meta = elem;
-  CComBSTR bName  = name;
+  CComBSTR bName = name;
   CComBSTR bValue = *value;
-  meta->put_name   (bName);
+  if(p_httpEquiv)
+  {
+    meta->put_httpEquiv(bName);
+  }
+  else
+  {
+    meta->put_name(bName);
+  }
   meta->put_content(bValue);
   return *value;
 }
