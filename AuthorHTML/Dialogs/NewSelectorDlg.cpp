@@ -86,7 +86,7 @@ NewSelectorDlg::OnInitDialog()
     m_comboSelector.AddString(tag);
   }
   // Fill all attributes
-  vector<string> all;
+  vector<XString> all;
   CssStyleSheet sheet;
   sheet.GetAllAttributes(&all);
   for(unsigned int i = 0;i < all.size(); ++i)

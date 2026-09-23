@@ -286,7 +286,7 @@ void
 StyleSheetDlg::FillSelectorList()
 {
   string media = "standard";
-  vector<string> selectors;
+  vector<XString> selectors;
   m_css->GetSelectors(media,&selectors);
 
   // Empty the listbox first

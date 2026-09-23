@@ -75,7 +75,7 @@ CSSPage1Dlg::SetProperties(CString selector)
 {
   string media = "standard";
   string prop  = selector;
-  vector<string> properties;
+  vector<XString> properties;
   m_css->GetProperties(media,prop,&properties);
 
   // Listbox leeg maken

@@ -6,10 +6,10 @@
 #include "css.h"
 #include <math.h>
 
-bool 
-CssStyleSheet::escaped(const string &istring, const size_t pos) 
+bool
+CssStyleSheet::escaped(const XString &istring, const size_t pos)
 {
-  if(pos <= 0) 
+  if(pos <= 0)
   {
     return false;
   }
@@ -17,8 +17,8 @@ CssStyleSheet::escaped(const string &istring, const size_t pos)
 }
 
 // Save replacement for .at()
-char 
-CssStyleSheet::s_at(const string &istring, const size_t pos)
+char
+CssStyleSheet::s_at(const XString &istring, const size_t pos)
 {
 	if(pos > (istring.length()-1) && pos < 0)
 	{
@@ -30,13 +30,13 @@ CssStyleSheet::s_at(const string &istring, const size_t pos)
 	}
 }
 
-vector<string> 
-CssStyleSheet::explode(const string e,string s, const bool check)
+vector<XString>
+CssStyleSheet::explode(const XString e,XString s, const bool check)
 {
-	vector<string> ret;
+	vector<XString> ret;
 	size_t iPos = s.find(e, 0);
 	size_t iPit = e.length();
-	
+
 	while(iPos > -1)
 	{
 		if(iPos != 0 || check)
@@ -46,7 +46,7 @@ CssStyleSheet::explode(const string e,string s, const bool check)
 		s.erase(0,iPos+iPit);
 		iPos = s.find(e, 0);
 	}
-	
+
  	if(s != "" || check)
  	{
 		ret.push_back(s);
@@ -54,10 +54,10 @@ CssStyleSheet::explode(const string e,string s, const bool check)
 	return ret;
 }
 
-string 
-CssStyleSheet::implode(const string e,const vector<string> s)
+XString
+CssStyleSheet::implode(const XString e,const vector<XString> s)
 {
-	string ret;
+	XString ret;
 	for(size_t i = 0; i < s.size(); i++)
 	{
 		ret += s[i];
@@ -89,33 +89,33 @@ CssStyleSheet::round(const float &number, const int num_digits)
 }
 
 
-string 
-CssStyleSheet::str_replace(const string find, const string replace, string str)
+XString
+CssStyleSheet::str_replace(const XString find, const XString replace, XString str)
 {
   size_t len         = find.length();
   size_t replace_len = replace.length();
   size_t pos         = str.find(find);
 
-  while(pos != string::npos)
-	{  
+  while(pos != XString::npos)
+	{
     str.replace(pos, len, replace);
     pos = str.find(find, pos + replace_len);
   }
   return str;
 }
 
-string 
-CssStyleSheet::str_replace(const vector<string>& find, const string replace, string str)
+XString
+CssStyleSheet::str_replace(const vector<XString>& find, const XString replace, XString str)
 {
 	size_t replace_len = replace.length();
-	
+
 	for(size_t i = 0; i < find.size(); ++i)
 	{
 	  size_t len = find[i].length();
 	  size_t pos = str.find(find[i]);
 
-	  while(pos != string::npos)
-		{  
+	  while(pos != XString::npos)
+		{
 	    str.replace(pos, len, replace);
 	    pos = str.find(find[i], pos + replace_len);
     }
@@ -137,14 +137,14 @@ CssStyleSheet::in_char_arr(const char* haystack, const char needle)
 	return false;
 }
 
-bool 
-CssStyleSheet::in_str_array(const string& haystack, const char needle)
+bool
+CssStyleSheet::in_str_array(const XString& haystack, const char needle)
 {
-	return (haystack.find_first_of(needle,0) != string::npos);
+	return (haystack.find_first_of(needle,0) != XString::npos);
 }
 
-bool 
-CssStyleSheet::in_str_array(const vector<string>& haystack, const string needle)
+bool
+CssStyleSheet::in_str_array(const vector<XString>& haystack, const XString needle)
 {
 	for(size_t i = 0; i < haystack.size(); ++i)
 	{
@@ -156,8 +156,8 @@ CssStyleSheet::in_str_array(const vector<string>& haystack, const string needle)
 	return false;
 }
 
-string 
-CssStyleSheet::htmlspecialchars(string istring, int quotes)
+XString
+CssStyleSheet::htmlspecialchars(XString istring, int quotes)
 {
 	istring = str_replace("&","&amp;",istring);
 	istring = str_replace("<","&lt;", istring);
@@ -192,16 +192,16 @@ CssStyleSheet::ctype_digit(const char c)
 	return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
 }
 
-vector<string> 
-CssStyleSheet::unserialise_sa(const string istring)
+vector<XString>
+CssStyleSheet::unserialise_sa(const XString istring)
 {
 	size_t strlen = istring.length();
 	size_t strpos = 0;
-	vector<string> ret;
-	
+	vector<XString> ret;
+
 	while(strlen > 0)
 	{
-		string digit_tmp = "";
+		XString digit_tmp = "";
 		for(size_t i = strpos; ctype_digit(s_at(istring,i)); i++)
 		{
 			digit_tmp += istring[i];
@@ -209,11 +209,11 @@ CssStyleSheet::unserialise_sa(const string istring)
 		}
 		// :
 		--strlen; ++strpos;
-		
+
 		size_t next_length = static_cast<size_t>(str2f(digit_tmp));
 		next_length += strpos;
 
-		string string_tmp = "";
+		XString string_tmp = "";
 		for(size_t i = strpos; (i < istring.length() && i < next_length); i++)
 		{
 			string_tmp += istring[i];
@@ -224,8 +224,8 @@ CssStyleSheet::unserialise_sa(const string istring)
 	return ret;
 }
 
-string 
-CssStyleSheet::serialise_sa(const string istring)
+XString
+CssStyleSheet::serialise_sa(const XString istring)
 {
 	return f2str((float) istring.length()) + ":" + istring;
 }
@@ -250,8 +250,8 @@ CssStyleSheet::ctype_alpha(char c)
 
 // CONVERSIONS
 
-string 
-CssStyleSheet::strtolower(string istring)
+XString
+CssStyleSheet::strtolower(XString istring)
 {
   int str_size = (int) istring.length();
   for(int i = 0; i < str_size; i++)
@@ -296,8 +296,8 @@ CssStyleSheet::chartolower(const char c)
   }
 }
 
-string 
-CssStyleSheet::strtoupper(string istring)
+XString
+CssStyleSheet::strtoupper(XString istring)
 {
   int str_size = (int) istring.length();
   for(int i = 0; i < str_size; i++)
@@ -321,32 +321,32 @@ CssStyleSheet::chartoupper(const TCHAR c)
 }
 
 /* Didn't find any usable function for this, so here is my version :) */
-string 
+XString
 CssStyleSheet::dechex(const int i)
 {
-  string result;
+  XString result;
   int number(i);
 
-  do 
+  do
   {
     int remainder = number % 16;
     if(remainder < 10)
     {
-      result += string(1,(char)(remainder + '0'));
+      result += XString((char)(remainder + '0'),1);
     }
     else
     {
-      result += string(1,(char)(remainder + 'a' - 10));
+      result += XString((char)(remainder + 'a' - 10),1);
     }
     number /= 16;
-  } 
+  }
   while(number);
 
   return result;
 }
 
-double 
-CssStyleSheet::hexdec(string istring)
+double
+CssStyleSheet::hexdec(XString istring)
 {
   double ret = 0;
   istring = trim(istring);
@@ -377,7 +377,7 @@ CssStyleSheet::hexdec(string istring)
   return ret;
 }
 
-string 
+XString
 CssStyleSheet::f2str(const float f)
 {
   XString buffer;
@@ -389,75 +389,75 @@ CssStyleSheet::f2str(const float f)
   return buffer;
 }
 
-float 
-CssStyleSheet::str2f(const string istring)
+float
+CssStyleSheet::str2f(const XString istring)
 {
   return (float) atof(istring.c_str());
 }
 
-string 
+XString
 CssStyleSheet::char2str(const char c)
 {
-  return string(1,c);
+  return XString(c,1);
 }
 
-string 
+XString
 CssStyleSheet::char2str(const char *c)
 {
-  return string(c);
+  return XString(c);
 }
 
 // TRIM
 
-const string 
-CssStyleSheet::trim(const string istring)
+const XString
+CssStyleSheet::trim(const XString istring)
 {
-  std::string::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
-  if (first == std::string::npos) 
+  XString::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
+  if (first == XString::npos)
   {
-    return std::string();
+    return XString();
   }
-  else 
+  else
   {
-    std::string::size_type last = istring.find_last_not_of(" \n\t\r\0xb");
+    XString::size_type last = istring.find_last_not_of(" \n\t\r\0xb");
     return istring.substr( first, last - first + 1);
   }
 }
 
-const string 
-CssStyleSheet::ltrim(const string istring)
+const XString
+CssStyleSheet::ltrim(const XString istring)
 {
-  std::string::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
-  if (first == std::string::npos) 
+  XString::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
+  if (first == XString::npos)
   {
-    return std::string();
+    return XString();
   }
-  else 
+  else
   {
     return istring.substr( first );
   }
 }
 
 
-const string 
-CssStyleSheet::rtrim(const string istring)
+const XString
+CssStyleSheet::rtrim(const XString istring)
 {
-  std::string::size_type last = istring.find_last_not_of(" \n\t\r\0xb"); /// must succeed
+  XString::size_type last = istring.find_last_not_of(" \n\t\r\0xb"); /// must succeed
   return istring.substr( 0, last + 1);
 }
 
-const string 
-CssStyleSheet::rtrim(const string istring, const string chars)
+const XString
+CssStyleSheet::rtrim(const XString istring, const XString chars)
 {
-  std::string::size_type last = istring.find_last_not_of(chars); /// must succeed
+  XString::size_type last = istring.find_last_not_of(chars); /// must succeed
   return istring.substr( 0, last + 1);
 }
 
-string 
-CssStyleSheet::strip_tags(string istring)
+XString
+CssStyleSheet::strip_tags(XString istring)
 {
   bool intag = false;
-  string new_string;
+  XString new_string;
 
   for(size_t i = 0; i < istring.length(); i++)
   {
@@ -479,8 +479,8 @@ CssStyleSheet::strip_tags(string istring)
 
 // IMPORTANT
 
-bool 
-CssStyleSheet::is_important(string value)
+bool
+CssStyleSheet::is_important(XString value)
 {
   // Remove whitespaces
   value = rtrim(strtolower(value));
@@ -497,8 +497,8 @@ CssStyleSheet::is_important(string value)
 }
 
 
-string 
-CssStyleSheet::gvw_important(string value)
+XString
+CssStyleSheet::gvw_important(XString value)
 {
   if(is_important(value))
   {
@@ -511,8 +511,8 @@ CssStyleSheet::gvw_important(string value)
   return value;
 }
 
-string 
-CssStyleSheet::c_important(string value)
+XString
+CssStyleSheet::c_important(XString value)
 {
   if(is_important(value))
   {

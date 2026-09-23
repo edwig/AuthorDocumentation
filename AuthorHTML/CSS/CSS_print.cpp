@@ -13,7 +13,7 @@
 
 using namespace std;
 
-string CssStyleSheet::HtmlSpecials(const string istring, const bool plain)
+XString CssStyleSheet::HtmlSpecials(const XString istring, const bool plain)
 {
   if (!plain) 
   {
@@ -47,7 +47,7 @@ void CssStyleSheet::convert_css_to_tokens()
       }
       add_token(SEL_START, j->first, true);
       
-      for(umap<string,string>::iterator k = j->second.begin(); k != j->second.end(); ++k)
+      for(umap<XString,XString>::iterator k = j->second.begin(); k != j->second.end(); ++k)
       {
         add_token(PROPERTY, k->first, true);
         add_token(VALUE, k->second, true);
@@ -136,7 +136,7 @@ CssStyleSheet::print_css()
       localtime_s(&now,&rawtime);
       char buffer[100];
       asctime_s(buffer,100,&now);
-		  temp.data += rtrim(string(buffer));
+		  temp.data += rtrim(XString(buffer));
 		  temp.type = COMMENT;
 		  m_csstokens.insert(m_csstokens.begin(), temp);
 	}
@@ -163,7 +163,7 @@ CssStyleSheet::print_css()
 	stringstream* out =& output;
 	   
   bool plain = !m_settings["allow_html_in_templates"];
-  string amp;
+  XString amp;
   bool isamp;
 
   for (int i = 0; i < (int)m_csstokens.size(); ++i)
@@ -232,12 +232,12 @@ CssStyleSheet::print_css()
            break;
     }
   }
-	string output_string = trim(output.str());
+	XString output_string = trim(output.str());
   m_output_size = (int)output_string.length();
-		
-	if(!m_settings["silent"]) 
+
+	if(!m_settings["silent"])
   {
-    string info;
+    XString info;
     char   number[20];
 
     float i_b   = round(((float) m_input_size )/1024,3);
@@ -261,10 +261,10 @@ CssStyleSheet::print_css()
   return true;
 }
 
-string
+XString
 CssStyleSheet::print_logs()
 {
-  string loglines;
+  XString loglines;
 
   if(!Valid())
   {

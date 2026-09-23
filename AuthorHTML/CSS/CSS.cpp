@@ -20,14 +20,14 @@ bool
 CssStyleSheet::SetFile(LPCTSTR p_filename,bool emptyOK /*=false*/)
 {
   m_filename = p_filename;
-  string contents = file_get_contents(m_filename);
+  XString contents = file_get_contents(m_filename);
   if(contents == "")
   {
     if(emptyOK)
     {
       return true;
     }
-    string warn = "Empty CSS file or no file found: " + m_filename;
+    XString warn = "Empty CSS file or no file found: " + m_filename;
     log(warn,Error);
     return false;
   }
@@ -37,7 +37,7 @@ CssStyleSheet::SetFile(LPCTSTR p_filename,bool emptyOK /*=false*/)
 
 // Add stylesheet tokens unparsed
 //
-void CssStyleSheet::add_token(const token_type ttype, const string data, const bool force)
+void CssStyleSheet::add_token(const token_type ttype, const XString data, const bool force)
 {
 	if(m_settings["preserve_css"] || force)
   {
@@ -48,12 +48,12 @@ void CssStyleSheet::add_token(const token_type ttype, const string data, const b
 	}
 }
 
-void CssStyleSheet::copy(const string media, const string selector, const string media_new, const string selector_new)
+void CssStyleSheet::copy(const XString media, const XString selector, const XString media_new, const XString selector_new)
 {
 	for(int k = 0; k < m_css[media][selector].size(); k++)
-	{	
-		string property = m_css[media][selector].at(k);
-		string value = m_css[media][selector][property];
+	{
+		XString property = m_css[media][selector].at(k);
+		XString value = m_css[media][selector][property];
 		put(media_new,selector_new,property,value);
 	}
 }
@@ -61,14 +61,14 @@ void CssStyleSheet::copy(const string media, const string selector, const string
 // A real workhorse.
 // ADDS/DELETES/SETS a media/selector/property to a value
 //
-void CssStyleSheet::put(const string& media, const string& selector, const string& property, const string& value)
+void CssStyleSheet::put(const XString& media, const XString& selector, const XString& property, const XString& value)
 {
-	if(m_settings["preserve_css"]) 
+	if(m_settings["preserve_css"])
   {
 		return;
 	}
-	
-  string val = trim(value);
+
+  XString val = trim(value);
 	if(m_css[media][selector].has(property))
 	{
 		if( !is_important(m_css[media][selector][property]) || 
@@ -94,15 +94,15 @@ void CssStyleSheet::put(const string& media, const string& selector, const strin
 	}
 }
 
-string
-CssStyleSheet::get(const string& media, const string& selector, const string& property)
+XString
+CssStyleSheet::get(const XString& media, const XString& selector, const XString& property)
 {
-  if(m_settings["preserve_css"]) 
+  if(m_settings["preserve_css"])
   {
     // Cannot get unparsed data
     return "";
   }
-  string value;
+  XString value;
 
   if(m_css[media][selector].has(property))
   {
@@ -112,7 +112,7 @@ CssStyleSheet::get(const string& media, const string& selector, const string& pr
 }
 
 void
-CssStyleSheet::GetSelectors(const string& media,vector<string>* selectors)
+CssStyleSheet::GetSelectors(const XString& media,vector<XString>* selectors)
 {
 	for(css_struct::iterator i = m_css.begin(); i != m_css.end(); ++i )
 	{
@@ -120,7 +120,7 @@ CssStyleSheet::GetSelectors(const string& media,vector<string>* selectors)
     {
 		  for(sstore::iterator j = i->second.begin(); j != i->second.end(); ++j)
 		  {
-        string selector = j->first;
+        XString selector = j->first;
         selectors->push_back(selector);
       }
     }
@@ -129,9 +129,9 @@ CssStyleSheet::GetSelectors(const string& media,vector<string>* selectors)
 
 // Get all properties from a media/selector pair
 void
-CssStyleSheet::GetProperties(const string& media
-                            ,const string& selector
-                            ,vector<string>* properties)
+CssStyleSheet::GetProperties(const XString& media
+                            ,const XString& selector
+                            ,vector<XString>* properties)
 {
 	for(css_struct::iterator i = m_css.begin(); i != m_css.end(); ++i )
 	{
@@ -143,7 +143,7 @@ CssStyleSheet::GetProperties(const string& media
         {
           for(pstore::iterator k = j->second.begin(); k != j->second.end(); ++k)
           {
-            string property = k->first;
+            XString property = k->first;
             properties->push_back(property);
           }
         }
@@ -154,7 +154,7 @@ CssStyleSheet::GetProperties(const string& media
 
 // Delete a specific selector
 void
-CssStyleSheet::del_selector(const string& media,const string& selector)
+CssStyleSheet::del_selector(const XString& media,const XString& selector)
 {
   if(m_css[media].has(selector))
   {
@@ -163,17 +163,17 @@ CssStyleSheet::del_selector(const string& media,const string& selector)
 }
 
 void
-CssStyleSheet::GetAllAttributes(vector<string>* attributes)
+CssStyleSheet::GetAllAttributes(vector<XString>* attributes)
 {
-  map<string,string>::iterator i;
+  map<XString,XString>::iterator i;
   for(i = m_all_properties.begin();i != m_all_properties.end(); ++i)
   {
-    string attrib = i->first;
+    XString attrib = i->first;
     attributes->push_back(attrib);
   }
 }
 
-void CssStyleSheet::log(const string msg, const message_type type, int iline)
+void CssStyleSheet::log(const XString msg, const message_type type, int iline)
 {
 	message new_msg;
 	new_msg.m = msg;
@@ -198,10 +198,10 @@ void CssStyleSheet::log(const string msg, const message_type type, int iline)
 }
 
 #pragma warning(disable:4244)
-string CssStyleSheet::unicode(string& istring,int& i)
+XString CssStyleSheet::unicode(XString& istring,int& i)
 {
 	++i;
-	string add = "";
+	XString add = "";
 	bool replaced = false;
 	
 	while(i < (int)istring.length() && (ctype_xdigit(istring[i]) || ctype_space(istring[i])) && add.length()< 6)
@@ -217,7 +217,7 @@ string CssStyleSheet::unicode(string& istring,int& i)
 
 	if(hexdec(add) > 47 && hexdec(add) < 58 || hexdec(add) > 64 && hexdec(add) < 91 || hexdec(add) > 96 && hexdec(add) < 123)
 	{
-		string msg = "Replaced unicode notation: Changed \\" + rtrim(add) + " to ";
+		XString msg = "Replaced unicode notation: Changed \\" + rtrim(add) + " to ";
 		add = static_cast<int>(hexdec(add));
 		msg += add;
 		log(msg,Information);
@@ -244,24 +244,24 @@ string CssStyleSheet::unicode(string& istring,int& i)
 	return "";
 }
 
-bool CssStyleSheet::is_token(string& istring,const size_t i)
+bool CssStyleSheet::is_token(XString& istring,const size_t i)
 {
 	return (in_str_array(m_tokens,istring[i]) && !escaped(istring,i));
 }
 
-void CssStyleSheet::merge_4value_shorthands(string media, string selector)
+void CssStyleSheet::merge_4value_shorthands(XString media, XString selector)
 {
-	for(map< string, vector<string> >::iterator i = m_shorthands.begin(); i != m_shorthands.end(); ++i )
+	for(map< XString, vector<XString> >::iterator i = m_shorthands.begin(); i != m_shorthands.end(); ++i )
 	{
-		string temp;
+		XString temp;
 
 		if(m_css[media][selector].has(i->second[0]) && m_css[media][selector].has(i->second[1])
 		&& m_css[media][selector].has(i->second[2]) && m_css[media][selector].has(i->second[3]))
 		{
-			string important = "";
+			XString important = "";
 			for(int j = 0; j < 4; ++j)
 			{
-				string val = m_css[media][selector][i->second[j]];
+				XString val = m_css[media][selector][i->second[j]];
 				if(is_important(val))
 				{
 					important = " !important";
@@ -278,23 +278,23 @@ void CssStyleSheet::merge_4value_shorthands(string media, string selector)
 	}
 } 
 
-map<string,string> CssStyleSheet::dissolve_4value_shorthands(string property, string value)
+map<XString,XString> CssStyleSheet::dissolve_4value_shorthands(XString property, XString value)
 {
-	map<string, string> ret;
-	
+	map<XString, XString> ret;
+
 	if(m_shorthands[property][0] == "0")
 	{
 		ret[property] = value;
 		return ret;
 	}
-	
-	string important = "";
+
+	XString important = "";
 	if(is_important(value))
 	{
 		value = gvw_important(value);
 		important = " !important";
 	}
-	vector<string> values = explode(" ",value);
+	vector<XString> values = explode(" ",value);
 
 	if(values.size() == 4)
 	{
@@ -333,7 +333,7 @@ void CssStyleSheet::explode_selectors()
 	// Explode multiple selectors
   if (m_settings["merge_selectors"] == 1)
   {
-    vector<string> new_sels;
+    vector<XString> new_sels;
     int lastpos = 0;
     m_sel_separate.push_back((int)m_cur_selector.length());
     
@@ -363,7 +363,7 @@ void CssStyleSheet::explode_selectors()
 }
 
 void
-CssStyleSheet::SetTemplate(string value)
+CssStyleSheet::SetTemplate(XString value)
 {
   if(value == "high" || value == "highest" || value == "low")
   {
@@ -371,25 +371,25 @@ CssStyleSheet::SetTemplate(string value)
   }
   else if(value != "default")
   {
-    string tpl_content = file_get_contents(value);
+    XString tpl_content = file_get_contents(value);
     if(tpl_content != "")
     {
-      vector<string> tpl_arr = explode("|",tpl_content,true);
+      vector<XString> tpl_arr = explode("|",tpl_content,true);
       m_csstemplate = tpl_arr;
     }
   }
 }
 
 void
-CssStyleSheet::AddImport(string value)
+CssStyleSheet::AddImport(XString value)
 {
   m_import.push_back(value);
 }
 
 void
-CssStyleSheet::DeleteImport(string value)
+CssStyleSheet::DeleteImport(XString value)
 {
-  vector<string>::iterator it;
+  vector<XString>::iterator it;
   it = std::find(m_import.begin(),m_import.end(),value);
   if(it != m_import.end())
   {
@@ -431,8 +431,8 @@ CssStyleSheet::has_errors()
   return false;
 }
 
-string 
-CssStyleSheet::file_get_contents(const string filename)
+XString
+CssStyleSheet::file_get_contents(const XString filename)
 {
   WinFile file(filename);
   if(!file.Open(winfile_read | open_trans_text))
@@ -440,19 +440,19 @@ CssStyleSheet::file_get_contents(const string filename)
     return "";
   }
   XString line;
-  string  file_contents;
+  XString file_contents;
 
   while(file.Read(line))
   {
     file_contents += line;
-  }	    
+  }
   file.Close();
 
   return file_contents;
 }
 
 // For internal stylesheets
-string 
+XString
 CssStyleSheet::GetTheSheet()
 {
   return m_theSheet;

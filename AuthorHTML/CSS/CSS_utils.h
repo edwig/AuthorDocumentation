@@ -15,9 +15,9 @@
 
 class CssStyleSheet;
 
-typedef umap<string, string>   pstore;
-typedef umap<string, pstore >  sstore;
-typedef umap<string, sstore>   css_struct;
+typedef umap<XString, XString>   pstore;
+typedef umap<XString, pstore >   sstore;
+typedef umap<XString, sstore>    css_struct;
 
 enum parse_status
 {
@@ -50,12 +50,12 @@ enum token_type
 struct token
 {
   token_type type;
-  string     data;
+  XString    data;
 };
 
 struct message
 {
-  string       m;
+  XString      m;
   message_type t;
 };
 

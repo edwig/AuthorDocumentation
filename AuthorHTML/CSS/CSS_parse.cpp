@@ -18,7 +18,7 @@ using namespace std;
  * at = in @-block
  */
 
-void CssStyleSheet::parse_css(string css_input)
+void CssStyleSheet::parse_css(XString css_input)
 {
 	m_input_size = (int)css_input.length();
 	css_input = str_replace("\r\n","\n",css_input); // Replace all double-newlines
@@ -27,9 +27,9 @@ void CssStyleSheet::parse_css(string css_input)
   parse_status from   = is;
 	m_cur_property = ""; // if you can explain the need for this please do so
 
-	string temp_add,cur_comment,temp;
+	XString temp_add,cur_comment,temp;
 
-	vector<string> cur_sub_value_arr;
+	vector<XString> cur_sub_value_arr;
 	char str_char   = ' ';
 	bool str_in_str = false;
 	bool invalid_at = false;
@@ -91,7 +91,7 @@ void CssStyleSheet::parse_css(string css_input)
 				{
 					// Check for at-rule
 					invalid_at = true;
-					for(map<string,parse_status>::iterator j = m_at_rules.begin(); j != m_at_rules.end(); ++j )
+					for(map<XString,parse_status>::iterator j = m_at_rules.begin(); j != m_at_rules.end(); ++j )
 					{
 						if(strtolower(css_input.substr(i+1,j->first.length())) == j->first)
 						{
@@ -104,7 +104,7 @@ void CssStyleSheet::parse_css(string css_input)
 					if(invalid_at)
 					{
 						m_cur_selector = "@";
-						string invalid_at_name = "";
+						XString invalid_at_name = "";
 						for(int j = i+1; j < str_size; ++j)
 						{
 							if(!ctype_alpha(css_input[j]))
@@ -174,7 +174,7 @@ void CssStyleSheet::parse_css(string css_input)
 				if(css_input[i] == ':' || css_input[i] == '=' && m_cur_property != "") // IE really accepts =, so CssStyleSheet will fix those mistakes
 				{
 					status = iv;
-					bool valid = (m_all_properties.count(m_cur_property) > 0 && m_all_properties[m_cur_property].find(m_css_level,0) != string::npos);
+					bool valid = (m_all_properties.count(m_cur_property) > 0 && m_all_properties[m_cur_property].find(m_css_level,0) != XString::npos);
 					if(valid || !m_settings["discard_invalid_properties"]) {
 						add_token(PROPERTY, m_cur_property);
 					}
@@ -322,7 +322,7 @@ void CssStyleSheet::parse_css(string css_input)
 						}
 					}
 					
-					bool valid = (m_all_properties.count(m_cur_property) > 0 && m_all_properties[m_cur_property].find(m_css_level,0) != string::npos);
+					bool valid = (m_all_properties.count(m_cur_property) > 0 && m_all_properties[m_cur_property].find(m_css_level,0) != XString::npos);
 					if((!invalid_at || m_settings["preserve_css"]) && (!m_settings["discard_invalid_properties"] || valid))
 					{
 						put(m_cur_at,m_cur_selector,m_cur_property,m_cur_value);
@@ -331,17 +331,17 @@ void CssStyleSheet::parse_css(string css_input)
 						// Further Optimisation
 						if(m_cur_property == "background" && m_settings["optimise_shorthands"] > 1)
 						{
-							map<string,string> temp2 = dissolve_short_bg(m_cur_value);
+							map<XString,XString> temp2 = dissolve_short_bg(m_cur_value);
 							m_css[m_cur_at][m_cur_selector].erase("background");
-							for(map<string,string>::iterator it = temp2.begin(); it != temp2.end(); ++it )
+							for(map<XString,XString>::iterator it = temp2.begin(); it != temp2.end(); ++it )
 							{
 								put(m_cur_at,m_cur_selector,it->first,it->second);
 							}
 						}
 						if(m_shorthands.count(m_cur_property) > 0 && m_settings["optimise_shorthands"] > 0)
 						{
-							map<string,string> temp3 = dissolve_4value_shorthands(m_cur_property,m_cur_value);
-							for(map<string,string>::iterator it = temp3.begin(); it != temp3.end(); ++it )
+							map<XString,XString> temp3 = dissolve_4value_shorthands(m_cur_property,m_cur_value);
+							for(map<XString,XString>::iterator it = temp3.begin(); it != temp3.end(); ++it )
 							{
 								put(m_cur_at,m_cur_selector,it->first,it->second);
 							}

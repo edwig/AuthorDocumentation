@@ -18,18 +18,18 @@
 
 using namespace std;
 
-string 
-CssStyleSheet::shorthand(string value)
+XString
+CssStyleSheet::shorthand(XString value)
 {
-	string important = "";
-	
+	XString important = "";
+
 	if(is_important(value))
 	{
 		value = gvw_important(value);
 		important = " !important";
 	}
-	
-	vector<string> values = explode(" ",value);
+
+	vector<XString> values = explode(" ",value);
 	switch(values.size())
 	{
 		case 4:
@@ -73,10 +73,10 @@ CssStyleSheet::shorthand(string value)
 	}
 }
 
-string 
-CssStyleSheet::compress_numbers(string subvalue, string property)
+XString
+CssStyleSheet::compress_numbers(XString subvalue, XString property)
 {
-	string units[] = 
+	XString units[] =
   {
      "in"     // Inches
     ,"cm"     // Centimeters
@@ -100,8 +100,8 @@ CssStyleSheet::compress_numbers(string subvalue, string property)
     ,"khz"    // Kiloherz
     ,"hz"     // Herz
   }; 
-	           
-	vector<string> temp;
+
+	vector<XString> temp;
 	if(property == "font")
 	{
 		temp = explode("/",subvalue);
@@ -133,7 +133,7 @@ CssStyleSheet::compress_numbers(string subvalue, string property)
 			temp[i] = strtolower(temp[i]);
 			for(int j = 0; j < 21; ++j )
 			{
-				if(temp[i].find(units[j]) != string::npos)
+				if(temp[i].find(units[j]) != XString::npos)
 				{
 					temp[i] = f2str(str2f(temp[i])) + units[j];
 					unit_found = true;
@@ -154,12 +154,12 @@ CssStyleSheet::compress_numbers(string subvalue, string property)
 	return (temp.size() > 1) ? temp[0] + "/" + temp[1] : temp[0];
 }
 
-bool 
-CssStyleSheet::property_is_next(string istring, size_t pos)
+bool
+CssStyleSheet::property_is_next(XString istring, size_t pos)
 {
 	istring = istring.substr(pos,istring.length()-pos);
 	pos = istring.find_first_of(':',0);
-	if(pos == string::npos)
+	if(pos == XString::npos)
 	{
 		return false;
 	}
@@ -167,12 +167,12 @@ CssStyleSheet::property_is_next(string istring, size_t pos)
 	return (m_all_properties.count(istring) > 0);
 }
 
-string 
-CssStyleSheet::cut_color(string color)
+XString
+CssStyleSheet::cut_color(XString color)
 {
 	if(strtolower(color.substr(0,4)) == "rgb(")
 	{
-		vector<string> color_tmp = explode(",",color.substr(4,color.length()-5));
+		vector<XString> color_tmp = explode(",",color.substr(4,color.length()-5));
 
 		for (int i = 0; i < (int)color_tmp.size(); ++i)
 		{
@@ -209,7 +209,7 @@ CssStyleSheet::cut_color(string color)
 
 	if(color.length() == 7)
 	{
-		string color_temp = strtoupper(color);
+		XString color_temp = strtoupper(color);
 
 		if(color_temp[0] == '#' && color_temp[1] == color_temp[2] && color_temp[3] == color_temp[4] && color_temp[5] == color_temp[6])
 		{
@@ -220,7 +220,7 @@ CssStyleSheet::cut_color(string color)
 		}
 	}
 
-	string temp = strtolower(color);
+	XString temp = strtolower(color);
 	/* color name -> hex code */
 	if(temp == "black")		return "#000";
 	if(temp == "fuchsia")	return "#F0F";
@@ -241,10 +241,10 @@ CssStyleSheet::cut_color(string color)
 	return color;
 }
 
-int 
-CssStyleSheet::c_font_weight(string& value)
+int
+CssStyleSheet::c_font_weight(XString& value)
 {
-	string important = "";
+	XString important = "";
 	if(is_important(value))
 	{
 		important = " !important";
@@ -270,10 +270,10 @@ CssStyleSheet::merge_selectors(sstore& input)
   //sstore::iterator last;
 	for(sstore::iterator i = input.begin(),last = i; i != input.end();)
 	{
-		string newsel = "";
-	
+		XString newsel = "";
+
 		// Check if properties also exist in another selector
-		vector<string> keys;
+		vector<XString> keys;
 		for(sstore::iterator j = input.begin(); j != input.end(); j++ )
 		{
 			if(j->first == i->first)
@@ -313,10 +313,10 @@ CssStyleSheet::merge_selectors(sstore& input)
 	}
 }
 
-string CssStyleSheet::optimise_subvalue(string subvalue, const string property)
+XString CssStyleSheet::optimise_subvalue(XString subvalue, const XString property)
 {
 	subvalue = trim(subvalue);
-	string temp = compress_numbers(subvalue,property);
+	XString temp = compress_numbers(subvalue,property);
 	if(temp != subvalue)
 	{
 		if(temp.length() > subvalue.length())
@@ -350,10 +350,10 @@ string CssStyleSheet::optimise_subvalue(string subvalue, const string property)
 
 // BACKGROUND OPTIMIZER
 
-map<string,string> 
-CssStyleSheet::dissolve_short_bg(string istring)
+map<XString,XString>
+CssStyleSheet::dissolve_short_bg(XString istring)
 {
-  vector<string> repeat,attachment,clip,origin,pos,str_values;
+  vector<XString> repeat,attachment,clip,origin,pos,str_values;
 
   repeat.push_back("repeat"); 
   repeat.push_back("repeat-x"); 
@@ -373,10 +373,10 @@ CssStyleSheet::dissolve_short_bg(string istring)
   pos.push_back("bottom"); 
   pos.push_back("left"); 
   pos.push_back("right");
-  string important = "";
+  XString important = "";
 
-  map<string,string> ret;
-  map<string,bool> have;
+  map<XString,XString> ret;
+  map<XString,bool> have;
   ret["background-image"] = "";
   ret["background-size"] = "";
   ret["background-repeat"] = "";
@@ -398,7 +398,7 @@ CssStyleSheet::dissolve_short_bg(string istring)
     have["clip"] = false; have["pos"] = false;
     have["color"] = false; have["bg"] = false;
 
-    vector<string> temp_values = explode_ws(' ',trim(str_values[i]));
+    vector<XString> temp_values = explode_ws(' ',trim(str_values[i]));
 
     for(int j = 0; j < (int) temp_values.size(); j++)
     {
@@ -449,7 +449,7 @@ CssStyleSheet::dissolve_short_bg(string istring)
     }
   }
 
-  for(map<string,string>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
+  for(map<XString,XString>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
   {
     if(ret[it->first] != "")
     {
@@ -466,14 +466,14 @@ CssStyleSheet::dissolve_short_bg(string istring)
   return ret;	
 }
 
-vector<string> 
-CssStyleSheet::explode_ws(char sep,string istring)
+vector<XString>
+CssStyleSheet::explode_ws(char sep,XString istring)
 {
   // 1 = st // 2 = str
   int status = 1;
   char to = ' ';
 
-  vector<string> output;
+  vector<XString> output;
   output.push_back("");
   int num = 0;
   int len = (int) istring.length();
@@ -513,25 +513,25 @@ CssStyleSheet::explode_ws(char sep,string istring)
 }
 
 void 
-CssStyleSheet::merge_bg(umap<string,string>& css_input)
+CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
 {
   // Max number of background images. CSS3 not yet fully implemented
   int number_of_values = cssmax(((int)explode_ws(',',css_input["background-image"]).size()),(int)(explode_ws(',',css_input["background-color"])).size());
   // Array with background images to check if BG image exists
-  vector<string> bg_img_array = explode_ws(',',gvw_important(css_input["background-image"]));
-  string new_bg_value,important = "";
+  vector<XString> bg_img_array = explode_ws(',',gvw_important(css_input["background-image"]));
+  XString new_bg_value,important = "";
 
   for(int i = 0; i < number_of_values; i++)
   {
-    for(map<string,string>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
-    {			
+    for(map<XString,XString>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
+    {
       // Skip if property does not exist
       if(!css_input.has(it->first))
       {
         continue;
       }
 
-      string cur_value = css_input[it->first];
+      XString cur_value = css_input[it->first];
 
       // Skip some properties if there is no background image
       if(((int)bg_img_array.size() <= i || bg_img_array[i] == "none")
@@ -554,7 +554,7 @@ CssStyleSheet::merge_bg(umap<string,string>& css_input)
         continue;
       }
 
-      vector<string> temp = explode_ws(',',cur_value);
+      vector<XString> temp = explode_ws(',',cur_value);
 
       if((int)temp.size() > i)
       {					
@@ -577,7 +577,7 @@ CssStyleSheet::merge_bg(umap<string,string>& css_input)
   }
 
   // Delete all background-properties
-  for(map<string,string>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
+  for(map<XString,XString>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
   {
     css_input.erase(it->first);
   }

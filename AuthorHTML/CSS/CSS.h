@@ -13,15 +13,15 @@ public:
   // Set and parse a filename
   bool SetFile(LPCTSTR p_filename,bool emptyOK = false);
   // Set a predefined template before parsing
-  void SetTemplate(string value);
+  void SetTemplate(XString value);
 
   // Get/Adds/Delete/Copy a property-value pair to an existing CSS structure
-  string get (const string& media, const string& selector, const string& property);
-  void   put (const string& media, const string& selector, const string& property,  const string& value);
-  void   copy(const string  media, const string  selector, const string  media_new, const string selector_new);
+  XString get (const XString& media, const XString& selector, const XString& property);
+  void    put (const XString& media, const XString& selector, const XString& property,  const XString& value);
+  void    copy(const XString  media, const XString  selector, const XString  media_new, const XString selector_new);
 
   // Parse a piece of CSS code
-  void parse_css(string css_input);
+  void parse_css(XString css_input);
 
   // Called after "parse_css". True if valid CSS
   bool Valid();
@@ -30,101 +30,101 @@ public:
   bool print_css();
 
   // Get all selectors in a vector
-  void GetSelectors(const string& media,vector<string>* selectors);
+  void GetSelectors(const XString& media,vector<XString>* selectors);
   // Get all properties of a selector
-  void GetProperties(const string& media
-                    ,const string& selector
-                    ,vector<string>* properties);
+  void GetProperties(const XString& media
+                    ,const XString& selector
+                    ,vector<XString>* properties);
   // Delete a specific selector
-  void del_selector(const string& media,const string& selector);
+  void del_selector(const XString& media,const XString& selector);
   // Get a vector with all attributes
-  void GetAllAttributes(vector<string>* attributes);
+  void GetAllAttributes(vector<XString>* attributes);
   // Print the logfiles to a string
-  string print_logs();
+  XString print_logs();
   // See if the style sheet contains errors
   bool   has_errors();
   // For internal stylesheets
-  string GetTheSheet();
-  void   AddImport(string value);
-  void   DeleteImport(string value);
+  XString GetTheSheet();
+  void    AddImport(XString value);
+  void    DeleteImport(XString value);
 
-public: 
+public:
 		int                        m_properties;
     int                        m_selectors;
-		string                     m_charset;
-    string                     m_namesp;
-    string                     m_css_level;
-		vector<string>             m_import;
-    vector<string>             m_csstemplate;
+		XString                    m_charset;
+    XString                    m_namesp;
+    XString                    m_css_level;
+		vector<XString>            m_import;
+    vector<XString>            m_csstemplate;
 		map<int,vector<message> >  m_logs;
-    map<string, int>           m_settings;
+    map<XString, int>         m_settings;
 	
 	private:
     // Prepare all data structures
     void    prepare();
-		void    add_token(const token_type ttype, const string data, const bool force = false);
+		void    add_token(const token_type ttype, const XString data, const bool force = false);
 		void    convert_css_to_tokens();
 		// Add a message to the message log
-		void    log(const string msg, const message_type type, int iline = 0);
-		
-    string  file_get_contents(const string filename);
+		void    log(const XString msg, const message_type type, int iline = 0);
+
+    XString file_get_contents(const XString filename);
 		int     SeekNoComment(const int key, const int move);
-		string  HtmlSpecials(const string istring, const bool plain);	
-		string  optimise_subvalue(string subvalue, const string property);
+		XString HtmlSpecials(const XString istring, const bool plain);
+		XString optimise_subvalue(XString subvalue, const XString property);
 		void    explode_selectors();
     /* Merges properties like margin */
-    void    merge_4value_shorthands(string media, string selector);
+    void    merge_4value_shorthands(XString media, XString selector);
     /* Dissolves properties like padding:10px 10px 10px to padding-top:10px;padding-bottom:10px;... */
-    map<string,string> dissolve_4value_shorthands(string property, string value);
+    map<XString,XString> dissolve_4value_shorthands(XString property, XString value);
 		// Parses unicode notations
-		string  unicode(string& istring,int& i);
+		XString unicode(XString& istring,int& i);
 		// Checks if the chat in istring at i is a token
-		bool    is_token(string& istring,const size_t i);
+		bool    is_token(XString& istring,const size_t i);
 
     // GLOBAL OPTIMIZER
     //
     // Color compression function. Converts all rgb() values to #-values and uses the short-form if possible. Also replaces color names and codes.
-    string  cut_color(string color);
+    XString cut_color(XString color);
     // Compresses shorthand values. Example: margin:1px 1px 1px 1px -> margin:1px
-    string  shorthand(string value);
-    // Compresses numbers (ie. 1.0 -> 1 or 1.100 -> 1.1 
-    string  compress_numbers(string subvalue, string property = "");
+    XString shorthand(XString value);
+    // Compresses numbers (ie. 1.0 -> 1 or 1.100 -> 1.1
+    XString compress_numbers(XString subvalue, XString property = "");
     // Checks if the next word in a string from pos is a CSS property
-    bool    property_is_next(string istring, const size_t pos);
+    bool    property_is_next(XString istring, const size_t pos);
     // Compress font-weight
-    int     c_font_weight(string& value);
+    int     c_font_weight(XString& value);
     // Merges selectors which have the same properties
     void    merge_selectors(sstore& input);
 
     // BACKGROUND OPTIMIZER
     //
     // Dissolves the background property
-    map<string,string> dissolve_short_bg(string istring);
+    map<XString,XString> dissolve_short_bg(XString istring);
     // Same as explode, but not within a string
-    vector<string> explode_ws(char sep,string istring);
+    vector<XString> explode_ws(char sep,XString istring);
     // Merge backgrounds
-    void merge_bg(umap<string,string>& css_input);
+    void merge_bg(umap<XString,XString>& css_input);
 
     // MISCALEANEOUS FUNCTIONS
     //
     // Checks if a charcter is escaped
-    bool escaped(const string &istring, size_t pos);
+    bool escaped(const XString &istring, size_t pos);
     // Returns a char of a string at pos but checks the string-length before
-    char s_at(const string &istring, size_t pos);
+    char s_at(const XString &istring, size_t pos);
     // Splits a string at e
-    vector<string> explode(const string e, string s, const bool check = false);
+    vector<XString> explode(const XString e, XString s, const bool check = false);
     // Implodes a string at e
-    std::string implode(const string e, const vector<string> s);
+    XString implode(const XString e, const vector<XString> s);
     // Replaces <find> with <replace> in <str>
-    string str_replace(const string find, const string replace, string str);
+    XString str_replace(const XString find, const XString replace, XString str);
     // Replaces all values of <find> with <replace> in <str>
-    string str_replace(const vector<string>& find, const string replace, string str);
+    XString str_replace(const vector<XString>& find, const XString replace, XString str);
     // Checks if a string exists in a string-array
     bool in_char_arr(const char* haystack, const char needle);
-    bool in_str_array(const string& haystack, const char needle);
-    bool in_str_array(const vector<string>& haystack, const string needle);
+    bool in_str_array(const XString& haystack, const char needle);
+    bool in_str_array(const vector<XString>& haystack, const XString needle);
     // Replaces certain chars with their entities
-    string htmlspecialchars(string istring, int quotes = 0);
+    XString htmlspecialchars(XString istring, int quotes = 0);
     // Rounds a float value
     float round(const float &number, const int num_digits);
     // Replacement for max (so that I don't have to include unnecessary things)
@@ -135,50 +135,50 @@ public:
     bool ctype_xdigit(char c);
     bool ctype_alpha(char c);
     /* Unserialize string arrays */
-    vector<string> unserialise_sa(const string istring);
+    vector<XString> unserialise_sa(const XString istring);
     /* Serialize a string */
-    string serialise_sa(const string istring);
+    XString serialise_sa(const XString istring);
 
     // CONVERSIONS
     //
     // Returns the lowercase version of a string
-    string strtolower(string istring);
+    XString strtolower(XString istring);
     // Apparently faster replacement for tolower
     char chartolower(const char c);
     // Returns the uppercase version of a string
-    string strtoupper(string istring);
+    XString strtoupper(XString istring);
     TCHAR  chartoupper(const TCHAR c);
     // Converts an integer to a hex-string
-    string dechex(const int i);
+    XString dechex(const int i);
     // Converts a hexadecimal number (string) to a decimal number
-    double hexdec(string istring);
+    double hexdec(XString istring);
     // Converts float to string
-    string f2str(const float f);
+    XString f2str(const float f);
     // Converts a string to float
-    float str2f(const string istring);
+    float str2f(const XString istring);
     // Converts a char to a string
-    string char2str(const char c);
-    string char2str(const char *c);
+    XString char2str(const char c);
+    XString char2str(const char *c);
 
     // TRIM
     // Removes whitespace at the end and beginning of a string
-    const string trim(const string istring);
+    const XString trim(const XString istring);
     // Removes whitespace at the beginning of a string
-    const string ltrim(const string istring);
+    const XString ltrim(const XString istring);
     // Removes whitespace at the end of a string
-    const string rtrim(const string istring);
-    const string rtrim(const string istring, const string chars);
+    const XString rtrim(const XString istring);
+    const XString rtrim(const XString istring, const XString chars);
     // Removes HTML tags
-    string strip_tags(string istring);
+    XString strip_tags(XString istring);
 
     // IMPORTANT
     //
     // Checks if value is important
-    bool is_important(string value);
+    bool is_important(XString value);
     // Get value without !important
-    string gvw_important(string value);
+    XString gvw_important(XString value);
     // Compresses !important (for example if someone uses "! important")
-    string c_important(string value);
+    XString c_important(XString value);
 
     //////////////////////////////////////////////////////////
     //
@@ -191,29 +191,29 @@ public:
     // Unparsed CSS sheet
     vector<token> m_csstokens;
     // Original file
-    string        m_filename;
+    XString       m_filename;
     // Helpers for parsing
-    string        m_tokens;
-    string        m_cur_selector;
-    string        m_cur_at;
-    string        m_cur_property;
-    string        m_cur_sub_value;
-    string        m_cur_value;
+    XString       m_tokens;
+    XString       m_cur_selector;
+    XString       m_cur_at;
+    XString       m_cur_property;
+    XString       m_cur_sub_value;
+    XString       m_cur_value;
     int           m_line;
     int           m_input_size;
     int           m_output_size;
     float         m_compress_ratio;
     vector<int>   m_sel_separate;
     // For internal stylesheets
-    string        m_theSheet;
+    XString       m_theSheet;
 
     // General prepared data structures to parse CSS
-    vector<string>                m_number_values;
-    vector<string>                m_color_values;
-    map<string,string>            m_background_prop_default;
-    map<string,string>            m_replace_colors;
-    map<string,string>            m_all_properties;
-    map<string,vector<string> >   m_shorthands;
-    map<string,vector<string> >   m_predefined_templates;
-    map<string,parse_status>      m_at_rules;
+    vector<XString>                m_number_values;
+    vector<XString>                m_color_values;
+    map<XString,XString>           m_background_prop_default;
+    map<XString,XString>           m_replace_colors;
+    map<XString,XString>           m_all_properties;
+    map<XString,vector<XString> >  m_shorthands;
+    map<XString,vector<XString> >  m_predefined_templates;
+    map<XString,parse_status>      m_at_rules;
 };
