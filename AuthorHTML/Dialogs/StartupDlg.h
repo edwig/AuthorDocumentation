@@ -29,6 +29,7 @@ public:
 
 protected:
 	void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+  void CleanupRecentFileList();
   void GetRecentProjectList();
   void GetRecentFileList();
   void SetButtonText(bool p_project);

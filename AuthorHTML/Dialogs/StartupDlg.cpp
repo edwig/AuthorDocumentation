@@ -67,6 +67,7 @@ StartupDlg::OnInitDialog()
   m_list.InsertColumn(0,"Projects / Files",LVCFMT_LEFT,360);
 
   SetButtonImages();
+  CleanupRecentFileList();
   GetRecentProjectList();
 
   // Don't do the focus by way of the CDialog
@@ -81,6 +82,24 @@ StartupDlg::SetButtonImages()
   m_buttonNewProject .SetImage(IDB_CHM_NEWPROJECT);
   m_buttonNewFile    .SetImage(IDB_HTML_NEWFILE);
   m_buttonImport     .SetImage(IDB_CHM_FILE);
+}
+
+void 
+StartupDlg::CleanupRecentFileList()
+{
+  CRecentFileList* recent = theApp.GetRecentFileList();
+
+  int size = recent->GetSize();
+  for(int ind = 0; ind < size; ++ind)
+  {
+    CString filename = (*recent)[ind];
+    if(filename.IsEmpty())
+    {
+      recent->Remove(ind);
+      --ind;
+      --size;
+    }
+  }
 }
 
 void
@@ -131,7 +150,11 @@ StartupDlg::GetRecentFileList()
   {
     CString filename;
     recent->GetDisplayName(filename,ind,"",0,TRUE);
-    m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, filename, 0, 0, 0, 0);
+    if(filename.IsEmpty())
+    {
+      filename = (*recent)[ind];
+    }
+    m_list.InsertItem(LVIF_TEXT | LVIF_STATE,ind,filename,0,0,0,0);
   }
   m_list.SetFocus();
   m_list.SetItemState(0,LVIS_SELECTED,LVIS_SELECTED);
