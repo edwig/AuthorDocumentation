@@ -30,6 +30,8 @@ ScriptDlg::ScriptDlg(CWnd*       pParent
   // Scintilla must be created early, to create the WindowsClassname
   // for the dialog create from DoModal
   CRect r;
+
+  m_scintilla.SetUTF8(false);
   m_scintilla.Create(WS_CHILD|WS_VISIBLE|WS_TABSTOP, r, this, 0);
 }
 

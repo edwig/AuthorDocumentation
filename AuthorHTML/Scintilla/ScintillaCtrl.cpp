@@ -89,13 +89,17 @@ BOOL CScintillaCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, U
 	BOOL bSuccess = CreateEx(dwExStyle, _T("scintilla"), NULL, dwStyle, rect, pParentWnd, nID, lpParam);
 
   //Setup the direct access data
-  if (bSuccess)
+  if(bSuccess)
+  {
     SetupDirectAccess();
+  }
 
-  //If we are running as Unicode, then use the UTF8 codepage
-  // Always use UTF-8 in the control so it can handle UTF-8 documents
-  SetCodePage(SC_CP_UTF8);
-
+  if(m_utf8)
+  {
+    //If we are running as Unicode, then use the UTF8 codepage
+    // Always use UTF-8 in the control so it can handle UTF-8 documents
+    SetCodePage(SC_CP_UTF8);
+  }
   return bSuccess;
 }
 
@@ -2940,4 +2944,9 @@ int CScintillaCtrl::GetPropertyInt(const char* key, BOOL bDirect)
 int CScintillaCtrl::GetStyleBitsNeeded(BOOL bDirect)
 {
   return Call(SCI_GETSTYLEBITSNEEDED, 0, 0, bDirect);
+}
+
+void CScintillaCtrl::SetUTF8(bool p_utf8)
+{
+  m_utf8 = p_utf8;
 }

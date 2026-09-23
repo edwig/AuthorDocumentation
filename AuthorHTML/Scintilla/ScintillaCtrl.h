@@ -529,6 +529,7 @@ public:
   int GetPropertyExpanded(const char* key, char* buf, BOOL bDirect = TRUE);
   int GetPropertyInt(const char* key, BOOL bDirect = TRUE);
   int GetStyleBitsNeeded(BOOL bDirect = TRUE);
+  void SetUTF8(bool p_utf8);
 
 protected:
   DECLARE_DYNAMIC(CScintillaCtrl)
@@ -536,6 +537,7 @@ protected:
 //Member variables
   LRESULT m_DirectFunction;
   LRESULT m_DirectPointer;
+  bool    m_utf8 = true;
 };
 
 #endif //__SCINTILLACTRL_H__

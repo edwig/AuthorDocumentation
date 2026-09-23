@@ -95,7 +95,7 @@ TopicPropPage4Dlg::OnInitDialog()
 void
 TopicPropPage4Dlg::FillPage()
 {
-  GetHeadScripts();
+  GetScripts();
   ScriptsToList();
 }
 
@@ -130,7 +130,7 @@ TopicPropPage4Dlg::ShowFocus()
 }
 
 void
-TopicPropPage4Dlg::GetHeadScripts()
+TopicPropPage4Dlg::GetScripts()
 {
   ResetScripts();
 
@@ -138,66 +138,44 @@ TopicPropPage4Dlg::GetHeadScripts()
   HRESULT hr = m_htmlDoc->get_all(&coll);
   if(SUCCEEDED(hr))
   {
-    CComBSTR name = L"head";
+    CComBSTR name = L"script";
     CComVariant selector;
     V_VT(&selector) = VT_BSTR;
     V_BSTR(&selector) = name;
-    CComPtr<IDispatch> tdisp;
-    hr = coll->tags(selector,&tdisp);
-    CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> tagscol = tdisp;
-    if(SUCCEEDED(hr))
+    CComPtr<IDispatch> sdisp;
+    hr = coll->tags(selector,&sdisp);
+    CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> scriptcol = sdisp;
+    if(SUCCEEDED(hr) && scriptcol.p)
     {
-      CComVariant ask;
-      V_VT(&ask) = VT_I4;
-      V_I4(&ask) = 0;
-      CComPtr<IDispatch> item;
-      hr = tagscol->item(ask,ask,&item);
-      CComQIPtr<IHTMLHeadElement,&IID_IHTMLHeadElement> head = item;
-      if(SUCCEEDED(hr) && head.p)
+      long count = 0;
+      scriptcol->get_length(&count);
+      for(int ind = 0; ind < count; ++ind)
       {
-        IDispatch* disp;
-        CComQIPtr<IHTMLElement,&IID_IHTMLElement> pElem = item;
-        hr = pElem->get_children(&disp);
-        CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> headcol = disp;
-        if(SUCCEEDED(hr) && headcol.p)
+        CComVariant ask;
+        V_VT(&ask) = VT_I4;
+        V_I4(&ask) = ind;
+        IDispatch* idisp;
+        hr = scriptcol->item(ask,ask,&idisp);
+        CComQIPtr<IHTMLScriptElement,&IID_IHTMLScriptElement> script = idisp;
+        if(SUCCEEDED(hr) && script.p)
         {
-          name = L"script";
-          V_BSTR(&selector) = name;
-          CComPtr<IDispatch> sdisp;
-          hr = headcol->tags(selector,&sdisp);
-          CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> scriptcol = sdisp;
-          if(SUCCEEDED(hr) && scriptcol.p)
-          {
-            long count = 0;
-            scriptcol->get_length(&count);
-            for(int ind = 0; ind < count; ++ind)
-            {
-              V_I4(&ask) = ind;
-              IDispatch* idisp;
-              hr = scriptcol->item(ask,ask,&idisp);
-              CComQIPtr<IHTMLScriptElement,&IID_IHTMLScriptElement> script = idisp;
-              if(SUCCEEDED(hr) && script.p)
-              {
-                // Yoepieee, its a script tag in the head
-                CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = idisp;
-                HtmlScript selem(elem);
-                ScriptDef def;
+          // Yoepieee, its a script tag in the head
+          CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = idisp;
+          HtmlScript selem(elem);
+          ScriptDef def;
 
-                def.script   = script.p;
-                def.language = selem.GetAttribute("language");
-                def.type     = selem.GetAttribute("type");
-                def.deferred = atoi(selem.GetAttribute("defer")) == 1;
-                def.src      = selem.GetAttribute("src");
-                def.forHtml  = selem.GetAttribute("for");
-                def.event    = selem.GetAttribute("event");
-                def.code     = selem.GetText();
+          def.script   = script.p;
+          def.language = selem.GetAttribute("language");
+          def.type     = selem.GetAttribute("type");
+          def.deferred = atoi(selem.GetAttribute("defer")) == 1;
+          def.src      = selem.GetAttribute("src");
+          def.forHtml  = selem.GetAttribute("for");
+          def.event    = selem.GetAttribute("event");
+          def.code     = selem.GetText();
 
-                def.script->AddRef();
+          def.script->AddRef();
 
-                m_scripts.push_back(def);
-              }
-            }
-          }
+          m_scripts.push_back(def);
         }
       }
     }

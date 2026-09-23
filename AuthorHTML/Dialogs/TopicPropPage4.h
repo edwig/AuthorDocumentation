@@ -55,7 +55,7 @@ protected:
   DECLARE_MESSAGE_MAP()
 private:
   void FillPage();
-  void GetHeadScripts();
+  void GetScripts();
   void ScriptsToList();
 
   CComPtr<IHTMLDocument2> m_htmlDoc;
