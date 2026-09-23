@@ -5,7 +5,6 @@
 #include "stdafx.h"
 #include "css.h"
 #include <math.h>
-#include <sstream>
 
 bool 
 CssStyleSheet::escaped(const string &istring, const size_t pos) 
@@ -308,38 +307,16 @@ CssStyleSheet::strtoupper(string istring)
   return istring;
 }
 
-char 
-CssStyleSheet::chartoupper(const char c)
+TCHAR
+CssStyleSheet::chartoupper(const TCHAR c)
 {
-  switch(c)
+  if(c >= _T('a') && c <= _T('z'))
   {
-    case 'a': return 'A';
-    case 'b': return 'B';
-    case 'c': return 'C';
-    case 'd': return 'D';
-    case 'e': return 'E';
-    case 'f': return 'F';
-    case 'g': return 'G';
-    case 'h': return 'H';
-    case 'i': return 'I';
-    case 'j': return 'J';
-    case 'k': return 'K';
-    case 'l': return 'L';
-    case 'm': return 'M';
-    case 'n': return 'N';
-    case 'o': return 'O';
-    case 'p': return 'P';
-    case 'q': return 'Q';
-    case 'r': return 'R';
-    case 's': return 'S';
-    case 't': return 'T';
-    case 'u': return 'U';
-    case 'v': return 'V';
-    case 'w': return 'W';
-    case 'x': return 'X';
-    case 'y': return 'Y';
-    case 'z': return 'Z';
-    default: return c;
+    return c - (_T('a') - _T('A'));
+  }
+  else
+  {
+    return c;
   }
 }
 
@@ -347,9 +324,25 @@ CssStyleSheet::chartoupper(const char c)
 string 
 CssStyleSheet::dechex(const int i)
 {
-  stringstream sstream;
-  sstream << hex << i;
-  return sstream.str();
+  string result;
+  int number(i);
+
+  do 
+  {
+    int remainder = number % 16;
+    if(remainder < 10)
+    {
+      result += string(1,(char)(remainder + '0'));
+    }
+    else
+    {
+      result += string(1,(char)(remainder + 'a' - 10));
+    }
+    number /= 16;
+  } 
+  while(number);
+
+  return result;
 }
 
 double 
@@ -387,9 +380,13 @@ CssStyleSheet::hexdec(string istring)
 string 
 CssStyleSheet::f2str(const float f)
 {
-  stringstream sstream;
-  sstream << f;
-  return sstream.str();
+  XString buffer;
+
+  buffer.Format("%f",f);
+  buffer.TrimRight('0');
+  buffer.TrimRight('.');
+
+  return buffer;
 }
 
 float 
@@ -401,19 +398,14 @@ CssStyleSheet::str2f(const string istring)
 string 
 CssStyleSheet::char2str(const char c)
 {
-  string ret = "";
-  ret += c;
-  return ret;
+  return string(1,c);
 }
 
 string 
 CssStyleSheet::char2str(const char *c)
 {
-  stringstream sstream;
-  sstream << c;
-  return sstream.str();
+  return string(c);
 }
-
 
 // TRIM
 

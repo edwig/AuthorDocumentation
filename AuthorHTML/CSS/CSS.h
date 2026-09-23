@@ -147,7 +147,7 @@ public:
     char chartolower(const char c);
     // Returns the uppercase version of a string
     string strtoupper(string istring);
-    char chartoupper(const char c);
+    TCHAR  chartoupper(const TCHAR c);
     // Converts an integer to a hex-string
     string dechex(const int i);
     // Converts a hexadecimal number (string) to a decimal number
