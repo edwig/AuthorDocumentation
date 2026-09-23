@@ -93,6 +93,8 @@ TOCView::OnCreate(LPCREATESTRUCT lpCreateStruct)
   m_imageList->Create(MAKEINTRESOURCE(IDB_TOC),16,0,RGB(255,255,255));
   m_wndExplorer.SetImageList(m_imageList,TVSIL_NORMAL);
 
+  m_wndExplorer.SetFontSize(TOC_DEFAULT_FONTSIZE);
+
   // Create the toolbar
   m_wndToolBar.Create(this,AFX_DEFAULT_TOOLBAR_STYLE,IDR_TOC_BAR);
   m_wndToolBar.LoadToolBar(IDR_TOC_BAR,0,0,TRUE /* Is locked */);
@@ -616,3 +618,8 @@ TOCView::AdjustLayout()
   m_wndExplorer.SetWindowPos(nullptr,rectClient.left + 1,rectClient.top + cyTlb + 1,rectClient.Width() - 2,rectClient.Height() - cyTlb - 2,SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
+void 
+TOCView::SetFontSize(int p_size,CString p_fontName /*= _T("Verdana")*/)
+{
+  m_wndExplorer.SetFontSize(p_size,p_fontName);
+}

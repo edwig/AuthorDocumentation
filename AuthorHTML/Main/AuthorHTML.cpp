@@ -33,6 +33,7 @@
 #include "AuMessageBox.h"
 #include <GetExePath.h>
 #include <WideMessageBox.h>
+#include <StringUtilities.h>
 #include <afxadv.h>
 #include <direct.h>
 
@@ -568,6 +569,9 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
     m_projectFile->SetCompiledName(baseName);
   }
 
+  // Sync fontname/size between project/toc
+  SyncFontNameAndSize();
+
   // Now set a new subtree for the HTML documentation site
   MainFrame* main = (MainFrame*)m_pMainWnd;
   main->ShowPane(ID_PANE_EXPLORER);
@@ -581,6 +585,40 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   // Sweep the project as soon as we have idle time to spare
   // Collecting topic meta-data and keyword data for the index
   m_sweep = true;
+}
+
+void 
+AuthorHTMLApp::SyncFontNameAndSize()
+{
+  if(!m_contentFile || !m_projectFile)
+  {
+    return;
+  }
+  MainFrame* main = (MainFrame*)m_pMainWnd;
+
+  CString prj_font = m_projectFile->GetDefaultFont();
+  CString toc_font = m_contentFile->GetFontName();
+  int     toc_size = m_contentFile->GetFontSize();
+
+  // Standard is the fontname/size of the TOC file.
+  if(!toc_font.IsEmpty() && toc_size > 0)
+  {
+    main->m_wndTOCView.SetFontSize(toc_size,toc_font);
+    return;
+  }
+
+  // Use the font definition of the project file
+  if(!prj_font.IsEmpty())
+  {
+    std::vector<XString> options;
+    XString font(prj_font);
+    SplitString(font,options,',',true);
+
+    if(options.size() >= 2)
+    {
+      main->m_wndTOCView.SetFontSize(atoi(options[1].GetString()),options[0].GetString());
+    }
+  }
 }
 
 void

@@ -123,3 +123,17 @@ TOCTreeCtrl::ReSelectItem(HTREEITEM from,TOCEntry* entry)
   }
   while(from);
 }
+
+void
+TOCTreeCtrl::SetFontSize(int p_size,CString p_fontName /*=_T("Verdana")*/)
+{
+  if(p_size < TOC_MIN_FONTSIZE) p_size = TOC_MIN_FONTSIZE;
+  if(p_size > TOC_MAX_FONTSIZE) p_size = TOC_MAX_FONTSIZE;
+ 
+  if(m_font.GetSafeHandle())
+  {
+    m_font.DeleteObject();
+  }
+  m_font.CreatePointFont(p_size * 10,p_fontName);
+  SetFont(&m_font);
+}

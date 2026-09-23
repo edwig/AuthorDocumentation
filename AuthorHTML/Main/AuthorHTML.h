@@ -58,6 +58,7 @@ public:
   void      RedisplayTOC  (bool showPane = false);
   void      RedisplayIndex(bool showPane = false);
   int       GetUniqueDocID();
+  void      SyncFontNameAndSize();
 
   int                 GetButtonLayout();
   Ref<CAfbeeldingen>  GetImages();

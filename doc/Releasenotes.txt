@@ -1,6 +1,14 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
+Version 1. 0.6
+--------------
+1) Removed the empty entry in the RecentFileList for the startup dialog
+2) Fixed the scripts dialog in the topic-properties dialog to correctly 
+   show the internal scripts on a topic page.
+3) Editting the default font also changes the font in the TOC on screen
+   and in the project file and compiled CHM.
+
 Version 1.0.5
 -------------
 1) Reworked the "New project" function from the start dialog

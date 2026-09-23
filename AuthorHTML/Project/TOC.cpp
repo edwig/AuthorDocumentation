@@ -591,6 +591,20 @@ TOC::ParameterError(LPCTSTR error,int num)
   throw message;
 }
 
+void 
+TOC::SetDefaultFont(CString p_fontName,int p_fontSize)
+{
+  m_fontName = p_fontName;
+  m_fontSize = p_fontSize;
+
+  // Sync with our view representation
+  MainFrame* main = reinterpret_cast<MainFrame*>(AfxGetMainWnd());
+  if(main)
+  {
+    main->m_wndTOCView.SetFontSize(p_fontSize,p_fontName);
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////
 //
 // TOC TREE

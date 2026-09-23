@@ -172,6 +172,27 @@ ProjectDlg::UpdateProject()
   m_project->SetEnhancedDecompilation(m_enhanced);
 }
 
+void
+ProjectDlg::CheckFontName()
+{
+  std::vector<XString> options;
+  XString font(m_defaultFont);
+  SplitString(font,options,',',true);
+  if(options.size() < 1)
+  {
+    options.push_back("Verdana");
+  }
+  if(options.size() < 2)
+  {
+    options.push_back("10");
+  }
+  if(options.size() < 3)
+  {
+    options.push_back("0");
+  }
+  // Rebuild the default font string
+  m_defaultFont = options[0] + "," + options[1] + "," + options[2];
+}
 
 // ProjectDlg message handlers
 
@@ -238,32 +259,33 @@ ProjectDlg::OnBnClickedButtotopic()
 void 
 ProjectDlg::OnEnChangeDefaultfont()
 {
+  CString old(m_defaultFont);;
   CWnd* w = GetDlgItem(IDC_DEFAULTFONT);
   w->GetWindowText(m_defaultFont);
+  CheckFontName();
+  if(old.CompareNoCase(m_defaultFont))
+  {
+    // Split in three parts
+    std::vector<XString> options;
+    XString font(m_defaultFont);
+    SplitString(font,options,',',true);
+    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),atoi(options[1].GetString()));
+  }
+  UpdateData(FALSE);
 }
 
 void 
 ProjectDlg::OnBnClickedButtonfont()
 {
-  // TODO: Add your control notification handler code here
+  CString old(m_defaultFont);
+  CheckFontName();
+  // Split in three parts
   std::vector<XString> options;
   XString font(m_defaultFont);
   SplitString(font,options, ',',true);
-  if (options.size() < 1)
-  {
-    options.push_back("Verdana");
-    if(options.size() < 2)
-    {
-      options.push_back("10");
-      if (options.size() < 3)
-      {
-        options.push_back("0");
-      }
-    }
-  }
+
   CString oldFontName(options[0]);
   int     oldFontSize(_ttoi(options[1].GetString()));
-
 
   LOGFONT    lFont;
   CHOOSEFONT cFont;
@@ -329,6 +351,12 @@ ProjectDlg::OnBnClickedButtonfont()
   if(changed)
   {
     m_defaultFont = options[0] + "," + options[1] + ",0";
+  }
+  CheckFontName();
+
+  if(old.CompareNoCase(m_defaultFont))
+  {
+    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),atoi(options[1].GetString()));
   }
   UpdateData(FALSE);
 }

@@ -35,8 +35,10 @@ protected:
 private:
   void UpdateProject();
   void SetWindowNames();
-  ProjectFile* m_project;
+  void CheckFontName();
 
+
+  ProjectFile* m_project;
   CString      m_projectName;
   CString      m_compiledName;
   CString      m_title;

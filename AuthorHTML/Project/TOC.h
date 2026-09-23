@@ -40,9 +40,12 @@ public:
   void DeleteEntry(TOCEntry* entry);
   void MoveEntry(TOCEntry* here,TOCEntry* tomove);
   int  CountEntries();
+  void SetDefaultFont(CString p_fontName,int p_fontSize);
 
   CString GetFilename();
   void    SetFilename(CString p_filename);
+  CString GetFontName() { return m_fontName; }
+  int     GetFontSize() { return m_fontSize; }
 
 private:
   void     ReadDocType    (WinFile& p_file);

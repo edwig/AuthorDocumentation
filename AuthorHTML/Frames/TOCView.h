@@ -37,6 +37,8 @@ public:
   TOCView();
   virtual ~TOCView();
 
+  void SetFontSize(int p_size,CString p_fontName = _T("Verdana"));
+
   // Attributes
   TOCViewToolBar  m_wndToolBar;
   TOCTreeCtrl     m_wndExplorer;
