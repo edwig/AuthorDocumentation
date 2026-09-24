@@ -101,8 +101,8 @@ PageLink2::OnCreate(LPCREATESTRUCT lpCreateStruct)
   {
     return NULL;
   }
-  static char* text1 = "Links to other pages";
-  static char* text2 = "Links to this page";
+  static TCHAR* text1 = _T("Links to other pages");
+  static TCHAR* text2 = _T("Links to this page");
 
   m_listFrom.InsertColumn(0, text1);
   m_listToMe.InsertColumn(0, text2);
@@ -112,7 +112,7 @@ PageLink2::OnCreate(LPCREATESTRUCT lpCreateStruct)
   m_listToMe.SetExtendedStyle(m_listToMe.GetExtendedStyle()|LVS_EX_FULLROWSELECT);
 
   SHFILEINFO shFinfo;
-  HIMAGELIST hImgList = (HIMAGELIST)SHGetFileInfo("", 0, &shFinfo, sizeof(shFinfo), SHGFI_SMALLICON|SHGFI_SYSICONINDEX);
+  HIMAGELIST hImgList = (HIMAGELIST)SHGetFileInfo(_T(""), 0, &shFinfo, sizeof(shFinfo), SHGFI_SMALLICON|SHGFI_SYSICONINDEX);
   // Record the image list as 'permanent'
   ::SendMessage(m_listFrom.m_hWnd,LVM_SETIMAGELIST, (LPARAM)hImgList, (UINT)LVSIL_SMALL);
   ::SendMessage(m_listToMe.m_hWnd,LVM_SETIMAGELIST, (LPARAM)hImgList, (UINT)LVSIL_SMALL);

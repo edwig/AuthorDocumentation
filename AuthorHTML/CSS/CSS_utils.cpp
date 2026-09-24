@@ -17,39 +17,39 @@
 
 CString
 CSSPropertyGet(CssStyleSheet* css
-              ,string& selector
-              ,string  property
+              ,XString& selector
+              ,XString  property
               ,bool unspec /*=true*/)
 {
-  string media = "standard";
+  XString media = _T("standard");
   CString value;
 
   value = css->get(media,selector,property).c_str();
   if(unspec && value.IsEmpty())
   {
-    value = "unspecified";
+    value = _T("unspecified");
   }
-  if(isalpha(value.GetAt(0)))
+  if(_istalpha(value.GetAt(0)))
   {
     value.MakeLower();
-    value.SetAt(0,(char)toupper(value[0]));
+    value.SetAt(0,(TCHAR)_totupper(value[0]));
   }
   return value;
 }
 
 void
 CSSPropertyPut(CssStyleSheet* css
-              ,string& selector
-              ,string  p_property
+              ,XString& selector
+              ,XString  p_property
               ,CString value
               ,bool    unspec)
 {
-  string media = "standard";
-  string val   = value;
+  XString media = _T("standard");
+  XString val   = value;
 
-  if(unspec && value.CompareNoCase("Unspecified") == 0)
+  if(unspec && value.CompareNoCase(_T("Unspecified")) == 0)
   {
-    val = "";
+    val = _T("");
   }
   css->put(media,selector,p_property,val);
 }
@@ -57,17 +57,17 @@ CSSPropertyPut(CssStyleSheet* css
 void
 CssSplitValueUnits(CString p_property,CString& value,CString& units)
 {
-  value = "";
-  units = "";
+  value = _T("");
+  units = _T("");
   if(p_property.IsEmpty())
   {
     return;
   }
-  static char* digitsep = "+-.,";
-  if(isdigit(p_property[0]) || strchr(digitsep,p_property[0]))
+  static TCHAR* digitsep = _T("+-.,");
+  if(_istdigit(p_property[0]) || _tcschr(digitsep,p_property[0]))
   {
     while(p_property.GetLength()>0 && 
-         (isdigit(p_property[0]) || strchr(digitsep,p_property[0])))
+         (_istdigit(p_property[0]) || _tcschr(digitsep,p_property[0])))
     {
       value += p_property[0];
       p_property = p_property.Mid(1);
@@ -84,9 +84,9 @@ CssSplitValueUnits(CString p_property,CString& value,CString& units)
 CComBSTR
 CssCtoB(CString value)
 {
-  if(value.CompareNoCase("Unspecified") == 0)
+  if(value.CompareNoCase(_T("Unspecified")) == 0)
   {
-    value= "";
+    value= _T("");
   }
   CComBSTR bString = CT2CW(value);
   return bString;
@@ -130,21 +130,21 @@ CssConvertToUnit(CString  p_value
   // No conversion is possible for a percentage of the browser
   // the viewport-width or the viewport-height
   // And also not for the "ex" and "em" space of the relative (root) font.
-  if(units == "%"    || p_units == "%"    ||  // Percentage
-     units == "vw"   || p_units == "vw"   ||  // Viewport-width
-     units == "vh"   || p_units == "vh"   ||  // Viewport-height
-     units == "ex"   || p_units == "ex"   ||  // Height of font's 'x'
-     units == "em"   || p_units == "em"   ||  // Font m size in width
-     units == "rem"  || p_units == "rem"  ||  // em size of the root font
-     units == "vmin" || p_units == "vmin" ||  // Viewport minimum (height / width)
-     units == "vmax" || p_units == "vmax" )   // Viewport maximum (height / width)
+  if(units == _T("%")    || p_units == _T("%")    ||  // Percentage
+     units == _T("vw")   || p_units == _T("vw")   ||  // Viewport-width
+     units == _T("vh")   || p_units == _T("vh")   ||  // Viewport-height
+     units == _T("ex")   || p_units == _T("ex")   ||  // Height of font's 'x'
+     units == _T("em")   || p_units == _T("em")   ||  // Font m size in width
+     units == _T("rem")  || p_units == _T("rem")  ||  // em size of the root font
+     units == _T("vmin") || p_units == _T("vmin") ||  // Viewport minimum (height / width)
+     units == _T("vmax") || p_units == _T("vmax") )   // Viewport maximum (height / width)
   {
     if(p_warning)
     {
-      theApp.Panic("\nWARNING !!\n\n"
-                   "You requested to convert a absolute to a relative unit of measurement! Or vice versa!\n"
-                   "This cannot be done on the current value of the CSS property. The units are switched,"
-                   "but you yourself are responsible to provide the correct new value!");
+      theApp.Panic(_T("\nWARNING !!\n\n")
+                   _T("You requested to convert a absolute to a relative unit of measurement! Or vice versa!\n")
+                   _T("This cannot be done on the current value of the CSS property. The units are switched,")
+                   _T("but you yourself are responsible to provide the correct new value!"));
     }
     // Possibly preserve the original units
     if(p_origUnit && !p_units.IsEmpty())
@@ -155,46 +155,46 @@ CssConvertToUnit(CString  p_value
   }
 
   // Get the value as a floating point
-  convert = atof(value.GetString());
+  convert = _ttof(value.GetString());
 
   // Convert everything back to inches
   // Please be aware that a pixel density of 96 is ALWAYS assumed !!
-  if(units.Compare("in"))
+  if(units.Compare(_T("in")))
   {
-         if(units.Compare("cm") == 0) convert /= 2.54;
-    else if(units.Compare("mm") == 0) convert /= 25.4;
-    else if(units.Compare("Q")  == 0) convert /= 101.6;
-    else if(units.Compare("pc") == 0) convert /= 6;
-    else if(units.Compare("pt") == 0) convert /= 72;
-    else if(units.Compare("px") == 0) convert /= 96;
+         if(units.Compare(_T("cm")) == 0) convert /= 2.54;
+    else if(units.Compare(_T("mm")) == 0) convert /= 25.4;
+    else if(units.Compare(_T("Q"))  == 0) convert /= 101.6;
+    else if(units.Compare(_T("pc")) == 0) convert /= 6;
+    else if(units.Compare(_T("pt")) == 0) convert /= 72;
+    else if(units.Compare(_T("px")) == 0) convert /= 96;
   }
 
   // Convert to requested unit
   // Please be aware that a pixel density of 96 is ALWAYS assumed !!
-  if(p_units.Compare("in"))
+  if(p_units.Compare(_T("in")))
   {
-         if(p_units.Compare("cm") == 0) convert *= 2.54;
-    else if(p_units.Compare("mm") == 0) convert *= 25.4;
-    else if(p_units.Compare("Q")  == 0) convert *= 101.6;
-    else if(p_units.Compare("pc") == 0) convert *= 6;
-    else if(p_units.Compare("pt") == 0) convert *= 72;
-    else if(p_units.Compare("px") == 0) convert *= 96;
+         if(p_units.Compare(_T("cm")) == 0) convert *= 2.54;
+    else if(p_units.Compare(_T("mm")) == 0) convert *= 25.4;
+    else if(p_units.Compare(_T("Q"))  == 0) convert *= 101.6;
+    else if(p_units.Compare(_T("pc")) == 0) convert *= 6;
+    else if(p_units.Compare(_T("pt")) == 0) convert *= 72;
+    else if(p_units.Compare(_T("px")) == 0) convert *= 96;
   }
 
   // Correct by rounding
-  if(p_units.Compare("px") == 0)
+  if(p_units.Compare(_T("px")) == 0)
   {
     // Pixels are always an integer
     convert = round(convert);
-    value.Format("%d",static_cast<int>(convert));
+    value.Format(_T("%d"),static_cast<int>(convert));
   }
   else
   {
     // Measurements in 4 decimal places
     long result = round(convert * 10000 + 1);
     convert = static_cast<double>(result) / 10000;
-    value.Format("%.4f",convert);
-    value.TrimRight('0');
+    value.Format(_T("%.4f"),convert);
+    value.TrimRight(_T('0'));
   }
 
   // If we came to here, the conversion is done
@@ -211,24 +211,24 @@ CssConvertToUnit(CString  p_value
 void
 CSSComboBoxUnits(CComboBox& p_combo,CString p_init /*="px"*/)
 {
-  p_combo.AddString("");        // No units, no values
+  p_combo.AddString(_T(""));        // No units, no values
   // Absolute size
-  p_combo.AddString("px");      // Pixels ( 1/96 of an inch)
-  p_combo.AddString("in");      // Inch
-  p_combo.AddString("cm");      // Centimeter (1/2.54  of an inch)
-  p_combo.AddString("mm");      // Millimeter (1/25.4  of an inch)
-  p_combo.AddString("Q");       // Quarter    (1/101.6 of an inch)
-  p_combo.AddString("pt");      // Point      (1/72    of an inch)
-  p_combo.AddString("pc");      // Pica       (1/6     of an inch)
+  p_combo.AddString(_T("px"));      // Pixels ( 1/96 of an inch)
+  p_combo.AddString(_T("in"));      // Inch
+  p_combo.AddString(_T("cm"));      // Centimeter (1/2.54  of an inch)
+  p_combo.AddString(_T("mm"));      // Millimeter (1/25.4  of an inch)
+  p_combo.AddString(_T("Q"));       // Quarter    (1/101.6 of an inch)
+  p_combo.AddString(_T("pt"));      // Point      (1/72    of an inch)
+  p_combo.AddString(_T("pc"));      // Pica       (1/6     of an inch)
   // Relative size
-  p_combo.AddString("%");       // Percentage of the browser viewport
-  p_combo.AddString("ex");      // Height of the fonts 'x' character
-  p_combo.AddString("em");      // Width of the em of a font
-  p_combo.AddString("rem");     // Width of the em of the root font
-  p_combo.AddString("vh");      // Percentage of the viewport height
-  p_combo.AddString("vw");      // Percentage of the viewport width
-  p_combo.AddString("vmin");    // Percentage of the minimum of viewport(width and height)
-  p_combo.AddString("vmax");    // Percentage of the maximum of viewport(width and height)
+  p_combo.AddString(_T("%"));       // Percentage of the browser viewport
+  p_combo.AddString(_T("ex"));      // Height of the fonts 'x' character
+  p_combo.AddString(_T("em"));      // Width of the em of a font
+  p_combo.AddString(_T("rem"));     // Width of the em of the root font
+  p_combo.AddString(_T("vh"));      // Percentage of the viewport height
+  p_combo.AddString(_T("vw"));      // Percentage of the viewport width
+  p_combo.AddString(_T("vmin"));    // Percentage of the minimum of viewport(width and height)
+  p_combo.AddString(_T("vmax"));    // Percentage of the maximum of viewport(width and height)
 
   if(!p_init.IsEmpty())
   {

@@ -52,7 +52,7 @@ CompilePane::OnCreate(LPCREATESTRUCT lpCreateStruct)
                     ES_AUTOHSCROLL|ES_AUTOVSCROLL|ES_MULTILINE|ES_WANTRETURN|ES_READONLY
                    ,CRect(0,0,0,0),this,ID_COMPILE_EDIT))
   {
-    theApp.Panic("Unable to create compile edit control");
+    theApp.Panic(_T("Unable to create compile edit control"));
   }
   AdjustLayout();
   return 0;
@@ -86,7 +86,7 @@ CompilePane::CompileHelp(CString& p_basedir
   CheckWorkshop workshop;
   if(!workshop.CheckHTMLHelpWorkshop())
   { 
-    theApp.Panic("HTML Help Workshop is not installed. Cannot continue compiling the help file.");
+    theApp.Panic(_T("HTML Help Workshop is not installed. Cannot continue compiling the help file."));
     return;
   }
 
@@ -94,19 +94,19 @@ CompilePane::CompileHelp(CString& p_basedir
   workshop.SetHHZoneRestriction(HHZone_Untrusted);
 
   // Save old directory
-  char buffer[MAX_PATH + 1];
+  TCHAR buffer[MAX_PATH + 1];
   if (GetCurrentDirectory(MAX_PATH, buffer) > 0)
   {
     m_oldDir = buffer;
     if(SetCurrentDirectory(p_basedir) == FALSE)
     {
-      theApp.Panic("Unable to set current directory to: " + p_basedir);
+      theApp.Panic(_T("Unable to set current directory to: ") + p_basedir);
       return;
     }
   }
   else
   {
-    theApp.Panic("Unable to get current directory");
+    theApp.Panic(_T("Unable to get current directory"));
     return;
   }
   m_comp = new Compilation(this,true);
@@ -115,7 +115,7 @@ CompilePane::CompileHelp(CString& p_basedir
   m_comp->SetCurrent(m_currentLine = 0);
 
   // Set the compiler command
-  XString cmdLine = "\"" + workshop.HTMLHelpWorkshopPath() + "\\hhc.exe\" \"" + p_projectName + "\"";
+  XString cmdLine = _T("\"") + workshop.HTMLHelpWorkshopPath() + _T("\\hhc.exe\" \"") + p_projectName + _T("\"");
   StartChildProcess(cmdLine);
 }
 
@@ -124,7 +124,7 @@ CompilePane::OnChildStarted(LPCTSTR lpszCmdLine)
 {
   CString command(lpszCmdLine);
   CString line;
-  line.Format("Starting compilation: %s\r\n",lpszCmdLine);
+  line.Format(_T("Starting compilation: %s\r\n"),lpszCmdLine);
   m_compilationRunning = true;
 
   Acquire();
@@ -183,8 +183,8 @@ CompilePane::OnChildTerminate()
 void
 CompilePane::OnChildComplete()
 {
-  m_lines.push_back(CString(""));
-  m_lines.push_back(CString("\r\nCompilation ready.\r\n"));
+  m_lines.push_back(CString(_T("")));
+  m_lines.push_back(CString(_T("\r\nCompilation ready.\r\n")));
   ::PostMessage(m_hWnd, WM_COMMAND, ID_COMPILE_LINE, 0);
   ::PostMessage(m_hWnd, WM_COMMAND, ID_COMPILE_LINE, 0);
   Release();
@@ -202,8 +202,8 @@ CompilePane::ChildAbort()
 {
   TerminateChildProcess();
   Acquire();
-  m_lines.push_back(CString(""));
-  m_lines.push_back(CString("\r\nCompilation aborted.\r\n"));
+  m_lines.push_back(CString(_T("")));
+  m_lines.push_back(CString(_T("\r\nCompilation aborted.\r\n")));
   Release();
 
   ::PostMessage(m_hWnd,WM_COMMAND,ID_COMPILE_LINE,0);

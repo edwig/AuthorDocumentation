@@ -53,7 +53,7 @@ void IndexPropDlg::DoDataExchange(CDataExchange* pDX)
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
     int ind;
-    CString desc = Misc::GetAttributeDisplayname("target",m_frame);
+    CString desc = Misc::GetAttributeDisplayname(_T("target"),m_frame);
     ind = m_comboFrame.FindString(-1,desc);
     m_comboFrame.SetCurSel(ind);
 
@@ -93,13 +93,13 @@ IndexPropDlg::OnInitDialog()
     m_spBrowser = pWnd->GetControlUnknown();
   }
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Title",    LVCFMT_LEFT,300);
-  m_list.InsertColumn(1,"Filename", LVCFMT_LEFT,300);
-  m_list.InsertColumn(2,"Bookmark", LVCFMT_LEFT,200);
+  m_list.InsertColumn(0,_T("Title"),    LVCFMT_LEFT,300);
+  m_list.InsertColumn(1,_T("Filename"), LVCFMT_LEFT,300);
+  m_list.InsertColumn(2,_T("Bookmark"), LVCFMT_LEFT,200);
 
   // All target descriptions
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("target",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("target"),&all);
   for(unsigned int ind=0; ind<all.size(); ++ind)
   {
     m_comboFrame.AddString(all[ind].c_str());
@@ -178,7 +178,7 @@ IndexPropDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
   bool found = false;
   m_comboBM.ResetContent();
-  m_comboBM.AddString("");
+  m_comboBM.AddString(_T(""));
 
   // Now read the bookmarks from the document (if any)
   CComPtr<IDispatch> disp;
@@ -298,8 +298,8 @@ IndexPropDlg::OnBnClickedDelete()
   {
     CString mess;
     CString href = m_list.GetItemText(now,1);
-    mess.Format("Do you want to delete the following topic?\n%s",href.GetString());
-    if(theApp.MessageBox(mess,"Delete?",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    mess.Format(_T("Do you want to delete the following topic?\n%s"),href.GetString());
+    if(theApp.MessageBox(mess,_T("Delete?"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       m_entry->DeleteDocument(href);
       RedisplayPages();
@@ -311,9 +311,9 @@ void
 IndexPropDlg::OnBnClickedFind()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to link to"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to link to")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -327,7 +327,7 @@ IndexPropDlg::OnBnClickedFind()
     CString URL   = m_base + href;
     m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
 
-    CString title = "No title yet";
+    CString title = _T("No title yet");
     ProjectFile* project = theApp.GetProjectFile();
     DocumentFile* doc = project->FindDocumentFile(href);
     if(doc)
@@ -339,7 +339,7 @@ IndexPropDlg::OnBnClickedFind()
     else
     {
       CString mess;
-      mess.Format("The page [%s] is not a part of the project",href.GetString());
+      mess.Format(_T("The page [%s] is not a part of the project"),href.GetString());
       theApp.ErrorMessage(mess);
       m_displayFile.Empty();
     }
@@ -364,7 +364,7 @@ IndexPropDlg::OnCbnSelchangeFrame()
   {
     CString frame;
     m_comboFrame.GetLBText(ind,frame);
-    m_frame = Misc::GetAttributeValue("target",frame);
+    m_frame = Misc::GetAttributeValue(_T("target"),frame);
   }
 }
 
@@ -391,9 +391,9 @@ void
 IndexPropDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-  char filename[256];
-  char title   [256];
-  char bookmark[256];
+  TCHAR filename[256];
+  TCHAR title   [256];
+  TCHAR bookmark[256];
   m_list.GetItemText(pNMLV->iItem,0,title   ,256);
   m_list.GetItemText(pNMLV->iItem,1,filename,256);
   m_list.GetItemText(pNMLV->iItem,2,bookmark,256);
@@ -403,7 +403,7 @@ IndexPropDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
     CString URL = m_base + filename;
     if (bookmark[0])
     {
-      URL += CString("#") + bookmark;
+      URL += CString(_T("#")) + bookmark;
     }
     m_spBrowser->Navigate(URL.AllocSysString(),NULL,NULL,NULL,NULL);
   }

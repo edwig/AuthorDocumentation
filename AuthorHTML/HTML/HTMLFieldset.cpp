@@ -52,9 +52,9 @@ HtmlFieldset::SetProperty(eAction e_Action, CString s_Value)
     case E_LegendAlign:
                   if(!m_legend.Valid())
                   {
-                    SetLegend("&nbrsp;");
+                    SetLegend(_T("&nbrsp;"));
                   }
-                  m_legend.SetAttribute("align",s_Value);
+                  m_legend.SetAttribute(_T("align"),s_Value);
                   break;
     case E_Align: if(m_Style.Valid())
                   {
@@ -80,7 +80,7 @@ HtmlFieldset::GetProperty(eAction e_Action)
                       return prop;
                     }
                   }
-                  return GetAttribute("align");
+                  return GetAttribute(_T("align"));
     case E_Legend:if(m_legend.Valid())
                   {
                     return m_legend.GetInnerText();
@@ -89,11 +89,11 @@ HtmlFieldset::GetProperty(eAction e_Action)
     case E_LegendAlign:
                   if(m_legend.Valid())
                   {
-                    return m_legend.GetAttribute("align");
+                    return m_legend.GetAttribute(_T("align"));
                   }
                   break;
   }
-  return "";
+  return _T("");
 }
 
 void
@@ -105,7 +105,7 @@ HtmlFieldset::FindLegend()
   {
     HtmlElement elem = GetElementFromCollection(num,coll);
     CString tag = elem.GetTagName();
-    if(tag.CompareNoCase("legend") == 0)
+    if(tag.CompareNoCase(_T("legend")) == 0)
     {
       m_legend = elem;
       return;
@@ -119,7 +119,7 @@ HtmlFieldset::SetLegend(CString text)
   if(!m_legend.Valid())
   {
     CString elem;
-    elem.Format("<LEGEND>%s</LEGEND>",text.GetString());
+    elem.Format(_T("<LEGEND>%s</LEGEND>"),text.GetString());
     InsertHtml(elem,TRUE,TRUE);
     FindLegend();
   }

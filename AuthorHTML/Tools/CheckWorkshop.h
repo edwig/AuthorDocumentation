@@ -11,8 +11,8 @@
 //
 #pragma once
 
-#define DEFAULT_HTMLWORKSHOP_PATH "C:\\Program Files (x86)\\HTML Help Workshop"
-#define DEFAULT_WORKSHOP_FOLDER   "\\HTML Help Workshop"
+#define DEFAULT_HTMLWORKSHOP_PATH _T("C:\\Program Files (x86)\\HTML Help Workshop")
+#define DEFAULT_WORKSHOP_FOLDER   _T("\\HTML Help Workshop")
 
 typedef enum _hhZone
 {

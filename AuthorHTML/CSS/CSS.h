@@ -88,7 +88,7 @@ public:
     // Compresses shorthand values. Example: margin:1px 1px 1px 1px -> margin:1px
     XString shorthand(XString value);
     // Compresses numbers (ie. 1.0 -> 1 or 1.100 -> 1.1
-    XString compress_numbers(XString subvalue, XString property = "");
+    XString compress_numbers(XString subvalue, XString property = _T(""));
     // Checks if the next word in a string from pos is a CSS property
     bool    property_is_next(XString istring, const size_t pos);
     // Compress font-weight
@@ -101,7 +101,7 @@ public:
     // Dissolves the background property
     map<XString,XString> dissolve_short_bg(XString istring);
     // Same as explode, but not within a string
-    vector<XString> explode_ws(char sep,XString istring);
+    vector<XString> explode_ws(TCHAR sep,XString istring);
     // Merge backgrounds
     void merge_bg(umap<XString,XString>& css_input);
 
@@ -110,7 +110,7 @@ public:
     // Checks if a charcter is escaped
     bool escaped(const XString &istring, size_t pos);
     // Returns a char of a string at pos but checks the string-length before
-    char s_at(const XString &istring, size_t pos);
+    TCHAR s_at(const XString &istring, size_t pos);
     // Splits a string at e
     vector<XString> explode(const XString e, XString s, const bool check = false);
     // Implodes a string at e
@@ -120,8 +120,8 @@ public:
     // Replaces all values of <find> with <replace> in <str>
     XString str_replace(const vector<XString>& find, const XString replace, XString str);
     // Checks if a string exists in a string-array
-    bool in_char_arr(const char* haystack, const char needle);
-    bool in_str_array(const XString& haystack, const char needle);
+    bool in_char_arr(const TCHAR* haystack, const TCHAR needle);
+    bool in_str_array(const XString& haystack, const TCHAR needle);
     bool in_str_array(const vector<XString>& haystack, const XString needle);
     // Replaces certain chars with their entities
     XString htmlspecialchars(XString istring, int quotes = 0);
@@ -130,10 +130,10 @@ public:
     // Replacement for max (so that I don't have to include unnecessary things)
     int cssmax(const int i1, const int i2);
     /* isspace() and isdigit() do not work correctly with UTF-8 strings */
-    bool ctype_space(const char c);
-    bool ctype_digit(const char c);
-    bool ctype_xdigit(char c);
-    bool ctype_alpha(char c);
+    bool ctype_space(const TCHAR c);
+    bool ctype_digit(const TCHAR c);
+    bool ctype_xdigit(TCHAR c);
+    bool ctype_alpha(TCHAR c);
     /* Unserialize string arrays */
     vector<XString> unserialise_sa(const XString istring);
     /* Serialize a string */
@@ -144,7 +144,7 @@ public:
     // Returns the lowercase version of a string
     XString strtolower(XString istring);
     // Apparently faster replacement for tolower
-    char chartolower(const char c);
+    TCHAR chartolower(const TCHAR c);
     // Returns the uppercase version of a string
     XString strtoupper(XString istring);
     TCHAR  chartoupper(const TCHAR c);
@@ -157,8 +157,8 @@ public:
     // Converts a string to float
     float str2f(const XString istring);
     // Converts a char to a string
-    XString char2str(const char c);
-    XString char2str(const char *c);
+    XString char2str(const TCHAR c);
+    XString char2str(const TCHAR *c);
 
     // TRIM
     // Removes whitespace at the end and beginning of a string

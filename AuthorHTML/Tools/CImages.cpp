@@ -49,7 +49,7 @@ CBitmapDC::CBitmapDC(CDC* dc)
 {
   if (!CreateCompatibleDC(dc))
   {
-    TRACE("Error: CreateCompatibleDC\n");
+    TRACE(_T("Error: CreateCompatibleDC\n"));
   }
   if (dc)
     SetMapMode(dc->GetMapMode());
@@ -62,7 +62,7 @@ CBitmapDC::CBitmapDC(CDC* dc,CBitmap* bitmap)
 {
   if (!CreateCompatibleDC(dc))
   {
-    TRACE("Error: CreateCompatibleDC\n");
+    TRACE(_T("Error: CreateCompatibleDC\n"));
   }
   if (dc)
     SetMapMode(dc->GetMapMode());
@@ -76,7 +76,7 @@ CBitmapDC::CBitmapDC(CDC* dc,int nWidth,int nHeight)
 {
   if (!CreateCompatibleDC(dc))
   {
-    TRACE("Error: CreateCompatibleDC\n");
+    TRACE(_T("Error: CreateCompatibleDC\n"));
   }
   if (dc)
     SetMapMode(dc->GetMapMode());
@@ -90,7 +90,7 @@ CBitmapDC::CBitmapDC(CDC* dc,int nWidth,int nHeight,UINT nPlanes, UINT nBitcount
 {
   if (!CreateCompatibleDC(dc))
   {
-    TRACE("Error: CreateCompatibleDC\n");
+    TRACE(_T("Error: CreateCompatibleDC\n"));
   }
   if (dc)
     SetMapMode(dc->GetMapMode());
@@ -145,7 +145,7 @@ CBitmapDC::SelectBitmap(CBitmap* bitmap)
 {
   if (!SelectObject(bitmap))
   {
-    TRACE("Cannot select bitmap");
+    TRACE(_T("Cannot select bitmap"));
   }
 }
 
@@ -177,7 +177,7 @@ CAfbeelding::CAfbeelding(CAfbeeldingen& afbeeldingen)
           m_heeftDiasabled(false),
           m_typeSet(AFB_SET_KNOPPEN)
 {
-  SetType("S");
+  SetType(_T("S"));
 }
 
 CAfbeelding::~CAfbeelding()
@@ -188,24 +188,24 @@ CAfbeelding::~CAfbeelding()
 void
 CAfbeelding::Reset()
 {
-  SetType("S");
+  SetType(_T("S"));
   OnReset();
 }
 
 bool 
-CAfbeelding::SetType(LPCSTR nieuwType)
+CAfbeelding::SetType(LPCTSTR nieuwType)
 {
-  if (strlen(nieuwType) > AFB_POS_AANTAL)
+  if (_tcslen(nieuwType) > AFB_POS_AANTAL)
     return false;
 
   m_heeftDiasabled = false;
   memset(m_pos,255,sizeof(m_pos));
-  memset(m_type,'\0',sizeof(m_type));
+  memset(m_type,_T('\0'),sizeof(m_type));
 
 
   if (nieuwType && CAfbeeldingen::IsSetNummer(nieuwType))
   {
-    short aantal = (short)atoi(nieuwType);
+    short aantal = (short)_ttoi(nieuwType);
     m_aantalPS = aantal;
     m_type[0] = *nieuwType;
 
@@ -226,38 +226,38 @@ CAfbeelding::SetType(LPCSTR nieuwType)
   bool enkelX = true;
   m_aantalPS = 0;
   m_typeSet = AFB_SET_KNOPPEN;
-  for (LPCSTR p = nieuwType ; *p != '\0' ; p++)
+  for (LPCTSTR p = nieuwType ; *p != _T('\0') ; p++)
   {
     int pos    = -1;
     m_aantalPS++;
-    switch(toupper(*p))
+    switch(_totupper(*p))
     {
-    case 'S':
+    case _T('S'):
       pos = AFB_POS_STAN;
       enkelX = false;
       break;
-    case 'F':
+    case _T('F'):
       pos    = AFB_POS_FOCUS;
       enkelX = false;
       break;
-    case 'P':
+    case _T('P'):
       pos = AFB_POS_PRESS;
       enkelX = false;
       break;
-    case 'D':
+    case _T('D'):
       m_heeftDiasabled = true;
       pos = AFB_POS_DIS;
       enkelX = false;
       break;
-    case 'E':
+    case _T('E'):
       pos = AFB_POS_EXTRA;
       enkelX = false;
       break;
-    case 'X':
+    case _T('X'):
       pos = m_aantalPS -1;
       break;
     }
-    m_type[p - nieuwType] = (char)toupper(*p);
+    m_type[p - nieuwType] = (TCHAR)_totupper(*p);
     if (pos >= 0 && m_pos[pos] == -1)
       m_pos[pos] = (short)(p - nieuwType);
   }
@@ -406,27 +406,27 @@ CAfbeelding::SetInterneKnopLogica(short volgnr[],short /* setNummer */,int aanta
 
 
 short
-CAfbeelding::GeefSetNummerVanNaam(LPCSTR naam,LPCSTR defExt)
+CAfbeelding::GeefSetNummerVanNaam(LPCTSTR naam,LPCTSTR defExt)
 {
   int upper = m_namen.GetUpperBound();
   for(int index = 0; index <= upper; index++)
   {
     if (m_namen[index])
     {
-      LPCSTR p1 = naam;
-      LPCSTR p2 = (LPCSTR)(m_namen[index]);
+      LPCTSTR p1 = naam;
+      LPCTSTR p2 = (LPCTSTR)(m_namen[index]);
       bool gelijk = true;
 
-      while (gelijk && *p1 != '\0' && *p2 != '\0')
+      while (gelijk && *p1 != _T('\0') && *p2 != _T('\0'))
       {
-        gelijk = toupper(*p1) == toupper(*p2);
+        gelijk = _totupper(*p1) == _totupper(*p2);
         p1++;
         p2++;
       }
       if (gelijk)
-        gelijk = (*p1 == '\0' && *p2 == '\0');
+        gelijk = (*p1 == _T('\0') && *p2 == _T('\0'));
 
-      if (!gelijk && ((*p1 == '\0' && _stricmp(p2,defExt) == 0)  || (*p2 == '\0' && _stricmp(p1,defExt) == 0)) )
+      if (!gelijk && ((*p1 == _T('\0') && _tcsicmp(p2,defExt) == 0)  || (*p2 == _T('\0') && _tcsicmp(p1,defExt) == 0)) )
         gelijk = true;
       //if (_stricmp((LPCSTR)(m_namen[index]),naam) == 0 )
       //  return index / m_aantalPS;
@@ -438,22 +438,22 @@ CAfbeelding::GeefSetNummerVanNaam(LPCSTR naam,LPCSTR defExt)
 }
 
 int
-CAfbeelding::GeefPosNummerVanNaam(LPCSTR naam)
+CAfbeelding::GeefPosNummerVanNaam(LPCTSTR naam)
 {
-  if (naam == NULL || strlen(naam) == 0)
+  if (naam == NULL || _tcslen(naam) == 0)
     return AFB_POS_STAN;
 
-  if (naam[0] == AFB_NULL_PREFIX || _stricmp(naam,"GEEN") == 0)
+  if (naam[0] == AFB_NULL_PREFIX || _tcsicmp(naam,_T("GEEN")) == 0)
     return AFB_POS_UIT;
-  else if (_stricmp(naam,"STD") == 0 || _stricmp(naam,"STANDAARD") == 0)
+  else if (_tcsicmp(naam,_T("STD")) == 0 || _tcsicmp(naam,_T("STANDAARD")) == 0)
     return AFB_POS_STAN;
-  else if (_stricmp(naam,"FOC") == 0 || _stricmp(naam,"FOCUS") == 0)
+  else if (_tcsicmp(naam,_T("FOC")) == 0 || _tcsicmp(naam,_T("FOCUS")) == 0)
     return AFB_POS_FOCUS;
-  else if (_stricmp(naam,"PRE") == 0 || _stricmp(naam,"INGEDRUKT") == 0)
+  else if (_tcsicmp(naam,_T("PRE")) == 0 || _tcsicmp(naam,_T("INGEDRUKT")) == 0)
     return AFB_POS_PRESS;
-  else if (_stricmp(naam,"DIS") == 0 || _stricmp(naam,"INAKTIEF") == 0)
+  else if (_tcsicmp(naam,_T("DIS")) == 0 || _tcsicmp(naam,_T("INAKTIEF")) == 0)
     return AFB_POS_DIS;
-  else if (_stricmp(naam,"EX")  == 0 || _stricmp(naam,"EXTRA") == 0)
+  else if (_tcsicmp(naam,_T("EX"))  == 0 || _tcsicmp(naam,_T("EXTRA")) == 0)
     return AFB_POS_EXTRA;
 
   return AFB_POS_GEEN;
@@ -489,7 +489,7 @@ CAfbeeldingBM::Create(UINT nBitmapID, UINT nExtraBitmapID)
 {
   if (nExtraBitmapID != 0)
   {
-    TRACE("Extra bitmap-ID may not be filled");
+    TRACE(_T("Extra bitmap-ID may not be filled"));
   }
   if (m_bitmap.LoadBitmap(nBitmapID))
   {
@@ -507,7 +507,7 @@ bool
 CAfbeeldingBM::FinishCreate(CDC& /*dcTemp*/)
 {
   BITMAP     bm;
-  m_bitmap.GetObject(sizeof(BITMAP), (LPSTR)&bm);
+  m_bitmap.GetObject(sizeof(BITMAP), (LPTSTR)&bm);
   CRect     ptRect(0,0,bm.bmWidth,bm.bmHeight);
 
   m_cx = bm.bmWidth;
@@ -640,10 +640,10 @@ CAfbeeldingDIB::CAfbeeldingDIB(CAfbeeldingen& afbeeldingen)
 }
 
 int
-CAfbeeldingDIB::Create(char* file)
+CAfbeeldingDIB::Create(TCHAR* file)
 {
   CDIB dib;
-  if (dib.Load((char *)file))
+  if (dib.Load((TCHAR *)file))
     return Create(dib);
   else
     Reset();
@@ -701,7 +701,7 @@ CAfbeeldingIM::Create(UINT nBitmapID,int cx,int cy, UINT extraBitmapId)
   CBitmapDC dc(&winDC);
   dc.LoadBitmap(nBitmapID);
   BITMAP     bmi;
-  dc.GeefBitmap()->GetObject(sizeof(BITMAP), (LPSTR)&bmi);
+  dc.GeefBitmap()->GetObject(sizeof(BITMAP), (LPTSTR)&bmi);
   COLORREF bkColor = dc.GetPixel(0,0);
   dc.DeSelectBitmap();
 
@@ -717,7 +717,7 @@ CAfbeeldingIM::Create(UINT nBitmapID,int cx,int cy, UINT extraBitmapId)
           HICON h = extraList.ExtractIcon(n);
           if (m_imageList.Add(h) < 0)
           {
-            TRACE("Cannot copy image");
+            TRACE(_T("Cannot copy image"));
           }
           DeleteObject(h);
         }
@@ -744,10 +744,10 @@ CAfbeeldingIM::Create(UINT nBitmapID,int cx,int cy, UINT extraBitmapId)
 }
 
 int
-CAfbeeldingIM::Create(char* file,int cx)
+CAfbeeldingIM::Create(TCHAR* file,int cx)
 {
   CDIB dib;
-  if (dib.Load((char *)file))
+  if (dib.Load((TCHAR *)file))
     return Create(file,dib,cx);
   else
     Reset();
@@ -755,7 +755,7 @@ CAfbeeldingIM::Create(char* file,int cx)
 }
 
 int
-CAfbeeldingIM::Create(char* file,CDIB& dib,int cx)
+CAfbeeldingIM::Create(TCHAR* file,CDIB& dib,int cx)
 {
   if (cx <= 0)
     cx = dib.GetHeight();
@@ -763,7 +763,7 @@ CAfbeeldingIM::Create(char* file,CDIB& dib,int cx)
   if (cx > 0)
   {
     HIMAGELIST im = ImageList_LoadImage(AfxGetInstanceHandle(), 
-                                       (LPCSTR)file, 
+                                       (LPCTSTR)file, 
                                        cx, 
                                        10,
                                        ::GetSysColor(COLOR_3DFACE),
@@ -790,14 +790,14 @@ CAfbeeldingIM::Create(char* file,CDIB& dib,int cx)
 }
 
 int  
-CAfbeeldingIM::LoadDir(LPCSTR p_naam)
+CAfbeeldingIM::LoadDir(LPCTSTR p_naam)
 {
   CString zoekBestand(p_naam);
-  char drive[_MAX_DRIVE];   
-  char dir[_MAX_DIR];   
-  char fname[_MAX_FNAME];
-  char ffname[_MAX_FNAME];
-  char ext[_MAX_EXT];
+  TCHAR drive[_MAX_DRIVE];   
+  TCHAR dir[_MAX_DIR];   
+  TCHAR fname[_MAX_FNAME];
+  TCHAR ffname[_MAX_FNAME];
+  TCHAR ext[_MAX_EXT];
   CFileFind ff;
 
   int cx = 32;
@@ -824,23 +824,23 @@ CAfbeeldingIM::LoadDir(LPCSTR p_naam)
     bWorking = ff.FindNextFile();
     
     CString gfile = ff.GetFilePath();
-    _splitpath_s( gfile, drive,dir,fname,ext);
-    strcpy_s(ffname,_MAX_FNAME,fname);
-    strcat_s(ffname,_MAX_FNAME,ext);
+    _tsplitpath_s( gfile, drive,dir,fname,ext);
+    _tcscpy_s(ffname,_MAX_FNAME,fname);
+    _tcscat_s(ffname,_MAX_FNAME,ext);
 
-    for(char* p = ffname; *p != '\0'; *p = (char)tolower(*p) , p++);
+    for(TCHAR* p = ffname; *p != _T('\0'); *p = (TCHAR)_totlower(*p) , p++);
   
 
-    if (_stricmp(ext,".ico") == 0)
+    if (_tcsicmp(ext,_T(".ico")) == 0)
     {
       Cicon ico;
-      if (ico.LoadFromFile((LPCSTR)gfile,cx,cy))
-        VoegIconToe(ico.GeefHICON(),fname);
+      if (ico.LoadFromFile((LPCTSTR)gfile,cx,cy))
+        VoegIconToe(ico.GeefHICON(),(LPCTSTR)fname);
     }
-    else if (_stricmp(ext,".BMP") == 0)
+    else if (_tcsicmp(ext,_T(".BMP")) == 0)
     {
       CDIB dib;
-      if (dib.Load((LPSTR)(LPCSTR)gfile))
+      if (dib.Load((TCHAR*)gfile.GetString()))
       {
         int aantal = max(1,(dib.GetWidth() / cx));
         int num = 0;
@@ -862,7 +862,7 @@ CAfbeeldingIM::LoadDir(LPCSTR p_naam)
 
 
 int  
-CAfbeeldingIM::VoegIconToe(HICON icon,LPCSTR naam)
+CAfbeeldingIM::VoegIconToe(HICON icon,LPCTSTR naam)
 {
   if (!m_imageList.m_hImageList)
   {
@@ -893,7 +893,7 @@ CAfbeeldingIM::GeefIcon(int nr)
 
 
 int  
-CAfbeeldingIM::VoegBitmapToe(CBitmap* bitmap,LPCSTR naam,COLORREF bk)
+CAfbeeldingIM::VoegBitmapToe(CBitmap* bitmap,LPCTSTR naam,COLORREF bk)
 {
   if (!m_imageList.m_hImageList)
   {
@@ -1041,32 +1041,32 @@ CAfbeeldingIM::DrawDisabled(CDC& dc,int index,CPoint& pos, bool mask)
 //****************************************************************************
 UINT CAfbeeldingEntry::m_volgendeEntry = 1;
 
-CAfbeeldingEntry::CAfbeeldingEntry(UINT resourceID,LPCSTR /* naam */,LPCSTR type,int cx,int sets, UINT extraResourceID)
+CAfbeeldingEntry::CAfbeeldingEntry(UINT resourceID,LPCTSTR /* naam */,LPCTSTR type,int cx,int sets, UINT extraResourceID)
 :m_ID(m_volgendeEntry++),
  m_afbeelding(0),
  m_resourceID(resourceID),
  m_extraResourceID(extraResourceID),
  m_cx(cx),
  m_sets(sets),
- m_fileLoaded(""),
+ m_fileLoaded(_T("")),
  m_info(AFB_INFO_RESOURCE | AFB_INFO_FILE),
  m_status(0)
 {
-  strncpy_s(m_type,AFB_POS_AANTAL,type,AFB_POS_AANTAL);
+  _tcsncpy_s(m_type,AFB_POS_AANTAL,type,AFB_POS_AANTAL);
 }
 
-CAfbeeldingEntry::CAfbeeldingEntry(LPCSTR /* naam */,LPCSTR type,bool lijst,int cx,int sets)
+CAfbeeldingEntry::CAfbeeldingEntry(LPCTSTR /* naam */,LPCTSTR type,bool lijst,int cx,int sets)
 :m_ID(m_volgendeEntry++),
  m_afbeelding(0),
  m_resourceID(0),
  m_extraResourceID(0),
  m_cx(cx),
  m_sets(sets),
- m_fileLoaded(""),
+ m_fileLoaded(_T("")),
  m_info(AFB_INFO_FILE | (lijst?AFB_INFO_LIJST:0)),
  m_status(0)
 {
-  strncpy_s(m_type,AFB_POS_AANTAL,type?type:"",AFB_POS_AANTAL);
+  _tcsncpy_s(m_type,AFB_POS_AANTAL,type?type:_T(""),AFB_POS_AANTAL);
 }
 
 CAfbeeldingEntry::CAfbeeldingEntry(CAfbeeldingEntry& entry)
@@ -1080,7 +1080,7 @@ CAfbeeldingEntry::CAfbeeldingEntry(CAfbeeldingEntry& entry)
  m_info(entry.m_info),
  m_status(entry.m_status)
 {
-  strncpy_s(m_type,AFB_POS_AANTAL,entry.m_type,AFB_POS_AANTAL);
+  _tcsncpy_s(m_type,AFB_POS_AANTAL,entry.m_type,AFB_POS_AANTAL);
 }
 
 CAfbeeldingEntry::~CAfbeeldingEntry()
@@ -1094,7 +1094,7 @@ CAfbeeldingEntry::SetAfbeelding(Ref<CAfbeelding> afbeelding)
   m_afbeelding = afbeelding;
   if (!m_afbeelding)
   {
-    m_fileLoaded = "";
+    m_fileLoaded = _T("");
     m_status = 0;
     m_info = 0;
   }
@@ -1103,7 +1103,7 @@ CAfbeeldingEntry::SetAfbeelding(Ref<CAfbeelding> afbeelding)
 
 
 
-CAfbeeldingExtensie::CAfbeeldingExtensie(LPCSTR ext,LPCSTR type,USHORT cx)
+CAfbeeldingExtensie::CAfbeeldingExtensie(LPCTSTR ext,LPCTSTR type,USHORT cx)
                     :m_ext(ext),
                      m_type(type),
                      m_cx(cx)
@@ -1115,7 +1115,7 @@ CAfbeeldingExtensie::~CAfbeeldingExtensie()
 }
 
 
-CAfbeeldingZoekpad::CAfbeeldingZoekpad(LPCSTR pad,USHORT type)
+CAfbeeldingZoekpad::CAfbeeldingZoekpad(LPCTSTR pad,USHORT type)
                    :m_pad(pad),
                     m_type(type)
 {
@@ -1161,7 +1161,7 @@ CAfbeeldingen::Init()
     Ref<CAfbeeldingIM> afbeeldingIM (dynamic_cast<CAfbeeldingIM*>(entry->m_afbeelding.GeefPointer()));
     if (afbeeldingIM)
     {
-      afbeeldingIM->SetType("X");
+      afbeeldingIM->SetType(_T("X"));
     }
   }
 }
@@ -1173,7 +1173,7 @@ CAfbeeldingen::Reset()
 
 
 Ref<CAfbeeldingEntry>
-CAfbeeldingen::MaakResourceEntry(UINT resourceID,LPCSTR naam,LPCSTR type, int cx, int sets, UINT extraResourceID)
+CAfbeeldingen::MaakResourceEntry(UINT resourceID,LPCTSTR naam,LPCTSTR type, int cx, int sets, UINT extraResourceID)
 {
   CString entryNaam(naam);
   entryNaam.MakeUpper();
@@ -1184,7 +1184,7 @@ CAfbeeldingen::MaakResourceEntry(UINT resourceID,LPCSTR naam,LPCSTR type, int cx
 }
 
 Ref<CAfbeeldingEntry>
-CAfbeeldingen::MaakNaamEntry(LPCSTR naam,LPCSTR type,bool lijst,int cx,int sets)
+CAfbeeldingen::MaakNaamEntry(LPCTSTR naam,LPCTSTR type,bool lijst,int cx,int sets)
 {
   CString entryNaam(naam);
   entryNaam.MakeUpper();
@@ -1200,33 +1200,33 @@ CAfbeeldingen::MaakNaamEntry(LPCSTR naam,LPCSTR type,bool lijst,int cx,int sets)
 
 
 Ref<CAfbeeldingInfo> 
-CAfbeeldingen::GetImageInfo(LPCSTR str,int logica)
+CAfbeeldingen::GetImageInfo(LPCTSTR str,int logica)
 {
   if (!this)
   {
-    TRACE("ImageInfo is NULL");
+    TRACE(_T("ImageInfo is NULL"));
   }
-  int len = strlen(str);
+  int len = _tcslen(str);
   if (!str || len == 0)
   {
     return Ref<CAfbeeldingInfo>();
   }
 
-  static char buffer[512];
-  char* p = buffer;
-  char* eind;
+  static TCHAR buffer[512];
+  TCHAR* p = buffer;
+  TCHAR* eind;
 
   // Omzetten naar hoofdletters en eventueel een setlogica eruit halen
-  while(*str != '\0')
+  while(*str != _T('\0'))
   {
-    if (*str == '{' && *(str+1) != '\0' &&*(str+2) == '}')
+    if (*str == _T('{') && *(str+1) != _T('\0') &&*(str+2) == _T('}'))
     {
-      logica = *(str+1) - '0';
+      logica = *(str+1) - _T('0');
       break;
     }
-    *p++ = (char)toupper(*str++);
+    *p++ = (TCHAR)_totupper(*str++);
   }
-  *p = '\0';
+  *p = _T('\0');
   eind = p;
 
 
@@ -1241,10 +1241,10 @@ CAfbeeldingen::GetImageInfo(LPCSTR str,int logica)
   }
 
 
-  *p++ = '{';
-  *p++ = (char)(logica + '0');
-  *p++ = '}';
-  *p   = '\0';
+  *p++ = _T('{');
+  *p++ = (TCHAR)(logica + _T('0'));
+  *p++ = _T('}');
+  *p   = _T('\0');
   Ref<CAfbeeldingInfo> info;
   InfosMap::iterator it = m_Infos.find(buffer);
   if(it != m_Infos.end())
@@ -1257,37 +1257,37 @@ CAfbeeldingen::GetImageInfo(LPCSTR str,int logica)
   //m_Infos[buffer] = info;
   m_Infos.insert(std::make_pair(buffer,info));
 
-  *eind = '\0';
+  *eind = _T('\0');
   MaakAfbeeldingInfo(buffer,info,logica);
   return info;
 }
 
 bool
-CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logica)
+CAfbeeldingen::MaakAfbeeldingInfo(LPCTSTR str,Ref<CAfbeeldingInfo> info,int logica)
 {
   memset(&info->m_nr,255,sizeof(info->m_nr));
   info->m_rect.SetRect(0,0,0,0);
   
-  if (str == NULL || *str == '\0')
+  if (str == NULL || *str == _T('\0'))
   {
     info->SetEntry( Ref<CAfbeeldingEntry>() );
     return false;
   }
 
   // Bepaal de naam van het plaatje of imagelist
-  char * pos = (char*)strchr(str,'[');
-  char buffer[101];
-  char libNaam[101];
+  TCHAR * pos = (TCHAR*)_tcschr(str,_T('['));
+  TCHAR buffer[101];
+  TCHAR libNaam[101];
   if (pos)
   {
-    strncpy_s(buffer,100,str,max(pos-str,100));
-    buffer[pos-str] = '\0';
+    _tcsncpy_s(buffer,100,str,max(pos-str,100));
+    buffer[pos-str] = _T('\0');
   }
   else
   {
-    strncpy_s(buffer,100,str,100);
+    _tcsncpy_s(buffer,100,str,100);
   }
-  strncpy_s(libNaam,100,buffer,100);
+  _tcsncpy_s(libNaam,100,buffer,100);
 
   // Bepaal de afbeelding
   int defSet = -1;
@@ -1316,30 +1316,30 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
   {
     bool indeel = false;
     bool vorigepunt = false;
-    char instring = '\0';
-    char* lpunt  = NULL;
+    TCHAR instring = _T('\0');
+    TCHAR* lpunt  = NULL;
     int index = 0;
     short setNummer = 0;
     short srtPlaatje = 0;
-    char* bpos = buffer;
-    char* cpos = pos+1;
+    TCHAR* bpos = buffer;
+    TCHAR* cpos = pos+1;
 
     for(; ; cpos++)
     {
       
       // Uitzoeken
-      if (isspace(*cpos) && (!indeel || vorigepunt) && instring != '\0')
+      if (_istspace(*cpos) && (!indeel || vorigepunt) && instring != _T('\0'))
         continue;
-      else if (*cpos == '\'' || *cpos == '"')
+      else if (*cpos == _T('\'') || *cpos == _T('"'))
       {
-        if (instring == '\0')
+        if (instring == _T('\0'))
         {
           instring = *cpos;
           continue;
         }
         else if (instring == *cpos)
         {
-          instring = '\0';
+          instring = _T('\0');
           continue;
         }
         else
@@ -1348,39 +1348,39 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
           continue;
         }
       }
-      else if(instring != '\0')
+      else if(instring != _T('\0'))
       {
         *bpos++ = *cpos;
         continue;
       }
-      else if (*cpos == ';' || *cpos == ',' || *cpos == ':' || *cpos == ']' || *cpos == '\0')
+      else if (*cpos == _T(';') || *cpos == _T(',') || *cpos == _T(':') || *cpos == _T(']') || *cpos == _T('\0'))
       {
         vorigepunt = false;
-        while(bpos > buffer && isspace(*(bpos-1)))
+        while(bpos > buffer && _istspace(*(bpos-1)))
           bpos--;
-        *bpos = '\0';
+        *bpos = _T('\0');
 
-        if (strlen(buffer) > 0)
+        if (_tcslen(buffer) > 0)
         {
           if (lpunt)
-            *lpunt++ = '\0';
+            *lpunt++ = _T('\0');
 
           if (IsSetNummer(buffer))
-            setNummer = (short)atoi(buffer);
+            setNummer = (short)_ttoi(buffer);
           else
           {
-            if (buffer[0] == '*' && buffer[1] == '\0')
+            if (buffer[0] == _T('*') && buffer[1] == _T('\0'))
               setNummer = -2;
             else
             {
               setNummer = Afbeelding->GeefSetNummerVanNaam(buffer);
               // Indien uit de library ICONS dan eventueel opzoeken
-              if (setNummer < 0 && _stricmp(libNaam,AFB_ICON_LIB) == 0 )
+              if (setNummer < 0 && _tcsicmp(libNaam,AFB_ICON_LIB) == 0 )
               {
                 int iSet = -1;
-                if (!HeeftExtensie(buffer,"ico"))
+                if (!HeeftExtensie(buffer,_T("ico")))
 				{
-					strcat_s(buffer,100,".ICO");
+					_tcscat_s(buffer,100,_T(".ICO"));
 				}
                 ZoekEntry(buffer,false,&iSet);
                 if(iSet >= 0)
@@ -1388,13 +1388,13 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
               }
             }
           }
-          if (strlen(buffer) > 0 && defSet < 0 && setNummer >= 0)
+          if (_tcslen(buffer) > 0 && defSet < 0 && setNummer >= 0)
             defSet = setNummer;
 
           if (lpunt)
           {
             if (IsSetNummer(lpunt))
-              srtPlaatje = (short)atoi(lpunt);
+              srtPlaatje = (short)_ttoi(lpunt);
             else
               srtPlaatje = (short)Afbeelding->GeefPosNummerVanNaam(lpunt);
           }
@@ -1412,10 +1412,10 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
         if (!indeel)
           indeel = true;
 
-        if (*cpos == '#')
+        if (*cpos == _T('#'))
         {
           // trailing whitespace
-          while(bpos > buffer && isspace(*(bpos-1)))
+          while(bpos > buffer && _istspace(*(bpos-1)))
             bpos--;
           lpunt = bpos;
           vorigepunt = true;
@@ -1426,12 +1426,12 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
         *bpos++ = *cpos;
       }
       
-      if (*cpos == '\0' || *cpos == ']' || index >= AFB_POS_AANTAL)
+      if (*cpos == _T('\0') || *cpos == _T(']') || index >= AFB_POS_AANTAL)
         break;
     }
 
 
-    if (*cpos == ']')
+    if (*cpos == _T(']'))
     {
       cpos++;
     }
@@ -1460,22 +1460,22 @@ CAfbeeldingen::MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logic
 
 
 bool
-CAfbeeldingen::IsSetNummer(LPCSTR str)
+CAfbeeldingen::IsSetNummer(LPCTSTR str)
 {
   if (!str)
     return true;
 
-  LPCSTR p = str;
-  while(isspace(*p))
+  LPCTSTR p = str;
+  while(_istspace(*p))
     p++;
 
-  while(isdigit(*p))
+  while(_istdigit(*p))
     p++;
 
-  while(isspace(*p))
+  while(_istspace(*p))
     p++;
 
-  return *p == '\0';
+  return *p == _T('\0');
 }
 
 // Indien volgnummer < 0 dan wordt aan de hand van de disabled state een afbeelding
@@ -1515,11 +1515,11 @@ CAfbeeldingen::PaintBitmap(CDC& pDC,CRect& rect,Ref<CAfbeeldingInfo> info,int vo
 }
 
 HICON
-CAfbeeldingen::GeefIcon(LPCSTR info,LPCSTR definfo)
+CAfbeeldingen::GeefIcon(LPCTSTR info,LPCTSTR definfo)
 {
   HICON icon = NULL;
   Ref<CAfbeeldingInfo> ainfo;
-  if (info && strlen(info) > 0)
+  if (info && _tcslen(info) > 0)
   {
     ainfo = GetImageInfo(info);
     if (ainfo && !ainfo->HasImage())
@@ -1527,7 +1527,7 @@ CAfbeeldingen::GeefIcon(LPCSTR info,LPCSTR definfo)
       ainfo = Ref<CAfbeeldingInfo>();
     }
   }
-  if (!ainfo && definfo && strlen(definfo) > 0)
+  if (!ainfo && definfo && _tcslen(definfo) > 0)
   {
     ainfo = GetImageInfo(definfo);
   }
@@ -1555,11 +1555,11 @@ CAfbeeldingen::GeefIcon(Ref<CAfbeeldingInfo> info,int volgNr)
 // Zoeken en vinden van afbeeldingen eventueel extern *
 //*****************************************************
 Ref<CAfbeeldingEntry>
-CAfbeeldingen::ZoekEntry(LPCSTR naam,bool lijst,int* defSet)
+CAfbeeldingen::ZoekEntry(LPCTSTR naam,bool lijst,int* defSet)
 {
-  LPCSTR entryNaam = naam;
+  LPCTSTR entryNaam = naam;
 
-  if (!naam || naam[0] == '\0')
+  if (!naam || naam[0] == _T('\0'))
   {
     return Ref<CAfbeeldingEntry>();
   }
@@ -1567,7 +1567,7 @@ CAfbeeldingen::ZoekEntry(LPCSTR naam,bool lijst,int* defSet)
   Ref<CAfbeeldingEntry> entry;
 
   // Afhandeling opvragen van een ICON file
-  if (HeeftExtensie(naam,".ico"))
+  if (HeeftExtensie(naam,_T(".ico")))
   {
     EntriesMap::iterator it = m_AfbeeldingenEntries.find(AFB_ICON_LIB);
     if(it != m_AfbeeldingenEntries.end())
@@ -1642,7 +1642,7 @@ CAfbeeldingen::ZoekEntry(LPCSTR naam,bool lijst,int* defSet)
 }
 
 UINT
-CAfbeeldingen::LoadEntry(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
+CAfbeeldingen::LoadEntry(LPCTSTR naam,Ref<CAfbeeldingEntry> entry)
 {
 
   if (entry->m_info & AFB_INFO_LIB)
@@ -1663,7 +1663,7 @@ CAfbeeldingen::LoadEntry(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
   if (entry->m_resourceID && entry->m_info & AFB_INFO_RESOURCE)  // Load from resource
   {
     entry->m_status = 0;
-    if (strlen(entry->m_type) > 0)  // Laad imagelist
+    if (_tcslen(entry->m_type) > 0)  // Laad imagelist
     {
       Ref<CAfbeeldingIM> afbeelding (new CAfbeeldingIM(*this));
       if (afbeelding && afbeelding->Create(entry->m_resourceID,entry->m_cx,0,entry->m_extraResourceID))
@@ -1691,11 +1691,11 @@ CAfbeeldingen::LoadEntry(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
 }
 
 UINT
-CAfbeeldingen::LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
+CAfbeeldingen::LoadEntryFromFile(LPCTSTR naam,Ref<CAfbeeldingEntry> entry)
 {
   UINT ID = 0;
-  char PathName[_MAX_PATH];
-  char *FileName;
+  TCHAR PathName[_MAX_PATH];
+  TCHAR *FileName;
 
   CDIB* dib = FindDIBFile(naam, _MAX_PATH, PathName, &FileName);
 
@@ -1703,11 +1703,11 @@ CAfbeeldingen::LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
   if (!dib)
     return 0;
 
-  char drive[_MAX_DRIVE];   
-  char dir[_MAX_DIR];   
-  char fname[_MAX_FNAME];
-  char ext[_MAX_EXT];
-  _splitpath_s(FileName
+  TCHAR drive[_MAX_DRIVE];   
+  TCHAR dir[_MAX_DIR];   
+  TCHAR fname[_MAX_FNAME];
+  TCHAR ext[_MAX_EXT];
+  _tsplitpath_s(FileName
 	          ,drive, _MAX_DRIVE
 			  ,dir,   _MAX_DIR
 			  ,fname, _MAX_FNAME
@@ -1716,24 +1716,24 @@ CAfbeeldingen::LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
   // We gaan uit van het type zoals opgegeven in de entry
   // De gebruikte extensie kan dit echter overschrijven
   double cxFactor = 0;   // Aantal keer breed als hoog
-  LPCSTR fileType = entry->m_type;
-  if (strlen(ext) > 0)
+  LPCTSTR fileType = entry->m_type;
+  if (_tcslen(ext) > 0)
   {
     CString deel1,deel2;
     Ref<CAfbeeldingExtensie> aext = SplitEnFindExtensie(ext,deel1,deel2);
     if (aext)
     {
-      if (aext->m_type != "")
+      if (aext->m_type != _T(""))
         fileType = aext->m_type;
       if (aext->m_cx >= 0)
         cxFactor = aext->m_cx;
     }
   }
   // Indien minimum aantal gevraagd of geforceerd dan een imagelist aanmaken
-  if ((entry->m_sets > 0 || entry->m_info & AFB_INFO_LIJST) && strlen(fileType) == 0)
-    fileType = "S";
+  if ((entry->m_sets > 0 || entry->m_info & AFB_INFO_LIJST) && _tcslen(fileType) == 0)
+    fileType = _T("S");
 
-  if (strlen(fileType) > 0) // Probeer een Imagelist Te maken
+  if (_tcslen(fileType) > 0) // Probeer een Imagelist Te maken
   {
     Ref<CAfbeeldingIM> afbeelding (new CAfbeeldingIM(*this));
     if (cxFactor > 0)
@@ -1759,7 +1759,7 @@ CAfbeeldingen::LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
       entry->SetAfbeelding(afbeelding.Als<CAfbeelding>());
       entry->m_status     |= AFB_INFO_FILE;
       entry->m_fileLoaded  = PathName;
-      afbeelding->SetType("X");
+      afbeelding->SetType(_T("X"));
       ID = entry->m_ID;
     }
   }
@@ -1768,10 +1768,10 @@ CAfbeeldingen::LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry)
 }
 
 CDIB*
-CAfbeeldingen::FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName)
+CAfbeeldingen::FindDIBFile(LPCTSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName)
 {
   int naamLengte;
-  if (naam == NULL || (naamLengte = strlen(naam)) == 0)
+  if (naam == NULL || (naamLengte = _tcslen(naam)) == 0)
     return 0;
 
   bool cc = false;
@@ -1783,11 +1783,11 @@ CAfbeeldingen::FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* F
   {
     CString zoekBestand;
 
-    char drive[_MAX_DRIVE];   
-    char dir[_MAX_DIR];   
-    char fname[_MAX_FNAME];
-    char ext[_MAX_EXT];
-    _splitpath_s(naam
+    TCHAR drive[_MAX_DRIVE];   
+    TCHAR dir[_MAX_DIR];   
+    TCHAR fname[_MAX_FNAME];
+    TCHAR ext[_MAX_EXT];
+    _tsplitpath_s(naam
 		        ,drive, _MAX_DRIVE
 				,dir,   _MAX_DIR
 				,fname, _MAX_FNAME
@@ -1799,9 +1799,9 @@ CAfbeeldingen::FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* F
       CAfbeeldingZoekpad* zpad = &m_AfbeeldingenPaden[index];
       zoekBestand =  zpad->m_pad;
       zoekBestand += naam;
-      if (strlen(ext) == 0)
+      if (_tcslen(ext) == 0)
       {
-        zoekBestand += ".*";
+        zoekBestand += _T(".*");
       }
       CFileFind ff;
       BOOL bWorking = ff.FindFile(zoekBestand);
@@ -1810,13 +1810,13 @@ CAfbeeldingen::FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* F
         bWorking = ff.FindNextFile();
       
         CString gfile = ff.GetFilePath();
-        _splitpath_s(gfile
+        _tsplitpath_s(gfile
 			        ,drive, _MAX_DRIVE
 					,dir,   _MAX_DIR
 					,fname, _MAX_FNAME
 					,ext,   _MAX_EXT);
-        for(char* p = ext; *p != '\0'; *p = (char)toupper(*p),++p);
-        if (strlen(ext) > 0)
+        for(TCHAR* p = ext; *p != _T('\0'); *p = (TCHAR)_totupper(*p),++p);
+        if (_tcslen(ext) > 0)
         {
           CString deel1,deel2;
           Ref<CAfbeeldingExtensie> aext = SplitEnFindExtensie(ext,deel1,deel2);
@@ -1843,7 +1843,7 @@ CAfbeeldingen::FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* F
 
 
 bool
-CAfbeeldingen::LoadDIBFile(CDIB& dib,LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName)
+CAfbeeldingen::LoadDIBFile(CDIB& dib,LPCTSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName)
 {
   CFile file;
   bool cc = false;
@@ -1855,7 +1855,7 @@ CAfbeeldingen::LoadDIBFile(CDIB& dib,LPCSTR naam, DWORD lengte, LPTSTR PathName,
       DWORD tmplengte = tmp.GetLength();
       if (tmplengte < lengte)
       {
-        memcpy(PathName,(LPCSTR)tmp,tmplengte+1);  // kopieer '\0' mee
+        memcpy(PathName,(LPCTSTR)tmp,tmplengte+1);  // kopieer '\0' mee
         *FileName = PathName + (tmplengte - file.GetFileName().GetLength());
         cc = true;
       }
@@ -1866,18 +1866,18 @@ CAfbeeldingen::LoadDIBFile(CDIB& dib,LPCSTR naam, DWORD lengte, LPTSTR PathName,
 
 
 int
-CAfbeeldingen::RegistreerExtensie(LPCSTR ext,LPCSTR type,USHORT cx)
+CAfbeeldingen::RegistreerExtensie(LPCTSTR ext,LPCTSTR type,USHORT cx)
 {
-  if (strlen(ext) == 0)
+  if (_tcslen(ext) == 0)
     return 0;
 
   CString nExt(ext);
   nExt.MakeUpper();
   nExt.TrimLeft();
   nExt.TrimRight();
-  if (nExt[0] != '.')
+  if (nExt[0] != _T('.'))
   {
-    nExt = '.' + nExt;
+    nExt = _T('.') + nExt;
   }
   Ref<CAfbeeldingExtensie> aext (new CAfbeeldingExtensie(nExt,type,cx));
   //m_AfbeeldingenExtensies[ext] = aext;
@@ -1903,43 +1903,43 @@ CAfbeeldingen::RegistreerSystemZoekPad(const CString& pad)
 
 
 bool
-CAfbeeldingen::IsVolledigPad(LPCSTR pad)
+CAfbeeldingen::IsVolledigPad(LPCTSTR pad)
 {
   // c:\die\dir\file.pad
-  if (!pad || strlen(pad) < 1)
+  if (!pad || _tcslen(pad) < 1)
     return false;
 
-  if (pad[1] == ':')
+  if (pad[1] == _T(':'))
     return true;
 
   return false;
 }
 
 bool
-CAfbeeldingen::HeeftExtensie(LPCSTR pad,LPCSTR extensie)
+CAfbeeldingen::HeeftExtensie(LPCTSTR pad,LPCTSTR extensie)
 {
   if (!pad || !extensie)
     return false;
 
-  int lenExt = strlen(extensie);
-  int lenPad = strlen(pad);
+  int lenExt = _tcslen(extensie);
+  int lenPad = _tcslen(pad);
   if (lenExt > lenPad)
     return false;
 
-  return lenPad > lenExt && _stricmp(pad + lenPad -lenExt,extensie) == 0;
+  return lenPad > lenExt && _tcsicmp(pad + lenPad -lenExt,extensie) == 0;
 }
 
 Ref<CAfbeeldingExtensie>
-CAfbeeldingen::SplitEnFindExtensie(LPCSTR ext,CString deel1,CString deel2)
+CAfbeeldingen::SplitEnFindExtensie(LPCTSTR ext,CString deel1,CString deel2)
 {
-  deel2 = "";
+  deel2 = _T("");
   deel1 = ext;
   deel1.MakeUpper();
   deel1.TrimLeft();
   deel1.TrimRight();
-  if (deel1[0] != '.')
+  if (deel1[0] != _T('.'))
   {
-    deel1 = '.' + deel1;
+    deel1 = _T('.') + deel1;
   }
   Ref<CAfbeeldingExtensie> aext;
   ExtensiesMap::iterator it = m_AfbeeldingenExtensies.find(deel1);
@@ -1964,7 +1964,7 @@ CAfbeeldingen::LaatsteFout()
 
 // Standaards
 bool
-CAfbeeldingen::RegistreerStandaard(LPCSTR pnaam,LPCSTR soort,int logica)
+CAfbeeldingen::RegistreerStandaard(LPCTSTR pnaam,LPCTSTR soort,int logica)
 {
   //m_Standaards[pnaam] = GetImageInfo(soort,logica);
   m_Standaards.insert(std::make_pair(pnaam,GetImageInfo(soort,logica)));
@@ -1972,11 +1972,11 @@ CAfbeeldingen::RegistreerStandaard(LPCSTR pnaam,LPCSTR soort,int logica)
 }
 
 Ref<CAfbeeldingInfo> 
-CAfbeeldingen::GeefStandaard(LPCSTR pnaam)
+CAfbeeldingen::GeefStandaard(LPCTSTR pnaam)
 {
   if (!this)
   {
-    TRACE("GetStandard image is NULL");
+    TRACE(_T("GetStandard image is NULL"));
   }
 
   Ref<CAfbeeldingInfo> info;
@@ -2000,12 +2000,12 @@ CAfbeeldingen::GeefInfoSTR(Ref<CAfbeeldingInfo> info)
     }
     ++it;
   }
-  return "";
+  return _T("");
 }
 
 
 Ref<CAfbeeldingEntry>
-CAfbeeldingen::LoadDir(LPCSTR naam,bool altijdAanmaken)
+CAfbeeldingen::LoadDir(LPCTSTR naam,bool altijdAanmaken)
 {
   Ref<CAfbeeldingEntry> entry;
   EntriesMap::iterator it = m_AfbeeldingenEntries.find(naam);
@@ -2026,23 +2026,23 @@ CAfbeeldingen::LoadDir(LPCSTR naam,bool altijdAanmaken)
     {
       UINT att;
       dir = pad;
-      dir += "\\";
+      dir += _T("\\");
       dir += naam;
       att = GetFileAttributes(dir);
 
       if (att != 0xFFFFFFFF && (att & FILE_ATTRIBUTE_DIRECTORY))
       {
-        dir += "\\*.*";
+        dir += _T("\\*.*");
         break;
       }
-      dir = "";
+      dir = _T("");
     }
   }  
-  if (dir != "" || (!entry && altijdAanmaken))
+  if (dir != _T("") || (!entry && altijdAanmaken))
   {
     if (!entry)
     {
-      entry = Ref<CAfbeeldingEntry>(new CAfbeeldingEntry(naam,"S",true,16,0));
+      entry = Ref<CAfbeeldingEntry>(new CAfbeeldingEntry(naam,_T("S"),true,16,0));
       m_AfbeeldingenEntries.insert(make_pair(naam,entry));
       entry->m_fileLoaded = dir;
     }
@@ -2058,11 +2058,11 @@ CAfbeeldingen::LoadDir(LPCSTR naam,bool altijdAanmaken)
       entry->m_fileLoaded = dir;
     }
 
-    if (dir != "")
+    if (dir != _T(""))
     {
       afbeelding->LoadDir(dir);
     }
-    if (dir != "" || altijdAanmaken)
+    if (dir != _T("") || altijdAanmaken)
     {
       entry->m_status |= AFB_INFO_LIBLOAD;
       entry->m_status |= AFB_INFO_FILE;
@@ -2077,9 +2077,9 @@ CAfbeeldingen::LoadDir(LPCSTR naam,bool altijdAanmaken)
 
 // Painting etc
 int  
-CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
+CAfbeeldingen::PaintAfbeelding(LPCTSTR naam, CDC* pDC)
 {
-  if (!naam || strlen(naam) == 0)
+  if (!naam || _tcslen(naam) == 0)
     return 0;
 
   pDC->SetBkMode(TRANSPARENT);
@@ -2095,7 +2095,7 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
 
   CRect clientRect;
   pDC->GetWindow()->GetClientRect(clientRect);
-  CSize tsize  = pDC->GetTextExtent("00000");
+  CSize tsize  = pDC->GetTextExtent(_T("00000"));
 
   Ref<CAfbeeldingEntry> entry;
   EntriesMap::iterator it = m_AfbeeldingenEntries.find(naam);
@@ -2105,7 +2105,7 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
   }
   if(it == m_AfbeeldingenEntries.end() || !entry)
   {
-    meld.Format("Kan afbeeldingenbibliotheek '%s' niet vinden", naam);
+    meld.Format(_T("Kan afbeeldingenbibliotheek '%s' niet vinden"), naam);
     pDC->TextOut(xpos,ypos,meld);
     return false;
   }
@@ -2115,7 +2115,7 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
     LoadEntry(naam,entry);
   }
 
-  meld.Format("Afbeeldingenbibliotheek '%s'  %i%%",naam,perc);
+  meld.Format(_T("Afbeeldingenbibliotheek '%s'  %i%%"),naam,perc);
   pDC->TextOut(xpos, ypos, meld);
   xpos = kantlijn;
   ypos += tsize.cy;
@@ -2125,37 +2125,37 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
   {
     if (entry->m_status & AFB_INFO_INVALID)
     {
-      meld = "Kan de afbeelding niet laden";
+      meld = _T("Kan de afbeelding niet laden");
     }
     else
     {
-      meld = "(Nog) geen afbeelding geladen";
+      meld = _T("(Nog) geen afbeelding geladen");
     }
     pDC->TextOut(xpos, ypos, meld);
     return false;
   }
   if (afb->m_namen.GetUpperBound() >= 0)
   {
-    tsize  = pDC->GetTextExtent("00000 Naam  van de file");
+    tsize  = pDC->GetTextExtent(_T("00000 Naam  van de file"));
   }
 
-  meld = "Geladen uit: ";
-  if (entry->m_fileLoaded == "")
+  meld = _T("Geladen uit: ");
+  if (entry->m_fileLoaded == _T(""))
   {
-    meld += "resource";
+    meld += _T("resource");
   }
   else
   {
-    meld += " bestand '";
+    meld += _T(" bestand '");
     meld += entry->m_fileLoaded;
-    meld += "'";
+    meld += _T("'");
   }
   pDC->TextOut(xpos, ypos, meld);
   xpos = kantlijn;
   ypos += tsize.cy;
 
 
-  meld.Format("Aantal %i   Type: %s   Soort: %s   Aantal per set %i   Formaat: (%i,%i)", afb->m_aantal, afb->m_type, afb->GeefTypeSetNaam(),afb->m_aantalPS,afb->m_cx,afb->m_cy);
+  meld.Format(_T("Aantal %i   Type: %s   Soort: %s   Aantal per set %i   Formaat: (%i,%i)"), afb->m_aantal, afb->m_type, afb->GeefTypeSetNaam(),afb->m_aantalPS,afb->m_cx,afb->m_cy);
   pDC->TextOut(xpos, ypos, meld);
   xpos = kantlijn;
   ypos += tsize.cy;
@@ -2163,17 +2163,17 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
 
   if (afb->m_aantalPS > 1)
   {
-    meld = "Setnummers: ";
+    meld = _T("Setnummers: ");
     for (int i = 0 ; i < AFB_POS_AANTAL ; i++)
     {
       if (afb->m_pos[i] >= 0)
       {
         CString getal;
-        getal.Format("%i",afb->m_pos[i]);
+        getal.Format(_T("%i"),afb->m_pos[i]);
         meld += getal;
       }
       else
-        meld += "*";
+        meld += _T("*");
     }
     pDC->TextOut(xpos, ypos, meld);
     xpos = kantlijn;
@@ -2197,10 +2197,10 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
 
   if (afb->m_aantal > 0)
   {
-    LPCSTR afbNaam = "";
+    LPCTSTR afbNaam = _T("");
     if (afb->m_namen.GetUpperBound() >= index)
-      afbNaam = (LPCSTR)afb->m_namen[index];
-    meld.Format("%3.3i %s",set,afbNaam);
+      afbNaam = (LPCTSTR)afb->m_namen[index];
+    meld.Format(_T("%3.3i %s"),set,afbNaam);
     pDC->TextOut(xpos, ypos, meld);
     xpos += tsize.cx;
     set++;
@@ -2225,10 +2225,10 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
       else
         xpos += tussen_set_ruimte;
 
-      LPCSTR afbNaam = "";
+      LPCTSTR afbNaam = _T("");
       if (afb->m_namen.GetUpperBound() >= index)
-        afbNaam = (LPCSTR)afb->m_namen[index];
-      meld.Format("%3.3i %s",set,afbNaam);
+        afbNaam = (LPCTSTR)afb->m_namen[index];
+      meld.Format(_T("%3.3i %s"),set,afbNaam);
       pDC->TextOut(xpos, ypos, meld);
       xpos += tsize.cx;
 
@@ -2258,7 +2258,7 @@ CAfbeeldingen::PaintAfbeelding(LPCSTR naam, CDC* pDC)
 }
 
 int  
-CAfbeeldingen::PaintAfbeeldingText(int& xPos, int& yPos, CDC* pDC, LPCSTR text)
+CAfbeeldingen::PaintAfbeeldingText(int& xPos, int& yPos, CDC* pDC, LPCTSTR text)
 {
   CSize size = pDC->GetTextExtent(text);
   pDC->TextOut(xPos, yPos, text);

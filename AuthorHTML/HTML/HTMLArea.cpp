@@ -31,17 +31,17 @@ HtmlArea::SetProperty(eAction e_Action, CString s_Value)
   switch(e_Action)
   {
     case E_Href:    // Referenced page
-                    SetAttribute("href",s_Value);
+                    SetAttribute(_T("href"),s_Value);
                     break;
     case E_Coords:  // Set coordiantes of shape
-                    SetAttribute("coords",s_Value);
+                    SetAttribute(_T("coords"),s_Value);
                     break;
     case E_Shape:   // Set shape of the area
-                    SetAttribute("shape",s_Value);
+                    SetAttribute(_T("shape"),s_Value);
                     break;
-    case E_NoHref:  SetAttribute("nohref",s_Value,EMPTYREMOVE);
+    case E_NoHref:  SetAttribute(_T("nohref"),s_Value,EMPTYREMOVE);
                     break;
-    case E_Title:   SetAttribute("title",s_Value);
+    case E_Title:   SetAttribute(_T("title"),s_Value);
                     break;
   }
 }
@@ -53,16 +53,16 @@ HtmlArea::GetProperty(eAction e_Action)
   {
     case E_Href:  // Referenced page
                   // Caution: Use EXACT_VALUE, otherwise you get an absolute pathname for free
-                  return GetAttribute("href",EXACT_VALUE);
+                  return GetAttribute(_T("href"),EXACT_VALUE);
     case E_Coords:// Coordinates
-                  return GetAttribute("coords");
+                  return GetAttribute(_T("coords"));
     case E_Shape: // Shape of the area
-                  return GetAttribute("shape");
+                  return GetAttribute(_T("shape"));
     case E_NoHref:// No href 
-                  return GetAttribute("nohref");
+                  return GetAttribute(_T("nohref"));
     case E_Title: // Title
-                  return GetAttribute("title");
+                  return GetAttribute(_T("title"));
   }
-  return "";
+  return _T("");
 }
 

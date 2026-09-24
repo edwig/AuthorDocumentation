@@ -38,7 +38,7 @@ IsFolder (const CString& path)
   }
   else
   {
-    throw (CString("Not a folder: ") + path);
+    throw (CString(_T("Not a folder: ")) + path);
   }
 }
 
@@ -79,7 +79,7 @@ CExplorerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if(!m_wndExplorer.Create(WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS,
 		                       CRect(0,0,0,0), this, ID_FPW_EXPLORER))
 	{
-		TRACE0( "Unable to create tree control.\n" );
+		TRACE0("Unable to create tree control.\n");
 		return NULL;
 	}
   InitializeTree();
@@ -105,7 +105,7 @@ CExplorerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void
 CExplorerView::InitializeTree()
 {
-  CString drivePath = settings.GetSetting("FileManager_CurrentDrive","");
+  CString drivePath = settings.GetSetting(_T("FileManager_CurrentDrive"),_T(""));
   if (drivePath.IsEmpty())
   {
     m_wndExplorer.DisplayDrives();
@@ -131,7 +131,7 @@ void CExplorerView::OnExplorerCommand(UINT p_command)
     case ID_EXPLORER_PROPERTIES:  break;
     case ID_EXPLORER_SEARCH:      break;
   }
-  theApp.Panic("Not implemented yet!");
+  theApp.Panic(_T("Not implemented yet!"));
 }
 
 void
@@ -192,7 +192,7 @@ CExplorerView::OnAddToProject()
   {
     CString path = m_wndExplorer.GetFullPath(hCurSel);
     ProjectFile* project = theApp.GetProjectFile();
-    project->AddDocumentFile("",path);
+    project->AddDocumentFile(_T(""),path);
   }
 }
 
@@ -228,7 +228,7 @@ CExplorerView::OnExplorerTree_RClick (NMHDR*, LRESULT* pResult)
       // Enable
       pPopup->EnableMenuItem(ID_EXPLORER_ADDTOPROJECT,MF_BYCOMMAND|MF_ENABLED);
     }
-    pPopup->ModifyMenu(ID_EXPLORER_OPEN, MF_BYCOMMAND, ID_EXPLORER_OPEN, !isFolder ? "Open File\tDblClick" : "Open File Dalog...\tCtrl+DblClick");
+    pPopup->ModifyMenu(ID_EXPLORER_OPEN, MF_BYCOMMAND, ID_EXPLORER_OPEN, !isFolder ? _T("Open File\tDblClick") : _T("Open File Dalog...\tCtrl+DblClick"));
     pPopup->EnableMenuItem(ID_EXPLORER_REFRESH, isFolder ? MF_BYCOMMAND|MF_ENABLED : MF_BYCOMMAND|MF_GRAYED);
 
     pPopup->RemoveMenu(3, MF_BYPOSITION);

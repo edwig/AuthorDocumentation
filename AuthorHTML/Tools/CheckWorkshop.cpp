@@ -40,7 +40,7 @@ CheckWorkshop::CheckHTMLHelpWorkshop()
   }
 
   // STEP 2: Check the %windir% environment variable for HTML Workshop
-  if(m_workshopPath.GetEnvironmentVariable("windir"))
+  if(m_workshopPath.GetEnvironmentVariable(_T("windir")))
   {
     m_workshopPath += DEFAULT_WORKSHOP_FOLDER;
     if(CheckExists(m_workshopPath))
@@ -50,7 +50,7 @@ CheckWorkshop::CheckHTMLHelpWorkshop()
   }
 
   // STEP 3: Check our settings for a previously stored path to HTML Workshop
-  m_workshopPath = settings.GetSetting("HTMLHelpWorkshopPath","");
+  m_workshopPath = settings.GetSetting(_T("HTMLHelpWorkshopPath"),_T(""));
   if(!m_workshopPath.IsEmpty())
   {
     if(CheckExists(m_workshopPath))
@@ -60,23 +60,23 @@ CheckWorkshop::CheckHTMLHelpWorkshop()
   }
 
   // STEP 4: Ask for a directory where HTML Workshop is installed
-  CString askPath = "Please select the folder where 'HTML Help Workshop' is installed (Say: YES)\n"
-                    "OR stop here, and install Microsoft HTML Help Workshop by hand. (Say: NO)";
+  CString askPath = _T("Please select the folder where 'HTML Help Workshop' is installed (Say: YES)\n")
+                    _T("OR stop here, and install Microsoft HTML Help Workshop by hand. (Say: NO)");
   if(WideMessageBox(nullptr,askPath,_T("NOT INSTALLED"),MB_YESNO | MB_DEFBUTTON2 | MB_ICONWARNING) == IDYES)
   {
     MapDialog dlg;
-    if(dlg.Browse(nullptr,"Select the HTML Help Workshop folder"))
+    if(dlg.Browse(nullptr,_T("Select the HTML Help Workshop folder")))
     {
       m_workshopPath = dlg.GetPath();
       if(CheckExists(m_workshopPath))
       {
-        settings.SetSetting("HTMLHelpWorkshopPath",m_workshopPath);
+        settings.SetSetting(_T("HTMLHelpWorkshopPath"),m_workshopPath);
         return true;
       }
     }
   }
   // STEP 5: If not found: Tell the user that HTML Workshop is not installed 
-  WideMessageBox(nullptr, "The selected directory does not contain HTML Help Workshop.", _T("NOT FOUND"), MB_OK | MB_ICONERROR);
+  WideMessageBox(nullptr, _T("The selected directory does not contain HTML Help Workshop."), _T("NOT FOUND"), MB_OK | MB_ICONERROR);
   return false;
 }
 
@@ -113,14 +113,14 @@ CheckWorkshop::CheckExists(CString p_path)
   }
 
   // STEP 2: Check if the HTML Workshop executable exists in the directory
-  if(!CheckPathExists(p_path + "\\hhc.exe"))
+  if(!CheckPathExists(p_path + _T("\\hhc.exe")))
   {
     Improper();
     return false;
   }
 
   // STEP 3: Check if the HHA.DLL file exists in the directory
-  if(!CheckPathExists(p_path + "\\hha.dll"))
+  if(!CheckPathExists(p_path + _T("\\hha.dll")))
   {
     Improper();
     return false;

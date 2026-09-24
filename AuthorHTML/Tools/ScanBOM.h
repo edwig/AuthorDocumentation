@@ -40,7 +40,7 @@ typedef enum _bom_type
 BOMType;
 
 BOM_OpenResult open_file_with_bom(FILE**   p_file        // Resulting file pointer
-                                ,LPCSTR   p_filename    // File to open
-                                ,LPCSTR   p_mode        // File mode to open in
+                                ,LPCTSTR   p_filename    // File to open
+                                ,LPCTSTR   p_mode        // File mode to open in
                                 ,int*     p_offset      // Resulting base offset after BOM
                                 ,BOMType* p_type);      // Type of BOM found

@@ -131,7 +131,7 @@ ProjectDlg::UpdateProject()
 
   if(m_compiledName.CompareNoCase(m_project->GetCompiledName()))
   {
-    if(theApp.MessageBox("You are about to change the name of the project files. Continue?","Project name",MB_YESNO|MB_DEFBUTTON2) == IDYES)
+    if(theApp.MessageBox(_T("You are about to change the name of the project files. Continue?"),_T("Project name"),MB_YESNO|MB_DEFBUTTON2) == IDYES)
     {
       // Project name is changed!
       m_project->SetCompiledName(m_compiledName);
@@ -177,21 +177,21 @@ ProjectDlg::CheckFontName()
 {
   std::vector<XString> options;
   XString font(m_defaultFont);
-  SplitString(font,options,',',true);
+  SplitString(font,options,_T(','),true);
   if(options.size() < 1)
   {
-    options.push_back("Verdana");
+    options.push_back(_T("Verdana"));
   }
   if(options.size() < 2)
   {
-    options.push_back("10");
+    options.push_back(_T("10"));
   }
   if(options.size() < 3)
   {
-    options.push_back("0");
+    options.push_back(_T("0"));
   }
   // Rebuild the default font string
-  m_defaultFont = options[0] + "," + options[1] + "," + options[2];
+  m_defaultFont = options[0] + _T(",") + options[1] + _T(",") + options[2];
 }
 
 // ProjectDlg message handlers
@@ -204,9 +204,9 @@ void ProjectDlg::OnEnChangeCompiledname()
   if(name.CompareNoCase(m_compiledName))
   {
     // Ok, Name changed
-    if(theApp.MessageBox("Changing the compiled name of the project also changes the names of the index and TOC.\n"
-                         "Do you really want to change the name now and recreate the index and TOC files?"
-                        ,"Question"
+    if(theApp.MessageBox(_T("Changing the compiled name of the project also changes the names of the index and TOC.\n")
+                         _T("Do you really want to change the name now and recreate the index and TOC files?")
+                        ,_T("Question")
                         ,MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION) == IDYES)
     {
       // Project name is changed!
@@ -268,8 +268,8 @@ ProjectDlg::OnEnChangeDefaultfont()
     // Split in three parts
     std::vector<XString> options;
     XString font(m_defaultFont);
-    SplitString(font,options,',',true);
-    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),atoi(options[1].GetString()));
+    SplitString(font,options,_T(','),true);
+    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),_ttoi(options[1].GetString()));
   }
   UpdateData(FALSE);
 }
@@ -282,7 +282,7 @@ ProjectDlg::OnBnClickedButtonfont()
   // Split in three parts
   std::vector<XString> options;
   XString font(m_defaultFont);
-  SplitString(font,options, ',',true);
+  SplitString(font,options, _T(','),true);
 
   CString oldFontName(options[0]);
   int     oldFontSize(_ttoi(options[1].GetString()));
@@ -345,18 +345,18 @@ ProjectDlg::OnBnClickedButtonfont()
   {
     changed = true;
     XString size;
-    size.Format("%d",(cFont.iPointSize / 10));
+    size.Format(_T("%d"),(cFont.iPointSize / 10));
     options[1] = size;
   }
   if(changed)
   {
-    m_defaultFont = options[0] + "," + options[1] + ",0";
+    m_defaultFont = options[0] + _T(",") + options[1] + _T(",0");
   }
   CheckFontName();
 
   if(old.CompareNoCase(m_defaultFont))
   {
-    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),atoi(options[1].GetString()));
+    theApp.GetTOC()->SetDefaultFont(options[0].GetString(),_ttoi(options[1].GetString()));
   }
   UpdateData(FALSE);
 }
@@ -384,9 +384,9 @@ ProjectDlg::OnBnClickedBinaryindex()
   m_binaryIndex = m_buttonBinIndex.GetCheck() == TRUE;
   if(!m_binaryIndex && m_project->GetSweepRebuildsIndex())
   {
-    theApp.MessageBox("You cannot de-activate the binary index as long as you have topics with keywords in the header defined.\n"
-                      "To deactivate: move all your keywords to the keyword pane and remove them from the individual topics."
-                     ,"Error"
+    theApp.MessageBox(_T("You cannot de-activate the binary index as long as you have topics with keywords in the header defined.\n")
+                      _T("To deactivate: move all your keywords to the keyword pane and remove them from the individual topics.")
+                     ,_T("Error")
                      ,MB_OK|MB_ICONSTOP|MB_TASKMODAL);
     m_buttonBinIndex.SetCheck(TRUE);
     m_binaryIndex = true;
@@ -399,9 +399,9 @@ ProjectDlg::OnBnClickedAutoindex()
   m_autoIndex = m_buttonAutoIndex.GetCheck() == TRUE;
   if(!m_autoIndex && m_project->GetSweepRebuildsIndex())
   {
-    theApp.MessageBox("You cannot de-activate the use of keywords in the topic headers as long as you have keywords defined there.\n"
-                      "To deactivate: move all your keywords to the keyword pane and remove them from the individual topics."
-                      ,"Error"
+    theApp.MessageBox(_T("You cannot de-activate the use of keywords in the topic headers as long as you have keywords defined there.\n")
+                      _T("To deactivate: move all your keywords to the keyword pane and remove them from the individual topics.")
+                      ,_T("Error")
                       ,MB_OK|MB_ICONSTOP|MB_TASKMODAL);
     m_buttonAutoIndex.SetCheck(TRUE);
     m_autoIndex = true;
@@ -425,9 +425,9 @@ ProjectDlg::OnBnClickedAutoTOC()
   {
     if(theApp.GetTOC()->CountEntries())
     {
-      if(theApp.MessageBox("You can only use an automatic generated TOC, when the hand-written TOC is empty.\n"
-                           "Would you like to continue to remove the current TOC?"
-                          ,"Table-Of-Contents"
+      if(theApp.MessageBox(_T("You can only use an automatic generated TOC, when the hand-written TOC is empty.\n")
+                           _T("Would you like to continue to remove the current TOC?")
+                          ,_T("Table-Of-Contents")
                           ,MB_YESNO | MB_DEFBUTTON2 | MB_ICONQUESTION) == IDNO)
       {
         return;

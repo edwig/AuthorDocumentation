@@ -107,7 +107,7 @@ TopicPropertiesDlg::OnInitDialog()
   }
   else
   {
-    m_page5->GetWindowTextA(s);
+    m_page5->GetWindowText(s);
     m_tabControl.InsertItem(1,s);
   }
   m_page3->GetWindowText(s);
@@ -178,8 +178,8 @@ TopicPropertiesDlg::UpdateProperties()
 void
 TopicPropertiesDlg::SaveDocument()
 {
-  MainFrame* main = reinterpret_cast<MainFrame*>(theApp.m_pMainWnd);
-  main->SendMessage(WM_COMMAND,ID_FILE_SAVE);
+  MainFrame* _tmain = reinterpret_cast<MainFrame*>(theApp.m_pMainWnd);
+  _tmain->SendMessage(WM_COMMAND,ID_FILE_SAVE);
 }
 
 void

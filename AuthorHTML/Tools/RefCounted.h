@@ -109,7 +109,7 @@ RefCounted::LaatReferentieLos()
 {
   if (m_referenties < 1)
   {
-    TRACE("No reference to let go off\n");
+    TRACE(_T("No reference to let go off\n"));
   }
   m_referenties--;
   if (!m_referenties)

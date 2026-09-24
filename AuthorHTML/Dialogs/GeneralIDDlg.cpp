@@ -20,11 +20,11 @@ GeneralIDDlg::GeneralIDDlg(CWnd* pParent,CString type,HtmlElement* elem)
              :CDialog(GeneralIDDlg::IDD, pParent)
              ,m_elem(elem)
 {
-  m_id        = m_elem->GetAttribute("id");
-  m_className = m_elem->GetAttribute("className");
+  m_id        = m_elem->GetAttribute(_T("id"));
+  m_className = m_elem->GetAttribute(_T("className"));
   CString desc = Misc::GetTagDescription(type);
   type.MakeUpper();
-  m_type = type + " : " + desc;
+  m_type = type + _T(" : ") + desc;
 }
 
 GeneralIDDlg::~GeneralIDDlg()
@@ -53,8 +53,8 @@ END_MESSAGE_MAP()
 void
 GeneralIDDlg::UpdateProperties()
 {
-  m_elem->SetAttribute("id",m_id);
-  m_elem->SetAttribute("className",m_className);
+  m_elem->SetAttribute(_T("id"),m_id);
+  m_elem->SetAttribute(_T("className"),m_className);
 }
 
 bool
@@ -67,12 +67,12 @@ GeneralIDDlg::CheckID()
   }
   else
   {
-    if(isalpha(m_id[0]))
+    if(_istalpha(m_id[0]))
     {
       ret = true;
       for(int n = 1; n < m_id.GetLength(); ++ n)
       {
-        if(m_id[n] != '_' && !isalnum(m_id[n]))
+        if(m_id[n] != _T('_') && !_istalnum(m_id[n]))
         {
           ret = false;
           break;
@@ -82,9 +82,9 @@ GeneralIDDlg::CheckID()
   }
   if(!ret)
   {
-    theApp.MessageBox("Unique ID must be an identifier (alfanumeric characters or '_')\n"
-                      "and must begin with a alphabetic character"
-                      ,"Error"
+    theApp.MessageBox(_T("Unique ID must be an identifier (alfanumeric characters or '_')\n")
+                      _T("and must begin with a alphabetic character")
+                      ,_T("Error")
                       ,MB_OK|MB_TASKMODAL|MB_ICONHAND);
   }
   return ret;

@@ -65,11 +65,11 @@ void CTablePropPage3Dlg::DoDataExchange(CDataExchange* pDX)
 
     if(m_caption.Valid())
     {
-      m_buttonCaption.SetWindowText("Remove &caption");
+      m_buttonCaption.SetWindowText(_T("Remove &caption"));
     }
     else
     {
-      m_buttonCaption.SetWindowText("Make &caption");
+      m_buttonCaption.SetWindowText(_T("Make &caption"));
     }
     m_buttonHasCaption.SetCheck(m_hasCaption);
     CWnd* w = GetDlgItem(IDC_CAPTION_TEXT);
@@ -80,11 +80,11 @@ void CTablePropPage3Dlg::DoDataExchange(CDataExchange* pDX)
     // HEADER
     if(m_header.Valid())
     {
-      m_buttonHeader.SetWindowText("Remove &header");
+      m_buttonHeader.SetWindowText(_T("Remove &header"));
     }
     else
     {
-      m_buttonHeader.SetWindowText("Make &header");
+      m_buttonHeader.SetWindowText(_T("Make &header"));
     }
     m_buttonHasHeader.SetCheck(m_hasHeader);
     m_buttonHeader.EnableWindow(m_table.Valid());
@@ -92,11 +92,11 @@ void CTablePropPage3Dlg::DoDataExchange(CDataExchange* pDX)
     // FOOTER
     if(m_footer.Valid())
     {
-      m_buttonFooter.SetWindowText("Remove &footer");
+      m_buttonFooter.SetWindowText(_T("Remove &footer"));
     }
     else
     {
-      m_buttonFooter.SetWindowText("Make &footer");
+      m_buttonFooter.SetWindowText(_T("Make &footer"));
     }
     m_buttonHasFooter.SetCheck(m_hasFooter);
     m_buttonFooter.EnableWindow(m_table.Valid());
@@ -164,7 +164,7 @@ CTablePropPage3Dlg::FillPage()
     else
     {
       m_hasCaption = false;
-      m_vAlign = "top";
+      m_vAlign = _T("top");
     }
     // HEADER
     m_header = m_table.GetHeader();
@@ -172,11 +172,11 @@ CTablePropPage3Dlg::FillPage()
     {
       m_hasHeader = true;
       int rows = m_header.GetRows();
-      m_hRows.Format("%d",rows);
+      m_hRows.Format(_T("%d"),rows);
     }
     else
     {
-      m_hRows = "1"; // Default
+      m_hRows = _T("1"); // Default
     }
     // FOOTER
     m_footer = m_table.GetFooter();
@@ -184,11 +184,11 @@ CTablePropPage3Dlg::FillPage()
     {
       m_hasFooter = true;
       int rows = m_footer.GetRows();
-      m_fRows.Format("%d",rows);
+      m_fRows.Format(_T("%d"),rows);
     }
     else
     {
-      m_fRows = "1"; // Default
+      m_fRows = _T("1"); // Default
     }
     UpdateData(Data2Controls);
   }
@@ -209,7 +209,7 @@ CTablePropPage3Dlg::UpdateProperties()
 void
 CTablePropPage3Dlg::SetColumns(UINT cols)
 {
-  m_columns.Format("%d",cols);
+  m_columns.Format(_T("%d"),cols);
   if(m_initDone)
   {
     UpdateData(Data2Controls);
@@ -230,19 +230,19 @@ CTablePropPage3Dlg::CreateCaption()
   {
     if(m_hasCaption)
     {
-      CString caption = "<CAPTION";
+      CString caption = _T("<CAPTION");
       if(!m_vAlign.IsEmpty())
       {
-        caption += CString(" valign=\"") + m_vAlign + "\"";
+        caption += CString(_T(" valign=\"")) + m_vAlign + _T("\"");
       }
-      caption += ">";
-      caption += m_text.IsEmpty() ? "Caption for this table" : m_text;
-      caption += "</CAPTION>\n";
+      caption += _T(">");
+      caption += m_text.IsEmpty() ? _T("Caption for this table") : m_text;
+      caption += _T("</CAPTION>\n");
 
       return caption;
     }
   }
-  return "";
+  return _T("");
 }
 
 void 
@@ -274,7 +274,7 @@ CTablePropPage3Dlg::OnBnClickedButtCaption()
 {
   if(m_caption.Valid())
   {
-    if(theApp.MessageBox("Really remove the table caption?","Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    if(theApp.MessageBox(_T("Really remove the table caption?"),_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       m_table.DeleteCaption();
       m_hasCaption = false;
@@ -285,7 +285,7 @@ CTablePropPage3Dlg::OnBnClickedButtCaption()
   {
     if(m_text.IsEmpty())
     {
-      theApp.MessageBox("Fill-in at least a caption text on the sections-tab","Empty caption",MB_OK|MB_ICONHAND);
+      theApp.MessageBox(_T("Fill-in at least a caption text on the sections-tab"),_T("Empty caption"),MB_OK|MB_ICONHAND);
       return;
     }
     m_caption = m_table.GetCaption(true); // Create the caption
@@ -310,21 +310,21 @@ CTablePropPage3Dlg::CreateHeader(UINT cols,CString one_cell)
     if(m_hasHeader)
     {
       // Use "TH" instead of "TD"
-      one_cell.Replace("<TD>","<TH>");
-      one_cell.Replace("</TD>","</TH>");
+      one_cell.Replace(_T("<TD>"),_T("<TH>"));
+      one_cell.Replace(_T("</TD>"),_T("</TH>"));
 
-      CString header = "<THEAD>\n";
-      header += "<TR>";
+      CString header = _T("<THEAD>\n");
+      header += _T("<TR>");
       for(unsigned int ind = 0; ind < cols; ++ind)
       {
         header += one_cell;
       }
-      header += "</TR>\n";
-      header += "</THEAD>\n";
+      header += _T("</TR>\n");
+      header += _T("</THEAD>\n");
       return header;
     }
   }
-  return "";
+  return _T("");
 }
 
 void 
@@ -356,7 +356,7 @@ CTablePropPage3Dlg::OnBnClickedButtHeader()
 
   if(m_header.Valid())
   {
-    if(theApp.MessageBox("Really remove the table header section?","Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    if(theApp.MessageBox(_T("Really remove the table header section?"),_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       int minRows = m_header.GetRows();
       m_table.DeleteHeader();
@@ -371,22 +371,22 @@ CTablePropPage3Dlg::OnBnClickedButtHeader()
         dlg->UpdateRows(-minRows);
         dlg->UpdateColumns(colsNow);
       }
-      m_columns.Format("%d",colsNow);
-      m_hRows = "1";
+      m_columns.Format(_T("%d"),colsNow);
+      m_hRows = _T("1");
     }
   }
   else
   {
-    int cols = atoi(m_columns);
-    int rows = atoi(m_hRows);
+    int cols = _ttoi(m_columns);
+    int rows = _ttoi(m_hRows);
     if(cols <= 0)
     {
-      theApp.MessageBox("Fill-in at least a number of columns for the header on the sections-tab","Empty caption",MB_OK|MB_ICONHAND);
+      theApp.MessageBox(_T("Fill-in at least a number of columns for the header on the sections-tab"),_T("Empty caption"),MB_OK|MB_ICONHAND);
       return;
     }
     if(rows <= 0)
     {
-      theApp.MessageBox("Fill-in at least a number of rows for the header on the sections-tab","Empty caption",MB_OK|MB_ICONHAND);
+      theApp.MessageBox(_T("Fill-in at least a number of rows for the header on the sections-tab"),_T("Empty caption"),MB_OK|MB_ICONHAND);
       return;
     }
     // Create header and its rows
@@ -407,8 +407,8 @@ CTablePropPage3Dlg::OnBnClickedButtHeader()
       dlg->UpdateColumns(colsNow);
     }
     // Recalibrate after action
-    m_hRows  .Format("%d",plusRows);
-    m_columns.Format("%d",colsNow);
+    m_hRows  .Format(_T("%d"),plusRows);
+    m_columns.Format(_T("%d"),colsNow);
   }
   UpdateData(Data2Controls);
 }
@@ -426,18 +426,18 @@ CTablePropPage3Dlg::CreateFooter(UINT cols,CString one_cell)
   {
     if(m_hasHeader)
     {
-      CString header = "<TFOOT>\n";
-      header += "<TR>";
+      CString header = _T("<TFOOT>\n");
+      header += _T("<TR>");
       for(unsigned int ind = 0; ind < cols; ++ind)
       {
         header += one_cell;
       }
-      header += "</TR>\n";
-      header += "</TFOOT>\n";
+      header += _T("</TR>\n");
+      header += _T("</TFOOT>\n");
       return header;
     }
   }
-  return "";
+  return _T("");
 }
 
 void 
@@ -469,7 +469,7 @@ CTablePropPage3Dlg::OnBnClickedButtFooter()
 
   if(m_footer.Valid())
   {
-    if(theApp.MessageBox("Really remove the table footer section?","Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    if(theApp.MessageBox(_T("Really remove the table footer section?"),_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       int minRows = m_footer.GetRows();
       m_table.DeleteFooter();
@@ -484,22 +484,22 @@ CTablePropPage3Dlg::OnBnClickedButtFooter()
         dlg->UpdateRows(-minRows);
         dlg->UpdateColumns(colsNow);
       }
-      m_columns.Format("%d",colsNow);
-      m_hRows = "1";
+      m_columns.Format(_T("%d"),colsNow);
+      m_hRows = _T("1");
     }
   }
   else
   {
-    int cols = atoi(m_columns);
-    int rows = atoi(m_hRows);
+    int cols = _ttoi(m_columns);
+    int rows = _ttoi(m_hRows);
     if(cols <= 0)
     {
-      theApp.MessageBox("Fill-in at least a number of columns for the footer on the sections-tab","Empty caption",MB_OK|MB_ICONHAND);
+      theApp.MessageBox(_T("Fill-in at least a number of columns for the footer on the sections-tab"),_T("Empty caption"),MB_OK|MB_ICONHAND);
       return;
     }
     if(rows <= 0)
     {
-      theApp.MessageBox("Fill-in at least a number of rows for the footer on the sections-tab","Empty caption",MB_OK|MB_ICONHAND);
+      theApp.MessageBox(_T("Fill-in at least a number of rows for the footer on the sections-tab"),_T("Empty caption"),MB_OK|MB_ICONHAND);
       return;
     }
     // Create footer and its rows
@@ -520,8 +520,8 @@ CTablePropPage3Dlg::OnBnClickedButtFooter()
       dlg->UpdateColumns(colsNow);
     }
     // Recalibrate after action
-    m_hRows  .Format("%d",plusRows);
-    m_columns.Format("%d",colsNow);
+    m_hRows  .Format(_T("%d"),plusRows);
+    m_columns.Format(_T("%d"),colsNow);
   }
   UpdateData(Data2Controls);
 }

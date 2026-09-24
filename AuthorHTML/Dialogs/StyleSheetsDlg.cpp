@@ -112,7 +112,7 @@ StyleSheetsDlg::AddArrayToListbox()
     SheetDef def = m_list[n];
     if(def.filename.IsEmpty())
     {
-      m_listBox.AddString("<Internal stylesheet>");
+      m_listBox.AddString(_T("<Internal stylesheet>"));
     }
     else
     {
@@ -249,7 +249,7 @@ StyleSheetsDlg::OnLbnDoubleClickList()
       CString cssfile(def.filename);
       cssfile = Misc::StripFileProtocol(cssfile);
       CString fullpath = cssfile;
-      if(cssfile[1] != ':')
+      if(cssfile[1] != _T(':'))
       {
         // RE-BASE
         base += Misc::DirectoryPart(cssfile);
@@ -261,7 +261,7 @@ StyleSheetsDlg::OnLbnDoubleClickList()
       if(css.SetFile(fullpath,true))
       {
         CString styleText;
-        CString type = "Style sheet in external file: " + cssfile;
+        CString type = _T("Style sheet in external file: ") + cssfile;
         StyleSheetDlg sheet(this,base,type,&css,styleText,false);
         if(sheet.DoModal() == IDOK)
         {
@@ -273,17 +273,17 @@ StyleSheetsDlg::OnLbnDoubleClickList()
       }
       else
       {
-        string logs = css.print_logs();
+        XString logs = css.print_logs();
         theApp.MessageBox(logs.c_str()
-                        ,"Errors in CSS Stylesheet"
+                        ,_T("Errors in CSS Stylesheet")
                         ,MB_OK|MB_ICONSTOP);
       }
     }
     else // link
     {
-      CString type = "Document internal";
+      CString type = _T("Document internal");
       CssStyleSheet css;
-      css.parse_css((string)def.csstext);
+      css.parse_css((XString)def.csstext);
       CString text;
       StyleSheetDlg sheet(this,m_base,type,&css,text,false);
       if(sheet.DoModal() == IDOK)
@@ -291,7 +291,7 @@ StyleSheetsDlg::OnLbnDoubleClickList()
         //CString text = sheet.GetInlineStylesheet(); 
         css.print_css();
         CString text2 = css.GetTheSheet().c_str();
-        text2.TrimLeft("{\n}\n");
+        text2.TrimLeft(_T("{\n}\n"));
         if(def.csstext.CompareNoCase(text2))
         {
           m_list[num].csstext = text2;
@@ -347,18 +347,18 @@ StyleSheetsDlg::OnBnClickedCssEdit()
 void 
 StyleSheetsDlg::OnBnClickedCssNew()
 {
-  CString question = "What type of stylesheet do you want to create?\n"
-                     "An external linked stylesheet (file of type CSS)\n"
-                     "An internal stylesheet in a TAG\n";
-  CString type = theApp.MessageBox(question,"Question","!External_sheet @Internal_sheet");
-  if(type == "external sheet")
+  CString question = _T("What type of stylesheet do you want to create?\n")
+                     _T("An external linked stylesheet (file of type CSS)\n")
+                     _T("An internal stylesheet in a TAG\n");
+  CString type = theApp.MessageBox(question,_T("Question"),_T("!External_sheet @Internal_sheet"));
+  if(type == _T("external sheet"))
   {
     DocFileDialog diag(false
-                      ,"Create a new CSS Stylesheet"
-                      ,"css"
-                      ,""
+                      ,_T("Create a new CSS Stylesheet")
+                      ,_T("css")
+                      ,_T("")
                       ,0
-                      ,"Cascading style sheet (*.css)|*.css|");
+                      ,_T("Cascading style sheet (*.css)|*.css|"));
     if(diag.DoModal() == IDOK)
     {
       CString file = diag.GetChosenFile();
@@ -379,7 +379,7 @@ StyleSheetsDlg::OnBnClickedCssNew()
       m_listBox.SetCurSel(num);
     }
   }
-  if(type == "internal sheet")
+  if(type == _T("internal sheet"))
   {
     SheetDef def;
     def.link = NULL;
@@ -399,11 +399,11 @@ void
 StyleSheetsDlg::OnBnClickedSsAttach()
 {
   DocFileDialog diag(true
-                     ,"Attach an existing CSS Stylesheet"
-                     ,"css"
-                     ,""
+                     ,_T("Attach an existing CSS Stylesheet")
+                     ,_T("css")
+                     ,_T("")
                      ,OFN_FILEMUSTEXIST
-                     ,"Cascading style sheet (*.css)|*.css|");
+                     ,_T("Cascading style sheet (*.css)|*.css|"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -437,9 +437,9 @@ StyleSheetsDlg::OnBnClickedCssDelete()
     m_listBox.GetText(ind,toDelete);
 
     CString ask;
-    ask.Format("Do you really want to delete the link to stylesheet '%s'?",toDelete.GetString());
+    ask.Format(_T("Do you really want to delete the link to stylesheet '%s'?"),toDelete.GetString());
     if(theApp.MessageBox(ask
-                        ,"Question"
+                        ,_T("Question")
                         ,MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       // Remove from list

@@ -32,8 +32,8 @@ static char THIS_FILE[] = __FILE__;
 
 struct _glyph_table
 {
-  char* tag;
-  char* resource;
+  TCHAR* tag;
+  TCHAR* resource;
   int   tag_type;           // 0=opening, 1=closing, 2=both                        1-2
   int   alignment;          // 0=left, 1=center, 2=right, 3=undefined              3
   int   positioning;        // 0=static, 1=absolute, 2=relative, 3=all             3
@@ -46,129 +46,129 @@ typedef struct _glyph_table GLYPHTABLE;
 
 GLYPHTABLE green_glyphs[] = 
 {
-   { "p",     "pbgn.gif",   0, 3, 3, 4, 0,  0  }
-  ,{ "p",     "pend.gif",   1, 3, 3, 4, 20, 15 }
-  ,{ "table", "table.gif",  0, 3, 3, 4, 20, 15 }
-  ,{ "br",    "br.gif",     0, 3, 3, 4, 20, 15 } 
-  ,{ "script","script.gif", 0, 3, 3, 4, 20, 15 }
-  ,{ "!",     "comment.gif",0, 3, 3, 4, 20, 15 }
-  ,{ "style", "style.gif",  0, 3, 3, 4, 20, 15 }
-  ,{ "a",     "anchor.gif", 0, 3, 3, 4, 20, 15 }
-  ,{ "a",     "anchor.gif", 1, 3, 3, 4, 0,  0  }
-  ,{ "h1",    "h1begin.gif",0, 3, 3, 4, 30, 14 }
-  ,{ "h1",    "h1end.gif",  1, 3, 3, 4, 30, 14 }
-  ,{ "h2",    "h2begin.gif",0, 3, 3, 4, 30, 14 }
-  ,{ "h2",    "h2end.gif",  1, 3, 3, 4, 30, 14 }
-  ,{ "h3",    "h3begin.gif",0, 3, 3, 4, 30, 14 }
-  ,{ "h3",    "h3end.gif",  1, 3, 3, 4, 30, 14 }
-  ,{ "span",  "spanbgn.gif",0, 3, 3, 4, 43, 14 } 
-  ,{ "span",  "spanend.gif",1, 3, 3, 4, 43, 14 }
+   { _T("p"),     _T("pbgn.gif"),   0, 3, 3, 4, 0,  0  }
+  ,{ _T("p"),     _T("pend.gif"),   1, 3, 3, 4, 20, 15 }
+  ,{ _T("table"), _T("table.gif"),  0, 3, 3, 4, 20, 15 }
+  ,{ _T("br"),    _T("br.gif"),     0, 3, 3, 4, 20, 15 } 
+  ,{ _T("script"),_T("script.gif"), 0, 3, 3, 4, 20, 15 }
+  ,{ _T("!"),     _T("comment.gif"),0, 3, 3, 4, 20, 15 }
+  ,{ _T("style"), _T("style.gif"),  0, 3, 3, 4, 20, 15 }
+  ,{ _T("a"),     _T("anchor.gif"), 0, 3, 3, 4, 20, 15 }
+  ,{ _T("a"),     _T("anchor.gif"), 1, 3, 3, 4, 0,  0  }
+  ,{ _T("h1"),    _T("h1begin.gif"),0, 3, 3, 4, 30, 14 }
+  ,{ _T("h1"),    _T("h1end.gif"),  1, 3, 3, 4, 30, 14 }
+  ,{ _T("h2"),    _T("h2begin.gif"),0, 3, 3, 4, 30, 14 }
+  ,{ _T("h2"),    _T("h2end.gif"),  1, 3, 3, 4, 30, 14 }
+  ,{ _T("h3"),    _T("h3begin.gif"),0, 3, 3, 4, 30, 14 }
+  ,{ _T("h3"),    _T("h3end.gif"),  1, 3, 3, 4, 30, 14 }
+  ,{ _T("span"),  _T("spanbgn.gif"),0, 3, 3, 4, 43, 14 } 
+  ,{ _T("span"),  _T("spanend.gif"),1, 3, 3, 4, 43, 14 }
   ,{ NULL,    NULL,         0, 0, 0, 0, 0,  0  }
 };
 
 GLYPHTABLE yellow_glyphs[] = 
 {
-  { "abbr",      "abbr.gif",   2, 3, 3, 4, 34, 16 }
- ,{ "acronym",   "acr.gif",    2, 3, 3, 4, 56, 16 }
- ,{ "address",   "adr.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "a",         "anchor.gif", 2, 3, 3, 4, 19, 16 }
- ,{ "applet",    "applet.gif", 2, 3, 3, 4, 46, 16 }
- ,{ "area",      "area.gif",   0, 3, 3, 4, 38, 16 } 
- ,{ "b",         "b.gif",      2, 3, 3, 4, 19, 16 }
- ,{ "strong",    "b.gif",      2, 3, 3, 4, 19, 16 }
- ,{ "base",      "base.gif",   2, 3, 3, 4, 16, 36 }
- ,{ "bdo",       "bdo.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "big",       "big.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "blockquote","blq.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "body",      "body.gif",   2, 3, 3, 4, 16, 36 }
- ,{ "br",        "br.gif",     0, 3, 3, 4, 22, 16 }
- ,{ "basefont",  "bsf.gif",    2, 3, 3, 4, 56, 16 }
- ,{ "button",    "btn.gif",    2, 3, 3, 4, 50, 16 }
- ,{ "cite",      "cit.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "colgroup",  "clg.gif",    2, 3, 3, 4, 50, 16 }
- ,{ "code",      "cod.gif",    2, 3, 3, 4, 38, 16 }   // Code
- ,{ "col",       "col.gif",    2, 3, 3, 4, 30, 16 }   // Columnar data
- ,{ "comment",   "com.gif",    0, 3, 3, 4, 19, 16 }   // Comment
- ,{ "caption",   "cpt.gif",    0, 3, 3, 4, 54, 16 }
- ,{ "caption",   "cpt.gif",    1, 3, 3, 4, 54, 16 }
- ,{ "center",    "ctr.gif",    2, 3, 3, 4, 16, 44 }   // Centered text
- ,{ "dd",        "dd.gif",     0, 3, 3, 4, 22, 16 }
- ,{ "dd",        "dd.gif",     2, 3, 3, 4, 0,  0  }   // Definition data
- ,{ "del",       "del.gif",    2, 3, 3, 4, 30, 16 }   // Deleted text
- ,{ "dir",       "dir.gif",    2, 3, 3, 4, 30, 16 }   // Directory of files
- ,{ "div",       "div.gif",    2, 3, 3, 4, 16, 24 }   // Division of running text
- ,{ "div",       "div.gif",    0, 3, 1, 4, 16, 24 }   // Division (abs/relative)
- ,{ "dl",        "dl.gif",     2, 3, 3, 4, 16, 20 }   // Definition list
- ,{ "dt",        "dt.gif",     2, 3, 3, 4, 22, 16 }   // Definition term
- ,{ "em",        "em.gif",     2, 3, 3, 4, 22, 16 }   // Emphasis = Italic
- ,{ "fieldset",  "fld.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "font",      "font.gif",   2, 3, 3, 4, 38, 16 }
- ,{ "form",      "form.gif",   2, 3, 3, 4, 16, 36 }
- ,{ "frame",     "frm.gif",    2, 3, 3, 4, 16, 40 }
- ,{ "frameset",  "fst.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "h1",        "h1.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "h2",        "h2.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "h3",        "h3.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "h4",        "h4.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "h5",        "h5.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "h6",        "h6.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "head",      "head.gif",   2, 3, 3, 4, 16, 36 } 
- ,{ "hr",        "hr.gif",     2, 3, 3, 4, 16, 20 }
- ,{ "html",      "html.gif",   2, 3, 3, 4, 16, 38 }
- ,{ "i",         "i.gif",      2, 3, 3, 4, 19, 16 }   // Alsoo italic = see EM
- ,{ "iframe",    "ifr.gif",    2, 3, 3, 4, 46, 16 }
- ,{ "img",       "img.gif",    0, 3, 3, 4, 30, 16 }
- ,{ "img",       "img.gif",    1, 3, 3, 4, 0,  0  }
- ,{ "input",     "inp.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "ins",       "ins.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "isindex",   "isx.gif",    2, 3, 3, 4, 16, 40 }
- ,{ "kbd",       "kbd.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "label",     "lbl.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "legend",    "lgn.gif",    2, 3, 3, 4, 48, 16 }
- ,{ "li",        "li.gif",     2, 3, 3, 4, 22, 16 }   // Lines in ordered/unorderd lists
- ,{ "link",      "lnk.gif",    2, 3, 3, 4, 16, 30 }   // External link (stylesheet)
- ,{ "listing",   "lst.gif",    2, 3, 3, 4, 50, 16 }
- ,{ "map",       "map.gif",    2, 3, 3, 4, 30, 16 } 
- ,{ "marquee",   "marq.gif",   0, 3, 3, 4, 56, 16 }
- ,{ "menu",      "men.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "meta",      "met.gif",    2, 3, 3, 4, 16, 36 }
- ,{ "nobr",      "nbr.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "noframes",  "nfr.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "noscript",  "nsr.gif",    2, 3, 3, 4, 16, 44 }
- ,{ "object",    "obj.gif",    2, 3, 3, 4, 48, 16 }
- ,{ "ol",        "ol.gif",     2, 3, 3, 4, 16, 36 }
- ,{ "optgroup",  "opg.gif",    2, 3, 3, 4, 50, 16 }
- ,{ "option",    "opt.gif",    2, 3, 3, 4, 46, 16 }
- ,{ "p",         "p.gif",      0, 3, 3, 4, 16, 20 }
- ,{ "p" ,        "pi.gif",     1, 3, 3, 4, 16, 13 }
- ,{ "pre",       "pre.gif",    2, 3, 3, 4, 16, 24 }
- ,{ "param",     "prm.gif",    2, 3, 3, 4, 42, 16 }
- ,{ "q",         "q.gif",      2, 3, 3, 4, 19, 16 }
- ,{ "s",         "s.gif",      2, 3, 3, 4, 19, 16 }   // Strikethrough
- ,{ "script",    "scr.gif",    0, 3, 3, 4, 44, 16 }
- ,{ "select",    "slc.gif",    2, 3, 3, 4 ,46, 16 }
- ,{ "small",     "sml.gif",    2, 3, 3, 4, 40, 16 }
- ,{ "samp",      "smp.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "span",      "spn.gif",    2, 3, 3, 4, 38, 16 }
- ,{ "strike",    "stk.gif",    2, 3, 3, 4, 44, 16 }
- ,{ "style",     "stl.gif",    2, 3, 3, 4, 16, 40 } 
- ,{ "sub",       "sub.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "sup",       "sup.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "tbody",     "tbd.gif",    2, 3, 3, 4, 16, 42 }
- ,{ "table",     "tbl.gif",    2, 3, 3, 4, 16, 40 }
- ,{ "td",        "td.gif",     2, 3, 3, 4, 16, 22 } 
- ,{ "tfoot",     "tft.gif",    2, 3, 3, 4, 16, 42 } 
- ,{ "th",        "th.gif",     2, 3, 3, 4, 16, 22 }   // Table header cell
- ,{ "thead",     "thd.gif",    2, 3, 3, 4, 16, 42 }
- ,{ "tr",        "tr.gif",     2, 3, 3, 4, 16, 22 }
- ,{ "tt",        "tt.gif",     2, 3, 3, 4, 22, 16 }   // Typewriter text
- ,{ "title",     "ttl.gif",    2, 3, 3, 4, 16, 40 }
- ,{ "textarea",  "txt.gif",    2, 3, 3, 4, 58, 16 }
- ,{ "u",         "u.gif",      2, 3, 3, 4, 19, 16 }   // Underlined
- ,{ "ul",        "ul.gif",     2, 3, 3, 4, 16, 36 }
- ,{ "var",       "var.gif",    2, 3, 3, 4, 30, 16 }
- ,{ "wbr",       "wbr.gif",    0, 3, 3, 4, 16, 13 }
- ,{ "xmp",       "xmp.gif",    2, 3, 3, 4, 30, 16 }
+  { _T("abbr"),      _T("abbr.gif"),   2, 3, 3, 4, 34, 16 }
+ ,{ _T("acronym"),   _T("acr.gif"),    2, 3, 3, 4, 56, 16 }
+ ,{ _T("address"),   _T("adr.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("a"),         _T("anchor.gif"), 2, 3, 3, 4, 19, 16 }
+ ,{ _T("applet"),    _T("applet.gif"), 2, 3, 3, 4, 46, 16 }
+ ,{ _T("area"),      _T("area.gif"),   0, 3, 3, 4, 38, 16 } 
+ ,{ _T("b"),         _T("b.gif"),      2, 3, 3, 4, 19, 16 }
+ ,{ _T("strong"),    _T("b.gif"),      2, 3, 3, 4, 19, 16 }
+ ,{ _T("base"),      _T("base.gif"),   2, 3, 3, 4, 16, 36 }
+ ,{ _T("bdo"),       _T("bdo.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("big"),       _T("big.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("blockquote"),_T("blq.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("body"),      _T("body.gif"),   2, 3, 3, 4, 16, 36 }
+ ,{ _T("br"),        _T("br.gif"),     0, 3, 3, 4, 22, 16 }
+ ,{ _T("basefont"),  _T("bsf.gif"),    2, 3, 3, 4, 56, 16 }
+ ,{ _T("button"),    _T("btn.gif"),    2, 3, 3, 4, 50, 16 }
+ ,{ _T("cite"),      _T("cit.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("colgroup"),  _T("clg.gif"),    2, 3, 3, 4, 50, 16 }
+ ,{ _T("code"),      _T("cod.gif"),    2, 3, 3, 4, 38, 16 }   // Code
+ ,{ _T("col"),       _T("col.gif"),    2, 3, 3, 4, 30, 16 }   // Columnar data
+ ,{ _T("comment"),   _T("com.gif"),    0, 3, 3, 4, 19, 16 }   // Comment
+ ,{ _T("caption"),   _T("cpt.gif"),    0, 3, 3, 4, 54, 16 }
+ ,{ _T("caption"),   _T("cpt.gif"),    1, 3, 3, 4, 54, 16 }
+ ,{ _T("center"),    _T("ctr.gif"),    2, 3, 3, 4, 16, 44 }   // Centered text
+ ,{ _T("dd"),        _T("dd.gif"),     0, 3, 3, 4, 22, 16 }
+ ,{ _T("dd"),        _T("dd.gif"),     2, 3, 3, 4, 0,  0  }   // Definition data
+ ,{ _T("del"),       _T("del.gif"),    2, 3, 3, 4, 30, 16 }   // Deleted text
+ ,{ _T("dir"),       _T("dir.gif"),    2, 3, 3, 4, 30, 16 }   // Directory of files
+ ,{ _T("div"),       _T("div.gif"),    2, 3, 3, 4, 16, 24 }   // Division of running text
+ ,{ _T("div"),       _T("div.gif"),    0, 3, 1, 4, 16, 24 }   // Division (abs/relative)
+ ,{ _T("dl"),        _T("dl.gif"),     2, 3, 3, 4, 16, 20 }   // Definition list
+ ,{ _T("dt"),        _T("dt.gif"),     2, 3, 3, 4, 22, 16 }   // Definition term
+ ,{ _T("em"),        _T("em.gif"),     2, 3, 3, 4, 22, 16 }   // Emphasis = Italic
+ ,{ _T("fieldset"),  _T("fld.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("font"),      _T("font.gif"),   2, 3, 3, 4, 38, 16 }
+ ,{ _T("form"),      _T("form.gif"),   2, 3, 3, 4, 16, 36 }
+ ,{ _T("frame"),     _T("frm.gif"),    2, 3, 3, 4, 16, 40 }
+ ,{ _T("frameset"),  _T("fst.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("h1"),        _T("h1.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("h2"),        _T("h2.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("h3"),        _T("h3.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("h4"),        _T("h4.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("h5"),        _T("h5.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("h6"),        _T("h6.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("head"),      _T("head.gif"),   2, 3, 3, 4, 16, 36 } 
+ ,{ _T("hr"),        _T("hr.gif"),     2, 3, 3, 4, 16, 20 }
+ ,{ _T("html"),      _T("html.gif"),   2, 3, 3, 4, 16, 38 }
+ ,{ _T("i"),         _T("i.gif"),      2, 3, 3, 4, 19, 16 }   // Alsoo italic = see EM
+ ,{ _T("iframe"),    _T("ifr.gif"),    2, 3, 3, 4, 46, 16 }
+ ,{ _T("img"),       _T("img.gif"),    0, 3, 3, 4, 30, 16 }
+ ,{ _T("img"),       _T("img.gif"),    1, 3, 3, 4, 0,  0  }
+ ,{ _T("input"),     _T("inp.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("ins"),       _T("ins.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("isindex"),   _T("isx.gif"),    2, 3, 3, 4, 16, 40 }
+ ,{ _T("kbd"),       _T("kbd.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("label"),     _T("lbl.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("legend"),    _T("lgn.gif"),    2, 3, 3, 4, 48, 16 }
+ ,{ _T("li"),        _T("li.gif"),     2, 3, 3, 4, 22, 16 }   // Lines in ordered/unorderd lists
+ ,{ _T("link"),      _T("lnk.gif"),    2, 3, 3, 4, 16, 30 }   // External link (stylesheet)
+ ,{ _T("listing"),   _T("lst.gif"),    2, 3, 3, 4, 50, 16 }
+ ,{ _T("map"),       _T("map.gif"),    2, 3, 3, 4, 30, 16 } 
+ ,{ _T("marquee"),   _T("marq.gif"),   0, 3, 3, 4, 56, 16 }
+ ,{ _T("menu"),      _T("men.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("meta"),      _T("met.gif"),    2, 3, 3, 4, 16, 36 }
+ ,{ _T("nobr"),      _T("nbr.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("noframes"),  _T("nfr.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("noscript"),  _T("nsr.gif"),    2, 3, 3, 4, 16, 44 }
+ ,{ _T("object"),    _T("obj.gif"),    2, 3, 3, 4, 48, 16 }
+ ,{ _T("ol"),        _T("ol.gif"),     2, 3, 3, 4, 16, 36 }
+ ,{ _T("optgroup"),  _T("opg.gif"),    2, 3, 3, 4, 50, 16 }
+ ,{ _T("option"),    _T("opt.gif"),    2, 3, 3, 4, 46, 16 }
+ ,{ _T("p"),         _T("p.gif"),      0, 3, 3, 4, 16, 20 }
+ ,{ _T("p") ,        _T("pi.gif"),     1, 3, 3, 4, 16, 13 }
+ ,{ _T("pre"),       _T("pre.gif"),    2, 3, 3, 4, 16, 24 }
+ ,{ _T("param"),     _T("prm.gif"),    2, 3, 3, 4, 42, 16 }
+ ,{ _T("q"),         _T("q.gif"),      2, 3, 3, 4, 19, 16 }
+ ,{ _T("s"),         _T("s.gif"),      2, 3, 3, 4, 19, 16 }   // Strikethrough
+ ,{ _T("script"),    _T("scr.gif"),    0, 3, 3, 4, 44, 16 }
+ ,{ _T("select"),    _T("slc.gif"),    2, 3, 3, 4 ,46, 16 }
+ ,{ _T("small"),     _T("sml.gif"),    2, 3, 3, 4, 40, 16 }
+ ,{ _T("samp"),      _T("smp.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("span"),      _T("spn.gif"),    2, 3, 3, 4, 38, 16 }
+ ,{ _T("strike"),    _T("stk.gif"),    2, 3, 3, 4, 44, 16 }
+ ,{ _T("style"),     _T("stl.gif"),    2, 3, 3, 4, 16, 40 } 
+ ,{ _T("sub"),       _T("sub.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("sup"),       _T("sup.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("tbody"),     _T("tbd.gif"),    2, 3, 3, 4, 16, 42 }
+ ,{ _T("table"),     _T("tbl.gif"),    2, 3, 3, 4, 16, 40 }
+ ,{ _T("td"),        _T("td.gif"),     2, 3, 3, 4, 16, 22 } 
+ ,{ _T("tfoot"),     _T("tft.gif"),    2, 3, 3, 4, 16, 42 } 
+ ,{ _T("th"),        _T("th.gif"),     2, 3, 3, 4, 16, 22 }   // Table header cell
+ ,{ _T("thead"),     _T("thd.gif"),    2, 3, 3, 4, 16, 42 }
+ ,{ _T("tr"),        _T("tr.gif"),     2, 3, 3, 4, 16, 22 }
+ ,{ _T("tt"),        _T("tt.gif"),     2, 3, 3, 4, 22, 16 }   // Typewriter text
+ ,{ _T("title"),     _T("ttl.gif"),    2, 3, 3, 4, 16, 40 }
+ ,{ _T("textarea"),  _T("txt.gif"),    2, 3, 3, 4, 58, 16 }
+ ,{ _T("u"),         _T("u.gif"),      2, 3, 3, 4, 19, 16 }   // Underlined
+ ,{ _T("ul"),        _T("ul.gif"),     2, 3, 3, 4, 16, 36 }
+ ,{ _T("var"),       _T("var.gif"),    2, 3, 3, 4, 30, 16 }
+ ,{ _T("wbr"),       _T("wbr.gif"),    0, 3, 3, 4, 16, 13 }
+ ,{ _T("xmp"),       _T("xmp.gif"),    2, 3, 3, 4, 30, 16 }
  ,{ NULL,        NULL,         0, 0, 0, 0, 0,  0  }
 };
 
@@ -193,16 +193,16 @@ CHTMLEdView::LoadGlyphs(int  type
   {
     default:
     case 0: table = green_glyphs;  
-            giftype = "g_";
+            giftype = _T("g_");
             break;
     case 1: table = yellow_glyphs; 
-            giftype = "y_";
+            giftype = _T("y_");
             break;
   }
   for(int ind=0; table[ind].tag; ++ind)
   {
     bool addToTable = false;
-    if(strcmp(table[ind].tag,"p") == 0 && table[ind].tag_type == 1)
+    if(_tcscmp(table[ind].tag,_T("p")) == 0 && table[ind].tag_type == 1)
     {
       // Closing of a paragraph is the "pi" sign
       if(tags || paragraph)
@@ -223,7 +223,7 @@ CHTMLEdView::LoadGlyphs(int  type
         width  = 0;
         height = 0;
       }
-      part.Format("%%%%%s^^%%%%" GLYPH_SEES_EXE "%s%s^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^**"
+      part.Format(_T("%%%%%s^^%%%%") GLYPH_SEES_EXE _T("%s%s^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^%%%%%d^^**")
                   ,table[ind].tag
                   ,giftype.GetString()
                   ,table[ind].resource
@@ -315,7 +315,7 @@ CHTMLEdView::IMGBehaviorSetMap(IMGControlSite* site,CString cmap)
 {
   USES_CONVERSION;
 
-  if(cmap.GetLength() > 1 && cmap.GetAt(0) == '#')
+  if(cmap.GetLength() > 1 && cmap.GetAt(0) == _T('#'))
   {
     cmap = cmap.Mid(1);
   }
@@ -385,7 +385,7 @@ CHTMLEdView::IMGBehaviorSetMap(IMGControlSite* site,CString cmap)
                   V_VT(&varHREF) = VT_BSTR;
 
                   pElement->get_id(&aID);
-                  pElement->getAttribute(CT2CW("href"),2,&varHREF);
+                  pElement->getAttribute(L"href",2,&varHREF);
                   pArea->get_coords(&aCoords);
                   pArea->get_shape(&aShape);
 
@@ -395,18 +395,18 @@ CHTMLEdView::IMGBehaviorSetMap(IMGControlSite* site,CString cmap)
                   CString asHref   = CW2CT(V_BSTR(&varHREF));
                   AreaShape areaShape = AREA_INVALID;
   
-                  if(asShape.CompareNoCase("circ")   == 0 ||
-                     asShape.CompareNoCase("circle") == 0)
+                  if(asShape.CompareNoCase(_T("circ"))   == 0 ||
+                     asShape.CompareNoCase(_T("circle")) == 0)
                   {
                     areaShape = AREA_CIRCLE;
                   }
-                  if(asShape.CompareNoCase("poly")    == 0 ||
-                     asShape.CompareNoCase("polygon") == 0)
+                  if(asShape.CompareNoCase(_T("poly"))    == 0 ||
+                     asShape.CompareNoCase(_T("polygon")) == 0)
                   {
                     areaShape = AREA_POLYGON;
                   }
-                  if(asShape.CompareNoCase("rect")      == 0 ||
-                     asShape.CompareNoCase("rectangle") == 0)
+                  if(asShape.CompareNoCase(_T("rect"))      == 0 ||
+                     asShape.CompareNoCase(_T("rectangle")) == 0)
                   {
                     areaShape = AREA_RECTANGLE;
                   }
@@ -444,21 +444,21 @@ void
 CHTMLEdView::OnInsertAreaRectangle()
 {
   m_designer.SetNewShape(AREA_RECTANGLE);
-  AreaMessage("rectangle","upper-left","click on the lower left of the rectangle");
+  AreaMessage(_T("rectangle"),_T("upper-left"),_T("click on the lower left of the rectangle"));
 }
 
 void
 CHTMLEdView::OnInsertAreaCircle()
 {
   m_designer.SetNewShape(AREA_CIRCLE);
-  AreaMessage("circle","center","click on the outer edge of the circle");
+  AreaMessage(_T("circle"),_T("center"),_T("click on the outer edge of the circle"));
 }
 
 void
 CHTMLEdView::OnInsertAreaPolygon()
 {
   m_designer.SetNewShape(AREA_POLYGON);
-  AreaMessage("polygon","first-point","click on all other polygon points,\nand end by clicking on the beginning point");
+  AreaMessage(_T("polygon"),_T("first-point"),_T("click on all other polygon points,\nand end by clicking on the beginning point"));
 }
 
 void
@@ -466,13 +466,13 @@ CHTMLEdView::AreaMessage(CString type,CString start,CString next)
 {
 
   CString mess;
-  mess.Format("Create a new %s area on an image by painting it with the mouse\n"
-              "Move the mouse to the %s of the area and left-click on the mouse\n"
-              "After that, you must %s."
+  mess.Format(_T("Create a new %s area on an image by painting it with the mouse\n")
+              _T("Move the mouse to the %s of the area and left-click on the mouse\n")
+              _T("After that, you must %s.")
              ,type .GetString()
              ,start.GetString()
              ,next .GetString());
-  theApp.MessageBox(mess,"Drawing the area","ok");
+  theApp.MessageBox(mess,_T("Drawing the area"),_T("ok"));
 }
 
 void
@@ -483,7 +483,7 @@ CHTMLEdView::OnRemoveArea(CComPtr<IHTMLElement> pElement)
   CString coords = area.GetProperty(HtmlArea::E_Coords);
   CString href   = area.GetProperty(HtmlArea::E_Href);
   CString shape  = area.GetProperty(HtmlArea::E_Shape);
-  CString id     = area.GetAttribute("id");
+  CString id     = area.GetAttribute(_T("id"));
 
   CComPtr<IDispatch> disp;
   pElement->get_document(&disp);
@@ -496,20 +496,20 @@ CHTMLEdView::OnRemoveArea(CComPtr<IHTMLElement> pElement)
     if(imgarea)
     {
       shape.MakeLower();
-      if(shape == "rect") shape = "rectangle";
-      if(shape == "poly") shape = "polygon";
-      if(title.IsEmpty()) title = "(No title)";
+      if(shape == _T("rect")) shape = _T("rectangle");
+      if(shape == _T("poly")) shape = _T("polygon");
+      if(title.IsEmpty()) title = _T("(No title)");
 
       CString mess;
-      mess.Format("Do you want to remove the %s area titled \"%s\"\n"
-                  "with a reference to: \"%s\"\n"
-                  "and coordinates: %s ??\n\n"
-                  "(NOTICE: Removal of the last area will try to remove the MAP)\n"
+      mess.Format(_T("Do you want to remove the %s area titled \"%s\"\n")
+                  _T("with a reference to: \"%s\"\n")
+                  _T("and coordinates: %s ??\n\n")
+                  _T("(NOTICE: Removal of the last area will try to remove the MAP)\n")
                  ,shape .GetString()
                  ,title .GetString()
                  ,href  .GetString()
                  ,coords.GetString());
-      if(theApp.MessageBox(mess,"Remove area?","?yes no") == "yes")
+      if(theApp.MessageBox(mess,_T("Remove area?"),_T("?yes no")) == _T("yes"))
       {
         // Now really remove the area
         if(behavior->RemoveArea(id))
@@ -538,9 +538,9 @@ CHTMLEdView::OnRemoveArea(CComPtr<IHTMLElement> pElement)
   
                 if(mapRemoved && success == VARIANT_TRUE)
                 {
-                  theApp.MessageBox("Removed the last area from this image.\n"
-                                    "Also removed the total area MAP!!"
-                                   ,"Last map",MB_OK);
+                  theApp.MessageBox(_T("Removed the last area from this image.\n")
+                                    _T("Also removed the total area MAP!!")
+                                   ,_T("Last map"),MB_OK);
                 }
               }
             }

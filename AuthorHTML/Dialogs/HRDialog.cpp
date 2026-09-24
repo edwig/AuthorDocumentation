@@ -59,15 +59,15 @@ void HRDialog::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_hr.HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_hr.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_hr.HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_hr.HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_hr.HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_hr.HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     // Align
@@ -133,10 +133,10 @@ HRDialog::ReadProperties()
   CString size  = m_hr.GetProperty(HtmlHR::E_Size);
   CString width = m_hr.GetProperty(HtmlHR::E_Width);
 
-  size    = CssConvertToUnit(size, "px",m_sunits);
-  width   = CssConvertToUnit(width,"px",m_wunits);
-  m_size  = atof(size);
-  m_width = atof(width);
+  size    = CssConvertToUnit(size, _T("px"),m_sunits);
+  width   = CssConvertToUnit(width,_T("px"),m_wunits);
+  m_size  = _ttof(size);
+  m_width = _ttof(width);
 
   m_shade = m_hr.GetShade();
   m_align = m_hr.GetProperty(HtmlHR::E_Align);
@@ -165,15 +165,15 @@ HRDialog::UpdateProperties()
   // SIZE
   if(m_size > 0)
   {
-    s_size.Format("%f",m_size);
-    s_size = CssConvertToUnit(s_size + "px",m_sunits,pixels) + m_sunits;
+    s_size.Format(_T("%f"),m_size);
+    s_size = CssConvertToUnit(s_size + _T("px"),m_sunits,pixels) + m_sunits;
   }
   m_hr.SetProperty(HtmlHR::E_Size, s_size);
   // WIDTH
   if(m_width > 0)
   {
-    s_width.Format("%f",m_width);
-    s_width = CssConvertToUnit(s_width + "px",m_sunits,pixels) + m_sunits;
+    s_width.Format(_T("%f"),m_width);
+    s_width = CssConvertToUnit(s_width + _T("px"),m_sunits,pixels) + m_sunits;
   }
   m_hr.SetProperty(HtmlHR::E_Width,s_width);
   // ALIGN
@@ -187,12 +187,12 @@ HRDialog::UpdateProperties()
     if(!m_color.IsEmpty())
     {
       Misc::DecodeColor(m_color,red,green,blue);
-      m_color.Format("#%02x%02x%02x",red,green,blue);
+      m_color.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_color = "";
+    m_color = _T("");
   }
   m_hr.SetProperty(HtmlHR::E_Color,m_color);
 }
@@ -235,7 +235,7 @@ HRDialog::OnBnClickedHrcolor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_color.Format("#%02x%02x%02x",red,green,blue);
+  m_color.Format(_T("#%02x%02x%02x"),red,green,blue);
   m_canApply = true;
 }
 
@@ -255,7 +255,7 @@ HRDialog::OnCbnSelchangeFormatwidth()
   if(ind >= 0)
   {
     m_formatCtrl.GetLBText(ind,units);
-    m_widthInPix = (units == "Pixels") ? true : false;
+    m_widthInPix = (units == _T("Pixels")) ? true : false;
     m_canApply = true;
     UpdateData(Data2Controls);
   }
@@ -277,14 +277,14 @@ void
 HRDialog::OnBnClickedHrId()
 {
   HtmlElement* elem = (HtmlElement*)(&m_hr);
-  GeneralIDDlg dlg(this,"hr",elem);
+  GeneralIDDlg dlg(this,_T("hr"),elem);
   dlg.DoModal();
 }
 
 void 
 HRDialog::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,&m_hr,"hr");
+  TagEventsDlg dlg(this,&m_hr,_T("hr"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -298,13 +298,13 @@ HRDialog::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_hr.GetInlineStyle();
-  style = CString("hr { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"hr",NULL,style);
+  style = CString(_T("hr { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("hr"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("hr {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("hr {"));
     m_hr.SetInlineStyle(style);
     ReadProperties();
     m_canApply = true;
@@ -318,8 +318,8 @@ HRDialog::OnBnClickedCancel()
   if(m_canApply)
   {
     CString msg;
-    msg.Format("Changes where made to the %s tag. Would you like to cancel your changes?","HR");
-    if(theApp.MessageBox(msg,"Warning",MB_YESNO|MB_ICONQUESTION) == IDNO)
+    msg.Format(_T("Changes where made to the %s tag. Would you like to cancel your changes?"),_T("HR"));
+    if(theApp.MessageBox(msg,_T("Warning"),MB_YESNO|MB_ICONQUESTION) == IDNO)
     {
       return;
     }
@@ -333,10 +333,10 @@ HRDialog::OnEnChangeHrsize()
   CString size;
   CWnd* w = GetDlgItem(IDC_HRSIZE);
   w->GetWindowText(size);
-  if(m_size != (unsigned)atoi(size))
+  if(m_size != (unsigned)_ttoi(size))
   {
     m_canApply = true;
-    m_size     = atoi(size);
+    m_size     = _ttoi(size);
     UpdateData(Data2Controls);
   }
 }
@@ -347,10 +347,10 @@ HRDialog::OnEnChangeHrwidth()
   CString width;
   CWnd* w = GetDlgItem(IDC_HRWIDTH);
   w->GetWindowText(width);
-  if(m_width != (unsigned)atoi(width))
+  if(m_width != (unsigned)_ttoi(width))
   {
     m_canApply = true;
-    m_width    = atoi(width);
+    m_width    = _ttoi(width);
     UpdateData(Data2Controls);
   }
 }

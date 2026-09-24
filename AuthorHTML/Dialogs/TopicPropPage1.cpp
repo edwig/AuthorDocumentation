@@ -94,9 +94,9 @@ TopicPropPage1Dlg::OnInitDialog()
   CString status;
   switch(m_status)
   {
-    case STATUS_PROGRESS: status = "Progress"; break;
-    case STATUS_REVIEW:   status = "Review";   break;
-    case STATUS_READY:    status = "Ready";    break;
+    case STATUS_PROGRESS: status = _T("Progress"); break;
+    case STATUS_REVIEW:   status = _T("Review");   break;
+    case STATUS_READY:    status = _T("Ready");    break;
   }
   int num = m_comboStatus.FindString(-1,status);
   if(num >= 0)
@@ -108,9 +108,9 @@ TopicPropPage1Dlg::OnInitDialog()
   CString prio;
   switch(m_priority)
   {
-    case PRIO_HIGH:   prio = "High";   break;
-    case PRIO_MEDIUM: prio = "Medium"; break;
-    case PRIO_LOW:    prio = "Low";    break;
+    case PRIO_HIGH:   prio = _T("High");   break;
+    case PRIO_MEDIUM: prio = _T("Medium"); break;
+    case PRIO_LOW:    prio = _T("Low");    break;
   }
   num = m_comboPriority.FindString(-1,prio);
   if(num >= 0)
@@ -143,7 +143,7 @@ TopicPropPage1Dlg::UpdateDocumentFile()
   m_document->SetPriority(m_priority);
   m_document->SetToDo(m_todo);
   m_document->SetTimeSpent(m_timeSpent);
-  m_document->SetCompatible(m_uaCompatible ? "IE=Edge" : "");
+  m_document->SetCompatible(m_uaCompatible ? _T("IE=Edge") : _T(""));
 
   // Now synchronize
   m_document->SetOnDocument(m_htmlDoc);
@@ -158,20 +158,20 @@ TopicPropPage1Dlg::RenameBaseFile()
   if(m_fileName.CompareNoCase(oldFilename) != 0)
   {
     CString message;
-    message.Format("Would you like to change the filename of this topic?\n"
-                   "From: %s\n"
-                   "To: %s\n"
-                   "\n"
-                   "This action also will close and reopen the topic in the current view!"
+    message.Format(_T("Would you like to change the filename of this topic?\n")
+                   _T("From: %s\n")
+                   _T("To: %s\n")
+                   _T("\n")
+                   _T("This action also will close and reopen the topic in the current view!")
                    ,oldFilename.GetString()
                    ,m_fileName.GetString());
-    if(theApp.MessageBox(message,"Changing filename",MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION) == IDYES)
+    if(theApp.MessageBox(message,_T("Changing filename"),MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION) == IDYES)
     {
       // Really changing the filename
       CWaitCursor takeAdeepSigh;
 
-      MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-      renamed = main->RenameFile(oldFilename,m_fileName);
+      MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+      renamed = _tmain->RenameFile(oldFilename,m_fileName);
     }
     else
     {
@@ -202,9 +202,9 @@ void TopicPropPage1Dlg::OnCbnSelchangeTopicStatus()
   CString status;
   int num = m_comboStatus.GetCurSel();
   m_comboStatus.GetLBText(num,status);
-       if(status == "Progress") m_status = STATUS_PROGRESS;
-  else if(status == "Review")   m_status = STATUS_REVIEW;
-  else if(status == "Ready")    m_status = STATUS_READY;
+       if(status == _T("Progress")) m_status = STATUS_PROGRESS;
+  else if(status == _T("Review"))   m_status = STATUS_REVIEW;
+  else if(status == _T("Ready"))    m_status = STATUS_READY;
   else m_status = 0;
 }
 
@@ -213,9 +213,9 @@ void TopicPropPage1Dlg::OnCbnSelchangeTopicPriority()
   CString prio;
   int num = m_comboPriority.GetCurSel();
   m_comboPriority.GetLBText(num,prio);
-       if(prio == "Low")    m_priority = PRIO_LOW;
-  else if(prio == "Medium") m_priority = PRIO_MEDIUM;
-  else if(prio == "High")   m_priority = PRIO_HIGH;
+       if(prio == _T("Low"))    m_priority = PRIO_LOW;
+  else if(prio == _T("Medium")) m_priority = PRIO_MEDIUM;
+  else if(prio == _T("High"))   m_priority = PRIO_HIGH;
   else m_priority = 0;
 }
 
@@ -269,22 +269,22 @@ TopicPropPage1Dlg::OnBnClickedUACompatible()
   if(m_uaCompatible)
   {
     WideMessageBox(GetSafeHwnd()
-                  ,"UA Compatibility mode is ENABLED!\n"
-                   "\n"
-                   "This will enable modern HTML5 and CCS3 features in the display\n" 
-                   "Be aware that this alsoo turns off the capability to show tag icons\n"
-                   "and end-of-paragraph markers in the display."
+                  ,_T("UA Compatibility mode is ENABLED!\n")
+                   _T("\n")
+                   _T("This will enable modern HTML5 and CCS3 features in the display\n") 
+                   _T("Be aware that this alsoo turns off the capability to show tag icons\n")
+                   _T("and end-of-paragraph markers in the display.")
                   ,_T("WARNING"),MB_OK | MB_ICONWARNING);
   }
   else
   {
     WideMessageBox(GetSafeHwnd()
-                  ,"UA Compatibility mode is DISABLED!\n"
-                   "\n"
-                   "This will enable the capability to show the tag icons\n"
-                   "and end-of-paragraph markers in the display,\n"
-                   "But it will turn OFF the modern HTML5 and CCS3 features\n"
-                   "Be aware that the document's display can be affected wrongly."
+                  ,_T("UA Compatibility mode is DISABLED!\n")
+                   _T("\n")
+                   _T("This will enable the capability to show the tag icons\n")
+                   _T("and end-of-paragraph markers in the display,\n")
+                   _T("But it will turn OFF the modern HTML5 and CCS3 features\n")
+                   _T("Be aware that the document's display can be affected wrongly.")
                   ,_T("WARNING"),MB_OK | MB_ICONWARNING);
   }
 }

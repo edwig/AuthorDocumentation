@@ -53,12 +53,12 @@ CSSPage1Dlg::OnInitDialog()
 }
 
 void
-CSSPage1Dlg::SetSelector(CString selector,CString descriptor)
+CSSPage1Dlg::SetSelector(XString selector,CString descriptor)
 {
-  CString text = selector;
+  CString text(selector);
   if(!descriptor.IsEmpty())
   {
-    text += CString(" (") + descriptor + ")";
+    text += CString(_T(" (")) + descriptor + _T(")");
   }
   CWnd* txt = GetDlgItem(IDC_SS_TYPE);
   txt->SetWindowText(text);
@@ -71,10 +71,10 @@ CSSPage1Dlg::SetSelector(CString selector,CString descriptor)
 }
 
 void
-CSSPage1Dlg::SetProperties(CString selector)
+CSSPage1Dlg::SetProperties(XString selector)
 {
-  string media = "standard";
-  string prop  = selector;
+  XString media = _T("standard");
+  XString prop  = selector;
   vector<XString> properties;
   m_css->GetProperties(media,prop,&properties);
 
@@ -86,12 +86,12 @@ CSSPage1Dlg::SetProperties(CString selector)
   }
   for(unsigned int ind = 0;ind < properties.size(); ++ind)
   {
-    string prop2 = properties[ind];
-    string value = m_css->get(media,(string)selector,prop2);
+    XString prop2 = properties[ind];
+    XString value = m_css->get(media,selector,prop2);
     CString text = prop2.c_str();
     if(value.size())
     {
-      text += CString("\t: ") + value.c_str();
+      text += CString(_T("\t: ")) + value.c_str();
     }
     m_listBox.AddString(text);
   }
@@ -116,19 +116,19 @@ CSSPage1Dlg::OnBnClickedDelete()
   {
     CString cProp;
     m_listBox.GetText(ind,cProp);
-    int pos = cProp.Find('\t');
+    int pos = cProp.Find(_T('\t'));
     if(pos >= 0)
     {
       cProp = cProp.Left(pos);
     }
-    string media = "standard";
-    string prop  = (string) cProp;
+    XString media = _T("standard");
+    XString prop  = (XString) cProp;
 
     CString mess;
-    mess.Format("Are you sure that you want to delete CSS property [%s]?",cProp.GetString());
-    if(theApp.MessageBox(mess,"Delete",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    mess.Format(_T("Are you sure that you want to delete CSS property [%s]?"),cProp.GetString());
+    if(theApp.MessageBox(mess,_T("Delete"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
-      m_css->put(media,(string)m_selector,prop,"");
+      m_css->put(media,(XString)m_selector,prop,_T(""));
       UpdateProperties();
       UpdateData(Data2Controls);
     }

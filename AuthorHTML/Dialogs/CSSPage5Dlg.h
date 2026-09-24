@@ -26,7 +26,7 @@ public:
 	virtual ~CSSPage5Dlg();
   virtual BOOL OnInitDialog();
   void UpdateProperties();
-  void SetSelector(string selector);
+  void SetSelector(XString selector);
 
 // Dialog Data
 	enum { IDD = IDD_SS_PAGE5 };
@@ -57,7 +57,7 @@ private:
   CComQIPtr<IWebBrowser2>   m_spBrowser;
   CComQIPtr<IHTMLDocument2> m_doc;
   CssStyleSheet*  m_css;
-  string          m_selector;
+  XString         m_selector;
 
   // PROPERTIES
   // Margins

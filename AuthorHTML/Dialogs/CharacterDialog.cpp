@@ -77,7 +77,7 @@ void CharacterDialog::OnBnClickedRadioAccLower()
 {
   m_letter.EnableWindow(TRUE);
   AddToComboByCategory(ACC_LOWER);
-  AddToCombo(ACC_LOWER,'a');
+  AddToCombo(ACC_LOWER,_T('a'));
   m_letter.SetCurSel(0);
   m_character.SetCurSel(0);
 }
@@ -86,7 +86,7 @@ void CharacterDialog::OnBnClickedRadioAccUpper()
 {
   m_letter.EnableWindow(TRUE);
   AddToComboByCategory(ACC_UPPER);
-  AddToCombo(ACC_UPPER,'A');
+  AddToCombo(ACC_UPPER,_T('A'));
   m_letter.SetCurSel(0);
   m_character.SetCurSel(0);
 }
@@ -156,7 +156,7 @@ void CharacterDialog::OnCbnSelchangeCharCombo()
   CString sel;
   int n = m_character.GetCurSel();
   m_character.GetLBText(n,sel);
-  unsigned char c = sel.GetAt(0);
+  _TUCHAR c = sel.GetAt(0);
   m_result = FindHTML((int)c);
 }
 
@@ -179,8 +179,8 @@ CharacterDialog::AddToComboByCategory(int letter_cat)
       {
         lastLetter = DiacriteLetters[index].letter;
 
-        char string1[2];
-        string1[0]     = (char)DiacriteLetters[index].letter;
+        TCHAR string1[2];
+        string1[0]     = (TCHAR)DiacriteLetters[index].letter;
         string1[1]     = 0;
         CString letter = string1;
         m_letter.AddString(letter);
@@ -198,13 +198,13 @@ CharacterDialog::AddToCombo(int cat,int letter)
     if((DiacriteLetters[index].lett_category == cat   ) && ((letter == 0) ||
        (DiacriteLetters[index].letter        == letter) ))
     {
-      char string2[2];
-      string2[0]       = (char)DiacriteLetters[index].diacrite;
+      TCHAR string2[2];
+      string2[0]       = (TCHAR)DiacriteLetters[index].diacrite;
       string2[1]       = 0;
       CString descript = string2;
-      descript += "  (";
+      descript += _T("  (");
       descript += DiacriteLetters[index].descript;
-      descript += ")";
+      descript += _T(")");
       m_character.AddString(descript);
     }
   }

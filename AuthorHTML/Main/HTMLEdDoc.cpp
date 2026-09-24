@@ -77,10 +77,10 @@ CHTMLEdDoc::CreateNewDocument(CString& p_filename,bool p_setTitle /*=true*/)
   CString path  = Misc::DirectoryPart(p_filename);
   CString ext   = Misc::ExtensionPart(p_filename);
   CString file(title);
-  file.Replace(' ','_');
+  file.Replace(_T(' '),_T('_'));
 
   CString fullPath = path + file + ext;
-  CreateNewDocumentFile(fullPath,p_setTitle ? title : "");
+  CreateNewDocumentFile(fullPath,p_setTitle ? title : _T(""));
 
   m_sSaveFileName = fullPath;
   m_strPathName   = fullPath;
@@ -97,16 +97,16 @@ CHTMLEdDoc::CreateNewDocumentFile(CString& p_filename,CString& p_title)
   if(file.Open(winfile_write | open_trans_text,attrib_none,Encoding::UTF8))
   {
     XString document;
-    document.Format("%s\n"
-                    "<html>\n"
-                    "  <head>\n"
-                    "    <title>%s</title>\n"
-                    "    <meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\n"
-                    "    <meta name=\"GENERATOR\" content=\"AuthorDocumentation\">\n"
-                    "  </head>\n"
-                    "  <body>\n"
-                    "  </body>\n"
-                    "</html>\n",AUTHOR_DOCTYPE_TRANS,p_title.GetString());
+    document.Format(_T("%s\n")
+                    _T("<html>\n")
+                    _T("  <head>\n")
+                    _T("    <title>%s</title>\n")
+                    _T("    <meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\n")
+                    _T("    <meta name=\"GENERATOR\" content=\"AuthorDocumentation\">\n")
+                    _T("  </head>\n")
+                    _T("  <body>\n")
+                    _T("  </body>\n")
+                    _T("</html>\n"),AUTHOR_DOCTYPE_TRANS,p_title.GetString());
     file.Write(document);
     file.Close();
     return true;
@@ -148,12 +148,12 @@ BOOL CHTMLEdDoc::OnNewDocument()
 
           // Show empty document
           CHTMLEdView* pWeb = frame->GetWebView();
-          pWeb->Navigate("about:blank");
+          pWeb->Navigate(_T("about:blank"));
 
           CDocTemplate* pTemplate = GetDocTemplate();
           ASSERT(pTemplate != NULL);
           CString newName;
-          newName.Format("%sNewDocument_%d.html"
+          newName.Format(_T("%sNewDocument_%d.html")
                         ,theApp.GetBaseDirectory().GetString()
                         ,theApp.GetUniqueDocID());
 
@@ -198,20 +198,20 @@ BOOL CHTMLEdDoc::OnOpenDocument(LPCTSTR lpszFileName)
   CString oldFile;
 
   // Check if the file exists
-  if(_access(lpszFileName,0) == -1)
+  if(_taccess(lpszFileName,0) == -1)
   {
     CString message;
-    message.Format("The file [%s] does not exist.",lpszFileName);
-    theApp.MessageBox(message,"File error",MB_OK|MB_ICONERROR);
+    message.Format(_T("The file [%s] does not exist."),lpszFileName);
+    theApp.MessageBox(message,_T("File error"),MB_OK|MB_ICONERROR);
     return FALSE;
   }
   // Check if it is a template-open
-  if(Misc::ExtensionPart(lpszFileName).CompareNoCase(".htt") == 0)
+  if(Misc::ExtensionPart(lpszFileName).CompareNoCase(_T(".htt")) == 0)
   {
     CString ask;
-    ask.Format("Do you want to open file [%s] as a template to edit the template\n"
-               "or do you want to make a copy of the template and save it as a regular document?",lpszFileName);
-    if(theApp.MessageBox(ask,"Template","?open_template regular_document") == "regular document")
+    ask.Format(_T("Do you want to open file [%s] as a template to edit the template\n")
+               _T("or do you want to make a copy of the template and save it as a regular document?"),lpszFileName);
+    if(theApp.MessageBox(ask,_T("Template"),_T("?open_template regular_document")) == _T("regular document"))
     {
       CDocTemplate* pTemplate = GetDocTemplate();
       ASSERT(pTemplate != NULL);
@@ -225,12 +225,12 @@ BOOL CHTMLEdDoc::OnOpenDocument(LPCTSTR lpszFileName)
         // necessary for document framework, as titles and pathnames are used
         // to be set to document, frames and menubar
         oldFile = lpszFileName;
-        strncpy((char*)lpszFileName,newName.GetString(),_MAX_PATH);
-        unlink(lpszFileName);
+        _tcsnccpy((TCHAR*)lpszFileName,newName.GetString(),_MAX_PATH);
+        _tunlink(lpszFileName);
         if(!CopyFile(oldFile,lpszFileName,TRUE))
         {
           CString mess;
-          mess.Format("Sorry: Cannot make a copy of the file [%s]",lpszFileName);
+          mess.Format(_T("Sorry: Cannot make a copy of the file [%s]"),lpszFileName);
           theApp.ErrorMessage(mess);
           return FALSE;
         }
@@ -291,11 +291,11 @@ CHTMLEdDoc::OnSaveAs()
     // don't even attempt to save
     return;       
   }
-  if(Misc::ExtensionPart(newName).CompareNoCase(".htt") == 0)
+  if(Misc::ExtensionPart(newName).CompareNoCase(_T(".htt")) == 0)
   {
     CString message;
-    message.Format("Do you want to save the TEMPLATE [%s]?",newName.GetString());
-    if(theApp.MessageBox(message,"Sure?",MB_YESNO|MB_ICONQUESTION) == IDNO)
+    message.Format(_T("Do you want to save the TEMPLATE [%s]?"),newName.GetString());
+    if(theApp.MessageBox(message,_T("Sure?"),MB_YESNO|MB_ICONQUESTION) == IDNO)
     {
       return;
     }
@@ -379,7 +379,7 @@ CHTMLEdDoc::SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU)
   CString pathname(lpszPathName);
   Misc::SplitMidpageAnchor(pathname,filename,anchor);
 
-  if(_access(filename,0) == 0)
+  if(_taccess(filename,0) == 0)
   {
     CDocument::SetPathName(filename,bAddToMRU);
   }
@@ -409,14 +409,14 @@ CHTMLEdDoc::InternalSave(CString& text)
   }
   else
   {
-    CString message = "Cannot open file for saving: " + m_sSaveFileName;
+    CString message = _T("Cannot open file for saving: ") + m_sSaveFileName;
     theApp.ErrorMessage(message);
     saved = false;
   }
   if(!saved)
   {
     // Cannot save for any reason
-    CString message = "Cannot save file : " + m_sSaveFileName;
+    CString message = _T("Cannot save file : ") + m_sSaveFileName;
     theApp.ErrorMessage(message);
   }
 	return saved;
@@ -445,7 +445,7 @@ CHTMLEdDoc::GetFile(CString& text)
   if(!read)
   {
     // Cannot read for any reason
-    CString message = "Cannot read file : " + m_sSaveFileName;
+    CString message = _T("Cannot read file : ") + m_sSaveFileName;
     theApp.ErrorMessage(message);
   }
   return read;
@@ -485,7 +485,8 @@ CHTMLEdDoc::TidyFile()
   tidySetOutCharEncoding(tdoc,"utf8");
   tidyOptSetInt(tdoc,TidyOutputBOM,1);
 
-  status = tidyParseFile( tdoc, m_sSaveFileName );
+  CStringA saveFileNameA(m_sSaveFileName);
+  status = tidyParseFile( tdoc, saveFileNameA);
   if ( status >= 0 )
   {
     status = tidyCleanAndRepair( tdoc );
@@ -495,7 +496,7 @@ CHTMLEdDoc::TidyFile()
     status = tidyRunDiagnostics( tdoc );
   }
 
-  status = tidySaveFile( tdoc, m_sSaveFileName );
+  status = tidySaveFile( tdoc, saveFileNameA );
 
   contentErrors   += tidyErrorCount( tdoc );
   contentWarnings += tidyWarningCount( tdoc );

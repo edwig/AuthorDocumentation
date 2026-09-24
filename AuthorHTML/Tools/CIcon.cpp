@@ -27,7 +27,7 @@ Cicon::~Cicon()
 
 
 bool
-Cicon::LoadFromFile(const char *filename,int cx,int cy)
+Cicon::LoadFromFile(const TCHAR *filename,int cx,int cy)
 {
   HICON icon = LoadIconFile(filename,cx,cy);
   if (icon)
@@ -42,7 +42,7 @@ Cicon::LoadFromFile(const char *filename,int cx,int cy)
 }
 
 HICON
-Cicon::LoadIconFile(const char *filename,int iconx, int icony)
+Cicon::LoadIconFile(const TCHAR *filename,int iconx, int icony)
 {
   if (!iconx)
 	  iconx = GetSystemMetrics(SM_CXICON);
@@ -60,7 +60,7 @@ Cicon::LoadIconFile(const char *filename,int iconx, int icony)
 
 
 HICON
-Cicon::ReadIconFile(const char *filename,int iconx, int icony)
+Cicon::ReadIconFile(const TCHAR *filename,int iconx, int icony)
 {
 	int				file;
 	int				i, j;
@@ -72,11 +72,11 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 	OFSTRUCT			reopen;
 	ICONFILEHEADER	header;
 	ICONDATA			icon, best;
-	char				*buffer;
+	TCHAR				*buffer;
 	BITMAPINFO		*bmi;
-	char				*cp, *cp2;
-	char				mask[512];
-	char				*iconDIB;
+	TCHAR				*cp, *cp2;
+	TCHAR				mask[512];
+	TCHAR				*iconDIB;
 
 	/*
 	**	Get some system values
@@ -99,14 +99,14 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 	/*
 	**	Allocate some needed buffers
 	*/
-	buffer = (char*)malloc(4712);
+	buffer = (TCHAR*)malloc(4712);
 	if (buffer == NULL)
 	{
 		//ErrorBox("ReadIconFile(): Unable to allocate memory for icon buffer");
 		return (HICON)NULL;
 	}
 	bmi = (BITMAPINFO *)buffer;
-	iconDIB = (char*)malloc(4096);
+	iconDIB = (TCHAR*)malloc(4096);
 	if (iconDIB == NULL)
 	{
 		//ErrorBox("ReadIconFile(): Unable to allocate memory for icon DIB");
@@ -114,14 +114,15 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 		return (HICON)NULL;
 	}
 
-	file = OpenFile((LPSTR)filename, (LPOFSTRUCT)&reopen, OF_READ | OF_SHARE_DENY_NONE);
+  CStringA filenameA(filename);
+	file = OpenFile(filenameA.GetString(), (LPOFSTRUCT)&reopen, OF_READ | OF_SHARE_DENY_NONE);
 
 	if (file >= 0)
 	{
 		/*
 		** Read in Icon File header
 		*/
-		rc = _lread(file, (char far *)&header, sizeof(header));
+		rc = _lread(file, (TCHAR far *)&header, sizeof(header));
 		if (rc == sizeof(header) && header.icoReserved == 0
 			&& header.icoResourceType == 1)
 		{
@@ -135,7 +136,7 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 
 				for (i = rc = 0 ; rc >= 0 && i < header.icoResourceCount ; ++i)
 				{
-					rc = _lread(file, (char far *)&icon, sizeof(ICONDATA));
+					rc = _lread(file, (TCHAR far *)&icon, sizeof(ICONDATA));
 					if (rc == sizeof(ICONDATA))
 					{
 						if (icon.width == iconx && icon.height == icony)
@@ -169,7 +170,7 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 					if (best.width != 0)
 					{
 						_llseek(file, best.icoDIBOffset, 0);
-						rc = _lread(file, (LPSTR)buffer, (int)best.icoDIBSize);
+						rc = _lread(file, (LPTSTR)buffer, (int)best.icoDIBSize);
 						if (rc == (int)best.icoDIBSize)
 						{
 							offset = sizeof(BITMAPINFO) + sizeof(RGBQUAD) * (best.colorCount - 1);
@@ -225,16 +226,16 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 								bmi->bmiHeader.biWidth = best.width;
 
 								hbm = CreateDIBitmap(hdc, (BITMAPINFOHEADER FAR *)bmi,
-									CBM_INIT, (LPSTR)buffer + offset,
+									CBM_INIT, (LPTSTR)buffer + offset,
 									(BITMAPINFO FAR *)bmi, DIB_RGB_COLORS);
 
 								if (hbm != (HBITMAP)NULL)
 								{
-									if (GetObject(hbm, sizeof(bm), (LPSTR)&bm)
+									if (GetObject(hbm, sizeof(bm), (LPTSTR)&bm)
 										== sizeof(bm))
 									{
 										rc = bm.bmWidthBytes * bm.bmPlanes * bm.bmHeight;
-										if (GetBitmapBits(hbm, rc, (LPSTR)iconDIB) == rc)
+										if (GetBitmapBits(hbm, rc, (LPTSTR)iconDIB) == rc)
 										{
 											bmi->bmiHeader.biPlanes = bm.bmPlanes;
 											bmi->bmiHeader.biBitCount = bm.bmBitsPixel;
@@ -261,7 +262,7 @@ Cicon::ReadIconFile(const char *filename,int iconx, int icony)
 							*/
 							hicon = CreateIcon(AfxGetInstanceHandle(), best.width, best.height,
 								(BYTE)bmi->bmiHeader.biPlanes, (BYTE)bmi->bmiHeader.biBitCount,
-								(const unsigned char*)(LPSTR)mask, (const unsigned char*)(LPSTR)iconDIB);
+								(BYTE*)mask, (BYTE*)iconDIB);
 
 							if (hicon != (HICON)NULL)
 							{

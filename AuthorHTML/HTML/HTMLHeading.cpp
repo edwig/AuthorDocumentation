@@ -33,7 +33,7 @@ HtmlHeading::SetProperty(eAction e_Action, CString s_Value)
                     {
                       m_Style.SetProperty(HtmlStyle::P_TextAlign,s_Value);
                     }
-                    SetAttribute("align",s_Value);
+                    SetAttribute(_T("align"),s_Value);
                     break;
   }
 }
@@ -51,7 +51,7 @@ HtmlHeading::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("align");
+                    return GetAttribute(_T("align"));
   }
-  return "";
+  return _T("");
 }

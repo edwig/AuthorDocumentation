@@ -123,7 +123,7 @@ BookmarkDialog::InitList()
 void BookmarkDialog::OnEnChangeEditBookmark()
 {
   UpdateData(Controls2Data);
-  m_newBookmark.Remove(' ');
+  m_newBookmark.Remove(_T(' '));
   UpdateData(Data2Controls);
 }
 
@@ -151,8 +151,8 @@ void BookmarkDialog::OnBnClickedRemoveBookmark()
                             ,true);
     // Friendly ask our user
     CString mess;
-    mess.Format("Remove bookmark [#%s] from text?",m_currentMarker.GetString());
-    if(theApp.MessageBox(mess,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    mess.Format(_T("Remove bookmark [#%s] from text?"),m_currentMarker.GetString());
+    if(theApp.MessageBox(mess,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       // Find in the list
       int index = m_listBookmarks.FindString(-1,m_currentMarker);
@@ -189,8 +189,8 @@ BookmarkDialog::OnBnClickedSetBookmark()
   {
     // Found it. It already exists
     CString text;
-    text.Format("The bookmark [#%s] does already exist on this page. Change the bookmark name",m_newBookmark.GetString());
-    theApp.MessageBox(text,"Warning",MB_OK|MB_ICONEXCLAMATION);
+    text.Format(_T("The bookmark [#%s] does already exist on this page. Change the bookmark name"),m_newBookmark.GetString());
+    theApp.MessageBox(text,_T("Warning"),MB_OK|MB_ICONEXCLAMATION);
     return;
   }
   CComVariant  var;
@@ -204,7 +204,7 @@ BookmarkDialog::OnBnClickedSetBookmark()
                         ,NULL);
   // Set only once
   m_currentMarker = m_newBookmark;
-  m_newBookmark = "";
+  m_newBookmark = _T("");
   // Set it in the list
   InitList();
 }

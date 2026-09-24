@@ -198,16 +198,16 @@ CSSPage4Dlg::InitControls()
 {
   m_spinTop.SetBase(10);
   m_spinTop.SetRange(0,32000);
-  m_spinTop.SetPos(atoi(m_borderTWidth));
+  m_spinTop.SetPos(_ttoi(m_borderTWidth));
   m_spinLeft.SetBase(10);
   m_spinLeft.SetRange(0,32000);
-  m_spinLeft.SetPos(atoi(m_borderLWidth));
+  m_spinLeft.SetPos(_ttoi(m_borderLWidth));
   m_spinRight.SetBase(10);
   m_spinRight.SetRange(0,32000);
-  m_spinRight.SetPos(atoi(m_borderRWidth));
+  m_spinRight.SetPos(_ttoi(m_borderRWidth));
   m_spinBottom.SetBase(10);
   m_spinBottom.SetRange(0,32000);
-  m_spinBottom.SetPos(atoi(m_borderBWidth));
+  m_spinBottom.SetPos(_ttoi(m_borderBWidth));
 
   m_buttonAllSides.SetCheck(m_allsides);
 
@@ -227,7 +227,7 @@ CSSPage4Dlg::InitControls()
 }
 
 void
-CSSPage4Dlg::SetSelector(string selector)
+CSSPage4Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -239,17 +239,17 @@ CSSPage4Dlg::SplitBorderProperty(CString  property
                                 ,CString& style
                                 ,CString& color)
 {
-  width = "";
-  style = "";
-  color = "";
+  width = _T("");
+  style = _T("");
+  color = _T("");
 
   CString een,twee,drie;
-  int pos = property.Find(' ');
+  int pos = property.Find(_T(' '));
   if(pos >= 0)
   {
     een  = property.Left(pos);
     twee = property.Mid(pos+1);
-    pos = twee.Find(' ');
+    pos = twee.Find(_T(' '));
     if(pos >= 0)
     {
       drie = twee.Mid(pos+1);
@@ -261,20 +261,20 @@ CSSPage4Dlg::SplitBorderProperty(CString  property
     een = property;
   }
   // Search the style
-  CString test1 = Misc::GetAttributeDisplayname("border-style",een);
-  CString test2 = Misc::GetAttributeDisplayname("border-style",twee);
-  CString test3 = Misc::GetAttributeDisplayname("border-style",drie);
-  if(!test1.IsEmpty()) { style = een;  een  = ""; }
-  if(!test2.IsEmpty()) { style = twee; twee = ""; }
-  if(!test3.IsEmpty()) { style = drie; drie = ""; }
+  CString test1 = Misc::GetAttributeDisplayname(_T("border-style"),een);
+  CString test2 = Misc::GetAttributeDisplayname(_T("border-style"),twee);
+  CString test3 = Misc::GetAttributeDisplayname(_T("border-style"),drie);
+  if(!test1.IsEmpty()) { style = een;  een  = _T(""); }
+  if(!test2.IsEmpty()) { style = twee; twee = _T(""); }
+  if(!test3.IsEmpty()) { style = drie; drie = _T(""); }
   
   // Search the color
   test1 = Misc::GetInternetColor(een);
   test2 = Misc::GetInternetColor(twee);
   test3 = Misc::GetInternetColor(drie);
-  if(test1.GetAt(0) == '#' || een .GetAt(0) == '#') { color = een;  een  = ""; }
-  if(test2.GetAt(0) == '#' || twee.GetAt(0) == '#') { color = twee; twee = ""; }
-  if(test3.GetAt(0) == '#' || drie.GetAt(0) == '#') { color = drie; drie = ""; }
+  if(test1.GetAt(0) == _T('#') || een .GetAt(0) == _T('#')) { color = een;  een  = _T(""); }
+  if(test2.GetAt(0) == _T('#') || twee.GetAt(0) == _T('#')) { color = twee; twee = _T(""); }
+  if(test3.GetAt(0) == _T('#') || drie.GetAt(0) == _T('#')) { color = drie; drie = _T(""); }
 
   // What's left must now be the width parameter
   if(!een .IsEmpty()) width = een;
@@ -285,13 +285,13 @@ CSSPage4Dlg::SplitBorderProperty(CString  property
 CString
 CSSPage4Dlg::StripUnspecified(CString property,bool replace/*=true*/)
 {
-  if(property.CompareNoCase("unspecified") == 0)
+  if(property.CompareNoCase(_T("unspecified")) == 0)
   {
     if(replace)
     {
-      return "solid";
+      return _T("solid");
     }
-    return "";
+    return _T("");
   }
   return property;
 }
@@ -301,25 +301,25 @@ CSSPage4Dlg::FillPage()
 {
   int red,green,blue;
   // Reset ALL
-  m_borderTStyle = "";
-  m_borderLStyle = "";
-  m_borderRStyle = "";
-  m_borderBStyle = "";
+  m_borderTStyle = _T("");
+  m_borderLStyle = _T("");
+  m_borderRStyle = _T("");
+  m_borderBStyle = _T("");
 
-  m_borderTWidth = "";
-  m_borderLWidth = "";
-  m_borderRWidth = "";
-  m_borderBWidth = "";
+  m_borderTWidth = _T("");
+  m_borderLWidth = _T("");
+  m_borderRWidth = _T("");
+  m_borderBWidth = _T("");
 
-  m_borderTUnits = "";
-  m_borderLUnits = "";
-  m_borderRUnits = "";
-  m_borderBUnits = "";
+  m_borderTUnits = _T("");
+  m_borderLUnits = _T("");
+  m_borderRUnits = _T("");
+  m_borderBUnits = _T("");
 
-  m_borderTColor = "";
-  m_borderLColor = "";
-  m_borderRColor = "";
-  m_borderBColor = "";
+  m_borderTColor = _T("");
+  m_borderLColor = _T("");
+  m_borderRColor = _T("");
+  m_borderBColor = _T("");
 
   // Compound attributes
   // Border
@@ -335,7 +335,7 @@ CSSPage4Dlg::FillPage()
   m_hasRColor = 
   m_hasBColor = false;
 
-  CString border = CSSPropertyGet(m_css,m_selector,"border",false);
+  CString border = CSSPropertyGet(m_css,m_selector,_T("border"),false);
   if(!border.IsEmpty())
   {
     // All sides the same
@@ -364,9 +364,9 @@ CSSPage4Dlg::FillPage()
   else
   {
     // GENERAL STYLES PER PROPERTY
-    m_borderTStyle = CSSPropertyGet(m_css,m_selector,"border-style",false);
-    m_borderTWidth = CSSPropertyGet(m_css,m_selector,"border-width",false);
-    m_borderTColor = CSSPropertyGet(m_css,m_selector,"border-color",false);
+    m_borderTStyle = CSSPropertyGet(m_css,m_selector,_T("border-style"),false);
+    m_borderTWidth = CSSPropertyGet(m_css,m_selector,_T("border-width"),false);
+    m_borderTColor = CSSPropertyGet(m_css,m_selector,_T("border-color"),false);
     if(!m_borderTStyle.IsEmpty() ||
        !m_borderTWidth.IsEmpty() ||
        !m_borderTColor.IsEmpty() )
@@ -409,7 +409,7 @@ CSSPage4Dlg::FillPage()
   {
     // GENERAL STYLES PER SIDE
     CString prop;
-    prop = CSSPropertyGet(m_css,m_selector,"border-top",false);
+    prop = CSSPropertyGet(m_css,m_selector,_T("border-top"),false);
     if(!prop.IsEmpty())
     {
       CString width,style,color;
@@ -432,7 +432,7 @@ CSSPage4Dlg::FillPage()
         m_buttonTColor.SetColor(RGB(red,green,blue));
       }
     }
-    prop = CSSPropertyGet(m_css,m_selector,"border-left",false);
+    prop = CSSPropertyGet(m_css,m_selector,_T("border-left"),false);
     if(!prop.IsEmpty())
     {
       CString width,style,color;
@@ -455,7 +455,7 @@ CSSPage4Dlg::FillPage()
         m_buttonLColor.SetColor(RGB(red,green,blue));
       }
     }
-    prop = CSSPropertyGet(m_css,m_selector,"border-right",false);
+    prop = CSSPropertyGet(m_css,m_selector,_T("border-right"),false);
     if(!prop.IsEmpty())
     {
       CString width,style,color;
@@ -478,7 +478,7 @@ CSSPage4Dlg::FillPage()
         m_buttonRColor.SetColor(RGB(red,green,blue));
       }
     }
-    prop = CSSPropertyGet(m_css,m_selector,"border-bottom",false);
+    prop = CSSPropertyGet(m_css,m_selector,_T("border-bottom"),false);
     if(!prop.IsEmpty())
     {
       CString width,style,color;
@@ -505,11 +505,11 @@ CSSPage4Dlg::FillPage()
   // NOW ALL INDIVIDUAL STYLES PER SIDE
   if(!m_allsides && !m_useTop)
   {
-    m_borderTStyle = CSSPropertyGet(m_css,m_selector,"border-top-style",true);
-    m_borderTWidth = CSSPropertyGet(m_css,m_selector,"border-top-width",false);
-    m_borderTColor = CSSPropertyGet(m_css,m_selector,"border-top-color",false);
+    m_borderTStyle = CSSPropertyGet(m_css,m_selector,_T("border-top-style"),true);
+    m_borderTWidth = CSSPropertyGet(m_css,m_selector,_T("border-top-width"),false);
+    m_borderTColor = CSSPropertyGet(m_css,m_selector,_T("border-top-color"),false);
     CssSplitValueUnits(m_borderTWidth,m_borderTWidth,m_borderTUnits);
-    if( m_borderTStyle.CompareNoCase("Unspecified") ||
+    if( m_borderTStyle.CompareNoCase(_T("Unspecified")) ||
        !m_borderTWidth.IsEmpty() ||
        !m_borderTColor.IsEmpty() )
     {
@@ -528,11 +528,11 @@ CSSPage4Dlg::FillPage()
   }
   if(!m_allsides && !m_useLeft)
   {
-    m_borderLStyle = CSSPropertyGet(m_css,m_selector,"border-left-style",true);
-    m_borderLWidth = CSSPropertyGet(m_css,m_selector,"border-left-width",false);
-    m_borderLColor = CSSPropertyGet(m_css,m_selector,"border-left-color",false);
+    m_borderLStyle = CSSPropertyGet(m_css,m_selector,_T("border-left-style"),true);
+    m_borderLWidth = CSSPropertyGet(m_css,m_selector,_T("border-left-width"),false);
+    m_borderLColor = CSSPropertyGet(m_css,m_selector,_T("border-left-color"),false);
     CssSplitValueUnits(m_borderLWidth,m_borderLWidth,m_borderLUnits);
-    if( m_borderLStyle.CompareNoCase("Unspecified") ||
+    if( m_borderLStyle.CompareNoCase(_T("Unspecified")) ||
        !m_borderLWidth.IsEmpty() ||
        !m_borderLColor.IsEmpty() )
     {
@@ -551,11 +551,11 @@ CSSPage4Dlg::FillPage()
   }
   if(!m_allsides && !m_useRight)
   {
-    m_borderRStyle = CSSPropertyGet(m_css,m_selector,"border-right-style",true);
-    m_borderRWidth = CSSPropertyGet(m_css,m_selector,"border-right-width",false);
-    m_borderRColor = CSSPropertyGet(m_css,m_selector,"border-right-color",false);
+    m_borderRStyle = CSSPropertyGet(m_css,m_selector,_T("border-right-style"),true);
+    m_borderRWidth = CSSPropertyGet(m_css,m_selector,_T("border-right-width"),false);
+    m_borderRColor = CSSPropertyGet(m_css,m_selector,_T("border-right-color"),false);
     CssSplitValueUnits(m_borderRWidth,m_borderRWidth,m_borderRUnits);
-    if( m_borderRStyle.CompareNoCase("Unspecified") ||
+    if( m_borderRStyle.CompareNoCase(_T("Unspecified")) ||
        !m_borderRWidth.IsEmpty() ||
        !m_borderRColor.IsEmpty() )
     {
@@ -574,11 +574,11 @@ CSSPage4Dlg::FillPage()
   }
   if(!m_allsides && !m_useBottom)
   {
-    m_borderBStyle = CSSPropertyGet(m_css,m_selector,"border-bottom-style",true);
-    m_borderBWidth = CSSPropertyGet(m_css,m_selector,"border-bottom-width",false);
-    m_borderBColor = CSSPropertyGet(m_css,m_selector,"border-bottom-color",false);
+    m_borderBStyle = CSSPropertyGet(m_css,m_selector,_T("border-bottom-style"),true);
+    m_borderBWidth = CSSPropertyGet(m_css,m_selector,_T("border-bottom-width"),false);
+    m_borderBColor = CSSPropertyGet(m_css,m_selector,_T("border-bottom-color"),false);
     CssSplitValueUnits(m_borderBWidth,m_borderBWidth,m_borderBUnits);
-    if( m_borderBStyle.CompareNoCase("Unspecified") ||
+    if( m_borderBStyle.CompareNoCase(_T("Unspecified")) ||
        !m_borderBWidth.IsEmpty() ||
        !m_borderBColor.IsEmpty() )
     {
@@ -603,97 +603,97 @@ CSSPage4Dlg::UpdateProperties()
 {
   CString prop;
   // Clear all properties
-  CSSPropertyPut(m_css,m_selector,"border",              "",false);
-  CSSPropertyPut(m_css,m_selector,"border-style",        "",true);
-  CSSPropertyPut(m_css,m_selector,"border-width",        "",false);
-  CSSPropertyPut(m_css,m_selector,"border-color",        "",false);
-  CSSPropertyPut(m_css,m_selector,"border-top",          "",false);
-  CSSPropertyPut(m_css,m_selector,"border-left",         "",false);
-  CSSPropertyPut(m_css,m_selector,"border-right",        "",false);
-  CSSPropertyPut(m_css,m_selector,"border-bottom",       "",false);
-  CSSPropertyPut(m_css,m_selector,"border-top-style",    "",true);
-  CSSPropertyPut(m_css,m_selector,"border-left-style",   "",true);
-  CSSPropertyPut(m_css,m_selector,"border-right-style",  "",true);
-  CSSPropertyPut(m_css,m_selector,"border-bottom-style", "",true);
-  CSSPropertyPut(m_css,m_selector,"border-top-width",    "",false);
-  CSSPropertyPut(m_css,m_selector,"border-left-width",   "",false);
-  CSSPropertyPut(m_css,m_selector,"border-right-width",  "",false);
-  CSSPropertyPut(m_css,m_selector,"border-bottom-width", "",false);
-  CSSPropertyPut(m_css,m_selector,"border-top-color",    "",false);
-  CSSPropertyPut(m_css,m_selector,"border-left-color",   "",false);
-  CSSPropertyPut(m_css,m_selector,"border-right-color",  "",false);
-  CSSPropertyPut(m_css,m_selector,"border-bottom-color", "",false);
+  CSSPropertyPut(m_css,m_selector,_T("border"),              _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-style"),        _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-width"),        _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-color"),        _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-top"),          _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-left"),         _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-right"),        _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-bottom"),       _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-top-style"),    _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-left-style"),   _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-right-style"),  _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-bottom-style"), _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-top-width"),    _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-left-width"),   _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-right-width"),  _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-bottom-width"), _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-top-color"),    _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-left-color"),   _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-right-color"),  _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-bottom-color"), _T(""),false);
 
   CString color,style,width;
   if(m_allsides)
   {
-    color = m_hasAColor ? m_borderTColor : "";
+    color = m_hasAColor ? m_borderTColor : _T("");
     style = StripUnspecified(m_borderTStyle);
     width = m_borderTWidth + m_borderTUnits;
     prop = width;
     if(!style.IsEmpty())
     {
-      prop += " " + style;
+      prop += _T(" ") + style;
     }
     if(!color.IsEmpty())
     {
-      prop += " " + color;
+      prop += _T(" ") + color;
     }
-    CSSPropertyPut(m_css,m_selector,"border",prop,false);
+    CSSPropertyPut(m_css,m_selector,_T("border"),prop,false);
   }
   else
   {
     if(m_useTop)
     {
-      color = m_hasTColor ? m_borderTColor : "";
-      prop = m_borderTWidth + m_borderTUnits + " " + StripUnspecified(m_borderTStyle) + " " + color;
-      CSSPropertyPut(m_css,m_selector,"border-top",prop,false);
+      color = m_hasTColor ? m_borderTColor : _T("");
+      prop = m_borderTWidth + m_borderTUnits + _T(" ") + StripUnspecified(m_borderTStyle) + _T(" ") + color;
+      CSSPropertyPut(m_css,m_selector,_T("border-top"),prop,false);
     }
     else
     {
-      color = m_hasTColor ? m_borderTColor : "";
-      CSSPropertyPut(m_css,m_selector,"border-top-style",m_borderTStyle,true);
-      CSSPropertyPut(m_css,m_selector,"border-top-width",m_borderTWidth+m_borderTUnits,false);
-      CSSPropertyPut(m_css,m_selector,"border-top-color",color,false);
+      color = m_hasTColor ? m_borderTColor : _T("");
+      CSSPropertyPut(m_css,m_selector,_T("border-top-style"),m_borderTStyle,true);
+      CSSPropertyPut(m_css,m_selector,_T("border-top-width"),m_borderTWidth+m_borderTUnits,false);
+      CSSPropertyPut(m_css,m_selector,_T("border-top-color"),color,false);
     }
     if(m_useLeft)
     {
-      color = m_hasLColor ? m_borderLColor : "";
-      prop = m_borderLWidth + m_borderLUnits + " " + StripUnspecified(m_borderLStyle) + " " + color;
-      CSSPropertyPut(m_css,m_selector,"border-left",prop,false);
+      color = m_hasLColor ? m_borderLColor : _T("");
+      prop = m_borderLWidth + m_borderLUnits + _T(" ") + StripUnspecified(m_borderLStyle) + _T(" ") + color;
+      CSSPropertyPut(m_css,m_selector,_T("border-left"),prop,false);
     }
     else
     {
-      color = m_hasLColor ? m_borderLColor : "";
-      CSSPropertyPut(m_css,m_selector,"border-left-style",m_borderLStyle,true);
-      CSSPropertyPut(m_css,m_selector,"border-left-width",m_borderLWidth+m_borderLUnits,false);
-      CSSPropertyPut(m_css,m_selector,"border-left-color",color,false);
+      color = m_hasLColor ? m_borderLColor : _T("");
+      CSSPropertyPut(m_css,m_selector,_T("border-left-style"),m_borderLStyle,true);
+      CSSPropertyPut(m_css,m_selector,_T("border-left-width"),m_borderLWidth+m_borderLUnits,false);
+      CSSPropertyPut(m_css,m_selector,_T("border-left-color"),color,false);
     }
     if(m_useRight)
     {
-      color = m_hasRColor ? m_borderRColor : "";
-      prop = m_borderRWidth + m_borderRUnits + " " + StripUnspecified(m_borderRStyle) + " " + color;
-      CSSPropertyPut(m_css,m_selector,"border-right",prop,false);
+      color = m_hasRColor ? m_borderRColor : _T("");
+      prop = m_borderRWidth + m_borderRUnits + _T(" ") + StripUnspecified(m_borderRStyle) + _T(" ") + color;
+      CSSPropertyPut(m_css,m_selector,_T("border-right"),prop,false);
     }
     else
     {
-      color = m_hasRColor ? m_borderRColor : "";
-      CSSPropertyPut(m_css,m_selector,"border-right-style",m_borderRStyle,true);
-      CSSPropertyPut(m_css,m_selector,"border-right-width",m_borderRWidth+m_borderRUnits,false);
-      CSSPropertyPut(m_css,m_selector,"border-right-color",color,false);
+      color = m_hasRColor ? m_borderRColor : _T("");
+      CSSPropertyPut(m_css,m_selector,_T("border-right-style"),m_borderRStyle,true);
+      CSSPropertyPut(m_css,m_selector,_T("border-right-width"),m_borderRWidth+m_borderRUnits,false);
+      CSSPropertyPut(m_css,m_selector,_T("border-right-color"),color,false);
     }
     if(m_useBottom)
     {
-      color = m_hasBColor ? m_borderBColor : "";
-      prop = m_borderBWidth + " " + m_borderBUnits + StripUnspecified(m_borderBStyle) + " " + color;
-      CSSPropertyPut(m_css,m_selector,"border-bottom",prop,false);
+      color = m_hasBColor ? m_borderBColor : _T("");
+      prop = m_borderBWidth + _T(" ") + m_borderBUnits + StripUnspecified(m_borderBStyle) + _T(" ") + color;
+      CSSPropertyPut(m_css,m_selector,_T("border-bottom"),prop,false);
     }
     else
     {
-      color = m_hasBColor ? m_borderBColor : "";
-      CSSPropertyPut(m_css,m_selector,"border-bottom-style", m_borderBStyle,true);
-      CSSPropertyPut(m_css,m_selector,"border-bottom-width", m_borderBWidth+m_borderBUnits,false);
-      CSSPropertyPut(m_css,m_selector,"border-bottom-color", color,false);
+      color = m_hasBColor ? m_borderBColor : _T("");
+      CSSPropertyPut(m_css,m_selector,_T("border-bottom-style"), m_borderBStyle,true);
+      CSSPropertyPut(m_css,m_selector,_T("border-bottom-width"), m_borderBWidth+m_borderBUnits,false);
+      CSSPropertyPut(m_css,m_selector,_T("border-bottom-color"), color,false);
     }
   }
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
@@ -824,7 +824,7 @@ CSSPage4Dlg::SetAllSides()
     m_borderBUnits =
     m_borderLColor = 
     m_borderRColor = 
-    m_borderBColor = "";
+    m_borderBColor = _T("");
     m_useTop    = 
     m_useLeft   =
     m_useRight  =
@@ -990,7 +990,7 @@ CSSPage4Dlg::OnBnClickedButLcTop()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderTColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderTColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   UpdateProperties();
   Redisplay();
 }
@@ -1002,7 +1002,7 @@ CSSPage4Dlg::OnBnClickedButLcLeft()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderLColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderLColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   UpdateProperties();
   Redisplay();
 }
@@ -1014,7 +1014,7 @@ CSSPage4Dlg::OnBnClickedButLcRight()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderRColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderRColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   UpdateProperties();
   Redisplay();
 }
@@ -1026,7 +1026,7 @@ CSSPage4Dlg::OnBnClickedButLcBottom()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderBColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderBColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   UpdateProperties();
   Redisplay();
 }
@@ -1038,19 +1038,19 @@ CSSPage4Dlg::OnBnClickedUseTopline()
   {
     m_allsides = false;
     m_useTop   = true;
-    m_borderTStyle = "solid";
-    m_borderTWidth = "1";
-    m_borderTUnits = "px";
-    m_borderTColor = "black";
+    m_borderTStyle = _T("solid");
+    m_borderTWidth = _T("1");
+    m_borderTUnits = _T("px");
+    m_borderTColor = _T("black");
     m_hasTColor    = true;
   }
   else
   {
     m_useTop = false;
-    m_borderTStyle = "";
-    m_borderTWidth = "";
-    m_borderTUnits = "";
-    m_borderTColor = "";
+    m_borderTStyle = _T("");
+    m_borderTWidth = _T("");
+    m_borderTUnits = _T("");
+    m_borderTColor = _T("");
     m_hasTColor    = false;
   }
   int red,green,blue;
@@ -1067,19 +1067,19 @@ CSSPage4Dlg::OnBnClickedUseLeftline()
   {
     m_allsides = false;
     m_useLeft  = true;
-    m_borderLStyle = "solid";
-    m_borderLWidth = "1";
-    m_borderLUnits = "px";
-    m_borderLColor = "black";
+    m_borderLStyle = _T("solid");
+    m_borderLWidth = _T("1");
+    m_borderLUnits = _T("px");
+    m_borderLColor = _T("black");
     m_hasLColor    = true;
   }
   else
   {
     m_useLeft = false;
-    m_borderLStyle = "";
-    m_borderLWidth = "";
-    m_borderLUnits = "";
-    m_borderLColor = "";
+    m_borderLStyle = _T("");
+    m_borderLWidth = _T("");
+    m_borderLUnits = _T("");
+    m_borderLColor = _T("");
     m_hasLColor    = false;
   }
   int red,green,blue;
@@ -1097,19 +1097,19 @@ CSSPage4Dlg::OnBnClickedUseRightline()
   {
     m_allsides = false;
     m_useRight = true;
-    m_borderRStyle = "solid";
-    m_borderRWidth = "1";
-    m_borderRUnits = "px";
-    m_borderRColor = "black";
+    m_borderRStyle = _T("solid");
+    m_borderRWidth = _T("1");
+    m_borderRUnits = _T("px");
+    m_borderRColor = _T("black");
     m_hasRColor    = true;
   }
   else
   {
     m_useRight = false;
-    m_borderRStyle = "";
-    m_borderRWidth = "";
-    m_borderRUnits = "";
-    m_borderRColor = "";
+    m_borderRStyle = _T("");
+    m_borderRWidth = _T("");
+    m_borderRUnits = _T("");
+    m_borderRColor = _T("");
     m_hasRColor    = false;
   }
   int red,green,blue;
@@ -1127,19 +1127,19 @@ CSSPage4Dlg::OnBnClickedUseBottomline()
   {
     m_allsides  = false;
     m_useBottom = true;
-    m_borderBStyle = "solid";
-    m_borderBWidth = "1";
-    m_borderBUnits = "px";
-    m_borderBColor = "black";
+    m_borderBStyle = _T("solid");
+    m_borderBWidth = _T("1");
+    m_borderBUnits = _T("px");
+    m_borderBColor = _T("black");
     m_hasBColor    = true;
   }
   else
   {
     m_useBottom = false;
-    m_borderBStyle = "";
-    m_borderBWidth = "";
-    m_borderBUnits = "";
-    m_borderBColor = "";
+    m_borderBStyle = _T("");
+    m_borderBWidth = _T("");
+    m_borderBUnits = _T("");
+    m_borderBColor = _T("");
     m_hasBColor    = false;
   }
   int red,green,blue;

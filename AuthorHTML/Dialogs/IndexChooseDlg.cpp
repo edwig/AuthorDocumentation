@@ -67,9 +67,9 @@ BOOL
     m_spBrowser = pWnd->GetControlUnknown();
   }
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Title",    LVCFMT_LEFT,300);
-  m_list.InsertColumn(1,"Filename", LVCFMT_LEFT,300);
-  m_list.InsertColumn(2,"Author",   LVCFMT_LEFT,200);
+  m_list.InsertColumn(0,_T("Title"),    LVCFMT_LEFT,300);
+  m_list.InsertColumn(1,_T("Filename"), LVCFMT_LEFT,300);
+  m_list.InsertColumn(2,_T("Author"),   LVCFMT_LEFT,200);
 
   RedisplayPages();
   UpdateData(Data2Controls);
@@ -118,7 +118,7 @@ IndexChooseDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
   bool found = false;
   m_comboBM.ResetContent();
-  m_comboBM.AddString("");
+  m_comboBM.AddString(_T(""));
 
   // Now read the bookmarks from the document (if any)
   CComPtr<IDispatch> disp;
@@ -216,8 +216,8 @@ void
 IndexChooseDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-  char filename[256];
-  char title   [256];
+  TCHAR filename[256];
+  TCHAR title   [256];
 
   m_current = pNMLV->iItem;
   m_list.GetItemText(m_current,0,title   ,256);

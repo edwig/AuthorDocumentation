@@ -17,13 +17,13 @@ commandInfo commandos[] =
 {
   // ID                name              code      defKnop      ibsTeller,aktief,vorigeAktief,prompt
   // Menu en IBS
-  IDOK,                "OK",             "ok",     "KNOP[5]",   0,0,0,NULL,
-  IDCANCEL,            "Cancel",         "ca",     "KNOP[23]",  0,0,0,NULL,
-  IDRETRY,             "Retry",          "re",     "KNOP[26]",  0,0,0,NULL,
-  IDYES,               "Yes",            "ye",     "KNOP[5]",   0,0,0,NULL,
-  IDNO,                "No",             "no",     "KNOP[8]",   0,0,0,NULL,
-  IDAPPLY,             "Apply",          "ap",     "KNOP[31]",  0,0,0,NULL,
-  IDIGNORE,            "Ignore",         "ig",     "KNOP[23]",  0,0,0,NULL,
+  IDOK,                _T("OK"),             _T("ok"),     _T("KNOP[5]"),   0,0,0,NULL,
+  IDCANCEL,            _T("Cancel"),         _T("ca"),     _T("KNOP[23]"),  0,0,0,NULL,
+  IDRETRY,             _T("Retry"),          _T("re"),     _T("KNOP[26]"),  0,0,0,NULL,
+  IDYES,               _T("Yes"),            _T("ye"),     _T("KNOP[5]"),   0,0,0,NULL,
+  IDNO,                _T("No"),             _T("no"),     _T("KNOP[8]"),   0,0,0,NULL,
+  IDAPPLY,             _T("Apply"),          _T("ap"),     _T("KNOP[31]"),  0,0,0,NULL,
+  IDIGNORE,            _T("Ignore"),         _T("ig"),     _T("KNOP[23]"),  0,0,0,NULL,
   0,                   NULL,             NULL,     NULL,        0,0,0,NULL
 };
 
@@ -80,7 +80,7 @@ ControlsInfo::BepaalInfo()
     m_lettertypes[i]= 0;
   }
   // Maak dialoogvenster
-  m_lf_default = MaakLOGFONTVanString("Tahoma");
+  m_lf_default = MaakLOGFONTVanString(_T("Tahoma"));
 
   //  Haal de textmetrics van het font op
   CWindowDC dc(0);
@@ -90,7 +90,7 @@ ControlsInfo::BepaalInfo()
 
   HGDIOBJ oldFont = dc.SelectObject(font);
   dc.GetTextMetrics(&m_textmetric);
-  m_textmetric.tmMaxCharWidth = dc.GetTextExtent("W").cx;
+  m_textmetric.tmMaxCharWidth = dc.GetTextExtent(_T("W")).cx;
   dc.SelectObject(oldFont);
 
   // Want in GetInfo wordt er nog twee keer SM_CYFIXEDFRAME bij opgeteld.
@@ -105,12 +105,12 @@ ControlsInfo::BepaalInfo()
 }
 
 WORD
-ControlsInfo::ResourceIDFromNaam(LPCSTR naam)
+ControlsInfo::ResourceIDFromNaam(LPCTSTR naam)
 {
   commandInfo* inf = commandos;
   while(inf->ID != 0)
   {
-    if (_stricmp(inf->naam,naam) == 0)
+    if (_tcsicmp(inf->naam,naam) == 0)
     {
       return (WORD)inf->ID;
     }
@@ -153,25 +153,25 @@ ControlsInfo::MaakLOGFONTVanString(CString fontstring, CString deffont, int defs
   CString font1,font2,font3;
 
   font1 = fontstring;
-  int pos1 = fontstring.Find(';');
+  int pos1 = fontstring.Find(_T(';'));
   if(pos1 >= 0)
   {
     font1 = fontstring.Left(pos1);
     font2 = fontstring.Mid(pos1 + 1);
-    int pos2 = font2.Find(';');
+    int pos2 = font2.Find(_T(';'));
     if(pos2 >= 0)
     {
       font3 = font2.Mid(pos2 + 1);
       font2 = font2.Left(pos2);
     }
   }
-  strncpy_s(lf.lfFaceName,LF_FACESIZE,font1,LF_FACESIZE);
-  fontpuntgrootte = atoi(font2);
-  lf.lfWeight     = atoi(font3);
+  _tcsncpy_s(lf.lfFaceName,LF_FACESIZE,font1,LF_FACESIZE);
+  fontpuntgrootte = _ttoi(font2);
+  lf.lfWeight     = _ttoi(font3);
 
-  if (strlen(lf.lfFaceName) == 0)
+  if (_tcslen(lf.lfFaceName) == 0)
   {
-    strncpy_s(lf.lfFaceName, LF_FACESIZE, deffont.IsEmpty() ? "Tahoma" : deffont, LF_FACESIZE);
+    _tcsncpy_s(lf.lfFaceName, LF_FACESIZE, deffont.IsEmpty() ? _T("Tahoma") : deffont, LF_FACESIZE);
   }
   if (!lf.lfWeight)
   {
@@ -538,12 +538,12 @@ ControlsInfo::ZoekCommandInfo(UINT ID)
 }
 
 commandInfo*
-ControlsInfo::ZoekCommandInfo(LPCSTR code)
+ControlsInfo::ZoekCommandInfo(LPCTSTR code)
 {
   commandInfo* inf = commandos;
   while(inf->ID != 0)
   {
-    if (strcmp(inf->code,code) == 0)
+    if (_tcscmp(inf->code,code) == 0)
       return inf;
 
     inf += 1;
@@ -552,7 +552,7 @@ ControlsInfo::ZoekCommandInfo(LPCSTR code)
 }
 
 UINT
-ControlsInfo::GeefCommandIDVanCode(LPCSTR code)
+ControlsInfo::GeefCommandIDVanCode(LPCTSTR code)
 {
   commandInfo* inf = ZoekCommandInfo(code);
   if (inf)
@@ -561,39 +561,39 @@ ControlsInfo::GeefCommandIDVanCode(LPCSTR code)
   return 0;
 }
 
-LPCSTR
+LPCTSTR
 ControlsInfo::GeefCodeVanCommandID(UINT ID)
 {
   commandInfo* inf = ZoekCommandInfo(ID);
   if (inf)
     return inf->code;
 
-  return "";
+  return _T("");
 }
 
-LPCSTR
+LPCTSTR
 ControlsInfo::GeefAfbeedingVanCommandID(UINT ID)
 {
   commandInfo* inf = ZoekCommandInfo(ID);
   if (inf)
     return inf->defKnop;
 
-  return "";
+  return _T("");
 }
 
 int
 ControlsInfo::MaakDefaultAfbeelding(Ref<CAfbeeldingen> afbeeldingen)
 {
-  afbeeldingen->RegistreerExtensie(".BMP", "");
+  afbeeldingen->RegistreerExtensie(_T(".BMP"), _T(""));
   afbeeldingen->RegistreerZoekPad(theApp.GetBinDirectory());
-  afbeeldingen->RegistreerSystemZoekPad(theApp.GetBinDirectory()+"ImageLibraries\\");
+  afbeeldingen->RegistreerSystemZoekPad(theApp.GetBinDirectory()+_T("ImageLibraries\\"));
   afbeeldingen->Init();
 
   commandInfo* inf = commandos;
   int aantal = 0;
   while(inf->ID != 0)
   {
-    if (strlen(inf->code) > 0 && strcmp(inf->code,"??") != 0)
+    if (_tcslen(inf->code) > 0 && _tcscmp(inf->code,_T("??")) != 0)
     {
       afbeeldingen->RegistreerStandaard(inf->code,inf->defKnop,AFB_SET_KNOPPEN);
       ++aantal;
@@ -620,7 +620,7 @@ ControlsInfo::CommandSetAktief(UINT ID,bool waarde,bool or)
 }
 
 bool
-ControlsInfo::CommandSetAktief(LPCSTR code,bool waarde,bool or)
+ControlsInfo::CommandSetAktief(LPCTSTR code,bool waarde,bool or)
 {
   commandInfo* inf = ZoekCommandInfo(code);
   if (inf)
@@ -636,7 +636,7 @@ ControlsInfo::CommandSetAktief(LPCSTR code,bool waarde,bool or)
 }
 
 bool
-ControlsInfo::CommandSet(LPCSTR code,int waarde)
+ControlsInfo::CommandSet(LPCTSTR code,int waarde)
 {
   commandInfo* inf = ZoekCommandInfo(code);
   if (inf)
@@ -675,7 +675,7 @@ ControlsInfo::CommandUpdateAKtief()
   return gewijzigd;
 }
 
-LPCSTR 
+LPCTSTR 
 ControlsInfo::CommandPrompt(UINT ID)
 {
   commandInfo* inf = ZoekCommandInfo(ID);
@@ -684,5 +684,5 @@ ControlsInfo::CommandPrompt(UINT ID)
     if (inf->prompt) return inf->prompt;
     else             return inf->naam;
   }
-  return "!!UNKNOWN!!";
+  return _T("!!UNKNOWN!!");
 }

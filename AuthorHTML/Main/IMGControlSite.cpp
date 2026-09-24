@@ -219,7 +219,7 @@ IMGControlSite::IDNewArea()
     }
     ++it;
   }
-  return "";
+  return _T("");
 }
 
 ImgArea*        

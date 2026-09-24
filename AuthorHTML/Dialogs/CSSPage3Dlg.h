@@ -27,7 +27,7 @@ public:
 	virtual ~CSSPage3Dlg();
   BOOL OnInitDialog();
   void UpdateProperties();
-  void SetSelector(string selector);
+  void SetSelector(XString selector);
 
 // Dialog Data
 	enum { IDD = IDD_SS_PAGE3 };
@@ -46,7 +46,7 @@ private:
   CComQIPtr<IWebBrowser2>   m_spBrowser;
   CComQIPtr<IHTMLDocument2> m_doc;
   CssStyleSheet* m_css;
-  string         m_selector;
+  XString        m_selector;
   CString        m_backgroundColor;
   CString        m_backgroundImage;
   CString        m_backgroundRepeat;

@@ -175,22 +175,22 @@ void WindowDefPage4::OnBnClickedDefaults()
 void 
 WindowDefPage4::OnBnClickedReset()
 {
-  char szPath[MAX_PATH];
+  TCHAR szPath[MAX_PATH];
   if(SHGetFolderPath(m_hWnd         // For UI remote connections
                     ,CSIDL_APPDATA  // Typically "C:\Documents and Settings\%Username\Application data\"
                     ,NULL           // Default user (no impersonations)
                     ,0
-                    ,(LPSTR)szPath))
+                    ,(LPTSTR)szPath))
   {
     // Cannot find this directory
     return;
   }
-  strcat(szPath,"\\Microsoft\\HTML Help\\hh.dat");
-  if(_access(szPath,0) == 0)
+  _tcscat(szPath,_T("\\Microsoft\\HTML Help\\hh.dat"));
+  if(_taccess(szPath,0) == 0)
   {
-    if(unlink(szPath))
+    if(_tunlink(szPath))
     {
-      theApp.ErrorMessage("Cannot erase the system-wide 'hh.dat' file with HTML window positions");
+      theApp.ErrorMessage(_T("Cannot erase the system-wide 'hh.dat' file with HTML window positions"));
     }
   }
 }

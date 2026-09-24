@@ -74,15 +74,15 @@ void MarqueeDialog::DoDataExchange(CDataExchange* pDX)
     HtmlElement elem(pElem);
 
     m_buttonID.GetWindowText(def);
-    text = elem.HasIdentity() ? "[ &ID ]" : "&ID";
+    text = elem.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = elem.HasStyle() ? "[ &Style ]" : "&Style";
+    text = elem.HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = elem.HasEvents() ? "[ &Events ]" : "&Events";
+    text = elem.HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -115,13 +115,13 @@ MarqueeDialog::OnInitDialog()
   m_marquee->get_direction(&bDirection);
   m_direction = bDirection;
 
-       if(m_direction.CompareNoCase("left")  == 0) m_buttonLeft .SetCheck(TRUE);
-  else if(m_direction.CompareNoCase("right") == 0) m_buttonRight.SetCheck(TRUE);
-  else if(m_direction.CompareNoCase("up")    == 0) m_buttonUp   .SetCheck(TRUE);
-  else if(m_direction.CompareNoCase("down")  == 0) m_buttonDown .SetCheck(TRUE);
+       if(m_direction.CompareNoCase(_T("left"))  == 0) m_buttonLeft .SetCheck(TRUE);
+  else if(m_direction.CompareNoCase(_T("right")) == 0) m_buttonRight.SetCheck(TRUE);
+  else if(m_direction.CompareNoCase(_T("up"))    == 0) m_buttonUp   .SetCheck(TRUE);
+  else if(m_direction.CompareNoCase(_T("down"))  == 0) m_buttonDown .SetCheck(TRUE);
   else
   {
-    m_direction = "Left";
+    m_direction = _T("Left");
     m_buttonLeft.SetCheck(TRUE);
   }
 
@@ -141,12 +141,12 @@ MarqueeDialog::OnInitDialog()
   CComBSTR bBehaviour;
   m_marquee->get_behavior(&bBehaviour);
   m_behaviour = bBehaviour;
-       if(m_behaviour.CompareNoCase("scroll")    == 0) m_buttonScroll.SetCheck(TRUE);
-  else if(m_behaviour.CompareNoCase("slide")     == 0) m_buttonSlide .SetCheck(TRUE);
-  else if(m_behaviour.CompareNoCase("alternate") == 0) m_buttonAlternate.SetCheck(TRUE);
+       if(m_behaviour.CompareNoCase(_T("scroll"))    == 0) m_buttonScroll.SetCheck(TRUE);
+  else if(m_behaviour.CompareNoCase(_T("slide"))     == 0) m_buttonSlide .SetCheck(TRUE);
+  else if(m_behaviour.CompareNoCase(_T("alternate")) == 0) m_buttonAlternate.SetCheck(TRUE);
   else 
   {
-    m_behaviour = "Scroll";
+    m_behaviour = _T("Scroll");
     m_buttonScroll.SetCheck(TRUE);
   }
 
@@ -170,7 +170,7 @@ MarqueeDialog::OnInitDialog()
   V_VT(&width) = VT_BSTR;
   m_marquee->get_width(&width);
   m_preferredWidth = V_BSTR(&width);
-  long wid = atoi(m_preferredWidth);
+  long wid = _ttoi(m_preferredWidth);
   if(wid)
   {
     m_buttonUseWidth.SetCheck(TRUE);
@@ -190,7 +190,7 @@ MarqueeDialog::OnInitDialog()
   V_VT(&height) = VT_BSTR;
   m_marquee->get_height(&height);
   m_preferredHeight = V_BSTR(&height);
-  long high = atoi(m_preferredHeight);
+  long high = _ttoi(m_preferredHeight);
   if(high)
   {
     m_buttonUseHeight.SetCheck(TRUE);
@@ -233,13 +233,13 @@ MarqueeDialog::UpdateDocument()
   // PREFERRED WIDTH
   CComVariant width;
   V_VT(&width) = VT_I4;
-  V_I4(&width) = atoi(m_preferredWidth);
+  V_I4(&width) = _ttoi(m_preferredWidth);
   hr = m_marquee->put_width(width);
 
   // PREFERRED HEIGHT
   CComVariant height;
   V_VT(&height) = VT_I4;
-  V_I4(&height) = atoi(m_preferredHeight);
+  V_I4(&height) = _ttoi(m_preferredHeight);
   hr = m_marquee->put_height(height);
 }
 
@@ -250,7 +250,7 @@ MarqueeDialog::OnBnClickedRadioLr()
 {
   if(m_buttonLeft.GetCheck())
   {
-    m_direction = "Left";
+    m_direction = _T("Left");
   }
 }
 
@@ -259,7 +259,7 @@ MarqueeDialog::OnBnClickedRadioRl()
 {
   if(m_buttonRight.GetCheck())
   {
-    m_direction = "Right";
+    m_direction = _T("Right");
   }
 }
 
@@ -268,7 +268,7 @@ MarqueeDialog::OnBnClickedRadioUp()
 {
   if(m_buttonUp.GetCheck())
   {
-    m_direction = "Up";
+    m_direction = _T("Up");
   }
 }
 
@@ -277,7 +277,7 @@ MarqueeDialog::OnBnClickedRadioDown()
 {
   if(m_buttonDown.GetCheck())
   {
-    m_direction = "Down";
+    m_direction = _T("Down");
   }
 }
 
@@ -286,7 +286,7 @@ MarqueeDialog::OnBnClickedRadioScroll()
 {
   if(m_buttonScroll.GetCheck())
   {
-    m_behaviour = "Scroll";
+    m_behaviour = _T("Scroll");
   }
 }
 
@@ -295,7 +295,7 @@ MarqueeDialog::OnBnClickedRadioSlide()
 {
   if(m_buttonSlide.GetCheck())
   {
-    m_behaviour = "Slide";
+    m_behaviour = _T("Slide");
   }
 }
 
@@ -305,7 +305,7 @@ MarqueeDialog::OnBnClickedRadioAlternate()
 {
   if(m_buttonAlternate.GetCheck())
   {
-    m_behaviour = "Alternate";
+    m_behaviour = _T("Alternate");
   }
 }
 
@@ -341,9 +341,9 @@ MarqueeDialog::OnBnClickedMarqUsew()
   {
     m_spinWidth.EnableWindow(FALSE);
     width->EnableWindow(FALSE);
-    m_preferredWidth = "";
+    m_preferredWidth = _T("");
   }
-  m_spinWidth.SetPos(atoi(m_preferredWidth));
+  m_spinWidth.SetPos(_ttoi(m_preferredWidth));
 }
 
 void 
@@ -359,9 +359,9 @@ MarqueeDialog::OnBnClickedMarqUseh()
   {
     m_spinHeight.EnableWindow(FALSE);
     height->EnableWindow(FALSE);
-    m_preferredHeight = "";
+    m_preferredHeight = _T("");
   }
-  m_spinHeight.SetPos(atoi(m_preferredHeight));
+  m_spinHeight.SetPos(_ttoi(m_preferredHeight));
 }
 
 void MarqueeDialog::OnBnClickedOk()
@@ -379,7 +379,7 @@ void MarqueeDialog::OnBnClickedId()
 {
   CComQIPtr<IHTMLElement,&IID_IHTMLElement> pElem = m_marquee;
   HtmlElement elem(pElem);
-  GeneralIDDlg dlg(this,"marquee",&elem);
+  GeneralIDDlg dlg(this,_T("marquee"),&elem);
   dlg.DoModal();
 }
 
@@ -387,7 +387,7 @@ void MarqueeDialog::OnBnClickedEvents()
 {
   CComQIPtr<IHTMLElement,&IID_IHTMLElement> pElem = m_marquee;
   HtmlElement elem(pElem);
-  TagEventsDlg dlg(this,&elem,"marquee");
+  TagEventsDlg dlg(this,&elem,_T("marquee"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -401,13 +401,13 @@ void MarqueeDialog::OnBnClickedStyle()
     elem.SetStyle();
   }
   CString style = elem.GetInlineStyle();
-  style = CString("marquee { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"marquee",NULL,style);
+  style = CString(_T("marquee { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("marquee"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("a {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("a {"));
     elem.SetInlineStyle(style);
   }
 }

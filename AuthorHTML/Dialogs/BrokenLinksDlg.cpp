@@ -52,8 +52,8 @@ BrokenLinksDlg::OnInitDialog()
   m_naam = m_project->GetTitle();
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Source",      LVCFMT_LEFT,300);
-  m_list.InsertColumn(1,"Broken link", LVCFMT_LEFT,300);
+  m_list.InsertColumn(0,_T("Source"),      LVCFMT_LEFT,300);
+  m_list.InsertColumn(1,_T("Broken link"), LVCFMT_LEFT,300);
 
   FillPage();
 
@@ -74,7 +74,7 @@ BrokenLinksDlg::FillPage()
   {
     DocumentFile* doc  = it->first;
     CString brokenLink = it->second;
-    CString source("Project file");
+    CString source(_T("Project file"));
     if(doc)
     {
       source = doc->GetRelativeFilename();
@@ -111,7 +111,7 @@ BrokenLinksDlg::OnDblClckLink(NMHDR* /*pNMHDR*/, LRESULT *pResult)
   if(now < num)
   {
     CString file = m_list.GetItemText(now,0);
-    if(file.CompareNoCase("Project file"))
+    if(file.CompareNoCase(_T("Project file")))
     {
       CString base = m_project->GetBaseDirectory();
       CString path = base + file;

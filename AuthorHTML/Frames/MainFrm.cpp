@@ -28,13 +28,13 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define EDIT_HINT "Change the text class"
-#define FONT_HINT "Change the font style of the text"
-#define SIZE_HINT "Change the size of the text font"
+#define EDIT_HINT _T("Change the text class")
+#define FONT_HINT _T("Change the font style of the text")
+#define SIZE_HINT _T("Change the size of the text font")
 
 // HACK: Global status bar pointer to update the status bar.
 CMFCStatusBar*    g_statusBar    = nullptr;
-LPCSTR MainFrame::m_cszClassName = "AuthorDoc.AuthorHTML";
+LPCTSTR MainFrame::m_cszClassName = _T("AuthorDoc.AuthorHTML");
 
 /////////////////////////////////////////////////////////////////////////////
 // MainFrame
@@ -143,7 +143,7 @@ MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CMDIFrameWndEx::OnCreate(lpCreateStruct) == -1)
   {
-    theApp.Panic("Cannot create MDI frame");
+    theApp.Panic(_T("Cannot create MDI frame"));
   }	
 
   OnAppLook(m_nAppLook);
@@ -205,7 +205,7 @@ MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
   // improves the usability of the taskbar because the document name is visible with the thumbnail.
   ModifyStyle(0,FWS_PREFIXTITLE);
 
-  theApp.LoadState(this,"Layout");
+  theApp.LoadState(this,_T("Layout"));
   PostMessage(WM_APP+1,0,0);
 
   // Final platform checks
@@ -231,7 +231,7 @@ MainFrame::OnCreate_CommandBars()
   // Add the menu bar
   if(!m_wndMenuBar.Create(this))
   {
-    theApp.Panic("Failed to create menu bar.");
+    theApp.Panic(_T("Failed to create menu bar."));
     return;
   }
   m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
@@ -243,7 +243,7 @@ MainFrame::OnCreate_CommandBars()
   if(!m_wndToolBar.CreateEx(this,TBSTYLE_FLAT,WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC,CRect(1,1,1,1),IDR_MAINFRAME) ||
      !m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
   {
-    theApp.Panic("Failed to create toolbar STANDARD");
+    theApp.Panic(_T("Failed to create toolbar STANDARD"));
     return;
   }
   m_wndToolBar.SetWindowText(_T("Standard toolbar"));
@@ -253,7 +253,7 @@ MainFrame::OnCreate_CommandBars()
   if(!m_wndTableBar.CreateEx(this,TBSTYLE_FLAT,WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC,CRect(1,1,1,1),IDR_TABLEBAR) ||
      !m_wndTableBar.LoadToolBar(IDR_TABLEBAR))
   {
-    theApp.Panic("Failed to create toolbar TABLEBAR");
+    theApp.Panic(_T("Failed to create toolbar TABLEBAR"));
     return;
   }
   m_wndTableBar.SetWindowText(_T("Table toolbar"));
@@ -263,7 +263,7 @@ MainFrame::OnCreate_CommandBars()
   if(!m_wndWindowBar.CreateEx(this,TBSTYLE_FLAT,WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC,CRect(1,1,1,1),IDR_WINDOWBAR) ||
      !m_wndWindowBar.LoadToolBar(IDR_WINDOWBAR))
   {
-    theApp.Panic("Failed to create toolbar WINDOWBAR");
+    theApp.Panic(_T("Failed to create toolbar WINDOWBAR"));
     return;
   }
   m_wndWindowBar.SetWindowText(_T("Window toolbar"));
@@ -273,7 +273,7 @@ MainFrame::OnCreate_CommandBars()
   if(!m_wndEditBar.CreateEx(this,TBSTYLE_FLAT,WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC,CRect(1,1,1,1),ID_TOOLBAR_EDITING) ||
      !m_wndEditBar.LoadToolBar(ID_TOOLBAR_EDITING))
      {
-       theApp.Panic("Failed to create toolbar EDITBAR");
+       theApp.Panic(_T("Failed to create toolbar EDITBAR"));
        return;
   }
   m_wndEditBar.SetWindowText(_T("Edit toolbar"));
@@ -283,7 +283,7 @@ MainFrame::OnCreate_CommandBars()
   if(!m_wndLinkBar.CreateEx(this,TBSTYLE_FLAT,WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC,CRect(1,1,1,1),IDR_LINKBAR) ||
      !m_wndLinkBar.LoadToolBar(IDR_LINKBAR))
   {
-    theApp.Panic("Failed to create toolbar LINKBAR");
+    theApp.Panic(_T("Failed to create toolbar LINKBAR"));
     return;
   }
   m_wndLinkBar.SetWindowText(_T("Link toolbar"));
@@ -300,7 +300,7 @@ MainFrame::OnCreate_StatusBar()
   if(!m_wndStatusBar.Create(this) ||
      !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators) / sizeof(UINT)))
   {
-    theApp.Panic("Failed to create status bar");
+    theApp.Panic(_T("Failed to create status bar"));
   }
   // Save global status bar pointer
   g_statusBar = &m_wndStatusBar;
@@ -332,49 +332,49 @@ MainFrame::OnCreate_DockingPanes()
   // TOC
   if(!m_wndTOCView.Create(_T("TOC"),this,CRect(0,0,200,200),TRUE,ID_PANE_TOC,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane TOC");
+    theApp.Panic(_T("Cannot create pane TOC"));
     return;
   }
 
   // File Explorer
   if(!m_wndExplorerView.Create(_T("Explorer"),this,CRect(0,0,200,200),TRUE,ID_PANE_EXPLORER,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane EXPLORER");
+    theApp.Panic(_T("Cannot create pane EXPLORER"));
     return;
   }
 
   // Documents
   if(!m_openFiles.Create(_T("Documents"),this,CRect(0,0,200,200),TRUE,ID_PANE_DOCUMENTS,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane DOCUMENTS");
+    theApp.Panic(_T("Cannot create pane DOCUMENTS"));
     return;
   }
 
   // Indices
   if(!m_wndIndexView.Create(_T("Indices"),this,CRect(0,0,200,200),TRUE,ID_PANE_KEYWORDS,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane INDEX");
+    theApp.Panic(_T("Cannot create pane INDEX"));
     return;
   }
 
   // Page links
   if(!m_wndPageLink2View.Create(_T("Links"),this,CRect(0,0,200,200),TRUE,ID_PANE_LINKS,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane LINKS");
+    theApp.Panic(_T("Cannot create pane LINKS"));
     return;
   }
 
   // Project view
   if(!m_wndProjectView.Create(_T("Project"),this,CRect(0,0,200,200),TRUE,ID_PANE_PROJECT,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane PROJECT");
+    theApp.Panic(_T("Cannot create pane PROJECT"));
     return;
   }
 
   // Compile output window
   if(!m_wndCompileView.Create(_T("Compilation"),this,CRect(0,0,100,100),TRUE,ID_PANE_COMPILE,WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI))
   {
-    theApp.Panic("Cannot create pane COMPILE");
+    theApp.Panic(_T("Cannot create pane COMPILE"));
     return;
   }
 
@@ -445,7 +445,7 @@ MainFrame::OnCreate_Platform()
   // General checks
   if(!IsPlatformNT())
   {
-    theApp.ErrorMessage("AuthorDocumentation cannot run on MS-Windows 95/98/ME Platforms!. Sorry");
+    theApp.ErrorMessage(_T("AuthorDocumentation cannot run on MS-Windows 95/98/ME Platforms!. Sorry"));
     exit(3);
   }
   UINT version = GetMsieVersion();
@@ -454,7 +454,7 @@ MainFrame::OnCreate_Platform()
     // Numerous IDispatch interfaces are different per MS-IE version.
     // Must be tested at every change of the checked version. (See HTMLEdView, Misc, Dialogs)
     // Look for "IHTML*" and "IID_IHTML*" interfaces.
-    theApp.ErrorMessage("AuthorDocumentation cannot run if MS-Internet-Explorer version < 6.0! Sorry");
+    theApp.ErrorMessage(_T("AuthorDocumentation cannot run if MS-Internet-Explorer version < 6.0! Sorry"));
     exit(3);
   }
   // Be sure it looks as intended!!
@@ -845,14 +845,14 @@ MainFrame::GetMsieVersion()
 	if (!u32_Version) // Determine MSIE Version only at the first call
 	{
 		// read whole file infos into buffer s8_Info
-		char s8_Info[3000];
-		if (!GetFileVersionInfoA("MSHTML.DLL", 0, sizeof(s8_Info), s8_Info)) 
+		TCHAR s8_Info[3000];
+		if (!GetFileVersionInfo(_T("MSHTML.DLL"), 0, sizeof(s8_Info), s8_Info)) 
     {
       return 0;
     }
 		UINT u32_Len;
 		VS_FIXEDFILEINFO *pk_Info;
-		if (!VerQueryValueA(s8_Info, "\\", (void**) &pk_Info, &u32_Len))
+		if (!VerQueryValue(s8_Info, _T("\\"), (void**) &pk_Info, &u32_Len))
     {
       return 0;
     }
@@ -871,14 +871,14 @@ MainFrame::IsPlatformNT()
 
   switch(k_Os.dwMajorVersion)
   {
-    case 4: TRACE("Windows 98\n");    break;
+    case 4: TRACE(_T("Windows 98\n"));    break;
     case 5: switch(k_Os.dwMinorVersion)
             {
-              case 0: TRACE("Windows 2000\n");  break;
-              case 1: TRACE("Windows XP\n");    break;
+              case 0: TRACE(_T("Windows 2000\n"));  break;
+              case 1: TRACE(_T("Windows XP\n"));    break;
             }
             break;
-    case 6: TRACE("Windows Vista\n"); break;
+    case 6: TRACE(_T("Windows Vista\n")); break;
   }
 	return (k_Os.dwPlatformId == VER_PLATFORM_WIN32_NT);
 }
@@ -899,7 +899,7 @@ MainFrame::OnCreateChild (CMDIChildWnd* pWnd)
   LVITEM item;
   memset(&item, 0, sizeof(item));
   item.mask    = LVIF_TEXT|LVIF_PARAM;
-  item.pszText = (LPSTR)(LPCSTR)strTitle;
+  item.pszText = (LPTSTR)(LPCTSTR)strTitle;
   item.lParam  = (LPARAM)pWnd;
   m_openFiles.OpenFiles_Append(item);
 }
@@ -1037,7 +1037,7 @@ int MainFrame::GetImageByDocument (const CDocument* pDoc)
   {
     CString path = pDoc->GetPathName();
 
-    if (path.IsEmpty()) path   = "*.html"; // "*." + m_defaultFileExtension;
+    if (path.IsEmpty()) path   = _T("*.html"); // "*." + m_defaultFileExtension;
 
     BOOL newDoc = !PathFileExists(path);
 
@@ -1118,7 +1118,7 @@ BOOL MainFrame::OnToolTipText (UINT, NMHDR* pNMHDR, LRESULT* pResult)
       return FALSE;
 
     // this is the command id, not the button index
-    AfxExtractSubString(strTipText, szFullText, 1, '\n');
+    AfxExtractSubString(strTipText, szFullText, 1, _T('\n'));
 
     //std::string accLabel;
     //if (Common::GUICommandDictionary::GetCommandAccelLabel(static_cast<Common::Command>(nID), accLabel))
@@ -1398,7 +1398,7 @@ MainFrame::OnBrokenLinks()
   }
   else
   {
-    theApp.MessageBox("Currently no project loaded. Sorry","Error",MB_OK|MB_ICONERROR);
+    theApp.MessageBox(_T("Currently no project loaded. Sorry"),_T("Error"),MB_OK|MB_ICONERROR);
   }
 }
 
@@ -1415,12 +1415,12 @@ MainFrame::RenameFile(CString& p_old_href,CString& p_new_href)
   // Try opening file for rename-copy
   CString newFileName = theApp.GetBaseDirectory() + p_new_href;
 
-  FILE* fpOutput = fopen(newFileName,"w");
+  FILE* fpOutput = _tfopen(newFileName,_T("w"));
   if(fpOutput == NULL)
   {
     CString message;
-    message.Format("Cannot create the new file [%s] for renaming the current topic file.",newFileName.GetString());
-    theApp.MessageBox(message,"ERROR Renaming file",MB_OK|MB_ICONERROR);
+    message.Format(_T("Cannot create the new file [%s] for renaming the current topic file."),newFileName.GetString());
+    theApp.MessageBox(message,_T("ERROR Renaming file"),MB_OK|MB_ICONERROR);
     return false;
   }
   fclose(fpOutput);
@@ -1458,44 +1458,44 @@ MainFrame::CopyFileForRename(CString& p_old_href,CString& p_new_href)
 //   CString oldFileName = theApp.GetBaseDirectory() + p_old_href;
 //   CString newFileName = theApp.GetBaseDirectory() + p_new_href;
 
-  FILE* fpOutput = fopen(p_new_href,"w");
+  FILE* fpOutput = _tfopen(p_new_href,_T("w"));
   if(fpOutput == NULL)
   {
     CString message;
-    message.Format("Cannot create the new file [%s] for renaming the current topic file.",p_new_href.GetString());
-    theApp.MessageBox(message,"ERROR Renaming file",MB_OK|MB_ICONERROR);
+    message.Format(_T("Cannot create the new file [%s] for renaming the current topic file."),p_new_href.GetString());
+    theApp.MessageBox(message,_T("ERROR Renaming file"),MB_OK|MB_ICONERROR);
     return false;
   }
-  FILE* fpInput = fopen(p_old_href,"r");
+  FILE* fpInput = _tfopen(p_old_href,_T("r"));
   if(fpInput)
   {
     int ch = 0;
-    while((ch = fgetc(fpInput)) != EOF)
+    while((ch = _fgettc(fpInput)) != _TEOF)
     {
-      fputc(ch,fpOutput);
+      _fputtc(ch,fpOutput);
     }
     bool fileError = false;
-    if(fclose(fpInput) == EOF)
+    if(fclose(fpInput) == _TEOF)
     {
       fileError = true;
     }
-    if(fclose(fpOutput) == EOF)
+    if(fclose(fpOutput) == _TEOF)
     {
       fileError = true;
     }
     if(fileError)
     {
       CString message;
-      message.Format("File error re-writing file to: %s",p_new_href.GetString());
-      theApp.MessageBox(message,"ERROR rewriting",MB_OK|MB_ICONERROR);
+      message.Format(_T("File error re-writing file to: %s"),p_new_href.GetString());
+      theApp.MessageBox(message,_T("ERROR rewriting"),MB_OK|MB_ICONERROR);
       return false;
     }
   }
   else
   {
     CString message;
-    message.Format("File error opening file for reading: %s",p_old_href.GetString());
-    theApp.MessageBox(message,"ERROR rewriting",MB_OK|MB_ICONERROR);
+    message.Format(_T("File error opening file for reading: %s"),p_old_href.GetString());
+    theApp.MessageBox(message,_T("ERROR rewriting"),MB_OK|MB_ICONERROR);
     return false;
   }
 
@@ -1503,9 +1503,9 @@ MainFrame::CopyFileForRename(CString& p_old_href,CString& p_new_href)
   if(DeleteFile(p_old_href) == 0)
   {
     CString message;
-    message.Format("Could not delete the original file: %s\n"
-                   "Since everything else went fine, we will continue the renaming process.",p_old_href.GetString());
-    theApp.MessageBox(message,"ERROR deleting file",MB_OK|MB_ICONERROR);
+    message.Format(_T("Could not delete the original file: %s\n")
+                   _T("Since everything else went fine, we will continue the renaming process."),p_old_href.GetString());
+    theApp.MessageBox(message,_T("ERROR deleting file"),MB_OK|MB_ICONERROR);
   }
   return true;
 }

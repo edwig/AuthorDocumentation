@@ -61,7 +61,7 @@ FormTextareaDlg::DoDataExchange(CDataExchange* pDX)
 
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
-    CString disp = Misc::GetAttributeDisplayname("wrap",m_wrap);
+    CString disp = Misc::GetAttributeDisplayname(_T("wrap"),m_wrap);
     int ind = m_comboWrap.FindString(-1,disp);
     m_comboWrap.SetCurSel(ind);
 
@@ -72,15 +72,15 @@ FormTextareaDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -103,8 +103,8 @@ FormTextareaDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("wrap",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("wrap"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     CString disp = all[ind].c_str();
@@ -117,8 +117,8 @@ FormTextareaDlg::OnInitDialog()
   m_spinRows.SetBase(10);
   m_spinCols.SetRange(0,32000);
   m_spinRows.SetRange(0,32000);
-  m_spinCols.SetPos(atoi(m_cols));
-  m_spinRows.SetPos(atoi(m_rows));
+  m_spinCols.SetPos(_ttoi(m_cols));
+  m_spinRows.SetPos(_ttoi(m_rows));
   UpdateData(Data2Controls);
   return TRUE;
 }
@@ -154,21 +154,21 @@ FormTextareaDlg::OnCbnSelchangeTaWordwrap()
   {
     CString disp;
     m_comboWrap.GetLBText(ind,disp);
-    m_wrap = Misc::GetAttributeValue("wrap",disp);
+    m_wrap = Misc::GetAttributeValue(_T("wrap"),disp);
   }
 }
 
 void 
 FormTextareaDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"textarea",m_elem);
+  GeneralIDDlg dlg(this,_T("textarea"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormTextareaDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"TEXTAREA");
+  TagEventsDlg dlg(this,m_elem,_T("TEXTAREA"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -181,13 +181,13 @@ FormTextareaDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("textarea { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"textarea",NULL,style);
+  style = CString(_T("textarea { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("textarea"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("textarea {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("textarea {"));
     m_elem->SetInlineStyle(style);
   }
 }
@@ -198,20 +198,20 @@ FormTextareaDlg::OnBnClickedOk()
   CString msg1,msg2,msg3;
   if(m_name.IsEmpty())
   {
-    msg1 = "\nParameter name for textarea not yet givven.";
+    msg1 = _T("\nParameter name for textarea not yet givven.");
   }
-  if(atoi(m_rows) == 0)
+  if(_ttoi(m_rows) == 0)
   {
-    msg2 = "\nNumber of textlines for textarea not yet givven.";
+    msg2 = _T("\nNumber of textlines for textarea not yet givven.");
   }
-  if(atoi(m_cols) == 0)
+  if(_ttoi(m_cols) == 0)
   {
-    msg3 = "\nWidth in columns for textarea not yet givven.";
+    msg3 = _T("\nWidth in columns for textarea not yet givven.");
   }
   CString msg = msg1 + msg2 + msg3;
   if(!msg.IsEmpty())
   {
-    msg = CString("The definition of the textarea is incomplete:")  + msg;
+    msg = CString(_T("The definition of the textarea is incomplete:"))  + msg;
     theApp.ErrorMessage(msg);
     return;
   }

@@ -27,7 +27,7 @@ public:
 	virtual ~CSSPage7Dlg();
   virtual BOOL OnInitDialog();
   void UpdateProperties();
-  void SetSelector(string selector);
+  void SetSelector(XString selector);
 
 // Dialog Data
 	enum { IDD = IDD_SS_PAGE7 };
@@ -41,7 +41,7 @@ private:
   void Redisplay();
   void FillPage();
   CssStyleSheet*  m_css;
-  string          m_selector;
+  XString         m_selector;
 
   // Attributes
   CString         m_hAlign;

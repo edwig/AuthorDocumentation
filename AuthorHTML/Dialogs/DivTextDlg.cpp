@@ -58,15 +58,15 @@ void DivTextDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -94,17 +94,17 @@ DivTextDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-  if(m_tag.CompareNoCase("abbr") == 0)
+  if(m_tag.CompareNoCase(_T("abbr")) == 0)
   {
-    SetWindowText("Abbreviation");
+    SetWindowText(_T("Abbreviation"));
   }
-  else if(m_tag.CompareNoCase("acronym") == 0)
+  else if(m_tag.CompareNoCase(_T("acronym")) == 0)
   {
-    SetWindowText("Acronym");
+    SetWindowText(_T("Acronym"));
   }
-  else if(m_tag.CompareNoCase("address") == 0)
+  else if(m_tag.CompareNoCase(_T("address")) == 0)
   {
-    SetWindowText("Address");
+    SetWindowText(_T("Address"));
     CWnd* w = GetDlgItem(IDC_TEXT_TITLE);
     w->EnableWindow(FALSE);
   }
@@ -156,14 +156,14 @@ void DivTextDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = m_tag + " { " + style + "}";
+  style = m_tag + _T(" { ") + style + _T("}");
   StyleSheetDlg dlg(this,m_base,m_tag,NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
+    style.TrimRight(_T("}"));
     style.TrimLeft(m_tag);
-    style.TrimLeft(" {");
+    style.TrimLeft(_T(" {"));
     m_elem->SetInlineStyle(style);
   }
 }

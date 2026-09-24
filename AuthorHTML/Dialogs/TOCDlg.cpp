@@ -52,7 +52,7 @@ TOCDlg::TOCDlg(CWnd*     pParent
               ,m_base(base)
               ,m_entry(entry)
 {
-  m_image = "Default";
+  m_image = _T("Default");
 }
 
 TOCDlg::~TOCDlg()
@@ -81,7 +81,7 @@ void TOCDlg::DoDataExchange(CDataExchange* pDX)
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
     int ind;
-    CString desc = Misc::GetAttributeDisplayname("target",m_target);
+    CString desc = Misc::GetAttributeDisplayname(_T("target"),m_target);
     ind = m_comboFrame.FindString(-1,desc);
     m_comboFrame.SetCurSel(ind);
     ind = m_comboWindow.FindString(-1,m_window);
@@ -174,8 +174,8 @@ void
 TOCDlg::FillTargets()
 {
   // All target descriptions
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("target",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("target"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_comboFrame.AddString(all[ind].c_str());
@@ -186,11 +186,11 @@ void
 TOCDlg::FillImageNumbers()
 {
   // Set image numbers;
-  m_comboImage.AddString("Default");
+  m_comboImage.AddString(_T("Default"));
   for(int ind = 1; ind < 43; ++ind)
   {
     CString number;
-    number.Format("%d",ind);
+    number.Format(_T("%d"),ind);
     m_comboImage.AddString(number);
   }
 }
@@ -203,7 +203,7 @@ TOCDlg::OnPaintIcon()
     // Not sofar in initialisation
     return;
   }
-  int image = atoi(m_image);
+  int image = _ttoi(m_image);
   if(image <= 0)
   {
     image = (m_entry->EntryType() == PF_Book) ? 0 : 8;
@@ -224,13 +224,13 @@ TOCDlg::FillPage()
   m_title   = m_entry->GetTitle();
   m_comment = m_entry->GetComment();
   int image = m_entry->GetImageNumber();
-  m_image = "Default";
+  m_image = _T("Default");
   if(image >= 0)
   {
-    m_image.Format("%d",image + 1);
+    m_image.Format(_T("%d"),image + 1);
   }
   // Test for bookmark
-  int pos = m_href.Find('#');
+  int pos = m_href.Find(_T('#'));
   if(pos >= 0)
   {
     m_bookmark = m_href.Mid(pos + 1);
@@ -259,9 +259,9 @@ TOCDlg::UpdateProperties()
   m_entry->SetComment(m_comment);
   // Set image
   int image = -1;
-  if(m_image.CompareNoCase("Default") != 0)
+  if(m_image.CompareNoCase(_T("Default")) != 0)
   {
-    image = atoi(m_image) - 1;
+    image = _ttoi(m_image) - 1;
   }
   m_entry->SetImageNumber(image);
   return true;
@@ -276,12 +276,12 @@ TOCDlg::CheckDocument(CString& href)
   {
     if(!href.IsEmpty())
     {
-      if(theApp.MessageBox("This document is not a part of this project!\n"
-                           "Would you like to try to add it to the project for future use?"
-                           ,"Warning"
+      if(theApp.MessageBox(_T("This document is not a part of this project!\n")
+                           _T("Would you like to try to add it to the project for future use?")
+                           ,_T("Warning")
                            ,MB_YESNO | MB_DEFBUTTON1 | MB_ICONWARNING) == IDYES)
       {
-        return project->AddDocumentFile("",href);
+        return project->AddDocumentFile(_T(""),href);
       }
     }
     return false;
@@ -297,7 +297,7 @@ TOCDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
   bool found = false;
   m_comboBM.ResetContent();
-  m_comboBM.AddString("");
+  m_comboBM.AddString(_T(""));
 
   // Now read the bookmarks from the document (if any)
   CComPtr<IDispatch> disp;
@@ -438,9 +438,9 @@ TOCDlg::OnGo()
 void TOCDlg::OnBnClickedButtonOpen()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to link to"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to link to")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -488,7 +488,7 @@ TOCDlg::OnCbnSelchangeFrameTarget()
   {
     CString target;
     m_comboFrame.GetLBText(ind,target);
-    m_target = Misc::GetAttributeValue("target",target);
+    m_target = Misc::GetAttributeValue(_T("target"),target);
     UpdateData(Data2Controls);
   }
 }

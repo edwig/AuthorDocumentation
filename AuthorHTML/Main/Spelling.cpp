@@ -84,26 +84,26 @@ void
 Spelling::ReadOptions()
 {
   CString opt;
-  m_nameMainDictionary = settings.GetSetting("MainDictionary","en_us.dict");
+  m_nameMainDictionary = settings.GetSetting(_T("MainDictionary"),_T("en_us.dict"));
 
-  opt = settings.GetSetting("SPELL_Enable",             "1"); m_enable            = (atoi(opt) != 0);
-  opt = settings.GetSetting("SPELL_UseCustomDictionary","1"); m_useCustom         = (atoi(opt) != 0);
-  opt = settings.GetSetting("SPELL_ShowSpellingErrors" ,"1"); m_showErrors        = (atoi(opt) != 0);
-  opt = settings.GetSetting("SPELL_IgnoreAllCapitals",  "1"); m_ignoreAllCapitals = (atoi(opt) != 0);
-  opt = settings.GetSetting("SPELL_IgnoreNumberWords",  "1"); m_ignoreNumberWords = (atoi(opt) != 0);
+  opt = settings.GetSetting(_T("SPELL_Enable"),             _T("1")); m_enable            = (_ttoi(opt) != 0);
+  opt = settings.GetSetting(_T("SPELL_UseCustomDictionary"),_T("1")); m_useCustom         = (_ttoi(opt) != 0);
+  opt = settings.GetSetting(_T("SPELL_ShowSpellingErrors") ,_T("1")); m_showErrors        = (_ttoi(opt) != 0);
+  opt = settings.GetSetting(_T("SPELL_IgnoreAllCapitals"),  _T("1")); m_ignoreAllCapitals = (_ttoi(opt) != 0);
+  opt = settings.GetSetting(_T("SPELL_IgnoreNumberWords"),  _T("1")); m_ignoreNumberWords = (_ttoi(opt) != 0);
 }
 
 void
 Spelling::WriteOptions()
 {
   CString nameMain = Misc::FilenamePart(m_nameMainDictionary);
-  settings.SetSetting("MainDictionary",nameMain);
+  settings.SetSetting(_T("MainDictionary"),nameMain);
 
-  settings.SetSetting("SPELL_Enable",             m_enable            ? "1" : "0");
-  settings.SetSetting("SPELL_UseCustomDictionary",m_useCustom         ? "1" : "0");
-  settings.SetSetting("SPELL_ShowSpellingErrors", m_showErrors        ? "1" : "0");
-  settings.SetSetting("SPELL_IgnoreAllCapitals",  m_ignoreAllCapitals ? "1" : "0");
-  settings.SetSetting("SPELL_IgnoreNumberWords",  m_ignoreNumberWords ? "1" : "0");
+  settings.SetSetting(_T("SPELL_Enable"),             m_enable            ? _T("1") : _T("0"));
+  settings.SetSetting(_T("SPELL_UseCustomDictionary"),m_useCustom         ? _T("1") : _T("0"));
+  settings.SetSetting(_T("SPELL_ShowSpellingErrors"), m_showErrors        ? _T("1") : _T("0"));
+  settings.SetSetting(_T("SPELL_IgnoreAllCapitals"),  m_ignoreAllCapitals ? _T("1") : _T("0"));
+  settings.SetSetting(_T("SPELL_IgnoreNumberWords"),  m_ignoreNumberWords ? _T("1") : _T("0"));
 }
 
 bool 
@@ -124,13 +124,13 @@ Spelling::CheckWord(CString& p_word)
   for(int ind = 0; ind < word.GetLength(); ++ind)
   {
     int c = word.GetAt(ind);
-    if(isprint(c))
+    if(_istprint(c))
     {
-      if(isdigit(c)) foundDigit = true;
-      if(isalpha(c)) foundAlpha = true;
-      if(isupper(c)) foundUpper = true;
-      if(islower(c)) foundLower = true;
-      if(ispunct(c)) foundPunct = true;
+      if(_istdigit(c)) foundDigit = true;
+      if(_istalpha(c)) foundAlpha = true;
+      if(_istupper(c)) foundUpper = true;
+      if(_istlower(c)) foundLower = true;
+      if(_istpunct(c)) foundPunct = true;
     }
   }
   if(m_ignoreNumberWords)
@@ -231,22 +231,22 @@ Spelling::GetAlternatives(CString& p_word,vector<CString>& all)
 bool    
 Spelling::ReadDictionariesList()
 {
-  struct _finddata_t  fileinfo;
+  struct _tfinddata_t  fileinfo;
   intptr_t            fileHandle;
-  CString pattern = "*.dict";
-  CString directory = theApp.GetBinDirectory() + "..\\spell\\";
+  CString pattern = _T("*.dict");
+  CString directory = theApp.GetBinDirectory() + _T("..\\spell\\");
 
   m_allDictionaries.clear();
 
   pattern = directory + pattern;
-  fileHandle = _findfirst(pattern,&fileinfo);
+  fileHandle = _tfindfirst(pattern,&fileinfo);
   if(fileHandle != -1)
   {
     do
     {
       if(!(fileinfo.attrib & _A_SUBDIR)        && 
-           strstr(fileinfo.name,"custom") == 0 &&
-           strstr(fileinfo.name,"ignore") == 0 )
+           _tcsstr(fileinfo.name,_T("custom")) == 0 &&
+           _tcsstr(fileinfo.name,_T("ignore")) == 0 )
       {
         // OK, found a dictionary (not the custom/ignore dictionary)
         CString filename = directory + CString(fileinfo.name);
@@ -261,7 +261,7 @@ Spelling::ReadDictionariesList()
         }
       }
     }
-    while(_findnext(fileHandle,&fileinfo) == 0);
+    while(_tfindnext(fileHandle,&fileinfo) == 0);
     _findclose(fileHandle);
   }
   return true;
@@ -279,7 +279,7 @@ Spelling::GetLanguageName()
       return df.name;
     }
   }
-  return "";
+  return _T("");
 }
 
 bool
@@ -305,7 +305,7 @@ Spelling::ChangeDictionary(CString language)
   {
     return false;
   }
-  settings.SetSetting("MainDictionary",nameDictionary);
+  settings.SetSetting(_T("MainDictionary"),nameDictionary);
   m_nameMainDictionary = nameDictionary;
   Reset();
   return ReadDictionaries();
@@ -325,7 +325,7 @@ Spelling::StatusText(CString name)
     }
   }
   CString text;
-  text.Format("Loading dictionary for language: %s",language.GetString());
+  text.Format(_T("Loading dictionary for language: %s"),language.GetString());
   MainFrame::SetStatusText(text);
 }
 
@@ -335,10 +335,10 @@ Spelling::ReadDictionaries()
   CString errors;
   extern AuthorHTMLApp theApp;
   CString binDir = theApp.GetBinDirectory();
-  CString dictionaryName = binDir + "..\\spell\\" + m_nameMainDictionary;
+  CString dictionaryName = binDir + _T("..\\spell\\") + m_nameMainDictionary;
   CString basefile   = Misc::FilenamePart(dictionaryName);
-  CString dictCustom = binDir + "..\\spell\\custom_" + basefile;
-  CString dictIgnore = binDir + "..\\spell\\ignore_" + basefile;
+  CString dictCustom = binDir + _T("..\\spell\\custom_") + basefile;
+  CString dictIgnore = binDir + _T("..\\spell\\ignore_") + basefile;
 
   if(!m_enable)
   {
@@ -348,7 +348,7 @@ Spelling::ReadDictionaries()
   CWaitCursor take_a_deep_breath;
   StatusText(m_nameMainDictionary);
 
-  FILE* input = fopen(dictionaryName,"r");
+  FILE* input = _tfopen(dictionaryName,_T("r"));
   if(input)
   {
     if(ReadDictionary(input,m_mainSpelling,m_mainDictionary))
@@ -358,15 +358,15 @@ Spelling::ReadDictionaries()
     else
     {
       // Could not read main spelling dictionary: %s
-      errors.Format("Could not read main spelling dictionary: %s",dictionaryName.GetString());
+      errors.Format(_T("Could not read main spelling dictionary: %s"),dictionaryName.GetString());
     }
   }
   else
   {
     // Could not open or find the main spelling dictionary: %s
-    errors.Format("Could not open or find the main spelling dictionary: %s",dictionaryName.GetString());
+    errors.Format(_T("Could not open or find the main spelling dictionary: %s"),dictionaryName.GetString());
   }
-  input = fopen(dictCustom,"r");
+  input = _tfopen(dictCustom,_T("r"));
   if(input)
   {
     if(ReadDictionary(input,m_customSpelling,m_customDictionary))
@@ -377,7 +377,7 @@ Spelling::ReadDictionaries()
     {
       // Could not read custom spelling dictionary: %s
       CString error;
-      error.Format("Could not read custom spelling dictionary: %s",dictCustom.GetString());
+      error.Format(_T("Could not read custom spelling dictionary: %s"),dictCustom.GetString());
       errors += error;
     }
   }
@@ -385,10 +385,10 @@ Spelling::ReadDictionaries()
   {
     // Could not open or find the custom spelling dictionary: %s
     CString error;
-    error.Format("Could not open or find the custom spelling dictionary: %s",dictCustom.GetString());
+    error.Format(_T("Could not open or find the custom spelling dictionary: %s"),dictCustom.GetString());
     errors += error;
   }
-  input = fopen(dictIgnore,"r");
+  input = _tfopen(dictIgnore,_T("r"));
   if(input)
   {
     if(ReadDictionary(input,m_ignoreSpelling,m_ignoreDictionary))
@@ -399,7 +399,7 @@ Spelling::ReadDictionaries()
     {
       // Could not read ignore dictionary: %s
       CString error;
-      error.Format("Could not read ignore spelling dictionary: %s",dictIgnore.GetString());
+      error.Format(_T("Could not read ignore spelling dictionary: %s"),dictIgnore.GetString());
       errors += error;
     }
   }
@@ -407,11 +407,11 @@ Spelling::ReadDictionaries()
   {
     // Could not open or find the ignore spelling dictionary: %s
     CString error;
-    error.Format("Could not open or find the ignore spelling dictionary: %s",dictIgnore.GetString());
+    error.Format(_T("Could not open or find the ignore spelling dictionary: %s"),dictIgnore.GetString());
     errors += error;
   }
   
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
   if(!errors.IsEmpty())
   {
     theApp.ErrorMessage(errors);
@@ -430,8 +430,8 @@ Spelling::WriteDictionaries()
     CString errors;
     FILE*   output;
     CString binDir = theApp.GetBinDirectory();
-    CString dictCustom = binDir + "..\\spell\\custom.dict";
-    CString dictIgnore = binDir + "..\\spell\\ignore.dict";
+    CString dictCustom = binDir + _T("..\\spell\\custom.dict");
+    CString dictIgnore = binDir + _T("..\\spell\\ignore.dict");
 
     CString nameMain = Misc::FilenamePart(m_nameMainDictionary);
 
@@ -457,11 +457,11 @@ Spelling::WriteDictionaries()
       errors.Format("Could not open the main dictionary '%s' for writing",m_nameMainDictionary);
     }
     */
-    output = fopen(dictCustom,"w");
+    output = _tfopen(dictCustom,_T("w"));
     if(output)
     {
-      fprintf(output,"# Custom Dictionary\n");
-      fprintf(output,"# Author Dictionary\n");
+      _ftprintf(output,_T("# Custom Dictionary\n"));
+      _ftprintf(output,_T("# Author Dictionary\n"));
       if(WriteDictionary(output,m_customDictionary))
       {
         fclose(output);
@@ -470,7 +470,7 @@ Spelling::WriteDictionaries()
       {
         // Error while re-writing the custom dictionary: %s
         CString error;
-        error.Format("Error while re-writing the custom dictionary: %s",dictCustom.GetString());
+        error.Format(_T("Error while re-writing the custom dictionary: %s"),dictCustom.GetString());
         errors += error;
       }
     }
@@ -478,14 +478,14 @@ Spelling::WriteDictionaries()
     {
       // Could not open the custom dictionary '%s' for writing
       CString error;
-      error.Format("Could not open the custom dictionary '%s' for writing",dictCustom.GetString());
+      error.Format(_T("Could not open the custom dictionary '%s' for writing"),dictCustom.GetString());
       errors += error;
     }
-    output = fopen(dictIgnore,"w");
+    output = _tfopen(dictIgnore,_T("w"));
     if(output)
     {
-      fprintf(output,"# Ignore Dictionary\n");
-      fprintf(output,"# Author Dictionary\n");
+      _ftprintf(output,_T("# Ignore Dictionary\n"));
+      _ftprintf(output,_T("# Author Dictionary\n"));
       if(WriteDictionary(output,m_ignoreDictionary))
       {
         fclose(output);
@@ -493,14 +493,14 @@ Spelling::WriteDictionaries()
       else
       {
         CString error;
-        error.Format("Error while re-writing the ignore-words dictionary: %s",dictIgnore.GetString());
+        error.Format(_T("Error while re-writing the ignore-words dictionary: %s"),dictIgnore.GetString());
         errors += error;
       }
     }
     else
     {
       CString error;
-      error.Format("Could not open the ignore-words dictionary: %s",dictIgnore.GetString());
+      error.Format(_T("Could not open the ignore-words dictionary: %s"),dictIgnore.GetString());
       errors += error;
     }
     if(errors.IsEmpty())
@@ -521,25 +521,25 @@ Spelling::WriteDictionaries()
 SoundAs 
 Spelling::CalculateSoundex(CString& word)
 {
-  char* pnt;
+  TCHAR* pnt;
   int   len = (word.GetLength() < 9) ? 9 : word.GetLength() + 1;
-  char* theWord      = (char *)malloc(len);
-  char* resultstring = (char *)malloc(len);
+  TCHAR* theWord      = (TCHAR *)malloc(len);
+  TCHAR* resultstring = (TCHAR *)malloc(len);
   CString noDiacrite = word;
   DeDiacrite(noDiacrite);
 
   // Local copy of the word
-  strcpy(theWord,noDiacrite.GetString());
-  if(strlen(theWord) > 1)
+  _tcscpy(theWord,noDiacrite.GetString());
+  if(_tcslen(theWord) > 1)
   {
     // STEP 1: Retain first letter en remove vowel-like letters
     pnt = &theWord[1];
     while(*pnt)
     {
-      if(tolower(*pnt)=='a' || tolower(*pnt)=='e' || tolower(*pnt)=='i' || 
-         tolower(*pnt)=='o' || tolower(*pnt)=='u' || tolower(*pnt)=='y' )
+      if(_totlower(*pnt)==_T('a') || _totlower(*pnt)==_T('e') || _totlower(*pnt)==_T('i') || 
+         _totlower(*pnt)==_T('o') || _totlower(*pnt)==_T('u') || _totlower(*pnt)==_T('y') )
       {
-        memmove(pnt,(pnt+1),strlen(pnt) + 1);
+        memmove(pnt,(pnt+1),_tcslen(pnt) + 1);
       }
       else
       {
@@ -550,9 +550,9 @@ Spelling::CalculateSoundex(CString& word)
     pnt = &theWord[1];
     while(*pnt)
     {
-      if(tolower(*pnt)=='h' || tolower(*pnt)=='w')
+      if(_totlower(*pnt)==_T('h') || _totlower(*pnt)==_T('w'))
       {
-        memmove(pnt,(pnt+1),strlen(pnt) + 1);
+        memmove(pnt,(pnt+1),_tcslen(pnt) + 1);
       }
       else
       {
@@ -564,37 +564,37 @@ Spelling::CalculateSoundex(CString& word)
     while(*pnt)
     {
       // PLOFFING sound
-      if(tolower(*pnt)=='b' || tolower(*pnt)=='f' || 
-         tolower(*pnt)=='p' || tolower(*pnt)=='v' )
+      if(_totlower(*pnt)==_T('b') || _totlower(*pnt)==_T('f') || 
+         _totlower(*pnt)==_T('p') || _totlower(*pnt)==_T('v') )
       {
-        *pnt = '1';
+        *pnt = _T('1');
       }
       // SSSS sound
-      else if(tolower(*pnt)=='c' || tolower(*pnt)=='g' || tolower(*pnt)=='j' || 
-              tolower(*pnt)=='k' || tolower(*pnt)=='q' || tolower(*pnt)=='s' || 
-              tolower(*pnt)=='x' || tolower(*pnt)=='z' )
+      else if(_totlower(*pnt)==_T('c') || _totlower(*pnt)==_T('g') || _totlower(*pnt)==_T('j') || 
+              _totlower(*pnt)==_T('k') || _totlower(*pnt)==_T('q') || _totlower(*pnt)==_T('s') || 
+              _totlower(*pnt)==_T('x') || _totlower(*pnt)==_T('z') )
       {
-        *pnt = '2';
+        *pnt = _T('2');
       }
       // DTDT sound
-      else if(tolower(*pnt)=='d' || tolower(*pnt)=='t')
+      else if(_totlower(*pnt)==_T('d') || _totlower(*pnt)==_T('t'))
       {
-        *pnt = '3';
+        *pnt = _T('3');
       }
       // LLLLL sound
-      else if(tolower(*pnt)=='l')
+      else if(_totlower(*pnt)==_T('l'))
       {
-        *pnt = '4';
+        *pnt = _T('4');
       }
       // MMMNNN sound
-      else if(tolower(*pnt)=='m' || tolower(*pnt)=='n')
+      else if(_totlower(*pnt)==_T('m') || _totlower(*pnt)==_T('n'))
       {
-        *pnt = '5';
+        *pnt = _T('5');
       }
       // ROLLING sound
-      else if(tolower(*pnt)=='r')
+      else if(_totlower(*pnt)==_T('r'))
       {
-        *pnt = '6';
+        *pnt = _T('6');
       }
       ++pnt;
     }
@@ -604,7 +604,7 @@ Spelling::CalculateSoundex(CString& word)
     {
       if(*pnt == *(pnt+1))
       {
-        memmove(pnt,(pnt+1),strlen(pnt) + 1);
+        memmove(pnt,(pnt+1),_tcslen(pnt) + 1);
       }
       else
       {
@@ -614,12 +614,12 @@ Spelling::CalculateSoundex(CString& word)
   }
   // Make resultstring and pad until 8 chars
   int x;
-  strncpy(resultstring,theWord,len);
+  _tcsnccpy(resultstring,theWord,len);
   for(x=0;x<8;++x)
   {
     if(resultstring[x] == 0)
     {
-      resultstring[x  ] = '0';
+      resultstring[x  ] = _T('0');
       resultstring[x+1] =  0;
     }
   }
@@ -627,7 +627,7 @@ Spelling::CalculateSoundex(CString& word)
   for(x=0;x<8;++x)
   {
     sound <<= 8;
-    sound  += (int) (resultstring[x] - '0');
+    sound  += (int) (resultstring[x] - _T('0'));
   }
   free(theWord);
   free(resultstring);
@@ -637,34 +637,34 @@ Spelling::CalculateSoundex(CString& word)
 CString
 Spelling::ReadDictonaryHeader(CString& filename)
 {
-  FILE* file = fopen(filename,"r");
+  FILE* file = _tfopen(filename,_T("r"));
   if(!file)
   {
-    return "";
+    return _T("");
   }
-  char buffer[256];
+  TCHAR buffer[256];
   CString dictName;
 
-  while(fgets(buffer,256,file))
+  while(_fgetts(buffer,256,file))
   {
-    int len = (int)strlen(buffer);
+    int len = (int)_tcslen(buffer);
     if(!len) continue;
-    if(buffer[len-1] == '\n')
+    if(buffer[len-1] == _T('\n'))
     {
       buffer[--len] = 0;
     }
     if(!len) continue;
-    if(buffer[0] == '#')
+    if(buffer[0] == _T('#'))
     {
       if(dictName.IsEmpty())
       {
         dictName = &buffer[2];
         continue;
       }
-      if(strcmp(buffer,"# Author Dictionary"))
+      if(_tcscmp(buffer,_T("# Author Dictionary")))
       {
         // Error
-        dictName = "";
+        dictName = _T("");
         break;
       }
     }
@@ -679,26 +679,26 @@ Spelling::ReadDictionary(FILE* input
                         ,SpellDictionary& dict
                         ,Dictionary& list)
 {
-  char buffer [256];
-  char already[256];
+  TCHAR buffer [256];
+  TCHAR already[256];
   int  point;
 
-  while(fgets(buffer,256,input))
+  while(_fgetts(buffer,256,input))
   {
-    int len = (int)strlen(buffer);
+    int len = (int)_tcslen(buffer);
     if(!len) continue;
-    if(buffer[len-1] == '\n')
+    if(buffer[len-1] == _T('\n'))
     {
       buffer[--len] = 0;
     }
     if(!len) continue;
-    if(buffer[0] == '#')
+    if(buffer[0] == _T('#'))
     {
       // This is a remark
       continue;
     }
-    point = buffer[0] - '1' + 1;
-    strcpy(&already[point],&buffer[1]);
+    point = buffer[0] - _T('1') + 1;
+    _tcscpy(&already[point],&buffer[1]);
 
     CString theWord(already);
     SoundAs sound = CalculateSoundex(theWord);
@@ -735,15 +735,15 @@ Spelling::AddToIgnore(CString& word)
 bool
 Spelling::WriteDictionary(FILE* output,Dictionary& list)
 {
-  char buffer [256];
-  char already[256] = "";
+  TCHAR buffer [256];
+  TCHAR already[256] = _T("");
   int point = 0;
 
   for(Dictionary::iterator it = list.begin();it != list.end();++it)
   {
     CString word = *it;
-    strcpy(buffer,word.GetString());
-    int len = (int) strlen(buffer);
+    _tcscpy(buffer,word.GetString());
+    int len = (int) _tcslen(buffer);
     if(!len) continue;
     // Buffer now contains only a word
     for(point = 0; point < len; ++point)
@@ -760,9 +760,9 @@ Spelling::WriteDictionary(FILE* output,Dictionary& list)
         break;
       }
     }
-    char num = (char)('1' + point - 1);
-    fprintf(output,"%c%s\n",num,&buffer[point]);
-    strcpy(already,buffer);
+    TCHAR num = (TCHAR)(_T('1') + point - 1);
+    _ftprintf(output,_T("%c%s\n"),num,&buffer[point]);
+    _tcscpy(already,buffer);
   }
   return true;
 }
@@ -805,7 +805,7 @@ Spelling::InitDiacrites()
   }
   for(int ind=128; ind<256; ++ind)
   {
-    _diacrites[ind] = ' ';
+    _diacrites[ind] = _T(' ');
   }
   Diacrites* diac = DiacriteLetters;
   while(diac->letter && (diac->lett_category <= OTH_UPPER))

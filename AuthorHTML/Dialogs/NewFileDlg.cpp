@@ -101,12 +101,12 @@ NewFileDlg::UpdateProperties()
   m_error = false;
   if(m_filename.IsEmpty())
   {
-    theApp.ErrorMessage("Fill in a filename to add a file to the project");
+    theApp.ErrorMessage(_T("Fill in a filename to add a file to the project"));
     m_error = true;
   }
   else if(m_title.IsEmpty())
   {
-    theApp.ErrorMessage("Fill in a title to add the file to the project");
+    theApp.ErrorMessage(_T("Fill in a title to add the file to the project"));
     m_error = true;
   }
   else
@@ -137,14 +137,14 @@ NewFileDlg::CopyTemplate()
   // Open the template file
   if(templateOrigin.Exists() == false)
   {
-    CString mess = "The template [" + m_template + "] does not exist.";
+    CString mess = _T("The template [") + m_template + _T("] does not exist.");
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
   }
   if(!templateOrigin.Open(winfile_read | open_trans_text))
   {
-    CString mess = "The template [" + m_template + "] cannot be opened for reading.";
+    CString mess = _T("The template [") + m_template + _T("] cannot be opened for reading.");
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
@@ -157,7 +157,7 @@ NewFileDlg::CopyTemplate()
   // Create and open target file in UTF-8 mode
   if(!newfile.Open(winfile_write | open_trans_text,attrib_normal,Encoding::UTF8))
   {
-    CString mess = "The file [" + m_filename + "] could not be created. Check your filesystem";
+    CString mess = _T("The file [") + m_filename + _T("] could not be created. Check your filesystem");
     theApp.ErrorMessage(mess);
     m_error = true;
     return;
@@ -185,9 +185,9 @@ NewFileDlg::CreateNewFile()
 
   if(file.Exists())
   {
-    CString mess = "The file [" + m_filename + "] does already exist.\n"
-                   "Do you want to overwrite this file?";
-    if(theApp.MessageBox(mess,"Overwrite file",MB_YESNO|MB_ICONEXCLAMATION) == IDNO)
+    CString mess = _T("The file [") + m_filename + _T("] does already exist.\n")
+                   _T("Do you want to overwrite this file?");
+    if(theApp.MessageBox(mess,_T("Overwrite file"),MB_YESNO|MB_ICONEXCLAMATION) == IDNO)
     {
       m_error = true;
       return false;
@@ -220,11 +220,11 @@ NewFileDlg::OnEnChangeTitle()
   if(m_synchronize)
   {
     CString file = m_title;
-    file.Replace(' ','_');
-    file.Replace('.','_');
-    file.Replace('/','_');
-    file.Replace('\\','_');
-    file += ".htm";
+    file.Replace(_T(' '),_T('_'));
+    file.Replace(_T('.'),_T('_'));
+    file.Replace(_T('/'),_T('_'));
+    file.Replace(_T('\\'),_T('_'));
+    file += _T(".htm");
     m_filename = file;
     w = GetDlgItem(IDC_FILENAME);
     w->SetWindowText(m_filename);
@@ -254,9 +254,9 @@ void
 NewFileDlg::OnBnClickedButtonFsearch()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to add to the project"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to add to the project")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -276,15 +276,15 @@ void
 NewFileDlg::OnBnClickedBtnfgo()
 {
   CString filename = m_base + m_filename;
-  if(_access(filename,4) == -1)
+  if(_taccess(filename,4) == -1)
   {
     return;
   }
   m_spBrowser->Navigate(filename.AllocSysString(),NULL,NULL,NULL,NULL);
   if(theApp.GetProjectFile()->FindDocumentFile(m_filename) != NULL)
   {
-    CString mess = "The file [" + m_filename + "] is already part of this project!\n"
-                   "Choose another filename or review your current files.";
+    CString mess = _T("The file [") + m_filename + _T("] is already part of this project!\n")
+                   _T("Choose another filename or review your current files.");
     theApp.ErrorMessage(mess);
     m_error = true;
   }
@@ -294,11 +294,11 @@ void
 NewFileDlg::OnBnClickedButtonTsearch()
 {
   DocFileDialog diag(true
-                    ,"Search for a template to add a page to the project"
-                    ,"htt"
-                    ,""
+                    ,_T("Search for a template to add a page to the project")
+                    ,_T("htt")
+                    ,_T("")
                     ,0
-                    ,"HTML Template document (*.htt)|*htt|");
+                    ,_T("HTML Template document (*.htt)|*htt|"));
   if(diag.DoModal() == IDOK)
   {
     CString href = diag.GetChosenFile();
@@ -317,9 +317,9 @@ void
 NewFileDlg::OnBnClickedBtntgo()
 {
   CString templatename = m_base + m_template;
-  if(_access(templatename,4) == -1)
+  if(_taccess(templatename,4) == -1)
   {
-    CString mess = "The template [" + m_template + "] does not exist.";
+    CString mess = _T("The template [") + m_template + _T("] does not exist.");
     theApp.ErrorMessage(mess);
     return;
   }

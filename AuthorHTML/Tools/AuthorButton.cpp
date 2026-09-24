@@ -16,7 +16,7 @@
 
 CButtonC::CButtonC(CString& p_type)
 {
-  m_buttonImage.CalculateStandard(p_type.GetString(),"KNOP"); //AFB_SET_KNOPPEN);
+  m_buttonImage.CalculateStandard(p_type.GetString(),_T("KNOP")); //AFB_SET_KNOPPEN);
 }
 
 CButtonC::~CButtonC()
@@ -35,7 +35,7 @@ END_MESSAGE_MAP()
 void
 CButtonC::SetImage(CString p_type,CString p_library)
 {
-  m_buttonImage.CalculateStandard(p_type.GetString(),p_library.IsEmpty() ? "KNOP" : p_library);
+  m_buttonImage.CalculateStandard(p_type.GetString(),p_library.IsEmpty() ? _T("KNOP") : p_library);
 }
 
 void
@@ -139,7 +139,7 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   {
     win->GetWindowText(txt);
   }
-  if (txt != "")
+  if (txt != _T(""))
   {
     CRect tinrect(crect);
 

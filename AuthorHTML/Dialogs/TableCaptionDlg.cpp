@@ -56,15 +56,15 @@ TableCaptionDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_caption->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_caption->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_caption->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_caption->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_caption->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_caption->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -129,14 +129,14 @@ void
 TableCaptionDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(m_caption);
-  GeneralIDDlg dlg(this,"caption",elem);
+  GeneralIDDlg dlg(this,_T("caption"),elem);
   dlg.DoModal();
 }
 
 void 
 TableCaptionDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_caption,"caption");
+  TagEventsDlg dlg(this,m_caption,_T("caption"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -150,13 +150,13 @@ TableCaptionDlg::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_caption->GetInlineStyle();
-  style = CString("caption { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"caption",NULL,style);
+  style = CString(_T("caption { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("caption"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("caption {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("caption {"));
     m_caption->SetInlineStyle(style);
     FillPage();
     UpdateData(Data2Controls);

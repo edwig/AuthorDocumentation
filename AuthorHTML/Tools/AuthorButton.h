@@ -19,7 +19,7 @@ public:
   CButtonC(CString& p_type);
   virtual ~CButtonC();
 
-  void         SetImage(CString p_type,CString p_library = "");
+  void         SetImage(CString p_type,CString p_library = _T(""));
   AuthorImage& GetImageInfo();
 
   void OnKeyDown(UINT nChar,UINT nRepCnt,UINT nFlags);

@@ -29,16 +29,16 @@ WindowDefinition::~WindowDefinition()
 void
 WindowDefinition::Reset()
 {
-  m_name            = "";
-  m_title           = "";
-  m_HHCFile         = "";
-  m_HHKFile         = "";
-  m_defaultTopic    = "";
-  m_homeTopic       = "";
-  m_jump1Topic      = "";
-  m_jump2Topic      = "";
-  m_jump1Text       = "";
-  m_jump2Text       = "";
+  m_name            = _T("");
+  m_title           = _T("");
+  m_HHCFile         = _T("");
+  m_HHKFile         = _T("");
+  m_defaultTopic    = _T("");
+  m_homeTopic       = _T("");
+  m_jump1Topic      = _T("");
+  m_jump2Topic      = _T("");
+  m_jump1Text       = _T("");
+  m_jump2Text       = _T("");
   m_navigationPane  = 0L;
   m_paneWidth       = 0L;
   m_buttons         = 0L;
@@ -58,14 +58,14 @@ void
 WindowDefinition::CreateNewDefaultWindow(CString p_project,CString p_topic)
 {
   m_title           = p_project;
-  m_HHCFile         = p_project + ".hhc";
-  m_HHKFile         = p_project + ".hhk";
+  m_HHCFile         = p_project + _T(".hhc");
+  m_HHKFile         = p_project + _T(".hhk");
   m_defaultTopic    = p_topic;
   m_homeTopic       = p_topic;
-  m_jump1Topic      = "";
-  m_jump2Topic      = "";
-  m_jump1Text       = "JUMP1";
-  m_jump2Text       = "JUMP2";
+  m_jump1Topic      = _T("");
+  m_jump2Topic      = _T("");
+  m_jump1Text       = _T("JUMP1");
+  m_jump2Text       = _T("JUMP2");
   m_navigationPane  = NAVPANE_TOC_INDEX | NAVPANE_AUTOSYNCH | NAVPANE_SEARCH | NAVPANE_FAVOURITES;
   m_paneWidth       = 250;
   m_buttons         = BUTTONS_HIDESHOW | BUTTONS_BACK | BUTTONS_FORWARD | BUTTONS_STOP | BUTTONS_REFRESH | BUTTONS_HOME;
@@ -297,8 +297,8 @@ WindowDefinition::DefinitionString()
   //        NavPane wid buttons  size            styles    ext pane options
 
   CString definition;
-  definition.Format("%s=\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\","
-                    "0x%x,%d,0x%x,[%d,%d,%d,%d],0x%x,0x%x,,%d,%d,%d"
+  definition.Format(_T("%s=\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",")
+                    _T("0x%x,%d,0x%x,[%d,%d,%d,%d],0x%x,0x%x,,%d,%d,%d")
                    ,m_name.GetString()
                    ,m_title.GetString()
                    ,m_HHCFile.GetString()
@@ -325,7 +325,7 @@ WindowDefinition::DefinitionString()
   if(m_project->GetGlossary()->HasEntries() && GetNavPaneOption(NAVPANE_GLOSSARY))
   {
     // If we have a filled glossary AND the glossary pane is ON in this window, use it
-    definition += ",[Glossary,HHActiveX.GlossaryPane]";
+    definition += _T(",[Glossary,HHActiveX.GlossaryPane]");
   }
   return definition;
 }
@@ -342,7 +342,7 @@ WindowDefinition::ParseDefinitionString(CString definition)
     return false;
   }
   // Find the name
-  int pos = definition.Find('=');
+  int pos = definition.Find(_T('='));
   if(pos > 0)
   {
     m_name = definition.Left(pos);
@@ -398,17 +398,17 @@ void
 WindowDefinition::ParseQuotedString(CString& def,CString& name)
 {
   // Reset name
-  name = "";
+  name = _T("");
   if(def.IsEmpty())
   {
     return;
   }
   def.TrimLeft();
-  if(def.GetAt(0) == '\"')
+  if(def.GetAt(0) == _T('\"'))
   {
     def = def.Mid(1);
   }
-  int pos = def.Find('\"');
+  int pos = def.Find(_T('\"'));
   if(pos >= 2)
   {
     // Non Empty string;
@@ -418,7 +418,7 @@ WindowDefinition::ParseQuotedString(CString& def,CString& name)
   def = def.Mid(pos+1);
   def.TrimLeft();
   // Parse off ','
-  if(def.GetAt(0) == ',')
+  if(def.GetAt(0) == _T(','))
   {
     def = def.Mid(1);
   }
@@ -437,7 +437,7 @@ WindowDefinition::ParseWindowSize(CString& def
   {
     return;
   }
-  if(def.GetAt(0) == '[')
+  if(def.GetAt(0) == _T('['))
   {
     def = def.Mid(1);
   }

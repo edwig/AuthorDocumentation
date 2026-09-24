@@ -14,11 +14,11 @@
 #include "AuthorHTML.h"
 #include "ImportDlg.h"
 #include "FileDialog.h"
-#include "MapDialog.h"
 #include "MainFrm.h"
 #include "Misc.h"
 #include "ImportCHM.h"
-#include "afxdialogex.h"
+#include <Afxdialogex.h>
+#include <MapDialog.h>
 #include <io.h>
 
 // ImportDlg dialog
@@ -74,10 +74,10 @@ ImportDlg::CheckInput()
 {
   bool okToImport = false;
   // Check read-access on file
-  if(!m_filename.IsEmpty() && _access(m_filename,4) == 0)
+  if(!m_filename.IsEmpty() && _taccess(m_filename,4) == 0)
   {
     // Check read/write-access on directory
-    if(!m_directory.IsEmpty() && _access(m_directory,6) == 0)
+    if(!m_directory.IsEmpty() && _taccess(m_directory,6) == 0)
     {
       okToImport = true;
     }
@@ -91,16 +91,16 @@ ImportDlg::GetHHPFilename()
   // Check for valid situation
   if(m_directory.IsEmpty() || m_filename.IsEmpty())
   {
-    return "";
+    return _T("");
   }
   // Compose .HPP filename
   CString filename = m_directory;
-  if(filename.Right(1) != '\\')
+  if(filename.Right(1) != _T('\\'))
   {
-    filename += "\\";
+    filename += _T("\\");
   }
   filename += Misc::BasenamePart(m_filename);
-  filename += ".hhp";
+  filename += _T(".hhp");
 
   return filename;
 }
@@ -119,11 +119,11 @@ void
 ImportDlg::OnBnClickedSearchChm()
 {
   DocFileDialog diag(true
-                    ,"Open a help file"
-                    ,"chm"
-                    ,""
+                    ,_T("Open a help file")
+                    ,_T("chm")
+                    ,_T("")
                     ,0
-                    ,"On-Line help file (*.chm)|*.chm|");
+                    ,_T("On-Line help file (*.chm)|*.chm|"));
   if(diag.DoModal() == IDOK)
   {
     m_filename = diag.GetChosenFile();
@@ -144,7 +144,7 @@ ImportDlg::OnBnClickedSearchPro()
 {
   MapDialog diag;
   
-  if(diag.Browse(GetSafeHwnd(),"Choose a project directory"))
+  if(diag.Browse(GetSafeHwnd(),_T("Choose a project directory")))
   {
     m_directory = diag.GetPath();
     UpdateData(FALSE);

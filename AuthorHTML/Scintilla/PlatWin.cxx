@@ -178,7 +178,7 @@ void Palette::Allocate(Window &) {
 	}
 }
 
-static void SetLogFont(LOGFONT &lf, const char *faceName, int characterSet, int size, bool bold, bool italic) {
+static void SetLogFont(LOGFONTA &lf, const char *faceName, int characterSet, int size, bool bold, bool italic) {
 	memset(&lf, 0, sizeof(lf));
 	// The negative is to allow for leading
 	lf.lfHeight = -(abs(size));
@@ -205,7 +205,7 @@ static int HashFont(const char *faceName, int characterSet, int size, bool bold,
 class FontCached : Font {
 	FontCached *next;
 	int usage;
-	LOGFONT lf;
+	LOGFONTA lf;
 	int hash;
 	FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
 	~FontCached() {}
@@ -224,7 +224,7 @@ FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool
 	next(0), usage(0), hash(0) {
 	::SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
 	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
-	id = ::CreateFontIndirect(&lf);
+	id = ::CreateFontIndirectA(&lf);
 	usage = 1;
 }
 
@@ -797,7 +797,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 			positions[i++] = lastPos;
 		}
 	} else if (IsNT() || (codePage==0) || win9xACPSame) {
-		if (!::GetTextExtentExPoint(hdc, s, Platform::Minimum(len, maxLenText),
+		if (!::GetTextExtentExPointA(hdc, s, Platform::Minimum(len, maxLenText),
 			maxWidthMeasure, &fit, positions, &sz)) {
 			// Eeek - a NULL DC or other foolishness could cause this.
 			// The least we can do is set the positions to zero!
@@ -839,7 +839,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 int SurfaceImpl::WidthChar(Font &font_, char ch) {
 	SetFont(font_);
 	SIZE sz;
-	::GetTextExtentPoint32(hdc, &ch, 1, &sz);
+	::GetTextExtentPoint32A(hdc, &ch, 1, &sz);
 	return sz.cx;
 }
 
@@ -1046,8 +1046,9 @@ void Window::SetCursor(Cursor curs) {
 	}
 }
 
-void Window::SetTitle(const char *s) {
-	::SetWindowText(reinterpret_cast<HWND>(id), s);
+void Window::SetTitle(const char *s) 
+{
+	::SetWindowTextA(reinterpret_cast<HWND>(id), s);
 }
 
 struct ListItemData {
@@ -1311,13 +1312,16 @@ PRectangle ListBoxX::GetDesiredRect() {
 	HFONT oldFont = SelectFont(hdc, fontCopy);
 	SIZE textSize = {0, 0};
 	int len = widestItem ? strlen(widestItem) : 0;
-	if (unicodeMode) {
+	if (unicodeMode) 
+	{
 		wchar_t tbuf[MAX_US_LEN];
 		len = UCS2FromUTF8(widestItem, len, tbuf, sizeof(tbuf)/sizeof(wchar_t)-1);
 		tbuf[len] = L'\0';
 		::GetTextExtentPoint32W(hdc, tbuf, len, &textSize);
-	} else {
-		::GetTextExtentPoint32(hdc, widestItem, len, &textSize);
+	}
+	else 
+	{
+		::GetTextExtentPoint32A(hdc, widestItem, len, &textSize);
 	}
 	TEXTMETRIC tm;
 	::GetTextMetrics(hdc, &tm);
@@ -1430,15 +1434,19 @@ void ListBoxX::Draw(DRAWITEMSTRUCT *pDrawItem) {
 		RECT rcText = rcBox;
 		::InsetRect(&rcText, TextInset.x, TextInset.y);
 
-		if (unicodeMode) {
+		if (unicodeMode) 
+		{
 			wchar_t tbuf[MAX_US_LEN];
 			int tlen = UCS2FromUTF8(text, len, tbuf, sizeof(tbuf)/sizeof(wchar_t)-1);
 			tbuf[tlen] = L'\0';
 			::DrawTextW(pDrawItem->hDC, tbuf, tlen, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
-		} else {
-			::DrawText(pDrawItem->hDC, text, len, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
 		}
-		if (pDrawItem->itemState & ODS_SELECTED) {
+		else 
+		{
+			::DrawTextA(pDrawItem->hDC, text, len, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
+		}
+		if (pDrawItem->itemState & ODS_SELECTED) 
+		{
 			::DrawFocusRect(pDrawItem->hDC, &rcBox);
 		}
 
@@ -2010,8 +2018,9 @@ class DynamicLibraryImpl : public DynamicLibrary {
 protected:
 	HMODULE h;
 public:
-	DynamicLibraryImpl(const char *modulePath) {
-		h = ::LoadLibrary(modulePath);
+	DynamicLibraryImpl(const char *modulePath) 
+	{
+		h = ::LoadLibraryA(modulePath);
 	}
 
 	virtual ~DynamicLibraryImpl() {
@@ -2061,8 +2070,9 @@ bool Platform::MouseButtonBounce() {
 	return false;
 }
 
-void Platform::DebugDisplay(const char *s) {
-	::OutputDebugString(s);
+void Platform::DebugDisplay(const char *s) 
+{
+	::OutputDebugStringA(s);
 }
 
 bool Platform::IsKeyDown(int key) {
@@ -2133,8 +2143,9 @@ bool Platform::ShowAssertionPopUps(bool assertionPopUps_) {
 void Platform::Assert(const char *c, const char *file, int line) {
 	char buffer[2000];
 	sprintf(buffer, "Assertion [%s] failed at %s %d", c, file, line);
-	if (assertionPopUps) {
-		int idButton = ::MessageBox(0, buffer, "Assertion failure",
+	if (assertionPopUps) 
+	{
+		int idButton = ::MessageBoxA(0, buffer, "Assertion failure",
 			MB_ABORTRETRYIGNORE|MB_ICONHAND|MB_SETFOREGROUND|MB_TASKMODAL);
 		if (idButton == IDRETRY) {
 			::DebugBreak();

@@ -104,7 +104,7 @@ public:
   void    CheckPopupSCRIPT();
   // Renaming of files
   int     RenameReferences(CString& p_old_href,CString& p_new_href);
-  int     RenameReferencesTag(CString& p_old_href,CString& p_new_href,char* p_tag);
+  int     RenameReferencesTag(CString& p_old_href,CString& p_new_href,TCHAR* p_tag);
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;

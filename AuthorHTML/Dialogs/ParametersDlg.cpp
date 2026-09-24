@@ -54,8 +54,8 @@ ParametersDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-  CString name ("Parameter name");
-  CString value("Parameter value");
+  CString name (_T("Parameter name"));
+  CString value(_T("Parameter value"));
   m_list.InsertColumn(name);
   m_list.InsertColumn(value);
   m_list.SetEditable(TRUE);
@@ -88,14 +88,14 @@ ParametersDlg::FillPage()
     CString name  = it->first;
     CString value = it->second;
     int row = m_list.GetRowCount();
-    m_list.InsertRow("");
+    m_list.InsertRow(_T(""));
     m_list.InsertItem(row,0,name, DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_END_ELLIPSIS|DT_NOPREFIX);
     m_list.InsertItem(row,1,value,DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_END_ELLIPSIS|DT_NOPREFIX);
     ++m_maxParam;
     // Next parameter
     ++it;
   }
-  m_list.InsertRow("");
+  m_list.InsertRow(_T(""));
   m_list.ExpandLastColumn();
   m_list.Refresh();
 }
@@ -131,8 +131,8 @@ ParametersDlg::OnBnClickedDelete()
   CString message;
   CCellID cell = m_list.GetFocusCell();
   CString text = m_list.GetItemText(cell.row,0);
-  message.Format("Do you want to delete the parameter '%s'?\n",text.GetString());
-  if(theApp.MessageBox(message,"Delete",MB_YESNO|MB_ICONQUESTION) == IDYES)
+  message.Format(_T("Do you want to delete the parameter '%s'?\n"),text.GetString());
+  if(theApp.MessageBox(message,_T("Delete"),MB_YESNO|MB_ICONQUESTION) == IDYES)
   {
     // Removed immediately. Otherwise parameter name not known!!
     m_object->RemoveParameter(text);
@@ -170,7 +170,7 @@ ParametersDlg::OnEndInPlaceEdit(NMHDR *pNMHDR, LRESULT *pResult)
   text = m_list.GetItemText(max,0);
   if(!text.IsEmpty())
   {
-    m_list.InsertRow("");
+    m_list.InsertRow(_T(""));
     m_list.Refresh();
   }
   m_saveEdit.Empty();

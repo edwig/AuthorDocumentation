@@ -132,7 +132,7 @@ WindowDefDlg::SetWindowNames()
 void
 WindowDefDlg::SetProperties()
 {
-  m_title  = "";
+  m_title  = _T("");
   m_window = m_project->FindWindowDefinition(m_currentWindow);
   if(m_window == NULL)
   {
@@ -140,14 +140,14 @@ WindowDefDlg::SetProperties()
   }
   if(m_window == NULL)
   {
-    m_currentWindow = "main";
+    m_currentWindow = _T("main");
     m_project->AddWindow(m_currentWindow);
     m_window = m_project->FindWindowDefinition(m_currentWindow);
     SetWindowNames();
   }
   if(m_window == NULL)
   {
-    theApp.Panic("Cannot create a new main window definition for a CHM help file.");
+    theApp.Panic(_T("Cannot create a new main window definition for a CHM help file."));
     OnCancel();
   }
   m_title = m_window->GetTitle();
@@ -194,8 +194,8 @@ void WindowDefDlg::OnCbnSelchangeWindows()
     else
     {
       CString msg;
-      msg.Format("Panic: Could not find the window definition with the name: %s",newwin.GetString());
-      theApp.MessageBox(msg,"Error",MB_OK|MB_ICONERROR);
+      msg.Format(_T("Panic: Could not find the window definition with the name: %s"),newwin.GetString());
+      theApp.MessageBox(msg,_T("Error"),MB_OK|MB_ICONERROR);
     }
   }
 }
@@ -214,9 +214,9 @@ WindowDefDlg::OnBnClickedNewwindef()
   if(m_project->FindWindowDefinition(newName))
   {
     CString msg;
-    msg.Format("The main CHM window with the name '%s' does already exist.\n"
-               "Define another name first, then push the 'New' button.",newName.GetString());
-    theApp.MessageBox(msg,"Warning",MB_OK|MB_ICONWARNING);
+    msg.Format(_T("The main CHM window with the name '%s' does already exist.\n")
+               _T("Define another name first, then push the 'New' button."),newName.GetString());
+    theApp.MessageBox(msg,_T("Warning"),MB_OK|MB_ICONWARNING);
   }
   else
   {
@@ -235,8 +235,8 @@ WindowDefDlg::OnBnClickedDelwindef()
   CString winName;
   m_comboWindows.GetWindowText(winName);
   CString msg;
-  msg.Format("Do you want to delete the window definition '%s'?",winName.GetString());
-  if(theApp.MessageBox(msg,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+  msg.Format(_T("Do you want to delete the window definition '%s'?"),winName.GetString());
+  if(theApp.MessageBox(msg,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
   {
     if(m_project->RemoveWindow(winName))
     {
@@ -252,8 +252,8 @@ WindowDefDlg::OnBnClickedDelwindef()
     else
     {
       CString error;
-      error.Format("Could not find the window with name '%s' to be deleted",winName.GetString());
-      theApp.MessageBox(error,"Error",MB_ICONERROR|MB_OK);
+      error.Format(_T("Could not find the window with name '%s' to be deleted"),winName.GetString());
+      theApp.MessageBox(error,_T("Error"),MB_ICONERROR|MB_OK);
     }
   }
 }

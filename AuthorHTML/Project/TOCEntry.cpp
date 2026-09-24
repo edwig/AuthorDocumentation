@@ -136,7 +136,7 @@ TOCEntry::GetDocumentFilename()
     filename = m_document->GetFilename();
     if(!m_bookmark.IsEmpty())
     {
-      filename += "#" + m_bookmark;
+      filename += _T("#") + m_bookmark;
     }
   }
   return filename;

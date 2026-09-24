@@ -77,15 +77,15 @@ void TopicPropPage2Dlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_body.HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_body.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_body.HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_body.HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_body.HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_body.HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     m_buttonColor    .EnableWindow(m_doTextColor);
@@ -183,10 +183,10 @@ TopicPropPage2Dlg::FillPage()
   m_backgroundFixed  = false;
 
   // Convert to pixels
-  m_marginTop  = CssConvertToUnit(m_marginTop, "px",m_tunits);
-  m_marginLeft = CssConvertToUnit(m_marginLeft,"px",m_lunits);
+  m_marginTop  = CssConvertToUnit(m_marginTop, _T("px"),m_tunits);
+  m_marginLeft = CssConvertToUnit(m_marginLeft,_T("px"),m_lunits);
 
-  if(prop.CompareNoCase("fixed") == 0)
+  if(prop.CompareNoCase(_T("fixed")) == 0)
   {
     m_backgroundFixed = true;
   }
@@ -263,7 +263,7 @@ TopicPropPage2Dlg::UpdateProperties()
   CString left;
   CString pixels;
 
-  CString fixed = m_backgroundFixed ? "fixed" : "";
+  CString fixed = m_backgroundFixed ? _T("fixed") : _T("");
   m_body.SetProperty(HtmlBody::E_BgProperties,fixed);
   m_body.SetProperty(HtmlBody::E_Background,m_backgroundImage);
   m_body.SetNoWrap(m_nowrap);
@@ -273,28 +273,28 @@ TopicPropPage2Dlg::UpdateProperties()
   // By default. IE sets the top/bottom margin to the same values
   if(!m_doTopBottom)
   {
-    m_marginTop = "";
+    m_marginTop = _T("");
   }
   else
   {
-    top = CssConvertToUnit(m_marginTop + "px",m_tunits,pixels) + m_tunits;
+    top = CssConvertToUnit(m_marginTop + _T("px"),m_tunits,pixels) + m_tunits;
   }
   m_body.SetProperty(HtmlBody::E_TopMargin,   top);
   m_body.SetProperty(HtmlBody::E_BottomMargin,top);
   if(!m_doRightLeft)
   {
-    m_marginLeft = "";
+    m_marginLeft = _T("");
   }
   else
   {
-    left = CssConvertToUnit(m_marginLeft + "px",m_lunits,pixels) + m_lunits;
+    left = CssConvertToUnit(m_marginLeft + _T("px"),m_lunits,pixels) + m_lunits;
   }
   m_body.SetProperty(HtmlBody::E_LeftMargin,  left);
   m_body.SetProperty(HtmlBody::E_RightMargin, left);
   
   if(!m_doScroll)
   {
-    m_scroll = "";
+    m_scroll = _T("");
   }
   m_body.SetProperty(HtmlBody::E_Scroll,m_scroll);
 
@@ -303,12 +303,12 @@ TopicPropPage2Dlg::UpdateProperties()
     if(!m_textColor.IsEmpty())
     {
       Misc::DecodeColor(m_textColor,red,green,blue);
-      m_textColor.Format("#%02x%02x%02x",red,green,blue);
+      m_textColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else 
   {
-    m_textColor = "";
+    m_textColor = _T("");
   }
   m_body.SetProperty(HtmlBody::E_TextColor,m_textColor);
 
@@ -317,12 +317,12 @@ TopicPropPage2Dlg::UpdateProperties()
     if(!m_backgroundColor.IsEmpty())
     {
       Misc::DecodeColor(m_backgroundColor,red,green,blue);
-      m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+      m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_backgroundColor = "";
+    m_backgroundColor = _T("");
   }
   m_body.SetProperty(HtmlBody::E_BgColor,m_backgroundColor);
 
@@ -331,12 +331,12 @@ TopicPropPage2Dlg::UpdateProperties()
     if(!m_linkColor.IsEmpty())
     {
       Misc::DecodeColor(m_linkColor,red,green,blue);
-      m_linkColor.Format("#%02x%02x%02x",red,green,blue);
+      m_linkColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_linkColor = "";
+    m_linkColor = _T("");
   }
   m_body.SetProperty(HtmlBody::E_Link,m_linkColor);
 
@@ -345,12 +345,12 @@ TopicPropPage2Dlg::UpdateProperties()
     if(!m_linkVisitedColor.IsEmpty())
     {
       Misc::DecodeColor(m_linkVisitedColor,red,green,blue);
-      m_linkVisitedColor.Format("#%02x%02x%02x",red,green,blue);
+      m_linkVisitedColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_linkVisitedColor = "";
+    m_linkVisitedColor = _T("");
   }
   m_body.SetProperty(HtmlBody::E_Vlink,m_linkVisitedColor);
 
@@ -359,12 +359,12 @@ TopicPropPage2Dlg::UpdateProperties()
     if(!m_linkActiveColor.IsEmpty())
     {
       Misc::DecodeColor(m_linkActiveColor,red,green,blue);
-      m_linkActiveColor.Format("#%02x%02x%02x",red,green,blue);
+      m_linkActiveColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_linkActiveColor = "";
+    m_linkActiveColor = _T("");
   }
   m_body.SetProperty(HtmlBody::E_Alink,m_linkActiveColor);
 }
@@ -381,16 +381,16 @@ void
 TopicPropPage2Dlg::OnBnClickedButtonImage()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select an image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select an image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                     "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                     "Graphics Information File (gif)|*.gif|"
-                     "Portable Network Graphics (png)|*.png|"
-                     "Windows bitmaps (bmp)|*.bmp|"
-                     "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                     _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                     _T("Graphics Information File (gif)|*.gif|")
+                     _T("Portable Network Graphics (png)|*.png|")
+                     _T("Windows bitmaps (bmp)|*.bmp|")
+                     _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -412,7 +412,7 @@ TopicPropPage2Dlg::OnBnClikcedBodyTextColor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_textColor.Format("#%02x%02x%02x",red,green,blue);
+  m_textColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -423,7 +423,7 @@ TopicPropPage2Dlg::OnBnClickedBodyColor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+  m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -433,7 +433,7 @@ TopicPropPage2Dlg::OnBnClickedBodyHyper()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_linkColor.Format("#%02x%02x%02x",red,green,blue);
+  m_linkColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -443,7 +443,7 @@ TopicPropPage2Dlg::OnBnClickedBodyVisited()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_linkVisitedColor.Format("#%02x%02x%02x",red,green,blue);
+  m_linkVisitedColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void
@@ -453,7 +453,7 @@ TopicPropPage2Dlg::OnBnClickedBodyActive()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_linkActiveColor.Format("#%02x%02x%02x",red,green,blue);
+  m_linkActiveColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -466,7 +466,7 @@ void
 TopicPropPage2Dlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*) &m_body;
-  GeneralIDDlg dlg(this,"body",elem);
+  GeneralIDDlg dlg(this,_T("body"),elem);
   dlg.DoModal();
 }
 
@@ -474,7 +474,7 @@ void
 TopicPropPage2Dlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*) &m_body;
-  TagEventsDlg dlg(this,elem,"body");
+  TagEventsDlg dlg(this,elem,_T("body"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -487,13 +487,13 @@ TopicPropPage2Dlg::OnBnClickedBodyStyle()
     m_body.SetStyle();
   }
   CString style = m_body.GetInlineStyle();
-  style = "body { " + style + "}";
-  StyleSheetDlg dlg(this,m_base,"body",NULL,style);
+  style = _T("body { ") + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("body"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("body {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("body {"));
     m_body.SetInlineStyle(style);
     FillPage();
   }

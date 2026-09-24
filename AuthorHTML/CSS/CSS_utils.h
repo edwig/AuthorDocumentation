@@ -61,14 +61,14 @@ struct message
 
 CString
 CSSPropertyGet(CssStyleSheet* css
-              ,string& selector
-              ,string  property
+              ,XString& selector
+              ,XString  property
               ,bool unspec /*=true*/);
 
 void
 CSSPropertyPut(CssStyleSheet* css
-              ,string& selector
-              ,string  property
+              ,XString& selector
+              ,XString  property
               ,CString value
               ,bool    unspec);
 
@@ -83,4 +83,4 @@ CString  CssConvertToUnit(CString  p_value                  // Input value
                          ,bool     p_warning  = false);     // Give absolute/relative warning
 
 // Setting all the size options in the combobox for a measurement
-void CSSComboBoxUnits(CComboBox& p_combo,CString p_init = "px");
+void CSSComboBoxUnits(CComboBox& p_combo,CString p_init = _T("px"));

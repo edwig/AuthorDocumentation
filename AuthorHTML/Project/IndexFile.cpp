@@ -32,7 +32,7 @@ void
 IndexFile::Reset()
 {
   m_linenumber    = 0;
-  m_frameName     = "";
+  m_frameName     = _T("");
   m_needSaving    = false;
   m_list.Reset();
 }
@@ -50,7 +50,7 @@ IndexFile::WriteIndexFile()
   {
     return false;
   }
-  MainFrame::SetStatusText("Writing index file: " + m_indexFilename);
+  MainFrame::SetStatusText(_T("Writing index file: ") + m_indexFilename);
 
   // See if really necessary
   if (!m_needSaving)
@@ -121,14 +121,14 @@ IndexFile::WriteList(WinFile& file,IndexEntry* list,int level)
   CString levelString;
   for(int ind = 0;ind < level; ++ind)
   {
-    levelString += CString("    ");
+    levelString += CString(_T("    "));
   }
 
   CString title = Misc::FormatXMLString(list->GetTitle());
   if(!title.IsEmpty())
   {
     file.Format(_T("%s<LI><OBJECT type=\"text/sitemap\">\n"), levelString.GetString());
-    WriteParameter(file,levelString,"Name",title);
+    WriteParameter(file,levelString,_T("Name"),title);
 
     for(unsigned int num = 0; num < list->GetDocuments().size(); ++num)
     {
@@ -139,15 +139,15 @@ IndexFile::WriteList(WinFile& file,IndexEntry* list,int level)
         CString localfile = dfile->GetFilename();
         if (!doc->m_bookmark.IsEmpty())
         {
-          localfile += CString("#") + doc->m_bookmark;
+          localfile += CString(_T("#")) + doc->m_bookmark;
         }
-        WriteParameter(file,levelString,"Name", Misc::FormatXMLString(doc->m_title));
-        WriteParameter(file,levelString,"Local",Misc::FormatXMLString(localfile));
+        WriteParameter(file,levelString,_T("Name"), Misc::FormatXMLString(doc->m_title));
+        WriteParameter(file,levelString,_T("Local"),Misc::FormatXMLString(localfile));
       }
     }
-    WriteParameter(file,levelString,"WindowName",list->GetWindowName());
-    WriteParameter(file,levelString,"FrameName", list->GetFrameName());
-    WriteParameter(file,levelString,"Comment",   Misc::FormatXMLString(list->GetComment()));
+    WriteParameter(file,levelString,_T("WindowName"),list->GetWindowName());
+    WriteParameter(file,levelString,_T("FrameName"), list->GetFrameName());
+    WriteParameter(file,levelString,_T("Comment"),   Misc::FormatXMLString(list->GetComment()));
     file.Format(_T("%s</OBJECT>\n"), levelString.GetString());
   }
   if(list->GetChildren().size() > 0)
@@ -168,7 +168,7 @@ IndexFile::WriteParameter(WinFile& file,CString& levelString,LPCTSTR name,CStrin
   {
     return;
   }
-  value.Replace("\"","\'");
+  value.Replace(_T("\""),_T("\'"));
   file.Format(_T("%s    <param name=\"%s\" value=\"%s\">\n"),levelString.GetString(),name,value.GetString());
 }
 
@@ -185,7 +185,7 @@ IndexFile::ReadIndexFile()
   {
     return false;
   }
-  MainFrame::SetStatusText("Reading index file: " + m_indexFilename);
+  MainFrame::SetStatusText(_T("Reading index file: ") + m_indexFilename);
 
   Reset();
 
@@ -213,7 +213,7 @@ IndexFile::ReadIndexFile()
   catch(CString mess)
   {
     CString message;
-    message.Format("Error reading index file '%s' Line:%i\n%s.",m_indexFilename.GetString(),m_linenumber,mess.GetString());
+    message.Format(_T("Error reading index file '%s' Line:%i\n%s."),m_indexFilename.GetString(),m_linenumber,mess.GetString());
     theApp.ErrorMessage(message);
     result = false;
   }
@@ -257,11 +257,11 @@ IndexFile::ReadHeader(WinFile& p_file)
     if(token == PF_NAME)
     {
       Misc::SkipToken(p_file, PF_EQUAL, m_linenumber);
-      if(Misc::GetToken(p_file, word, m_linenumber) != PF_STRING) throw "does not have a meta generator name";
+      if(Misc::GetToken(p_file, word, m_linenumber) != PF_STRING) throw _T("does not have a meta generator name");
 
       Misc::SkipToken(p_file,PF_CONTENT,m_linenumber);
       Misc::SkipToken(p_file,PF_EQUAL,  m_linenumber);
-      if(Misc::GetToken(p_file, word, m_linenumber) != PF_STRING) throw "does not have a meta content name";
+      if(Misc::GetToken(p_file, word, m_linenumber) != PF_STRING) throw _T("does not have a meta content name");
     }
   }
   while(token != PF_ENDHEAD && token != PF_EOF)
@@ -286,7 +286,7 @@ IndexFile::ReadComment(WinFile& file)
     {
       break;
     }
-    if(word.Right(2).Compare("--") == 0)
+    if(word.Right(2).Compare(_T("--")) == 0)
     {
       break;
     }
@@ -300,7 +300,7 @@ IndexFile::ReadProperties(WinFile& file)
   //    <param name="FrameName" value="right">
   //    <param name="SiteType" value="index">
   //    </object>
-  CString partialError = "First object before list ";
+  CString partialError = _T("First object before list ");
   CString word;
 
   if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))
@@ -308,12 +308,12 @@ IndexFile::ReadProperties(WinFile& file)
     // No properties in this TOC
     return;
   }
-  if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw partialError + ": no type found";
-  if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equal found";
-  if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "does not have a string type";
-  if(word.CompareNoCase("text/site properties") != 0)
+  if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw partialError + _T(": no type found");
+  if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equal found");
+  if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("does not have a string type");
+  if(word.CompareNoCase(_T("text/site properties")) != 0)
   {
-    throw partialError + "is not of type 'text/site properties'";
+    throw partialError + _T("is not of type 'text/site properties'");
   }
   while(true)
   {
@@ -325,30 +325,30 @@ IndexFile::ReadProperties(WinFile& file)
     }
     if(tok != PF_PARAM)
     {
-      throw partialError + "sub-object is not a parameter";
+      throw partialError + _T("sub-object is not a parameter");
     }
-    if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         throw partialError + ": no name found";
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equals found in parameter";
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "parameter name is not a string";
+    if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         throw partialError + _T(": no name found");
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equals found in parameter");
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("parameter name is not a string");
     CString parameterName = word;
-    if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        throw partialError + ": no value found for parameter";
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equal-sign parameter name=value";
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "parameter value is not a string";
+    if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        throw partialError + _T(": no value found for parameter");
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equal-sign parameter name=value");
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("parameter value is not a string");
     CString parameterValue = word;
     // TRACE("Text/Site properties. Parameter: %s Value:%s\n",parameterName.GetString(),parameterValue.GetString());
     // 
-    if(parameterName.CompareNoCase("sitetype")  == 0) m_siteType  = parameterValue;
-    if(parameterName.CompareNoCase("FrameName") == 0) m_frameName = parameterValue;
+    if(parameterName.CompareNoCase(_T("sitetype"))  == 0) m_siteType  = parameterValue;
+    if(parameterName.CompareNoCase(_T("FrameName")) == 0) m_frameName = parameterValue;
   }
   // CHECKS
   if(!m_siteType.IsEmpty())
   {
-    if(m_siteType.CompareNoCase("index") != 0)
+    if(m_siteType.CompareNoCase(_T("index")) != 0)
     {
       CString message;
-      message.Format("ERROR: The index (HHK) file: %s\n"
-                     "Has a 'sitetype' of '%s'. This is not a 'index'\n"
-                     "Did you rename some files or opened a damaged location?"
+      message.Format(_T("ERROR: The index (HHK) file: %s\n")
+                     _T("Has a 'sitetype' of '%s'. This is not a 'index'\n")
+                     _T("Did you rename some files or opened a damaged location?")
                      ,m_indexFilename.GetString(),m_siteType.GetString());
       theApp.ErrorMessage(message);
     }
@@ -363,7 +363,7 @@ IndexFile::ReadList(WinFile& file,IndexEntry* list,int level)
   if(level >= RECURSION_MAX_LEVEL)
   {
     CString message;
-    message.Format("Max level of recursion in index tree (HHK) reached (%i)",RECURSION_MAX_LEVEL);
+    message.Format(_T("Max level of recursion in index tree (HHK) reached (%i)"),RECURSION_MAX_LEVEL);
     throw message;
   }
 
@@ -391,7 +391,7 @@ IndexFile::ReadList(WinFile& file,IndexEntry* list,int level)
     }
     if(tok == PF_EOF)
     {
-      throw CString("Error in index tree: Broken or corrupted HHK file!");
+      throw CString(_T("Error in index tree: Broken or corrupted HHK file!"));
     }
 
     // Extra level of index
@@ -413,7 +413,7 @@ IndexFile::ReadList(WinFile& file,IndexEntry* list,int level)
     }
     else if(tok != PF_LISTITEM)
     {
-      throw CString("Unknown tag in index tree. Broken or corrupted HHK file!");
+      throw CString(_T("Unknown tag in index tree. Broken or corrupted HHK file!"));
     }
 
     // Add to list of index entries
@@ -427,67 +427,67 @@ IndexFile::ReadList(WinFile& file,IndexEntry* list,int level)
     CString value;
     CString title;
 
-    if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))       throw CString("Index item must be an OBJECT");
-    if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw CString("Index item must have a type");
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw CString("Index item type must have an equal");
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw CString("Index item type must be a string");
-    if(word.CompareNoCase("text/sitemap"))                  throw CString("Index item type must be 'text/sitemap'");
-    if(!Misc::SkipToken(file,PF_PARAM,m_linenumber))        throw CString("Index item must have parameters");
+    if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))       throw CString(_T("Index item must be an OBJECT"));
+    if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw CString(_T("Index item must have a type"));
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw CString(_T("Index item type must have an equal"));
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw CString(_T("Index item type must be a string"));
+    if(word.CompareNoCase(_T("text/sitemap")))                  throw CString(_T("Index item type must be 'text/sitemap'"));
+    if(!Misc::SkipToken(file,PF_PARAM,m_linenumber))        throw CString(_T("Index item must have parameters"));
 
     tok = GetIndexParameter(file,num,name,  value);
-    if(name.CompareNoCase("name")    == 0 ||
-       name.CompareNoCase("keyword") == 0 )
+    if(name.CompareNoCase(_T("name"))    == 0 ||
+       name.CompareNoCase(_T("keyword")) == 0 )
     {
       // Now we have our title of the index
       entry->SetTitle(value);
     }
     else
     {
-      throw CString("Index must have a keyword 'name'");
+      throw CString(_T("Index must have a keyword 'name'"));
     }
     while(tok == PF_PARAM)
     {
       ++num; // next parameter
       tok = GetIndexParameter(file,num,name,value);
-      if(name.CompareNoCase("name") == 0)
+      if(name.CompareNoCase(_T("name")) == 0)
       {
         title = value;
       }
-      else if(name.CompareNoCase("keyword") == 0)
+      else if(name.CompareNoCase(_T("keyword")) == 0)
       {
         entry->SetTitle(value);
       }
-      else if(name.CompareNoCase("local") == 0)
+      else if(name.CompareNoCase(_T("local")) == 0)
       {
         // allow name/local pairs 
         entry->AddDocument(title,value);
       }
-      else if(name.CompareNoCase("WindowName") == 0)
+      else if(name.CompareNoCase(_T("WindowName")) == 0)
       {
         entry->SetWindowName(value);
       }
-      else if(name.CompareNoCase("FrameName") == 0)
+      else if(name.CompareNoCase(_T("FrameName")) == 0)
       {
         entry->SetFrameName(value);
       }
-      else if(name.CompareNoCase("Comment") == 0)
+      else if(name.CompareNoCase(_T("Comment")) == 0)
       {
         entry->SetComment(value);
       }
-      else if(name.CompareNoCase("See also") == 0)
+      else if(name.CompareNoCase(_T("See also")) == 0)
       {
         title = value;
       }
       else
       {
         CString message;
-        message.Format("HHL Indexfile: Unknown parameter name '%s' in %dth parameter",name.GetString(),num);
+        message.Format(_T("HHL Indexfile: Unknown parameter name '%s' in %dth parameter"),name.GetString(),num);
         throw message;
       }
     }
     if(tok != PF_ENDOBJECT)
     {
-      throw CString("Index item's object not closed with /OBJECT");
+      throw CString(_T("Index item's object not closed with /OBJECT"));
     }
     tok = Misc::GetToken(file,word,m_linenumber);
 
@@ -511,29 +511,29 @@ IndexFile::GetIndexParameter(WinFile& file,int num,CString& name,CString& value)
   // Get image number
   if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         
   {
-    ParameterError("Index item %dth parameter must have a name",num);
+    ParameterError(_T("Index item %dth parameter must have a name"),num);
   }
   if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        
   {
-    ParameterError("Index item %dth parameter name must have an equal",num);
+    ParameterError(_T("Index item %dth parameter name must have an equal"),num);
   }
   if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) 
   {
-    ParameterError("Index item %dth parameter name must be a string",num);
+    ParameterError(_T("Index item %dth parameter name must be a string"),num);
   }
   // This is our parameter
   name = word;
   if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        
   {
-    ParameterError("Index item %dth parameter must have a value",num);
+    ParameterError(_T("Index item %dth parameter must have a value"),num);
   }
   if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        
   {
-    ParameterError("Index item %dth parameter value must have an equal",num);
+    ParameterError(_T("Index item %dth parameter value must have an equal"),num);
   }
   if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) 
   {
-    ParameterError("Index item %dth parameter value must be a string",num);
+    ParameterError(_T("Index item %dth parameter value must be a string"),num);
   }
   // This is our value
   value = word;
@@ -543,7 +543,7 @@ IndexFile::GetIndexParameter(WinFile& file,int num,CString& name,CString& value)
 }
 
 void
-IndexFile::ParameterError(const char* error,int num)
+IndexFile::ParameterError(const TCHAR* error,int num)
 {
   CString message;
   message.Format(error,num);
@@ -664,17 +664,17 @@ IndexFile::AddKeywords(CString keywords,DocumentFile* doc)
   // Break into seperate strings.
   while(keywords.GetLength() > 0) 
   {
-    int pos = keywords.Find(',');
+    int pos = keywords.Find(_T(','));
     if(pos >= 0)
     {
       keyword  = keywords.Left(pos);
       keywords = keywords.Mid(pos);
-      keywords.TrimLeft(',');
+      keywords.TrimLeft(_T(','));
     }
      else
     {
       keyword  = keywords;
-      keywords = "";
+      keywords = _T("");
     }
     
     // Use keyword
@@ -712,17 +712,17 @@ IndexFile::DeleteEntry(CString keywords,CString filename)
   // Break into seperate strings.
   while(keywords.GetLength() > 0) 
   {
-    int pos = keywords.Find(',');
+    int pos = keywords.Find(_T(','));
     if(pos >= 0)
     {
       keyword  = keywords.Left(pos);
       keywords = keywords.Mid(pos);
-      keywords.TrimLeft(',');
+      keywords.TrimLeft(_T(','));
     }
     else
     {
       keyword  = keywords;
-      keywords = "";
+      keywords = _T("");
     }
     leaf = parent->HasKeyword(keyword);
     if(leaf)
@@ -757,7 +757,7 @@ IndexFile::DeleteDocumentFromTree(CString filename)
 void 
 IndexFile::SortIndex()
 {
-  MainFrame::SetStatusText("Sorting the index ...");
+  MainFrame::SetStatusText(_T("Sorting the index ..."));
   m_list.SortEntries();
 }
 

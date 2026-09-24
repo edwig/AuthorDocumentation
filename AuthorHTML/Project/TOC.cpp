@@ -35,7 +35,7 @@ TOC::~TOC()
 void
 TOC::Reset()
 {
-  m_siteType       = "";
+  m_siteType       = _T("");
   m_linenumber     = 0;
   m_imageWidth     = 0;
   m_windowStyles   = 0L;
@@ -58,7 +58,7 @@ TOC::WriteTOCFile()
   {
     return false;
   }
-  MainFrame::SetStatusText("Writing TOC file: " + m_tocFilename);
+  MainFrame::SetStatusText(_T("Writing TOC file: ") + m_tocFilename);
 
   // See if really necessary
   if(!m_needSaving)
@@ -87,7 +87,7 @@ void
 TOC::WriteHeader(WinFile& p_file)
 {
   CString generator(REGISTER_APP);
-  generator.Replace("\\","-");
+  generator.Replace(_T("\\"),_T("-"));
 
   p_file.Write(AUTHOR_DOCTYPE);
   p_file.Write(_T("\n<HTML>\n"));
@@ -151,22 +151,22 @@ TOC::WriteList(WinFile& p_file,TOCEntry* list,int level)
   CString levelString;
   for(int ind = 0;ind < level; ++ind)
   {
-    levelString += CString("    ");
+    levelString += CString(_T("    "));
   }
   if(!list->GetTitle().IsEmpty() || !list->GetDocumentFilename().IsEmpty())
   {
     CString image;
-    image.Format("%d",list->GetImageNumber() + 1);
-    if(image == "0") image = "";
+    image.Format(_T("%d"),list->GetImageNumber() + 1);
+    if(image == _T("0")) image = _T("");
 
     p_file.Format(_T("%s<LI><OBJECT type=\"text/sitemap\">\n"), levelString.GetString());
 
-    WriteParameter(p_file,levelString,"Name",       Misc::FormatXMLString(list->GetTitle()));
-    WriteParameter(p_file,levelString,"Local",      Misc::FormatXMLString(list->GetDocumentFilename()));
-    WriteParameter(p_file,levelString,"Comment",    Misc::FormatXMLString(list->GetComment()));
-    WriteParameter(p_file,levelString,"FrameName",  list->GetFrameName());
-    WriteParameter(p_file,levelString,"WindowName", list->GetWindowName());
-    WriteParameter(p_file,levelString,"ImageNumber",image);
+    WriteParameter(p_file,levelString,_T("Name"),       Misc::FormatXMLString(list->GetTitle()));
+    WriteParameter(p_file,levelString,_T("Local"),      Misc::FormatXMLString(list->GetDocumentFilename()));
+    WriteParameter(p_file,levelString,_T("Comment"),    Misc::FormatXMLString(list->GetComment()));
+    WriteParameter(p_file,levelString,_T("FrameName"),  list->GetFrameName());
+    WriteParameter(p_file,levelString,_T("WindowName"), list->GetWindowName());
+    WriteParameter(p_file,levelString,_T("ImageNumber"),image);
 
     p_file.Format(_T("%s</OBJECT>\n"),levelString.GetString());
   }
@@ -188,7 +188,7 @@ TOC::WriteParameter(WinFile& p_file,CString& levelString,LPCTSTR name,CString va
   {
     return;
   }
-  value.Replace("\"","\'");
+  value.Replace(_T("\""),_T("\'"));
   p_file.Format(_T("%s    <param name=\"%s\" value=\"%s\">\n"), levelString.GetString(),name,value.GetString());
 }
 
@@ -205,7 +205,7 @@ TOC::ReadTOCFile()
   {
     return false;
   }
-  MainFrame::SetStatusText("Reading TOC file: " + m_tocFilename);
+  MainFrame::SetStatusText(_T("Reading TOC file: ") + m_tocFilename);
 
   Reset();
   WinFile file(m_tocFilename.GetString());
@@ -236,7 +236,7 @@ TOC::ReadTOCFile()
   catch(CString mess)
   {
     CString message;
-    message.Format("Error reading TOC file '%s' Line:%i\n%s.",m_tocFilename.GetString(),m_linenumber,mess.GetString());
+    message.Format(_T("Error reading TOC file '%s' Line:%i\n%s."),m_tocFilename.GetString(),m_linenumber,mess.GetString());
     theApp.ErrorMessage(message);
     result = false;
   }
@@ -280,12 +280,12 @@ TOC::ReadHeader(WinFile& p_file)
     if(token == PF_NAME)
     {
       Misc::SkipToken  (p_file,PF_EQUAL,m_linenumber);
-      if(Misc::GetToken(p_file,word,    m_linenumber) != PF_STRING) throw "does not have a meta generator name";
+      if(Misc::GetToken(p_file,word,    m_linenumber) != PF_STRING) throw _T("does not have a meta generator name");
       m_generator = word;
 
       Misc::SkipToken(p_file,PF_CONTENT,m_linenumber);
       Misc::SkipToken(p_file,PF_EQUAL,  m_linenumber);
-      if(Misc::GetToken(p_file,word,m_linenumber) != PF_STRING) throw "does not have a meta content name";
+      if(Misc::GetToken(p_file,word,m_linenumber) != PF_STRING) throw _T("does not have a meta content name");
       m_content = word;
     }
   }
@@ -311,7 +311,7 @@ TOC::ReadComment(WinFile& file)
     {
       break;
     }
-    if(word.Right(2).Compare("--") == 0)
+    if(word.Right(2).Compare(_T("--")) == 0)
     {
       break;
     }
@@ -329,7 +329,7 @@ TOC::ReadProperties(WinFile& file)
   //  <param name="Foregrount" value="0x000000">
   //  <param name="Font" value="Verdana,9,0">
   //</object>
-  CString partialError = "First object before list ";
+  CString partialError = _T("First object before list ");
   CString word;
 
   if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))
@@ -337,12 +337,12 @@ TOC::ReadProperties(WinFile& file)
     // No properties in this TOC
     return;
   }
-  if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw partialError + ": no type found";
-  if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equal found";
-  if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "does not have a string type";
-  if(word.CompareNoCase("text/site properties") != 0)
+  if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw partialError + _T(": no type found");
+  if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equal found");
+  if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("does not have a string type");
+  if(word.CompareNoCase(_T("text/site properties")) != 0)
   {
-    throw partialError + "is not of type 'text/site properties'";
+    throw partialError + _T("is not of type 'text/site properties'");
   }
   while(true)
   {
@@ -354,56 +354,56 @@ TOC::ReadProperties(WinFile& file)
     }
     if(tok != PF_PARAM)
     {
-      throw partialError + "sub-object is not a parameter";
+      throw partialError + _T("sub-object is not a parameter");
     }
-    if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         throw partialError + ": no name found";
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equals found in parameter";
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "parameter name is not a string";
+    if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         throw partialError + _T(": no name found");
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equals found in parameter");
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("parameter name is not a string");
     CString parameterName = word;
-    if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        throw partialError + ": no value found for parameter";
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + ": no equal-sign parameter name=value";
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + "parameter value is not a string";
+    if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        throw partialError + _T(": no value found for parameter");
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw partialError + _T(": no equal-sign parameter name=value");
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw partialError + _T("parameter value is not a string");
     CString parameterValue = word;
     // TRACE("Text/Site properties. Parameter: %s Value:%s\n",parameterName.GetString(),parameterValue.GetString());
     // 
-    if(parameterName.CompareNoCase("sitetype")    == 0) m_siteType   = parameterValue;
-    if(parameterName.CompareNoCase("image width") == 0) m_imageWidth = atoi(parameterValue);
-    if(parameterName.CompareNoCase("window styles") == 0)
+    if(parameterName.CompareNoCase(_T("sitetype"))    == 0) m_siteType   = parameterValue;
+    if(parameterName.CompareNoCase(_T("image width")) == 0) m_imageWidth = _ttoi(parameterValue);
+    if(parameterName.CompareNoCase(_T("window styles")) == 0)
     {
       Misc::ParseNumber(parameterValue,m_windowStyles);
     }
-    if(parameterName.CompareNoCase("exwindow styles") == 0)
+    if(parameterName.CompareNoCase(_T("exwindow styles")) == 0)
     {
       Misc::ParseNumber(parameterValue,m_ExWindowStyles);
     }
-    if(parameterName.CompareNoCase("background") == 0)
+    if(parameterName.CompareNoCase(_T("background")) == 0)
     {
-      sscanf_s(parameterValue,"%x",&m_background);
+      _stscanf_s(parameterValue,_T("%x"),&m_background);
     }
-    if(parameterName.CompareNoCase("foreground") == 0)
+    if(parameterName.CompareNoCase(_T("foreground")) == 0)
     {
-      sscanf_s(parameterValue,"%x",&m_foreground);
+      _stscanf_s(parameterValue,_T("%x"),&m_foreground);
     }
-    if(parameterName.CompareNoCase("font") == 0)
+    if(parameterName.CompareNoCase(_T("font")) == 0)
     {
       std::vector<XString> parts;
-      SplitString(parameterValue.GetString(),parts,',');
+      SplitString(parameterValue.GetString(),parts,_T(','));
       m_fontName = parts[0];
       if(parts.size() > 1)
       {
-        m_fontSize = atoi(parts[1]);
+        m_fontSize = _ttoi(parts[1]);
       }
     }
   }
   // CHECKS
   if(!m_siteType.IsEmpty())
   {
-    if(m_siteType.CompareNoCase("toc") != 0)
+    if(m_siteType.CompareNoCase(_T("toc")) != 0)
     {
       CString message;
-      message.Format("ERROR: The table-of-contents (HHC) file: %s\n"
-                     "Has a 'sitetype' of '%s'. This is not a 'toc'\n"
-                     "Did you rename some files or opened a damaged location?"
+      message.Format(_T("ERROR: The table-of-contents (HHC) file: %s\n")
+                     _T("Has a 'sitetype' of '%s'. This is not a 'toc'\n")
+                     _T("Did you rename some files or opened a damaged location?")
                     ,m_tocFilename.GetString(),m_siteType.GetString());
       theApp.ErrorMessage(message);
     }
@@ -433,7 +433,7 @@ TOC::ReadList(WinFile& file,TOCEntry* list,int level)
   if(level >= RECURSION_MAX_LEVEL)
   {
     CString message;
-    message.Format("Max level of recursion in TOC tree reached (%i)",RECURSION_MAX_LEVEL);
+    message.Format(_T("Max level of recursion in TOC tree reached (%i)"),RECURSION_MAX_LEVEL);
     throw message;
   }
 
@@ -454,7 +454,7 @@ TOC::ReadList(WinFile& file,TOCEntry* list,int level)
     }
     else if(tok == PF_EOF)
     {
-      throw CString("Error in TOC tree: Broken or corrupted TOC file!");
+      throw CString(_T("Error in TOC tree: Broken or corrupted TOC file!"));
     }
     else if (tok == PF_LIST)
     {
@@ -467,14 +467,14 @@ TOC::ReadList(WinFile& file,TOCEntry* list,int level)
     }
     else if(tok != PF_LISTITEM)
     {
-      throw CString("Unknown tag in TOC treelist. Broken or corrupted TOC file!");
+      throw CString(_T("Unknown tag in TOC treelist. Broken or corrupted TOC file!"));
     }
     // One more item
-    if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))       throw CString("TOC item must be an OBJECT");
-    if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw CString("TOC item must have a type");
-    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw CString("TOC item type must have an equal");
-    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw CString("TOC item type must be a string");
-    if(word.CompareNoCase("text/sitemap"))                  throw CString("TOC item type must be 'text/sitemap'");
+    if(!Misc::SkipToken(file,PF_OBJECT,m_linenumber))       throw CString(_T("TOC item must be an OBJECT"));
+    if(!Misc::SkipToken(file,PF_TYPE,m_linenumber))         throw CString(_T("TOC item must have a type"));
+    if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        throw CString(_T("TOC item type must have an equal"));
+    if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) throw CString(_T("TOC item type must be a string"));
+    if(word.CompareNoCase(_T("text/sitemap")))                  throw CString(_T("TOC item type must be 'text/sitemap'"));
 
     int     imageNumber = -1;
     CString fileName;
@@ -488,40 +488,40 @@ TOC::ReadList(WinFile& file,TOCEntry* list,int level)
     {
       ++num; // next parameter
       tok = GetTOCParameter(file,num,name,value);
-      if(name.CompareNoCase("name") == 0)
+      if(name.CompareNoCase(_T("name")) == 0)
       {
         title = value;
       }
-      else if(name.CompareNoCase("local") == 0)
+      else if(name.CompareNoCase(_T("local")) == 0)
       {
         fileName = value;
       }
-      else if(name.CompareNoCase("ImageNumber") == 0)
+      else if(name.CompareNoCase(_T("ImageNumber")) == 0)
       {
-        imageNumber = atoi(value) -1;
+        imageNumber = _ttoi(value) -1;
       }
-      else if(name.CompareNoCase("Comment") == 0)
+      else if(name.CompareNoCase(_T("Comment")) == 0)
       {
         comment = value;
       }
-      else if(name.CompareNoCase("FrameName") == 0)
+      else if(name.CompareNoCase(_T("FrameName")) == 0)
       {
         frameName = value;
       }
-      else if(name.CompareNoCase("WindowName") == 0)
+      else if(name.CompareNoCase(_T("WindowName")) == 0)
       {
         windowName = value;
       }
       else
       {
         CString message;
-        message.Format("HHC TOC-file: Unknown parameter name '%s' in %dth parameter",name.GetString(),num);
+        message.Format(_T("HHC TOC-file: Unknown parameter name '%s' in %dth parameter"),name.GetString(),num);
         throw message;
       }
     }
     if(tok != PF_ENDOBJECT)
     {
-      throw CString("TOC item's object not closed with /OBJECT");
+      throw CString(_T("TOC item's object not closed with /OBJECT"));
     }
     // Make topic
     entry = new TOCEntry(title,fileName,imageNumber,comment,frameName,windowName);
@@ -552,29 +552,29 @@ TOC::GetTOCParameter(WinFile& file,int num,CString& name,CString& value)
   // Get image number
   if(!Misc::SkipToken(file,PF_NAME,m_linenumber))         
   {
-    ParameterError("TOC item %dth parameter must have a name",num);
+    ParameterError(_T("TOC item %dth parameter must have a name"),num);
   }
   if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        
   {
-    ParameterError("TOC item %dth parameter name must have an equal",num);
+    ParameterError(_T("TOC item %dth parameter name must have an equal"),num);
   }
   if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) 
   {
-    ParameterError("TOC item %dth parameter name must be a string",num);
+    ParameterError(_T("TOC item %dth parameter name must be a string"),num);
   }
   // This is our parameter
   name = word;
   if(!Misc::SkipToken(file,PF_VALUE,m_linenumber))        
   {
-    ParameterError("TOC item %dth parameter must have a value",num);
+    ParameterError(_T("TOC item %dth parameter must have a value"),num);
   }
   if(!Misc::SkipToken(file,PF_EQUAL,m_linenumber))        
   {
-    ParameterError("TOC item %dth parameter value must have an equal",num);
+    ParameterError(_T("TOC item %dth parameter value must have an equal"),num);
   }
   if(Misc::GetToken(file,word,m_linenumber) != PF_STRING) 
   {
-    ParameterError("TOC item %dth parameter value must be a string",num);
+    ParameterError(_T("TOC item %dth parameter value must be a string"),num);
   }
   // This is our value
   value = word;
@@ -598,10 +598,10 @@ TOC::SetDefaultFont(CString p_fontName,int p_fontSize)
   m_fontSize = p_fontSize;
 
   // Sync with our view representation
-  MainFrame* main = reinterpret_cast<MainFrame*>(AfxGetMainWnd());
-  if(main)
+  MainFrame* _tmain = reinterpret_cast<MainFrame*>(AfxGetMainWnd());
+  if(_tmain)
   {
-    main->m_wndTOCView.SetFontSize(p_fontSize,p_fontName);
+    _tmain->m_wndTOCView.SetFontSize(p_fontSize,p_fontName);
   }
 }
 

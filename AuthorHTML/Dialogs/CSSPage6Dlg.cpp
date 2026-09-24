@@ -43,11 +43,11 @@ void CSSPage6Dlg::DoDataExchange(CDataExchange* pDX)
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
     int ind;
-    CString desc = Misc::GetAttributeDisplayname("list-style-type",m_listStyle);
+    CString desc = Misc::GetAttributeDisplayname(_T("list-style-type"),m_listStyle);
     ind = m_comboStyle.FindString(-1,desc);
     m_comboStyle.SetCurSel(ind);
 
-    desc = Misc::GetAttributeDisplayname("list-style-position",m_listPosition);
+    desc = Misc::GetAttributeDisplayname(_T("list-style-position"),m_listPosition);
     ind = m_comboPosition.FindString(-1,desc);
     m_comboPosition.SetCurSel(ind);
   }
@@ -66,14 +66,14 @@ CSSPage6Dlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Fill combo repeat
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("list-style-type",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("list-style-type"),&all);
   for(unsigned int ind=0; ind<all.size(); ++ind)
   {
     m_comboStyle.AddString(all[ind].c_str());
   }
   all.clear();
-  Misc::GetAllAttributeDisplaynames("list-style-position",&all);
+  Misc::GetAllAttributeDisplaynames(_T("list-style-position"),&all);
   for(unsigned int ind=0; ind<all.size(); ++ind)
   {
     m_comboPosition.AddString(all[ind].c_str());
@@ -84,7 +84,7 @@ CSSPage6Dlg::OnInitDialog()
 }
 
 void
-CSSPage6Dlg::SetSelector(string selector)
+CSSPage6Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -93,9 +93,9 @@ CSSPage6Dlg::SetSelector(string selector)
 void
 CSSPage6Dlg::FillPage()
 {
-  m_listStyle    = CSSPropertyGet(m_css,m_selector,"list-style-type",    true);
-  m_listPosition = CSSPropertyGet(m_css,m_selector,"list-style-position",true);
-  m_listImage    = CSSPropertyGet(m_css,m_selector,"list-style-image",   false);
+  m_listStyle    = CSSPropertyGet(m_css,m_selector,_T("list-style-type"),    true);
+  m_listPosition = CSSPropertyGet(m_css,m_selector,_T("list-style-position"),true);
+  m_listImage    = CSSPropertyGet(m_css,m_selector,_T("list-style-image"),   false);
 
   Redisplay();
 }
@@ -103,9 +103,9 @@ CSSPage6Dlg::FillPage()
 void 
 CSSPage6Dlg::UpdateProperties()
 {
-  CSSPropertyPut(m_css,m_selector,"list-style-type",    m_listStyle,   true);
-  CSSPropertyPut(m_css,m_selector,"list-style-position",m_listPosition,true);
-  CSSPropertyPut(m_css,m_selector,"list-style-image",   m_listImage,   false);
+  CSSPropertyPut(m_css,m_selector,_T("list-style-type"),    m_listStyle,   true);
+  CSSPropertyPut(m_css,m_selector,_T("list-style-position"),m_listPosition,true);
+  CSSPropertyPut(m_css,m_selector,_T("list-style-image"),   m_listImage,   false);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -127,7 +127,7 @@ void CSSPage6Dlg::OnCbnSelchangeListstyle()
   {
     CString desc;
     m_comboStyle.GetLBText(ind,desc);
-    m_listStyle = Misc::GetAttributeValue("list-style-type",desc);
+    m_listStyle = Misc::GetAttributeValue(_T("list-style-type"),desc);
   }
   UpdateProperties();
   Redisplay();
@@ -140,7 +140,7 @@ void CSSPage6Dlg::OnCbnSelchangeStylepos()
   {
     CString desc;
     m_comboPosition.GetLBText(ind,desc);
-    m_listPosition = Misc::GetAttributeValue("list-style-position",desc);
+    m_listPosition = Misc::GetAttributeValue(_T("list-style-position"),desc);
   }
   UpdateProperties();
   Redisplay();
@@ -157,16 +157,16 @@ void CSSPage6Dlg::OnEnChangeStyleimage()
 void CSSPage6Dlg::OnBnClickedButListimage()
 {
   DocFileDialog diag(true                         // true = open
-                    ,"Select a list style image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select a list style image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                    "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                    "Graphics Information File (gif)|*.gif|"
-                    "Portable Network Graphics (png)|*.png|"
-                    "Windows bitmaps (bmp)|*.bmp|"
-                    "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                    _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                    _T("Graphics Information File (gif)|*.gif|")
+                    _T("Portable Network Graphics (png)|*.png|")
+                    _T("Windows bitmaps (bmp)|*.bmp|")
+                    _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     m_listImage = diag.GetChosenFile();

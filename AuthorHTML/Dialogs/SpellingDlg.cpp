@@ -107,11 +107,11 @@ SpellingDlg::GetAlternatives()
   for(unsigned int ind = 0;ind < all.size(); ++ind)
   {
     CString word = all[ind];
-    if(num > 10 && (tolower(word[0]) != tolower(m_word[0])))
+    if(num > 10 && (_totlower(word[0]) != _totlower(m_word[0])))
     {
       continue;
     }
-    if(num > 30 && (tolower(word[1]) != tolower(m_word[1])))
+    if(num > 30 && (_totlower(word[1]) != _totlower(m_word[1])))
     {
       continue;
     }
@@ -130,11 +130,11 @@ SpellingDlg::DisplayChanging()
 {
   int num = m_listSuggestions.GetCount();
   m_listSuggestions.ResetContent();
-  for(int ind=0;ind<num;++ind) m_listSuggestions.AddString("");
+  for(int ind=0;ind<num;++ind) m_listSuggestions.AddString(_T(""));
   for(int ind=0;ind<num;++ind) m_listSuggestions.SetCurSel(ind);
   m_listSuggestions.SetCurSel(-1);
   m_listSuggestions.ResetContent();
-  CString waiting = "<< Changing dictionaries >>";
+  CString waiting = _T("<< Changing dictionaries >>");
   int pos = m_listSuggestions.AddString(waiting);
   m_listSuggestions.SetCurSel(pos);
   UpdateData(Data2Controls);
@@ -143,14 +143,14 @@ SpellingDlg::DisplayChanging()
 void
 SpellingDlg::SplitWordAndQuotes()
 {
-  static char* quotes = "\'\",.:;";
+  static TCHAR* quotes = _T("\'\",.:;");
   int ind = 0;
 
   // Get the before quotes
   for(ind = 0; ind < m_word.GetLength(); ++ind)
   {
     TCHAR ch = m_word.GetAt(ind);
-    if(strchr(quotes, ch))
+    if(_tcschr(quotes, ch))
     {
       m_quotesBefore += ch;
     }
@@ -171,7 +171,7 @@ SpellingDlg::SplitWordAndQuotes()
   for(ind = m_word.GetLength() - 1; ind >= 0; --ind)
   {
     TCHAR ch = m_word.GetAt(ind);
-    if(strchr(quotes,ch) == nullptr)
+    if(_tcschr(quotes,ch) == nullptr)
     {
       break;
     }

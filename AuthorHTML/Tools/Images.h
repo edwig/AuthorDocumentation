@@ -77,15 +77,15 @@ public:
   virtual ~CAfbeelding();
 
   void  Reset();
-  bool  SetType(LPCSTR nieuwType);
+  bool  SetType(LPCTSTR nieuwType);
   void  MaakStandaardKnopVolgnummers(short volgnr[],int aantal);
   short GeefNummer(short setNummer, int srtPlaatje = 0);
   bool  SetKnopNummers(short m_volgnr[],short setNummer,int aantal);
   bool  SetSerieNummers(short m_volgnr[],short setNummer,int aantal);
   bool  SetSetNummers(short volgnr[],short setNummer,int aantal);
 
-  short GeefSetNummerVanNaam(LPCSTR naam,LPCSTR defExt = ".ico");
-  int   GeefPosNummerVanNaam(LPCSTR naam);
+  short GeefSetNummerVanNaam(LPCTSTR naam,LPCTSTR defExt = _T(".ico"));
+  int   GeefPosNummerVanNaam(LPCTSTR naam);
   
   static bool  SetInterneKnopLogica(short volgnr[],short setNummer,int aantal);
 
@@ -99,7 +99,7 @@ public:
 
   bool  HeeftDisabled() {return m_heeftDiasabled;};
 
-  LPCSTR GeefTypeSetNaam();
+  LPCTSTR GeefTypeSetNaam();
 
 
   virtual HICON GeefIcon(int nr = 0);
@@ -108,7 +108,7 @@ public:
 
 // implementation pure virtual
   virtual int  Create(UINT nBitmapID, UINT nExtraBitmapID = 0) = 0;
-  virtual int  LoadDir(LPCSTR) {return -1;};
+  virtual int  LoadDir(LPCTSTR) {return -1;};
   virtual bool Paint(CDC& pDC,CRect& rect,int nr = 0, int drawParam = 0 ) = 0;
   
 protected:
@@ -121,9 +121,9 @@ protected:
   // Type definitie
   bool   m_heeftDiasabled;
   short  m_aantalPS;
-  char   m_type[AFB_POS_AANTAL+1];
+  TCHAR   m_type[AFB_POS_AANTAL+1];
   short  m_pos[AFB_POS_AANTAL];
-  char   m_typeSet;                     // 0 set 1 knoppen
+  TCHAR   m_typeSet;                     // 0 set 1 knoppen
 
   StringArray m_namen;
 private:
@@ -133,16 +133,16 @@ private:
 
 
 inline
-LPCSTR
+LPCTSTR
 CAfbeelding::GeefTypeSetNaam()
 {
   switch(m_typeSet)
   {
-    case AFB_SET_SET:     return "SET";
-    case AFB_SET_SERIE:   return "SERIE";
-    case AFB_SET_KNOPPEN: return "KNOPPEN";
+    case AFB_SET_SET:     return _T("SET");
+    case AFB_SET_SERIE:   return _T("SERIE");
+    case AFB_SET_KNOPPEN: return _T("KNOPPEN");
   }
-  return "STANDAARD";
+  return _T("STANDAARD");
 }
 
 
@@ -155,12 +155,12 @@ public:
   
   int Create(UINT nBitmapID, UINT extraBitmapID);
   int Create(UINT nBitmapID,int cx,int cy, UINT extraBitmapID);
-  int Create(char* file,int cx);
-  int Create(char* file,CDIB& dib,int cx);
-  int LoadDir(LPCSTR naam);
-  int VoegIconToe(HICON icon,LPCSTR naam);
+  int Create(TCHAR* file,int cx);
+  int Create(TCHAR* file,CDIB& dib,int cx);
+  int LoadDir(LPCTSTR naam);
+  int VoegIconToe(HICON icon,LPCTSTR naam);
   HICON GeefIcon(int nr = 0);
-  int VoegBitmapToe(CBitmap* bitmap,LPCSTR naam,COLORREF bk);
+  int VoegBitmapToe(CBitmap* bitmap,LPCTSTR naam,COLORREF bk);
 
   virtual bool Paint(CDC& pDC,CRect& rect,int nr = 0, int drawParam = 0 );
 
@@ -193,7 +193,7 @@ class CAfbeeldingDIB : public CAfbeeldingBM
 public:
   CAfbeeldingDIB(CAfbeeldingen& afbeeldingen);
 
-  virtual int Create(char* file);
+  virtual int Create(TCHAR* file);
   virtual int Create(CDIB& dib);
 };
 
@@ -202,8 +202,8 @@ class CAfbeeldingEntry : public RefCounted
 {
 public:
   CAfbeeldingEntry(CAfbeeldingEntry& entry);
-  CAfbeeldingEntry(UINT resourceID,LPCSTR naam,LPCSTR type, int cx = 0, int sets = 0, UINT extraResourceID = 0);
-  CAfbeeldingEntry(LPCSTR naam,LPCSTR type = NULL,bool lijst = false,int cx = 0,int sets = 0);
+  CAfbeeldingEntry(UINT resourceID,LPCTSTR naam,LPCTSTR type, int cx = 0, int sets = 0, UINT extraResourceID = 0);
+  CAfbeeldingEntry(LPCTSTR naam,LPCTSTR type = NULL,bool lijst = false,int cx = 0,int sets = 0);
   ~CAfbeeldingEntry();
 
   Ref<CAfbeelding> SetAfbeelding(Ref<CAfbeelding> afbeelding);
@@ -217,7 +217,7 @@ private:
   UINT         m_extraResourceID;       // Bitmaps mogen maar 2048 pixels breed zijn -- extra resource om nog meer in te kunnen lezen.
   int          m_cx;                    // Breedte van de plaatjes
   int          m_sets;                  // minimaal aantal sets in een imagelist
-  char         m_type[AFB_POS_AANTAL+1];
+  TCHAR         m_type[AFB_POS_AANTAL+1];
 
   CString       m_fileLoaded;
   int          m_info;
@@ -232,7 +232,7 @@ public:
 class CAfbeeldingExtensie : public RefCounted
 {
 public:
-  CAfbeeldingExtensie(LPCSTR ext,LPCSTR type,USHORT cx = 0);
+  CAfbeeldingExtensie(LPCTSTR ext,LPCTSTR type,USHORT cx = 0);
   ~CAfbeeldingExtensie();
 
 private:
@@ -246,7 +246,7 @@ private:
 class CAfbeeldingZoekpad
 {
 public:
-  CAfbeeldingZoekpad(LPCSTR pad = "",USHORT type = 0);
+  CAfbeeldingZoekpad(LPCTSTR pad = _T(""),USHORT type = 0);
   ~CAfbeeldingZoekpad();
 
 private:
@@ -266,45 +266,45 @@ public:
   void Reset();
   
   // Entry interface
-  Ref<CAfbeeldingEntry> MaakResourceEntry(UINT resourceID,LPCSTR naam,LPCSTR type, int cx = 0, int sets = 0, UINT extraResourceID = 0);
-  Ref<CAfbeeldingEntry> MaakNaamEntry(LPCSTR naam,LPCSTR type = NULL,bool lijst = false,int cx = 0,int sets = 0);
+  Ref<CAfbeeldingEntry> MaakResourceEntry(UINT resourceID,LPCTSTR naam,LPCTSTR type, int cx = 0, int sets = 0, UINT extraResourceID = 0);
+  Ref<CAfbeeldingEntry> MaakNaamEntry(LPCTSTR naam,LPCTSTR type = NULL,bool lijst = false,int cx = 0,int sets = 0);
 
 
   // Operations
   CRect PaintBitmap(CDC& pDC,CRect& rect,Ref<CAfbeeldingInfo> info,int volgnr = 0, int drawParam = 0);
-  HICON GeefIcon(LPCSTR info,LPCSTR definfo = NULL);
+  HICON GeefIcon(LPCTSTR info,LPCTSTR definfo = NULL);
   HICON GeefIcon(Ref<CAfbeeldingInfo> info,int volgNr);
 
-  Ref<CAfbeeldingInfo> GetImageInfo(LPCSTR str = NULL,int logica = AFB_SET_KNOPPEN);
-  static bool IsSetNummer(LPCSTR str);
+  Ref<CAfbeeldingInfo> GetImageInfo(LPCTSTR str = NULL,int logica = AFB_SET_KNOPPEN);
+  static bool IsSetNummer(LPCTSTR str);
 
-  Ref<CAfbeeldingInfo>  GeefStandaard(LPCSTR naam);
+  Ref<CAfbeeldingInfo>  GeefStandaard(LPCTSTR naam);
   CString GeefInfoSTR(Ref<CAfbeeldingInfo> info);
 
-  bool RegistreerStandaard(LPCSTR naam,LPCSTR soort,int logica = AFB_SET_KNOPPEN);
-  int  RegistreerExtensie(LPCSTR ext,LPCSTR type,USHORT cx = 0);
+  bool RegistreerStandaard(LPCTSTR naam,LPCTSTR soort,int logica = AFB_SET_KNOPPEN);
+  int  RegistreerExtensie(LPCTSTR ext,LPCTSTR type,USHORT cx = 0);
   int  RegistreerZoekPad(const CString& pad);         // Zoek paden voor losse plaatjes
   int  RegistreerSystemZoekPad(const CString& pad);   // Zoek paden voor library's en losse plaatjes
   bool LaatsteFout();
 
 protected:
   // Info interface
-  bool MaakAfbeeldingInfo(LPCSTR str,Ref<CAfbeeldingInfo> info,int logica = AFB_SET_KNOPPEN);
+  bool MaakAfbeeldingInfo(LPCTSTR str,Ref<CAfbeeldingInfo> info,int logica = AFB_SET_KNOPPEN);
 
-  bool SetAt(UINT key,Ref<CAfbeelding> pAfbeelding,LPCSTR naam);
+  bool SetAt(UINT key,Ref<CAfbeelding> pAfbeelding,LPCTSTR naam);
 
 
   // Zoeken en vinden van afbeeldingen eventueel extern
-  Ref<CAfbeeldingEntry> ZoekEntry(LPCSTR naam, bool lijst = false, int* defSet = NULL);
-  UINT               LoadEntry(LPCSTR naam,Ref<CAfbeeldingEntry> entry);
-  UINT               LoadEntryFromFile(LPCSTR naam,Ref<CAfbeeldingEntry> entry);
-  CDIB*              FindDIBFile(LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName);
-  bool               LoadDIBFile(CDIB& dib,LPCSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName);
+  Ref<CAfbeeldingEntry> ZoekEntry(LPCTSTR naam, bool lijst = false, int* defSet = NULL);
+  UINT               LoadEntry(LPCTSTR naam,Ref<CAfbeeldingEntry> entry);
+  UINT               LoadEntryFromFile(LPCTSTR naam,Ref<CAfbeeldingEntry> entry);
+  CDIB*              FindDIBFile(LPCTSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName);
+  bool               LoadDIBFile(CDIB& dib,LPCTSTR naam, DWORD lengte, LPTSTR PathName, LPTSTR* FileName);
  
   // Configuratie van de zoekpaden
-  bool IsVolledigPad(LPCSTR pad);
-  bool HeeftExtensie(LPCSTR pad,LPCSTR extensie = ".ico");
-  Ref<CAfbeeldingExtensie> SplitEnFindExtensie(LPCSTR ext,CString deel1,CString deel2);
+  bool IsVolledigPad(LPCTSTR pad);
+  bool HeeftExtensie(LPCTSTR pad,LPCTSTR extensie = _T(".ico"));
+  Ref<CAfbeeldingExtensie> SplitEnFindExtensie(LPCTSTR ext,CString deel1,CString deel2);
 
 
   // Standaards
@@ -339,8 +339,8 @@ private:
 
   // Painting etc
 public:
-  Ref<CAfbeeldingEntry> LoadDir(LPCSTR naam,bool altijdAanmaken = false);
-  int PaintAfbeelding(LPCSTR naam, CDC* pDC);
-  int PaintAfbeeldingText(int& xPos, int& yPos, CDC* pDC, LPCSTR text);
+  Ref<CAfbeeldingEntry> LoadDir(LPCTSTR naam,bool altijdAanmaken = false);
+  int PaintAfbeelding(LPCTSTR naam, CDC* pDC);
+  int PaintAfbeeldingText(int& xPos, int& yPos, CDC* pDC, LPCTSTR text);
 };
 

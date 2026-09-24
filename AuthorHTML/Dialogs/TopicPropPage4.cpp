@@ -82,10 +82,10 @@ TopicPropPage4Dlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Type",     LVCFMT_LEFT,100);
-  m_list.InsertColumn(1,"Language", LVCFMT_LEFT,100);
-  m_list.InsertColumn(2,"Deferred", LVCFMT_LEFT,80);
-  m_list.InsertColumn(3,"Script",   LVCFMT_LEFT,400);
+  m_list.InsertColumn(0,_T("Type"),     LVCFMT_LEFT,100);
+  m_list.InsertColumn(1,_T("Language"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(2,_T("Deferred"), LVCFMT_LEFT,80);
+  m_list.InsertColumn(3,_T("Script"),   LVCFMT_LEFT,400);
 
   UpdateData(Data2Controls);
   FillPage();
@@ -113,7 +113,7 @@ TopicPropPage4Dlg::ScriptsToList()
     ScriptDef* def = &(m_scripts[ind]);
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, def->type, 0, 0, 0, 0);
     m_list.SetItemText(ind,1,def->language);
-    m_list.SetItemText(ind,2,def->deferred ? "Deferred" : "Immediate");
+    m_list.SetItemText(ind,2,def->deferred ? _T("Deferred") : _T("Immediate"));
     m_list.SetItemText(ind,3,def->src.IsEmpty() ? def->code : def->src);
   }
   if(m_scripts.size())
@@ -165,12 +165,12 @@ TopicPropPage4Dlg::GetScripts()
           ScriptDef def;
 
           def.script   = script.p;
-          def.language = selem.GetAttribute("language");
-          def.type     = selem.GetAttribute("type");
-          def.deferred = atoi(selem.GetAttribute("defer")) == 1;
-          def.src      = selem.GetAttribute("src");
-          def.forHtml  = selem.GetAttribute("for");
-          def.event    = selem.GetAttribute("event");
+          def.language = selem.GetAttribute(_T("language"));
+          def.type     = selem.GetAttribute(_T("type"));
+          def.deferred = _ttoi(selem.GetAttribute(_T("defer"))) == 1;
+          def.src      = selem.GetAttribute(_T("src"));
+          def.forHtml  = selem.GetAttribute(_T("for"));
+          def.event    = selem.GetAttribute(_T("event"));
           def.code     = selem.GetText();
 
           def.script->AddRef();
@@ -257,8 +257,8 @@ TopicPropPage4Dlg::OnBnClickedDelete()
   {
     CString mess;
     CString script = m_list.GetItemText(now,3);
-    mess.Format("Do you want to delete the following script?\n\n%s",script.GetString());
-    if(theApp.MessageBox(mess,"Delete?",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    mess.Format(_T("Do you want to delete the following script?\n\n%s"),script.GetString());
+    if(theApp.MessageBox(mess,_T("Delete?"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       ScriptDef* def = &(m_scripts[now]);
       CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> dom = def->script;

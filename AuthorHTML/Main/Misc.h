@@ -97,15 +97,15 @@ typedef struct _letters
   uchar letter;
   uchar diacrite;
   int   lett_category;
-  char* htmlText;
-  char* descript;
+  TCHAR* htmlText;
+  TCHAR* descript;
 }
 Diacrites;
 
 typedef struct _taginfo 
 {
-  char *tagname;          // Name of the tag
-  char *description;      // English description
+  TCHAR *tagname;          // Name of the tag
+  TCHAR *description;      // English description
   bool  is_blockformat;   // Is a blockformat (settable)
   bool  is_userselect;    // User selectable (from styles dialog)
   bool  is_used;          // Already used in combo
@@ -115,16 +115,16 @@ TagInfo;
 
 typedef struct _attributeInfo
 {
-  char  *name;    // Name of the attribute
-  char  *value;   // Value of the attribute
-  char  *display; // Display in combobox
+  TCHAR  *name;    // Name of the attribute
+  TCHAR  *value;   // Value of the attribute
+  TCHAR  *display; // Display in combobox
 }
 AttributeInfo;
 
 typedef struct _internet_colors
 {
-  char* name;   // Internet safe name
-  char* color;  // #RRGGBB color code
+  TCHAR* name;   // Internet safe name
+  TCHAR* color;  // #RRGGBB color code
 }
 InternetColors;
 
@@ -147,10 +147,10 @@ extern TagEvents      tagEvents[];
 class Misc
 {
 public:
-  static void     GetAllTags(vector<string>* all);
+  static void     GetAllTags(vector<XString>* all);
   static CString  DecodeMime(CString s_Text);
   static CString  EncodeHtml(CComBSTR bs_Html);
-  static void     EncodeHtml(const WCHAR *u16_In, UINT *pu32_WcharToCopy, char *s8_Out, UINT *pu32_OutSize);
+  static void     EncodeHtml(const WCHAR *u16_In, UINT *pu32_WcharToCopy, TCHAR *s8_Out, UINT *pu32_OutSize);
   static CString  VarToStr(CComVariant &v_Variant);
   static CString  RemoveTag(CString s_Html, CString s_Tag);
   static CString  AddTagClass(CString s_Html,CString s_tag,CString s_class);
@@ -167,6 +167,7 @@ public:
   static void     ExtractStylesList(CComPtr<IHTMLDocument2> doc2,CMFCToolBarComboBoxButton* pCombo);
   static bool     IsBlockTag(CString tagname);
   static bool     IsUserSelectableTag(CString tagname);
+  static CString  GetTagDescription(XString tagname);
   static CString  GetTagDescription(CString tagname);
   static void     MoveCaretToPoint(CComPtr<IHTMLDocument2> doc,LPPOINT ppt);
   static BOOL     GetElementByPositionAndTag(CComPtr<IHTMLDocument2> doc
@@ -193,8 +194,8 @@ public:
   static int      FindNoCase (CString line,CString part,int pos = 0);
   static int      FindReverse(CString line,CString part,int pos = -1);
   static int      FindReverseNoCase(CString line,CString part,int pos = -1);
-  static CString  SubStr(CString& p_string,char p_Delim,int p_Num);
-  static CString  GetParamFromCommandline(CString& commandline,CString p_commando,char p_delim = '=');
+  static CString  SubStr(CString& p_string,TCHAR p_Delim,int p_Num);
+  static CString  GetParamFromCommandline(CString& commandline,CString p_commando,TCHAR p_delim = _T('='));
   static int      CountNL(CString& sCurSentence,int pos);
   static CString  BasenamePart(CString fullpath);
   static CString  FilenamePart (CString fullpath);
@@ -208,7 +209,7 @@ public:
   // ATTRIBUTES
   static CString  GetAttributeDisplayname(CString attribute,CString value);
   static CString  GetAttributeValue(CString attribute,CString display);
-  static void     GetAllAttributeDisplaynames(CString attribute,vector<string>* all);
+  static void     GetAllAttributeDisplaynames(CString attribute,vector<XString>* all);
   static bool     MakeRelativePathname(CString& p_base,CString& p_absolute,CString& p_relative);
   static int      ResolveSpecialChars(CString& value);
   static int      GetAllEvents(vector<CString>& all,bool standard,UINT tags);

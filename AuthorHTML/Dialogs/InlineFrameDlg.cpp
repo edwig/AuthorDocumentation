@@ -94,21 +94,21 @@ void InlineFrameDlg::DoDataExchange(CDataExchange* pDX)
     ind = m_comboScroll.FindString(-1,m_scrolling);
           m_comboScroll.SetCurSel(ind);
 
-    m_buttonNoResize.SetCheck(atoi(m_noresize)    ? TRUE : FALSE);
-    m_buttonBorder  .SetCheck(atoi(m_frameBorder) ? TRUE : FALSE);
+    m_buttonNoResize.SetCheck(_ttoi(m_noresize)    ? TRUE : FALSE);
+    m_buttonBorder  .SetCheck(_ttoi(m_frameBorder) ? TRUE : FALSE);
 
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_iframe->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_iframe->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_iframe->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_iframe->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_iframe->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_iframe->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -165,22 +165,22 @@ InlineFrameDlg::InitFields()
 {
   m_spinWidth.SetBase(10);
   m_spinWidth.SetRange(0,32000);
-  m_spinWidth.SetPos(atoi(m_width));
+  m_spinWidth.SetPos(_ttoi(m_width));
   m_spinHeight.SetBase(10);
   m_spinHeight.SetRange(0,32000);
-  m_spinHeight.SetPos(atoi(m_height));
+  m_spinHeight.SetPos(_ttoi(m_height));
   m_spinHM.SetBase(10);
   m_spinHM.SetRange(0,32000);
-  m_spinHM.SetPos(atoi(m_hspace));
+  m_spinHM.SetPos(_ttoi(m_hspace));
   m_spinVM.SetBase(10);
   m_spinVM.SetRange(0,32000);
-  m_spinVM.SetPos(atoi(m_vspace));
+  m_spinVM.SetPos(_ttoi(m_vspace));
   m_spinHP.SetBase(10);
   m_spinHP.SetRange(0,32000);
-  m_spinHP.SetPos(atoi(m_marginw));
+  m_spinHP.SetPos(_ttoi(m_marginw));
   m_spinVP.SetBase(10);
   m_spinVP.SetRange(0,32000);
-  m_spinVP.SetPos(atoi(m_marginh));
+  m_spinVP.SetPos(_ttoi(m_marginh));
 
   CSSComboBoxUnits(m_comboWUnits,m_wunits);
   CSSComboBoxUnits(m_comboHUnits,m_hunits);
@@ -256,9 +256,9 @@ void
 InlineFrameDlg::OnBnClickedIfChoose()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to link"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to link")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -314,7 +314,7 @@ InlineFrameDlg::OnCbnSelchangeComboHu()
 void 
 InlineFrameDlg::OnBnClickedIfNoresize()
 {
-  m_noresize = m_buttonNoResize.GetCheck() ? "-1" : "0";
+  m_noresize = m_buttonNoResize.GetCheck() ? _T("-1") : _T("0");
 }
 
 void InlineFrameDlg::OnEnChangeIfHmargin()
@@ -412,21 +412,21 @@ InlineFrameDlg::OnCbnSelchangeIfScroll()
 void 
 InlineFrameDlg::OnBnClickedIfBorder()
 {
-  m_frameBorder= m_buttonBorder.GetCheck() ? "-1" : "0";
+  m_frameBorder= m_buttonBorder.GetCheck() ? _T("-1") : _T("0");
 }
 
 void 
 InlineFrameDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(m_iframe);
-  GeneralIDDlg dlg(this,"iframe",elem);
+  GeneralIDDlg dlg(this,_T("iframe"),elem);
   dlg.DoModal();
 }
 
 void 
 InlineFrameDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_iframe,"iframe");
+  TagEventsDlg dlg(this,m_iframe,_T("iframe"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -440,15 +440,15 @@ InlineFrameDlg::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_iframe->GetInlineStyle();
-  style = CString("iframe { ") + style + "}";
+  style = CString(_T("iframe { ")) + style + _T("}");
   // Special case of the stylesheet dialog
   // Only overview / borders / sizes and box
-  StyleSheetDlg dlg(this,m_base,"iframe",NULL,style,true,CSS1|CSS4|CSS5|CSS7);
+  StyleSheetDlg dlg(this,m_base,_T("iframe"),NULL,style,true,CSS1|CSS4|CSS5|CSS7);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("iframe {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("iframe {"));
     m_iframe->SetInlineStyle(style);
     FillPage();
     UpdateData(Data2Controls);
@@ -460,7 +460,7 @@ InlineFrameDlg::OnBnClickedOk()
 {
   if(m_src.IsEmpty())
   {
-    theApp.ErrorMessage("You must at least supply a source page for the frames content");
+    theApp.ErrorMessage(_T("You must at least supply a source page for the frames content"));
     return;
   }
   UpdateProperties();

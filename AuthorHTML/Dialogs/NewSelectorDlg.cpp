@@ -78,7 +78,7 @@ NewSelectorDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Fill all tags as selectors
-  vector<string> tags;
+  vector<XString> tags;
   Misc::GetAllTags(&tags);
   for(unsigned int ind = 0; ind < tags.size(); ++ind)
   {
@@ -120,14 +120,14 @@ NewSelectorDlg::GetAddedSelector()
   CString totalSelector = m_selector;
   if(!m_classname.IsEmpty())
   {
-    totalSelector += ".";
+    totalSelector += _T(".");
     totalSelector += m_classname;
   }
   if(!m_attribute.IsEmpty())
   {
-    totalSelector += "[";
+    totalSelector += _T("[");
     totalSelector += m_attribute;
-    totalSelector += "]";
+    totalSelector += _T("]");
   }
   if(!m_pseudo.IsEmpty())
   {
@@ -135,7 +135,7 @@ NewSelectorDlg::GetAddedSelector()
   }
   if(!m_uniqueID.IsEmpty())
   {
-    totalSelector += "#";
+    totalSelector += _T("#");
     totalSelector += m_uniqueID;
   }
   return m_totalResult + totalSelector;
@@ -219,9 +219,9 @@ NewSelectorDlg::OnBnClickedRadio1()
   m_comboPseudo.EnableWindow(FALSE);
   CWnd* u = GetDlgItem(IDC_ID);
   u->EnableWindow(FALSE);
-  m_attribute = "";
-  m_pseudo    = "";
-  m_uniqueID  = "";
+  m_attribute = _T("");
+  m_pseudo    = _T("");
+  m_uniqueID  = _T("");
   UpdateData(Data2Controls);
 }
 
@@ -234,8 +234,8 @@ NewSelectorDlg::OnBnClickedRadio2()
   m_comboPseudo.EnableWindow(FALSE);
   CWnd* u = GetDlgItem(IDC_ID);
   u->EnableWindow(FALSE);
-  m_pseudo   = "";
-  m_uniqueID = "";
+  m_pseudo   = _T("");
+  m_uniqueID = _T("");
   UpdateData(Data2Controls);
 }
 
@@ -248,8 +248,8 @@ NewSelectorDlg::OnBnClickedRadio3()
   m_comboPseudo.EnableWindow(TRUE);
   CWnd* u = GetDlgItem(IDC_ID);
   u->EnableWindow(FALSE);
-  m_attribute = "";
-  m_uniqueID  = "";
+  m_attribute = _T("");
+  m_uniqueID  = _T("");
   UpdateData(Data2Controls);
 }
 
@@ -263,8 +263,8 @@ NewSelectorDlg::OnBnClickedRadio4()
   m_comboPseudo.EnableWindow(FALSE);
   CWnd* u = GetDlgItem(IDC_ID);
   u->EnableWindow(TRUE);
-  m_attribute = "";
-  m_pseudo    = "";
+  m_attribute = _T("");
+  m_pseudo    = _T("");
   UpdateData(Data2Controls);
 }
 
@@ -273,15 +273,15 @@ NewSelectorDlg::OnBnClickedOk()
 {
   if(m_selector.IsEmpty() && m_classname.IsEmpty() && m_uniqueID.IsEmpty())
   {
-    theApp.MessageBox("You must first fill in an selector, classname or unique ID","Error",MB_OK|MB_ICONHAND);
+    theApp.MessageBox(_T("You must first fill in an selector, classname or unique ID"),_T("Error"),MB_OK|MB_ICONHAND);
     return;
   }
   CString oldResult = m_totalResult;
   m_totalResult = GetAddedSelector();
   UpdateData(Data2Controls);
   CString mess;
-  mess.Format("Would you like to add the selector '%s' to the stylesheet?",m_totalResult.GetString());
-  if(theApp.MessageBox(mess,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+  mess.Format(_T("Would you like to add the selector '%s' to the stylesheet?"),m_totalResult.GetString());
+  if(theApp.MessageBox(mess,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
   {
     OnOK();
   }
@@ -311,7 +311,7 @@ NewSelectorDlg::ResetDialog()
   m_selector  =
   m_attribute = 
   m_pseudo    =
-  m_classname = "";
+  m_classname = _T("");
   m_comboSelector .SetCurSel(-1);
   m_comboAttribute.SetCurSel(-1);
   m_comboPseudo   .SetCurSel(-1);
@@ -327,11 +327,11 @@ NewSelectorDlg::ResetDialog()
 }
 
 void 
-NewSelectorDlg::ExtraSelector(char extra)
+NewSelectorDlg::ExtraSelector(TCHAR extra)
 {
   if(m_selector.IsEmpty() && m_classname.IsEmpty() && m_uniqueID.IsEmpty())
   {
-    theApp.ErrorMessage("Fill in a selector, classname or unique ID first");
+    theApp.ErrorMessage(_T("Fill in a selector, classname or unique ID first"));
   }
   else
   {
@@ -345,25 +345,25 @@ NewSelectorDlg::ExtraSelector(char extra)
 void 
 NewSelectorDlg::OnBnClickedExtSame()
 {
-  ExtraSelector(',');
+  ExtraSelector(_T(','));
 }
 
 void 
 NewSelectorDlg::OnBnClickedExtDescendant()
 {
-  ExtraSelector(' ');
+  ExtraSelector(_T(' '));
 }
 
 void 
 NewSelectorDlg::OnBnClickedExtDirect()
 {
-  ExtraSelector('>');
+  ExtraSelector(_T('>'));
 }
 
 void 
 NewSelectorDlg::OnBnClickedExtAdjacent()
 {
-  ExtraSelector('+');
+  ExtraSelector(_T('+'));
 }
 
 void 

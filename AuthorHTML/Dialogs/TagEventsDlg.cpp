@@ -55,8 +55,8 @@ BOOL
 TagEventsDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
-  m_id   = m_elem->GetAttribute("id");
-  m_name = m_elem->GetAttribute("name");
+  m_id   = m_elem->GetAttribute(_T("id"));
+  m_name = m_elem->GetAttribute(_T("name"));
   m_descript = Misc::GetTagDescription(m_tag);
 
   // Get all events
@@ -64,8 +64,8 @@ TagEventsDlg::OnInitDialog()
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS); // LVS_EX_GRIDLINES|
 
-  m_list.InsertColumn(0,"Event",LVCFMT_LEFT,200);
-  m_list.InsertColumn(1,"Code", LVCFMT_LEFT,450);
+  m_list.InsertColumn(0,_T("Event"),LVCFMT_LEFT,200);
+  m_list.InsertColumn(1,_T("Code"), LVCFMT_LEFT,450);
   DisplayList();
 
   return TRUE;
@@ -136,7 +136,7 @@ TagEventsDlg::OnBnClickedEdit()
 void 
 TagEventsDlg::OnBnClickedNew()
 {
-  TagEventDlg dlg(this,m_elem,m_tag,"");
+  TagEventDlg dlg(this,m_elem,m_tag,_T(""));
   if(dlg.DoModal() == IDOK)
   {
     CString event = dlg.GetEvent();
@@ -155,7 +155,7 @@ TagEventsDlg::OnBnClickedDelete()
   if(item < num)
   {
     CString event = m_list.GetItemText(item,0);
-    m_elem->SetAttribute(event,"");
+    m_elem->SetAttribute(event,_T(""));
     m_list.DeleteItem(item);
   }
 }

@@ -55,15 +55,15 @@ GlobalSetPage1Dlg::OnInitDialog()
 void
 GlobalSetPage1Dlg::FillPage()
 {
-  m_defNavigate = (settings.GetSetting("NavigateDCHyperlink","yes")   == "yes");
-  m_defShowIt   = (settings.GetSetting("ShowNavigateHyperlink","yes") == "yes");
+  m_defNavigate = (settings.GetSetting(_T("NavigateDCHyperlink"),_T("yes"))   == _T("yes"));
+  m_defShowIt   = (settings.GetSetting(_T("ShowNavigateHyperlink"),_T("yes")) == _T("yes"));
 }
 
 void
 GlobalSetPage1Dlg::UpdateProperties()
 {
-  settings.SetSetting("NavigateDCHyperlink",m_defNavigate ? "yes" : "no");
-  settings.SetSetting("ShowNavigateHyperlink",m_defShowIt ? "yes" : "no");
+  settings.SetSetting(_T("NavigateDCHyperlink"),m_defNavigate ? _T("yes") : _T("no"));
+  settings.SetSetting(_T("ShowNavigateHyperlink"),m_defShowIt ? _T("yes") : _T("no"));
 }
 
 // GlobalSetPage1Dlg message handlers

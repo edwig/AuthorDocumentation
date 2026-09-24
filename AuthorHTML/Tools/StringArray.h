@@ -43,7 +43,7 @@ public:
   {
     return base_type::at(nIndex);
   }
-	void SetAt(int nIndex, const char* newElement)
+	void SetAt(int nIndex, const TCHAR* newElement)
   {
     base_type::at(nIndex) = CString(newElement);
   }
@@ -60,7 +60,7 @@ public:
 
 
 	// Potentially growing the array
-	void SetAtGrow(int nIndex, const char* newElement)
+	void SetAtGrow(int nIndex, const TCHAR* newElement)
   {
     if(nIndex >= (int)base_type::size())
       base_type::resize(nIndex + 1);
@@ -76,7 +76,7 @@ public:
 
   }
 
-	int Add(const char* newElement)
+	int Add(const TCHAR* newElement)
   {
     base_type::push_back(CString(newElement));
   }

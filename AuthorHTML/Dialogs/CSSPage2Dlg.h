@@ -26,7 +26,7 @@ public:
              ,CssStyleSheet* pCss);
 	virtual ~CSSPage2Dlg();
   BOOL     OnInitDialog();
-  void     SetSelector(string selector);
+  void     SetSelector(XString selector);
   void     SetBackgroundColor(CString color);
   void     UpdateProperties();
 
@@ -48,7 +48,7 @@ private:
   CComQIPtr<IWebBrowser2>   m_spBrowser;
   CComQIPtr<IHTMLDocument2> m_doc;
   CssStyleSheet* m_css;
-  string         m_selector;
+  XString        m_selector;
   // Properties
   CString        m_fontColor;
   CString        m_fontWeight;

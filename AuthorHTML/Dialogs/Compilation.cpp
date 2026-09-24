@@ -51,7 +51,7 @@ void
 Compilation::Reset()
 {
   m_gauge.SetPos(0);
-  SetText("");
+  SetText(_T(""));
   UpdateData(false);
   ShowWindow(m_show);
   Repaint();
@@ -143,7 +143,7 @@ Compilation::MakeTextToShow()
     percent = (100 * m_current) / m_max;
   }
   // Now processing "[22/201 = 10%] Testfile.html"
-  m_showText.Format("[%d/%d = %d%%] %s",m_current,m_max,percent,m_text.GetString());
+  m_showText.Format(_T("[%d/%d = %d%%] %s"),m_current,m_max,percent,m_text.GetString());
 }
 
 void
@@ -176,7 +176,7 @@ Compilation::Repaint()
 void 
 Compilation::OnBnClickedCancel()
 {
-  if(theApp.MessageBox("Stop the current compilation?","Stop",MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION|MB_TASKMODAL) == IDYES)
+  if(theApp.MessageBox(_T("Stop the current compilation?"),_T("Stop"),MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION|MB_TASKMODAL) == IDYES)
   {
     CompilePane* pane = (CompilePane*) GetParent();
     pane->ChildAbort();

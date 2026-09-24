@@ -26,7 +26,7 @@ public:
              ,CssStyleSheet* p_css);
 	virtual ~CSSPage1Dlg();
   BOOL     OnInitDialog();
-  void     SetSelector(CString selector,CString descriptor);
+  void     SetSelector(XString selector,CString descriptor);
   void     UpdateProperties();
 
 // Dialog Data
@@ -34,12 +34,12 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-  void SetProperties(CString selector);
+  void SetProperties(XString selector);
 
 	DECLARE_MESSAGE_MAP()
 
 private:
-  CString   m_selector;
+  XString   m_selector;
   CString   m_descriptor;
   CssStyleSheet* m_css;
   // Controls

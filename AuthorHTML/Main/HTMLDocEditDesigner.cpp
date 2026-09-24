@@ -119,8 +119,8 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
       if (pSel != (IHTMLElement *) NULL)
       {
         pSel->get_tagName(&b);
-        if (_tcsicmp("IMG", W2A(b)) == 0 ||
-            _tcsicmp("AREA",W2A(b)) == 0 )
+        if (_tcsicmp(_T("IMG"), W2CT(b)) == 0 ||
+            _tcsicmp(_T("AREA"),W2CT(b)) == 0 )
         {
           //ForbidSelection(imageBehavior->GetImage());
 			    // If mouse button is not down, don't do anything
@@ -148,7 +148,7 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
 			if (pSel != (IHTMLElement *) NULL)
 			{
 				pSel->get_tagName(&b);
-				if (_tcsicmp("TD", W2A(b)) == 0)
+				if (_tcsicmp(_T("TD"), W2CT(b)) == 0)
 				{
           long cx,cy,x,y,w,h;
           pIEventObj->get_clientX(&cx);
@@ -283,7 +283,7 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
     // See if we are in business for a new area to be defined
     if(m_newShape)
     {
-      if(tag.CompareNoCase("img") == 0)
+      if(tag.CompareNoCase(_T("img")) == 0)
       {
         if(m_newContinue)
         {
@@ -304,7 +304,7 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
     {
       // Not a mousedown after a new shape
       // see if we are trying to edit area on an image
-      if(tag.CompareNoCase("area") == 0)
+      if(tag.CompareNoCase(_T("area")) == 0)
       {
         CComPtr<IDispatch> disp;
         pSel->get_document(&disp);
@@ -314,7 +314,7 @@ HTMLDocEditDesigner::PreHandleEvent(DISPID inEvtDispId
 		    pSel->get_tagName(&b);
         tag = W2A(b);
       }
-		  if(tag.CompareNoCase("img") == 0)
+		  if(tag.CompareNoCase(_T("img")) == 0)
 		  {
         IMGControlSite* behavior = FindIMGSite(pSel);    
         if(behavior)
@@ -496,7 +496,7 @@ HTMLDocEditDesigner::NewImgArea(IHTMLEventObj*  pIEvent
     mapid = CW2CT(bMapID);
     if(mapid.GetLength() > 1)
     {
-      if(mapid.GetAt(0) == '#')
+      if(mapid.GetAt(0) == _T('#'))
       {
         mapid = mapid.Mid(1);
       }
@@ -508,7 +508,7 @@ HTMLDocEditDesigner::NewImgArea(IHTMLEventObj*  pIEvent
     //1) Make map
     mapid = Misc::CreateNewMap(doc);
     //2) set UseMap
-    CString imgMapid = CString("#") + mapid;
+    CString imgMapid = CString(_T("#")) + mapid;
     CComBSTR bMapID = CT2CW(imgMapid);
     image->put_useMap(bMapID);
     //3) Make behavior
@@ -521,15 +521,15 @@ HTMLDocEditDesigner::NewImgArea(IHTMLEventObj*  pIEvent
   }
   //5 ) Create first area in map / behavior
   CString cID;
-  cID.Format("area%d",Misc::GetUniqueID(doc,"area"));
+  cID.Format(_T("area%d"),Misc::GetUniqueID(doc,_T("area")));
   CString shape;
   switch(m_newShape)
   {
-    case AREA_POLYGON:   shape = "poly"; break;
-    case AREA_CIRCLE:    shape = "circ"; break;
+    case AREA_POLYGON:   shape = _T("poly"); break;
+    case AREA_CIRCLE:    shape = _T("circ"); break;
     case AREA_RECTANGLE: 
     case AREA_INVALID:
-    default:             shape = "rect"; break;
+    default:             shape = _T("rect"); break;
   }
   Misc::CreateNewArea(doc,mapid,cID,shape);
 	// Obtain X & Y

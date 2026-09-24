@@ -46,9 +46,9 @@ public:
 	bool IsEmpty() const;
 
 	// Lookup
-	bool Lookup(const char* key, void*& rValue) const;
-	bool LookupKey(const char* key, CString& rKey) const;
-	bool Contains(const char* key) const;
+	bool Lookup(const TCHAR* key, void*& rValue) const;
+	bool LookupKey(const TCHAR* key, CString& rKey) const;
+	bool Contains(const TCHAR* key) const;
 
 // Operations
 	// Lookup and add if not there
@@ -79,7 +79,7 @@ public:
 protected:
 	CAssoc* NewAssoc();
 	void FreeAssoc(CAssoc*);
-	CAssoc* GetAssocAt(const char* key, unsigned int& nHash) const;
+	CAssoc* GetAssocAt(const TCHAR* key, unsigned int& nHash) const;
 
 protected:
 	unsigned int m_nHashTableSize;
@@ -125,10 +125,10 @@ unsigned int CNamenMap::GetHashTableSize() const
 _AFXCOLL_INLINE
 unsigned int CNamenMap::HashKey(const CString& pkey)
 {
-  const char* key = (const char*)pkey;
+  const TCHAR* key = (const TCHAR*)pkey;
 	unsigned int nHash = 0;
 	while (*key)
-		nHash = (nHash<<5) + nHash + tolower(*key++);
+		nHash = (nHash<<5) + nHash + _totlower(*key++);
 	return nHash;
 }
 
@@ -146,8 +146,8 @@ public:
   CMapIStringLong(bool uniekeNamen = true) :CNamenMap(uniekeNamen) {};
   ~CMapIStringLong() {};
 
-  bool Lookup(const char* key, long& rValue) const       {return CNamenMap::Lookup(key,(void*&)rValue);}
-  bool LookupKey(const char* key, CString& rKey) const   {return CNamenMap::LookupKey(key,rKey);}
+  bool Lookup(const TCHAR* key, long& rValue) const       {return CNamenMap::Lookup(key,(void*&)rValue);}
+  bool LookupKey(const TCHAR* key, CString& rKey) const   {return CNamenMap::LookupKey(key,rKey);}
   void SetAt(const CString& key, long newValue)     {CNamenMap::SetAt(key,(void*)newValue);}
  	int  SetPos(const CString& key, int pos)          {return CNamenMap::SetPos(key,pos);}
   bool RemoveKey(const CString& key)                {return CNamenMap::RemoveKey(key);}
@@ -173,8 +173,8 @@ public:
   CMapIString(bool eigenaar = false,bool uniekeNamen = true);
   ~CMapIString();
 
-  bool Lookup(const char* key, T*& rValue) const;
-  bool LookupKey(const char* key, CString& rKey) const;
+  bool Lookup(const TCHAR* key, T*& rValue) const;
+  bool LookupKey(const TCHAR* key, CString& rKey) const;
   void SetAt(const CString& key, T* newValue);
  	int  SetPos(const CString& key, int pos);
   bool RemoveKey(const CString& key);
@@ -205,13 +205,13 @@ CMapIString<T>::~CMapIString()
 }
 
 template <class T>
-bool CMapIString<T>::Lookup(const char* key, T*& rValue) const
+bool CMapIString<T>::Lookup(const TCHAR* key, T*& rValue) const
 {
   return CNamenMap::Lookup(key,(void*&)rValue);
 }
 
 template <class T>
-bool CMapIString<T>::LookupKey(const char* key, CString& rKey) const
+bool CMapIString<T>::LookupKey(const TCHAR* key, CString& rKey) const
 {
   return CNamenMap::LookupKey(key,rKey);
 }

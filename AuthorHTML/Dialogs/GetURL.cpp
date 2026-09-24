@@ -140,11 +140,11 @@ void CGetURL::OnGo()
 void CGetURL::OnBnClickedButtonOpen()
 {
   DocFileDialog diag(true
-                     ,"Open a documentation page"
-                     ,"htm"
-                     ,""
+                     ,_T("Open a documentation page")
+                     ,_T("htm")
+                     ,_T("")
                      ,0
-                     ,"Documentation files (*.htm, *.html)|*.htm;*.html|All files|*.*");
+                     ,_T("Documentation files (*.htm, *.html)|*.htm;*.html|All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();

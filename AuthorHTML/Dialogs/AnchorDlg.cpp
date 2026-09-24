@@ -72,7 +72,7 @@ void AnchorDlg::DoDataExchange(CDataExchange* pDX)
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
     int ind;
-    CString desc = Misc::GetAttributeDisplayname("target",m_target);
+    CString desc = Misc::GetAttributeDisplayname(_T("target"),m_target);
     ind = m_targetCombo.FindString(-1,desc);
           m_targetCombo.SetCurSel(ind);
     ind = m_relCombo.FindString(-1,m_rel);
@@ -87,15 +87,15 @@ void AnchorDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -111,7 +111,7 @@ void AnchorDlg::DoDataExchange(CDataExchange* pDX)
 
     if(m_doPopup)
     {
-      m_target = "";
+      m_target = _T("");
       m_targetCombo.SetCurSel(-1);
       m_targetCombo.EnableWindow(FALSE);
     }
@@ -202,8 +202,8 @@ void
 AnchorDlg::FillTarget()
 {
   // All target descriptions
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("target",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("target"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_targetCombo.AddString(all[ind].c_str());
@@ -219,40 +219,40 @@ AnchorDlg::FillPage()
   m_rel    = m_elem->GetProperty(HtmlAnchor::E_Rel);
   m_rev    = m_elem->GetProperty(HtmlAnchor::E_Rev);
 
-  int pos = m_href.Find('#');
+  int pos = m_href.Find(_T('#'));
   if(pos >= 0)
   {
     m_bookmark = m_href.Mid(pos + 1);
     m_href     = m_href.Left(pos);
   }
-  CString cID = m_elem->GetAttribute("id");
+  CString cID = m_elem->GetAttribute(_T("id"));
   if(!cID.IsEmpty())
   {
     for(int num=0;num < cID.GetLength(); ++num)
     {
-      if(isdigit(cID.GetAt(num)))
+      if(_istdigit(cID.GetAt(num)))
       {
-        m_unique = atoi(&((cID.GetString())[num]));
+        m_unique = _ttoi(&((cID.GetString())[num]));
         break;
       }
     }
   }
-  if(m_href.Find("javascript") >= 0)
+  if(m_href.Find(_T("javascript")) >= 0)
   {
     m_doPopup = true;
-    m_href = m_href.TrimLeft("javascript:");
-    if(m_href.Left(12) == "ADHShowPopup")
+    m_href = m_href.TrimLeft(_T("javascript:"));
+    if(m_href.Left(12) == _T("ADHShowPopup"))
     {
       m_doADHpopup = true;
       m_href = m_href.Mid(14);
     }
-    if(m_href.Left(9) == "BSSCPopup")
+    if(m_href.Left(9) == _T("BSSCPopup"))
     {
       m_doBSSCpopup = true;
       m_href = m_href.Mid(11);
     }
-    m_href = m_href.TrimLeft("'");
-    int pos2 = m_href.Find('\'');
+    m_href = m_href.TrimLeft(_T("'"));
+    int pos2 = m_href.Find(_T('\''));
     if(pos2 > 0)
     {
       m_href = m_href.Left(pos2);
@@ -267,19 +267,19 @@ AnchorDlg::UpdateProperties()
   if(m_doPopup)
   {
     CString id;
-    id.Format("a%d",m_unique);
-    m_elem->SetAttribute("id",id);
+    id.Format(_T("a%d"),m_unique);
+    m_elem->SetAttribute(_T("id"),id);
 
     if(m_doPopup)
     {
       if(m_doADHpopup || m_doBSSCpopup == false)
       {
-        href = "javascript:ADHShowPopup('" + m_href + "'," + id + ");";
+        href = _T("javascript:ADHShowPopup('") + m_href + _T("',") + id + _T(");");
         m_doADHpopup = true;
       }
       if(m_doBSSCpopup)
       {
-        href = "javascript:BSSCPopup('" + m_href + "'," + id + ");";
+        href = _T("javascript:BSSCPopup('") + m_href + _T("',") + id + _T(");");
       }
     }
   }
@@ -288,7 +288,7 @@ AnchorDlg::UpdateProperties()
     href = m_href;
     if(!m_bookmark.IsEmpty())
     {
-      href += "#";
+      href += _T("#");
       href += m_bookmark;
     }
   }
@@ -307,7 +307,7 @@ AnchorDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
   bool found = false;
   m_comboBM.ResetContent();
-  m_comboBM.AddString("");
+  m_comboBM.AddString(_T(""));
 
   // Now read the bookmarks from the document (if any)
   CComPtr<IDispatch> disp;
@@ -430,9 +430,9 @@ AnchorDlg::OnGo()
 void AnchorDlg::OnBnClickedButtonOpen()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to link to"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to link to")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -466,7 +466,7 @@ AnchorDlg::OnCbnSelchangeFrameTarget()
   {
     CString target;
     m_targetCombo.GetLBText(ind,target);
-    m_target = Misc::GetAttributeValue("target",target);
+    m_target = Misc::GetAttributeValue(_T("target"),target);
   }
 }
 
@@ -526,14 +526,14 @@ AnchorDlg::OnCbnSelchangeBookmarks()
 void 
 AnchorDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"a",m_elem);
+  GeneralIDDlg dlg(this,_T("a"),m_elem);
   dlg.DoModal();
 }
 
 void 
 AnchorDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"A");
+  TagEventsDlg dlg(this,m_elem,_T("A"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -546,13 +546,13 @@ AnchorDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("a { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"a",NULL,style);
+  style = CString(_T("a { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("a"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("a {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("a {"));
     m_elem->SetInlineStyle(style);
   }
 }

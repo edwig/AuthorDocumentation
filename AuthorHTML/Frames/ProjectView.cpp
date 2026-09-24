@@ -242,15 +242,15 @@ ProjectView::AddRecord(DocumentFile* p_doc)
   // Do **NOT** add the project files
   CString filename = p_doc->GetRelativeFilename();
   CString extens   = Misc::ExtensionPart(filename);
-  if(extens.CompareNoCase(".hhp") == 0 ||
-     extens.CompareNoCase(".hhc") == 0 ||
-     extens.CompareNoCase(".hhk") == 0)
+  if(extens.CompareNoCase(_T(".hhp")) == 0 ||
+     extens.CompareNoCase(_T(".hhc")) == 0 ||
+     extens.CompareNoCase(_T(".hhk")) == 0)
   {
     return;
   }
 
   // Place in a grid row
-  int row = m_grid.InsertRow("");
+  int row = m_grid.InsertRow(_T(""));
   m_grid.SetItemData(row,0,(LPARAM)p_doc);
   UpdateRecord(row,p_doc);
 }
@@ -402,8 +402,8 @@ ProjectView::OnRecordProperties()
       // We must asynchroniously send the properties command
       // The document could still be opening itsself.
       // See alsoo CHTMLEdView::OnProperties
-      MainFrame*  main  = (MainFrame*) theApp.m_pMainWnd;
-      ::PostMessage(main->GetSafeHwnd(),WM_COMMAND,ID_PROPERTIES,0);
+      MainFrame*  _tmain  = (MainFrame*) theApp.m_pMainWnd;
+      ::PostMessage(_tmain->GetSafeHwnd(),WM_COMMAND,ID_PROPERTIES,0);
     }
   }
 }

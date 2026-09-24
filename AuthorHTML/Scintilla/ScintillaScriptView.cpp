@@ -133,7 +133,7 @@ void CScintillaScriptView::OnInitialUpdate()
   CString fileName = GetDocument()->GetPathName();
   CString ext = Misc::ExtensionPart(fileName);
 
-  if(ext.CompareNoCase(".js") == 0)
+  if(ext.CompareNoCase(_T(".js")) == 0)
   {
     // Ok, its a Javascript like file
     rCtrl.SetLexer(SCLEX_CPP);
@@ -164,7 +164,7 @@ void CScintillaScriptView::OnInitialUpdate()
 //#define SCE_C_COMMENTDOCKEYWORDERROR 18
 //#define SCE_C_GLOBALCLASS 19
   }
-  else if(ext.CompareNoCase(".vbs") == 0)
+  else if(ext.CompareNoCase(_T(".vbs")) == 0)
   {
     //Setup the Lexer
     rCtrl.SetLexer(SCLEX_VBSCRIPT);

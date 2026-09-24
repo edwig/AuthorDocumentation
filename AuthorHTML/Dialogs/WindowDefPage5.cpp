@@ -27,10 +27,10 @@ WindowDefPage5::WindowDefPage5(CWnd*        p_parent
                ,m_project(p_project)
                ,m_window(NULL)
 {
-  m_toc     = "";
-  m_index   = "";
-  m_default = "";
-  m_home    = "";
+  m_toc     = _T("");
+  m_index   = _T("");
+  m_default = _T("");
+  m_home    = _T("");
 }
 
 WindowDefPage5::~WindowDefPage5()
@@ -97,24 +97,24 @@ WindowDefPage5::UpdateProperties()
 
   // Check all the properties for validity
   CString base = theApp.GetBaseDirectory();
-  if(access((base + m_toc).GetString(),6) != 0)
+  if(_taccess((base + m_toc).GetString(),6) != 0)
   {
-    theApp.ErrorMessage("The table-of-contents (TOC) file could not be found or has the wrong access rights (read/write)");
+    theApp.ErrorMessage(_T("The table-of-contents (TOC) file could not be found or has the wrong access rights (read/write)"));
     return false;
   }
-  if(access((base + m_index).GetString(),6) != 0)
+  if(_taccess((base + m_index).GetString(),6) != 0)
   {
-    theApp.ErrorMessage("The keyword index file could not be found or has the wrong access rights (read/write)");
+    theApp.ErrorMessage(_T("The keyword index file could not be found or has the wrong access rights (read/write)"));
     return false;
   }
   if(m_project->FindDocumentFile(m_default) == nullptr)
   {
-    theApp.ErrorMessage("The default topic file could not be found.");
+    theApp.ErrorMessage(_T("The default topic file could not be found."));
     return false;
   }
   if (m_project->FindDocumentFile(m_home) == nullptr)
   {
-    theApp.ErrorMessage("The home topic file could not be found.");
+    theApp.ErrorMessage(_T("The home topic file could not be found."));
     return false;
   }
   return true;
@@ -130,32 +130,32 @@ WindowDefPage5::OnEnChangeToc()
   CString direc = Misc::DirectoryPart(m_toc);
   CString file  = Misc::FilenamePart (m_toc);
   CString exten = Misc::ExtensionPart(m_toc);
-  if(exten.CompareNoCase(".hhc"))
+  if(exten.CompareNoCase(_T(".hhc")))
   {
-    theApp.MessageBox("The table-of-contents (TOC) file must have a '.hhc' extension in order to work properly.\n"
-                      "The file name you provided will be automatically corrected to this convention!"
-                     ,"Correction"
+    theApp.MessageBox(_T("The table-of-contents (TOC) file must have a '.hhc' extension in order to work properly.\n")
+                      _T("The file name you provided will be automatically corrected to this convention!")
+                     ,_T("Correction")
                      ,MB_OK|MB_ICONEXCLAMATION);
     file = file.TrimRight(exten);
-    file += ".hhc";
+    file += _T(".hhc");
     m_toc = file;
     w->SetWindowText(m_toc);
   }
   if(!direc.IsEmpty())
   {
-    theApp.MessageBox("You cannot choose a table-of-contents (TOC) file from another directory than from the current project base directory!\n"
-                      "The file name you provided will be cleared automatically. Choose another TOC file!"
-                     ,"Correction"
+    theApp.MessageBox(_T("You cannot choose a table-of-contents (TOC) file from another directory than from the current project base directory!\n")
+                      _T("The file name you provided will be cleared automatically. Choose another TOC file!")
+                     ,_T("Correction")
                      ,MB_OK|MB_ICONEXCLAMATION);
-    m_toc = "";
+    m_toc = _T("");
     w->SetWindowText(m_toc);
   }
   int err = 0;
   CString path = theApp.GetBaseDirectory();
   path += m_toc;
-  if((err = access(path.GetString(),6)) != 0)
+  if((err = _taccess(path.GetString(),6)) != 0)
   {
-    theApp.ErrorMessage("The Table-Of-Contents file could not be found or has the wrong access rights (read/write)");
+    theApp.ErrorMessage(_T("The Table-Of-Contents file could not be found or has the wrong access rights (read/write)"));
   }
 }
 
@@ -164,11 +164,11 @@ WindowDefPage5::OnBnClickedButtonToc()
 {
   CString base = theApp.GetBaseDirectory();
   DocFileDialog diag(true
-                    ,"Search for a table-of-contents file (TOC)"
-                    ,"hhc"
-                    ,""
+                    ,_T("Search for a table-of-contents file (TOC)")
+                    ,_T("hhc")
+                    ,_T("")
                     ,OFN_FILEMUSTEXIST
-                    ,"Table-Of-Contents files (*.hhc)|*.hhc|"
+                    ,_T("Table-Of-Contents files (*.hhc)|*.hhc|")
                     ,base);
   if(diag.DoModal() == IDOK)
   {
@@ -193,32 +193,32 @@ WindowDefPage5::OnEnChangeIndex()
   CString direc = Misc::DirectoryPart(m_index);
   CString file  = Misc::FilenamePart (m_index);
   CString exten = Misc::ExtensionPart(m_index);
-  if(exten.CompareNoCase(".hhk"))
+  if(exten.CompareNoCase(_T(".hhk")))
   {
-    theApp.MessageBox("The keyword index file must have a '.hhk' extension in order to work properly.\n"
-                      "The file name you provided will be automatically corrected to this convention!"
-                      ,"Correction"
+    theApp.MessageBox(_T("The keyword index file must have a '.hhk' extension in order to work properly.\n")
+                      _T("The file name you provided will be automatically corrected to this convention!")
+                      ,_T("Correction")
                       ,MB_OK|MB_ICONEXCLAMATION);
     file    = file.TrimRight(exten);
-    file   += ".hhk";
+    file   += _T(".hhk");
     m_index = file;
     w->SetWindowText(m_index);
   }
   if(!direc.IsEmpty())
   {
-    theApp.MessageBox("You cannot choose a keyword index file from another directory than from the current project base directory!\n"
-                      "The file name you provided will be cleared automatically. Choose another HHK file!"
-                      ,"Correction"
+    theApp.MessageBox(_T("You cannot choose a keyword index file from another directory than from the current project base directory!\n")
+                      _T("The file name you provided will be cleared automatically. Choose another HHK file!")
+                      ,_T("Correction")
                       ,MB_OK|MB_ICONEXCLAMATION);
-    m_index = "";
+    m_index = _T("");
     w->SetWindowText(m_index);
   }
   int err = 0;
   CString path = theApp.GetBaseDirectory();
   path += m_index;
-  if((err = access(path.GetString(),6)) != 0)
+  if((err = _taccess(path.GetString(),6)) != 0)
   {
-    theApp.ErrorMessage("The keyword file could not be found or has the wrong access rights (read/write)");
+    theApp.ErrorMessage(_T("The keyword file could not be found or has the wrong access rights (read/write)"));
   }
 }
 
@@ -227,11 +227,11 @@ WindowDefPage5::OnBnClickedButtonIndex()
 {
   CString base = theApp.GetBaseDirectory();
   DocFileDialog diag(true
-                    ,"Search for a keyword index file"
-                    ,"hhk"
-                    ,""
+                    ,_T("Search for a keyword index file")
+                    ,_T("hhk")
+                    ,_T("")
                     ,OFN_FILEMUSTEXIST
-                    ,"Keyword index files (*.hhk)|*.hhk|"
+                    ,_T("Keyword index files (*.hhk)|*.hhk|")
                     ,base);
   if(diag.DoModal() == IDOK)
   {
@@ -256,7 +256,7 @@ WindowDefPage5::OnEnChangeDefault()
   DocumentFile* doc = m_project->FindDocumentFile(m_default);
   if(doc == NULL)
   {
-    theApp.ErrorMessage("The selected topic file is not part of the current project file");
+    theApp.ErrorMessage(_T("The selected topic file is not part of the current project file"));
   }
 }
 
@@ -283,7 +283,7 @@ WindowDefPage5::OnEnChangeHome()
   DocumentFile* doc = m_project->FindDocumentFile(m_home);
   if(doc == NULL)
   {
-    theApp.ErrorMessage("The selected topic file is not part of the current project file");
+    theApp.ErrorMessage(_T("The selected topic file is not part of the current project file"));
   }
 }
 

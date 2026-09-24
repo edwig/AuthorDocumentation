@@ -86,10 +86,10 @@ StyleSheetImportsDlg::FillPage()
   for(unsigned int ind = 0; ind < m_css->m_import.size(); ++ind)
   {
     CString imp = m_css->m_import[ind].c_str();
-    imp.TrimLeft("url(");
-    imp.TrimRight(")");
-    imp.TrimLeft('\"');
-    imp.TrimRight('\"');
+    imp.TrimLeft(_T("url("));
+    imp.TrimRight(_T(")"));
+    imp.TrimLeft(_T('\"'));
+    imp.TrimRight(_T('\"'));
     m_list.AddString(imp);
   }
 }
@@ -102,10 +102,10 @@ StyleSheetImportsDlg::UpdateProperties()
     m_css->m_import.clear();
     for(int ind = 0; ind < m_list.GetCount(); ++ind)
     {
-      CString imp;
+      XString imp;
       m_list.GetText(ind,imp);
-      imp = CString("\"") + imp + "\"";
-      m_css->m_import.push_back((string)imp);
+      imp = XString(_T("\"")) + imp + _T("\"");
+      m_css->m_import.push_back(imp);
     }
   }
 }
@@ -154,7 +154,7 @@ StyleSheetImportsDlg::OnBnClickedEdit()
     if(css.SetFile(path,true))
     {
       CString styleText;
-      CString type = "Style sheet in imported CSS file: " + path;
+      CString type = _T("Style sheet in imported CSS file: ") + path;
       StyleSheetDlg sheet(this,m_base,type,&css,styleText,false);
       if(sheet.DoModal() == IDOK)
       {
@@ -167,8 +167,8 @@ StyleSheetImportsDlg::OnBnClickedEdit()
     }
     else
     {
-      string logs = css.print_logs();
-      theApp.MessageBox(logs.c_str(),"Errors in CSS Stylesheet",MB_OK|MB_ICONSTOP);
+      XString logs = css.print_logs();
+      theApp.MessageBox(logs.c_str(),_T("Errors in CSS Stylesheet"),MB_OK|MB_ICONSTOP);
     }
   }
 }
@@ -177,11 +177,11 @@ void
 StyleSheetImportsDlg::OnBnClickedImpNew()
 {
   DocFileDialog diag(true
-                    ,"Import a CSS Stylesheet"
-                    ,"css"
-                    ,""
+                    ,_T("Import a CSS Stylesheet")
+                    ,_T("css")
+                    ,_T("")
                     ,0
-                    ,"Cascading style sheet (*.css)|*.css|");
+                    ,_T("Cascading style sheet (*.css)|*.css|"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -206,9 +206,9 @@ StyleSheetImportsDlg::OnBnClickedImpDelete()
     CString file;
     m_list.GetText(ind,file);
     CString mess;
-    mess.Format("Do you sure that you want to unlink the CSS imported file [%s]?\n"
-                "(The file will not be deleted from disk!)",file.GetString());
-    if(theApp.MessageBox(mess,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    mess.Format(_T("Do you sure that you want to unlink the CSS imported file [%s]?\n")
+                _T("(The file will not be deleted from disk!)"),file.GetString());
+    if(theApp.MessageBox(mess,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       m_list.DeleteString(ind);
       UpdateData(Data2Controls);

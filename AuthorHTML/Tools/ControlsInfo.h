@@ -46,15 +46,15 @@ public:
 typedef struct tag_commandInfo
 {
   UINT ID;
-  char* naam;
-  char* code;
-  char* defKnop; 
+  TCHAR* naam;
+  TCHAR* code;
+  TCHAR* defKnop; 
   
   UINT  ibsTeller;
   bool  aktief;
 
   bool  vorigeAktief;
-  char* prompt;
+  TCHAR* prompt;
 } commandInfo;
 
 
@@ -78,10 +78,10 @@ public:
   long CharHoogte(CFont* lettertype);
 
 
-  WORD ResourceIDFromNaam(LPCSTR naam);
+  WORD ResourceIDFromNaam(LPCTSTR naam);
 
   // Static helpers
-  static LOGFONT MaakLOGFONTVanString(CString fontstring,CString deffont = "",int defsize = 0,int defgewicht = 0,int maxsize = INT_MAX);
+  static LOGFONT MaakLOGFONTVanString(CString fontstring,CString deffont = _T(""),int defsize = 0,int defgewicht = 0,int maxsize = INT_MAX);
 
   static int  PaintRectKader(CDC& dc,CRect& rect,int soort,COLORREF kleur = 0);
   static int  PaintRectEffect(CDC& dc,CRect& rect,COLORREF van,COLORREF naar,int type);
@@ -98,21 +98,21 @@ public:
   void KnopAfbeeldingRect(CRect& rect);
 
   static commandInfo* ZoekCommandInfo(UINT ID);
-  static commandInfo* ZoekCommandInfo(LPCSTR code);
+  static commandInfo* ZoekCommandInfo(LPCTSTR code);
 
-  static LPCSTR GeefCodeVanCommandID(UINT ID);
-  static UINT GeefCommandIDVanCode(LPCSTR code);
+  static LPCTSTR GeefCodeVanCommandID(UINT ID);
+  static UINT GeefCommandIDVanCode(LPCTSTR code);
 
-  static LPCSTR GeefAfbeedingVanCommandID(UINT ID);
+  static LPCTSTR GeefAfbeedingVanCommandID(UINT ID);
   static int    MaakDefaultAfbeelding(Ref<CAfbeeldingen> afbeeldingen);
   static bool   CommandSetAktief(UINT ID,bool waarde,bool or = true);
-  static bool   CommandSetAktief(LPCSTR code,bool waarde,bool or = true);
-  static bool   CommandSet(LPCSTR code,int waarde);
+  static bool   CommandSetAktief(LPCTSTR code,bool waarde,bool or = true);
+  static bool   CommandSet(LPCTSTR code,int waarde);
   static bool   CommandSet(UINT ID,int waarde);
 
   static UINT   CommandUpdateAKtief();
 
-  LPCSTR CommandPrompt(UINT ID);
+  LPCTSTR CommandPrompt(UINT ID);
 protected:
 
 private:

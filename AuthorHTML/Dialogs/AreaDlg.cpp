@@ -68,14 +68,14 @@ void AreaDlg::DoDataExchange(CDataExchange* pDX)
 
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
-    CString shape = Misc::GetAttributeDisplayname("shape",m_shape);
+    CString shape = Misc::GetAttributeDisplayname(_T("shape"),m_shape);
     int ind = m_comboShape.FindString(-1,shape);
               m_comboShape.SetCurSel(ind);
     m_buttonNoHref.SetCheck(m_nohref);
 
     CString def;
     m_buttonEvents.GetWindowText(def);
-    CString text = m_area->HasEvents() ? "[ &Events ]" : "&Events";
+    CString text = m_area->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     // Only enable BM combo if mid-page bookmarks found
@@ -84,28 +84,28 @@ void AreaDlg::DoDataExchange(CDataExchange* pDX)
     m_buttonPopup.SetCheck(m_doPopup);
     m_buttonNoHref.SetCheck(m_nohref);
 
-    if(m_shape.CompareNoCase("rectangle") == 0 ||
-       m_shape.CompareNoCase("rect")      == 0 )
+    if(m_shape.CompareNoCase(_T("rectangle")) == 0 ||
+       m_shape.CompareNoCase(_T("rect"))      == 0 )
     {
       CWnd* w;
-      w = GetDlgItem(IDC_STATIC1); w->SetWindowText("Left offset:"); 
-      w = GetDlgItem(IDC_STATIC2); w->SetWindowText("Top offset:");
-      w = GetDlgItem(IDC_STATIC3); w->SetWindowText("Right offset:");
-      w = GetDlgItem(IDC_STATIC4); w->SetWindowText("Bottom offset:");
+      w = GetDlgItem(IDC_STATIC1); w->SetWindowText(_T("Left offset:")); 
+      w = GetDlgItem(IDC_STATIC2); w->SetWindowText(_T("Top offset:"));
+      w = GetDlgItem(IDC_STATIC3); w->SetWindowText(_T("Right offset:"));
+      w = GetDlgItem(IDC_STATIC4); w->SetWindowText(_T("Bottom offset:"));
       w = GetDlgItem(IDC_LEFT);    w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_RIGHT);   w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_TOP);     w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_BOTTOM);  w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_POLYGON); w->EnableWindow(FALSE);
     }
-    else if(m_shape.CompareNoCase("circle") == 0 ||
-            m_shape.CompareNoCase("circ")   == 0)
+    else if(m_shape.CompareNoCase(_T("circle")) == 0 ||
+            m_shape.CompareNoCase(_T("circ"))   == 0)
     {
       CWnd* w;
-      w = GetDlgItem(IDC_STATIC1); w->SetWindowText("Center X:");
-      w = GetDlgItem(IDC_STATIC2); w->SetWindowText("Center Y:");
-      w = GetDlgItem(IDC_STATIC3); w->SetWindowText("Radius:");
-      w = GetDlgItem(IDC_STATIC4); w->SetWindowText("");
+      w = GetDlgItem(IDC_STATIC1); w->SetWindowText(_T("Center X:"));
+      w = GetDlgItem(IDC_STATIC2); w->SetWindowText(_T("Center Y:"));
+      w = GetDlgItem(IDC_STATIC3); w->SetWindowText(_T("Radius:"));
+      w = GetDlgItem(IDC_STATIC4); w->SetWindowText(_T(""));
       w = GetDlgItem(IDC_LEFT);    w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_RIGHT);   w->EnableWindow(TRUE);
       w = GetDlgItem(IDC_TOP);     w->EnableWindow(TRUE);
@@ -115,10 +115,10 @@ void AreaDlg::DoDataExchange(CDataExchange* pDX)
     else // Polygon
     {
       CWnd* w;
-      w = GetDlgItem(IDC_STATIC1); w->SetWindowText("Left offset:");
-      w = GetDlgItem(IDC_STATIC2); w->SetWindowText("Top offset:");
-      w = GetDlgItem(IDC_STATIC3); w->SetWindowText("Right offset:");
-      w = GetDlgItem(IDC_STATIC4); w->SetWindowText("Bottom offset:");
+      w = GetDlgItem(IDC_STATIC1); w->SetWindowText(_T("Left offset:"));
+      w = GetDlgItem(IDC_STATIC2); w->SetWindowText(_T("Top offset:"));
+      w = GetDlgItem(IDC_STATIC3); w->SetWindowText(_T("Right offset:"));
+      w = GetDlgItem(IDC_STATIC4); w->SetWindowText(_T("Bottom offset:"));
       w = GetDlgItem(IDC_LEFT);    w->EnableWindow(FALSE);
       w = GetDlgItem(IDC_RIGHT);   w->EnableWindow(FALSE);
       w = GetDlgItem(IDC_TOP);     w->EnableWindow(FALSE);
@@ -205,8 +205,8 @@ void
 AreaDlg::FillTargets()
 {
   // All target descriptions
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("shape",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("shape"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_comboShape.AddString(all[ind].c_str());
@@ -231,33 +231,33 @@ void
 AreaDlg::FillPage()
 {
   int pos;
-  m_id     = m_area->GetAttribute("id");
+  m_id     = m_area->GetAttribute(_T("id"));
   m_href   = m_area->GetProperty(HtmlArea::E_Href);
   m_shape  = m_area->GetProperty(HtmlArea::E_Shape);
   m_title  = m_area->GetProperty(HtmlArea::E_Title);
-  m_nohref = atoi(m_area->GetProperty(HtmlArea::E_NoHref)) == 1;
+  m_nohref = _ttoi(m_area->GetProperty(HtmlArea::E_NoHref)) == 1;
   CString coords = m_area->GetProperty(HtmlArea::E_Coords);
-  if(m_shape.CompareNoCase("polygon") == 0 ||
-     m_shape.CompareNoCase("poly")    == 0 )
+  if(m_shape.CompareNoCase(_T("polygon")) == 0 ||
+     m_shape.CompareNoCase(_T("poly"))    == 0 )
   {
-    m_shape = "poly";
+    m_shape = _T("poly");
     m_polygon = coords;
   }
   else
   {
-    pos = coords.Find(',');
+    pos = coords.Find(_T(','));
     if(pos < 0) return;
     m_left = coords.Left(pos);
     coords = coords.Mid(pos+1);
-    pos = coords.Find(',');
+    pos = coords.Find(_T(','));
     if(pos < 0) return;
     m_top  = coords.Left(pos);
     coords = coords.Mid(pos+1);
 
-    if(m_shape.CompareNoCase("rectangle") == 0 ||
-       m_shape.CompareNoCase("rect")      == 0 )
+    if(m_shape.CompareNoCase(_T("rectangle")) == 0 ||
+       m_shape.CompareNoCase(_T("rect"))      == 0 )
     {
-      pos = coords.Find(',');
+      pos = coords.Find(_T(','));
       if(pos < 0) return;
       m_right = coords.Left(pos);
       m_bottom = coords.Mid(pos+1);
@@ -267,27 +267,27 @@ AreaDlg::FillPage()
       m_right = coords;
     }
   }
-  pos = m_href.Find('#');
+  pos = m_href.Find(_T('#'));
   if(pos >= 0)
   {
     m_bookmark = m_href.Mid(pos + 1);
     m_href     = m_href.Left(pos);
   }
-  if(m_href.Find("javascript") >= 0)
+  if(m_href.Find(_T("javascript")) >= 0)
   {
     m_doPopup = true;
-    m_href = m_href.TrimLeft("javascript:");
-    if(m_href.Left(12) == "ADHShowPopup")
+    m_href = m_href.TrimLeft(_T("javascript:"));
+    if(m_href.Left(12) == _T("ADHShowPopup"))
     {
       m_doADHpopup = true;
       m_href = m_href.Mid(14);
     }
-    if(m_href.Left(9) == "BSSCPopup")
+    if(m_href.Left(9) == _T("BSSCPopup"))
     {
       m_doBSSCpopup = true;
       m_href = m_href.Mid(11);
     }
-    int pos2 = m_href.Find('\'');
+    int pos2 = m_href.Find(_T('\''));
     if(pos2 > 0)
     {
       m_href = m_href.Left(pos2);
@@ -296,29 +296,29 @@ AreaDlg::FillPage()
 
   // Make sure we have pixel coords
   CString pixels;
-  CssConvertToUnit(m_left,  "px",m_lunits,pixels);
-  CssConvertToUnit(m_right, "px",m_runits,pixels);
-  CssConvertToUnit(m_top,   "px",m_tunits,pixels);
-  CssConvertToUnit(m_bottom,"px",m_bunits,pixels);
+  CssConvertToUnit(m_left,  _T("px"),m_lunits,pixels);
+  CssConvertToUnit(m_right, _T("px"),m_runits,pixels);
+  CssConvertToUnit(m_top,   _T("px"),m_tunits,pixels);
+  CssConvertToUnit(m_bottom,_T("px"),m_bunits,pixels);
 }
 
 void
 AreaDlg::UpdateProperties()
 {
   CString nohref;
-  nohref.Format("%d",m_nohref);
+  nohref.Format(_T("%d"),m_nohref);
 
   CString href;
   if(m_doPopup)
   {
     if(m_doADHpopup || m_doBSSCpopup == false)
     {
-      href = "javascript:ADHShowPopup('" + m_href + "');";
+      href = _T("javascript:ADHShowPopup('") + m_href + _T("');");
       m_doADHpopup = true;
     }
     if(m_doBSSCpopup)
     {
-      href = "javascript:BSSCPopup('" + m_href + "');";
+      href = _T("javascript:BSSCPopup('") + m_href + _T("');");
     }
   }
   else
@@ -326,7 +326,7 @@ AreaDlg::UpdateProperties()
     href = m_href;
     if(!m_bookmark.IsEmpty())
     {
-      href += "#";
+      href += _T("#");
       href += m_bookmark;
     }
   }
@@ -336,24 +336,24 @@ AreaDlg::UpdateProperties()
   m_area->SetProperty(HtmlArea::E_Title,m_title);
 
   CString pixels;
-  if(m_shape.CompareNoCase("poly") == 0)
+  if(m_shape.CompareNoCase(_T("poly")) == 0)
   {
     m_area->SetProperty(HtmlArea::E_Coords,m_polygon);
   }
-  else if(m_shape.CompareNoCase("rect") == 0)
+  else if(m_shape.CompareNoCase(_T("rect")) == 0)
   {
-    CString coords = CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits + "," +
-                     CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits + "," + 
-                     CssConvertToUnit(m_right  + "px",m_runits,pixels) + m_runits +  "," + 
-                     CssConvertToUnit(m_bottom + "px",m_bunits,pixels) + m_bunits;
+    CString coords = CssConvertToUnit(m_left   + _T("px"),m_lunits,pixels) + m_lunits + _T(",") +
+                     CssConvertToUnit(m_top    + _T("px"),m_tunits,pixels) + m_tunits + _T(",") + 
+                     CssConvertToUnit(m_right  + _T("px"),m_runits,pixels) + m_runits +  _T(",") + 
+                     CssConvertToUnit(m_bottom + _T("px"),m_bunits,pixels) + m_bunits;
     m_area->SetProperty(HtmlArea::E_Coords,coords);
   }
   else  // Circle
   {
     // x1,y1,radius!!
-    CString coords = CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits + "," +
-                     CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits + "," + 
-                     CssConvertToUnit(m_right  + "px",m_runits,pixels) + m_runits;
+    CString coords = CssConvertToUnit(m_left   + _T("px"),m_lunits,pixels) + m_lunits + _T(",") +
+                     CssConvertToUnit(m_top    + _T("px"),m_tunits,pixels) + m_tunits + _T(",") + 
+                     CssConvertToUnit(m_right  + _T("px"),m_runits,pixels) + m_runits;
     m_area->SetProperty(HtmlArea::E_Coords,coords);
   }
 }
@@ -363,7 +363,7 @@ AreaDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
   bool found = false;
   m_comboBM.ResetContent();
-  m_comboBM.AddString("");
+  m_comboBM.AddString(_T(""));
 
   // Now read the bookmarks from the document (if any)
   CComPtr<IDispatch> disp;
@@ -478,9 +478,9 @@ void
 AreaDlg::OnButtonOpen()
 {
   DocFileDialog diag(true
-                    ,"Search for a page to link to"
-                    ,"htm"
-                    ,""
+                    ,_T("Search for a page to link to")
+                    ,_T("htm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -540,7 +540,7 @@ AreaDlg::OnCbnSelchangeShape()
   {
     CString shape;
     m_comboShape.GetLBText(ind,shape);
-    m_shape = Misc::GetAttributeValue("shape",shape);
+    m_shape = Misc::GetAttributeValue(_T("shape"),shape);
   }
   UpdateData(Data2Controls);
 }
@@ -611,7 +611,7 @@ void
 AreaDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)m_area;
-  GeneralIDDlg dlg(this,"area",elem);
+  GeneralIDDlg dlg(this,_T("area"),elem);
   dlg.DoModal();
 }
 
@@ -619,7 +619,7 @@ void
 AreaDlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*)m_area;
-  TagEventsDlg dlg(this,elem,"area");
+  TagEventsDlg dlg(this,elem,_T("area"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }

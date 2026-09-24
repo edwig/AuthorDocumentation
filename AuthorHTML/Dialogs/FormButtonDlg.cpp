@@ -62,12 +62,12 @@ FormButtonDlg::DoDataExchange(CDataExchange* pDX)
 
     bool check = true;
     bool name  = true;
-    if(m_type.Compare("Button") == 0)
+    if(m_type.Compare(_T("Button")) == 0)
     {
       check = false;
     }
-    else if(m_type.CompareNoCase("Reset")  == 0 || 
-            m_type.CompareNoCase("Submit") == 0 )
+    else if(m_type.CompareNoCase(_T("Reset"))  == 0 || 
+            m_type.CompareNoCase(_T("Submit")) == 0 )
     {
       check = false;
       name  = false;
@@ -83,15 +83,15 @@ FormButtonDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -123,7 +123,7 @@ FormButtonDlg::OnInitDialog()
   CDialog::OnInitDialog();
   if(m_type.IsEmpty())
   {
-    m_type = "Button";
+    m_type = _T("Button");
   }
   else
   {
@@ -171,7 +171,7 @@ FormButtonDlg::OnBnClickedOk()
 {
   if(m_type.IsEmpty())
   {
-    theApp.ErrorMessage("Type of button not yet set");
+    theApp.ErrorMessage(_T("Type of button not yet set"));
     return;
   }
   OnOK();
@@ -186,14 +186,14 @@ FormButtonDlg::OnBnClickedCancel()
 void 
 FormButtonDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"input",m_elem);
+  GeneralIDDlg dlg(this,_T("input"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormButtonDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"INPUT");
+  TagEventsDlg dlg(this,m_elem,_T("INPUT"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -206,13 +206,13 @@ FormButtonDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("input { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"input",NULL,style);
+  style = CString(_T("input { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("input"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("input {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("input {"));
     m_elem->SetInlineStyle(style);
   }
 }

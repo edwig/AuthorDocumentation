@@ -64,7 +64,7 @@ void FormFieldDlg::DoDataExchange(CDataExchange* pDX)
     int ind = m_comboType.FindString(-1,m_type);
     m_comboType.SetCurSel(ind);
 
-    bool notHidden = (m_type != "Hidden");
+    bool notHidden = (m_type != _T("Hidden"));
     m_spinSize.EnableWindow(notHidden);
     m_spinMaxlength.EnableWindow(notHidden);
     CWnd* w1 = GetDlgItem(IDC_FF_MAXLENGTH);
@@ -77,15 +77,15 @@ void FormFieldDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -120,7 +120,7 @@ FormFieldDlg::OnInitDialog()
   // Default type is always the textfield type
   if(m_type.IsEmpty())
   {
-    m_type = "Text";
+    m_type = _T("Text");
     UpdateData(Data2Controls);
   }
   else
@@ -130,10 +130,10 @@ FormFieldDlg::OnInitDialog()
   // INIT spin controls
   m_spinMaxlength.SetBase(10);
   m_spinMaxlength.SetRange(1,32000);
-  m_spinMaxlength.SetPos(atoi(m_maxLength));
+  m_spinMaxlength.SetPos(_ttoi(m_maxLength));
   m_spinSize.SetBase(10);
   m_spinSize.SetRange(1,32000);
-  m_spinSize.SetPos(atoi(m_size));
+  m_spinSize.SetPos(_ttoi(m_size));
 
   return TRUE;
 }
@@ -188,11 +188,11 @@ void FormFieldDlg::OnBnClickedOk()
   CString msg1,msg2,msg3;
   if(m_type.IsEmpty())
   {
-    msg1 = "\nThe type of the field is not yet givven.";
+    msg1 = _T("\nThe type of the field is not yet givven.");
   }
   if(m_name.IsEmpty())
   {
-    msg2 = "\nThe parameter name of the field is not yet givven.";
+    msg2 = _T("\nThe parameter name of the field is not yet givven.");
   }
   CString msg = msg1 + msg2;
   if(!msg.IsEmpty())
@@ -200,10 +200,10 @@ void FormFieldDlg::OnBnClickedOk()
     theApp.ErrorMessage(msg);
     return;
   }
-  if(m_type == "Hidden")
+  if(m_type == _T("Hidden"))
   {
     // Never set for hidden fields
-    m_size = m_maxLength = "";
+    m_size = m_maxLength = _T("");
   }
   OnOK();
 }
@@ -215,14 +215,14 @@ void FormFieldDlg::OnBnClickedCancel()
 
 void FormFieldDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"input",m_elem);
+  GeneralIDDlg dlg(this,_T("input"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormFieldDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"input");
+  TagEventsDlg dlg(this,m_elem,_T("input"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -234,13 +234,13 @@ void FormFieldDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("input { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"input",NULL,style);
+  style = CString(_T("input { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("input"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("input {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("input {"));
     m_elem->SetInlineStyle(style);
   }
 }

@@ -108,7 +108,7 @@ AuthorHTMLApp::ResetProject()
     delete m_projectFile;
     m_projectFile = NULL;
   }
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ BOOL AuthorHTMLApp::InitInstance()
   // Register scintilla window class
   if (!Scintilla_RegisterClasses(m_hInstance))
   {
-    MessageBox("Cannot register the scintilla editor classes. Please reinstall","Starterror",MB_OK|MB_ICONHAND);
+    MessageBox(_T("Cannot register the scintilla editor classes. Please reinstall"),_T("Starterror"),MB_OK|MB_ICONHAND);
     return FALSE;
   }
 	// Standard initialization
@@ -201,7 +201,7 @@ BOOL AuthorHTMLApp::InitInstance()
   theApp.GetTooltipManager()->SetTooltipParams(AFX_TOOLTIP_TYPE_ALL,RUNTIME_CLASS(CMFCToolTipCtrl),&ttParams);
 
   // Load the recent project list
-  m_pRecentProjectList = new CRecentFileList(0,"RecentProjects","Project%d",15,50);
+  m_pRecentProjectList = new CRecentFileList(0,_T("RecentProjects"),_T("Project%d"),15,50);
   m_pRecentProjectList->ReadList();
 
   // Needed for toolbar reloads
@@ -221,7 +221,7 @@ BOOL AuthorHTMLApp::InitInstance()
                                           ,RUNTIME_CLASS(CHTMLEdView));
   if (!pHTMLDocTemplate)
   {
-    Panic("HTML document template not loaded");
+    Panic(_T("HTML document template not loaded"));
   }  
   AddDocTemplate(pHTMLDocTemplate);
 
@@ -233,7 +233,7 @@ BOOL AuthorHTMLApp::InitInstance()
  		                                         RUNTIME_CLASS(CScintillaScriptView));
   if(!pJScriptDocTemplate)
   {
-    Panic("J-Script document template not loaded");
+    Panic(_T("J-Script document template not loaded"));
   }
 	AddDocTemplate(pJScriptDocTemplate);
 
@@ -245,7 +245,7 @@ BOOL AuthorHTMLApp::InitInstance()
                                                RUNTIME_CLASS(CScintillaScriptView));
   if(!pVBScriptDocTemplate)
   {
-    Panic("VB-Script document template not loaded");
+    Panic(_T("VB-Script document template not loaded"));
   }
   AddDocTemplate(pVBScriptDocTemplate);
 
@@ -339,24 +339,24 @@ AuthorHTMLApp::ExitInstance()
 void
 AuthorHTMLApp::ParseOptions(CString& commandLine)
 {
-  m_baseDir = Misc::GetParamFromCommandline(commandLine,"/BASE");
+  m_baseDir = Misc::GetParamFromCommandline(commandLine,_T("/BASE"));
   if(!m_baseDir.IsEmpty())
   {
-    if(m_baseDir.Right(1) != '/' && m_baseDir.Right(1) != '\\')
+    if(m_baseDir.Right(1) != _T('/') && m_baseDir.Right(1) != _T('\\'))
     {
-      m_baseDir += "\\";
+      m_baseDir += _T("\\");
     }
   }
-  m_project = Misc::GetParamFromCommandline(commandLine,"/HHP");
+  m_project = Misc::GetParamFromCommandline(commandLine,_T("/HHP"));
   if(!m_project.IsEmpty())
   {
     if(!m_baseDir.IsEmpty())
     {
       CString message;
-      message.Format("The basedir option (/BASE) conflicts with the project option (/HHP)!\n"
-                     "Basedir option: /BASE=%s\n"
-                     "Project option: /HHP=%s\n"
-                     "Use either but not both!!"
+      message.Format(_T("The basedir option (/BASE) conflicts with the project option (/HHP)!\n")
+                     _T("Basedir option: /BASE=%s\n")
+                     _T("Project option: /HHP=%s\n")
+                     _T("Use either but not both!!")
                     ,m_baseDir.GetString()
                     ,m_project.GetString());
       ErrorMessage(message);
@@ -377,8 +377,8 @@ void
 AuthorHTMLApp::Panic(CString message)
 {
   CString mess;
-  mess.Format("Panic: AuthorHTML cannot continue. A serious condition has arisen:\n%s",message.GetString());
-  MessageBox(mess,"PANIC!!",MB_OK|MB_ICONHAND);
+  mess.Format(_T("Panic: AuthorHTML cannot continue. A serious condition has arisen:\n%s"),message.GetString());
+  MessageBox(mess,_T("PANIC!!"),MB_OK|MB_ICONHAND);
 }
 
 BOOL 
@@ -431,16 +431,16 @@ void
 AuthorHTMLApp::OnFileOpen()
 {
   DocFileDialog diag(true
-                    ,"Open a document"
-                    ,"html"
-                    ,""
+                    ,_T("Open a document")
+                    ,_T("html")
+                    ,_T("")
                     ,0
-                    ,"Documentation files (*.htm, *.html)|*.htm;*.html|"
-                     "Author Documentation Project(*.adp)|*.adp|"
-                     "Documentation project (*.hhp)|*.hhp|"
-                     "VB-Script files (*.vbs)|*.vbs|"
-                     "J-Script files (*.js)|*.js|"
-                     "All files|*.*");
+                    ,_T("Documentation files (*.htm, *.html)|*.htm;*.html|")
+                     _T("Author Documentation Project(*.adp)|*.adp|")
+                     _T("Documentation project (*.hhp)|*.hhp|")
+                     _T("VB-Script files (*.vbs)|*.vbs|")
+                     _T("J-Script files (*.js)|*.js|")
+                     _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -452,13 +452,13 @@ void
 AuthorHTMLApp::OnProjectOpen()
 {
   DocFileDialog diag(true
-                    ,"Open a documentation project"
-                    ,"hpp"
-                    ,""
+                    ,_T("Open a documentation project")
+                    ,_T("hpp")
+                    ,_T("")
                     ,0
-                    ,"Documentation project (*.hhp)|*.hhp|"
-                     "Author Documentation Project(*.adp)|*.adp|"
-                     "All files|*.*");
+                    ,_T("Documentation project (*.hhp)|*.hhp|")
+                     _T("Author Documentation Project(*.adp)|*.adp|")
+                     _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -476,11 +476,11 @@ void
 AuthorHTMLApp::OnNewProject()
 {
   DocFileDialog diag(false
-                    ,"Create a new documentation project"
-                    ,"hpp"
-                    ,""
+                    ,_T("Create a new documentation project")
+                    ,_T("hpp")
+                    ,_T("")
                     ,0
-                    ,"Documentation project (*.hhp)|*.hhp|");
+                    ,_T("Documentation project (*.hhp)|*.hhp|"));
   if(diag.DoModal() == IDOK)
   {
     CString newProjectFile = diag.GetChosenFile();
@@ -520,9 +520,9 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   {
     // Smaller than "X:\"
     CString message;
-    message.Format("The project option must provide a full path to the project file:\n"
-                   "e.g.: X:\\Directory1\\Directory2\\projectname.hhp\n"
-                   "but you supplied: /HHP=%s",m_project.GetString());
+    message.Format(_T("The project option must provide a full path to the project file:\n")
+                   _T("e.g.: X:\\Directory1\\Directory2\\projectname.hhp\n")
+                   _T("but you supplied: /HHP=%s"),m_project.GetString());
     ErrorMessage(message);
     ExitInstance();
   }
@@ -530,15 +530,15 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   if(!m_projectFile->ReadProjectFile() && !p_create)
   {
     CString message;
-    message.Format("Error reading HHP project file: %s",m_project.GetString());
+    message.Format(_T("Error reading HHP project file: %s"),m_project.GetString());
     ErrorMessage(message);
     return;
   }
   if(p_create)
   {
     // Create all three files: HHP, HHC and HHK
-    OpenContentsFile(m_baseDir + baseName + ".hhc",true);
-    OpenIndexFile   (m_baseDir + baseName + ".hhk",true);
+    OpenContentsFile(m_baseDir + baseName + _T(".hhc"),true);
+    OpenIndexFile   (m_baseDir + baseName + _T(".hhk"),true);
     m_projectFile->CreateNewDefaultProject(baseName);
   }
 
@@ -546,7 +546,7 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   CString contents = m_projectFile->GetContentsFile();
   if(contents.IsEmpty())
   {
-    contents = baseName + ".hhc";
+    contents = baseName + _T(".hhc");
     m_projectFile->SetContentsFile(contents);
   }
   CString contentsFile = m_baseDir + contents;
@@ -556,7 +556,7 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   CString index = m_projectFile->GetIndexFile();
   if(index.IsEmpty())
   {
-    index = baseName + ".hhk";
+    index = baseName + _T(".hhk");
     m_projectFile->SetIndexFile(index);
   }
   CString indexFile = m_baseDir + index;
@@ -573,12 +573,12 @@ AuthorHTMLApp::OpenProjectFile(bool p_create /*=false*/)
   SyncFontNameAndSize();
 
   // Now set a new subtree for the HTML documentation site
-  MainFrame* main = (MainFrame*)m_pMainWnd;
-  main->ShowPane(ID_PANE_EXPLORER);
-  main->SetSubtree(m_baseDir);
+  MainFrame* _tmain = (MainFrame*)m_pMainWnd;
+  _tmain->ShowPane(ID_PANE_EXPLORER);
+  _tmain->SetSubtree(m_baseDir);
 
   // And redisplay the TOC
-  main->ShowPane(ID_PANE_TOC);
+  _tmain->ShowPane(ID_PANE_TOC);
 
   m_pRecentProjectList->Add((LPCTSTR)m_project);
 
@@ -594,7 +594,7 @@ AuthorHTMLApp::SyncFontNameAndSize()
   {
     return;
   }
-  MainFrame* main = (MainFrame*)m_pMainWnd;
+  MainFrame* _tmain = (MainFrame*)m_pMainWnd;
 
   CString prj_font = m_projectFile->GetDefaultFont();
   CString toc_font = m_contentFile->GetFontName();
@@ -603,7 +603,7 @@ AuthorHTMLApp::SyncFontNameAndSize()
   // Standard is the fontname/size of the TOC file.
   if(!toc_font.IsEmpty() && toc_size > 0)
   {
-    main->m_wndTOCView.SetFontSize(toc_size,toc_font);
+    _tmain->m_wndTOCView.SetFontSize(toc_size,toc_font);
     return;
   }
 
@@ -612,11 +612,11 @@ AuthorHTMLApp::SyncFontNameAndSize()
   {
     std::vector<XString> options;
     XString font(prj_font);
-    SplitString(font,options,',',true);
+    SplitString(font,options,_T(','),true);
 
     if(options.size() >= 2)
     {
-      main->m_wndTOCView.SetFontSize(atoi(options[1].GetString()),options[0].GetString());
+      _tmain->m_wndTOCView.SetFontSize(_ttoi(options[1].GetString()),options[0].GetString());
     }
   }
 }
@@ -633,7 +633,7 @@ AuthorHTMLApp::OpenContentsFile(CString contents,bool p_create /*=false*/)
   if(!m_contentFile->ReadTOCFile() && !p_create)
   {
     CString message;
-    message.Format("Error reading HHC contents file: %s",contents.GetString());
+    message.Format(_T("Error reading HHC contents file: %s"),contents.GetString());
     ErrorMessage(message);
     return;
   }
@@ -647,12 +647,12 @@ AuthorHTMLApp::RedisplayTOC(bool showPane /*=false*/)
   if(m_contentFile)
   {
     // Make visible in the TOC tree
-    MainFrame* main = (MainFrame*) m_pMainWnd;
+    MainFrame* _tmain = (MainFrame*) m_pMainWnd;
     if(showPane)
     {
-      main->ShowPane(ID_PANE_TOC);
+      _tmain->ShowPane(ID_PANE_TOC);
     }
-    m_contentFile->DisplayTOCInTree(&(main->m_wndTOCView.m_wndExplorer));
+    m_contentFile->DisplayTOCInTree(&(_tmain->m_wndTOCView.m_wndExplorer));
   }
 }
 
@@ -668,7 +668,7 @@ AuthorHTMLApp::OpenIndexFile(CString index,bool p_create /*=false*/)
   if(!m_indexFile->ReadIndexFile() && !p_create)
   {
     CString message;
-    message.Format("Error reading HHK index file: %s",index.GetString());
+    message.Format(_T("Error reading HHK index file: %s"),index.GetString());
     ErrorMessage(message);
     return;
   }
@@ -681,13 +681,13 @@ AuthorHTMLApp::RedisplayIndex(bool showPane /*=false*/)
 {
   if(m_indexFile)
   {
-    MainFrame* main = (MainFrame*) m_pMainWnd;
+    MainFrame* _tmain = (MainFrame*) m_pMainWnd;
     if(showPane)
     {
-      main->ShowPane(ID_PANE_KEYWORDS);
+      _tmain->ShowPane(ID_PANE_KEYWORDS);
     }
     m_indexFile->SortIndex();
-    m_indexFile->DisplayIndexInTree(&(main->m_wndIndexView.m_wndExplorer));
+    m_indexFile->DisplayIndexInTree(&(_tmain->m_wndIndexView.m_wndExplorer));
   }
 }
 
@@ -703,14 +703,14 @@ AuthorHTMLApp::OpenTypedDocumentFile(CString& file)
   extension.MakeLower();
 
   // Process by extension, beginning at the highest level
-  if(extension.CompareNoCase(".hhp") == 0)
+  if(extension.CompareNoCase(_T(".hhp")) == 0)
   {
     // Microsofts HTMLHelp project format
     m_project = file;
     OpenProjectFile();
     return;
   }
-  if(extension.CompareNoCase(".adp") == 0)
+  if(extension.CompareNoCase(_T(".adp")) == 0)
   {
     // Author Documentation Project file format
     return;
@@ -718,11 +718,11 @@ AuthorHTMLApp::OpenTypedDocumentFile(CString& file)
   // *.HTML | *.JS | *.VBS
   // We have document templates for these!!
   // Call default MFC Document template framework
-  if(extension.CompareNoCase(".html") == 0 ||
-     extension.CompareNoCase(".htm" ) == 0 ||
-     extension.CompareNoCase(".js"  ) == 0 ||
-     extension.CompareNoCase(".vbs" ) == 0 ||
-     extension.CompareNoCase(".htt" ) == 0  )
+  if(extension.CompareNoCase(_T(".html")) == 0 ||
+     extension.CompareNoCase(_T(".htm") ) == 0 ||
+     extension.CompareNoCase(_T(".js")  ) == 0 ||
+     extension.CompareNoCase(_T(".vbs") ) == 0 ||
+     extension.CompareNoCase(_T(".htt") ) == 0  )
   {
     CString filename = Misc::StripFileProtocol(bareFilename);
     CDocument* doc = OpenDocumentFile(filename);
@@ -735,25 +735,25 @@ AuthorHTMLApp::OpenTypedDocumentFile(CString& file)
     }
     return;
   }
-  if(extension.CompareNoCase(".css") == 0)  
+  if(extension.CompareNoCase(_T(".css")) == 0)  
   {
     CSSVector list;
     SheetDef  def;
     def.filename = file;
-    def.csstext  = "css/text";
+    def.csstext  = _T("css/text");
     def.link     = NULL;
     def.style    = NULL;
     list.push_back(def);
 
-    CString type = "Style sheet in CSS file";
+    CString type = _T("Style sheet in CSS file");
     CString base = Misc::DirectoryPart(file);
     StyleSheetsDlg dlg(m_pMainWnd,type,list,NULL,base);
     dlg.DoModal();
     return;
   }
   CString msg;
-  msg.Format("AuthorDocumentation doesn't know how to open: %s",file.GetString());
-  MessageBox(msg,"File error",MB_OK|MB_ICONERROR);
+  msg.Format(_T("AuthorDocumentation doesn't know how to open: %s"),file.GetString());
+  MessageBox(msg,_T("File error"),MB_OK|MB_ICONERROR);
 }
 
 void
@@ -785,14 +785,14 @@ AuthorHTMLApp::ResetSpeller()
 void
 AuthorHTMLApp::OnFileSaveAll()
 {
-  MainFrame*  main  = (MainFrame*) m_pMainWnd;
+  MainFrame*  _tmain  = (MainFrame*) m_pMainWnd;
   CMDIChildFrame* first = NULL;
-  CMDIChildFrame* child = (CMDIChildFrame*) main->MDIGetActive();
+  CMDIChildFrame* child = (CMDIChildFrame*) _tmain->MDIGetActive();
 
   try
   {
     // Block the recalculation of the link pages
-    main->LockLinkPages(true);
+    _tmain->LockLinkPages(true);
 
     // Cycle through all the documents to save them
     while(child && child != first)
@@ -803,8 +803,8 @@ AuthorHTMLApp::OnFileSaveAll()
       {
         first = child;
       }
-      main->MDINext();
-      child = (CMDIChildFrame*) main->MDIGetActive();
+      _tmain->MDINext();
+      child = (CMDIChildFrame*) _tmain->MDIGetActive();
     }
 
     // Save the global project files
@@ -823,16 +823,16 @@ AuthorHTMLApp::OnFileSaveAll()
   }
   catch(...)
   {
-    CString message("Error in saving the document state");
+    CString message(_T("Error in saving the document state"));
     ErrorMessage(message);
   }
   // Free the recalculation of the link pages
-  main->LockLinkPages(false);
+  _tmain->LockLinkPages(false);
 
   // Make sure we are where we started off
   if(first)
   {
-    main->MDIActivate(first);
+    _tmain->MDIActivate(first);
   }
 }
 
@@ -841,23 +841,23 @@ AuthorHTMLApp::OnCloseProject()
 {
   if(m_projectFile)
   {
-    if(MessageBox("Do you want to close the current documentation project?"
-                 ,"Close project"
+    if(MessageBox(_T("Do you want to close the current documentation project?")
+                 ,_T("Close project")
                  ,MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION|MB_TASKMODAL) == IDYES)
     {
-      MainFrame*  main  = (MainFrame*) m_pMainWnd;
-      CMDIChildFrame* child = (CMDIChildFrame*) main->MDIGetActive();
+      MainFrame*  _tmain  = (MainFrame*) m_pMainWnd;
+      CMDIChildFrame* child = (CMDIChildFrame*) _tmain->MDIGetActive();
       while(child)
       {
         CHTMLEdDoc* doc = (CHTMLEdDoc*) child->GetActiveDocument();
         doc->SaveMyDocument();
         doc->OnCloseDocument();
-        child = (CMDIChildFrame*) main->MDIGetActive();
+        child = (CMDIChildFrame*) _tmain->MDIGetActive();
       }
       // Now reset project
       ResetProject();
       // Close the project panes
-      main->CloseAllPanes();
+      _tmain->CloseAllPanes();
       // Do startup again
       ::PostMessage(theApp.m_pMainWnd->GetSafeHwnd(),WM_COMMAND,ID_STARTUP,0);
     }
@@ -922,7 +922,7 @@ AuthorHTMLApp::OnReadHelp()
     CString basedir  = m_projectFile->GetBaseDirectory();
     CString helpname = m_projectFile->GetCompiledName();
     CString path = basedir + helpname;
-    ShellExecute(pFrame->m_hWnd,"open",path.GetString(),NULL,NULL,SW_SHOW);
+    ShellExecute(pFrame->m_hWnd,_T("open"),path.GetString(),NULL,NULL,SW_SHOW);
   }
 }
 
@@ -944,9 +944,9 @@ AuthorHTMLApp::OnHasContent(CCmdUI* pCmdUI)
   bool hasNoContent = m_projectFile ? FALSE : TRUE;
   if(hasNoContent)
   {
-    MainFrame* main = (MainFrame*) m_pMainWnd;
+    MainFrame* _tmain = (MainFrame*) m_pMainWnd;
     BOOL maxim;
-    if(main->MDIGetActive(&maxim))
+    if(_tmain->MDIGetActive(&maxim))
     {
       hasNoContent = FALSE;
     }
@@ -969,7 +969,7 @@ AuthorHTMLApp::OnWindowDefinitions()
 {
   if(m_projectFile)
   {
-    WindowDefDlg dlg(m_pMainWnd,m_projectFile,"");
+    WindowDefDlg dlg(m_pMainWnd,m_projectFile,_T(""));
     dlg.DoModal();
   }
 }
@@ -985,10 +985,10 @@ AuthorHTMLApp::OnManualMicrosoftHTML()
 {
   CString file = theApp.GetBinDirectory();
 #ifdef DEBUG
-  file += "..\\";
+  file += _T("..\\");
 #endif
-  file += "..\\doc\\htmlref.chm";
-  ShellExecute(m_pMainWnd->GetSafeHwnd(),"open",file,"","",SW_SHOWMAXIMIZED);
+  file += _T("..\\doc\\htmlref.chm");
+  ShellExecute(m_pMainWnd->GetSafeHwnd(),_T("open"),file,_T(""),_T(""),SW_SHOWMAXIMIZED);
 }
 
 void
@@ -996,10 +996,10 @@ AuthorHTMLApp::OnManualW3C_HTML()
 {
   CString file = theApp.GetBinDirectory();
 #ifdef DEBUG
-  file += "..\\";
+  file += _T("..\\");
 #endif
-  file += "..\\doc\\W3C_HTML401.pdf";
-  ShellExecute(m_pMainWnd->GetSafeHwnd(),"open",file,"","",SW_SHOWMAXIMIZED);
+  file += _T("..\\doc\\W3C_HTML401.pdf");
+  ShellExecute(m_pMainWnd->GetSafeHwnd(),_T("open"),file,_T(""),_T(""),SW_SHOWMAXIMIZED);
 }
 
 void
@@ -1007,10 +1007,10 @@ AuthorHTMLApp::OnManualW3C_CSS()
 {
   CString file = theApp.GetBinDirectory();
 #ifdef DEBUG
-  file += "..\\";
+  file += _T("..\\");
 #endif
-  file += "..\\doc\\W3C_CSS2.pdf";
-  ShellExecute(m_pMainWnd->GetSafeHwnd(),"open",file,"","",SW_SHOWMAXIMIZED);
+  file += _T("..\\doc\\W3C_CSS2.pdf");
+  ShellExecute(m_pMainWnd->GetSafeHwnd(),_T("open"),file,_T(""),_T(""),SW_SHOWMAXIMIZED);
 }
 
 void
@@ -1054,32 +1054,32 @@ AuthorHTMLApp::InitImages()
 {
   m_images = Ref<CAfbeeldingen>(new CAfbeeldingen());
 
-  m_images->RegistreerExtensie(".BMP",""    ,0);
-  m_images->RegistreerExtensie(".IML","S"   ,0);
-  m_images->RegistreerExtensie(".IM2","SP"  ,0);
-  m_images->RegistreerExtensie(".IM3","SFP" ,0);
-  m_images->RegistreerExtensie(".IBL","S"   ,200);
-  m_images->RegistreerExtensie(".IB2","SP"  ,200);
-  m_images->RegistreerExtensie(".IB3","SFP" ,200);
+  m_images->RegistreerExtensie(_T(".BMP"),_T("")    ,0);
+  m_images->RegistreerExtensie(_T(".IML"),_T("S")   ,0);
+  m_images->RegistreerExtensie(_T(".IM2"),_T("SP")  ,0);
+  m_images->RegistreerExtensie(_T(".IM3"),_T("SFP") ,0);
+  m_images->RegistreerExtensie(_T(".IBL"),_T("S")   ,200);
+  m_images->RegistreerExtensie(_T(".IB2"),_T("SP")  ,200);
+  m_images->RegistreerExtensie(_T(".IB3"),_T("SFP") ,200);
 
   // Image libraries
-  m_images->MaakResourceEntry(IDB_ALG,            "ALG"         ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_ALG32,          "ALG32"       ,"S"   , 32, 0);
-  m_images->MaakResourceEntry(IDB_ARROWS,         "ARROWS"      ,"4"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_ARROWS_WIDE,    "ARROWS_WIDE" ,"2"   , 32, 0);
-  m_images->MaakResourceEntry(IDB_BUTTONS1,       "KNOP"        ,"SFP" , 0,  33);
-  m_images->MaakResourceEntry(IDB_BUTTONS2,       "KNOP2"       ,"SFP" , 0,  14);
-  m_images->MaakResourceEntry(IDB_COMPUTER,       "COMP"        ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_DOCUMENTS,      "DOC"         ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_INTERN1,        "P"           ,"10"  , 0,  0, IDB_INTERN2);
-  m_images->MaakResourceEntry(IDB_OFFICE,         "OFFICE"      ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_SCIENCE,        "TECH"        ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_SIGNS,          "SIGNS"       ,"S"   , 0,  0);
-  m_images->MaakResourceEntry(IDB_WINDOWS,        "WINDOWS"     ,"X"   , 0,  10);
-  m_images->MaakResourceEntry(IDB_ICONEXCLAMATION,"EXCLAMATION" ,""    , 0,  0);
-  m_images->MaakResourceEntry(IDB_ICONHAND,       "STOP"        ,""    , 0,  0);
-  m_images->MaakResourceEntry(IDB_ICONASTERISK,   "INFORMATION" ,""    , 0,  0);
-  m_images->MaakResourceEntry(IDB_ICONQUESTION,   "QUESTION"    ,""    , 0,  0);
+  m_images->MaakResourceEntry(IDB_ALG,            _T("ALG")         ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_ALG32,          _T("ALG32")       ,_T("S")   , 32, 0);
+  m_images->MaakResourceEntry(IDB_ARROWS,         _T("ARROWS")      ,_T("4")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_ARROWS_WIDE,    _T("ARROWS_WIDE") ,_T("2")   , 32, 0);
+  m_images->MaakResourceEntry(IDB_BUTTONS1,       _T("KNOP")        ,_T("SFP") , 0,  33);
+  m_images->MaakResourceEntry(IDB_BUTTONS2,       _T("KNOP2")       ,_T("SFP") , 0,  14);
+  m_images->MaakResourceEntry(IDB_COMPUTER,       _T("COMP")        ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_DOCUMENTS,      _T("DOC")         ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_INTERN1,        _T("P")           ,_T("10")  , 0,  0, IDB_INTERN2);
+  m_images->MaakResourceEntry(IDB_OFFICE,         _T("OFFICE")      ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_SCIENCE,        _T("TECH")        ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_SIGNS,          _T("SIGNS")       ,_T("S")   , 0,  0);
+  m_images->MaakResourceEntry(IDB_WINDOWS,        _T("WINDOWS")     ,_T("X")   , 0,  10);
+  m_images->MaakResourceEntry(IDB_ICONEXCLAMATION,_T("EXCLAMATION") ,_T("")    , 0,  0);
+  m_images->MaakResourceEntry(IDB_ICONHAND,       _T("STOP")        ,_T("")    , 0,  0);
+  m_images->MaakResourceEntry(IDB_ICONASTERISK,   _T("INFORMATION") ,_T("")    , 0,  0);
+  m_images->MaakResourceEntry(IDB_ICONQUESTION,   _T("QUESTION")    ,_T("")    , 0,  0);
   
   ControlsInfo::MaakDefaultAfbeelding(m_images);
 
@@ -1100,7 +1100,7 @@ AuthorHTMLApp::MessageBox(const CString& tekst
   {
     ::SetFocus(focuswin);
   }
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
   return resultstr;
 }
 
@@ -1117,7 +1117,7 @@ AuthorHTMLApp::MessageBox(const CString& text,
   {
     ::SetFocus(focuswin);
   }
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
   return res;
 }
 
@@ -1127,12 +1127,12 @@ AuthorHTMLApp::ErrorMessage(const CString& message)
   MainFrame::SetStatusText(message);
   HWND focuswin = ::GetFocus();
 
-  int res = WideMessageBox(focuswin,message,"ERROR",MB_OK|MB_ICONERROR);
+  int res = WideMessageBox(focuswin,message,_T("ERROR"),MB_OK|MB_ICONERROR);
   if(::IsWindow(focuswin)) 
   {
     ::SetFocus(focuswin);
   }
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
   return res;
 }
 
@@ -1154,11 +1154,11 @@ AuthorHTMLApp::CanExitInstance()
     if(!m_indexFile->WriteIndexFile()) canExit = false;
   }
   // See if a compilation is running
-  MainFrame* main= (MainFrame*) m_pMainWnd;
-  if(main->m_wndCompileView.CompilationRunning())
+  MainFrame* _tmain= (MainFrame*) m_pMainWnd;
+  if(_tmain->m_wndCompileView.CompilationRunning())
   {
-    if(MessageBox("A help file compilation is still running. Do you still wish to exit this application?"
-                 ,"Working..."
+    if(MessageBox(_T("A help file compilation is still running. Do you still wish to exit this application?")
+                 ,_T("Working...")
                  ,MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION) == IDNO)
     {
       canExit = false;
@@ -1185,10 +1185,10 @@ AuthorHTMLApp::SaveAllModified()
   {
     return FALSE;
   }
-  MainFrame* main = reinterpret_cast<MainFrame*>(m_pMainWnd);
-  if(main)
+  MainFrame* _tmain = reinterpret_cast<MainFrame*>(m_pMainWnd);
+  if(_tmain)
   {
-    SaveState(main,"Layout");
+    SaveState(_tmain,_T("Layout"));
   }
   return TRUE;
 }
@@ -1233,25 +1233,25 @@ AboutDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
   m_edit.SetTextMode(TM_RICHTEXT);
-  m_text = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1043{\\fonttbl{\\f0\\fnil\\fprq1\\fcharset238 r_eeurope;}{\\f1\\fnil\\fcharset0 Calibri;}}\n"
-           "{\\colortbl ;\\red163\\green21\\blue21;}\n"
-           "\\viewkind4\\uc1\\pard\\sl240\\slmult1\\cf1\\b\\f0\\fs20 AUTHOR DOCUMENTATION\\par\\par\n"
-           "\\b0 A authoring tool for writing of\\par on-line documentation. Contains\\par\n"
-           "complete single-source genera-\\par tion of on-line help systems.\\par\n"
-           "\\par"
-           "\\b Active subsystems:\\par\n"
-           "\\b0 - CSS Parser\\par\n"
-           "- XML Parser\\par\n"
-           "- HTML 4.1 cleaner\\par\n"
-           "- Microsoft CHM compiler\\par\n"
-           "- Scintilla editor\\par\n"
-           "- Skinning engine\\par\n"
-           "\\par"
-           "\\b Version: \\b0 " VERSION_NUMBER "\\cf0\\par\n"
-           "\\cf1\\b Build: \\f1      \\b0\\f0 " STRINGIZE(BUILD_NUMBER) "\\par\n"
-           "\\cf0\\par\n"
-           "\\cf1\\b Dates: \\b0 " VERSION_DATES "\\par\n"
-           "Written by: ir. W.E. Huisman\\cf0\\lang19\\f1\\fs22\\par";
+  m_text = _T("{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1043{\\fonttbl{\\f0\\fnil\\fprq1\\fcharset238 r_eeurope;}{\\f1\\fnil\\fcharset0 Calibri;}}\n")
+           _T("{\\colortbl ;\\red163\\green21\\blue21;}\n")
+           _T("\\viewkind4\\uc1\\pard\\sl240\\slmult1\\cf1\\b\\f0\\fs20 AUTHOR DOCUMENTATION\\par\\par\n")
+           _T("\\b0 A authoring tool for writing of\\par on-line documentation. Contains\\par\n")
+           _T("complete single-source genera-\\par tion of on-line help systems.\\par\n")
+           _T("\\par")
+           _T("\\b Active subsystems:\\par\n")
+           _T("\\b0 - CSS Parser\\par\n")
+           _T("- XML Parser\\par\n")
+           _T("- HTML 4.1 cleaner\\par\n")
+           _T("- Microsoft CHM compiler\\par\n")
+           _T("- Scintilla editor\\par\n")
+           _T("- Skinning engine\\par\n")
+           _T("\\par")
+           _T("\\b Version: \\b0 ") VERSION_NUMBER _T("\\cf0\\par\n")
+           _T("\\cf1\\b Build: \\f1      \\b0\\f0 ") STRINGIZE(BUILD_NUMBER) _T("\\par\n")
+           _T("\\cf0\\par\n")
+           _T("\\cf1\\b Dates: \\b0 ") VERSION_DATES _T("\\par\n")
+           _T("Written by: ir. W.E. Huisman\\cf0\\lang19\\f1\\fs22\\par");
         
   m_edit.ReplaceSel(m_text);
   UpdateData(FALSE);

@@ -34,39 +34,39 @@ HtmlImg::SetProperty(eAction e_Action, CString s_Value)
                     {
                       m_Style.SetProperty(HtmlStyle::P_Border,s_Value);
                     }
-                    SetAttribute("border",s_Value);
+                    SetAttribute(_T("border"),s_Value);
                     break;
     case E_Width:   if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_Width,s_Value);
                     }
-                    SetAttribute("width",s_Value);
+                    SetAttribute(_T("width"),s_Value);
                     break;
     case E_Height:  if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_Height,s_Value);
                     }
-                    SetAttribute("height",s_Value);
+                    SetAttribute(_T("height"),s_Value);
                     break;
     case E_HorPad:  if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_PaddingLeft, s_Value);
                       m_Style.SetProperty(HtmlStyle::P_PaddingRight,s_Value);
                     }
-                    SetAttribute("hspace",s_Value);
+                    SetAttribute(_T("hspace"),s_Value);
                     break;
     case E_VerPad:  if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_PaddingTop,   s_Value);
                       m_Style.SetProperty(HtmlStyle::P_PaddingBottom,s_Value);
                     }
-                    SetAttribute("vspace",s_Value);
+                    SetAttribute(_T("vspace"),s_Value);
                     break;
     case E_Align:   if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_VerticalAlign,s_Value);
                     }
-                    SetAttribute("align",s_Value);
+                    SetAttribute(_T("align"),s_Value);
                     break;
   }
 }
@@ -85,7 +85,7 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("border");
+                    return GetAttribute(_T("border"));
     case E_Width:   if(m_Style.Valid())
                     {
                       prop = m_Style.GetProperty(HtmlStyle::P_Width);
@@ -94,7 +94,7 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("width");
+                    return GetAttribute(_T("width"));
     case E_Height:  if(m_Style.Valid())
                     {
                       prop = m_Style.GetProperty(HtmlStyle::P_Height);
@@ -103,7 +103,7 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("height");
+                    return GetAttribute(_T("height"));
     case E_HorPad:  if(m_Style.Valid())
                     {
                       prop = m_Style.GetProperty(HtmlStyle::P_PaddingLeft);
@@ -117,7 +117,7 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("hspace");
+                    return GetAttribute(_T("hspace"));
     case E_VerPad:  if(m_Style.Valid())
                     {
                       prop = m_Style.GetProperty(HtmlStyle::P_PaddingTop);
@@ -131,7 +131,7 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("vspace");
+                    return GetAttribute(_T("vspace"));
     case E_Align:   if(m_Style.Valid())
                     {
                       prop = m_Style.GetProperty(HtmlStyle::P_VerticalAlign);
@@ -140,9 +140,9 @@ HtmlImg::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("align");
+                    return GetAttribute(_T("align"));
   }
-  return "";
+  return _T("");
 }
 
 CString 
@@ -151,7 +151,7 @@ HtmlImg::GetSrc()
   // Get the source of the image with an exact value scan
   // Otherwise it will get an ABSOLUTE path for free, which we don't want.
   // ->get_src and ->get_href alsoo are getting ABSOLUTE path translations
-  return GetAttribute("src",EXACT_VALUE);
+  return GetAttribute(_T("src"),EXACT_VALUE);
 }
 
 CString 
@@ -160,7 +160,7 @@ HtmlImg::GetDynSrc()
   // Get the source of the image with an exact value scan
   // Otherwise it will get an ABSOLUTE path for free, which we don't want.
   // ->get_src and ->get_href alsoo are getting ABSOLUTE path translations
-  return GetAttribute("dynsrc",EXACT_VALUE);
+  return GetAttribute(_T("dynsrc"),EXACT_VALUE);
 }
 
 CString 
@@ -169,7 +169,7 @@ HtmlImg::GetLowSrc()
   // Get the source of the image with an exact value scan
   // Otherwise it will get an ABSOLUTE path for free, which we don't want.
   // ->get_src and ->get_href alsoo are getting ABSOLUTE path translations
-  return GetAttribute("lowsrc",EXACT_VALUE);
+  return GetAttribute(_T("lowsrc"),EXACT_VALUE);
 }
 
 BOOL 
@@ -178,7 +178,7 @@ HtmlImg::SetSrc(CString s_Src)
   // Set the source of an image with a set-attribute and not with the
   // ->set_src or ->set_href methods. These latter will do ABSOLUTE path translations
   // which we cannot use!!!
-  return SetAttribute("src",s_Src);
+  return SetAttribute(_T("src"),s_Src);
 }
 
 BOOL 
@@ -187,7 +187,7 @@ HtmlImg::SetLowSrc(CString s_Src)
   // Set the source of an image with a set-attribute and not with the
   // ->set_src or ->set_href methods. These latter will do ABSOLUTE path translations
   // which we cannot use!!!
-  return SetAttribute("lowsrc",s_Src);
+  return SetAttribute(_T("lowsrc"),s_Src);
 }
 
 BOOL 
@@ -196,41 +196,41 @@ HtmlImg::SetDynSrc(CString s_Src)
   // Set the source of an image with a set-attribute and not with the
   // ->set_src or ->set_href methods. These latter will do ABSOLUTE path translations
   // which we cannot use!!!
-  return SetAttribute("dynsrc",s_Src);
+  return SetAttribute(_T("dynsrc"),s_Src);
 }
 
 CString 
 HtmlImg::GetAlt()
 {
-  return GetAttribute("alt");
+  return GetAttribute(_T("alt"));
 }
 
 BOOL    
 HtmlImg::SetAlt(CString s_ALt)
 {
-  return SetAttribute("alt",s_ALt);
+  return SetAttribute(_T("alt"),s_ALt);
 }
 
 CString 
 HtmlImg::GetStart()
 {
-  return GetAttribute("start");
+  return GetAttribute(_T("start"));
 }
 
 BOOL
 HtmlImg::SetStart(CString sStart)
 {
-  return SetAttribute("start",sStart);
+  return SetAttribute(_T("start"),sStart);
 }
 
 CString 
 HtmlImg::GetLoop()
 {
-  return GetAttribute("loop");
+  return GetAttribute(_T("loop"));
 }
 
 BOOL    
 HtmlImg::SetLoop(CString sLoop)
 {
-  return SetAttribute("loop",sLoop);
+  return SetAttribute(_T("loop"),sLoop);
 }

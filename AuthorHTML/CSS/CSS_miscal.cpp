@@ -13,11 +13,11 @@ CssStyleSheet::escaped(const XString &istring, const size_t pos)
   {
     return false;
   }
-	return !(s_at(istring,pos-1) != '\\' || escaped(istring,pos-1));
+	return !(s_at(istring,pos-1) != _T('\\') || escaped(istring,pos-1));
 }
 
 // Save replacement for .at()
-char
+TCHAR
 CssStyleSheet::s_at(const XString &istring, const size_t pos)
 {
 	if(pos > (istring.length()-1) && pos < 0)
@@ -47,7 +47,7 @@ CssStyleSheet::explode(const XString e,XString s, const bool check)
 		iPos = s.find(e, 0);
 	}
 
- 	if(s != "" || check)
+ 	if(s != _T("") || check)
  	{
 		ret.push_back(s);
 	}
@@ -125,9 +125,9 @@ CssStyleSheet::str_replace(const vector<XString>& find, const XString replace, X
 
 
 bool 
-CssStyleSheet::in_char_arr(const char* haystack, const char needle)
+CssStyleSheet::in_char_arr(const TCHAR* haystack, const TCHAR needle)
 {
-	for(size_t i = 0; i < strlen(haystack); ++i)
+	for(size_t i = 0; i < _tcslen(haystack); ++i)
 	{
 		if(haystack[i] == needle)
 		{
@@ -138,7 +138,7 @@ CssStyleSheet::in_char_arr(const char* haystack, const char needle)
 }
 
 bool
-CssStyleSheet::in_str_array(const XString& haystack, const char needle)
+CssStyleSheet::in_str_array(const XString& haystack, const TCHAR needle)
 {
 	return (haystack.find_first_of(needle,0) != XString::npos);
 }
@@ -159,11 +159,11 @@ CssStyleSheet::in_str_array(const vector<XString>& haystack, const XString needl
 XString
 CssStyleSheet::htmlspecialchars(XString istring, int quotes)
 {
-	istring = str_replace("&","&amp;",istring);
-	istring = str_replace("<","&lt;", istring);
-	istring = str_replace(">","&gt;", istring);
-	if(quotes > 0) istring = str_replace("\"","&quot;",istring);
-	if(quotes > 1) istring = str_replace("'","&#039;", istring);
+	istring = str_replace(_T("&"),_T("&amp;"),istring);
+	istring = str_replace(_T("<"),_T("&lt;"), istring);
+	istring = str_replace(_T(">"),_T("&gt;"), istring);
+	if(quotes > 0) istring = str_replace(_T("\""),_T("&quot;"),istring);
+	if(quotes > 1) istring = str_replace(_T("'"), _T("&#039;"),istring);
 	return istring;
 }
 
@@ -181,43 +181,43 @@ CssStyleSheet::cssmax(const int i1, const int i2)
 }
 
 bool 
-CssStyleSheet::ctype_space(const char c)
+CssStyleSheet::ctype_space(const TCHAR c)
 {
-	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == 11);
+	return (c == _T(' ') || c == _T('\t') || c == _T('\r') || c == _T('\n') || c == 11);
 }
 
 bool 
-CssStyleSheet::ctype_digit(const char c)
+CssStyleSheet::ctype_digit(const TCHAR c)
 {
-	return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
+	return (c == _T('0') || c == _T('1') || c == _T('2') || c == _T('3') || c == _T('4') || c == _T('5') || c == _T('6') || c == _T('7') || c == _T('8') || c == _T('9'));
 }
 
 vector<XString>
 CssStyleSheet::unserialise_sa(const XString istring)
 {
-	size_t strlen = istring.length();
+	size_t _tcslen = istring.length();
 	size_t strpos = 0;
 	vector<XString> ret;
 
-	while(strlen > 0)
+	while(_tcslen > 0)
 	{
-		XString digit_tmp = "";
+		XString digit_tmp = _T("");
 		for(size_t i = strpos; ctype_digit(s_at(istring,i)); i++)
 		{
 			digit_tmp += istring[i];
-			--strlen; ++strpos;
+			--_tcslen; ++strpos;
 		}
 		// :
-		--strlen; ++strpos;
+		--_tcslen; ++strpos;
 
 		size_t next_length = static_cast<size_t>(str2f(digit_tmp));
 		next_length += strpos;
 
-		XString string_tmp = "";
+		XString string_tmp = _T("");
 		for(size_t i = strpos; (i < istring.length() && i < next_length); i++)
 		{
 			string_tmp += istring[i];
-			--strlen; ++strpos;
+			--_tcslen; ++strpos;
 		}
 		ret.push_back(string_tmp);
 	}
@@ -227,24 +227,24 @@ CssStyleSheet::unserialise_sa(const XString istring)
 XString
 CssStyleSheet::serialise_sa(const XString istring)
 {
-	return f2str((float) istring.length()) + ":" + istring;
+	return f2str((float) istring.length()) + _T(":") + istring;
 }
 
 bool 
-CssStyleSheet::ctype_xdigit(char c)
+CssStyleSheet::ctype_xdigit(TCHAR c)
 {
 	c = chartolower(c);
-	return (ctype_digit(c) || c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f');
+	return (ctype_digit(c) || c == _T('a') || c == _T('b') || c == _T('c') || c == _T('d') || c == _T('e') || c == _T('f'));
 }
 
 bool 
-CssStyleSheet::ctype_alpha(char c)
+CssStyleSheet::ctype_alpha(TCHAR c)
 {
 	c = chartolower(c);
-	return (c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f' || c == 'g' || 
-          c == 'h' || c == 'i' || c == 'j' || c == 'k' || c == 'l' || c == 'm' || c == 'n' || 
-          c == 'o' || c == 'p' || c == 'q' || c == 'r' || c == 's' || c == 't' || c == 'u' || 
-          c == 'v' || c == 'w' || c == 'x' || c == 'y' || c == 'z');
+	return (c == _T('a') || c == _T('b') || c == _T('c') || c == _T('d') || c == _T('e') || c == _T('f') || c == _T('g') || 
+          c == _T('h') || c == _T('i') || c == _T('j') || c == _T('k') || c == _T('l') || c == _T('m') || c == _T('n') || 
+          c == _T('o') || c == _T('p') || c == _T('q') || c == _T('r') || c == _T('s') || c == _T('t') || c == _T('u') || 
+          c == _T('v') || c == _T('w') || c == _T('x') || c == _T('y') || c == _T('z'));
 }
 
 
@@ -261,37 +261,37 @@ CssStyleSheet::strtolower(XString istring)
   return istring;
 }
 
-char 
-CssStyleSheet::chartolower(const char c)
+TCHAR 
+CssStyleSheet::chartolower(const TCHAR c)
 {
   switch(c)
   {
-  case 'A': return 'a';
-  case 'B': return 'b';
-  case 'C': return 'c';
-  case 'D': return 'd';
-  case 'E': return 'e';
-  case 'F': return 'f';
-  case 'G': return 'g';
-  case 'H': return 'h';
-  case 'I': return 'i';
-  case 'J': return 'j';
-  case 'K': return 'k';
-  case 'L': return 'l';
-  case 'M': return 'm';
-  case 'N': return 'n';
-  case 'O': return 'o';
-  case 'P': return 'p';
-  case 'Q': return 'q';
-  case 'R': return 'r';
-  case 'S': return 's';
-  case 'T': return 't';
-  case 'U': return 'u';
-  case 'V': return 'v';
-  case 'W': return 'w';
-  case 'X': return 'x';
-  case 'Y': return 'y';
-  case 'Z': return 'z';
+  case _T('A'): return _T('a');
+  case _T('B'): return _T('b');
+  case _T('C'): return _T('c');
+  case _T('D'): return _T('d');
+  case _T('E'): return _T('e');
+  case _T('F'): return _T('f');
+  case _T('G'): return _T('g');
+  case _T('H'): return _T('h');
+  case _T('I'): return _T('i');
+  case _T('J'): return _T('j');
+  case _T('K'): return _T('k');
+  case _T('L'): return _T('l');
+  case _T('M'): return _T('m');
+  case _T('N'): return _T('n');
+  case _T('O'): return _T('o');
+  case _T('P'): return _T('p');
+  case _T('Q'): return _T('q');
+  case _T('R'): return _T('r');
+  case _T('S'): return _T('s');
+  case _T('T'): return _T('t');
+  case _T('U'): return _T('u');
+  case _T('V'): return _T('v');
+  case _T('W'): return _T('w');
+  case _T('X'): return _T('x');
+  case _T('Y'): return _T('y');
+  case _T('Z'): return _T('z');
   default: return c;
   }
 }
@@ -332,11 +332,11 @@ CssStyleSheet::dechex(const int i)
     int remainder = number % 16;
     if(remainder < 10)
     {
-      result += XString((char)(remainder + '0'),1);
+      result += XString((TCHAR)(remainder + _T('0')),1);
     }
     else
     {
-      result += XString((char)(remainder + 'a' - 10),1);
+      result += XString((TCHAR)(remainder + _T('a') - 10),1);
     }
     number /= 16;
   }
@@ -353,24 +353,24 @@ CssStyleSheet::hexdec(XString istring)
   for(size_t i = istring.length()-1; i >= 0; --i)
   {
     int num = 0;
-    switch(tolower(istring[i]))
+    switch(_totlower(istring[i]))
     {
-      case 'a': num = 10; break;
-      case 'b': num = 11; break;
-      case 'c': num = 12; break;
-      case 'd': num = 13; break;
-      case 'e': num = 14; break;
-      case 'f': num = 15; break;
-      case '1': num = 1;  break;
-      case '2': num = 2;  break;
-      case '3': num = 3;  break;
-      case '4': num = 4;  break;
-      case '5': num = 5;  break;
-      case '6': num = 6;  break;
-      case '7': num = 7;  break;
-      case '8': num = 8;  break;
-      case '9': num = 9;  break;
-      case '0': num = 0;  break;
+      case _T('a'): num = 10; break;
+      case _T('b'): num = 11; break;
+      case _T('c'): num = 12; break;
+      case _T('d'): num = 13; break;
+      case _T('e'): num = 14; break;
+      case _T('f'): num = 15; break;
+      case _T('1'): num = 1;  break;
+      case _T('2'): num = 2;  break;
+      case _T('3'): num = 3;  break;
+      case _T('4'): num = 4;  break;
+      case _T('5'): num = 5;  break;
+      case _T('6'): num = 6;  break;
+      case _T('7'): num = 7;  break;
+      case _T('8'): num = 8;  break;
+      case _T('9'): num = 9;  break;
+      case _T('0'): num = 0;  break;
     }
     ret += num * pow((double) 16, (double) istring.length()-i-1);
   }
@@ -382,9 +382,9 @@ CssStyleSheet::f2str(const float f)
 {
   XString buffer;
 
-  buffer.Format("%f",f);
-  buffer.TrimRight('0');
-  buffer.TrimRight('.');
+  buffer.Format(_T("%f"),f);
+  buffer.TrimRight(_T('0'));
+  buffer.TrimRight(_T('.'));
 
   return buffer;
 }
@@ -392,17 +392,17 @@ CssStyleSheet::f2str(const float f)
 float
 CssStyleSheet::str2f(const XString istring)
 {
-  return (float) atof(istring.c_str());
+  return (float) _tstof(istring.c_str());
 }
 
 XString
-CssStyleSheet::char2str(const char c)
+CssStyleSheet::char2str(const TCHAR c)
 {
   return XString(c,1);
 }
 
 XString
-CssStyleSheet::char2str(const char *c)
+CssStyleSheet::char2str(const TCHAR *c)
 {
   return XString(c);
 }
@@ -412,14 +412,14 @@ CssStyleSheet::char2str(const char *c)
 const XString
 CssStyleSheet::trim(const XString istring)
 {
-  XString::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
+  XString::size_type first = istring.find_first_not_of(_T(" \n\t\r\0xb"));
   if (first == XString::npos)
   {
     return XString();
   }
   else
   {
-    XString::size_type last = istring.find_last_not_of(" \n\t\r\0xb");
+    XString::size_type last = istring.find_last_not_of(_T(" \n\t\r\0xb"));
     return istring.substr( first, last - first + 1);
   }
 }
@@ -427,7 +427,7 @@ CssStyleSheet::trim(const XString istring)
 const XString
 CssStyleSheet::ltrim(const XString istring)
 {
-  XString::size_type first = istring.find_first_not_of(" \n\t\r\0xb");
+  XString::size_type first = istring.find_first_not_of(_T(" \n\t\r\0xb"));
   if (first == XString::npos)
   {
     return XString();
@@ -442,7 +442,7 @@ CssStyleSheet::ltrim(const XString istring)
 const XString
 CssStyleSheet::rtrim(const XString istring)
 {
-  XString::size_type last = istring.find_last_not_of(" \n\t\r\0xb"); /// must succeed
+  XString::size_type last = istring.find_last_not_of(_T(" \n\t\r\0xb")); /// must succeed
   return istring.substr( 0, last + 1);
 }
 
@@ -461,15 +461,15 @@ CssStyleSheet::strip_tags(XString istring)
 
   for(size_t i = 0; i < istring.length(); i++)
   {
-    if(istring[i] != '<' && !intag)
+    if(istring[i] != _T('<') && !intag)
     {
       new_string += istring[i];
     }
-    if(istring[i] == '<' && !intag)
+    if(istring[i] == _T('<') && !intag)
     {
       intag = true;
     }
-    if(istring[i] == '>' && intag)
+    if(istring[i] == _T('>') && intag)
     {
       intag = false;
     }			
@@ -485,10 +485,10 @@ CssStyleSheet::is_important(XString value)
   // Remove whitespaces
   value = rtrim(strtolower(value));
 
-  if(value.length() > 9 && value.substr(value.length()-9,9) == "important")
+  if(value.length() > 9 && value.substr(value.length()-9,9) == _T("important"))
   {
     value = rtrim(value.substr(0,value.length()-9));
-    if(value.substr(value.length()-1,1) == "!") 
+    if(value.substr(value.length()-1,1) == _T("!")) 
     {
       return true;
     }
@@ -516,7 +516,7 @@ CssStyleSheet::c_important(XString value)
 {
   if(is_important(value))
   {
-    value = gvw_important(value) + " !important";
+    value = gvw_important(value) + _T(" !important");
   }
   return value;
 }

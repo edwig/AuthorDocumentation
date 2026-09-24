@@ -33,13 +33,13 @@ SettingsManager::ReadSettings()
   HKEY  hkUserURL;
   DWORD dwIndex = 0;
   DWORD dwType  = 0;
-  TCHAR buffName[BUFF_LEN];
-  BYTE  buffData[BUFF_LEN];
+  TCHAR buffName[BUFF_LEN + 10];
+  BYTE  buffData[BUFF_LEN * sizeof(TCHAR) + 10];
   DWORD dwNameSize;
   DWORD dwDataSize;
 
   DWORD dwErr = RegOpenKeyEx(HKEY_CURRENT_USER
-                            ,_T("Software\\" REGISTER_APP "\\AuthorHTML\\Settings")
+                            ,_T("Software\\") _T(REGISTER_APP) _T("\\AuthorHTML\\Settings")
                             ,0
                             ,KEY_QUERY_VALUE
                             ,&hkUserURL);
@@ -61,6 +61,7 @@ SettingsManager::ReadSettings()
       if(dwErr == ERROR_SUCCESS && dwType == REG_SZ)
       {
         // Add to settings map
+        buffData[dwDataSize] = 0;
         CString setting = buffName;
         CString value   = buffData;
         m_allSettings.insert(std::make_pair(setting,value));
@@ -81,7 +82,7 @@ SettingsManager::WriteSettings()
   HKEY  hkUserURL;
 
   DWORD dwErr = RegOpenKeyEx(HKEY_CURRENT_USER
-                            ,_T("Software\\" REGISTER_APP "\\AuthorHTML\\Settings")
+                            ,_T("Software\\") _T(REGISTER_APP) _T("\\AuthorHTML\\Settings")
                             ,0
                             ,KEY_SET_VALUE
                             ,&hkUserURL);
@@ -95,14 +96,14 @@ SettingsManager::WriteSettings()
     {
       setting = it->first;
       value   = it->second;
-      BYTE  buffData[BUFF_LEN];
-      strncpy_s((char*)buffData,BUFF_LEN,value,BUFF_LEN);
+      BYTE  buffData[BUFF_LEN * sizeof(TCHAR) + 10];
+      _tcsncpy_s((TCHAR*)buffData,BUFF_LEN,value.GetString(),BUFF_LEN);
       dwErr = RegSetValueEx(hkUserURL
                            ,setting
                            ,0
                            ,REG_SZ
                            ,buffData
-                           ,(DWORD)strlen(value));
+                           ,(DWORD)_tcslen(value));
     }
     RegCloseKey(hkUserURL);
   }
@@ -149,7 +150,7 @@ SettingsManager::ChangeCHMRestrictions(int p_allow, bool p_64bit)
   if(dwErr == ERROR_SUCCESS)
   {
     dwErr = RegSetValueEx(hkUserURL
-                         ,"MaxAllowedZone"
+                         ,_T("MaxAllowedZone")
                          ,0
                          ,REG_DWORD
                          ,(const BYTE*) &p_allow

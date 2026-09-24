@@ -67,18 +67,18 @@ ProjectFile::Reset()
   m_broken.clear();
 
   //m_baseDir                 = "";
-  m_compiledName            = "";
-  m_title                   = "";
-  m_contentsFile            = "";
-  m_indexFile               = "";
-  m_defaultTopic            = "";
-  m_defaultWindow           = "";
-  m_errorLogFile            = "";
-  m_customTab               = "";
-  m_compatibility           = "";
-  m_defaultFont             = "";
-  m_language                = "";
-  m_stopFile                = "";
+  m_compiledName            = _T("");
+  m_title                   = _T("");
+  m_contentsFile            = _T("");
+  m_indexFile               = _T("");
+  m_defaultTopic            = _T("");
+  m_defaultWindow           = _T("");
+  m_errorLogFile            = _T("");
+  m_customTab               = _T("");
+  m_compatibility           = _T("");
+  m_defaultFont             = _T("");
+  m_language                = _T("");
+  m_stopFile                = _T("");
   m_displayProgress         = false;
   m_displayCompileNotes     = false;
   m_fullTextSearch          = false;
@@ -106,15 +106,15 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
 
   CString file   = Misc::FilenamePart(p_filename);
   CString extens = Misc::ExtensionPart(p_filename);
-  if(extens.Compare(".hhp"))
+  if(extens.Compare(_T(".hhp")))
   {
-    int pos = file.Find('.');
+    int pos = file.Find(_T('.'));
     if(pos > 0)
     {
       file = file.Left(pos);
     }
   }
-  m_projectFilename = base + file + ".hhp";
+  m_projectFilename = base + file + _T(".hhp");
 
   // Changing the TOC (hhc) and Index (hhk) filenames
   CString tocFile;
@@ -123,7 +123,7 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
   if(toc)
   {
     org_toc = toc->GetFilename();
-    m_contentsFile = file + ".hhc";
+    m_contentsFile = file + _T(".hhc");
     tocFile = base + m_contentsFile;
     toc->SetFilename(tocFile);
   }
@@ -131,7 +131,7 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
   if(idx)
   {
     org_index = idx->GetFilename();
-    m_indexFile = file + ".hhk";
+    m_indexFile = file + _T(".hhk");
     idxFile = base + m_indexFile;
     idx->SetFilename(idxFile);
   }
@@ -168,14 +168,14 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
     if(!DeleteFile(org_toc))     deleted = false;
     if(!deleted)
     {
-      theApp.MessageBox("Not all of the original project files (hhp,hhc,hhk) have been removed","Warning",MB_OK|MB_ICONWARNING);
+      theApp.MessageBox(_T("Not all of the original project files (hhp,hhc,hhk) have been removed"),_T("Warning"),MB_OK|MB_ICONWARNING);
     }
   }
   else
   {
-    theApp.MessageBox("The new project files (hhp,hhc,hhk) could not be created.\n"
-                      "The project renaming proces is aborted"
-                     ,"Error"
+    theApp.MessageBox(_T("The new project files (hhp,hhc,hhk) could not be created.\n")
+                      _T("The project renaming proces is aborted")
+                     ,_T("Error")
                      ,MB_OK|MB_ICONERROR);
     m_projectFilename = org_project;
     if(idx && !org_index.IsEmpty())
@@ -194,9 +194,9 @@ ProjectFile::SetCompiledName(CString p_compiled)
 {
   CString compiled(p_compiled);
   compiled.MakeLower();
-  if(compiled.Find(".chm") < 0)
+  if(compiled.Find(_T(".chm")) < 0)
   {
-    p_compiled += ".chm";
+    p_compiled += _T(".chm");
   }
   m_compiledName = p_compiled;
 }
@@ -208,7 +208,7 @@ ProjectFile::WriteProjectFile()
   {
     return false;
   }
-  MainFrame::SetStatusText("Writing project file" + m_projectFilename);
+  MainFrame::SetStatusText(_T("Writing project file") + m_projectFilename);
 
   m_glossary.WriteToFile();
 
@@ -238,14 +238,14 @@ ProjectFile::WriteProjectFile()
   file.Format(_T("Custom tab=%s\n"),      m_customTab.GetString());
   file.Format(_T("Language=%s\n"),        m_language.GetString());
   file.Format(_T("Full text search stop list file=%s\n"), m_stopFile.GetString());
-  file.Format(_T("Display compile progress=%s\n"), m_displayProgress  ? "yes" : "no");
-  file.Format(_T("Display compile notes=%s\n"), m_displayCompileNotes ? "yes" : "no");
-  file.Format(_T("Full-text search=%s\n"),      m_fullTextSearch      ? "yes" : "no");
-  file.Format(_T("Binary index=%s\n"),          m_binaryIndex         ? "yes" : "no");
-  file.Format(_T("Binary TOC=%s\n"),            m_binaryTOC           ? "yes" : "no");
-  file.Format(_T("Auto index=%s\n"),            m_autoIndex           ? "yes" : "no");
-  file.Format(_T("Enhanced decompilation=%s\n"),m_enhancedDecompile   ? "yes" : "no");
-  file.Format(_T("Flat=%s\n"),                  m_flat                ? "yes" : "no");
+  file.Format(_T("Display compile progress=%s\n"), m_displayProgress  ? _T("yes") : _T("no"));
+  file.Format(_T("Display compile notes=%s\n"), m_displayCompileNotes ? _T("yes") : _T("no"));
+  file.Format(_T("Full-text search=%s\n"),      m_fullTextSearch      ? _T("yes") : _T("no"));
+  file.Format(_T("Binary index=%s\n"),          m_binaryIndex         ? _T("yes") : _T("no"));
+  file.Format(_T("Binary TOC=%s\n"),            m_binaryTOC           ? _T("yes") : _T("no"));
+  file.Format(_T("Auto index=%s\n"),            m_autoIndex           ? _T("yes") : _T("no"));
+  file.Format(_T("Enhanced decompilation=%s\n"),m_enhancedDecompile   ? _T("yes") : _T("no"));
+  file.Format(_T("Flat=%s\n"),                  m_flat                ? _T("yes") : _T("no"));
 
   if(m_glossary.HasEntries())
   {
@@ -307,7 +307,7 @@ ProjectFile::ReadProjectFile()
   }
   // Reset everything exept the projectfilename
   Reset();
-  MainFrame::SetStatusText("Reading project file: " + m_projectFilename);
+  MainFrame::SetStatusText(_T("Reading project file: ") + m_projectFilename);
 
   WinFile file(m_projectFilename.GetString());
   file.Open(winfile_read | open_trans_text);
@@ -379,7 +379,7 @@ ProjectFile::ReadProjectFile()
     {
       // OPTIONS IN THE HEADER OF THE PROJECT FILE
       CString value;
-      int assign = buffer.Find('=');
+      int assign = buffer.Find(_T('='));
       if (assign > 0)
       {
         value  = buffer.Mid(assign + 1);
@@ -389,43 +389,43 @@ ProjectFile::ReadProjectFile()
       CString theValue (value);
       int     unsupported = 0;
 
-           if(theOption.CompareNoCase("compiled file")            == 0) m_compiledName        = theValue;
-      else if(theOption.CompareNoCase("compatibility")            == 0) m_compatibility       = theValue;
-      else if(theOption.CompareNoCase("title")                    == 0) m_title               = theValue;
-      else if(theOption.CompareNoCase("contents file")            == 0) m_contentsFile        = theValue;
-      else if(theOption.CompareNoCase("index file")               == 0) m_indexFile           = theValue;
-      else if(theOption.CompareNoCase("default topic")            == 0) m_defaultTopic        = theValue;
-      else if(theOption.CompareNoCase("default window")           == 0) m_defaultWindow       = theValue; 
-      else if(theOption.CompareNoCase("default font")             == 0) m_defaultFont         = theValue;
-      else if(theOption.CompareNoCase("error log file")           == 0) m_errorLogFile        = theValue;
-      else if(theOption.CompareNoCase("custom tab")               == 0) m_customTab           = theValue;
-      else if(theOption.CompareNoCase("language")                 == 0) m_language            = theValue;
-      else if(theOption.CompareNoCase("full text search stop list file") == 0) m_stopFile     = theValue;
-      else if(theOption.CompareNoCase("display compile progress") == 0) m_displayProgress     = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("display compile notes")    == 0) m_displayCompileNotes = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("full-text search")         == 0) m_fullTextSearch      = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("binary index")             == 0) m_binaryIndex         = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("auto index")               == 0) m_autoIndex           = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("Enhanced decompilation")   == 0) m_enhancedDecompile   = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("binary toc")               == 0) m_binaryTOC           = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("flat")                     == 0) m_flat                = (theValue.CompareNoCase("yes")==0 ? true : false);
-      else if(theOption.CompareNoCase("Auto Index")               == 0) unsupported++;
-      else if(theOption.CompareNoCase("Auto TOC")                 == 0) unsupported++;
-      else if(theOption.CompareNoCase("citation")                 == 0) unsupported++;
-      else if(theOption.CompareNoCase("compress")                 == 0) unsupported++;
-      else if(theOption.CompareNoCase("copyright")                == 0) unsupported++;
-      else if(theOption.CompareNoCase("create chi file")          == 0) unsupported++;
-      else if(theOption.CompareNoCase("DBCS")                     == 0) unsupported++;
-      else if(theOption.CompareNoCase("ignore")                   == 0) unsupported++;
-      else if(theOption.CompareNoCase("prefix")                   == 0) unsupported++;
-      else if(theOption.CompareNoCase("sample staging path")      == 0) unsupported++;
-      else if(theOption.CompareNoCase("sample list file")         == 0) unsupported++;
-      else if(theOption.CompareNoCase("tmpdir")                   == 0) unsupported++;
+           if(theOption.CompareNoCase(_T("compiled file"))            == 0) m_compiledName        = theValue;
+      else if(theOption.CompareNoCase(_T("compatibility"))            == 0) m_compatibility       = theValue;
+      else if(theOption.CompareNoCase(_T("title"))                    == 0) m_title               = theValue;
+      else if(theOption.CompareNoCase(_T("contents file"))            == 0) m_contentsFile        = theValue;
+      else if(theOption.CompareNoCase(_T("index file"))               == 0) m_indexFile           = theValue;
+      else if(theOption.CompareNoCase(_T("default topic"))            == 0) m_defaultTopic        = theValue;
+      else if(theOption.CompareNoCase(_T("default window"))           == 0) m_defaultWindow       = theValue; 
+      else if(theOption.CompareNoCase(_T("default font"))             == 0) m_defaultFont         = theValue;
+      else if(theOption.CompareNoCase(_T("error log file"))           == 0) m_errorLogFile        = theValue;
+      else if(theOption.CompareNoCase(_T("custom tab"))               == 0) m_customTab           = theValue;
+      else if(theOption.CompareNoCase(_T("language"))                 == 0) m_language            = theValue;
+      else if(theOption.CompareNoCase(_T("full text search stop list file")) == 0) m_stopFile     = theValue;
+      else if(theOption.CompareNoCase(_T("display compile progress")) == 0) m_displayProgress     = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("display compile notes"))    == 0) m_displayCompileNotes = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("full-text search"))         == 0) m_fullTextSearch      = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("binary index"))             == 0) m_binaryIndex         = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("auto index"))               == 0) m_autoIndex           = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("Enhanced decompilation"))   == 0) m_enhancedDecompile   = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("binary toc"))               == 0) m_binaryTOC           = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("flat"))                     == 0) m_flat                = (theValue.CompareNoCase(_T("yes"))==0 ? true : false);
+      else if(theOption.CompareNoCase(_T("Auto Index"))               == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("Auto TOC"))                 == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("citation"))                 == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("compress"))                 == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("copyright"))                == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("create chi file"))          == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("DBCS"))                     == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("ignore"))                   == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("prefix"))                   == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("sample staging path"))      == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("sample list file"))         == 0) unsupported++;
+      else if(theOption.CompareNoCase(_T("tmpdir"))                   == 0) unsupported++;
       else 
       {
         CString message;
-        message.Format("Unknown option in HHP file: %s\n"
-                       "We will continue reading the project file, but you must repair it by hand!"
+        message.Format(_T("Unknown option in HHP file: %s\n")
+                       _T("We will continue reading the project file, but you must repair it by hand!")
                       ,theOption.GetString());
         theApp.ErrorMessage(message);
       }
@@ -448,7 +448,7 @@ ProjectFile::ReadProjectFile()
     {
       // Every line now refers to a file
       // ADD A FILE REFERENCE to a HTM(L) FILE or a payload file
-      AddDocumentFile("",buffer.GetString());
+      AddDocumentFile(_T(""),buffer.GetString());
     }
     else if(aliases)
     {
@@ -477,22 +477,22 @@ ProjectFile::ReadProjectFile()
   // General checks for AuthorDocumentation
   if(m_flat)
   {
-    theApp.MessageBox("The 'flat' compile option was set but can never be used by AuthorDocumentation.\n"
-                      "This is an option that removes the folder structures from a compiled help file.\n"
-                      "AuthorDocumentation cannot cope with this option in inter-file jumps,\n"
-                      "therefore this option will now be reset to false"
-                     ,"Warning"
+    theApp.MessageBox(_T("The 'flat' compile option was set but can never be used by AuthorDocumentation.\n")
+                      _T("This is an option that removes the folder structures from a compiled help file.\n")
+                      _T("AuthorDocumentation cannot cope with this option in inter-file jumps,\n")
+                      _T("therefore this option will now be reset to false")
+                     ,_T("Warning")
                      ,MB_OK|MB_ICONWARNING|MB_TASKMODAL);
     m_flat = false;
   }
-  if(m_compatibility.IsEmpty() || m_compatibility.CompareNoCase("1.1 or later"))
+  if(m_compatibility.IsEmpty() || m_compatibility.CompareNoCase(_T("1.1 or later")))
   {
-    m_compatibility = "1.1 or later";
+    m_compatibility = _T("1.1 or later");
     m_needSaving = true;
   }
   if(m_errorLogFile.IsEmpty())
   {
-    m_errorLogFile = "CompileErrors.log";
+    m_errorLogFile = _T("CompileErrors.log");
     m_needSaving = true;
   }
   m_displayProgress     = true;
@@ -505,13 +505,13 @@ bool
 ProjectFile::CheckBrokenLink(CString& p_dir,CString& p_reldir, CString& p_file)
 {
   CString fullpath = p_dir + p_reldir + p_file;
-  if(_access(fullpath,04) == 0)
+  if(_taccess(fullpath,04) == 0)
   {
     // File exists. No problems
     return false;
   }
   // Link to an external source
-  if((p_file.Find("http") == 0) || (p_file.Find("mailto:") == 0))
+  if((p_file.Find(_T("http")) == 0) || (p_file.Find(_T("mailto:")) == 0))
   {
     return true;
   }
@@ -530,14 +530,14 @@ ProjectFile::AddDocumentFile(CString p_relativeDirectory,CString sHtmlFile,bool 
   CString file = Misc::RemoveBasePart(m_baseDir,sHtmlFile);
   file = Misc::StripFileProtocol(file);
 
-  char extension[_MAX_EXT+1];
-  _splitpath(sHtmlFile.GetString(),NULL,NULL,NULL,extension);
-  if((stricmp(extension,".htm")  == 0) ||
-     (stricmp(extension,".html") == 0) )
+  TCHAR extension[_MAX_EXT+1];
+  _tsplitpath(sHtmlFile.GetString(),NULL,NULL,NULL,extension);
+  if((_tcsicmp(extension,_T(".htm"))  == 0) ||
+     (_tcsicmp(extension,_T(".html")) == 0) )
   {
     payload = false;
   }
-  if(stricmp(extension,".glo") == 0)
+  if(_tcsicmp(extension,_T(".glo")) == 0)
   {
     // Glossary does not goes with the payloads
     return false;
@@ -713,10 +713,10 @@ ProjectFile::AddExistingDocument(CString htmlFile)
   CString file = Misc::RemoveBasePart(m_baseDir,htmlFile);
   file = Misc::StripFileProtocol(file);
 
-  char extension[_MAX_EXT+1];
-  _splitpath(htmlFile.GetString(),NULL,NULL,NULL,extension);
-  if((stricmp(extension,".htm")  == 0) ||
-     (stricmp(extension,".html") == 0) )
+  TCHAR extension[_MAX_EXT+1];
+  _tsplitpath(htmlFile.GetString(),NULL,NULL,NULL,extension);
+  if((_tcsicmp(extension,_T(".htm"))  == 0) ||
+     (_tcsicmp(extension,_T(".html")) == 0) )
   {
     payload = false;
   }
@@ -770,8 +770,8 @@ ProjectFile::SwipeProject()
     m_blockSwipeOnce = false;
     return;
   }
-  MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-  MainFrame::SetStatusText("Swiping the project");
+  MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+  MainFrame::SetStatusText(_T("Swiping the project"));
 
   DocumentMap::iterator it = m_documents.begin();
   int count = m_documents.size();
@@ -789,7 +789,7 @@ ProjectFile::SwipeProject()
 
     // Get document name
     CString fileName = m_baseDir + docfile->GetFilename();
-    CString text = "Scanning: ";
+    CString text = _T("Scanning: ");
     text += fileName;
     // Show in sweep dialog
     dlg.Increment();
@@ -817,20 +817,20 @@ ProjectFile::SwipeProject()
     // Should reconsider HTML pages on compile for auto index
     if(!m_binaryIndex)
     {
-      theApp.MessageBox("This project was not set to do have a binary index for keyword-lookup.\n"
-                        "However: topic index keywords were found in the project on at least one page.\n"
-                        "The project is therefore reset to have a binary index"
-                       ,"Warning"
+      theApp.MessageBox(_T("This project was not set to do have a binary index for keyword-lookup.\n")
+                        _T("However: topic index keywords were found in the project on at least one page.\n")
+                        _T("The project is therefore reset to have a binary index")
+                       ,_T("Warning")
                        ,MB_OK|MB_ICONWARNING|MB_TASKMODAL);
       m_binaryIndex = true;
       m_needSaving = true;
     }
     if(!m_autoIndex)
     {
-      theApp.MessageBox("This project was not set to reconsider auto indexing in a compile.\n"
-                        "However: topic index keywords were found in the project on at least one page.\n"
-                        "The project is therefore reset to do auto indexing in a help compile.\n"
-                       ,"Warning"
+      theApp.MessageBox(_T("This project was not set to reconsider auto indexing in a compile.\n")
+                        _T("However: topic index keywords were found in the project on at least one page.\n")
+                        _T("The project is therefore reset to do auto indexing in a help compile.\n")
+                       ,_T("Warning")
                        ,MB_OK|MB_ICONWARNING|MB_TASKMODAL);
       m_autoIndex   = true;
       m_needSaving = true;
@@ -839,11 +839,11 @@ ProjectFile::SwipeProject()
   // Display the results of the sweep in the project file
   // This must be done after reading of all HHP, HHC and HHK and 
   // the sweeping of all HTML files. (so we know all TOC and index dispositions)
-  if(main->m_wndProjectView)
+  if(_tmain->m_wndProjectView)
   {
-    main->GetProjectView()->LoadProjectFile();
+    _tmain->GetProjectView()->LoadProjectFile();
   }
-  MainFrame::SetStatusText("");
+  MainFrame::SetStatusText(_T(""));
   /*
   if(errors || warnings)
   {
@@ -887,7 +887,8 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   tidySetOutCharEncoding(tdoc,"utf8");
   tidyOptSetInt(tdoc,TidyOutputBOM,1);
 
-  status = tidyParseFile( tdoc, filename);
+  CStringA filenameA(filename);
+  status = tidyParseFile(tdoc,filenameA);
   if ( status >= 0 )
   {
     status = tidyCleanAndRepair( tdoc );
@@ -909,7 +910,7 @@ ProjectFile::TidyFile(DocumentFile* docfile,CString filename)
   GetDocumentBody(docfile,tdoc);
 
   // Saving
-  status = tidySaveFile( tdoc, filename);
+  status = tidySaveFile(tdoc,filenameA);
 
   contentErrors   += tidyErrorCount( tdoc );
   contentWarnings += tidyWarningCount( tdoc );
@@ -953,11 +954,11 @@ ProjectFile::GetDocumentTitle(DocumentFile* docfile,TidyDoc& tdoc)
       tidyNodeGetText(tdoc,node,&buf);
       if(buf.size)
       {
-        CString title((char *)buf.bp);
-        title.Remove('\r');
-        title.Remove('\n');
-        title.TrimLeft("<title>");
-        int pos = title.Find("</");
+        CString title((LPCTSTR)buf.bp);
+        title.Remove(_T('\r'));
+        title.Remove(_T('\n'));
+        title.TrimLeft(_T("<title>"));
+        int pos = title.Find(_T("</"));
         if(pos >= 0)
         {
           title = title.Left(pos);
@@ -1055,18 +1056,18 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
     // Now we have a content,name pair
     // TRACE("META in sweep: %s: %s\n",sName.GetString(),sContent.GetString());
 
-         if(sName.CompareNoCase("AuthorOriginalAuthor") == 0) docfile->SetAuthor    (sContent);
-    else if(sName.CompareNoCase("AuthorDocComment")     == 0) docfile->SetComment   (sContent);
-    else if(sName.CompareNoCase("AuthorHTMLTemplate")   == 0) docfile->SetTemplate  (sContent);
-    else if(sName.CompareNoCase("X-UA-Compatible")      == 0) docfile->SetCompatible(sContent);
-    else if(sName.CompareNoCase("AuthorStatus")         == 0) docfile->SetStatus   (atoi(sContent));
-    else if(sName.CompareNoCase("AuthorPriority")       == 0) docfile->SetPriority (atoi(sContent));
-    else if(sName.CompareNoCase("AuthorTimeSpent")      == 0) docfile->SetTimeSpent(atoi(sContent));
-    else if(sName.CompareNoCase("AuthorToDo")           == 0) docfile->SetToDo     (atoi(sContent));
-    else if(sName.CompareNoCase("AuthorWidth")          == 0) docfile->SetWidth    (atoi(sContent));
-    else if(sName.CompareNoCase("AuthorHeight")         == 0) docfile->SetHeight   (atoi(sContent));
+         if(sName.CompareNoCase(_T("AuthorOriginalAuthor")) == 0) docfile->SetAuthor    (sContent);
+    else if(sName.CompareNoCase(_T("AuthorDocComment"))     == 0) docfile->SetComment   (sContent);
+    else if(sName.CompareNoCase(_T("AuthorHTMLTemplate"))   == 0) docfile->SetTemplate  (sContent);
+    else if(sName.CompareNoCase(_T("X-UA-Compatible"))      == 0) docfile->SetCompatible(sContent);
+    else if(sName.CompareNoCase(_T("AuthorStatus"))         == 0) docfile->SetStatus   (_ttoi(sContent));
+    else if(sName.CompareNoCase(_T("AuthorPriority"))       == 0) docfile->SetPriority (_ttoi(sContent));
+    else if(sName.CompareNoCase(_T("AuthorTimeSpent"))      == 0) docfile->SetTimeSpent(_ttoi(sContent));
+    else if(sName.CompareNoCase(_T("AuthorToDo"))           == 0) docfile->SetToDo     (_ttoi(sContent));
+    else if(sName.CompareNoCase(_T("AuthorWidth"))          == 0) docfile->SetWidth    (_ttoi(sContent));
+    else if(sName.CompareNoCase(_T("AuthorHeight"))         == 0) docfile->SetHeight   (_ttoi(sContent));
 
-    else if(sName.CompareNoCase("MS-HKWD") == 0) 
+    else if(sName.CompareNoCase(_T("MS-HKWD")) == 0) 
     {
       theApp.GetIndex()->AddKeywords(sContent,docfile);
       m_sweepRebuildsIndex = true;
@@ -1262,7 +1263,8 @@ ProjectFile::RenameInOneFile(CString& p_filename,CString& p_old_href,CString& p_
   // No extra generator
   tidyOptSetBool( tdoc, TidyMark, no);
 
-  status = tidyParseFile(tdoc,p_filename);
+  CStringA filenameA(p_filename);
+  status = tidyParseFile(tdoc,filenameA);
   if ( status >= 0 )
   {
     status = tidyCleanAndRepair(tdoc);
@@ -1274,7 +1276,7 @@ ProjectFile::RenameInOneFile(CString& p_filename,CString& p_old_href,CString& p_
   RenameInHeader(tdoc,p_old_href,p_new_href);
   RenameInBody  (tdoc,p_old_href,p_new_href);
 
-  status = tidySaveFile(tdoc,p_filename);
+  status = tidySaveFile(tdoc,filenameA);
 
   contentErrors   += tidyErrorCount( tdoc );
   contentWarnings += tidyWarningCount( tdoc );
@@ -1325,7 +1327,8 @@ ProjectFile::RenameInHeader(TidyDoc tdoc,CString& p_old_href,CString& p_new_href
 
           if(Misc::ReplaceFilenameExtra(m_baseDir,p_old_href,p_new_href,href,new_href))
           {
-            tidyAttrSetValue(tdoc,attr,(char*) new_href.GetString());
+            CStringA new_hrefA(new_href);
+            tidyAttrSetValue(tdoc,attr,(char*) new_hrefA.GetString());
           }
         }
         attr = tidyAttrNext(attr);
@@ -1376,7 +1379,8 @@ ProjectFile::RenameInElement(TidyDoc tdoc,TidyNode node,CString& p_old_href,CStr
 
           if(Misc::ReplaceFilenameExtra(m_baseDir,p_old_href,p_new_href,href,new_href))
           {
-            tidyAttrSetValue(tdoc,attr,(char*)new_href.GetString());
+            CStringA new_hrefA(new_href);
+            tidyAttrSetValue(tdoc,attr,(char*)new_hrefA.GetString());
           }
         }
        attr = tidyAttrNext(attr);
@@ -1399,17 +1403,17 @@ ProjectFile::CreateNewDefaultProject(CString p_name)
   p_name = Misc::BasenamePart(p_name);
 
   m_title               = p_name;
-  m_compiledName        = p_name + ".chm";
-  m_contentsFile        = p_name + ".hhc";
-  m_indexFile           = p_name + ".hhk";
-  m_defaultTopic        = "Intro.html";
-  m_defaultWindow       = "Main";
-  m_defaultFont         = "Verdana,9,0";
-  m_errorLogFile        = "CompileErrors.log";
-  m_customTab           = "";
-  m_language            = "0x409 English (United States)";
-  m_stopFile            = "StopWords.lng";
-  m_compatibility       = "1.1 or later";
+  m_compiledName        = p_name + _T(".chm");
+  m_contentsFile        = p_name + _T(".hhc");
+  m_indexFile           = p_name + _T(".hhk");
+  m_defaultTopic        = _T("Intro.html");
+  m_defaultWindow       = _T("Main");
+  m_defaultFont         = _T("Verdana,9,0");
+  m_errorLogFile        = _T("CompileErrors.log");
+  m_customTab           = _T("");
+  m_language            = _T("0x409 English (United States)");
+  m_stopFile            = _T("StopWords.lng");
+  m_compatibility       = _T("1.1 or later");
   m_displayProgress     = true;
   m_displayCompileNotes = true;
   m_fullTextSearch      = true;
@@ -1429,17 +1433,17 @@ ProjectFile::CreateNewDefaultProject(CString p_name)
 
   // Create the first topic file, which is the default topic file
   CString newfile = m_baseDir + m_defaultTopic;
-  CString newtitle = "Welcome to " + p_name;
+  CString newtitle = _T("Welcome to ") + p_name;
   if(CHTMLEdDoc::CreateNewDocumentFile(newfile,newtitle))
   {
-    AddDocumentFile("",newfile,true);
+    AddDocumentFile(_T(""),newfile,true);
   }
 
   // Save everyting!
   SetProjectFilename(p_name,true);
 
   // Default TOC entry, which is the default topic file
-  TOCEntry* entry = new TOCEntry(m_title,m_defaultTopic,1,"","","");
+  TOCEntry* entry = new TOCEntry(m_title,m_defaultTopic,1,_T(""),_T(""),_T(""));
 
   // Write the TOC for the first time
   TOC* toc = theApp.GetTOC();

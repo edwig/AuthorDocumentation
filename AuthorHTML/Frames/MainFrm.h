@@ -70,7 +70,7 @@ public:
   void OnRenameChild(CMDIChildWnd*, LPCTSTR);
   BOOL SetSubtree(const CString& path);
 
-  static LPCSTR m_cszClassName;
+  static LPCTSTR m_cszClassName;
   void ReDockControlBar();
   void ReDockLeftOf(CMFCToolBar* p_bar);
 

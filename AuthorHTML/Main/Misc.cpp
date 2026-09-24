@@ -24,109 +24,109 @@
 TagInfo taginfo[] =
 {
    // TAG           DESCRIPTION                BLOCK USERS USED NOT-IE // IE6 in NL
-   { "a",          "Anchor",                   0,    0,    0,   0   }
-  ,{ "abbr",       "Abbreviation",             0,    0,    0,   1   }
-  ,{ "acronym",    "Acronym",                  0,    0,    0,   1   }
-  ,{ "address",    "Address",                  1,    1,    0,   0   }  // Adres
-  ,{ "applet",     "Applet",                   0,    0,    0,   0   }
-  ,{ "area",       "Area in image map",        0,    0,    0,   0   }
-  ,{ "b",          "Bold",                     0,    0,    0,   0   }
-  ,{ "base",       "Base of document",         0,    0,    0,   0   }
-  ,{ "basefont",   "Basefont",                 0,    0,    0,   0   }
-  ,{ "bdo",        "Bi-directional-override",  0,    0,    0,   0   }
-  ,{ "bgsound",    "Background sound",         0,    0,    0,   0   }
-  ,{ "big",        "Bigger text",              0,    0,    0,   0   }
-  ,{ "blink",      "Blinking text",            0,    0,    0,   1   }
-  ,{ "blockquote", "Blockquote",               1,    0,    0,   0   }
-  ,{ "body",       "Document",                 0,    0,    0,   0   }
-  ,{ "br",         "Break",                    0,    0,    0,   0   }
-  ,{ "button",     "Button",                   0,    0,    0,   0   }
-  ,{ "caption",    "Table caption",            1,    0,    0,   0   }
-  ,{ "center",     "Center text",              0,    0,    0,   0   }
-  ,{ "cite",       "Citation",                 0,    0,    0,   0   }
-  ,{ "code",       "Program code",             0,    0,    0,   0   }
-  ,{ "col",        "Table column",             0,    0,    0,   0   }
-  ,{ "colgroup",   "Column group",             0,    0,    0,   0   }
-  ,{ "dd",         "Definition data",          1,    1,    0,   0   }
-  ,{ "del",        "Deleted text",             0,    0,    0,   0   }
-  ,{ "dir",        "Directory",                1,    1,    0,   0   }  // Menulijst
-  ,{ "div",        "Generic container",        0,    1,    0,   0   }
-  ,{ "dl",         "Definition list",          1,    1,    0,   0   }  // Definitie
-  ,{ "dt",         "Definition term",          1,    1,    0,   0   }  // Definitieterm
-  ,{ "em",         "Emphasis",                 0,    0,    0,   0   }
-  ,{ "embed",      "Embedded object",          0,    0,    0,   0   }
-  ,{ "fieldset",   "Set of fields",            0,    0,    0,   0   }
-  ,{ "font",       "Font",                     0,    0,    0,   0   }
-  ,{ "form",       "Form",                     0,    0,    0,   0   }
-  ,{ "frame",      "Frame",                    0,    0,    0,   0   }
-  ,{ "frameset",   "Set of frames",            0,    0,    0,   0   }
-  ,{ "h1",         "Heading 1",                1,    1,    0,   0   }
-  ,{ "h2",         "Heading 2",                1,    1,    0,   0   }
-  ,{ "h3",         "Heading 3",                1,    1,    0,   0   }
-  ,{ "h4",         "Heading 4",                1,    1,    0,   0   }
-  ,{ "h5",         "Heading 5",                1,    1,    0,   0   }
-  ,{ "h6",         "Heading 6",                1,    1,    0,   0   }
-  ,{ "head",       "Head of document",         0,    0,    0,   0   }
-  ,{ "hr",         "Horizontal ruler",         0,    0,    0,   0   }
-  ,{ "html",       "HTML",                     0,    0,    0,   0   }
-  ,{ "i",          "Italic",                   0,    0,    0,   0   }
-  ,{ "iframe",     "Inline frame",             0,    0,    0,   0   }
-  ,{ "img",        "Image",                    0,    0,    0,   0   }
-  ,{ "input",      "Input field",              0,    0,    0,   0   }
-  ,{ "ins",        "Inserted text",            0,    0,    0,   0   }
-  ,{ "isindex",    "Is indexable document",    0,    0,    0,   0   }
-  ,{ "kbd",        "Keyboard text",            0,    0,    0,   0   }
-  ,{ "keygen",     "Key generator",            0,    0,    0,   1   }
-  ,{ "label",      "Label",                    0,    0,    0,   0   }
-  ,{ "layer",      "Layer",                    0,    0,    0,   1   }
-  ,{ "legend",     "Legend of fieldset",       0,    0,    0,   0   }
-  ,{ "li",         "List item",                1,    1,    0,   0   }
-  ,{ "link",       "CSS Link",                 0,    0,    0,   0   }
-  ,{ "map",        "Image map",                0,    0,    0,   0   }
-  ,{ "marquee",    "Marquee",                  1,    0,    0,   0   }
-  ,{ "menu",       "Menu",                     1,    1,    0,   0   }  // menu
-  ,{ "meta",       "Meta information",         0,    0,    0,   0   }
-  ,{ "multicol",   "Multicolumn text",         1,    0,    0,   1   }
-  ,{ "nobr",       "No line breaks",           0,    0,    0,   0   }
-  ,{ "noembed",    "Text i.o. embed's",        0,    0,    0,   1   }
-  ,{ "noframes",   "Text i.o. frames",         0,    0,    0,   0   }
-  ,{ "nolayer",    "Text i.o. layers",         0,    0,    0,   1   }
-  ,{ "noscript",   "Text i.o. scripts",        0,    0,    0,   1   }
-  ,{ "object",     "Embedded object",          0,    0,    0,   0   }
-  ,{ "ol",         "Ordered list",             1,    1,    0,   0   }  // genummerde lijst
-  ,{ "optgroup",   "Optional group menu",      0,    0,    0,   1   }
-  ,{ "option",     "Option of select field",   0,    0,    0,   0   }
-  ,{ "p",          "Paragraph",                1,    1,    0,   0   }  // Normaal
-  ,{ "param",      "Parameter",                0,    0,    0,   0   }
-  ,{ "pre",        "Preformatted",             1,    1,    0,   0   }  // Met opmaak
-  ,{ "q",          "Inline quote",             0,    0,    0,   0   }
-  ,{ "s",          "Strikethrough",            0,    0,    0,   0   }
-  ,{ "samp",       "Sample output",            0,    0,    0,   0   }
-  ,{ "script",     "Script",                   0,    0,    0,   0   }
-  ,{ "select",     "Combobox select",          0,    0,    0,   0   }
-  ,{ "server",     "Javascript server",        0,    0,    0,   1   }
-  ,{ "small",      "Smaller font",             0,    0,    0,   0   }
-  ,{ "spacer",     "Blank space",              0,    0,    0,   0   }
-  ,{ "span",       "Text +",                   0,    1,    0,   0   }
-  ,{ "strike",     "Strikethrough",            0,    0,    0,   0   }
-  ,{ "strong",     "Bold",                     0,    0,    0,   0   }
-  ,{ "sub",        "Subscript",                0,    0,    0,   0   }
-  ,{ "sup",        "Superscript",              0,    0,    0,   0   }
-  ,{ "table",      "Table",                    0,    0,    0,   0   }
-  ,{ "tbody",      "Table body",               0,    0,    0,   0   }
-  ,{ "td",         "Table cell",               1,    0,    0,   0   }
-  ,{ "textarea",   "Form textarea",            0,    0,    0,   0   }
-  ,{ "tfoot",      "Table footer",             0,    0,    0,   0   }
-  ,{ "th",         "Table header cell",        0,    0,    0,   0   }
-  ,{ "thead",      "Table header",             0,    0,    0,   0   }
-  ,{ "title",      "Document title",           0,    0,    0,   0   }
-  ,{ "tr",         "Table row",                0,    0,    0,   0   }
-  ,{ "tt",         "Typewriter text",          0,    0,    0,   0   }
-  ,{ "u",          "Underlined",               0,    0,    0,   0   }
-  ,{ "ul",         "Unordered list",           1,    1,    0,   0   }  // Lijst met opsommingstekens
-  ,{ "var",        "Variable",                 0,    0,    0,   0   }
-  ,{ "wbr",        "Potential word break",     0,    0,    0,   0   }
-  ,{ "xmp",        "Example",                  1,    0,    0,   1   }
+   { _T("a"),          _T("Anchor"),                   0,    0,    0,   0   }
+  ,{ _T("abbr"),       _T("Abbreviation"),             0,    0,    0,   1   }
+  ,{ _T("acronym"),    _T("Acronym"),                  0,    0,    0,   1   }
+  ,{ _T("address"),    _T("Address"),                  1,    1,    0,   0   }  // Adres
+  ,{ _T("applet"),     _T("Applet"),                   0,    0,    0,   0   }
+  ,{ _T("area"),       _T("Area in image map"),        0,    0,    0,   0   }
+  ,{ _T("b"),          _T("Bold"),                     0,    0,    0,   0   }
+  ,{ _T("base"),       _T("Base of document"),         0,    0,    0,   0   }
+  ,{ _T("basefont"),   _T("Basefont"),                 0,    0,    0,   0   }
+  ,{ _T("bdo"),        _T("Bi-directional-override"),  0,    0,    0,   0   }
+  ,{ _T("bgsound"),    _T("Background sound"),         0,    0,    0,   0   }
+  ,{ _T("big"),        _T("Bigger text"),              0,    0,    0,   0   }
+  ,{ _T("blink"),      _T("Blinking text"),            0,    0,    0,   1   }
+  ,{ _T("blockquote"), _T("Blockquote"),               1,    0,    0,   0   }
+  ,{ _T("body"),       _T("Document"),                 0,    0,    0,   0   }
+  ,{ _T("br"),         _T("Break"),                    0,    0,    0,   0   }
+  ,{ _T("button"),     _T("Button"),                   0,    0,    0,   0   }
+  ,{ _T("caption"),    _T("Table caption"),            1,    0,    0,   0   }
+  ,{ _T("center"),     _T("Center text"),              0,    0,    0,   0   }
+  ,{ _T("cite"),       _T("Citation"),                 0,    0,    0,   0   }
+  ,{ _T("code"),       _T("Program code"),             0,    0,    0,   0   }
+  ,{ _T("col"),        _T("Table column"),             0,    0,    0,   0   }
+  ,{ _T("colgroup"),   _T("Column group"),             0,    0,    0,   0   }
+  ,{ _T("dd"),         _T("Definition data"),          1,    1,    0,   0   }
+  ,{ _T("del"),        _T("Deleted text"),             0,    0,    0,   0   }
+  ,{ _T("dir"),        _T("Directory"),                1,    1,    0,   0   }  // Menulijst
+  ,{ _T("div"),        _T("Generic container"),        0,    1,    0,   0   }
+  ,{ _T("dl"),         _T("Definition list"),          1,    1,    0,   0   }  // Definitie
+  ,{ _T("dt"),         _T("Definition term"),          1,    1,    0,   0   }  // Definitieterm
+  ,{ _T("em"),         _T("Emphasis"),                 0,    0,    0,   0   }
+  ,{ _T("embed"),      _T("Embedded object"),          0,    0,    0,   0   }
+  ,{ _T("fieldset"),   _T("Set of fields"),            0,    0,    0,   0   }
+  ,{ _T("font"),       _T("Font"),                     0,    0,    0,   0   }
+  ,{ _T("form"),       _T("Form"),                     0,    0,    0,   0   }
+  ,{ _T("frame"),      _T("Frame"),                    0,    0,    0,   0   }
+  ,{ _T("frameset"),   _T("Set of frames"),            0,    0,    0,   0   }
+  ,{ _T("h1"),         _T("Heading 1"),                1,    1,    0,   0   }
+  ,{ _T("h2"),         _T("Heading 2"),                1,    1,    0,   0   }
+  ,{ _T("h3"),         _T("Heading 3"),                1,    1,    0,   0   }
+  ,{ _T("h4"),         _T("Heading 4"),                1,    1,    0,   0   }
+  ,{ _T("h5"),         _T("Heading 5"),                1,    1,    0,   0   }
+  ,{ _T("h6"),         _T("Heading 6"),                1,    1,    0,   0   }
+  ,{ _T("head"),       _T("Head of document"),         0,    0,    0,   0   }
+  ,{ _T("hr"),         _T("Horizontal ruler"),         0,    0,    0,   0   }
+  ,{ _T("html"),       _T("HTML"),                     0,    0,    0,   0   }
+  ,{ _T("i"),          _T("Italic"),                   0,    0,    0,   0   }
+  ,{ _T("iframe"),     _T("Inline frame"),             0,    0,    0,   0   }
+  ,{ _T("img"),        _T("Image"),                    0,    0,    0,   0   }
+  ,{ _T("input"),      _T("Input field"),              0,    0,    0,   0   }
+  ,{ _T("ins"),        _T("Inserted text"),            0,    0,    0,   0   }
+  ,{ _T("isindex"),    _T("Is indexable document"),    0,    0,    0,   0   }
+  ,{ _T("kbd"),        _T("Keyboard text"),            0,    0,    0,   0   }
+  ,{ _T("keygen"),     _T("Key generator"),            0,    0,    0,   1   }
+  ,{ _T("label"),      _T("Label"),                    0,    0,    0,   0   }
+  ,{ _T("layer"),      _T("Layer"),                    0,    0,    0,   1   }
+  ,{ _T("legend"),     _T("Legend of fieldset"),       0,    0,    0,   0   }
+  ,{ _T("li"),         _T("List item"),                1,    1,    0,   0   }
+  ,{ _T("link"),       _T("CSS Link"),                 0,    0,    0,   0   }
+  ,{ _T("map"),        _T("Image map"),                0,    0,    0,   0   }
+  ,{ _T("marquee"),    _T("Marquee"),                  1,    0,    0,   0   }
+  ,{ _T("menu"),       _T("Menu"),                     1,    1,    0,   0   }  // menu
+  ,{ _T("meta"),       _T("Meta information"),         0,    0,    0,   0   }
+  ,{ _T("multicol"),   _T("Multicolumn text"),         1,    0,    0,   1   }
+  ,{ _T("nobr"),       _T("No line breaks"),           0,    0,    0,   0   }
+  ,{ _T("noembed"),    _T("Text i.o. embed's"),        0,    0,    0,   1   }
+  ,{ _T("noframes"),   _T("Text i.o. frames"),         0,    0,    0,   0   }
+  ,{ _T("nolayer"),    _T("Text i.o. layers"),         0,    0,    0,   1   }
+  ,{ _T("noscript"),   _T("Text i.o. scripts"),        0,    0,    0,   1   }
+  ,{ _T("object"),     _T("Embedded object"),          0,    0,    0,   0   }
+  ,{ _T("ol"),         _T("Ordered list"),             1,    1,    0,   0   }  // genummerde lijst
+  ,{ _T("optgroup"),   _T("Optional group menu"),      0,    0,    0,   1   }
+  ,{ _T("option"),     _T("Option of select field"),   0,    0,    0,   0   }
+  ,{ _T("p"),          _T("Paragraph"),                1,    1,    0,   0   }  // Normaal
+  ,{ _T("param"),      _T("Parameter"),                0,    0,    0,   0   }
+  ,{ _T("pre"),        _T("Preformatted"),             1,    1,    0,   0   }  // Met opmaak
+  ,{ _T("q"),          _T("Inline quote"),             0,    0,    0,   0   }
+  ,{ _T("s"),          _T("Strikethrough"),            0,    0,    0,   0   }
+  ,{ _T("samp"),       _T("Sample output"),            0,    0,    0,   0   }
+  ,{ _T("script"),     _T("Script"),                   0,    0,    0,   0   }
+  ,{ _T("select"),     _T("Combobox select"),          0,    0,    0,   0   }
+  ,{ _T("server"),     _T("Javascript server"),        0,    0,    0,   1   }
+  ,{ _T("small"),      _T("Smaller font"),             0,    0,    0,   0   }
+  ,{ _T("spacer"),     _T("Blank space"),              0,    0,    0,   0   }
+  ,{ _T("span"),       _T("Text +"),                   0,    1,    0,   0   }
+  ,{ _T("strike"),     _T("Strikethrough"),            0,    0,    0,   0   }
+  ,{ _T("strong"),     _T("Bold"),                     0,    0,    0,   0   }
+  ,{ _T("sub"),        _T("Subscript"),                0,    0,    0,   0   }
+  ,{ _T("sup"),        _T("Superscript"),              0,    0,    0,   0   }
+  ,{ _T("table"),      _T("Table"),                    0,    0,    0,   0   }
+  ,{ _T("tbody"),      _T("Table body"),               0,    0,    0,   0   }
+  ,{ _T("td"),         _T("Table cell"),               1,    0,    0,   0   }
+  ,{ _T("textarea"),   _T("Form textarea"),            0,    0,    0,   0   }
+  ,{ _T("tfoot"),      _T("Table footer"),             0,    0,    0,   0   }
+  ,{ _T("th"),         _T("Table header cell"),        0,    0,    0,   0   }
+  ,{ _T("thead"),      _T("Table header"),             0,    0,    0,   0   }
+  ,{ _T("title"),      _T("Document title"),           0,    0,    0,   0   }
+  ,{ _T("tr"),         _T("Table row"),                0,    0,    0,   0   }
+  ,{ _T("tt"),         _T("Typewriter text"),          0,    0,    0,   0   }
+  ,{ _T("u"),          _T("Underlined"),               0,    0,    0,   0   }
+  ,{ _T("ul"),         _T("Unordered list"),           1,    1,    0,   0   }  // Lijst met opsommingstekens
+  ,{ _T("var"),        _T("Variable"),                 0,    0,    0,   0   }
+  ,{ _T("wbr"),        _T("Potential word break"),     0,    0,    0,   0   }
+  ,{ _T("xmp"),        _T("Example"),                  1,    0,    0,   1   }
   ,{ NULL,         NULL,                       0,    0,    0,   0   }
 };
 
@@ -134,102 +134,102 @@ TagInfo taginfo[] =
 
 AttributeInfo attributes[] =
 {
-  { "background-repeat", "no-repeat",           "Don't tile"                       }
- ,{ "background-repeat", "repeat-x",            "Tile horizontally"                }
- ,{ "background-repeat", "repeat-y",            "Tile vertically"                  }
- ,{ "background-repeat", "repeat",              "Tile horizontally and vertically" }
- ,{ "background-repeat", "inherit",             "Inherited"                        }
+  { _T("background-repeat"), _T("no-repeat"),           _T("Don't tile")                       }
+ ,{ _T("background-repeat"), _T("repeat-x"),            _T("Tile horizontally")                }
+ ,{ _T("background-repeat"), _T("repeat-y"),            _T("Tile vertically")                  }
+ ,{ _T("background-repeat"), _T("repeat"),              _T("Tile horizontally and vertically") }
+ ,{ _T("background-repeat"), _T("inherit"),             _T("Inherited")                        }
 
- ,{ "list-style-position", "unspecified",       "Unspecified"                      }
- ,{ "list-style-position", "inherit",           "Inherited"                        }
- ,{ "list-style-position", "inside",            "Inside element box"               }
- ,{ "list-style-position", "outside",           "Outside element box"              }
+ ,{ _T("list-style-position"), _T("unspecified"),       _T("Unspecified")                      }
+ ,{ _T("list-style-position"), _T("inherit"),           _T("Inherited")                        }
+ ,{ _T("list-style-position"), _T("inside"),            _T("Inside element box")               }
+ ,{ _T("list-style-position"), _T("outside"),           _T("Outside element box")              }
 
- ,{ "list-style-type",   "unspecified",         "Unspecified"                      }
- ,{ "list-style-type",   "none",                "No list style type"               }
- ,{ "list-style-type",   "inherit",             "Inherited"                        }
- ,{ "list-style-type",   "disc",                "Filled up disc"                   }
- ,{ "list-style-type",   "circle",              "Open circle"                      }
- ,{ "list-style-type",   "square",              "Filled up square"                 }
- ,{ "list-style-type",   "decimal",             "Decimal numbers (1,2,3,...)"      }
- ,{ "list-style-type",   "decimal-leading-zero","Decimal numbers with zero (01,02,...,99)" }
- ,{ "list-style-type",   "lower-roman",         "Lowercase roman (i,ii,iii,....)"  }
- ,{ "list-style-type",   "upper-roman",         "Uppercase roman (I,II,III,....)"  }
- ,{ "list-style-type",   "lower-greek",         "Lowercase greek (alfa,beta,gamma...)"     }
- ,{ "list-style-type",   "lower-alpha",         "Lowercase alpha (a,b,c,...)"      }
- ,{ "list-style-type",   "lower-latin",         "Lowercase latin (a,b,c,...)"      }
- ,{ "list-style-type",   "upper-alpha",         "Uppercase alpha (A,B,C,...)"      }
- ,{ "list-style-type",   "upper-latin",         "Uppercase latin (A,B,C,...)"      }
- ,{ "list-style-type",   "hebrew",              "Traditional Hebrew numbering"     }
- ,{ "list-style-type",   "armenian",            "Traditional Armenian numbering"   }
- ,{ "list-style-type",   "georgian",            "Georgian (an,ban,gan,...)"        }
- ,{ "list-style-type",   "cjk-ideographic",     "Plain Ideografical numbering"     }
- ,{ "list-style-type",   "hiragana",            "Hiragana (a,i,u,e,o,ka,ki,...)"            }
- ,{ "list-style-type",   "katakana",            "Katakana (A,I,U,E,O,KA,KI,...)"            }
- ,{ "list-style-type",   "hiragana-iroha",      "Hiragana-iroha (i,ro,ha,ni,ho,he,to,...)"  }
- ,{ "list-style-type",   "katakana-iroha",      "Katakana-iroha (I,RO,HA,NI,HO,HE,TO,...)"  }
+ ,{ _T("list-style-type"),   _T("unspecified"),         _T("Unspecified")                      }
+ ,{ _T("list-style-type"),   _T("none"),                _T("No list style type")               }
+ ,{ _T("list-style-type"),   _T("inherit"),             _T("Inherited")                        }
+ ,{ _T("list-style-type"),   _T("disc"),                _T("Filled up disc")                   }
+ ,{ _T("list-style-type"),   _T("circle"),              _T("Open circle")                      }
+ ,{ _T("list-style-type"),   _T("square"),              _T("Filled up square")                 }
+ ,{ _T("list-style-type"),   _T("decimal"),             _T("Decimal numbers (1,2,3,...)")      }
+ ,{ _T("list-style-type"),   _T("decimal-leading-zero"),_T("Decimal numbers with zero (01,02,...,99)") }
+ ,{ _T("list-style-type"),   _T("lower-roman"),         _T("Lowercase roman (i,ii,iii,....)")  }
+ ,{ _T("list-style-type"),   _T("upper-roman"),         _T("Uppercase roman (I,II,III,....)")  }
+ ,{ _T("list-style-type"),   _T("lower-greek"),         _T("Lowercase greek (alfa,beta,gamma...)")     }
+ ,{ _T("list-style-type"),   _T("lower-alpha"),         _T("Lowercase alpha (a,b,c,...)")      }
+ ,{ _T("list-style-type"),   _T("lower-latin"),         _T("Lowercase latin (a,b,c,...)")      }
+ ,{ _T("list-style-type"),   _T("upper-alpha"),         _T("Uppercase alpha (A,B,C,...)")      }
+ ,{ _T("list-style-type"),   _T("upper-latin"),         _T("Uppercase latin (A,B,C,...)")      }
+ ,{ _T("list-style-type"),   _T("hebrew"),              _T("Traditional Hebrew numbering")     }
+ ,{ _T("list-style-type"),   _T("armenian"),            _T("Traditional Armenian numbering")   }
+ ,{ _T("list-style-type"),   _T("georgian"),            _T("Georgian (an,ban,gan,...)")        }
+ ,{ _T("list-style-type"),   _T("cjk-ideographic"),     _T("Plain Ideografical numbering")     }
+ ,{ _T("list-style-type"),   _T("hiragana"),            _T("Hiragana (a,i,u,e,o,ka,ki,...)")            }
+ ,{ _T("list-style-type"),   _T("katakana"),            _T("Katakana (A,I,U,E,O,KA,KI,...)")            }
+ ,{ _T("list-style-type"),   _T("hiragana-iroha"),      _T("Hiragana-iroha (i,ro,ha,ni,ho,he,to,...)")  }
+ ,{ _T("list-style-type"),   _T("katakana-iroha"),      _T("Katakana-iroha (I,RO,HA,NI,HO,HE,TO,...)")  }
 
  // Single;1.5 lines;Double;
- ,{ "line-height",       "",                    "Single"                    }
- ,{ "line-height",       "150%",                "1.5 lines"                 }
- ,{ "line-height",       "200%",                "Double"                    }
+ ,{ _T("line-height"),       _T(""),                    _T("Single")                    }
+ ,{ _T("line-height"),       _T("150%"),                _T("1.5 lines")                 }
+ ,{ _T("line-height"),       _T("200%"),                _T("Double")                    }
 
  // Textarea wordwrap
- ,{ "wrap",              "off",                 "No word wrap"              }
- ,{ "wrap",              "soft",                "Local word wrap"           }
- ,{ "wrap",              "hard",                "Word wrap to server"       }
+ ,{ _T("wrap"),              _T("off"),                 _T("No word wrap")              }
+ ,{ _T("wrap"),              _T("soft"),                _T("Local word wrap")           }
+ ,{ _T("wrap"),              _T("hard"),                _T("Word wrap to server")       }
  // IE doesn't know these types
- ,{ "wrap",              "virtual",             "Local word wrap"           }
- ,{ "wrap",              "physical",            "Word wrap to server"       }
+ ,{ _T("wrap"),              _T("virtual"),             _T("Local word wrap")           }
+ ,{ _T("wrap"),              _T("physical"),            _T("Word wrap to server")       }
 
  // target frames
- ,{ "target",            "",                    "Page default"              }
- ,{ "target",            "_blank",              "New window"                }
- ,{ "target",            "_self",               "Same frame"                }
- ,{ "target",            "_parent",             "Parent frame"              }
- ,{ "target",            "_top",                "Whole page"                }
+ ,{ _T("target"),            _T(""),                    _T("Page default")              }
+ ,{ _T("target"),            _T("_blank"),              _T("New window")                }
+ ,{ _T("target"),            _T("_self"),               _T("Same frame")                }
+ ,{ _T("target"),            _T("_parent"),             _T("Parent frame")              }
+ ,{ _T("target"),            _T("_top"),                _T("Whole page")                }
 
  // Script types
- ,{ "script-type",       "text/javascript",     "Javascript"                }
- ,{ "script-type",       "text/Jscript",        "MS-JScript"                }
- ,{ "script-type",       "text/vbs",            "VBS"                       }
- ,{ "script-type",       "text/vbscript",       "VB-Script"                 }
- ,{ "script-type",       "text/ecmascript",     "EcmaScript"                }
+ ,{ _T("script-type"),       _T("text/javascript"),     _T("Javascript")                }
+ ,{ _T("script-type"),       _T("text/Jscript"),        _T("MS-JScript")                }
+ ,{ _T("script-type"),       _T("text/vbs"),            _T("VBS")                       }
+ ,{ _T("script-type"),       _T("text/vbscript"),       _T("VB-Script")                 }
+ ,{ _T("script-type"),       _T("text/ecmascript"),     _T("EcmaScript")                }
 
  // Language
- ,{ "language",          "Javascript",          "Javascript"                }
- ,{ "language",          "Javascript1.1",       "Javascript 1.1"            }
- ,{ "language",          "Javascript1.2",       "Javascript 1.2"            }
- ,{ "language",          "Javascript1.3",       "Javascript 1.3"            }
- ,{ "language",          "Javascript1.4",       "Javascript 1.4"            }
- ,{ "language",          "JScript",             "MS-JScript"                }
- ,{ "language",          "VBScript",            "VB Script"                 }
- ,{ "language",          "vbs",                 "VBS"                       }
- ,{ "language",          "EcmaScript",          "EcmaScript"                }
+ ,{ _T("language"),          _T("Javascript"),          _T("Javascript")                }
+ ,{ _T("language"),          _T("Javascript1.1"),       _T("Javascript 1.1")            }
+ ,{ _T("language"),          _T("Javascript1.2"),       _T("Javascript 1.2")            }
+ ,{ _T("language"),          _T("Javascript1.3"),       _T("Javascript 1.3")            }
+ ,{ _T("language"),          _T("Javascript1.4"),       _T("Javascript 1.4")            }
+ ,{ _T("language"),          _T("JScript"),             _T("MS-JScript")                }
+ ,{ _T("language"),          _T("VBScript"),            _T("VB Script")                 }
+ ,{ _T("language"),          _T("vbs"),                 _T("VBS")                       }
+ ,{ _T("language"),          _T("EcmaScript"),          _T("EcmaScript")                }
 
  // Shape of a area
- ,{ "shape",             "rect",                "Rectangle"                 }
- ,{ "shape",             "rectangle",           "Rectangle"                 }
- ,{ "shape",             "circ",                "Circle"                    }
- ,{ "shape",             "circle",              "Circle"                    }
- ,{ "shape",             "poly",                "Polygon"                   }
- ,{ "shape",             "polygon",             "Polygon"                   }
+ ,{ _T("shape"),             _T("rect"),                _T("Rectangle")                 }
+ ,{ _T("shape"),             _T("rectangle"),           _T("Rectangle")                 }
+ ,{ _T("shape"),             _T("circ"),                _T("Circle")                    }
+ ,{ _T("shape"),             _T("circle"),              _T("Circle")                    }
+ ,{ _T("shape"),             _T("poly"),                _T("Polygon")                   }
+ ,{ _T("shape"),             _T("polygon"),             _T("Polygon")                   }
 
  // Style of the border
- ,{ "border-style",      "none",                 "None"                     }
- ,{ "border-style",      "solid",                "Solid"                    }
- ,{ "border-style",      "dotted",               "Dotted"                   }
- ,{ "border-style",      "dashed",               "Dashed"                   }
- ,{ "border-style",      "double",               "Double"                   }
- ,{ "border-style",      "groove",               "Groove"                   }
- ,{ "border-style",      "ridge",                "Ridge"                    }
- ,{ "border-style",      "inset",                "Inset"                    }
- ,{ "border-style",      "outset",               "Outset"                   }
- ,{ "border-style",      "inherit",              "Inherit"                  }
+ ,{ _T("border-style"),      _T("none"),                 _T("None")                     }
+ ,{ _T("border-style"),      _T("solid"),                _T("Solid")                    }
+ ,{ _T("border-style"),      _T("dotted"),               _T("Dotted")                   }
+ ,{ _T("border-style"),      _T("dashed"),               _T("Dashed")                   }
+ ,{ _T("border-style"),      _T("double"),               _T("Double")                   }
+ ,{ _T("border-style"),      _T("groove"),               _T("Groove")                   }
+ ,{ _T("border-style"),      _T("ridge"),                _T("Ridge")                    }
+ ,{ _T("border-style"),      _T("inset"),                _T("Inset")                    }
+ ,{ _T("border-style"),      _T("outset"),               _T("Outset")                   }
+ ,{ _T("border-style"),      _T("inherit"),              _T("Inherit")                  }
 
  // Events for the <SCRIPT> tag
- ,{ "script-event",      "onreadystatechange",  "When the page loading is complete"}
- ,{ "script-event",      "onselectstart",       "When the user starts selection"   }
+ ,{ _T("script-event"),      _T("onreadystatechange"),  _T("When the page loading is complete")}
+ ,{ _T("script-event"),      _T("onselectstart"),       _T("When the user starts selection")   }
 
  ,{ NULL,                NULL,                  NULL                        }
 };
@@ -239,144 +239,144 @@ AttributeInfo attributes[] =
 InternetColors internet_colors[] = 
 {
   // Safe name               RGB Color code
-  { "aliceblue",            "#A0CE00" }
- ,{ "antiquewhite",         "#FAEBD7" } 
- ,{ "aqua",                 "#00FFFF" }
- ,{ "aquamarine",           "#7FFFD4" }
- ,{ "azure",                "#F0FFFF" }
- ,{ "beige",                "#F5F5DC" }
- ,{ "bisque",               "#FFE4C4" }
- ,{ "black",                "#000000" }
- ,{ "blanchedalmond",       "#FFEBCD" }
- ,{ "blue",                 "#0000FF" }
- ,{ "blueviolet",           "#8A2BE2" }
- ,{ "brown",                "#A52A2A" }
- ,{ "burlywood",            "#DEB887" }
- ,{ "cadetblue",            "#5F9EA0" }
- ,{ "chartreuse",           "#7EFF00" }
- ,{ "chocolate",            "#D2691E" }
- ,{ "coral",                "#FF7F50" }
- ,{ "cornflowerblue",       "#6495ED" }
- ,{ "cornsilk",             "#FFF8DC" }
- ,{ "crimson",              "#DC143C" }
- ,{ "cyan",                 "#00FFFF" }
- ,{ "darkblue",             "#00008B" }
- ,{ "darkcyan",             "#008B8B" }
- ,{ "darkgoldenrod",        "#B8860B" }
- ,{ "darkgray",             "#A9A9A9" }
- ,{ "darkgreen",            "#006400" }
- ,{ "darkkhaki",            "#BDB76B" }
- ,{ "darkmagenta",          "#8B008B" }
- ,{ "darkolivegreen",       "#556B2F" }
- ,{ "darkorange",           "#FF8C00" }
- ,{ "darkorchid",           "#9932CC" }
- ,{ "darkred",              "#8B0000" }
- ,{ "darksalmon",           "#E9967A" }
- ,{ "darkseagreen",         "#8FBC8F" }
- ,{ "darkslateblue",        "#483D8B" }
- ,{ "darkslategray",        "#2F4F4F" }
- ,{ "darkturqoise",         "#00CED1" }
- ,{ "darkviolet",           "#9400D3" }
- ,{ "deeppink",             "#FF1493" }
- ,{ "deepskyblue" ,         "#00BFFF" }
- ,{ "dimgray",              "#696969" }
- ,{ "dodgerblue",           "#1E90FF" }
- ,{ "fibrebrick",           "#B22222" }
- ,{ "floralwhite",          "#FFFAF0" }
- ,{ "forestgreen",          "#228B22" }
- ,{ "fuchsia",              "#FF00FF" }
- ,{ "gainsboro",            "#DCDCDC" }
- ,{ "ghostwhite",           "#F8F8FF" }
- ,{ "gold",                 "#FFD700" }
- ,{ "goldenrod",            "#DAA520" }
- ,{ "gray",                 "#808080" }
- ,{ "green",                "#008000" }
- ,{ "greenyellow",          "#ADFF2F" }
- ,{ "honeydew",             "#F0FFF0" }
- ,{ "hotpink",              "#FF69B4" }
- ,{ "indianred",            "#CD5C5C" }
- ,{ "indigo",               "#4B0082" }
- ,{ "ivory",                "#FFFFF0" }
- ,{ "khaki",                "#F0E68C" }
- ,{ "lavender",             "#E6E6FA" }
- ,{ "lavenderblush",        "#FFF0F5" }
- ,{ "lemonchiffon",         "#FFFACD" }
- ,{ "lightblue",            "#ADD8E6" }
- ,{ "lightcoral",           "#F08080" }
- ,{ "lightcyan",            "#E0FFFF" }
- ,{ "lightgoldenrodyellow", "#FAFAD2" }
- ,{ "lightgreen",           "#90EE90" }
- ,{ "lightgrey",            "#D3D3D3" }
- ,{ "lightpink",            "#FFB6C1" }
- ,{ "lightsalmon",          "#FFA07A" }
- ,{ "lightseagreen",        "#20B2AA" }
- ,{ "lightskyblue",         "#87CEFA" }
- ,{ "lightslategray",       "#778899" }
- ,{ "lightsteelblue",       "#B0C4DE" }
- ,{ "lightyellow",          "#FFFFE0" }
- ,{ "lime",                 "#00FF00" }
- ,{ "limegreen",            "#32CD32" } 
- ,{ "linen",                "#FAF0E6" }
- ,{ "magenta",              "#FF00FF" }
- ,{ "maroon",               "#800000" }
- ,{ "mediumaquamarine",     "#66CDAA" }
- ,{ "mediumblue",           "#0000CD" }
- ,{ "medumorchid",          "#BA55D3" }
- ,{ "mediumpurple",         "#9370DB" }
- ,{ "mediumseagreen",       "#3CB371" }
- ,{ "mediumslateblue",      "#7B68EE" }
- ,{ "mediumspringgreen",    "#00FA9A" }
- ,{ "mediumturquoise",      "#48D1CC" }
- ,{ "mediumvioletred",      "#C71585" }
- ,{ "midnightblue",         "#191970" }
- ,{ "mintcream",            "#F5FFFA" }
- ,{ "mistyrose",            "#FFF4E1" } 
- ,{ "navajowhite",          "#FFDEAD" }
- ,{ "navy",                 "#000080" }
- ,{ "oldlace",              "#FDF5E6" }
- ,{ "olive",                "#808000" }
- ,{ "olivedrab",            "#6B8E23" }
- ,{ "orange",               "#FFA500" }
- ,{ "orangered",            "#FF4500" }
- ,{ "orchid",               "#DA70D6" }
- ,{ "palegoldenrod",        "#EEE8AA" }
- ,{ "palegreen",            "#98FB98" }
- ,{ "paleturquoise",        "#AFEEEE" }
- ,{ "palevioletred",        "#DB7093" }
- ,{ "papayawhip",           "#FFEFD5" }
- ,{ "peachpuff",            "#FFDAB9" }
- ,{ "peru",                 "#CD853F" }
- ,{ "pink",                 "#FFC0CB" }
- ,{ "plum",                 "#DDA0DD" }
- ,{ "powderblue",           "#B0E0E6" }
- ,{ "purple",               "#800080" }
- ,{ "red",                  "#FF0000" }
- ,{ "rosybrown",            "#BC8F8F" }
- ,{ "royalblue",            "#4169E1" }
- ,{ "saddlebrown",          "#8B4513" }
- ,{ "salmon",               "#FA8072" }
- ,{ "sandybrown",           "#F4A660" }
- ,{ "seagreen",             "#2E8B57" }
- ,{ "seashell",             "#FFF5EE" }
- ,{ "sienna",               "#A0522D" }
- ,{ "silver",               "#C0C0C0" }
- ,{ "skyblue",              "#87CEEB" }
- ,{ "slateblue",            "#6A5ACD" }
- ,{ "slategray",            "#708090" }
- ,{ "snow",                 "#FFFAFA" }
- ,{ "springgreen",          "#00FF7F" }
- ,{ "steelblue",            "#4682B4" }
- ,{ "tan",                  "#D2B48C" }
- ,{ "teal",                 "#008080" }
- ,{ "thistle",              "#D8BFD8" }
- ,{ "tomato",               "#FF6347" }
- ,{ "turquoise",            "#40E0D0" }
- ,{ "violet",               "#EE82EE" }
- ,{ "wheat",                "#F5DEB3" }
- ,{ "white",                "#FFFFFF" }
- ,{ "whitesmoke",           "#F5F5F5" }
- ,{ "yellow",               "#FFFF00" }
- ,{ "yellowgreen",          "#9ACD32" }
+  { _T("aliceblue"),            _T("#A0CE00") }
+ ,{ _T("antiquewhite"),         _T("#FAEBD7") } 
+ ,{ _T("aqua"),                 _T("#00FFFF") }
+ ,{ _T("aquamarine"),           _T("#7FFFD4") }
+ ,{ _T("azure"),                _T("#F0FFFF") }
+ ,{ _T("beige"),                _T("#F5F5DC") }
+ ,{ _T("bisque"),               _T("#FFE4C4") }
+ ,{ _T("black"),                _T("#000000") }
+ ,{ _T("blanchedalmond"),       _T("#FFEBCD") }
+ ,{ _T("blue"),                 _T("#0000FF") }
+ ,{ _T("blueviolet"),           _T("#8A2BE2") }
+ ,{ _T("brown"),                _T("#A52A2A") }
+ ,{ _T("burlywood"),            _T("#DEB887") }
+ ,{ _T("cadetblue"),            _T("#5F9EA0") }
+ ,{ _T("chartreuse"),           _T("#7EFF00") }
+ ,{ _T("chocolate"),            _T("#D2691E") }
+ ,{ _T("coral"),                _T("#FF7F50") }
+ ,{ _T("cornflowerblue"),       _T("#6495ED") }
+ ,{ _T("cornsilk"),             _T("#FFF8DC") }
+ ,{ _T("crimson"),              _T("#DC143C") }
+ ,{ _T("cyan"),                 _T("#00FFFF") }
+ ,{ _T("darkblue"),             _T("#00008B") }
+ ,{ _T("darkcyan"),             _T("#008B8B") }
+ ,{ _T("darkgoldenrod"),        _T("#B8860B") }
+ ,{ _T("darkgray"),             _T("#A9A9A9") }
+ ,{ _T("darkgreen"),            _T("#006400") }
+ ,{ _T("darkkhaki"),            _T("#BDB76B") }
+ ,{ _T("darkmagenta"),          _T("#8B008B") }
+ ,{ _T("darkolivegreen"),       _T("#556B2F") }
+ ,{ _T("darkorange"),           _T("#FF8C00") }
+ ,{ _T("darkorchid"),           _T("#9932CC") }
+ ,{ _T("darkred"),              _T("#8B0000") }
+ ,{ _T("darksalmon"),           _T("#E9967A") }
+ ,{ _T("darkseagreen"),         _T("#8FBC8F") }
+ ,{ _T("darkslateblue"),        _T("#483D8B") }
+ ,{ _T("darkslategray"),        _T("#2F4F4F") }
+ ,{ _T("darkturqoise"),         _T("#00CED1") }
+ ,{ _T("darkviolet"),           _T("#9400D3") }
+ ,{ _T("deeppink"),             _T("#FF1493") }
+ ,{ _T("deepskyblue") ,         _T("#00BFFF") }
+ ,{ _T("dimgray"),              _T("#696969") }
+ ,{ _T("dodgerblue"),           _T("#1E90FF") }
+ ,{ _T("fibrebrick"),           _T("#B22222") }
+ ,{ _T("floralwhite"),          _T("#FFFAF0") }
+ ,{ _T("forestgreen"),          _T("#228B22") }
+ ,{ _T("fuchsia"),              _T("#FF00FF") }
+ ,{ _T("gainsboro"),            _T("#DCDCDC") }
+ ,{ _T("ghostwhite"),           _T("#F8F8FF") }
+ ,{ _T("gold"),                 _T("#FFD700") }
+ ,{ _T("goldenrod"),            _T("#DAA520") }
+ ,{ _T("gray"),                 _T("#808080") }
+ ,{ _T("green"),                _T("#008000") }
+ ,{ _T("greenyellow"),          _T("#ADFF2F") }
+ ,{ _T("honeydew"),             _T("#F0FFF0") }
+ ,{ _T("hotpink"),              _T("#FF69B4") }
+ ,{ _T("indianred"),            _T("#CD5C5C") }
+ ,{ _T("indigo"),               _T("#4B0082") }
+ ,{ _T("ivory"),                _T("#FFFFF0") }
+ ,{ _T("khaki"),                _T("#F0E68C") }
+ ,{ _T("lavender"),             _T("#E6E6FA") }
+ ,{ _T("lavenderblush"),        _T("#FFF0F5") }
+ ,{ _T("lemonchiffon"),         _T("#FFFACD") }
+ ,{ _T("lightblue"),            _T("#ADD8E6") }
+ ,{ _T("lightcoral"),           _T("#F08080") }
+ ,{ _T("lightcyan"),            _T("#E0FFFF") }
+ ,{ _T("lightgoldenrodyellow"), _T("#FAFAD2") }
+ ,{ _T("lightgreen"),           _T("#90EE90") }
+ ,{ _T("lightgrey"),            _T("#D3D3D3") }
+ ,{ _T("lightpink"),            _T("#FFB6C1") }
+ ,{ _T("lightsalmon"),          _T("#FFA07A") }
+ ,{ _T("lightseagreen"),        _T("#20B2AA") }
+ ,{ _T("lightskyblue"),         _T("#87CEFA") }
+ ,{ _T("lightslategray"),       _T("#778899") }
+ ,{ _T("lightsteelblue"),       _T("#B0C4DE") }
+ ,{ _T("lightyellow"),          _T("#FFFFE0") }
+ ,{ _T("lime"),                 _T("#00FF00") }
+ ,{ _T("limegreen"),            _T("#32CD32") } 
+ ,{ _T("linen"),                _T("#FAF0E6") }
+ ,{ _T("magenta"),              _T("#FF00FF") }
+ ,{ _T("maroon"),               _T("#800000") }
+ ,{ _T("mediumaquamarine"),     _T("#66CDAA") }
+ ,{ _T("mediumblue"),           _T("#0000CD") }
+ ,{ _T("medumorchid"),          _T("#BA55D3") }
+ ,{ _T("mediumpurple"),         _T("#9370DB") }
+ ,{ _T("mediumseagreen"),       _T("#3CB371") }
+ ,{ _T("mediumslateblue"),      _T("#7B68EE") }
+ ,{ _T("mediumspringgreen"),    _T("#00FA9A") }
+ ,{ _T("mediumturquoise"),      _T("#48D1CC") }
+ ,{ _T("mediumvioletred"),      _T("#C71585") }
+ ,{ _T("midnightblue"),         _T("#191970") }
+ ,{ _T("mintcream"),            _T("#F5FFFA") }
+ ,{ _T("mistyrose"),            _T("#FFF4E1") } 
+ ,{ _T("navajowhite"),          _T("#FFDEAD") }
+ ,{ _T("navy"),                 _T("#000080") }
+ ,{ _T("oldlace"),              _T("#FDF5E6") }
+ ,{ _T("olive"),                _T("#808000") }
+ ,{ _T("olivedrab"),            _T("#6B8E23") }
+ ,{ _T("orange"),               _T("#FFA500") }
+ ,{ _T("orangered"),            _T("#FF4500") }
+ ,{ _T("orchid"),               _T("#DA70D6") }
+ ,{ _T("palegoldenrod"),        _T("#EEE8AA") }
+ ,{ _T("palegreen"),            _T("#98FB98") }
+ ,{ _T("paleturquoise"),        _T("#AFEEEE") }
+ ,{ _T("palevioletred"),        _T("#DB7093") }
+ ,{ _T("papayawhip"),           _T("#FFEFD5") }
+ ,{ _T("peachpuff"),            _T("#FFDAB9") }
+ ,{ _T("peru"),                 _T("#CD853F") }
+ ,{ _T("pink"),                 _T("#FFC0CB") }
+ ,{ _T("plum"),                 _T("#DDA0DD") }
+ ,{ _T("powderblue"),           _T("#B0E0E6") }
+ ,{ _T("purple"),               _T("#800080") }
+ ,{ _T("red"),                  _T("#FF0000") }
+ ,{ _T("rosybrown"),            _T("#BC8F8F") }
+ ,{ _T("royalblue"),            _T("#4169E1") }
+ ,{ _T("saddlebrown"),          _T("#8B4513") }
+ ,{ _T("salmon"),               _T("#FA8072") }
+ ,{ _T("sandybrown"),           _T("#F4A660") }
+ ,{ _T("seagreen"),             _T("#2E8B57") }
+ ,{ _T("seashell"),             _T("#FFF5EE") }
+ ,{ _T("sienna"),               _T("#A0522D") }
+ ,{ _T("silver"),               _T("#C0C0C0") }
+ ,{ _T("skyblue"),              _T("#87CEEB") }
+ ,{ _T("slateblue"),            _T("#6A5ACD") }
+ ,{ _T("slategray"),            _T("#708090") }
+ ,{ _T("snow"),                 _T("#FFFAFA") }
+ ,{ _T("springgreen"),          _T("#00FF7F") }
+ ,{ _T("steelblue"),            _T("#4682B4") }
+ ,{ _T("tan"),                  _T("#D2B48C") }
+ ,{ _T("teal"),                 _T("#008080") }
+ ,{ _T("thistle"),              _T("#D8BFD8") }
+ ,{ _T("tomato"),               _T("#FF6347") }
+ ,{ _T("turquoise"),            _T("#40E0D0") }
+ ,{ _T("violet"),               _T("#EE82EE") }
+ ,{ _T("wheat"),                _T("#F5DEB3") }
+ ,{ _T("white"),                _T("#FFFFFF") }
+ ,{ _T("whitesmoke"),           _T("#F5F5F5") }
+ ,{ _T("yellow"),               _T("#FFFF00") }
+ ,{ _T("yellowgreen"),          _T("#9ACD32") }
  ,{ NULL,                   NULL      }
 };
 
@@ -387,166 +387,166 @@ InternetColors internet_colors[] =
 
 Diacrites DiacriteLetters[] = 
 {
-   { 'a', 'à', ACC_LOWER, "&agrave;", "a grave"       }
-  ,{ 'a', 'á', ACC_LOWER, "&aacute;", "a acute"       }
-  ,{ 'a', 'ä', ACC_LOWER, "&auml;",   "a umlaut"      }
-  ,{ 'a', 'â', ACC_LOWER, "&acirc;",  "a circumflex"  }
-  ,{ 'a', 'ã', ACC_LOWER, "&atilde;", "a tilde"       }
-  ,{ 'a', 'å', ACC_LOWER, "&aring;",  "a ring"        }
+   { _T('a'), _T('à'), ACC_LOWER, _T("&agrave;"), _T("a grave")       }
+  ,{ _T('a'), _T('á'), ACC_LOWER, _T("&aacute;"), _T("a acute")       }
+  ,{ _T('a'), _T('ä'), ACC_LOWER, _T("&auml;"),   _T("a umlaut")      }
+  ,{ _T('a'), _T('â'), ACC_LOWER, _T("&acirc;"),  _T("a circumflex")  }
+  ,{ _T('a'), _T('ã'), ACC_LOWER, _T("&atilde;"), _T("a tilde")       }
+  ,{ _T('a'), _T('å'), ACC_LOWER, _T("&aring;"),  _T("a ring")        }
 
-  ,{ 'e', 'è', ACC_LOWER, "&egrave;", "e grave"       }
-  ,{ 'e', 'é', ACC_LOWER, "&eacute;", "e acute"       }
-  ,{ 'e', 'ë', ACC_LOWER, "&euml;",   "e umlaut"      }
-  ,{ 'e', 'ê', ACC_LOWER, "&ecirc;",  "e circumflex"  }
+  ,{ _T('e'), _T('è'), ACC_LOWER, _T("&egrave;"), _T("e grave")       }
+  ,{ _T('e'), _T('é'), ACC_LOWER, _T("&eacute;"), _T("e acute")       }
+  ,{ _T('e'), _T('ë'), ACC_LOWER, _T("&euml;"),   _T("e umlaut")      }
+  ,{ _T('e'), _T('ê'), ACC_LOWER, _T("&ecirc;"),  _T("e circumflex")  }
 
-  ,{ 'i', 'ì', ACC_LOWER, "&igrave;", "i grave"       }
-  ,{ 'i', 'í', ACC_LOWER, "&iacute;", "i acute"       }
-  ,{ 'i', 'ï', ACC_LOWER, "&iuml;",   "i umlaut"      }
-  ,{ 'i', 'î', ACC_LOWER, "&icirc;",  "i circumflex"  }
+  ,{ _T('i'), _T('ì'), ACC_LOWER, _T("&igrave;"), _T("i grave")       }
+  ,{ _T('i'), _T('í'), ACC_LOWER, _T("&iacute;"), _T("i acute")       }
+  ,{ _T('i'), _T('ï'), ACC_LOWER, _T("&iuml;"),   _T("i umlaut")      }
+  ,{ _T('i'), _T('î'), ACC_LOWER, _T("&icirc;"),  _T("i circumflex")  }
 
-  ,{ 'o', 'ò', ACC_LOWER, "&ograve;", "o grave"       }
-  ,{ 'o', 'ó', ACC_LOWER, "&oacute;", "o acute"       }
-  ,{ 'o', 'ö', ACC_LOWER, "&ouml;",   "o umlaut"      }
-  ,{ 'o', 'ô', ACC_LOWER, "&ocirc;",  "o circumflex"  }
-  ,{ 'o', 'õ', ACC_LOWER, "&otilde;", "o tilde"       }
-  ,{ 'o', 'ø', ACC_LOWER, "&oslash;", "o slash"       }
+  ,{ _T('o'), _T('ò'), ACC_LOWER, _T("&ograve;"), _T("o grave")       }
+  ,{ _T('o'), _T('ó'), ACC_LOWER, _T("&oacute;"), _T("o acute")       }
+  ,{ _T('o'), _T('ö'), ACC_LOWER, _T("&ouml;"),   _T("o umlaut")      }
+  ,{ _T('o'), _T('ô'), ACC_LOWER, _T("&ocirc;"),  _T("o circumflex")  }
+  ,{ _T('o'), _T('õ'), ACC_LOWER, _T("&otilde;"), _T("o tilde")       }
+  ,{ _T('o'), _T('ø'), ACC_LOWER, _T("&oslash;"), _T("o slash")       }
 
-  ,{ 'u', 'ù', ACC_LOWER, "&ugrave;", "u grave"       }
-  ,{ 'u', 'ú', ACC_LOWER, "&uacute;", "u acute"       }
-  ,{ 'u', 'ü', ACC_LOWER, "&uuml;",   "u umlaut"      }
-  ,{ 'u', 'û', ACC_LOWER, "&ucirc;",  "u circumflex"  }
+  ,{ _T('u'), _T('ù'), ACC_LOWER, _T("&ugrave;"), _T("u grave")       }
+  ,{ _T('u'), _T('ú'), ACC_LOWER, _T("&uacute;"), _T("u acute")       }
+  ,{ _T('u'), _T('ü'), ACC_LOWER, _T("&uuml;"),   _T("u umlaut")      }
+  ,{ _T('u'), _T('û'), ACC_LOWER, _T("&ucirc;"),  _T("u circumflex")  }
 
-  ,{ 'y', 'ý', ACC_LOWER, "&yacute;", "y acute"       }
-  ,{ 'y', 'ÿ', ACC_LOWER, "&yuml;",   "y umlaut"      }
+  ,{ _T('y'), _T('ý'), ACC_LOWER, _T("&yacute;"), _T("y acute")       }
+  ,{ _T('y'), _T('ÿ'), ACC_LOWER, _T("&yuml;"),   _T("y umlaut")      }
 
-  ,{ 'A', 'À', ACC_UPPER, "&Agrave;", "A grave"       }
-  ,{ 'A', 'Á', ACC_UPPER, "&Aacute;", "A acute"       }
-  ,{ 'A', 'Ä', ACC_UPPER, "&Auml;",   "A umlaut"      }
-  ,{ 'A', 'Â', ACC_UPPER, "&Acirc;",  "A circumflex"  }
-  ,{ 'A', 'Ã', ACC_UPPER, "&Atilde;", "A tilde"       }
-  ,{ 'A', 'Å', ACC_UPPER, "&Aring;",  "A ring"        }
+  ,{ _T('A'), _T('À'), ACC_UPPER, _T("&Agrave;"), _T("A grave")       }
+  ,{ _T('A'), _T('Á'), ACC_UPPER, _T("&Aacute;"), _T("A acute")       }
+  ,{ _T('A'), _T('Ä'), ACC_UPPER, _T("&Auml;"),   _T("A umlaut")      }
+  ,{ _T('A'), _T('Â'), ACC_UPPER, _T("&Acirc;"),  _T("A circumflex")  }
+  ,{ _T('A'), _T('Ã'), ACC_UPPER, _T("&Atilde;"), _T("A tilde")       }
+  ,{ _T('A'), _T('Å'), ACC_UPPER, _T("&Aring;"),  _T("A ring")        }
 
-  ,{ 'E', 'È', ACC_UPPER, "&Egrave;", "E grave"       }
-  ,{ 'E', 'É', ACC_UPPER, "&Eacute;", "E acute"       }
-  ,{ 'E', 'Ë', ACC_UPPER, "&Euml;",   "E umlaut"      }
-  ,{ 'E', 'Ê', ACC_UPPER, "&Ecirc;",  "E circumflex"  }
+  ,{ _T('E'), _T('È'), ACC_UPPER, _T("&Egrave;"), _T("E grave")       }
+  ,{ _T('E'), _T('É'), ACC_UPPER, _T("&Eacute;"), _T("E acute")       }
+  ,{ _T('E'), _T('Ë'), ACC_UPPER, _T("&Euml;"),   _T("E umlaut")      }
+  ,{ _T('E'), _T('Ê'), ACC_UPPER, _T("&Ecirc;"),  _T("E circumflex")  }
 
-  ,{ 'I', 'Ì', ACC_UPPER, "&Igrave;", "I grave"       }
-  ,{ 'I', 'Í', ACC_UPPER, "&Iacute;", "I acute"       }
-  ,{ 'I', 'Ï', ACC_UPPER, "&Iuml;",   "I umlaut"      }
-  ,{ 'I', 'Î', ACC_UPPER, "&Icirc;",  "I circumflex"  }
+  ,{ _T('I'), _T('Ì'), ACC_UPPER, _T("&Igrave;"), _T("I grave")       }
+  ,{ _T('I'), _T('Í'), ACC_UPPER, _T("&Iacute;"), _T("I acute")       }
+  ,{ _T('I'), _T('Ï'), ACC_UPPER, _T("&Iuml;"),   _T("I umlaut")      }
+  ,{ _T('I'), _T('Î'), ACC_UPPER, _T("&Icirc;"),  _T("I circumflex")  }
 
-  ,{ 'O', 'Ò', ACC_UPPER, "&Ograve;", "O grave"       }
-  ,{ 'O', 'Ó', ACC_UPPER, "&Oacute;", "O acute"       }
-  ,{ 'O', 'Ö', ACC_UPPER, "&Ouml;",   "O umlaut"      }
-  ,{ 'O', 'Ô', ACC_UPPER, "&Ocirc;",  "O circumflex"  }
-  ,{ 'O', 'Ø', ACC_UPPER, "&Oslash;", "O slash"       }
+  ,{ _T('O'), _T('Ò'), ACC_UPPER, _T("&Ograve;"), _T("O grave")       }
+  ,{ _T('O'), _T('Ó'), ACC_UPPER, _T("&Oacute;"), _T("O acute")       }
+  ,{ _T('O'), _T('Ö'), ACC_UPPER, _T("&Ouml;"),   _T("O umlaut")      }
+  ,{ _T('O'), _T('Ô'), ACC_UPPER, _T("&Ocirc;"),  _T("O circumflex")  }
+  ,{ _T('O'), _T('Ø'), ACC_UPPER, _T("&Oslash;"), _T("O slash")       }
 
-  ,{ 'U', 'Ù', ACC_UPPER, "&Ugrave;", "U grave"       }
-  ,{ 'U', 'Ú', ACC_UPPER, "&Uacute;", "U acute"       }
-  ,{ 'U', 'Ü', ACC_UPPER, "&Uuml;",   "U umlaut"      }
-  ,{ 'U', 'Û', ACC_UPPER, "&Ucirc;",  "U circumflex"  }
+  ,{ _T('U'), _T('Ù'), ACC_UPPER, _T("&Ugrave;"), _T("U grave")       }
+  ,{ _T('U'), _T('Ú'), ACC_UPPER, _T("&Uacute;"), _T("U acute")       }
+  ,{ _T('U'), _T('Ü'), ACC_UPPER, _T("&Uuml;"),   _T("U umlaut")      }
+  ,{ _T('U'), _T('Û'), ACC_UPPER, _T("&Ucirc;"),  _T("U circumflex")  }
 
-  ,{ 'Y', 'Ý', ACC_UPPER, "&Yacute;", "Y acute"       }
-  ,{ 'Y', 'ÿ', ACC_UPPER, "&Yuml;",   "Y umlaut"      }
+  ,{ _T('Y'), _T('Ý'), ACC_UPPER, _T("&Yacute;"), _T("Y acute")       }
+  ,{ _T('Y'), _T('ÿ'), ACC_UPPER, _T("&Yuml;"),   _T("Y umlaut")      }
 
-  ,{ 'c', 'ç', OTH_LOWER, "&ccedil;", "c cedille"     }
-  ,{ 'n', 'ñ', OTH_LOWER, "&ntilde;", "n tilde"       }
-  ,{ 's', 'ß', OTH_LOWER, "&szlig;",  "sz ligiture"   }
-  ,{ 'a', 'æ', OTH_LOWER, "&aelig;",  "ae ligiture"   }
-  ,{ 'e', 'Ð', OTH_LOWER, "&eth;",    "Islandic eth"  }
-  ,{ 't', 'þ', OTH_LOWER, "&thorn;",  "Islandic thorn"}
+  ,{ _T('c'), _T('ç'), OTH_LOWER, _T("&ccedil;"), _T("c cedille")     }
+  ,{ _T('n'), _T('ñ'), OTH_LOWER, _T("&ntilde;"), _T("n tilde")       }
+  ,{ _T('s'), _T('ß'), OTH_LOWER, _T("&szlig;"),  _T("sz ligiture")   }
+  ,{ _T('a'), _T('æ'), OTH_LOWER, _T("&aelig;"),  _T("ae ligiture")   }
+  ,{ _T('e'), _T('Ð'), OTH_LOWER, _T("&eth;"),    _T("Islandic eth")  }
+  ,{ _T('t'), _T('þ'), OTH_LOWER, _T("&thorn;"),  _T("Islandic thorn")}
 
-  ,{ 'C', 'Ç', OTH_UPPER, "&Ccedil;", "C cedille"     }
-  ,{ 'N', 'Ñ', OTH_UPPER, "&Ntilde;", "N tilde"       }
-  ,{ 'S', 'ß', OTH_UPPER, "&SZlig;",  "SZ ligiture"   }
-  ,{ 'A', 'Æ', OTH_UPPER, "&AElig;",  "AE ligature"   }
-  ,{ 'E', 'Ð', OTH_UPPER, "&ETH;",    "Islandic ETH"  }
-  ,{ 'T', 'Þ', OTH_UPPER, "&THORN;",  "Islandic THORN"}
+  ,{ _T('C'), _T('Ç'), OTH_UPPER, _T("&Ccedil;"), _T("C cedille")     }
+  ,{ _T('N'), _T('Ñ'), OTH_UPPER, _T("&Ntilde;"), _T("N tilde")       }
+  ,{ _T('S'), _T('ß'), OTH_UPPER, _T("&SZlig;"),  _T("SZ ligiture")   }
+  ,{ _T('A'), _T('Æ'), OTH_UPPER, _T("&AElig;"),  _T("AE ligature")   }
+  ,{ _T('E'), _T('Ð'), OTH_UPPER, _T("&ETH;"),    _T("Islandic ETH")  }
+  ,{ _T('T'), _T('Þ'), OTH_UPPER, _T("&THORN;"),  _T("Islandic THORN")}
 
-  ,{ 'a', 'a', GRE_LOWER, "&alpha;",   "alpha"        }
-  ,{ 'b', 'b', GRE_LOWER, "&beta;",    "beta"         }
-  ,{ 'g', 'g', GRE_LOWER, "&gamma;",   "gamma"        }
-  ,{ 'd', 'd', GRE_LOWER, "&delta;",   "delta"        }
-  ,{ 'e', 'e', GRE_LOWER, "&epsilon;", "epsilon"      }
-  ,{ 'z', 'z', GRE_LOWER, "&zeta;",    "zeta"         }
-  ,{ 'h', 'h', GRE_LOWER, "&eta;",     "eta"          }
-  ,{ 'o', 'o', GRE_LOWER, "&theta;",   "theta"        }
-  ,{ 'i', 'i', GRE_LOWER, "&iota;",    "iota"         }
-  ,{ 'k', 'k', GRE_LOWER, "&kappa;",   "kappa"        }
-  ,{ 'l', 'l', GRE_LOWER, "&lambda;",  "lambda"       }
-  ,{ 'm', 'm', GRE_LOWER, "&mu;",      "mu"           }
-  ,{ 'n', 'n', GRE_LOWER, "&nu;",      "nu"           }
-  ,{ 'x', 'x', GRE_LOWER, "&xi;",      "xi"           }
-  ,{ 'o', 'o', GRE_LOWER, "&omnicron;","omnicron"     }
-  ,{ 'p', 'p', GRE_LOWER, "&pi;",      "pi"           }
-  ,{ 'r', 'r', GRE_LOWER, "&rho;",     "rho"          }
-  ,{ 's', 's', GRE_LOWER, "&sigmaf;",  "sigmaf"       }
-  ,{ 's', 's', GRE_LOWER, "&sigma;",   "sigma"        }
-  ,{ 't', 't', GRE_LOWER, "&tau;",     "tau"          }
-  ,{ 'y', 'y', GRE_LOWER, "&upsilon;", "upsilon"      }
-  ,{ 'f', 'f', GRE_LOWER, "&phi;",     "phi"          }
-  ,{ 'x', 'x', GRE_LOWER, "&chi;",     "chi"          }
-  ,{ 'p', 'p', GRE_LOWER, "&psi;",     "psi"          }
-  ,{ 'w', 'w', GRE_LOWER, "&omega;",   "omega"        }
+  ,{ _T('a'), _T('a'), GRE_LOWER, _T("&alpha;"),   _T("alpha")        }
+  ,{ _T('b'), _T('b'), GRE_LOWER, _T("&beta;"),    _T("beta")         }
+  ,{ _T('g'), _T('g'), GRE_LOWER, _T("&gamma;"),   _T("gamma")        }
+  ,{ _T('d'), _T('d'), GRE_LOWER, _T("&delta;"),   _T("delta")        }
+  ,{ _T('e'), _T('e'), GRE_LOWER, _T("&epsilon;"), _T("epsilon")      }
+  ,{ _T('z'), _T('z'), GRE_LOWER, _T("&zeta;"),    _T("zeta")         }
+  ,{ _T('h'), _T('h'), GRE_LOWER, _T("&eta;"),     _T("eta")          }
+  ,{ _T('o'), _T('o'), GRE_LOWER, _T("&theta;"),   _T("theta")        }
+  ,{ _T('i'), _T('i'), GRE_LOWER, _T("&iota;"),    _T("iota")         }
+  ,{ _T('k'), _T('k'), GRE_LOWER, _T("&kappa;"),   _T("kappa")        }
+  ,{ _T('l'), _T('l'), GRE_LOWER, _T("&lambda;"),  _T("lambda")       }
+  ,{ _T('m'), _T('m'), GRE_LOWER, _T("&mu;"),      _T("mu")           }
+  ,{ _T('n'), _T('n'), GRE_LOWER, _T("&nu;"),      _T("nu")           }
+  ,{ _T('x'), _T('x'), GRE_LOWER, _T("&xi;"),      _T("xi")           }
+  ,{ _T('o'), _T('o'), GRE_LOWER, _T("&omnicron;"),_T("omnicron")     }
+  ,{ _T('p'), _T('p'), GRE_LOWER, _T("&pi;"),      _T("pi")           }
+  ,{ _T('r'), _T('r'), GRE_LOWER, _T("&rho;"),     _T("rho")          }
+  ,{ _T('s'), _T('s'), GRE_LOWER, _T("&sigmaf;"),  _T("sigmaf")       }
+  ,{ _T('s'), _T('s'), GRE_LOWER, _T("&sigma;"),   _T("sigma")        }
+  ,{ _T('t'), _T('t'), GRE_LOWER, _T("&tau;"),     _T("tau")          }
+  ,{ _T('y'), _T('y'), GRE_LOWER, _T("&upsilon;"), _T("upsilon")      }
+  ,{ _T('f'), _T('f'), GRE_LOWER, _T("&phi;"),     _T("phi")          }
+  ,{ _T('x'), _T('x'), GRE_LOWER, _T("&chi;"),     _T("chi")          }
+  ,{ _T('p'), _T('p'), GRE_LOWER, _T("&psi;"),     _T("psi")          }
+  ,{ _T('w'), _T('w'), GRE_LOWER, _T("&omega;"),   _T("omega")        }
 
-  ,{ 'a', 'A', GRE_UPPER, "&Alpha;",   "ALPHA"        }
-  ,{ 'b', 'B', GRE_UPPER, "&Beta;",    "BETA"         }
-  ,{ 'g', 'G', GRE_UPPER, "&Gamma;",   "GAMMA"        }
-  ,{ 'd', 'D', GRE_UPPER, "&Delta;",   "DELTA"        }
-  ,{ 'e', 'E', GRE_UPPER, "&Epsilon;", "EPSILON"      }
-  ,{ 'z', 'Z', GRE_UPPER, "&Zeta;",    "ZETA"         }
-  ,{ 'h', 'H', GRE_UPPER, "&Eta;",     "ETA"          }
-  ,{ 'o', 'O', GRE_UPPER, "&Theta;",   "THETA"        }
-  ,{ 'i', 'I', GRE_UPPER, "&Iota;",    "IOTA"         }
-  ,{ 'k', 'K', GRE_UPPER, "&Kappa;",   "KAPPA"        }
-  ,{ 'l', 'L', GRE_UPPER, "&Lambda;",  "LAMBDA"       }
-  ,{ 'm', 'M', GRE_UPPER, "&Mu;",      "MU"           }
-  ,{ 'n', 'N', GRE_UPPER, "&Nu;",      "NU"           }
-  ,{ 'x', 'X', GRE_UPPER, "&Xi;",      "XI"           }
-  ,{ 'o', 'O', GRE_UPPER, "&Omnicron;","OMNICRON"     }
-  ,{ 'p', 'P', GRE_UPPER, "&Pi;",      "PI"           }
-  ,{ 'r', 'R', GRE_UPPER, "&Rho;",     "RHO"          }
-  ,{ 's', 'S', GRE_UPPER, "&Sigma;",   "SIGMA"        }
-  ,{ 't', 'T', GRE_UPPER, "&Tau;",     "TAU"          }
-  ,{ 'y', 'Y', GRE_UPPER, "&Upsilon;", "UPSILON"      }
-  ,{ 'f', 'F', GRE_UPPER, "&Phi;",     "PHI"          }
-  ,{ 'x', 'X', GRE_UPPER, "&Chi;",     "CHI"          }
-  ,{ 'p', 'P', GRE_UPPER, "&Psi;",     "PSI"          }
-  ,{ 'w', 'W', GRE_UPPER, "&Omega;",   "OMEGA"        }
+  ,{ _T('a'), _T('A'), GRE_UPPER, _T("&Alpha;"),   _T("ALPHA")        }
+  ,{ _T('b'), _T('B'), GRE_UPPER, _T("&Beta;"),    _T("BETA")         }
+  ,{ _T('g'), _T('G'), GRE_UPPER, _T("&Gamma;"),   _T("GAMMA")        }
+  ,{ _T('d'), _T('D'), GRE_UPPER, _T("&Delta;"),   _T("DELTA")        }
+  ,{ _T('e'), _T('E'), GRE_UPPER, _T("&Epsilon;"), _T("EPSILON")      }
+  ,{ _T('z'), _T('Z'), GRE_UPPER, _T("&Zeta;"),    _T("ZETA")         }
+  ,{ _T('h'), _T('H'), GRE_UPPER, _T("&Eta;"),     _T("ETA")          }
+  ,{ _T('o'), _T('O'), GRE_UPPER, _T("&Theta;"),   _T("THETA")        }
+  ,{ _T('i'), _T('I'), GRE_UPPER, _T("&Iota;"),    _T("IOTA")         }
+  ,{ _T('k'), _T('K'), GRE_UPPER, _T("&Kappa;"),   _T("KAPPA")        }
+  ,{ _T('l'), _T('L'), GRE_UPPER, _T("&Lambda;"),  _T("LAMBDA")       }
+  ,{ _T('m'), _T('M'), GRE_UPPER, _T("&Mu;"),      _T("MU")           }
+  ,{ _T('n'), _T('N'), GRE_UPPER, _T("&Nu;"),      _T("NU")           }
+  ,{ _T('x'), _T('X'), GRE_UPPER, _T("&Xi;"),      _T("XI")           }
+  ,{ _T('o'), _T('O'), GRE_UPPER, _T("&Omnicron;"),_T("OMNICRON")     }
+  ,{ _T('p'), _T('P'), GRE_UPPER, _T("&Pi;"),      _T("PI")           }
+  ,{ _T('r'), _T('R'), GRE_UPPER, _T("&Rho;"),     _T("RHO")          }
+  ,{ _T('s'), _T('S'), GRE_UPPER, _T("&Sigma;"),   _T("SIGMA")        }
+  ,{ _T('t'), _T('T'), GRE_UPPER, _T("&Tau;"),     _T("TAU")          }
+  ,{ _T('y'), _T('Y'), GRE_UPPER, _T("&Upsilon;"), _T("UPSILON")      }
+  ,{ _T('f'), _T('F'), GRE_UPPER, _T("&Phi;"),     _T("PHI")          }
+  ,{ _T('x'), _T('X'), GRE_UPPER, _T("&Chi;"),     _T("CHI")          }
+  ,{ _T('p'), _T('P'), GRE_UPPER, _T("&Psi;"),     _T("PSI")          }
+  ,{ _T('w'), _T('W'), GRE_UPPER, _T("&Omega;"),   _T("OMEGA")        }
 
-  ,{ 'a', '€', COMMON,    "&euro;",   "euro"          }
-  ,{ '@', '@', COMMON,    "&#64;",    "at-sign"       }
-  ,{ 'a', '¢', COMMON,    "&cent;",   "cent"          }
-  ,{ 'a', '£', COMMON,    "&pound;",  "pound"         }
-  ,{ 'a', '¤', COMMON,    "&curren;", "currentcy"     }
-  ,{ 'a', '¥', COMMON,    "&yen;",    "yen"           }
-  ,{ 'a', '§', COMMON,    "&sect;",   "section"       }
-  ,{ 'a', '©', COMMON,    "&copy;",   "copyright"     }
-  ,{ 'a', 'ª', COMMON,    "&ordf;",   "femenine ordinal"  }
-  ,{ 'a', 'º', COMMON,    "&ordm;",   "masculine ordinal" }
-  ,{ 'a', '«', COMMON,    "&laquo;",  "left angle quote"  }
-  ,{ 'a', '»', COMMON,    "&raquo;",  "right angle quote" }
-  ,{ 'a', '¬', COMMON,    "&not;",    "not"           }
-  ,{ 'a', '®', COMMON,    "&reg;",    "trademark"     }
-  ,{ 'a', '¯', COMMON,    "&macr;",   "macron"        }
-  ,{ 'a', '°', COMMON,    "&deg;",    "degree"        }
-  ,{ 'a', '±', COMMON,    "&plusmn;", "plus minus"    }
-  ,{ 'a', '¹', COMMON,    "&sup1;",   "superscript 1" }
-  ,{ 'a', '²', COMMON,    "&sup2;",   "superscript 2" }
-  ,{ 'a', '³', COMMON,    "&sup3;",   "superscript 3" }
-  ,{ 'a', 'µ', COMMON,    "&micro;",  "micro / mu"    }
-  ,{ 'a', '×', COMMON,    "&times;",  "multiply"      }
-  ,{ 'a', 'ƒ', COMMON,    "&#131;",   "florin"        }
-  ,{ 'a', '¿', COMMON,    "&iquest;", "inverted question"    }
-  ,{ 'a', '¡', COMMON,    "&iexcl;",  "inverted exclamation" }
-  ,{ 'a', '½', COMMON,    "&frac12;", "fraction 1/2"  }
-  ,{ 'a', '¼', COMMON,    "&frac14;", "fraction 1/4"  }
-  ,{ 'a', '¾', COMMON,    "&frac34;", "fraction 3/4"  }
-  ,{ 'a', '¶', COMMON,    "&para;",   "paragraph"     }
-  ,{ 'a', '÷', COMMON,    "&divide;", "division"      }
-  ,{ 'a', '·', COMMON,    "&#149;",   "bullet"        } 
-  ,{ 0,   0,   0,         NULL,       NULL            }
+//,{ _T('a'), _T('€'), COMMON,    _T("&euro;"),   _T("euro")          }
+  ,{ _T('@'), _T('@'), COMMON,    _T("&#64;"),    _T("at-sign")       }
+  ,{ _T('a'), _T('¢'), COMMON,    _T("&cent;"),   _T("cent")          }
+  ,{ _T('a'), _T('£'), COMMON,    _T("&pound;"),  _T("pound")         }
+  ,{ _T('a'), _T('¤'), COMMON,    _T("&curren;"), _T("currentcy")     }
+  ,{ _T('a'), _T('¥'), COMMON,    _T("&yen;"),    _T("yen")           }
+  ,{ _T('a'), _T('§'), COMMON,    _T("&sect;"),   _T("section")       }
+  ,{ _T('a'), _T('©'), COMMON,    _T("&copy;"),   _T("copyright")     }
+  ,{ _T('a'), _T('ª'), COMMON,    _T("&ordf;"),   _T("femenine ordinal")  }
+  ,{ _T('a'), _T('º'), COMMON,    _T("&ordm;"),   _T("masculine ordinal") }
+  ,{ _T('a'), _T('«'), COMMON,    _T("&laquo;"),  _T("left angle quote")  }
+  ,{ _T('a'), _T('»'), COMMON,    _T("&raquo;"),  _T("right angle quote") }
+  ,{ _T('a'), _T('¬'), COMMON,    _T("&not;"),    _T("not")           }
+  ,{ _T('a'), _T('®'), COMMON,    _T("&reg;"),    _T("trademark")     }
+  ,{ _T('a'), _T('¯'), COMMON,    _T("&macr;"),   _T("macron")        }
+  ,{ _T('a'), _T('°'), COMMON,    _T("&deg;"),    _T("degree")        }
+  ,{ _T('a'), _T('±'), COMMON,    _T("&plusmn;"), _T("plus minus")    }
+  ,{ _T('a'), _T('¹'), COMMON,    _T("&sup1;"),   _T("superscript 1") }
+  ,{ _T('a'), _T('²'), COMMON,    _T("&sup2;"),   _T("superscript 2") }
+  ,{ _T('a'), _T('³'), COMMON,    _T("&sup3;"),   _T("superscript 3") }
+  ,{ _T('a'), _T('µ'), COMMON,    _T("&micro;"),  _T("micro / mu")    }
+  ,{ _T('a'), _T('×'), COMMON,    _T("&times;"),  _T("multiply")      }
+//,{ _T('a'), _T('ƒ'), COMMON,    _T("&#131;"),   _T("florin")        }
+  ,{ _T('a'), _T('¿'), COMMON,    _T("&iquest;"), _T("inverted question")    }
+  ,{ _T('a'), _T('¡'), COMMON,    _T("&iexcl;"),  _T("inverted exclamation") }
+  ,{ _T('a'), _T('½'), COMMON,    _T("&frac12;"), _T("fraction 1/2")  }
+  ,{ _T('a'), _T('¼'), COMMON,    _T("&frac14;"), _T("fraction 1/4")  }
+  ,{ _T('a'), _T('¾'), COMMON,    _T("&frac34;"), _T("fraction 3/4")  }
+  ,{ _T('a'), _T('¶'), COMMON,    _T("&para;"),   _T("paragraph")     }
+  ,{ _T('a'), _T('÷'), COMMON,    _T("&divide;"), _T("division")      }
+  ,{ _T('a'), _T('·'), COMMON,    _T("&#149;"),   _T("bullet")        } 
+  ,{ 0,       0,       0,         NULL,           NULL                }
 };
 
 // INFO for BEHAVIOR EVENTS ON TAGS
@@ -554,82 +554,82 @@ Diacrites DiacriteLetters[] =
 TagEvents tagEvents[] =
 {
   // EVENTS IN HTML 4.01 standard
-   { true,  "OnClick",            "When clicking mousebutton",                        TAGS_ALL    }
-  ,{ true,  "OnDblClick",         "When double clicking mousebutton",                 TAGS_ALL    }
-  ,{ true,  "OnKeypress",         "When a key is pressed",                            TAGS_ALL    }
-  ,{ true,  "OnKeydown",          "When a key is pressed down",                       TAGS_ALL    }
-  ,{ true,  "OnKeyup",            "When a pressed key is going up",                   TAGS_ALL    }
-  ,{ true,  "OnMousedown",        "When mousebutton is going down",                   TAGS_ALL    }
-  ,{ true,  "OnMousemove",        "When the mouse moves",                             TAGS_ALL    }
-  ,{ true,  "OnMouseout",         "When mouse is leaving element",                    TAGS_ALL    }
-  ,{ true,  "OnMouseover",        "When mouse is moving over",                        TAGS_ALL    }
-  ,{ true,  "OnMouseup",          "When mousebutton is going up",                     TAGS_ALL    }
-  ,{ true,  "OnFocus",            "When an element gets focus",                       TAGS_ALL    }
-  ,{ true,  "OnBlur",             "When an element loses focus",                      TAGS_ALL    }
-  ,{ true,  "OnLoad",             "When the page loads",                              TAGS_BODY   }
-  ,{ true,  "OnUnload",           "When leaving the page",                            TAGS_BODY   }
-  ,{ true,  "OnChange",           "When a field has been changed",                    TAGS_INPUT|TAGS_SELECT|TAGS_TEXTAREA  }
-  ,{ true,  "OnSelect",           "When some text is selected",                       TAGS_INPUT|TAGS_TEXTAREA              }
+   { true,  _T("OnClick"),            _T("When clicking mousebutton"),                        TAGS_ALL    }
+  ,{ true,  _T("OnDblClick"),         _T("When double clicking mousebutton"),                 TAGS_ALL    }
+  ,{ true,  _T("OnKeypress"),         _T("When a key is pressed"),                            TAGS_ALL    }
+  ,{ true,  _T("OnKeydown"),          _T("When a key is pressed down"),                       TAGS_ALL    }
+  ,{ true,  _T("OnKeyup"),            _T("When a pressed key is going up"),                   TAGS_ALL    }
+  ,{ true,  _T("OnMousedown"),        _T("When mousebutton is going down"),                   TAGS_ALL    }
+  ,{ true,  _T("OnMousemove"),        _T("When the mouse moves"),                             TAGS_ALL    }
+  ,{ true,  _T("OnMouseout"),         _T("When mouse is leaving element"),                    TAGS_ALL    }
+  ,{ true,  _T("OnMouseover"),        _T("When mouse is moving over"),                        TAGS_ALL    }
+  ,{ true,  _T("OnMouseup"),          _T("When mousebutton is going up"),                     TAGS_ALL    }
+  ,{ true,  _T("OnFocus"),            _T("When an element gets focus"),                       TAGS_ALL    }
+  ,{ true,  _T("OnBlur"),             _T("When an element loses focus"),                      TAGS_ALL    }
+  ,{ true,  _T("OnLoad"),             _T("When the page loads"),                              TAGS_BODY   }
+  ,{ true,  _T("OnUnload"),           _T("When leaving the page"),                            TAGS_BODY   }
+  ,{ true,  _T("OnChange"),           _T("When a field has been changed"),                    TAGS_INPUT|TAGS_SELECT|TAGS_TEXTAREA  }
+  ,{ true,  _T("OnSelect"),           _T("When some text is selected"),                       TAGS_INPUT|TAGS_TEXTAREA              }
   // EVENTS IN IE5++
-  ,{ false, "OnAfterUpdate",      "After update of <SCRIPT FOR=elem...",              TAGS_ALL    }
-  ,{ false, "OnBeforeUpdate",     "Before update of <SCRIPT FOR=elem...",             TAGS_ALL    }
-  ,{ false, "OnDataAvailable",    "If data available for <SCRIPT FOR=elem...",        TAGS_ALL    }
-  ,{ false, "OnDataSetChanged",   "If data changed in <SCRIPT FOR=elem...",           TAGS_ALL    }
-  ,{ false, "OnDataSetComplete",  "If all data loaded in <SCRIPT FOR=elem...",        TAGS_ALL    }
-  ,{ false, "OnErrorUpdate",      "On an error while updating an element",            TAGS_ALL    }
-  ,{ false, "OnFilterChange",     "When an image filter changes",                     TAGS_ALL    }
-  ,{ false, "OnHelp",             "When the user requests F1 help",                   TAGS_ALL    }
-  ,{ false, "OnSelectStart",      "When an element is selected",                      TAGS_ALL    } 
-  ,{ false, "OnCellChange",       "When a data cell in a datasource changes",         TAGS_OBJECT|TAGS_BODY    }
-  ,{ false, "OnCopy",             "When a users starts a 'copy' action",              TAGS_ALL    }
-  ,{ false, "OnCut",              "When a users starts a 'cut' action",               TAGS_ALL    }
-  ,{ false, "OnPaste",            "When a users starts a 'paste' action",             TAGS_ALL    }
-  ,{ false, "OnDrag",             "When a users drags information",                   TAGS_ALL    }
-  ,{ false, "OnDragStart",        "At the beginning of a drag operation",             TAGS_ALL    }
-  ,{ false, "OnDragEnd",          "At the end of a drag operation",                   TAGS_ALL    }
-  ,{ false, "OnDragEnter",        "When dragged object enters valid drop target",     TAGS_ALL    }
-  ,{ false, "OnDragLeave",        "When dragged object leaves valid drop target",     TAGS_ALL    }
-  ,{ false, "OnDragOver",         "When dragged object is over a valid drop target",  TAGS_ALL    }
-  ,{ false, "OnDrop",             "When dragged object drops on a valid drop target", TAGS_ALL    }
-  ,{ false, "OnLoseCapture",      "When an element loses the mouse capture",          TAGS_ALL    }
-  ,{ false, "OnPropertyChange",   "When a property of an element changes",            TAGS_ALL    }
-  ,{ false, "OnReadyStateChange", "When downloaded data or behavior is ready to use", TAGS_ALL    }
-  ,{ false, "OnResize",           "When the size of an element is about to change",   TAGS_ALL    }
-  ,{ false, "OnRowEnter",         "When a data source receives data",                 TAGS_ALL    }
-  ,{ false, "OnRowExit",          "When a data source deletes data",                  TAGS_ALL    }
-  ,{ false, "OnRowsDelete",       "When rows are deleted from a recordset",           TAGS_OBJECT|TAGS_BODY }
-  ,{ false, "OnRowsInserted",     "When rows are inserted in a recordset",            TAGS_OBJECT|TAGS_BODY }
-  ,{ false, "OnScroll",           "When the user repositions the scroll bar",         TAGS_ALL    }
-  ,{ false, "OnActivate",         "When the element becomes active (not focus!)",     TAGS_ALL    }
-  ,{ false, "OnDeactivate",       "When the element becomes not active (not focus!)", TAGS_ALL    }
-  ,{ false, "OnBeforeActivate",   "Before activation of an element (not focus!)",     TAGS_ALL    }
-  ,{ false, "OnBeforeDeactivate", "Before deactivation of an element (not focus!)",   TAGS_ALL    }
-  ,{ false, "OnLayoutComplete",   "When the document layout is ready",                TAGS_ALL    }
-  ,{ false, "OnMouseEnter",       "When the mouse moves into an element",             TAGS_ALL    }
-  ,{ false, "OnMouseLeave",       "When the mouse moves out of an element",           TAGS_ALL    }
-  ,{ false, "OnControlSelect",    "When element enters or leaves multi-selection",    TAGS_ALL    }
-  ,{ false, "OnResizeEnd",        "After an element enters or leaves multi-selection",  TAGS_ALL  }
-  ,{ false, "OnResizeStart",      "Before an element enters or leaves multi-selection", TAGS_ALL  }
-  ,{ false, "OnFocusIn",          "Before setting focus on an element",               TAGS_ALL    }
-  ,{ false, "OnFocusOut",         "After focus leaves an element",                    TAGS_ALL    }
-  ,{ false, "OnMouseWheel",       "When the mouse wheel is rotated",                  TAGS_ALL    }
-  ,{ false, "OnBeforeUnload",     "Before the document page is unloaded",             TAGS_BODY   }
-  ,{ false, "OnSelect",           "When some text is selected",                       TAGS_BODY   }
-  ,{ false, "OnAfterPrint",       "After the document is printed",                    TAGS_BODY   }
-  ,{ false, "OnBeforePrint",      "Before the document is printed",                   TAGS_BODY   }
-  ,{ false, "OnAbort",            "Error on loading the image leads to abort",        TAGS_IMG|TAGS_INPUT }
-  ,{ false, "OnError",            "Error while loading the image/object/script",      TAGS_IMG|TAGS_INPUT|TAGS_OBJECT|TAGS_SCRIPT|TAGS_STYLE}
-  ,{ false, "OnLoad",             "After loading the image",                          TAGS_IMG|TAGS_INPUT|TAGS_STYLE }
-  ,{ false, "OnBeforeEditFocus",  "Before setting focus on editable content",         TAGS_BODY   }
-  ,{ false, "OnContextMenu",      "Before showing the context menu",                  TAGS_BODY   }
-  ,{ false, "OnStop",             "When the users uses 'stop' button or leaves page", TAGS_BODY   }
-  ,{ false, "OnSelectionChange",  "When the selection state of document changes",     TAGS_BODY   }
-  ,{ false, "OnBounce",           "When the direction of the motion changes",         TAGS_MARQUEE}
-  ,{ false, "OnFinish",           "When total number of loops is reached",            TAGS_MARQUEE}
-  ,{ false, "OnStart",            "At the beginning of every loop",                   TAGS_MARQUEE}
-  ,{ false, "OnSubmit",           "When a form submit button is pressed",             TAGS_FORM   }
-  ,{ false, "OnReset",            "When a form reset button is pressed",              TAGS_FORM   } 
-  ,{ false, "",                   "",                                                 0           }
+  ,{ false, _T("OnAfterUpdate"),      _T("After update of <SCRIPT FOR=elem..."),              TAGS_ALL    }
+  ,{ false, _T("OnBeforeUpdate"),     _T("Before update of <SCRIPT FOR=elem..."),             TAGS_ALL    }
+  ,{ false, _T("OnDataAvailable"),    _T("If data available for <SCRIPT FOR=elem..."),        TAGS_ALL    }
+  ,{ false, _T("OnDataSetChanged"),   _T("If data changed in <SCRIPT FOR=elem..."),           TAGS_ALL    }
+  ,{ false, _T("OnDataSetComplete"),  _T("If all data loaded in <SCRIPT FOR=elem..."),        TAGS_ALL    }
+  ,{ false, _T("OnErrorUpdate"),      _T("On an error while updating an element"),            TAGS_ALL    }
+  ,{ false, _T("OnFilterChange"),     _T("When an image filter changes"),                     TAGS_ALL    }
+  ,{ false, _T("OnHelp"),             _T("When the user requests F1 help"),                   TAGS_ALL    }
+  ,{ false, _T("OnSelectStart"),      _T("When an element is selected"),                      TAGS_ALL    } 
+  ,{ false, _T("OnCellChange"),       _T("When a data cell in a datasource changes"),         TAGS_OBJECT|TAGS_BODY    }
+  ,{ false, _T("OnCopy"),             _T("When a users starts a 'copy' action"),              TAGS_ALL    }
+  ,{ false, _T("OnCut"),              _T("When a users starts a 'cut' action"),               TAGS_ALL    }
+  ,{ false, _T("OnPaste"),            _T("When a users starts a 'paste' action"),             TAGS_ALL    }
+  ,{ false, _T("OnDrag"),             _T("When a users drags information"),                   TAGS_ALL    }
+  ,{ false, _T("OnDragStart"),        _T("At the beginning of a drag operation"),             TAGS_ALL    }
+  ,{ false, _T("OnDragEnd"),          _T("At the end of a drag operation"),                   TAGS_ALL    }
+  ,{ false, _T("OnDragEnter"),        _T("When dragged object enters valid drop target"),     TAGS_ALL    }
+  ,{ false, _T("OnDragLeave"),        _T("When dragged object leaves valid drop target"),     TAGS_ALL    }
+  ,{ false, _T("OnDragOver"),         _T("When dragged object is over a valid drop target"),  TAGS_ALL    }
+  ,{ false, _T("OnDrop"),             _T("When dragged object drops on a valid drop target"), TAGS_ALL    }
+  ,{ false, _T("OnLoseCapture"),      _T("When an element loses the mouse capture"),          TAGS_ALL    }
+  ,{ false, _T("OnPropertyChange"),   _T("When a property of an element changes"),            TAGS_ALL    }
+  ,{ false, _T("OnReadyStateChange"), _T("When downloaded data or behavior is ready to use"), TAGS_ALL    }
+  ,{ false, _T("OnResize"),           _T("When the size of an element is about to change"),   TAGS_ALL    }
+  ,{ false, _T("OnRowEnter"),         _T("When a data source receives data"),                 TAGS_ALL    }
+  ,{ false, _T("OnRowExit"),          _T("When a data source deletes data"),                  TAGS_ALL    }
+  ,{ false, _T("OnRowsDelete"),       _T("When rows are deleted from a recordset"),           TAGS_OBJECT|TAGS_BODY }
+  ,{ false, _T("OnRowsInserted"),     _T("When rows are inserted in a recordset"),            TAGS_OBJECT|TAGS_BODY }
+  ,{ false, _T("OnScroll"),           _T("When the user repositions the scroll bar"),         TAGS_ALL    }
+  ,{ false, _T("OnActivate"),         _T("When the element becomes active (not focus!)"),     TAGS_ALL    }
+  ,{ false, _T("OnDeactivate"),       _T("When the element becomes not active (not focus!)"), TAGS_ALL    }
+  ,{ false, _T("OnBeforeActivate"),   _T("Before activation of an element (not focus!)"),     TAGS_ALL    }
+  ,{ false, _T("OnBeforeDeactivate"), _T("Before deactivation of an element (not focus!)"),   TAGS_ALL    }
+  ,{ false, _T("OnLayoutComplete"),   _T("When the document layout is ready"),                TAGS_ALL    }
+  ,{ false, _T("OnMouseEnter"),       _T("When the mouse moves into an element"),             TAGS_ALL    }
+  ,{ false, _T("OnMouseLeave"),       _T("When the mouse moves out of an element"),           TAGS_ALL    }
+  ,{ false, _T("OnControlSelect"),    _T("When element enters or leaves multi-selection"),    TAGS_ALL    }
+  ,{ false, _T("OnResizeEnd"),        _T("After an element enters or leaves multi-selection"),  TAGS_ALL  }
+  ,{ false, _T("OnResizeStart"),      _T("Before an element enters or leaves multi-selection"), TAGS_ALL  }
+  ,{ false, _T("OnFocusIn"),          _T("Before setting focus on an element"),               TAGS_ALL    }
+  ,{ false, _T("OnFocusOut"),         _T("After focus leaves an element"),                    TAGS_ALL    }
+  ,{ false, _T("OnMouseWheel"),       _T("When the mouse wheel is rotated"),                  TAGS_ALL    }
+  ,{ false, _T("OnBeforeUnload"),     _T("Before the document page is unloaded"),             TAGS_BODY   }
+  ,{ false, _T("OnSelect"),           _T("When some text is selected"),                       TAGS_BODY   }
+  ,{ false, _T("OnAfterPrint"),       _T("After the document is printed"),                    TAGS_BODY   }
+  ,{ false, _T("OnBeforePrint"),      _T("Before the document is printed"),                   TAGS_BODY   }
+  ,{ false, _T("OnAbort"),            _T("Error on loading the image leads to abort"),        TAGS_IMG|TAGS_INPUT }
+  ,{ false, _T("OnError"),            _T("Error while loading the image/object/script"),      TAGS_IMG|TAGS_INPUT|TAGS_OBJECT|TAGS_SCRIPT|TAGS_STYLE}
+  ,{ false, _T("OnLoad"),             _T("After loading the image"),                          TAGS_IMG|TAGS_INPUT|TAGS_STYLE }
+  ,{ false, _T("OnBeforeEditFocus"),  _T("Before setting focus on editable content"),         TAGS_BODY   }
+  ,{ false, _T("OnContextMenu"),      _T("Before showing the context menu"),                  TAGS_BODY   }
+  ,{ false, _T("OnStop"),             _T("When the users uses 'stop' button or leaves page"), TAGS_BODY   }
+  ,{ false, _T("OnSelectionChange"),  _T("When the selection state of document changes"),     TAGS_BODY   }
+  ,{ false, _T("OnBounce"),           _T("When the direction of the motion changes"),         TAGS_MARQUEE}
+  ,{ false, _T("OnFinish"),           _T("When total number of loops is reached"),            TAGS_MARQUEE}
+  ,{ false, _T("OnStart"),            _T("At the beginning of every loop"),                   TAGS_MARQUEE}
+  ,{ false, _T("OnSubmit"),           _T("When a form submit button is pressed"),             TAGS_FORM   }
+  ,{ false, _T("OnReset"),            _T("When a form reset button is pressed"),              TAGS_FORM   } 
+  ,{ false, _T(""),                   _T(""),                                                 0           }
 };
 
 static CMapStringToPtr  tagMap(80); // Finding tags by 'tag' string
@@ -654,11 +654,11 @@ Misc::InitMaps()
 }
 
 void
-Misc::GetAllTags(vector<string>* all)
+Misc::GetAllTags(vector<XString>* all)
 {
   for(int index=0; taginfo[index].tagname; ++index)
   {
-    string tag = taginfo[index].tagname;
+    XString tag = taginfo[index].tagname;
     all->push_back(tag);
   }
 }
@@ -700,7 +700,7 @@ Misc::DecodeMime(CString s_In)
 	{
 		TCHAR t_Chr = pt_In[I];
 
-		if (t_Chr == '%') 
+		if (t_Chr == _T('%')) 
 		{
 			UINT u32_Hex = 0;
 
@@ -709,9 +709,9 @@ Misc::DecodeMime(CString s_In)
 			{
 				UINT u32_Digit = (UINT) pt_In[I+D];
 
-  					 if (u32_Digit >= (UINT)'0' && u32_Digit <= (UINT)'9') u32_Digit -=  (UINT) '0';
-				else if (u32_Digit >= (UINT)'A' && u32_Digit <= (UINT)'F') u32_Digit -= ((UINT) 'A' -10);
-				else if (u32_Digit >= (UINT)'a' && u32_Digit <= (UINT)'f') u32_Digit -= ((UINT) 'a' -10);
+  					 if (u32_Digit >= (UINT)_T('0') && u32_Digit <= (UINT)_T('9')) u32_Digit -=  (UINT) _T('0');
+				else if (u32_Digit >= (UINT)_T('A') && u32_Digit <= (UINT)_T('F')) u32_Digit -= ((UINT) _T('A') -10);
+				else if (u32_Digit >= (UINT)_T('a') && u32_Digit <= (UINT)_T('f')) u32_Digit -= ((UINT) _T('a') -10);
 				else break;
 
 				u32_Hex = u32_Hex * 16 + u32_Digit;
@@ -766,7 +766,7 @@ Misc::EncodeHtml(CComBSTR bs_Html)
 void 
 Misc::EncodeHtml(const WCHAR *u16_In,     // IN=buffer with UNICODE Html code
  					       UINT  *pu32_WcharToCopy, // IN=Wchars to copy, OUT=Converted Wchars
- 					       char  *s8_Out,           // IN=buffer to receive ANSI Html code
+ 					       TCHAR  *s8_Out,           // IN=buffer to receive ANSI Html code
  					       UINT  *pu32_OutSize)     // IN=sizeof(s8_Out), OUT=Bytes copied to s8_Out
 {
 	// Minimum required buffer size is 9 characters !! (for "&#x03C0;\0")
@@ -781,14 +781,14 @@ Misc::EncodeHtml(const WCHAR *u16_In,     // IN=buffer with UNICODE Html code
 		if (Chr == 0) // End of Wstring
 			break;
 
-		if (Chr <= '~') // no conversion required
+		if (Chr <= _T('~')) // no conversion required
 		{
-			s8_Out[Pos] = (char) Chr;
+			s8_Out[Pos] = (TCHAR) Chr;
 			Pos ++;
 		}
 		else // encode HTML
 		{
-			sprintf(s8_Out +Pos, "&#x%04X;", Chr);
+			_stprintf(s8_Out +Pos, _T("&#x%04X;"), Chr);
 			Pos += 8;
 		}
 	}
@@ -829,13 +829,13 @@ Misc::RemoveTag(CString s_Html, CString s_Tag)
 CString 
 Misc::AddTagClass(CString s_Html,CString s_tag,CString s_class)
 {
-  CString beginTag = CString("<")  + s_tag;
-  CString endTag   = CString("</") + s_tag + ">";
+  CString beginTag = CString(_T("<"))  + s_tag;
+  CString endTag   = CString(_T("</")) + s_tag + _T(">");
   if(!s_class.IsEmpty())
   {
-    beginTag += CString(" class=\"") + s_class + "\"";
+    beginTag += CString(_T(" class=\"")) + s_class + _T("\"");
   }
-  beginTag += ">";
+  beginTag += _T(">");
   CString newText = beginTag;
   newText += s_Html;
   newText += endTag;
@@ -928,7 +928,7 @@ Misc::DecodeColor(CString p_color,int& red,int& green,int& blue)
     // No color defaults to black
     return;
   }
-  if(p_color.GetAt(0) != '#')
+  if(p_color.GetAt(0) != _T('#'))
   {
     // Search for internet-safe color name
     int ind = 0;
@@ -942,17 +942,17 @@ Misc::DecodeColor(CString p_color,int& red,int& green,int& blue)
     } 
     while(internet_colors[++ind].name);
   }
-  if(p_color.GetAt(0) == '#')
+  if(p_color.GetAt(0) == _T('#'))
   {
     if(p_color.GetLength() == 7)
     {
       // It's a RGB number #RRGGBB
       CString s_red = p_color.Mid(1,2);
-      sscanf(s_red,"%x",&red);
+      _stscanf(s_red,_T("%x"),&red);
       CString s_green = p_color.Mid(3,2);
-      sscanf(s_green,"%x",&green);
+      _stscanf(s_green,_T("%x"),&green);
       CString s_blue = p_color.Mid(5,2);
-      sscanf(s_blue,"%x",&blue);
+      _stscanf(s_blue,_T("%x"),&blue);
       return;
     }
     else if(p_color.GetLength() == 4)
@@ -960,13 +960,13 @@ Misc::DecodeColor(CString p_color,int& red,int& green,int& blue)
       // It's a RGB number #RGB
       CString s_red = p_color.Mid(1,1);
       s_red += s_red;
-      sscanf(s_red,"%x",&red);
+      _stscanf(s_red,_T("%x"),&red);
       CString s_green = p_color.Mid(2,1);
       s_green += s_green;
-      sscanf(s_green,"%x",&green);
+      _stscanf(s_green,_T("%x"),&green);
       CString s_blue = p_color.Mid(3,1);
       s_blue += s_blue;
-      sscanf(s_blue,"%x",&blue);
+      _stscanf(s_blue,_T("%x"),&blue);
       return;
     }
   }
@@ -986,7 +986,7 @@ Misc::GetInternetColor(CString& p_color)
     }
   }
   while(internet_colors[++ind].name);
-  return "";
+  return _T("");
 }
 
 // Generic move the caret to a html element
@@ -1096,12 +1096,12 @@ Misc::CombinedClassName(CString& p_tag
   if(p_tag.IsEmpty() && p_class.IsEmpty())
   {
     ASSERT(FALSE);
-    return "";
+    return _T("");
   }
   if(p_tag.IsEmpty() && !p_class.IsEmpty())
   {
     // Selector = empty tag with classname
-    combined = "S: " + p_class;
+    combined = _T("S: ") + p_class;
     p_userselect = true;
     return combined;
   }
@@ -1112,14 +1112,14 @@ Misc::CombinedClassName(CString& p_tag
   {
     if(tags->is_blockformat && p_class.IsEmpty())
     {
-      combined = CString("B: ") + tags->description;
+      combined = CString(_T("B: ")) + tags->description;
     }
     else
     {
-      combined = CString("C: ") + tags->description;
+      combined = CString(_T("C: ")) + tags->description;
       if(!p_class.IsEmpty())
       {
-        combined += CString(" (") + p_class + ")";
+        combined += CString(_T(" (")) + p_class + _T(")");
       }
     }
     tags->is_used = true;
@@ -1128,10 +1128,10 @@ Misc::CombinedClassName(CString& p_tag
   } 
   // Show as a TODO bug
   p_userselect = true;
-  combined = "TODO: " + p_tag;
+  combined = _T("TODO: ") + p_tag;
   if(!p_class.IsEmpty())
   {
-    combined += " (" + p_class + ")";
+    combined += _T(" (") + p_class + _T(")");
   }
   return combined;
 }
@@ -1146,13 +1146,13 @@ Misc::ReconstructTagClass(CString& p_combined
   // See if we should process
   if(p_combined.IsEmpty())        return;
   if(p_combined.GetLength() < 4)  return;
-  if(p_combined.Left(3) == "TOD") return;
+  if(p_combined.Left(3) == _T("TOD")) return;
 
-  classname = "";
+  classname = _T("");
   CString descript = p_combined.Mid(3);
   
   // Find classname
-  int pos = descript.Find("(");
+  int pos = descript.Find(_T("("));
   if(pos >= 0)
   {
     classname = descript.Mid(pos+1);
@@ -1180,7 +1180,7 @@ Misc::ExtractStylesList(CComPtr<IHTMLDocument2> doc2, CMFCToolBarComboBoxButton*
   // Clear the combo first
   pCombo->RemoveAllItems();
   // Basic no-style as of index zero
-  pCombo->AddItem("<No style>");
+  pCombo->AddItem(_T("<No style>"));
 
   // Reset the tagsinfo
   int index = 0;
@@ -1229,10 +1229,10 @@ Misc::ExtractStylesList(CComPtr<IHTMLDocument2> doc2, CMFCToolBarComboBoxButton*
       CString tag,spanClass;
       CString styleName = CW2CT(selector);
       tag = styleName;
-      int pos = styleName.Find('.');
+      int pos = styleName.Find(_T('.'));
       if(pos < 0)
       {
-        pos = styleName.Find('#');
+        pos = styleName.Find(_T('#'));
       }
       if(pos >= 0)
       {
@@ -1309,6 +1309,22 @@ Misc::IsUserSelectableTag(CString tagname)
 // Get a description from the tags map
 // eg. "H1" returns "Heading 1"
 CString
+Misc::GetTagDescription(XString tagname)
+{
+  struct _taginfo* tag;
+  InitMaps();
+
+  tagname.MakeLower();
+  if(tagMap.Lookup(tagname,(void*&)tag))
+  {
+    return tag->description;
+  }
+  return _T("");
+}
+
+// Get a description from the tags map
+// eg. "H1" returns "Heading 1"
+CString
 Misc::GetTagDescription(CString tagname)
 {
   struct _taginfo* tag;
@@ -1319,7 +1335,7 @@ Misc::GetTagDescription(CString tagname)
   {
     return tag->description;
   }
-  return "";
+  return _T("");
 }
 
 // Advanced hittest for floating objects
@@ -1520,12 +1536,12 @@ Misc::AreaToImg(CComPtr<IHTMLDocument2> doc
   CComBSTR tagName;
   pElement->get_tagName(&tagName);
   CString tag = CW2CT(tagName);
-  if(tag.CompareNoCase("img") == 0)
+  if(tag.CompareNoCase(_T("img")) == 0)
   {
     // Already an image
     return pElement;
   }
-  if(tag.CompareNoCase("area"))
+  if(tag.CompareNoCase(_T("area")))
   {
     // Not an area. probably just create a new image
     return pElement;
@@ -1560,7 +1576,7 @@ Misc::AreaToImg(CComPtr<IHTMLDocument2> doc
           image->get_useMap(&imgMap);
           CString cimgMap = CW2CT(imgMap);
           cimgMap.MakeLower();
-          if(cimgMap.GetLength() > 0 && cimgMap.GetAt(0) == '#')
+          if(cimgMap.GetLength() > 0 && cimgMap.GetAt(0) == _T('#'))
           {
             cimgMap = cimgMap.Mid(1);
           }
@@ -1643,7 +1659,7 @@ Misc::MetaTag(CComPtr<IHTMLDocument2>& doc
   // NOTHING TO DO
   if(!value)
   {
-    return "";
+    return _T("");
   }
   // META TAG NOT FOUND. CREATE IT
   // HttpEquivalent tags must always be created at the beginning of the head section
@@ -1718,15 +1734,17 @@ Misc::BaseTag(CComPtr<IHTMLDocument2>& doc
   // NOTHING TO DO
   if(uri.IsEmpty())
   {
-    return "";
+    return _T("");
   }
   // BASE TAG NOT FOUND. CREATE IT
   CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(doc,TAGID_BASE);
   CComQIPtr<IHTMLBaseElement,&IID_IHTMLBaseElement> base = elem;
-  base->put_href(CT2CW(uri));
+  CComBSTR bUri = uri;
+  base->put_href(bUri);
   if(!target.IsEmpty())
   {
-    base->put_target(CT2CW(target));
+    CComBSTR bTarget = target;
+    base->put_target(bTarget);
   }
   return uri;
 }
@@ -1742,10 +1760,12 @@ Misc::GetUniqueID(CComPtr<IHTMLDocument2>& doc,CString tagname)
   if(SUCCEEDED(hr))
   {
     VARIANT tagName;
-    V_VT(&tagName)   = VT_BSTR;
-    V_BSTR(&tagName) = CT2CW(tagname);
+    tagName.bstrVal = tagname.AllocSysString();
+    tagName.vt = VT_BSTR;
     CComPtr<IDispatch> disp;
     hr = coll->tags(tagName,&disp);
+    ::VariantClear(&tagName);
+
     CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> coll2 = disp;
     if(SUCCEEDED(hr) && coll2.p)
     {
@@ -1767,9 +1787,9 @@ Misc::GetUniqueID(CComPtr<IHTMLDocument2>& doc,CString tagname)
           CString cID = CW2CT(bID);
           for(int num=0;num < cID.GetLength(); ++num)
           {
-            if(isdigit(cID.GetAt(num)))
+            if(_istdigit(cID.GetAt(num)))
             {
-              long number2 = atoi(&((cID.GetString())[num]));
+              long number2 = _ttoi(&((cID.GetString())[num]));
               if(number2 >= highest)
               {
                 highest = number2 + 1;
@@ -1787,8 +1807,8 @@ CString
 Misc::CreateNewMap(CComPtr<IHTMLDocument2>& doc)
 {
   CString cMapID;
-  cMapID.Format("map%d",GetUniqueID(doc,"map"));
-  CString mapping = CString("<MAP id=") + cMapID + "></MAP>";
+  cMapID.Format(_T("map%d"),GetUniqueID(doc,_T("map")));
+  CString mapping = CString(_T("<MAP id=")) + cMapID + _T("></MAP>");
 
   CComPtr<IHTMLElement> body;
   HRESULT hr = doc->get_body(&body);
@@ -1802,7 +1822,7 @@ Misc::CreateNewMap(CComPtr<IHTMLDocument2>& doc)
   {
     return cMapID;
   }
-  return "";
+  return _T("");
 }
 
 CComPtr<IHTMLElement>
@@ -1835,7 +1855,7 @@ Misc::CreateNewArea(CComPtr<IHTMLDocument2>& doc
   if(mapElem.p)
   {
     CString newArea;
-    newArea.Format("<AREA id=%s shape=%s>",areaID.GetString(),shape.GetString());
+    newArea.Format(_T("<AREA id=%s shape=%s>"),areaID.GetString(),shape.GetString());
     CComBSTR bWhere = L"beforeEnd";
     CComBSTR bArea  = CT2CW(newArea);
     HRESULT hr = mapElem->insertAdjacentHTML(bWhere,bArea);
@@ -1855,16 +1875,16 @@ Misc::StripFileProtocol(CString fileref)
 {
   if(fileref.GetLength() > 8)
   {
-    if(fileref.Left(8).CompareNoCase("file:///") == 0)
+    if(fileref.Left(8).CompareNoCase(_T("file:///")) == 0)
     {
       fileref = fileref.Mid(8);
     }
   }
-  fileref.Replace('/','\\');
-  fileref.Replace('|',':');
-  fileref.Replace("%20"," ");
-  fileref.Replace("%23","#");
-  fileref.Replace("%25","%");
+  fileref.Replace(_T('/'),_T('\\'));
+  fileref.Replace(_T('|'),_T(':'));
+  fileref.Replace(_T("%20"),_T(" "));
+  fileref.Replace(_T("%23"),_T("#"));
+  fileref.Replace(_T("%25"),_T("%"));
   return fileref;
 }
 
@@ -1876,32 +1896,32 @@ Misc::StripPopup(CString fileref)
   CString file = fileref;
   if(file.GetLength() > 11)
   {
-    if(file.Left(11).CompareNoCase("javascript:") == 0)
+    if(file.Left(11).CompareNoCase(_T("javascript:")) == 0)
     {
       file = file.Mid(11);
     }
   }
   if(file.GetLength() > 11)
   {
-    if(file.Left(11).CompareNoCase("BSSCPopup('") == 0)
+    if(file.Left(11).CompareNoCase(_T("BSSCPopup('")) == 0)
     {
       file = file.Mid(11);
-      file = file.TrimRight("');");
+      file = file.TrimRight(_T("');"));
     }
   }
   if(file.GetLength() > 14)
   {
-    if(file.Left(14).CompareNoCase("ADHShowPopup('") == 0)
+    if(file.Left(14).CompareNoCase(_T("ADHShowPopup('")) == 0)
     {
       file = file.Mid(14);
-      int pos = file.ReverseFind('\'');
+      int pos = file.ReverseFind(_T('\''));
       if(pos >= 0)
       {
         file = file.Left(pos);
       }
     }
   }
-  if(file.Find("void(0") == 0)
+  if(file.Find(_T("void(0")) == 0)
   {
     // Help&Manual does this
     file.Empty();
@@ -1913,7 +1933,7 @@ bool
 Misc::SplitMidpageAnchor(const CString& p_fileref,CString& p_file,CString& p_anchor)
 {
   bool found = false;
-  int pos = p_fileref.Find('#');
+  int pos = p_fileref.Find(_T('#'));
   if(pos >= 0)
   {
     found    = true;
@@ -1975,7 +1995,7 @@ Misc::FindReverseNoCase(CString line,CString part,int pos/*=-1*/)
 // Substring("@hallo@dag",'@',1) -> ""
 // Substring("@hallo@dag",'@',2) -> "hallo"
 CString 
-Misc::SubStr(CString& p_string,char p_Delim,int p_Num)
+Misc::SubStr(CString& p_string,TCHAR p_Delim,int p_Num)
 {
   int nPos2;
   int nPos1 = 0;
@@ -1993,13 +2013,13 @@ Misc::SubStr(CString& p_string,char p_Delim,int p_Num)
     nPos1 = nPos2 + 1 ;
   }
   while(nPos2 >= 0);
-  return "";
+  return _T("");
 }
 
 CString
 Misc::GetParamFromCommandline(CString& commandline
                              ,CString  p_commando
-                             ,char     p_delim /* = '=' */)
+                             ,TCHAR     p_delim /* = '=' */)
 {
   int nCmdPos = commandline.Find(p_commando);
   if(nCmdPos < 0)
@@ -2008,20 +2028,20 @@ Misc::GetParamFromCommandline(CString& commandline
   }
   if(nCmdPos<0)
   {
-    return "";
+    return _T("");
   }
   int nIsPos = commandline.Find(p_delim,nCmdPos);
   if(nIsPos<0)
   {
-    return "";
+    return _T("");
   }
   CString s = commandline.Mid(nIsPos + 1);
   s.TrimLeft();
-  if(s.Find('"')==0)        // mag ook tussen kwootjes
+  if(s.Find(_T('"'))==0)        // mag ook tussen kwootjes
   {
-    return Misc::SubStr(s,'"',2);
+    return Misc::SubStr(s,_T('"'),2);
   }
-  return Misc::SubStr(s,' ',1);
+  return Misc::SubStr(s,_T(' '),1);
 }
 
 int
@@ -2030,7 +2050,7 @@ Misc::CountNL(CString& sCurSentence,int pos)
   int numNL = 0;
   for(int ind=0; ind < pos; ++ind)
   {
-    if(sCurSentence.GetAt(ind) == '\n')
+    if(sCurSentence.GetAt(ind) == _T('\n'))
     {
       ++numNL;
     }
@@ -2041,13 +2061,13 @@ Misc::CountNL(CString& sCurSentence,int pos)
 CString 
 Misc::BasenamePart(CString fullpath)
 {
-  char drive [_MAX_DRIVE + 1];
-  char direct[_MAX_DIR   + 1];
-  char fname [_MAX_FNAME + 1];
-  char extens[_MAX_EXT   + 1];
+  TCHAR drive [_MAX_DRIVE + 1];
+  TCHAR direct[_MAX_DIR   + 1];
+  TCHAR fname [_MAX_FNAME + 1];
+  TCHAR extens[_MAX_EXT   + 1];
 
   fullpath = StripFileProtocol(fullpath);
-  _splitpath(fullpath.GetString(),drive,direct,fname,extens);
+  _tsplitpath(fullpath.GetString(),drive,direct,fname,extens);
   CString filename(fname);
   return filename;
 }
@@ -2055,13 +2075,13 @@ Misc::BasenamePart(CString fullpath)
 CString
 Misc::FilenamePart(CString fullpath)
 {
-  char drive [_MAX_DRIVE + 1];
-  char direct[_MAX_DIR   + 1];
-  char fname [_MAX_FNAME + 1];
-  char extens[_MAX_EXT   + 1];
+  TCHAR drive [_MAX_DRIVE + 1];
+  TCHAR direct[_MAX_DIR   + 1];
+  TCHAR fname [_MAX_FNAME + 1];
+  TCHAR extens[_MAX_EXT   + 1];
  
   fullpath = StripFileProtocol(fullpath);
-  _splitpath(fullpath.GetString(),drive,direct,fname,extens);
+  _tsplitpath(fullpath.GetString(),drive,direct,fname,extens);
   CString filename = CString(fname) + CString(extens);
   return filename;
 }
@@ -2069,26 +2089,26 @@ Misc::FilenamePart(CString fullpath)
 CString
 Misc::ExtensionPart(CString fullpath)
 {
-  char drive [_MAX_DRIVE + 1];
-  char direct[_MAX_DIR   + 1];
-  char fname [_MAX_FNAME + 1];
-  char extens[_MAX_EXT   + 1];
+  TCHAR drive [_MAX_DRIVE + 1];
+  TCHAR direct[_MAX_DIR   + 1];
+  TCHAR fname [_MAX_FNAME + 1];
+  TCHAR extens[_MAX_EXT   + 1];
 
   fullpath = StripFileProtocol(fullpath);
-  _splitpath(fullpath.GetString(),drive,direct,fname,extens);
+  _tsplitpath(fullpath.GetString(),drive,direct,fname,extens);
   return CString(extens);
 }
 
 CString
 Misc::DirectoryPart(CString fullpath)
 {
-  char drive [_MAX_DRIVE + 1];
-  char direct[_MAX_DIR   + 1];
-  char fname [_MAX_FNAME + 1];
-  char extens[_MAX_EXT   + 1];
+  TCHAR drive [_MAX_DRIVE + 1];
+  TCHAR direct[_MAX_DIR   + 1];
+  TCHAR fname [_MAX_FNAME + 1];
+  TCHAR extens[_MAX_EXT   + 1];
 
   fullpath = StripFileProtocol(fullpath);
-  _splitpath(fullpath.GetString(),drive,direct,fname,extens);
+  _tsplitpath(fullpath.GetString(),drive,direct,fname,extens);
   CString directory = CString(drive) + CString(direct);
   return directory;
 }
@@ -2097,7 +2117,7 @@ CString
 Misc::RemoveBasePart(CString base,CString fullpath)
 {
   fullpath = StripFileProtocol(fullpath);
-  fullpath.Replace('/','\\');
+  fullpath.Replace(_T('/'),_T('\\'));
   if(FindNoCase(fullpath,base,0) == 0)
   {
     return fullpath.Mid(base.GetLength());
@@ -2119,10 +2139,10 @@ Misc::GetAttributeDisplayname(CString attribute,CString value)
   CString resultDisplay;
   while(attrib->name)
   {
-    if(stricmp(attrib->name,attribute)==0)
+    if(_tcsicmp(attrib->name,attribute)==0)
     {
       foundPoint = true;
-      if(stricmp(attrib->value,value)==0)
+      if(_tcsicmp(attrib->value,value)==0)
       {
         resultDisplay = attrib->display;
         break;
@@ -2145,10 +2165,10 @@ Misc::GetAttributeValue(CString attribute,CString display)
   CString resultValue;
   while(attrib->name)
   {
-    if(stricmp(attrib->name,attribute)==0)
+    if(_tcsicmp(attrib->name,attribute)==0)
     {
       foundPoint = true;
-      if(stricmp(attrib->display,display)==0)
+      if(_tcsicmp(attrib->display,display)==0)
       {
         resultValue = attrib->value;
         break;
@@ -2164,17 +2184,17 @@ Misc::GetAttributeValue(CString attribute,CString display)
 }
 
 void
-Misc::GetAllAttributeDisplaynames(CString attribute,vector<string>* all)
+Misc::GetAllAttributeDisplaynames(CString attribute,vector<XString>* all)
 {
   AttributeInfo* attrib = attributes;
   bool foundPoint = false;
 
   while(attrib->name)
   {
-    if(stricmp(attrib->name,attribute)==0)
+    if(_tcsicmp(attrib->name,attribute)==0)
     {
       foundPoint = true;
-      string display = attrib->display;
+      XString display = attrib->display;
       if(find(all->begin(),all->end(),display) == all->end())
       {
         all->push_back(display);
@@ -2198,7 +2218,7 @@ Misc::MakeRelativePathname(CString& p_base
                           ,CString& p_absolute
                           ,CString& p_relative)
 {
-  p_relative       = "";
+  p_relative       = _T("");
   CString base     = StripFileProtocol(p_base);
   CString absolute = StripFileProtocol(p_absolute);
 
@@ -2214,11 +2234,11 @@ Misc::MakeRelativePathname(CString& p_base
     return false;
   }
   // Make all directory seperators the same
-  base.Replace('\\','/');
-  absolute.Replace('\\','/');
+  base.Replace(_T('\\'),_T('/'));
+  absolute.Replace(_T('\\'),_T('/'));
 
   // Special case: only a filename, make it relative to the 'this' directory
-  if(absolute.Find('/') < 0)
+  if(absolute.Find(_T('/')) < 0)
   {
     // Cannot use this in *.HHP projects!
     // p_relative = CString("./") + absolute;
@@ -2226,7 +2246,7 @@ Misc::MakeRelativePathname(CString& p_base
     return true;
   }
   // Special case: already a relative path
-  if(absolute.GetAt(0) == '.')
+  if(absolute.GetAt(0) == _T('.'))
   {
     p_relative = absolute;
     return true;
@@ -2234,7 +2254,7 @@ Misc::MakeRelativePathname(CString& p_base
   // Find the path-parts that are common to both names
   // We can eliminate these parts
   bool notCompatible = true;
-  int  pos = absolute.Find('/');
+  int  pos = absolute.Find(_T('/'));
   while(pos >= 0)
   {
     CString left_base = base    .Left(pos);
@@ -2250,7 +2270,7 @@ Misc::MakeRelativePathname(CString& p_base
     // Did at least one elimination
     notCompatible = false;
     // Find next position
-    pos = absolute.Find('/');
+    pos = absolute.Find(_T('/'));
   }
   if(notCompatible)
   {
@@ -2263,12 +2283,12 @@ Misc::MakeRelativePathname(CString& p_base
   // This is what we have left:
   // Absolute: "ddd/eee/file.ext"
   // Base    : "rrr/qqq/"
-  pos = base.Find('/');
+  pos = base.Find(_T('/'));
   while(pos >= 0)
   {
-    absolute = CString("../") + absolute;
+    absolute = CString(_T("../")) + absolute;
     base = base.Mid(pos+1);
-    pos  = base.Find('/');
+    pos  = base.Find(_T('/'));
   }
   p_relative = absolute;
 
@@ -2276,11 +2296,11 @@ Misc::MakeRelativePathname(CString& p_base
   // Now warn for files outside the project
   if(p_relative.GetLength() > 1)
   {
-    if(p_relative.Left(2) == "..")
+    if(p_relative.Left(2) == _T(".."))
     {
-      CString mess = "The file [" + p_relative + "] does not exist inside your project directory structure!\n"
-                     "This can be a problem for the compilation, style sheets, images, links etc.";
-      theApp.MessageBox(mess,"Project integrity",MB_OK|MB_ICONASTERISK);
+      CString mess = _T("The file [") + p_relative + _T("] does not exist inside your project directory structure!\n")
+                     _T("This can be a problem for the compilation, style sheets, images, links etc.");
+      theApp.MessageBox(mess,_T("Project integrity"),MB_OK|MB_ICONASTERISK);
     }
   }
   return true;
@@ -2292,8 +2312,8 @@ Misc::MakeRelativePathname(CString& p_base
 CString
 Misc::ReduceDirectoryPath(CString& path)
 {
-  char buffer[_MAX_PATH+1];
-  strncpy(buffer,path.GetString(),_MAX_PATH);
+  TCHAR buffer[_MAX_PATH+1];
+  _tcsnccpy(buffer,path.GetString(),_MAX_PATH);
   bool foundReduction = true;
 
   while(foundReduction)
@@ -2301,32 +2321,32 @@ Misc::ReduceDirectoryPath(CString& path)
     // Drop out if we find nothing;
     foundReduction = false;
 
-    char* pnt1 = buffer;
-    char* pnt2 = pnt1;
-    char* pnt3 = pnt1;
+    TCHAR* pnt1 = buffer;
+    TCHAR* pnt2 = pnt1;
+    TCHAR* pnt3 = pnt1;
 
-    while(*pnt1 && *pnt1!='\\' && *pnt1!='/') ++pnt1;
+    while(*pnt1 && *pnt1!=_T('\\') && *pnt1!=_T('/')) ++pnt1;
     if(!*pnt1++)
     {
       // Not one directory seperator
       return path;
     }
     pnt3 = pnt1;
-    while(*pnt1 && *pnt1!='\\' && *pnt1!='/') ++pnt1;
+    while(*pnt1 && *pnt1!=_T('\\') && *pnt1!=_T('/')) ++pnt1;
     if(!*pnt1++)
     {
       // Not a second directory seperator
       return path;
     }
     pnt2 = pnt1;
-    while(*pnt1 && *pnt1!='\\' && *pnt1!='/') ++pnt1;
+    while(*pnt1 && *pnt1!=_T('\\') && *pnt1!=_T('/')) ++pnt1;
     while(*pnt1)
     {
       ++pnt1;
       // IN:  C:\direct1\direct2\direct3\..\..\direct4\
       //         |       |       |
       //      pnt3    pnt2    pnt1
-      if(strncmp(pnt2,"..\\",3)==0 || strncmp(pnt2,"../",3)==0)
+      if(_tcsnccmp(pnt2,_T("..\\"),3)==0 || _tcsnccmp(pnt2,_T("../"),3)==0)
       {
         // Space between pnt2 and pnt1 = \..\
         // IN:  C:\direct1\direct2\direct3\..\..\direct4\
@@ -2334,7 +2354,7 @@ Misc::ReduceDirectoryPath(CString& path)
         //                      pnt3    pnt2  pnt1
 
         // REDUCTION
-        strcpy(pnt3,pnt1);
+        _tcscpy(pnt3,pnt1);
 
         // At least one more loop
         foundReduction = true;
@@ -2344,7 +2364,7 @@ Misc::ReduceDirectoryPath(CString& path)
       // Next level of directories
       pnt3 = pnt2;
       pnt2 = pnt1;
-      while(*pnt1 && *pnt1!='\\' && *pnt1!='/') ++pnt1;
+      while(*pnt1 && *pnt1!=_T('\\') && *pnt1!=_T('/')) ++pnt1;
     }
   }
   return CString(buffer);
@@ -2357,33 +2377,33 @@ Misc::ResolveSpecialChars(CString& value)
 {
   int total = 0;
 
-  int pos = value.Find('%');
+  int pos = value.Find(_T('%'));
   while (pos >= 0)
   {
     ++total;
     int num = 0;
     CString hexstring = value.Mid(pos+1,2);
     hexstring.MakeUpper();
-    if(isdigit(hexstring.GetAt(0)))
+    if(_istdigit(hexstring.GetAt(0)))
     {
-      num = hexstring.GetAt(0) - '0';
+      num = hexstring.GetAt(0) - _T('0');
     }
     else
     { 
-      num = hexstring.GetAt(0) - 'A' + 10;
+      num = hexstring.GetAt(0) - _T('A') + 10;
     }
     num *= 16;
-    if(isdigit(hexstring.GetAt(1)))
+    if(_istdigit(hexstring.GetAt(1)))
     {
-      num += hexstring.GetAt(1) - '0';
+      num += hexstring.GetAt(1) - _T('0');
     }
     else
     {
-      num += hexstring.GetAt(1) - 'A' + 10;
+      num += hexstring.GetAt(1) - _T('A') + 10;
     }
-    value.SetAt(pos,(char)num);
+    value.SetAt(pos,(TCHAR)num);
     value = value.Left(pos+1) + value.Mid(pos + 3);
-    pos = value.Find('%');
+    pos = value.Find(_T('%'));
   }
   return total;
 }
@@ -2436,7 +2456,7 @@ Misc::GetEventDescription(CString event,UINT tags)
     }
     ++pnt;
   }
-  return "";
+  return _T("");
 }
 
 
@@ -2454,7 +2474,7 @@ Misc::GetDiacriteHtml(uchar letter)
     }
     ++diac;
   }
-  return "";
+  return _T("");
 }
 
 void
@@ -2464,14 +2484,14 @@ Misc::ParseNumber(CString& def,unsigned long& number)
   number = 0;
 
   def.TrimLeft();
-  int cpos = def.Find(',');
+  int cpos = def.Find(_T(','));
   CString num = def;
   if(cpos >= 0)
   {
     num = def.Left(cpos);
   }
-  int Xpos = num.Find('X');
-  int xpos = num.Find('x');
+  int Xpos = num.Find(_T('X'));
+  int xpos = num.Find(_T('x'));
   xpos = (Xpos >= 0) ? Xpos : xpos;
   if(xpos >= 0)
   {
@@ -2480,15 +2500,15 @@ Misc::ParseNumber(CString& def,unsigned long& number)
     while(num.GetLength())
     {
       number *= 16;
-      char c = num.GetAt(0);
-      if(isdigit(c))
+      TCHAR c = num.GetAt(0);
+      if(_istdigit(c))
       {
-        number += (int)(c - '0');
+        number += (int)(c - _T('0'));
       }
       else
       {
-        c = toupper(c);
-        number += (int)(c - 'A' + 10);
+        c = _totupper(c);
+        number += (int)(c - _T('A') + 10);
       }
       num = num.Mid(1);
     }
@@ -2496,7 +2516,7 @@ Misc::ParseNumber(CString& def,unsigned long& number)
   else
   {
     // Simple number
-    number = atoi(def.Left(cpos));
+    number = _ttoi(def.Left(cpos));
   }
   // Parse on (WindowDefinition)
   if(cpos >= 0)
@@ -2527,7 +2547,7 @@ Misc::IsANumber(CString& def,long& number,double& broken)
 {
   bool negative = false;
   int  index    = 0;
-  char c;
+  TCHAR c;
   // Reset number
   number = 0;
   broken = 0.0;
@@ -2539,21 +2559,21 @@ Misc::IsANumber(CString& def,long& number,double& broken)
   }
   // Parse sign of number
   c = def.GetAt(0);
-  if(c == '+')
+  if(c == _T('+'))
   {
     // Legaal positief getal
     c = def.GetAt(++index);
   }
-  else if(c == '-')
+  else if(c == _T('-'))
   {
     // Legaal negatief getal
     negative = true;
     c = def.GetAt(++index);
   }
   // Scan for octal or hexadecimal number
-  if(def.GetLength() > (index + 1) && def.GetAt(index) == '0')
+  if(def.GetLength() > (index + 1) && def.GetAt(index) == _T('0'))
   {
-    bool xpos = (toupper(def.GetAt(index + 1)) == 'X');
+    bool xpos = (_totupper(def.GetAt(index + 1)) == _T('X'));
     if(xpos)
     {
       // HEXADECIMAL NUMBER
@@ -2563,16 +2583,16 @@ Misc::IsANumber(CString& def,long& number,double& broken)
       while(def.GetLength() > index)
       {
         number *= 16;
-        if(isdigit(c))
+        if(_istdigit(c))
         {
-          number += (int)(c - '0');
+          number += (int)(c - _T('0'));
         }
         else
         {
-          c = toupper(c);
-          if(c >= 'A' && c <= 'F')
+          c = _totupper(c);
+          if(c >= _T('A') && c <= _T('F'))
           {
-            number += (int) (c - 'A' + 10);
+            number += (int) (c - _T('A') + 10);
           }
           else
           {
@@ -2590,10 +2610,10 @@ Misc::IsANumber(CString& def,long& number,double& broken)
       c = def.GetAt(index);
       while(def.GetLength() > index)
       {
-        if(c >= '0' && c <= '7')
+        if(c >= _T('0') && c <= _T('7'))
         {
           number *= 8;
-          number += (c - '0');
+          number += (c - _T('0'));
         }
         else
         {
@@ -2612,16 +2632,16 @@ Misc::IsANumber(CString& def,long& number,double& broken)
   // Stuk voor decimale punt,komma
   while(def.GetLength() > index)
   {
-    if(!isdigit(c))
+    if(!_istdigit(c))
     {
       break;
     }
     number *= 10;
-    number += (c - '0');
+    number += (c - _T('0'));
     c = def.GetAt(++index);
   }
   // Stuk na decimale punt:komma
-  if((def.GetLength() > index) && (c == '.' || c == ','))
+  if((def.GetLength() > index) && (c == _T('.') || c == _T(',')))
   {
     c = def.GetAt(++index);
     broken = (double) number;
@@ -2629,29 +2649,29 @@ Misc::IsANumber(CString& def,long& number,double& broken)
     double part   = 0;
     while(def.GetLength() > index)
     {
-      if(!isdigit(c))
+      if(!_istdigit(c))
       {
         break;
       }
       factor *= 10;
       part   *= 10;
-      part   += (c - '0');
+      part   += (c - _T('0'));
       c = def.GetAt(++index);
     }
     broken += (part / factor);
   }
   // IEEE Exponentional notation
-  if(c == 'E' || c == 'e')
+  if(c == _T('E') || c == _T('e'))
   {
     int exp = 0;
     c = def.GetAt(++index);
     bool negexp = false;
-    if(c == '+')
+    if(c == _T('+'))
     {
       // Legaal positief getal
       c = def.GetAt(++index);
     }
-    else if(c == '-')
+    else if(c == _T('-'))
     {
       // Legaal negatief getal
       negexp = true;
@@ -2659,12 +2679,12 @@ Misc::IsANumber(CString& def,long& number,double& broken)
     }
     while(def.GetLength() > index)
     {
-      if(!isdigit(c))
+      if(!_istdigit(c))
       {
         break;
       }
       exp *= 10;
-      exp += (c - '0');
+      exp += (c - _T('0'));
       c = def.GetAt(++index);
     }
     if(negexp)
@@ -2728,8 +2748,8 @@ Misc::FontSizeToPointSize(int fontsize)
 //
 //////////////////////////////////////////////////////////////////////////
 
-const  char*    TOKEN_START = "<\"";
-const  char*    TOKEN_SEPERATOR = ">= \"\'";
+const  TCHAR*    TOKEN_START = _T("<\"");
+const  TCHAR*    TOKEN_SEPERATOR = _T(">= \"\'");
 static CString  lastWord;
 static TOCToken lastToken = PF_NOTOKEN;
 static XString  currentstring;
@@ -2782,39 +2802,39 @@ Misc::GetNextTokenChar(WinFile& file)
   {
     if (!file.Read(currentstring))
     {
-      return EOF;
+      return _TEOF;
     }
   }
   c = currentstring.GetAt(0);
   currentstring = currentstring.Mid(1);
 
-  if(c == '&')
+  if(c == _T('&'))
   {
-    if(currentstring.Find("amp;") == 0)
+    if(currentstring.Find(_T("amp;")) == 0)
     {
       currentstring = currentstring.Mid(4);
-      return '&';
+      return _T('&');
     }
-    if(currentstring.Find("lt;") == 0)
+    if(currentstring.Find(_T("lt;")) == 0)
     {
       currentstring = currentstring.Mid(3);
-      return '<';
+      return _T('<');
     }
-    if(currentstring.Find("gt;") == 0)
+    if(currentstring.Find(_T("gt;")) == 0)
     {
       currentstring = currentstring.Mid(3);
-      return '>';
+      return _T('>');
     }
-    if(currentstring.Find("apos;") == 0)
+    if(currentstring.Find(_T("apos;")) == 0)
     {
       currentstring = currentstring.Mid(5);
-      return '\'';
+      return _T('\'');
     }
-    if(currentstring.Find("quot;") == 0)
+    if(currentstring.Find(_T("quot;")) == 0)
     {
       currentstring = currentstring.Mid(5);
       normalchar = false;
-      return '\"';
+      return _T('\"');
     }
   }
   return c;
@@ -2832,7 +2852,7 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
   int c = 0;
   int index = 0;
   bool dostring = false;
-  char buffer[MAX_PATH+1];
+  TCHAR buffer[MAX_PATH+1];
 
   // Last token stacked?
   if(lastToken != PF_NOTOKEN)
@@ -2847,15 +2867,15 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
   // And closing '>' after another seperator, eg: ">
   while(true)
   {
-    if((c = GetNextTokenChar(file)) == EOF)
+    if((c = GetNextTokenChar(file)) == _TEOF)
     {
       return PF_EOF;
     }
-    if(c == '\n')
+    if(c == _T('\n'))
     {
       ++linenumber;
     }
-    if(!isspace(c) && (c != '>'))
+    if(!_istspace(c) && (c != _T('>')))
     {
       UngetNextTokenChar(c);
       break;
@@ -2864,11 +2884,11 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
   // Get the token
   while(true)
   {
-    if((c = GetNextTokenChar(file)) == EOF)
+    if((c = GetNextTokenChar(file)) == _TEOF)
     {
       return PF_EOF;
     }
-    if(c == '\n') 
+    if(c == _T('\n')) 
     {
       ++linenumber;
       continue;
@@ -2877,7 +2897,7 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
     buffer[index  ] = 0;
 
     // Check for end-of-string
-    if (dostring && c == '\"' && normalchar)
+    if (dostring && c == _T('\"') && normalchar)
     {
       buffer[--index] = 0;
       break;
@@ -2897,7 +2917,7 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
     {
       // Chop of leading spaces
       index = 0;
-      if (c == '\"')
+      if (c == _T('\"'))
       {
         dostring = true;
       }
@@ -2909,30 +2929,30 @@ Misc::GetToken(WinFile& file,CString& word,long& linenumber)
     return PF_STRING;
   }
      _tcsupr(buffer);
-  if(_tcscmp(buffer,"HTML")   == 0) return PF_HTML;
-  if(_tcscmp(buffer,"HEAD")   == 0) return PF_HEAD;
-  if(_tcscmp(buffer,"META")   == 0) return PF_META;
-  if(_tcscmp(buffer,"BODY")   == 0) return PF_BODY;
-  if(_tcsncmp(buffer,"!--",3) == 0) return PF_COMMENT;
-  if(_tcscmp(buffer,"=")      == 0) return PF_EQUAL;
-  if(_tcscmp(buffer,"OBJECT") == 0) return PF_OBJECT;
-  if(_tcscmp(buffer,"UL")     == 0) return PF_LIST;
-  if(_tcscmp(buffer,"LI")     == 0) return PF_LISTITEM;
-  if(_tcscmp(buffer,"A")      == 0) return PF_ANCHOR;
-  if(_tcscmp(buffer,"BR")     == 0) return PF_BREAK;
-  if(_tcscmp(buffer,"/HTML")  == 0) return PF_ENDHTML;
-  if(_tcscmp(buffer,"/HEAD")  == 0) return PF_ENDHEAD;
-  if(_tcscmp(buffer,"/BODY")  == 0) return PF_ENDBODY;
-  if(_tcscmp(buffer,"/OBJECT")== 0) return PF_ENDOBJECT;
-  if(_tcscmp(buffer,"/UL")    == 0) return PF_ENDLIST;
-  if(_tcscmp(buffer,"/LI")    == 0) return PF_ENDLISTITEM;
-  if(_tcscmp(buffer,"/A")     == 0) return PF_ENDANCHOR;
-  if(_tcscmp(buffer,"TYPE")   == 0) return PF_TYPE;
-  if(_tcscmp(buffer,"PARAM")  == 0) return PF_PARAM;
-  if(_tcscmp(buffer,"NAME")   == 0) return PF_NAME;
-  if(_tcscmp(buffer,"VALUE")  == 0) return PF_VALUE;
-  if(_tcscmp(buffer,"!DOCTYPE")  == 0) return PF_DOCTYPE;
-  if(_tcscmp(buffer,"CONTENT")   == 0) return PF_CONTENT;
+  if(_tcscmp(buffer,_T("HTML"))   == 0) return PF_HTML;
+  if(_tcscmp(buffer,_T("HEAD"))   == 0) return PF_HEAD;
+  if(_tcscmp(buffer,_T("META"))   == 0) return PF_META;
+  if(_tcscmp(buffer,_T("BODY"))   == 0) return PF_BODY;
+  if(_tcsncmp(buffer,_T("!--"),3) == 0) return PF_COMMENT;
+  if(_tcscmp(buffer,_T("="))      == 0) return PF_EQUAL;
+  if(_tcscmp(buffer,_T("OBJECT")) == 0) return PF_OBJECT;
+  if(_tcscmp(buffer,_T("UL"))     == 0) return PF_LIST;
+  if(_tcscmp(buffer,_T("LI"))     == 0) return PF_LISTITEM;
+  if(_tcscmp(buffer,_T("A"))      == 0) return PF_ANCHOR;
+  if(_tcscmp(buffer,_T("BR"))     == 0) return PF_BREAK;
+  if(_tcscmp(buffer,_T("/HTML"))  == 0) return PF_ENDHTML;
+  if(_tcscmp(buffer,_T("/HEAD"))  == 0) return PF_ENDHEAD;
+  if(_tcscmp(buffer,_T("/BODY"))  == 0) return PF_ENDBODY;
+  if(_tcscmp(buffer,_T("/OBJECT"))== 0) return PF_ENDOBJECT;
+  if(_tcscmp(buffer,_T("/UL"))    == 0) return PF_ENDLIST;
+  if(_tcscmp(buffer,_T("/LI"))    == 0) return PF_ENDLISTITEM;
+  if(_tcscmp(buffer,_T("/A"))     == 0) return PF_ENDANCHOR;
+  if(_tcscmp(buffer,_T("TYPE"))   == 0) return PF_TYPE;
+  if(_tcscmp(buffer,_T("PARAM"))  == 0) return PF_PARAM;
+  if(_tcscmp(buffer,_T("NAME"))   == 0) return PF_NAME;
+  if(_tcscmp(buffer,_T("VALUE"))  == 0) return PF_VALUE;
+  if(_tcscmp(buffer,_T("!DOCTYPE"))  == 0) return PF_DOCTYPE;
+  if(_tcscmp(buffer,_T("CONTENT"))   == 0) return PF_CONTENT;
 
   return PF_NOTOKEN;
 }
@@ -2948,11 +2968,11 @@ Misc::FormatXMLString(const CString& p_string)
     c = p_string.GetAt(ind);
     switch(c)
     {
-      case '&':  result += "&amp;";  break;
-      case '\'': result += "&apos;"; break;
-      case '\"': result += "&quot;"; break;
-      case '<':  result += "&lt;";   break;
-      case '>':  result += "&gt;";   break;
+      case _T('&'):  result += _T("&amp;");  break;
+      case _T('\''): result += _T("&apos;"); break;
+      case _T('\"'): result += _T("&quot;"); break;
+      case _T('<'):  result += _T("&lt;");   break;
+      case _T('>'):  result += _T("&gt;");   break;
       default:   result += (TCHAR)c; break;
     }
   }
@@ -2988,16 +3008,16 @@ void
 Misc::SkipBOM(FILE* p_file)
 {
   // GET FIRST CHAR
-  int c1 = getc(p_file);
+  int c1 = _gettc(p_file);
   // Check UTF-8
   if(c1 == 0x0EF)
   {
     // Check second char
-    int c2 = getc(p_file);
+    int c2 = _gettc(p_file);
     if(c2 == 0x0BB)
     {
       // check third char
-      int c3 = getc(p_file);
+      int c3 = _gettc(p_file);
       if(c3 == 0x0BF)
       {
         // OK-BOM SKIPPED
@@ -3010,7 +3030,7 @@ Misc::SkipBOM(FILE* p_file)
   else
   {
     // NOT UTF-8
-    ungetc(c1,p_file);
+    _ungettc(c1,p_file);
   }
 }
 
@@ -3034,12 +3054,12 @@ Misc::ReplaceFilenameExtra(CString& p_base
   // detect javascript
   int script_begin = -1;
   int script_end   = -1;
-  if(p_input_ref.Find("javascript") >= 0)
+  if(p_input_ref.Find(_T("javascript")) >= 0)
   {
-     script_begin = p_input_ref.Find('\'');
+     script_begin = p_input_ref.Find(_T('\''));
      if(script_begin > 0)
      {
-       script_end = p_input_ref.Find('\'',script_begin+1);
+       script_end = p_input_ref.Find(_T('\''),script_begin+1);
      }
      fileref = p_input_ref.Mid(script_begin + 1,script_end - script_begin - 1);
   }
@@ -3062,7 +3082,7 @@ Misc::ReplaceFilenameExtra(CString& p_base
   // Reconstruct
   if(hasAnchor)
   {
-    fileref += "#" + anchor;
+    fileref += _T("#") + anchor;
   }
   // Put result in 'output-ref'
   if(script_begin >= 0)
@@ -3082,16 +3102,16 @@ Misc::ReplaceFilenameExtra(CString& p_base
 CString 
 Misc::GetExePath()
 {
-  char buffer[_MAX_PATH];
+  TCHAR buffer[_MAX_PATH];
 
   CString application(TECHNICAL_APP);
   GetModuleFileName(GetModuleHandle(application), buffer, _MAX_PATH);
   CString applicationAndPath = buffer;
 
-  int slashPositie = applicationAndPath.ReverseFind('\\');
+  int slashPositie = applicationAndPath.ReverseFind(_T('\\'));
   if (slashPositie == 0)
   {
-    return "";
+    return _T("");
   }
   return applicationAndPath.Left(slashPositie + 1);
 }
@@ -3108,12 +3128,12 @@ Misc::StartProgramma(CString& p_program
     CString pad = GetExePath();
     p_program = pad + p_program;
 
-    if(_access(p_program,04) == -1)
+    if(_taccess(p_program,04) == -1)
     {
       // We do not find this program. Report!
       CString message;
-      message.Format("Cannot find the programm: '%s'",p_program.GetString());
-      ::MessageBox(NULL,message,"Error",MB_OK|MB_ICONERROR);
+      message.Format(_T("Cannot find the programm: '%s'"),p_program.GetString());
+      ::MessageBox(NULL,message,_T("Error"),MB_OK|MB_ICONERROR);
       return -100;
     }
   }
@@ -3126,10 +3146,10 @@ Misc::StartProgramma(CString& p_program
   startupInfo.wShowWindow = p_show ? SW_SHOW : SW_HIDE;
 
   // Creeer een command line 
-  char commandLine[MAX_COMMANDLINE];
-  sprintf_s(commandLine,MAX_COMMANDLINE,"\"%s\" %s",p_program.GetString(),p_arguments.GetString());
+  TCHAR commandLine[MAX_COMMANDLINE];
+  _stprintf_s(commandLine,MAX_COMMANDLINE,_T("\"%s\" %s"),p_program.GetString(),p_arguments.GetString());
   BOOL res = CreateProcess((LPCTSTR)p_program     // Program to start or NULL
-                          ,(LPSTR)  commandLine   // Command line with arguments only
+                          ,(LPTSTR)  commandLine   // Command line with arguments only
                           ,NULL         				  // Security
                           ,NULL  				          // ThreadAttributes
                           ,FALSE                  // Inherit handles

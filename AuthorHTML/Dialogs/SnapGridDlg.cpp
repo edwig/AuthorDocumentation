@@ -50,13 +50,13 @@ SnapGridDlg::Ratios()
 {
   int gw,gh,sw,sh;
   int ratioW,ratioH;
-  gw = atoi(m_gridWidth);
-  sw = atoi(m_snapWidth);
+  gw = _ttoi(m_gridWidth);
+  sw = _ttoi(m_snapWidth);
   if(gw > sw)
   {
     ratioW = gw / sw;
     CString gridWidth;
-    gridWidth.Format("%d",ratioW * sw);
+    gridWidth.Format(_T("%d"),ratioW * sw);
     if(gridWidth != m_gridWidth)
     {
       return false;
@@ -66,20 +66,20 @@ SnapGridDlg::Ratios()
   {
     ratioW = sw / gw;
     CString snapWidth;
-    snapWidth.Format("%d",ratioW * gw);
+    snapWidth.Format(_T("%d"),ratioW * gw);
     if(snapWidth != m_snapWidth)
     {
       return false;
     }
   }
 
-  gh = atoi(m_gridHeight);
-  sh = atoi(m_snapHeight);
+  gh = _ttoi(m_gridHeight);
+  sh = _ttoi(m_snapHeight);
   if(gh > sh)
   {
     ratioH = gh / sh;
     CString gridHeight;
-    gridHeight.Format("%d",ratioH * sh);
+    gridHeight.Format(_T("%d"),ratioH * sh);
     if(gridHeight != m_gridHeight)
     {
       return false;
@@ -89,7 +89,7 @@ SnapGridDlg::Ratios()
   {
     ratioH = sh / gh;
     CString snapHeight;
-    snapHeight.Format("%d",ratioH * gh);
+    snapHeight.Format(_T("%d"),ratioH * gh);
     if(snapHeight != m_snapHeight)
     {
       return false;
@@ -179,10 +179,10 @@ SnapGridDlg::OnInitDialog()
   m_spinGH.SetRange(0,32000);
   m_spinSW.SetRange(0,32000);
   m_spinSH.SetRange(0,32000);
-  m_spinGW.SetPos(atoi(m_gridWidth));
-  m_spinGH.SetPos(atoi(m_gridHeight));
-  m_spinSW.SetPos(atoi(m_snapWidth));
-  m_spinSH.SetPos(atoi(m_snapHeight));
+  m_spinGW.SetPos(_ttoi(m_gridWidth));
+  m_spinGH.SetPos(_ttoi(m_gridHeight));
+  m_spinSW.SetPos(_ttoi(m_snapWidth));
+  m_spinSH.SetPos(_ttoi(m_snapHeight));
 
   m_buttonColor.EnableOtherButton(_T("More colors..."));
   m_buttonColor.SetColor(COLOR_DEFAULT_GRIDCOLOR);
@@ -304,7 +304,7 @@ SnapGridDlg::OnBnClickedGridButtcolor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_lineColor.Format("#%02x%02x%02x",red,green,blue);
+  m_lineColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -312,8 +312,8 @@ SnapGridDlg::OnBnClickedOk()
 {
   if(!Ratios())
   {
-    theApp.MessageBox("Grid and snap width's and height's must be a multiple of each other"
-                      ,"Error"
+    theApp.MessageBox(_T("Grid and snap width's and height's must be a multiple of each other")
+                      ,_T("Error")
                       ,MB_OK|MB_ICONEXCLAMATION);
     return;
   }
@@ -329,7 +329,7 @@ SnapGridDlg::OnBnClickedCancel()
 void SnapGridDlg::OnDeltaposSpinGw(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  m_gridWidth.Format("%d",m_spinGW.GetPos() + pNMUpDown->iDelta);
+  m_gridWidth.Format(_T("%d"),m_spinGW.GetPos() + pNMUpDown->iDelta);
   if(m_gridEqual)
   {
     m_gridHeight = m_gridWidth;
@@ -341,7 +341,7 @@ void SnapGridDlg::OnDeltaposSpinGw(NMHDR *pNMHDR, LRESULT *pResult)
 void SnapGridDlg::OnDeltaposSpinSw(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  m_snapWidth.Format("%d",m_spinSW.GetPos() + pNMUpDown->iDelta);
+  m_snapWidth.Format(_T("%d"),m_spinSW.GetPos() + pNMUpDown->iDelta);
   if(m_snapEqual)
   {
     m_snapHeight = m_snapWidth;

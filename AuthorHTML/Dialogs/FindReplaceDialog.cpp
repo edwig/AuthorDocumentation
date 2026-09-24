@@ -144,7 +144,7 @@ FindReplaceDialog::OnInitDialog()
   }
   else
   {
-    SetWindowText("Find & Replace");
+    SetWindowText(_T("Find & Replace"));
   }
   // TODO: Yet to implement
   m_buttonProject.EnableWindow(FALSE);
@@ -176,8 +176,8 @@ void FindReplaceDialog::ReadFindReplaceHistory()
   CString value;
   for(int ind = 0;ind < MAX_STRINGS;++ind)
   {
-    setting.Format("FindString%d",ind + 1);
-    value = settings.GetSetting(setting,"");
+    setting.Format(_T("FindString%d"),ind + 1);
+    value = settings.GetSetting(setting,_T(""));
     if(!value.IsEmpty())
     {
       if(m_comboFind.FindString(-1,value) == CB_ERR)
@@ -188,8 +188,8 @@ void FindReplaceDialog::ReadFindReplaceHistory()
   }
   for(int ind = 0;ind < MAX_STRINGS;++ind)
   {
-    setting.Format("ReplaceString%d",ind + 1);
-    value = settings.GetSetting(setting,"");
+    setting.Format(_T("ReplaceString%d"),ind + 1);
+    value = settings.GetSetting(setting,_T(""));
     if(!value.IsEmpty())
     {
       if(m_comboReplace.FindString(-1,value) == CB_ERR)
@@ -199,22 +199,22 @@ void FindReplaceDialog::ReadFindReplaceHistory()
     }
   }
   // get options
-  setting = "FindReplaceOptions";
-  value = settings.GetSetting(setting,"");
-  m_options = atoi(value);
+  setting = _T("FindReplaceOptions");
+  value = settings.GetSetting(setting,_T(""));
+  m_options = _ttoi(value);
   m_options &= (FRD_MATCHCASE | FRD_MATCHWORD  | FRD_SEARCHUP | FRD_USEREGULAR |
                 FRD_DOCUMENT  | FRD_ALLOPENDOC | FRD_PROJECT  | FRD_BLOCKONLY );
 
   // Last strings
   if(m_findText.IsEmpty())
   {
-    setting    = "LastFindString";
-    m_findText = settings.GetSetting(setting,"");
+    setting    = _T("LastFindString");
+    m_findText = settings.GetSetting(setting,_T(""));
   }
   if(m_replaceText.IsEmpty())
   {
-    setting       = "LastReplaceString";
-    m_replaceText = settings.GetSetting(setting,"");
+    setting       = _T("LastReplaceString");
+    m_replaceText = settings.GetSetting(setting,_T(""));
   }
 }
 
@@ -227,26 +227,26 @@ FindReplaceDialog::WriteFindReplaceHistory()
   for(int ind = 0; ind < num; ++ind)
   {
     m_comboFind.GetLBText(ind,value);
-    setting.Format("FindString%d",ind + 1);
+    setting.Format(_T("FindString%d"),ind + 1);
     settings.SetSetting(setting,value);
   }
   num = m_comboReplace.GetCount();
   for(int ind = 0; ind < num; ++ind)
   {
     m_comboReplace.GetLBText(ind,value);
-    setting.Format("ReplaceString%d",ind + 1);
+    setting.Format(_T("ReplaceString%d"),ind + 1);
     settings.SetSetting(setting,value);
   }
   // Save options
-  setting = "FindReplaceOptions";
-  value.Format("%d",m_options);
+  setting = _T("FindReplaceOptions");
+  value.Format(_T("%d"),m_options);
   settings.SetSetting(setting,value);
 
   // Last strings
-  setting = "LastFindString";
+  setting = _T("LastFindString");
   value   = m_findText;
   settings.SetSetting(setting,value);
-  setting = "LastReplaceString";
+  setting = _T("LastReplaceString");
   value   = m_replaceText;
   settings.SetSetting(setting,value);
 }
@@ -293,7 +293,7 @@ void FindReplaceDialog::OnBnClickedButtonFindnext()
 {
   if(m_findText.IsEmpty())
   {
-    theApp.MessageBox("Specify a text to find first!","Finding what?",MB_OK|MB_ICONQUESTION);
+    theApp.MessageBox(_T("Specify a text to find first!"),_T("Finding what?"),MB_OK|MB_ICONQUESTION);
     return;
   }
   WriteFindReplaceHistory();
@@ -320,7 +320,7 @@ void FindReplaceDialog::OnBnClickedButtonReplacewith()
     // Dialog was still in find state
     m_comboReplace.EnableWindow(TRUE);
     m_buttonReplaceAll.EnableWindow(TRUE);
-    SetWindowText("Find & Replace");
+    SetWindowText(_T("Find & Replace"));
     m_comboReplace.GetWindowText(m_replaceText);
     m_bFind = false;
     return;

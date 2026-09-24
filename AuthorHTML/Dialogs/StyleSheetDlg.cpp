@@ -62,7 +62,7 @@ StyleSheetDlg::StyleSheetDlg(CWnd*          p_Parent
   {
     //USE DIALOG FOR INLINE STYLE
     m_css = new CssStyleSheet();
-    string style = (std::string) p_cssText;
+    XString style(p_cssText);
     m_css->parse_css(style);
     m_inline = true;
 
@@ -71,7 +71,7 @@ StyleSheetDlg::StyleSheetDlg(CWnd*          p_Parent
       m_tag = p_typeText;
       CString desc = Misc::GetTagDescription(p_typeText);
       p_typeText.MakeUpper();
-      m_typeText = CString("Inline style for: ") + p_typeText + " (" + desc + ")";
+      m_typeText = CString(_T("Inline style for: ")) + p_typeText + _T(" (") + desc + _T(")");
     }
   }
   m_firstTab = 0;
@@ -137,7 +137,7 @@ StyleSheetDlg::OnInitDialog()
   if(m_tagonly)
   {
     //USE DIALOG FOR INLINE STYLE
-    SetWindowText("Style editor");    
+    SetWindowText(_T("Style editor"));    
 
     m_buttonNew    .ShowWindow(SW_HIDE);
     m_buttonDelete .ShowWindow(SW_HIDE);
@@ -261,12 +261,12 @@ StyleSheetDlg::OnInitDialog()
 
     //CString descriptor = Misc::GetTagDescription(m_typeText);
     if(m_doTabs & CSS1) m_page1->SetSelector(m_tag,m_typeText);
-    if(m_doTabs & CSS2) m_page2->SetSelector((string)m_tag);
-    if(m_doTabs & CSS3) m_page3->SetSelector((string)m_tag);
-    if(m_doTabs & CSS4) m_page4->SetSelector((string)m_tag);
-    if(m_doTabs & CSS5) m_page5->SetSelector((string)m_tag);
-    if(m_doTabs & CSS6) m_page6->SetSelector((string)m_tag);
-    if(m_doTabs & CSS7) m_page7->SetSelector((string)m_tag);
+    if(m_doTabs & CSS2) m_page2->SetSelector(m_tag);
+    if(m_doTabs & CSS3) m_page3->SetSelector(m_tag);
+    if(m_doTabs & CSS4) m_page4->SetSelector(m_tag);
+    if(m_doTabs & CSS5) m_page5->SetSelector(m_tag);
+    if(m_doTabs & CSS6) m_page6->SetSelector(m_tag);
+    if(m_doTabs & CSS7) m_page7->SetSelector(m_tag);
   }
   return TRUE;
 }
@@ -285,7 +285,7 @@ StyleSheetDlg::MoveButton(AD_Button* but)
 void
 StyleSheetDlg::FillSelectorList()
 {
-  string media = "standard";
+  XString media = _T("standard");
   vector<XString> selectors;
   m_css->GetSelectors(media,&selectors);
 
@@ -345,13 +345,14 @@ StyleSheetDlg::OnLbnSelchangeSsSelectors()
     CString selector;
     m_listBox.GetText(num,selector);
     CString descriptor = Misc::GetTagDescription(selector);
-    if(m_doTabs & CSS1) m_page1->SetSelector(selector,descriptor);
-    if(m_doTabs & CSS2) m_page2->SetSelector((string)selector);
-    if(m_doTabs & CSS3) m_page3->SetSelector((string)selector);
-    if(m_doTabs & CSS4) m_page4->SetSelector((string)selector);
-    if(m_doTabs & CSS5) m_page5->SetSelector((string)selector);
-    if(m_doTabs & CSS6) m_page6->SetSelector((string)selector);
-    if(m_doTabs & CSS7) m_page7->SetSelector((string)selector);
+    XString sel(selector);
+    if(m_doTabs & CSS1) m_page1->SetSelector(sel,descriptor);
+    if(m_doTabs & CSS2) m_page2->SetSelector(sel);
+    if(m_doTabs & CSS3) m_page3->SetSelector(sel);
+    if(m_doTabs & CSS4) m_page4->SetSelector(sel);
+    if(m_doTabs & CSS5) m_page5->SetSelector(sel);
+    if(m_doTabs & CSS6) m_page6->SetSelector(sel);
+    if(m_doTabs & CSS7) m_page7->SetSelector(sel);
   }
 }
 
@@ -375,7 +376,7 @@ StyleSheetDlg::OnBnClickedSsNew()
 void 
 StyleSheetDlg::OnBnClickedSsDelete()
 {
-  theApp.MessageBox(m_css->print_logs().c_str(),"CSS Logs",MB_OK);
+  theApp.MessageBox(m_css->print_logs().c_str(),_T("CSS Logs"),MB_OK);
 
 
   int num = m_listBox.GetCurSel();
@@ -385,18 +386,18 @@ StyleSheetDlg::OnBnClickedSsDelete()
     m_listBox.GetText(num,selector);
     CString descriptor = Misc::GetTagDescription(selector);
     CString ask;
-    ask.Format("Would you like to delete selector \"%s\"",selector.GetString());
+    ask.Format(_T("Would you like to delete selector \"%s\""),selector.GetString());
     if(!descriptor.IsEmpty())
     {
-      ask += CString(" (") + descriptor + ")";
+      ask += CString(_T(" (")) + descriptor + _T(")");
     }
-    ask += " ?";
+    ask += _T(" ?");
     if(theApp.MessageBox(ask
-                        ,"DELETE?"
+                        ,_T("DELETE?")
                         ,MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2) == IDYES)
     {
-      string media = "standard";
-      string sel   = selector;
+      XString media = _T("standard");
+      XString sel   = selector;
       m_css->del_selector(media,sel);
       // Redisplay the selector list
       FillSelectorList();

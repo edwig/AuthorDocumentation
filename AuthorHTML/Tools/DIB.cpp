@@ -98,7 +98,7 @@ static int NumDIBColorEntries(BITMAPINFO* pBmpInfo)
     {
         if (iColors > iMax) 
         {
-            TRACE("Invalid color count\n");
+            TRACE(_T("Invalid color count\n"));
             iColors = iMax;
         }
     }
@@ -121,7 +121,7 @@ BOOL CDIB::Create(int iWidth, int iHeight)
                                   + 256 * sizeof(RGBQUAD));
     if (!m_pBMI) 
     {
-        TRACE("Out of memory for DIB header\n");
+        TRACE(_T("Out of memory for DIB header\n"));
         return FALSE;
     }
     // Allocate memory for the bits (DWORD aligned).
@@ -129,7 +129,7 @@ BOOL CDIB::Create(int iWidth, int iHeight)
     m_pBits = (BYTE*)malloc(iBitsSize);
     if (!m_pBits) 
     {
-        TRACE("Out of memory for DIB bits\n");
+        TRACE(_T("Out of memory for DIB bits\n"));
         ::free(m_pBMI);
         m_pBMI = NULL;
         return FALSE;
@@ -198,13 +198,13 @@ BOOL CDIB::Load(CFile* fp)
     iBytes = fp->Read(&BmpFileHdr, sizeof(BmpFileHdr));
     if (iBytes != sizeof(BmpFileHdr)) 
     {
-        TRACE("Failed to read file header");
+        TRACE(_T("Failed to read file header"));
         goto $abort;
     }
     // Check that we have the magic 'BM' at the start.
     if (BmpFileHdr.bfType != 0x4D42) 
     {
-        TRACE("Not a bitmap file");
+        TRACE(_T("Not a bitmap file"));
         goto $abort;
     }
     // Make a wild guess that the file is in Windows DIB
@@ -214,7 +214,7 @@ BOOL CDIB::Load(CFile* fp)
     iBytes = fp->Read(&BmpInfoHdr, sizeof(BmpInfoHdr)); 
     if (iBytes != sizeof(BmpInfoHdr)) 
     {
-        TRACE("Failed to read BITMAPINFOHEADER");
+        TRACE(_T("Failed to read BITMAPINFOHEADER"));
         goto $abort;
     }
 
@@ -223,7 +223,7 @@ BOOL CDIB::Load(CFile* fp)
     {
         if (BmpInfoHdr.biSize != sizeof(BITMAPCOREHEADER)) 
         {
-            TRACE("File is not Windows or PM DIB format");
+            TRACE(_T("File is not Windows or PM DIB format"));
             goto $abort;
         }
         // Set a flag to convert PM file to Win format later.
@@ -236,7 +236,7 @@ BOOL CDIB::Load(CFile* fp)
         iBytes = fp->Read(&BmpCoreHdr, sizeof(BmpCoreHdr)); 
         if (iBytes != sizeof(BmpCoreHdr)) 
         {
-            TRACE("Failed to read BITMAPCOREHEADER");
+            TRACE(_T("Failed to read BITMAPCOREHEADER"));
             goto $abort;
         }
         BmpInfoHdr.biSize = sizeof(BITMAPINFOHEADER);
@@ -272,7 +272,7 @@ BOOL CDIB::Load(CFile* fp)
     pBmpInfo = (LPBITMAPINFO) malloc(iBISize);
     if (!pBmpInfo) 
     {
-        TRACE("Out of memory for DIB header");
+        TRACE(_T("Out of memory for DIB header"));
         goto $abort;
     }
 
@@ -286,7 +286,7 @@ BOOL CDIB::Load(CFile* fp)
                              iColorTableSize);
         if (iBytes != iColorTableSize) 
         {
-            TRACE("Failed to read color table");
+            TRACE(_T("Failed to read color table"));
             goto $abort;
         }
     } 
@@ -303,7 +303,7 @@ BOOL CDIB::Load(CFile* fp)
             iBytes = fp->Read(&rgbt, sizeof(RGBTRIPLE));
             if (iBytes != sizeof(RGBTRIPLE)) 
             {
-                TRACE("Failed to read RGBTRIPLE");
+                TRACE(_T("Failed to read RGBTRIPLE"));
                 goto $abort;
             }
             lpRGB->rgbBlue = rgbt.rgbtBlue;
@@ -318,7 +318,7 @@ BOOL CDIB::Load(CFile* fp)
     pBits = (BYTE*) malloc(iBitsSize);
     if (!pBits) 
     {
-        TRACE("Out of memory for DIB bits");
+        TRACE(_T("Out of memory for DIB bits"));
         goto $abort;
     }
     // Seek to the bits in the file.
@@ -328,7 +328,7 @@ BOOL CDIB::Load(CFile* fp)
     iBytes = fp->Read(pBits, iBitsSize);
     if (iBytes != iBitsSize) 
     {
-        TRACE("Failed to read bits");
+        TRACE(_T("Failed to read bits"));
         goto $abort;
     }
     // Everything went OK.
@@ -359,20 +359,20 @@ $abort: // Something went wrong.
 
 // Load a DIB from a disk file. If no file name is given, show
 // an Open File dialog to get one.
-BOOL CDIB::Load(char *pszFileName)
+BOOL CDIB::Load(LPTSTR pszFileName)
 {
     CString strFile;    
 
-    if ((pszFileName == NULL) ||  (strlen(pszFileName) == 0)) 
+    if ((pszFileName == NULL) ||  (_tcslen(pszFileName) == 0)) 
     {
 
         // Show an Open File dialog to get the name.
         DocFileDialog  dlg(TRUE,    // Open
-                           "Save as an image",
-                           "",    // No default extension
-                           "",    // No initial file name
+                           _T("Save as an image"),
+                           _T(""),    // No default extension
+                           _T(""),    // No initial file name
                            OFN_FILEMUSTEXIST | OFN_HIDEREADONLY,
-                           "Image files (*.DIB, *.BMP)|*.DIB;*.BMP|All files (*.*)|*.*||");
+                           _T("Image files (*.DIB, *.BMP)|*.DIB;*.BMP|All files (*.*)|*.*||"));
         if (dlg.DoModal() == IDOK) 
         {
             strFile = dlg.GetChosenFile();
@@ -391,7 +391,7 @@ BOOL CDIB::Load(char *pszFileName)
     CFile file;
     if (! file.Open(strFile, CFile::modeRead | CFile::shareDenyWrite)) 
     {
-        TRACE("Failed to open file");
+        TRACE(_T("Failed to open file"));
         return FALSE;
     }
     BOOL bResult = Load(&file);
@@ -406,14 +406,14 @@ BOOL CDIB::LoadBitmap(WORD wResid)
     HRSRC hrsrc = ::FindResource(hInst, MAKEINTRESOURCE(wResid), RT_BITMAP);
     if (!hrsrc) 
     {
-        TRACE("DIB resource not found");
+        TRACE(_T("DIB resource not found"));
         return FALSE;
     }
 
     HGLOBAL hg = LoadResource(hInst, hrsrc);
     if (!hg) 
     {
-        TRACE("Failed to load DIB resource");
+        TRACE(_T("Failed to load DIB resource"));
         return FALSE;
     }
     BYTE* pRes = (BYTE*) LockResource(hg);
@@ -436,16 +436,16 @@ BOOL CDIB::LoadBitmap(WORD wResid)
 BOOL CDIB::Load(WORD wResid)
 {
     HINSTANCE hInst = AfxGetResourceHandle();
-    HRSRC hrsrc = ::FindResource(hInst, MAKEINTRESOURCE(wResid), "DIB");
+    HRSRC hrsrc = ::FindResource(hInst, MAKEINTRESOURCE(wResid), _T("DIB"));
     if (!hrsrc) 
     {
-        TRACE("DIB resource not found");
+        TRACE(_T("DIB resource not found"));
         return FALSE;
     }
     HGLOBAL hg = LoadResource(hInst, hrsrc);
     if (!hg) 
     {
-        TRACE("Failed to load DIB resource");
+        TRACE(_T("Failed to load DIB resource"));
         return FALSE;
     }
     BYTE* pRes = (BYTE*) LockResource(hg);
@@ -467,13 +467,13 @@ BOOL CDIB::Load(WORD wResid)
     BITMAPFILEHEADER* pFileHdr = (BITMAPFILEHEADER*)pRes;
     if(pFileHdr->bfType != 0x4D42)
     {
-      theApp.ErrorMessage("Not a bitmap file");
+      theApp.ErrorMessage(_T("Not a bitmap file"));
       return FALSE;
     }
     BITMAPINFOHEADER* pInfoHdr = (BITMAPINFOHEADER*) (pRes + sizeof(BITMAPFILEHEADER));
     if(pInfoHdr->biSize != sizeof(BITMAPINFOHEADER))
     {
-      theApp.ErrorMessage("Not a MS-Windows bitmap file");
+      theApp.ErrorMessage(_T("Not a MS-Windows bitmap file"));
       return FALSE;
     }
     BYTE* pBits = pRes + pFileHdr->bfOffBits;
@@ -545,7 +545,7 @@ BOOL CDIB::MapColorsToPalette(CPalette *pPal)
 {
     if (!pPal) 
     {
-        TRACE("No palette to map to");
+        TRACE(_T("No palette to map to"));
         return FALSE;
     }
     LPRGBQUAD pctThis = GetClrTabAddress();
@@ -599,7 +599,7 @@ void* CDIB::GetPixelAddress(int x, int y)
     if ((x >= DibWidth()) 
     || (y >= DibHeight())) 
     {
-        TRACE("Attempt to get out of range pixel address");
+        TRACE(_T("Attempt to get out of range pixel address"));
         return NULL;
     }
     // Calculate the scan line storage width.
@@ -710,7 +710,7 @@ BOOL CDIB::Save(CFile* fp)
     } 
     CATCH(CFileException, e) 
     {
-        TRACE("Failed to write file header");
+        TRACE(_T("Failed to write file header"));
         return FALSE;
     } 
     END_CATCH;
@@ -727,7 +727,7 @@ BOOL CDIB::Save(CFile* fp)
     } 
     CATCH(CFileException, e) 
     {
-        TRACE("Failed to write BITMAPINFO");
+        TRACE(_T("Failed to write BITMAPINFO"));
         return FALSE;
     } 
     END_CATCH;
@@ -740,7 +740,7 @@ BOOL CDIB::Save(CFile* fp)
     } 
     CATCH(CFileException, e) 
     {
-        TRACE("Failed to write bits");
+        TRACE(_T("Failed to write bits"));
         return FALSE;
     } 
     END_CATCH;
@@ -751,21 +751,21 @@ BOOL CDIB::Save(CFile* fp)
 
 // Save a DIB to a disk file. If no file name is given, show
 // a File Save dialog to get one.
-BOOL CDIB::Save(char *pszFileName)
+BOOL CDIB::Save(LPTSTR pszFileName)
 {
     CString strFile;    
 
     if ((pszFileName == NULL) 
-    ||  (strlen(pszFileName) == 0)) 
+    ||  (_tcslen(pszFileName) == 0)) 
     {
 
         // Show a File Save dialog to get the name.
         DocFileDialog dlg(FALSE,   // Save
-                           "Save as an image",
-                           "",    // No default extension
-                           "",    // No initial file name
+                           _T("Save as an image"),
+                           _T(""),    // No default extension
+                           _T(""),    // No initial file name
                            OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY,
-                           "Image files (*.DIB, *.BMP)|*.DIB;*.BMP|All files (*.*)|*.*||");
+                           _T("Image files (*.DIB, *.BMP)|*.DIB;*.BMP|All files (*.*)|*.*||"));
         if (dlg.DoModal() == IDOK) 
         {
             strFile = dlg.GetChosenFile();
@@ -787,7 +787,7 @@ BOOL CDIB::Save(char *pszFileName)
                      | CFile::modeCreate
                      | CFile::shareExclusive)) 
     {
-        theApp.ErrorMessage("Cannot open the file '" + strFile + "'.");
+        theApp.ErrorMessage(_T("Cannot open the file '") + strFile + _T("'."));
         return FALSE;
     }
 
@@ -795,7 +795,7 @@ BOOL CDIB::Save(char *pszFileName)
     file.Close();
     if (!bResult) 
     {
-      theApp.ErrorMessage("Cannot close the file '" + strFile + "'.");
+      theApp.ErrorMessage(_T("Cannot close the file '") + strFile + _T("'."));
     }
     return bResult;
 }

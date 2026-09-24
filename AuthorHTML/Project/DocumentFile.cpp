@@ -54,16 +54,16 @@ DocumentFile::RetrieveFromDocument(CComPtr<IHTMLDocument2>& doc)
   doc->get_title(&bTitle);
   m_title = bTitle;
 
-  m_author    = Misc::MetaTag(doc,"AuthorOriginalAuthor");
-  m_comment   = Misc::MetaTag(doc,"AuthorDocComment");
-  m_template  = Misc::MetaTag(doc,"AuthorHTMLTemplate");
-  m_compatible= Misc::MetaTag(doc,"X-UA-Compatible",NULL,true);
-  m_status    = atoi(Misc::MetaTag(doc,"AuthorStatus"));
-  m_priority  = atoi(Misc::MetaTag(doc,"AuthorPriority"));
-  m_timeSpent = atoi(Misc::MetaTag(doc,"AuthorTimeSpent"));
-  m_todo      = atoi(Misc::MetaTag(doc,"AuthorToDo"));
-  m_width     = atoi(Misc::MetaTag(doc,"AuthorWidth"));
-  m_height    = atoi(Misc::MetaTag(doc,"AuthorHeight"));
+  m_author    = Misc::MetaTag(doc,_T("AuthorOriginalAuthor"));
+  m_comment   = Misc::MetaTag(doc,_T("AuthorDocComment"));
+  m_template  = Misc::MetaTag(doc,_T("AuthorHTMLTemplate"));
+  m_compatible= Misc::MetaTag(doc,_T("X-UA-Compatible"),NULL,true);
+  m_status    = _ttoi(Misc::MetaTag(doc,_T("AuthorStatus")));
+  m_priority  = _ttoi(Misc::MetaTag(doc,_T("AuthorPriority")));
+  m_timeSpent = _ttoi(Misc::MetaTag(doc,_T("AuthorTimeSpent")));
+  m_todo      = _ttoi(Misc::MetaTag(doc,_T("AuthorToDo")));
+  m_width     = _ttoi(Misc::MetaTag(doc,_T("AuthorWidth")));
+  m_height    = _ttoi(Misc::MetaTag(doc,_T("AuthorHeight")));
 
   m_metadataRead = true;
 }
@@ -76,28 +76,28 @@ DocumentFile::SetOnDocument(CComPtr<IHTMLDocument2>& doc)
   doc->put_title(bTitle);
 
   CString status,priority,timeSpent,todo,width,height;
-  status   .Format("%d",m_status);
-  priority .Format("%d",m_priority);
-  timeSpent.Format("%d",m_timeSpent);
-  todo     .Format("%d",m_todo);
-  width    .Format("%d",m_width);
-  height   .Format("%d",m_height);
-  Misc::MetaTag(doc,"AuthorOriginalAuthor",&m_author);
-  Misc::MetaTag(doc,"AuthorDocComment",    &m_comment);
-  Misc::MetaTag(doc,"AuthorHTMLTemplate",  &m_template);
-  Misc::MetaTag(doc,"X-UA-Compatible",     &m_compatible,true);
-  Misc::MetaTag(doc,"AuthorStatus",        &status);
-  Misc::MetaTag(doc,"AuthorPriority",      &priority);
-  Misc::MetaTag(doc,"AuthorTimeSpent",     &timeSpent);
-  Misc::MetaTag(doc,"AuthorToDo",          &todo);
-  Misc::MetaTag(doc,"AuthorWidth",         &width);
-  Misc::MetaTag(doc,"AuthorHeight",        &height);
+  status   .Format(_T("%d"),m_status);
+  priority .Format(_T("%d"),m_priority);
+  timeSpent.Format(_T("%d"),m_timeSpent);
+  todo     .Format(_T("%d"),m_todo);
+  width    .Format(_T("%d"),m_width);
+  height   .Format(_T("%d"),m_height);
+  Misc::MetaTag(doc,_T("AuthorOriginalAuthor"),&m_author);
+  Misc::MetaTag(doc,_T("AuthorDocComment"),    &m_comment);
+  Misc::MetaTag(doc,_T("AuthorHTMLTemplate"),  &m_template);
+  Misc::MetaTag(doc,_T("X-UA-Compatible"),     &m_compatible,true);
+  Misc::MetaTag(doc,_T("AuthorStatus"),        &status);
+  Misc::MetaTag(doc,_T("AuthorPriority"),      &priority);
+  Misc::MetaTag(doc,_T("AuthorTimeSpent"),     &timeSpent);
+  Misc::MetaTag(doc,_T("AuthorToDo"),          &todo);
+  Misc::MetaTag(doc,_T("AuthorWidth"),         &width);
+  Misc::MetaTag(doc,_T("AuthorHeight"),        &height);
 
   // If we have a Project grid, update it
-  MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-  if(main->m_wndProjectView)
+  MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+  if(_tmain->m_wndProjectView)
   {
-    main->GetProjectView()->UpdateRecord(this);
+    _tmain->GetProjectView()->UpdateRecord(this);
   }
 }
 
@@ -290,18 +290,18 @@ DocumentFile::GetDocumentType()
   {
     return COLUMN_ICON_HTMLTYPE; // HTM or HTML
   }
-  char extension[_MAX_EXT+1];
-  _splitpath(m_fileName.GetString(),NULL,NULL,NULL,extension);
-  if((stricmp(extension,".vbs") == 0) ||
-     (stricmp(extension,".js")  == 0) )
+  TCHAR extension[_MAX_EXT+1];
+  _tsplitpath(m_fileName.GetString(),NULL,NULL,NULL,extension);
+  if((_tcsicmp(extension,_T(".vbs")) == 0) ||
+     (_tcsicmp(extension,_T(".js"))  == 0) )
   {
     return COLUMN_ICON_SCRIPTTYPE; // Scripttype
   }
-  if((stricmp(extension,".bmp")  == 0) ||
-     (stricmp(extension,".jpeg") == 0) ||
-     (stricmp(extension,".jpg")  == 0) || 
-     (stricmp(extension,".gif")  == 0) ||
-     (stricmp(extension,".png")  == 0) )
+  if((_tcsicmp(extension,_T(".bmp"))  == 0) ||
+     (_tcsicmp(extension,_T(".jpeg")) == 0) ||
+     (_tcsicmp(extension,_T(".jpg"))  == 0) || 
+     (_tcsicmp(extension,_T(".gif"))  == 0) ||
+     (_tcsicmp(extension,_T(".png"))  == 0) )
   {
     return COLUMN_ICON_IMGTYPE; // Image
   }
@@ -314,15 +314,15 @@ DocumentFile::GetToDoFirstDescription()
 {
   CString text;
 
-       if(m_todo & TODO_FIRSTDRAFT) text = "Firstdraft";
-  else if(m_todo & TODO_ADDTOTOC)   text = "Add to TOC";
-  else if(m_todo & TODO_LINKS)      text = "Do links"; 
-  else if(m_todo & TODO_INDEX)      text = "Do index"; 
-  else if(m_todo & TODO_IMAGES)     text = "Do images";
-  else if(m_todo & TODO_BROWSESEQ)  text = "Browse sequences";
-  else if(m_todo & TODO_TEST)       text = "Testing";  
-  else if(m_todo & TODO_REVIEW)     text = "Review";   
-  else if(m_todo & TODO_DEPLOY)     text = "Deploy";   
+       if(m_todo & TODO_FIRSTDRAFT) text = _T("Firstdraft");
+  else if(m_todo & TODO_ADDTOTOC)   text = _T("Add to TOC");
+  else if(m_todo & TODO_LINKS)      text = _T("Do links"); 
+  else if(m_todo & TODO_INDEX)      text = _T("Do index"); 
+  else if(m_todo & TODO_IMAGES)     text = _T("Do images");
+  else if(m_todo & TODO_BROWSESEQ)  text = _T("Browse sequences");
+  else if(m_todo & TODO_TEST)       text = _T("Testing");  
+  else if(m_todo & TODO_REVIEW)     text = _T("Review");   
+  else if(m_todo & TODO_DEPLOY)     text = _T("Deploy");   
 
   return text;
 }
@@ -333,9 +333,9 @@ DocumentFile::GetPriorityDescription()
   CString text;
   switch(m_priority)
   {
-    case PRIO_HIGH  : text = "High";   break;
-    case PRIO_MEDIUM: text = "Medium"; break;
-    case PRIO_LOW   : text = "Low";    break;
+    case PRIO_HIGH  : text = _T("High");   break;
+    case PRIO_MEDIUM: text = _T("Medium"); break;
+    case PRIO_LOW   : text = _T("Low");    break;
   }
   return text;
 }
@@ -346,9 +346,9 @@ DocumentFile::GetStatusDescription()
   CString text;
   switch(m_status)
   {
-    case STATUS_PROGRESS: text = "Progress"; break;
-    case STATUS_REVIEW  : text = "Review";   break;
-    case STATUS_READY   : text = "Ready";    break;
+    case STATUS_PROGRESS: text = _T("Progress"); break;
+    case STATUS_REVIEW  : text = _T("Review");   break;
+    case STATUS_READY   : text = _T("Ready");    break;
   }
   return text;
 }
@@ -357,7 +357,7 @@ void
 DocumentFile::DisplayPageLinks(CListCtrl& p_linksFrom,CListCtrl& p_linksToMe)
 {
   int nr = 0;
-  char* error = "Cannot insert item in page link list";
+  TCHAR* error = _T("Cannot insert item in page link list");
 
   for(PageLinks::iterator it = m_linkFrom.begin();it != m_linkFrom.end(); ++it)
   {
@@ -371,7 +371,7 @@ DocumentFile::DisplayPageLinks(CListCtrl& p_linksFrom,CListCtrl& p_linksToMe)
     LVITEM item;
     memset(&item,0,sizeof(item));
     item.mask    = LVIF_TEXT|LVIF_PARAM;
-    item.pszText = (LPSTR)(LPCSTR) doc->GetTitle().GetString();
+    item.pszText = (LPTSTR)(LPCTSTR) doc->GetTitle().GetString();
     item.lParam  = (LPARAM)doc;
     item.iItem   = nr++;
     if(p_linksFrom.InsertItem(&item) == -1)
@@ -391,7 +391,7 @@ DocumentFile::DisplayPageLinks(CListCtrl& p_linksFrom,CListCtrl& p_linksToMe)
     LVITEM item;
     memset(&item,0,sizeof(item));
     item.mask    = LVIF_TEXT|LVIF_PARAM;
-    item.pszText = (LPSTR)(LPCSTR) doc->GetTitle().GetString();
+    item.pszText = (LPTSTR)(LPCTSTR) doc->GetTitle().GetString();
     item.lParam  = (LPARAM)doc;
     item.iItem   = nr++;
     if(p_linksToMe.InsertItem(&item) == -1)

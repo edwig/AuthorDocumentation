@@ -18,7 +18,7 @@
 
 IMPLEMENT_DYNAMIC(ALinkDlg, CDialog)
 
-ALinkDlg::ALinkDlg(CWnd* p_parent,CString& p_keyword)
+ALinkDlg::ALinkDlg(CWnd* p_parent,XString& p_keyword)
          :CDialog(ALinkDlg::IDD, p_parent)
          ,m_keyword(p_keyword)
 {

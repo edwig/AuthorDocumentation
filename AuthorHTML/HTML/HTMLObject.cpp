@@ -41,45 +41,45 @@ HtmlObject::SetProperty(eAction e_Action, CString s_Value)
   switch(e_Action)
   {
     case E_Alt:       // Alternative text while loading
-                      SetAttribute("alt",s_Value);
+                      SetAttribute(_T("alt"),s_Value);
                       break;
     case E_Align:     // Alignment of object to surrounding text
-                      SetAttribute("align",s_Value);
+                      SetAttribute(_T("align"),s_Value);
                       break;
     case E_AltHtml:   // Alternative link if object doesn't want to load
-                      SetAttribute("althtml",s_Value);
+                      SetAttribute(_T("althtml"),s_Value);
                       break;
     case E_BaseHref:  // Base URL for page of object (same as BASE)
-                      SetAttribute("basehref",s_Value);
+                      SetAttribute(_T("basehref"),s_Value);
                       break;
     case E_Border:    // Reverse relation of link to us 
                       if(m_Style.Valid())
                       {
                         m_Style.SetProperty(HtmlStyle::P_Border,s_Value);
                       }
-                      SetAttribute("border",s_Value);
+                      SetAttribute(_T("border"),s_Value);
                       break;
     case E_ClassId:   // "clsid:XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" for registered Microsoft® ActiveX® Controls.
-                      SetAttribute("classid",s_Value);
+                      SetAttribute(_T("classid"),s_Value);
                       break;
     case E_Code:      // JAVA compiled
-                      SetAttribute("code",s_Value);
+                      SetAttribute(_T("code"),s_Value);
                       break;
     case E_CodeBase:  // BASE of compiled JAVA
-                      SetAttribute("codebase",s_Value);
+                      SetAttribute(_T("codebase"),s_Value);
                       break;
     case E_CodeType:  // Type of code (java/vbscript)
-                      SetAttribute("codetype",s_Value);
+                      SetAttribute(_T("codetype"),s_Value);
                       break;
     case E_Data:      // Data of the object
-                      SetAttribute("data",s_Value);
+                      SetAttribute(_T("data"),s_Value);
                       break;
     case E_Height:    // Height of the object
                       if(m_Style.Valid())
                       {
                         m_Style.SetProperty(HtmlStyle::P_Height,s_Value);
                       }
-                      SetAttribute("height",s_Value);
+                      SetAttribute(_T("height"),s_Value);
                       break;
     case E_HSpace:    // Padding horizontal space
                       if(m_Style.Valid())
@@ -87,19 +87,19 @@ HtmlObject::SetProperty(eAction e_Action, CString s_Value)
                         m_Style.SetProperty(HtmlStyle::P_PaddingLeft, s_Value);
                         m_Style.SetProperty(HtmlStyle::P_PaddingRight,s_Value);
                       }
-                      SetAttribute("hspace",s_Value);
+                      SetAttribute(_T("hspace"),s_Value);
                       break;
     case E_Name:      // Name of the object
-                      SetAttribute("name",s_Value);
+                      SetAttribute(_T("name"),s_Value);
                       break;
     case E_Standby:   // New standby functionality
-                      SetAttribute("standby",s_Value);
+                      SetAttribute(_T("standby"),s_Value);
                       break;
     case E_Type:      // Mime type of the object
-                      SetAttribute("type",s_Value);
+                      SetAttribute(_T("type"),s_Value);
                       break;
     case E_UseMap:    // URL of area map to use
-                      SetAttribute("usemap",s_Value);
+                      SetAttribute(_T("usemap"),s_Value);
                       break;
     case E_VSpace:    // padding vertical space
                       if(m_Style.Valid())
@@ -107,14 +107,14 @@ HtmlObject::SetProperty(eAction e_Action, CString s_Value)
                         m_Style.SetProperty(HtmlStyle::P_PaddingBottom,s_Value);
                         m_Style.SetProperty(HtmlStyle::P_PaddingTop,   s_Value);
                       }
-                      SetAttribute("vspace",s_Value);
+                      SetAttribute(_T("vspace"),s_Value);
                       break;
     case E_Width:     // Width of the object in the page
                       if(m_Style.Valid())
                       {
                         m_Style.SetProperty(HtmlStyle::P_Width,s_Value);
                       }
-                      SetAttribute("width",s_Value);
+                      SetAttribute(_T("width"),s_Value);
                       break;
 
   } 
@@ -127,14 +127,14 @@ HtmlObject::GetProperty(eAction e_Action)
   switch(e_Action)
   {
     case E_Alt:       // Alt text
-                      return GetAttribute("alt");
+                      return GetAttribute(_T("alt"));
     case E_Align:     // Alignment
-                      return GetAttribute("align");
+                      return GetAttribute(_T("align"));
     case E_AltHtml:   // Alternative action
                       // Caution: Use EXACT_VALUE, otherwise you get an absolute pathname for free
-                      return GetAttribute("althtml",EXACT_VALUE);
+                      return GetAttribute(_T("althtml"),EXACT_VALUE);
     case E_BaseHref:  // BASE URL for the page
-                      return GetAttribute("basehref",EXACT_VALUE);
+                      return GetAttribute(_T("basehref"),EXACT_VALUE);
     case E_Border:    // Border around object
                       if(m_Style.Valid())
                       {
@@ -144,17 +144,17 @@ HtmlObject::GetProperty(eAction e_Action)
                           return prop;
                         }
                       }
-                      return GetAttribute("border");
+                      return GetAttribute(_T("border"));
     case E_ClassId:   // "clsid:XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" for registered Microsoft® ActiveX® Controls.
-                      return GetAttribute("classid");
+                      return GetAttribute(_T("classid"));
     case E_Code:      // Compiled JAVA code
-                      return GetAttribute("code",EXACT_VALUE);
+                      return GetAttribute(_T("code"),EXACT_VALUE);
     case E_CodeBase:  // BASE of the compiled code
-                      return GetAttribute("codebase",EXACT_VALUE);
+                      return GetAttribute(_T("codebase"),EXACT_VALUE);
     case E_CodeType:  // Type of compiled code
-                      return GetAttribute("codetype");
+                      return GetAttribute(_T("codetype"));
     case E_Data:      // Data
-                      return GetAttribute("data",EXACT_VALUE);
+                      return GetAttribute(_T("data"),EXACT_VALUE);
     case E_Height:    // Height of the object
                       if(m_Style.Valid())
                       {
@@ -164,7 +164,7 @@ HtmlObject::GetProperty(eAction e_Action)
                           return prop;
                         }
                       }
-                      return GetAttribute("height");
+                      return GetAttribute(_T("height"));
     case E_HSpace:    // Horizontal padding
                       if(m_Style.Valid())
                       {
@@ -179,15 +179,15 @@ HtmlObject::GetProperty(eAction e_Action)
                           return prop;
                         }
                       }
-                      return GetAttribute("hspace");
+                      return GetAttribute(_T("hspace"));
     case E_Name:      // Name of the object
-                      return GetAttribute("name");
+                      return GetAttribute(_T("name"));
     case E_Standby:   // New Standby functionality
-                      return GetAttribute("standby",EXACT_VALUE);
+                      return GetAttribute(_T("standby"),EXACT_VALUE);
     case E_Type:      // MIME type of the object
-                      return GetAttribute("type");
+                      return GetAttribute(_T("type"));
     case E_UseMap:    // URL of area map to use
-                      return GetAttribute("usemap",EXACT_VALUE);
+                      return GetAttribute(_T("usemap"),EXACT_VALUE);
     case E_VSpace:    // Padding vertical space
                       if(m_Style.Valid())
                       {
@@ -202,7 +202,7 @@ HtmlObject::GetProperty(eAction e_Action)
                           return prop;
                         }
                       }
-                      return GetAttribute("vspace");
+                      return GetAttribute(_T("vspace"));
     case E_Width:     // Width of the object
                       if(m_Style.Valid())
                       {
@@ -212,9 +212,9 @@ HtmlObject::GetProperty(eAction e_Action)
                           return prop;
                         }
                       }
-                      return GetAttribute("width");
+                      return GetAttribute(_T("width"));
   }
-  return "";
+  return _T("");
 }
 
 // <PARAM> is not exposed by the <OBJECT> tag
@@ -323,8 +323,8 @@ HtmlObject::LoadParameters()
     HtmlElement elem = FirstChild();
     while(elem.Valid())
     {
-      CString name  = elem.GetAttribute("name", EXACT_VALUE);
-      CString value = elem.GetAttribute("value",EXACT_VALUE);
+      CString name  = elem.GetAttribute(_T("name"), EXACT_VALUE);
+      CString value = elem.GetAttribute(_T("value"),EXACT_VALUE);
       m_parameters.insert(std::make_pair(name,value));
       // Next parameter
       elem = elem.NextSibling();
@@ -351,7 +351,7 @@ HtmlObject::SaveParameters()
   if(SUCCEEDED(hr))
   {
     CString outer = CW2CT(bOuter);
-    int pos = outer.Find('>'); // find end of "<object attribs....;>"
+    int pos = outer.Find(_T('>')); // find end of "<object attribs....;>"
     if(pos > 0)
     {
       // Get object part
@@ -362,12 +362,12 @@ HtmlObject::SaveParameters()
       while(it != m_parameters.end())
       {
         CString param;
-        param.Format("\n<param name=\"%s\" value=\"%s\">",it->first.GetString(),it->second.GetString());
+        param.Format(_T("\n<param name=\"%s\" value=\"%s\">"),it->first.GetString(),it->second.GetString());
         outer += param;
         // next parameter
         ++it;
       }
-      outer += "\n</object>\n";
+      outer += _T("\n</object>\n");
       
       // Put object back and re-evaluate
       // By caching everything in m_parameters this does now occur just

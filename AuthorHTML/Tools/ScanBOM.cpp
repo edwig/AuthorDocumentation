@@ -15,8 +15,8 @@
 
 BOM_OpenResult 
 open_file_with_bom(FILE**   p_file
-                  ,LPCSTR   p_filename
-                  ,LPCSTR   p_mode
+                  ,LPCTSTR   p_filename
+                  ,LPCTSTR   p_mode
                   ,int*     p_offset
                   ,BOMType* p_type)
 {
@@ -26,14 +26,14 @@ open_file_with_bom(FILE**   p_file
   *p_type   = BT_NO_BOM;
   
   // Check if file exists
-  if(_access(p_filename,4) != 0)
+  if(_taccess(p_filename,4) != 0)
   {
     // FILE pointer NULL
     return BOR_NoFileFound;
   }
   
   // Try opening the file
-  fopen_s(p_file,p_filename,p_mode);
+  _tfopen_s(p_file,p_filename,p_mode);
   
   // Test if opened
   if(*p_file == NULL)
@@ -42,10 +42,10 @@ open_file_with_bom(FILE**   p_file
   }
   
   // Get first four characters in the file
-  int c1 = fgetc(*p_file);
-  int c2 = fgetc(*p_file);
-  int c3 = fgetc(*p_file);
-  int c4 = fgetc(*p_file);
+  int c1 = _fgettc(*p_file);
+  int c2 = _fgettc(*p_file);
+  int c3 = _fgettc(*p_file);
+  int c4 = _fgettc(*p_file);
   
   // Check if Big-Endian UTF-8 BOM
   if(c1 == 0xEF && c2 == 0xBB && c3 == 0xBF)

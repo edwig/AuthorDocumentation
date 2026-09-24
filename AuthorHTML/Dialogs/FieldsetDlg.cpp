@@ -51,15 +51,15 @@ void FieldsetDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_fieldset->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_fieldset->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_fieldset->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_fieldset->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_fieldset->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_fieldset->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     int ind;
@@ -140,7 +140,7 @@ void
 FieldsetDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*) m_fieldset;
-  GeneralIDDlg dlg(this,"fieldset",elem);
+  GeneralIDDlg dlg(this,_T("fieldset"),elem);
   dlg.DoModal();
 }
 
@@ -148,7 +148,7 @@ void
 FieldsetDlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*) m_fieldset;
-  TagEventsDlg dlg(this,elem,"fieldset");
+  TagEventsDlg dlg(this,elem,_T("fieldset"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -161,14 +161,14 @@ FieldsetDlg::OnBnClickedStyle()
     m_fieldset->SetStyle();
   }
   CString style = m_fieldset->GetInlineStyle();
-  style = CString("fieldset { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"fieldset",NULL,style);
+  style = CString(_T("fieldset { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("fieldset"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("fieldset");
-    style.TrimLeft(" {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("fieldset"));
+    style.TrimLeft(_T(" {"));
     m_fieldset->SetInlineStyle(style);
   }
 }

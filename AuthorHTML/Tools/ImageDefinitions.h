@@ -10,7 +10,7 @@
 #define BUTT_LAYOUT_IMAGE   32
 #define BUTT_LAYOUT_ALL     (1|2|4|8|16|32)
 
-#define AFB_ICON_LIB  "ICONS"
+#define AFB_ICON_LIB  _T("ICONS")
 
 #define AFB_POS_AANTAL      10  // Aantal in set voor Plaatje
 #define AFB_POS_AANTAL_INFO 5   // Aantal in set voor Info
@@ -44,6 +44,6 @@
 #define AFB_SET_KNOPPEN            1          // Standaard/Focus/Pressed/Disabled
 #define AFB_SET_SERIE              2          // Opeenvolgend
 
-#define AFB_STD_PREFIX             '@'
-#define AFB_NAAM_PREFIX            '&'
-#define AFB_NULL_PREFIX            '*'
+#define AFB_STD_PREFIX             _T('@')
+#define AFB_NAAM_PREFIX            _T('&')
+#define AFB_NULL_PREFIX            _T('*')

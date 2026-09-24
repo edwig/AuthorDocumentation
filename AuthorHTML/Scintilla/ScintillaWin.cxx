@@ -362,7 +362,7 @@ static int InputCodePage() {
 	HKL inputLocale = ::GetKeyboardLayout(0);
 	LANGID inputLang = LOWORD(inputLocale);
 	char sCodePage[10];
-	int res = ::GetLocaleInfo(MAKELCID(inputLang, SORT_DEFAULT),
+	int res = ::GetLocaleInfoA(MAKELCID(inputLang, SORT_DEFAULT),
 	  LOCALE_IDEFAULTANSICODEPAGE, sCodePage, sizeof(sCodePage));
 	if (!res)
 		return 0;
@@ -1380,11 +1380,11 @@ void ScintillaWin::AddToPopUp(const char *label, int cmd, bool enabled) {
 #ifdef TOTAL_CONTROL
 	HMENU hmenuPopup = reinterpret_cast<HMENU>(popup.GetID());
 	if (!label[0])
-		::AppendMenu(hmenuPopup, MF_SEPARATOR, 0, "");
+		::AppendMenuA(hmenuPopup, MF_SEPARATOR, 0, "");
 	else if (enabled)
-		::AppendMenu(hmenuPopup, MF_STRING, cmd, label);
+		::AppendMenuA(hmenuPopup, MF_STRING, cmd, label);
 	else
-		::AppendMenu(hmenuPopup, MF_STRING | MF_DISABLED | MF_GRAYED, cmd, label);
+		::AppendMenuA(hmenuPopup, MF_STRING | MF_DISABLED | MF_GRAYED, cmd, label);
 #endif
 }
 
@@ -1719,7 +1719,7 @@ void ScintillaWin::ImeStartComposition() {
 			// Since the style creation code has been made platform independent,
 			// The logfont for the IME is recreated here.
 			int styleHere = (pdoc->StyleAt(currentPos)) & 31;
-			LOGFONT lf = {0,0,0,0,0,0,0,0,0,0,0,0,0,TEXT("")};
+			LOGFONTA lf = {0,0,0,0,0,0,0,0,0,0,0,0,0,""};
 			int sizeZoomed = vs.styles[styleHere].size + vs.zoomLevel;
 			if (sizeZoomed <= 2)	// Hangs if sizeZoomed <= 1
 				sizeZoomed = 2;
@@ -1734,10 +1734,11 @@ void ScintillaWin::ImeStartComposition() {
 			lf.lfItalic = static_cast<BYTE>(vs.styles[styleHere].italic ? 1 : 0);
 			lf.lfCharSet = DEFAULT_CHARSET;
 			lf.lfFaceName[0] = '\0';
-			if (vs.styles[styleHere].fontName)
-				strcpy_s(lf.lfFaceName, 32, vs.styles[styleHere].fontName);
-
-			::ImmSetCompositionFont(hIMC, &lf);
+			if(vs.styles[styleHere].fontName)
+			{
+				strcpy_s(lf.lfFaceName,32,vs.styles[styleHere].fontName);
+			}
+			::ImmSetCompositionFontA(hIMC, &lf);
 		}
 		::ImmReleaseContext(MainHWND(), hIMC);
 		// Caret is displayed in IME window. So, caret in Scintilla is useless.
@@ -1747,7 +1748,8 @@ void ScintillaWin::ImeStartComposition() {
 }
 
 /** Called when IME Window closed. */
-void ScintillaWin::ImeEndComposition() {
+void ScintillaWin::ImeEndComposition() 
+{
 	ShowCaretAtCurrentPosition();
 }
 

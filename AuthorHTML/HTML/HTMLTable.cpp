@@ -36,61 +36,61 @@ HtmlTable::SetProperty(eAction e_Action, CString s_Value)
                             {
                               m_Style.SetProperty(HtmlStyle::P_TextAlign,s_Value);
                             }
-                            SetAttribute("align",s_Value);
+                            SetAttribute(_T("align"),s_Value);
                             break;
     case E_BgColor:         if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_BackgColor,s_Value);
                             }
-                            SetAttribute("bgcolor",s_Value);
+                            SetAttribute(_T("bgcolor"),s_Value);
                             break;
     case E_BorderColor:     if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_BorderColor,s_Value);
                             }
-                            SetAttribute("bordercolor",s_Value);
+                            SetAttribute(_T("bordercolor"),s_Value);
                             break;
-    case E_BorderColorDark: SetAttribute("bordercolordark",s_Value);
+    case E_BorderColorDark: SetAttribute(_T("bordercolordark"),s_Value);
                             break;
-    case E_BorderColorLight:SetAttribute("bordercolorlight",s_Value);
+    case E_BorderColorLight:SetAttribute(_T("bordercolorlight"),s_Value);
                             break;
-    case E_BorderRules:     SetAttribute("borderrules",s_Value);
+    case E_BorderRules:     SetAttribute(_T("borderrules"),s_Value);
                             break;
     case E_BorderWidth:     if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_BorderWidth,s_Value);
                             }
-                            SetAttribute("borderwidth",s_Value);
+                            SetAttribute(_T("borderwidth"),s_Value);
                             break;
-    case E_CellPadding:     SetAttribute("cellpadding",s_Value);
+    case E_CellPadding:     SetAttribute(_T("cellpadding"),s_Value);
                             break;
-    case E_CellSpacing:     SetAttribute("cellspacing",s_Value);
+    case E_CellSpacing:     SetAttribute(_T("cellspacing"),s_Value);
                             break;
     case E_Height:          if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_Height,s_Value);
                             }
-                            SetAttribute("height",s_Value);
+                            SetAttribute(_T("height"),s_Value);
                             break;
     case E_HSpace:          if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_PaddingLeft, s_Value);
                               m_Style.SetProperty(HtmlStyle::P_PaddingRight,s_Value);
                             }
-                            SetAttribute("hspace",s_Value);
+                            SetAttribute(_T("hspace"),s_Value);
                             break;
     case E_VSpace:          if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_PaddingTop,   s_Value);
                               m_Style.SetProperty(HtmlStyle::P_PaddingBottom,s_Value);
                             }
-                            SetAttribute("vspace",s_Value);
+                            SetAttribute(_T("vspace"),s_Value);
                             break;
     case E_Width:           if(m_Style.Valid())
                             {
                               m_Style.SetProperty(HtmlStyle::P_Width,s_Value);
                             }
-                            SetAttribute("width",s_Value);
+                            SetAttribute(_T("width"),s_Value);
                             break;
   }
 }
@@ -109,7 +109,7 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("align");
+                            return GetAttribute(_T("align"));
     case E_BgColor:         if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_BackgColor);
@@ -118,7 +118,7 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("bgcolor");
+                            return GetAttribute(_T("bgcolor"));
     case E_BorderColor:     if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_BorderColor);
@@ -127,10 +127,10 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("bordercolor");
-    case E_BorderColorDark: return GetAttribute("bordercolordark");
-    case E_BorderColorLight:return GetAttribute("bordercolorlight");
-    case E_BorderRules:     return GetAttribute("borderrules");
+                            return GetAttribute(_T("bordercolor"));
+    case E_BorderColorDark: return GetAttribute(_T("bordercolordark"));
+    case E_BorderColorLight:return GetAttribute(_T("bordercolorlight"));
+    case E_BorderRules:     return GetAttribute(_T("borderrules"));
     case E_BorderWidth:     if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_BorderWidth);
@@ -139,9 +139,9 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("borderwidth");
-    case E_CellPadding:     return GetAttribute("cellpadding");
-    case E_CellSpacing:     return GetAttribute("cellspacing");
+                            return GetAttribute(_T("borderwidth"));
+    case E_CellPadding:     return GetAttribute(_T("cellpadding"));
+    case E_CellSpacing:     return GetAttribute(_T("cellspacing"));
     case E_Height:          if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_Height);
@@ -150,7 +150,7 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("height");
+                            return GetAttribute(_T("height"));
     case E_HSpace:          if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_PaddingLeft);
@@ -164,7 +164,7 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("hspace");
+                            return GetAttribute(_T("hspace"));
     case E_VSpace:          if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_PaddingTop);
@@ -178,7 +178,7 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("vspace");
+                            return GetAttribute(_T("vspace"));
     case E_Width:           if(m_Style.Valid())
                             {
                               prop = m_Style.GetProperty(HtmlStyle::P_Width);
@@ -187,9 +187,9 @@ HtmlTable::GetProperty(eAction e_Action)
                                 return prop;
                               }
                             }
-                            return GetAttribute("width");
+                            return GetAttribute(_T("width"));
   }
-  return "";
+  return _T("");
 }
 
 // zero based

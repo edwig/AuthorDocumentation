@@ -76,15 +76,15 @@ void FormSelectDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -126,9 +126,9 @@ FormSelectDlg::OnInitDialog()
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES|LVS_EDITLABELS);
 
-  m_list.InsertColumn(0,"Display",  LVCFMT_LEFT,100);
-  m_list.InsertColumn(1,"Value",    LVCFMT_LEFT,100);
-  m_list.InsertColumn(2,"Selected" ,LVCFMT_LEFT,60);
+  m_list.InsertColumn(0,_T("Display"),  LVCFMT_LEFT,100);
+  m_list.InsertColumn(1,_T("Value"),    LVCFMT_LEFT,100);
+  m_list.InsertColumn(2,_T("Selected") ,LVCFMT_LEFT,60);
   DisplayList(0);
   // Set multiple
   m_buttonMultiple.SetCheck(m_multiple);
@@ -146,7 +146,7 @@ FormSelectDlg::DisplayList(int p_focusRow)
     FormOption opt = (*m_options)[ind];
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, opt.m_display, 0, 0, 0, 0);
     m_list.SetItemText(ind,1,opt.m_value);
-    m_list.SetItemText(ind,2,opt.m_selected ? "1" : "0");
+    m_list.SetItemText(ind,2,opt.m_selected ? _T("1") : _T("0"));
   }
   m_list.SetFocus();
   m_list.SetItemState(p_focusRow,LVIS_SELECTED,LVIS_SELECTED);
@@ -157,9 +157,9 @@ FormSelectDlg::DisplayList(int p_focusRow)
 void
 FormSelectDlg::CheckSizeError()
 {
-  if(atoi(m_size) == 1 && m_multiple)
+  if(_ttoi(m_size) == 1 && m_multiple)
   {
-    theApp.MessageBox("Selection dialogs with a size of 1, cannot be multiple-select","Select size",MB_OK|MB_ICONERROR);
+    theApp.MessageBox(_T("Selection dialogs with a size of 1, cannot be multiple-select"),_T("Select size"),MB_OK|MB_ICONERROR);
     m_multiple = false;
     m_buttonMultiple.SetCheck(FALSE);
   }
@@ -178,9 +178,9 @@ void
 FormSelectDlg::OnEnChangeFsSize()
 {
   UpdateData(Controls2Data);
-  if(atoi(m_size) < 1)
+  if(_ttoi(m_size) < 1)
   {
-    m_size = "1";
+    m_size = _T("1");
     UpdateData(Data2Controls);
   }
   CheckSizeError();
@@ -189,12 +189,12 @@ FormSelectDlg::OnEnChangeFsSize()
 void FormSelectDlg::OnDeltaposSpin(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  int size = atoi(m_size);
+  int size = _ttoi(m_size);
   if((pUpDown->iPos - pUpDown->iDelta) > 0)
   {
     size = pUpDown->iPos - pUpDown->iDelta;
   }
-  m_size.Format("%d",size);
+  m_size.Format(_T("%d"),size);
   CheckSizeError();
   UpdateData(Data2Controls);
   *pResult = 1;
@@ -265,7 +265,7 @@ FormSelectDlg::OnBnClickedFsNew()
 {
   if(m_newOption.IsEmpty())
   {
-    theApp.MessageBox("Fill in a new option value (first field) first","Error",MB_OK|MB_ICONHAND);
+    theApp.MessageBox(_T("Fill in a new option value (first field) first"),_T("Error"),MB_OK|MB_ICONHAND);
     return;
   }
   FormOption opt;
@@ -366,14 +366,14 @@ FormSelectDlg::OnBnClickedCancel()
 
 void FormSelectDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"select",m_elem);
+  GeneralIDDlg dlg(this,_T("select"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormSelectDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"SELECT");
+  TagEventsDlg dlg(this,m_elem,_T("SELECT"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -385,13 +385,13 @@ void FormSelectDlg::OnBnClickedButStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("select { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"select",NULL,style);
+  style = CString(_T("select { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("select"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("select {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("select {"));
     m_elem->SetInlineStyle(style);
   }
 }

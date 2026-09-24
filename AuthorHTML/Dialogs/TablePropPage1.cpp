@@ -94,15 +94,15 @@ void CTablePropPage1Dlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_pTable.HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_pTable.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_pTable.HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_pTable.HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_pTable.HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_pTable.HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -180,10 +180,10 @@ CTablePropPage1Dlg::OnInitDialog()
   m_formatWidht. SetCurSel(m_tabWidthInPix  ? 1 : 0);
 
   int ind = 0;
-  if (m_align.CompareNoCase("No text around") == 0) ind = 0;
-  if (m_align.CompareNoCase("Left")   == 0)         ind = 1;
-  if (m_align.CompareNoCase("Center") == 0)         ind = 2;
-  if (m_align.CompareNoCase("Right")  == 0)         ind = 3;
+  if (m_align.CompareNoCase(_T("No text around")) == 0) ind = 0;
+  if (m_align.CompareNoCase(_T("Left"))   == 0)         ind = 1;
+  if (m_align.CompareNoCase(_T("Center")) == 0)         ind = 2;
+  if (m_align.CompareNoCase(_T("Right"))  == 0)         ind = 3;
   m_textJustify.SetCurSel(ind);
 
   m_buttonBorderColor     .SetColor(COLOR_DEFAULT_TABLEBORDER);
@@ -208,29 +208,29 @@ CTablePropPage1Dlg::ReadProperties()
   {
     m_NumCols    = m_pTable.GetColumnCount();
     m_NumRows    = m_pTable.GetRowCount();
-    m_TabBorder  = atoi(m_pTable.GetProperty(HtmlTable::E_BorderWidth));
-    m_TabSpacing = atoi(m_pTable.GetProperty(HtmlTable::E_CellSpacing));
-    m_TabPadding = atoi(m_pTable.GetProperty(HtmlTable::E_CellPadding));
+    m_TabBorder  = _ttoi(m_pTable.GetProperty(HtmlTable::E_BorderWidth));
+    m_TabSpacing = _ttoi(m_pTable.GetProperty(HtmlTable::E_CellSpacing));
+    m_TabPadding = _ttoi(m_pTable.GetProperty(HtmlTable::E_CellPadding));
     m_tabHeightInPix = true;
     m_tabWidthInPix  = true;
     CString height = m_pTable.GetProperty(HtmlTable::E_Height);
     CString width  = m_pTable.GetProperty(HtmlTable::E_Width);
-    if((height.Find("%") >= 0))
+    if((height.Find(_T("%")) >= 0))
     {
       m_tabHeightInPix = false;
     }
-    if((width.Find("%") >= 0))
+    if((width.Find(_T("%")) >= 0))
     {
       m_tabWidthInPix = false;
     }
-    m_TabHeight = atoi(height);
-    m_TabWidth  = atoi(width);
-    m_VSpace = atoi(m_pTable.GetProperty(HtmlTable::E_VSpace));
-    m_HSpace = atoi(m_pTable.GetProperty(HtmlTable::E_HSpace));
+    m_TabHeight = _ttoi(height);
+    m_TabWidth  = _ttoi(width);
+    m_VSpace = _ttoi(m_pTable.GetProperty(HtmlTable::E_VSpace));
+    m_HSpace = _ttoi(m_pTable.GetProperty(HtmlTable::E_HSpace));
     m_align  = m_pTable.GetProperty(HtmlTable::E_Alignment);
     if(m_align.IsEmpty())
     {
-      m_align = "No text around";
+      m_align = _T("No text around");
     }
     m_backgroundColor  = m_pTable.GetProperty(HtmlTable::E_BgColor);
     m_borderColor      = m_pTable.GetProperty(HtmlTable::E_BorderColor);
@@ -293,7 +293,7 @@ CTablePropPage1Dlg::ReadProperties()
     m_tabWidthInPix  = false;
     m_VSpace         = 0;
     m_HSpace         = 0;
-    m_align          = "No text around";
+    m_align          = _T("No text around");
 
     m_hasBorderColor      = false;
     m_hasLightBorderColor = false;
@@ -327,8 +327,8 @@ CTablePropPage1Dlg::UpdateProperties()
     {
       // Ask for confirmation before deleting columns
       CString message;
-      message.Format("Table will be truncated by %d column(s). Continue?",(colsNow - m_NumCols));
-      if(theApp.MessageBox(message,"Beware",MB_YESNO|MB_ICONEXCLAMATION) == IDYES)
+      message.Format(_T("Table will be truncated by %d column(s). Continue?"),(colsNow - m_NumCols));
+      if(theApp.MessageBox(message,_T("Beware"),MB_YESNO|MB_ICONEXCLAMATION) == IDYES)
       {
         while(m_NumCols < colsNow)
         {
@@ -351,8 +351,8 @@ CTablePropPage1Dlg::UpdateProperties()
     {
       // Ask for confirmation before deleting rows
       CString message;
-      message.Format("Table will be truncated by %d row(s). Continue?",(rowsNow - m_NumRows));
-      if(theApp.MessageBox(message,"Beware",MB_YESNO|MB_ICONEXCLAMATION) == IDYES)
+      message.Format(_T("Table will be truncated by %d row(s). Continue?"),(rowsNow - m_NumRows));
+      if(theApp.MessageBox(message,_T("Beware"),MB_YESNO|MB_ICONEXCLAMATION) == IDYES)
       {
         while(m_NumRows < rowsNow)
         {
@@ -365,11 +365,11 @@ CTablePropPage1Dlg::UpdateProperties()
   val = m_pTable.GetProperty(HtmlTable::E_Height);
   if(m_tabHeightInPix)
   {
-    val2.Format("%d", m_TabHeight);
+    val2.Format(_T("%d"), m_TabHeight);
   }
   else
   {
-    val2.Format("%d%",m_TabHeight);
+    val2.Format(_T("%d%"),m_TabHeight);
   }
   if((val != val2) && (m_TabHeight > 1))
   {
@@ -380,11 +380,11 @@ CTablePropPage1Dlg::UpdateProperties()
   val = m_pTable.GetProperty(HtmlTable::E_Width);
   if(m_tabWidthInPix)
   {
-    val2.Format("%d",m_TabWidth);
+    val2.Format(_T("%d"),m_TabWidth);
   }
   else
   {
-    val2.Format("%d%%",m_TabWidth);
+    val2.Format(_T("%d%%"),m_TabWidth);
   }
   if((val != val2) && (m_TabWidth > 1))
   {
@@ -392,50 +392,50 @@ CTablePropPage1Dlg::UpdateProperties()
   }
   // Border
   val   = m_pTable.GetProperty(HtmlTable::E_BorderWidth);
-  value = atoi(val);
+  value = _ttoi(val);
   if(m_TabBorder != value)
   {
     CString width;
-    width.Format("%dpx",m_TabBorder);
+    width.Format(_T("%dpx"),m_TabBorder);
     m_pTable.SetProperty(HtmlTable::E_BorderWidth,width);
   }
   // Spacing
   val = m_pTable.GetProperty(HtmlTable::E_CellSpacing);
-  value = atoi(val);
+  value = _ttoi(val);
   if(m_TabSpacing != value)
   {
     CString space;
-    space.Format("%dpx",m_TabSpacing);
+    space.Format(_T("%dpx"),m_TabSpacing);
     m_pTable.SetProperty(HtmlTable::E_CellSpacing,space);
   }
   // Padding
   val = m_pTable.GetProperty(HtmlTable::E_CellPadding);
-  value = atoi(val);
+  value = _ttoi(val);
   if(m_TabSpacing != value)
   {
     CString pad;
-    pad.Format("%dpx",m_TabPadding);
+    pad.Format(_T("%dpx"),m_TabPadding);
     m_pTable.SetProperty(HtmlTable::E_CellPadding,pad);
   }
   // VSpace
-  if(m_VSpace != (unsigned) atoi(m_pTable.GetProperty(HtmlTable::E_VSpace)))
+  if(m_VSpace != (unsigned) _ttoi(m_pTable.GetProperty(HtmlTable::E_VSpace)))
   {
     CString space;
-    space.Format("%d",m_VSpace);
+    space.Format(_T("%d"),m_VSpace);
     m_pTable.SetProperty(HtmlTable::E_VSpace,space);
   }
   // HSpace
-  if(m_HSpace != (unsigned) atoi(m_pTable.GetProperty(HtmlTable::E_HSpace)))
+  if(m_HSpace != (unsigned) _ttoi(m_pTable.GetProperty(HtmlTable::E_HSpace)))
   {
     CString space;
-    space.Format("%d",m_HSpace);
+    space.Format(_T("%d"),m_HSpace);
     m_pTable.SetProperty(HtmlTable::E_HSpace,space);
   }
   // ALignment / Justify
   CString alignment = m_align;
-  if(m_align == "No text around")
+  if(m_align == _T("No text around"))
   {
-    alignment = "";
+    alignment = _T("");
   }
   if(alignment != m_pTable.GetProperty(HtmlTable::E_Alignment))
   {
@@ -449,12 +449,12 @@ CTablePropPage1Dlg::UpdateProperties()
     if(!m_backgroundColor.IsEmpty())
     {
       Misc::DecodeColor(m_backgroundColor,red,green,blue);
-      m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+      m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_backgroundColor = "";
+    m_backgroundColor = _T("");
   }
   m_pTable.SetProperty(HtmlTable::E_BgColor,m_backgroundColor);
 
@@ -464,12 +464,12 @@ CTablePropPage1Dlg::UpdateProperties()
     if(!m_borderColor.IsEmpty())
     {
       Misc::DecodeColor(m_borderColor,red,green,blue);
-      m_borderColor.Format("#%02x%02x%02x",red,green,blue);
+      m_borderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_borderColor = "";
+    m_borderColor = _T("");
   }
   m_pTable.SetProperty(HtmlTable::E_BorderColor,m_borderColor);
 
@@ -479,12 +479,12 @@ CTablePropPage1Dlg::UpdateProperties()
     if(!m_darkBorderColor.IsEmpty())
     {
       Misc::DecodeColor(m_darkBorderColor,red,green,blue);
-      m_darkBorderColor.Format("#%02x%02x%02x",red,green,blue);
+      m_darkBorderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_darkBorderColor = "";
+    m_darkBorderColor = _T("");
   }
   m_pTable.SetProperty(HtmlTable::E_BorderColorDark,m_darkBorderColor);
 
@@ -494,12 +494,12 @@ CTablePropPage1Dlg::UpdateProperties()
     if(!m_lightBorderColor.IsEmpty())
     {
       Misc::DecodeColor(m_lightBorderColor,red,green,blue);
-      m_lightBorderColor.Format("#%02x%02x%02x",red,green,blue);
+      m_lightBorderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_lightBorderColor = "";
+    m_lightBorderColor = _T("");
   }
   m_pTable.SetProperty(HtmlTable::E_BorderColorLight,m_lightBorderColor);
 }
@@ -507,50 +507,50 @@ CTablePropPage1Dlg::UpdateProperties()
 CString
 CTablePropPage1Dlg::CreateTableString(CString p_caption,CString p_oneCell)
 {
-  CString oneTable = "<TABLE";
+  CString oneTable = _T("<TABLE");
   CString extra;
 
   // Table defintiion
-  extra.Format(m_tabWidthInPix ? "%dpx\"" : "%d%%\"", m_TabWidth);
-  oneTable += CString("\n width=\"") + extra;
-  extra.Format("\n border=\"%d\"",     m_TabBorder);      oneTable += extra;
-  extra.Format("\n cellspacing=\"%d\"",m_TabSpacing);     oneTable += extra;
-  extra.Format("\n cellpadding=\"%d\"",m_TabPadding);     oneTable += extra;
+  extra.Format(m_tabWidthInPix ? _T("%dpx\"") : _T("%d%%\""), m_TabWidth);
+  oneTable += CString(_T("\n width=\"")) + extra;
+  extra.Format(_T("\n border=\"%d\""),     m_TabBorder);      oneTable += extra;
+  extra.Format(_T("\n cellspacing=\"%d\""),m_TabSpacing);     oneTable += extra;
+  extra.Format(_T("\n cellpadding=\"%d\""),m_TabPadding);     oneTable += extra;
   if(m_hasBackgroundColor && !m_backgroundColor.IsEmpty())
   {
-    oneTable += "\n bgcolor=\"" + m_backgroundColor + "\"";
+    oneTable += _T("\n bgcolor=\"") + m_backgroundColor + _T("\"");
   }
   if(m_hasBorderColor && !m_borderColor.IsEmpty())
   {
-    oneTable += "\n bordercolor=\"" + m_borderColor + "\"";
+    oneTable += _T("\n bordercolor=\"") + m_borderColor + _T("\"");
   }
   if(m_hasDarkBorderColor && !m_darkBorderColor.IsEmpty())
   {
-    oneTable += "\n bordercolordark=\"" + m_darkBorderColor + "\"";
+    oneTable += _T("\n bordercolordark=\"") + m_darkBorderColor + _T("\"");
   }
   if(m_hasLightBorderColor && !m_lightBorderColor.IsEmpty())
   {
-    oneTable += "\n bordercolorlight=\"" + m_lightBorderColor + "\"";
+    oneTable += _T("\n bordercolorlight=\"") + m_lightBorderColor + _T("\"");
   }
-  oneTable += ">";
+  oneTable += _T(">");
 
   // Caption comes next
   oneTable += p_caption;
 
   // Here comes the table body
-  oneTable += "<TBODY>";
+  oneTable += _T("<TBODY>");
   // Build all the cells
   for(UINT r = 0; r < m_NumRows; ++r)
   {
-    oneTable += "\n<TR>";
+    oneTable += _T("\n<TR>");
     for(UINT c = 0;c < m_NumCols; ++c)
     {
       oneTable += p_oneCell;
     }
-    oneTable += "</TR>";
+    oneTable += _T("</TR>");
   }
-  oneTable += "\n</TBODY>";
-  oneTable += "\n</TABLE>\n";
+  oneTable += _T("\n</TBODY>");
+  oneTable += _T("\n</TABLE>\n");
   return oneTable;
 }
 
@@ -562,7 +562,7 @@ CTablePropPage1Dlg::OnCbnSelchangeUnits1()
   CString units;
   int ind = m_formatHeight.GetCurSel();
   m_formatHeight.GetLBText(ind,units);
-  m_tabHeightInPix = (units == "Pixels") ? true : false;
+  m_tabHeightInPix = (units == _T("Pixels")) ? true : false;
 }
 
 void 
@@ -571,7 +571,7 @@ CTablePropPage1Dlg::OnCbnSelchangeUnits2()
   CString units;
   int ind = m_formatWidht.GetCurSel();
   m_formatWidht.GetLBText(ind,units);
-  m_tabWidthInPix = (units == "Pixels") ? true : false;
+  m_tabWidthInPix = (units == _T("Pixels")) ? true : false;
 }
 
 void 
@@ -590,7 +590,7 @@ CTablePropPage1Dlg::OnBnClickedButtBordercolor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -600,7 +600,7 @@ CTablePropPage1Dlg::OnBnClickedButtDarkborder()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_darkBorderColor.Format("#%02x%02x%02x",red,green,blue);
+  m_darkBorderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -610,7 +610,7 @@ CTablePropPage1Dlg::OnBnClickedButtLightborder()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_lightBorderColor.Format("#%02x%02x%02x",red,green,blue);
+  m_lightBorderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -620,14 +620,14 @@ CTablePropPage1Dlg::OnBnClickedButtonbackcolor()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+  m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
 CTablePropPage1Dlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(&m_pTable);
-  GeneralIDDlg dlg(this,"table",elem);
+  GeneralIDDlg dlg(this,_T("table"),elem);
   dlg.DoModal();
 }
 
@@ -635,7 +635,7 @@ void
 CTablePropPage1Dlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*)(&m_pTable);
-  TagEventsDlg dlg(this,elem,"table");
+  TagEventsDlg dlg(this,elem,_T("table"));
   dlg.DoModal();
   UpdateData(Data2Controls);}
 
@@ -648,13 +648,13 @@ CTablePropPage1Dlg::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_pTable.GetInlineStyle();
-  style = CString("table { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"table",NULL,style);
+  style = CString(_T("table { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("table"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("table {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("table {"));
     m_pTable.SetInlineStyle(style);
     ReadProperties();
     UpdateData(Data2Controls);
@@ -678,7 +678,7 @@ CTablePropPage1Dlg::SetColumns(int cols)
   if(m_initDone)
   {
     CString ccols;
-    ccols.Format("%d",cols);
+    ccols.Format(_T("%d"),cols);
     CWnd* w = GetDlgItem(IDC_TAB_NUMCOLS);
     w->SetWindowText(ccols);
   }

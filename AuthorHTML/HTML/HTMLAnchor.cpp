@@ -30,19 +30,19 @@ HtmlAnchor::SetProperty(eAction e_Action, CString s_Value)
   switch(e_Action)
   {
     case E_Href:    // Referenced page
-                    SetAttribute("href",s_Value);
+                    SetAttribute(_T("href"),s_Value);
                     break;
     case E_Target:  // Target frame
-                    SetAttribute("target",s_Value);
+                    SetAttribute(_T("target"),s_Value);
                     break;
     case E_Title:   // Title of the link (tooltip text)
-                    SetAttribute("title",s_Value);
+                    SetAttribute(_T("title"),s_Value);
                     break;
     case E_Rel:     // Relation to the link
-                    SetAttribute("rel",s_Value);
+                    SetAttribute(_T("rel"),s_Value);
                     break;
     case E_Rev:     // Reverse relation of link to us 
-                    SetAttribute("rev",s_Value);
+                    SetAttribute(_T("rev"),s_Value);
                     break;
   }
 }
@@ -54,15 +54,15 @@ HtmlAnchor::GetProperty(eAction e_Action)
   {
     case E_Href:  // Referenced page
                   // Caution: Use EXACT_VALUE, otherwise you get an absolute pathname for free
-                  return GetAttribute("href",EXACT_VALUE);
+                  return GetAttribute(_T("href"),EXACT_VALUE);
     case E_Target:// Target frame
-                  return GetAttribute("target");
+                  return GetAttribute(_T("target"));
     case E_Title: // Title of the link (tooltip text)
-                  return GetAttribute("title");
+                  return GetAttribute(_T("title"));
     case E_Rel:   // Relation to the link
-                  return GetAttribute("rel");
+                  return GetAttribute(_T("rel"));
     case E_Rev:   // Reverse relation of link to us 
-                  return GetAttribute("rev");
+                  return GetAttribute(_T("rev"));
   }
-  return "";
+  return _T("");
 }

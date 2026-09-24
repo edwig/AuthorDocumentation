@@ -22,16 +22,16 @@ HtmlFrameSet::SetProperty(eAction e_Action, CString s_Value)
   switch(e_Action)
   {
     case E_Border:      // number of border pixels
-                        SetAttribute("border",s_Value);
+                        SetAttribute(_T("border"),s_Value);
                         break;
     case E_BorderColor: // Color of the border
-                        SetAttribute("bordercolor",s_Value);
+                        SetAttribute(_T("bordercolor"),s_Value);
                         break;
     case E_FrameBorder: // number of border pixels
-                        SetAttribute("frameborder",s_Value);
+                        SetAttribute(_T("frameborder"),s_Value);
                         break;
     case E_FrameSpacing:// Spacing within frames
-                        SetAttribute("framespacing",s_Value);
+                        SetAttribute(_T("framespacing"),s_Value);
                         break;
   }
 }
@@ -43,15 +43,15 @@ HtmlFrameSet::GetProperty(eAction e_Action)
   switch(e_Action)
   {
     case E_Border:        // Number of border pixels
-                          return GetAttribute("border");
+                          return GetAttribute(_T("border"));
     case E_BorderColor:   // Color of the border
-                          return GetAttribute("bordercolor");
+                          return GetAttribute(_T("bordercolor"));
     case E_FrameBorder:   // Number of border pixels
-                          return GetAttribute("frameborder");
+                          return GetAttribute(_T("frameborder"));
     case E_FrameSpacing:  // spacing within frames
-                          return GetAttribute("framespacing");
+                          return GetAttribute(_T("framespacing"));
   }
-  return CString("");
+  return CString(_T(""));
 }
 
 void    

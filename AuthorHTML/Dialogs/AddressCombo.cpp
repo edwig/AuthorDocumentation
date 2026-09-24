@@ -52,7 +52,7 @@ void AddressCombo::FillWithHistory()
   DWORD dwErr = ERROR_SUCCESS;
   CString base = theApp.GetBaseDirectory();
 
-  if(ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER,_T("Software\\" REGISTER_APP "\\AuthorHTML\\Recent File List"),0,KEY_QUERY_VALUE,&hkUserURL))
+  if(ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER,_T("Software\\") _T(REGISTER_APP) _T("\\AuthorHTML\\Recent File List"),0,KEY_QUERY_VALUE,&hkUserURL))
   {
     //enumerate this key's values
     while(ERROR_SUCCESS == dwErr)

@@ -209,24 +209,24 @@ class DocFileDialog
 public:
   DocFileDialog(bool    p_open              // true = open, false = SaveAs
                ,CString p_title             // Title of the dialog
-               ,CString p_defext   = ""     // Default extension
-               ,CString p_filename = ""     // Default first file
+               ,CString p_defext   = _T("")     // Default extension
+               ,CString p_filename = _T("")     // Default first file
                ,int     p_flags    = 0      // Default flags
-               ,CString p_filter  = ""      // Filter voor extensies
-               ,CString p_direct  = "");    // Default directory to start in
+               ,CString p_filter  = _T("")      // Filter voor extensies
+               ,CString p_direct  = _T(""));    // Default directory to start in
   ~DocFileDialog();
 
   int     DoModal();
   CString GetChosenFile();
 
 private:
-  void FilterString(char *filter);
+  void FilterString(TCHAR *filter);
 
   bool          m_open;  // open of saveas
-  char          m_original[MAX_PATH+1];
-  char          m_filename[MAX_PATH+1];
-  char          m_filter[1024];
-  char          m_title [100];
-  char          m_defext[100];
+  TCHAR          m_original[MAX_PATH+1];
+  TCHAR          m_filename[MAX_PATH+1];
+  TCHAR          m_filter[1024];
+  TCHAR          m_title [100];
+  TCHAR          m_defext[100];
   OPENFILENAME  m_ofn;
 };

@@ -15,8 +15,8 @@
 #include "HTMLElement.h"
 #include <map>
 
-#define CLSID_ALINK         "clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e"
-#define CLSID_ALINK_COMMAND "clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11"
+#define CLSID_ALINK         _T("clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e")
+#define CLSID_ALINK_COMMAND _T("clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11")
 
 typedef std::map<CString,CString> ParameterMap;
 

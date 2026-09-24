@@ -46,7 +46,7 @@ CHTMLEditControlSite::InstallGrid(IHTMLDocument2 *pDoc)
 
 	IHTMLElement  *pBody = NULL;
 	IHTMLElement2 *pBody2;
-    CComVariant		  vFactory;
+  CComVariant		 vFactory;
 
 	if (pDoc == (IHTMLDocument2 *) NULL)
   {

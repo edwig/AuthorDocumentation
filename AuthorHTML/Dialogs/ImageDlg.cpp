@@ -80,15 +80,15 @@ void ImageDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_img->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_img->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_img->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_img->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_img->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_img->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     m_comboSrc    .EnableWindow(TRUE);
@@ -113,7 +113,7 @@ void ImageDlg::DoDataExchange(CDataExchange* pDX)
     m_comboAlign.SetCurSel(ind);
     ind = m_comboStart.FindString(-1,m_start);
     m_comboStart.SetCurSel(ind);
-    if(m_loop.CompareNoCase("Infinite"))
+    if(m_loop.CompareNoCase(_T("Infinite")))
     {
       m_comboLoop.SetCurSel(0);
     }
@@ -202,11 +202,11 @@ BOOL ImageDlg::OnInitDialog()
   m_spinHeight.SetRange(0,32000);
   m_spinHpad  .SetRange(0,32000);
   m_spinVpad  .SetRange(0,32000);
-  m_spinWidth .SetPos(atoi(m_width));
-  m_spinHeight.SetPos(atoi(m_height));
+  m_spinWidth .SetPos(_ttoi(m_width));
+  m_spinHeight.SetPos(_ttoi(m_height));
   m_spinBorder.SetBase(10);
   m_spinBorder.SetRange(0,32000);
-  m_spinBorder.SetPos(atoi(m_border));
+  m_spinBorder.SetPos(_ttoi(m_border));
 
   UpdateData(Data2Controls);
   m_initDone = true;
@@ -230,15 +230,15 @@ ImageDlg::FillPage()
   m_hpad   = m_img->GetProperty(HtmlImg::E_HorPad);
   m_vpad   = m_img->GetProperty(HtmlImg::E_VerPad);
 
-  m_width  = CssConvertToUnit(m_width, "px",m_wunits);
-  m_height = CssConvertToUnit(m_height,"px",m_hunits);
-  m_hpad   = CssConvertToUnit(m_hpad,  "px",m_hpunits);
-  m_vpad   = CssConvertToUnit(m_vpad,  "px",m_vpunits);
-  m_border = CssConvertToUnit(m_border,"px",m_bunits);
+  m_width  = CssConvertToUnit(m_width, _T("px"),m_wunits);
+  m_height = CssConvertToUnit(m_height,_T("px"),m_hunits);
+  m_hpad   = CssConvertToUnit(m_hpad,  _T("px"),m_hpunits);
+  m_vpad   = CssConvertToUnit(m_vpad,  _T("px"),m_vpunits);
+  m_border = CssConvertToUnit(m_border,_T("px"),m_bunits);
 
-  if(atoi(m_loop) == -1)
+  if(_ttoi(m_loop) == -1)
   {
-    m_loop = "Infinite";
+    m_loop = _T("Infinite");
   }
 }
 
@@ -247,9 +247,9 @@ ImageDlg::UpdateProperties()
 {
   CString looping(m_loop);
   CString pixels;
-  if(looping.CompareNoCase("Infinite") == 0)
+  if(looping.CompareNoCase(_T("Infinite")) == 0)
   {
-    looping = "-1";
+    looping = _T("-1");
   }
   m_img->SetSrc(m_src);
   m_img->SetDynSrc(m_dynsrc);
@@ -257,11 +257,11 @@ ImageDlg::UpdateProperties()
   m_img->SetAlt(m_title);
   m_img->SetStart(m_start);
   m_img->SetLoop(looping);
-  m_img->SetProperty(HtmlImg::E_Width,  CssConvertToUnit(m_width  + "px",m_wunits, pixels) + m_wunits);
-  m_img->SetProperty(HtmlImg::E_Height, CssConvertToUnit(m_height + "px",m_hunits, pixels) + m_hunits);
-  m_img->SetProperty(HtmlImg::E_Border, CssConvertToUnit(m_border + "px",m_bunits, pixels) + m_bunits);
-  m_img->SetProperty(HtmlImg::E_HorPad, CssConvertToUnit(m_hpad   + "px",m_hpunits,pixels) + m_hpunits);
-  m_img->SetProperty(HtmlImg::E_VerPad, CssConvertToUnit(m_vpad   + "px",m_vpunits,pixels) + m_vpunits);
+  m_img->SetProperty(HtmlImg::E_Width,  CssConvertToUnit(m_width  + _T("px"),m_wunits, pixels) + m_wunits);
+  m_img->SetProperty(HtmlImg::E_Height, CssConvertToUnit(m_height + _T("px"),m_hunits, pixels) + m_hunits);
+  m_img->SetProperty(HtmlImg::E_Border, CssConvertToUnit(m_border + _T("px"),m_bunits, pixels) + m_bunits);
+  m_img->SetProperty(HtmlImg::E_HorPad, CssConvertToUnit(m_hpad   + _T("px"),m_hpunits,pixels) + m_hpunits);
+  m_img->SetProperty(HtmlImg::E_VerPad, CssConvertToUnit(m_vpad   + _T("px"),m_vpunits,pixels) + m_vpunits);
   m_img->SetProperty(HtmlImg::E_Align,  m_align);
 }
 
@@ -269,7 +269,7 @@ ImageDlg::UpdateProperties()
 void
 ImageDlg::ReCalculateRatio()
 {
-  double cur_ratio = (double)(atoi(m_height)) / (double)(atoi(m_width));
+  double cur_ratio = (double)(_ttoi(m_height)) / (double)(_ttoi(m_width));
   if(abs((double)(cur_ratio - m_ratio)) < (double)0.1)
   {
     m_buttonRatio.SetCheck(TRUE);
@@ -343,16 +343,16 @@ void ImageDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
         image->get_height(&height);
         if(width)
         {
-          m_docWidth.Format("%d",width);
-          if(m_width.IsEmpty() || m_width == "0")
+          m_docWidth.Format(_T("%d"),width);
+          if(m_width.IsEmpty() || m_width == _T("0"))
           {
             m_width  = m_docWidth;
           }
         }
         if(height)
         {
-          m_docHeight.Format("%d",height);
-          if(m_height.IsEmpty() || m_height == "0")
+          m_docHeight.Format(_T("%d"),height);
+          if(m_height.IsEmpty() || m_height == _T("0"))
           {
             m_height = m_docHeight;
           }
@@ -364,8 +364,8 @@ void ImageDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
         }
       }
       // Reset the size on the image
-      image->put_width (atoi(m_width));
-      image->put_height(atoi(m_height));
+      image->put_width (_ttoi(m_width));
+      image->put_height(_ttoi(m_height));
     }
   }
 }
@@ -387,14 +387,14 @@ ImageDlg::OnCloseup()
   {
     if(!src.IsEmpty())
     {
-      m_dynsrc = "";
+      m_dynsrc = _T("");
       int ind = m_comboSrc.AddString(src);
       m_comboSrc.SetCurSel(ind);
     }
     m_src = src;
     // Clear widht/height for measurement
     m_docWidth  = 
-    m_docHeight = "";
+    m_docHeight = _T("");
   }
   if(m_spBrowser)
   {
@@ -418,14 +418,14 @@ ImageDlg::OnCbnSelchangeImgVideo()
     {
       if(!src.IsEmpty())
       {
-        m_src = "";
+        m_src = _T("");
         int ind = m_comboDynSrc.AddString(src);
         m_comboDynSrc.SetCurSel(ind);
       }
       m_dynsrc = src;
       // Clear widht/height for measurement
       m_docWidth  = 
-      m_docHeight = "";
+      m_docHeight = _T("");
     }
   }
   if(m_spBrowser)
@@ -462,16 +462,16 @@ void
 ImageDlg::OnBnClickedButtonOpen()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select an image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select an image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                     "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                     "Graphics Information File (gif)|*.gif|"
-                     "Portable Network Graphics (png)|*.png|"
-                     "Windows bitmaps (bmp)|*.bmp|"
-                     "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                     _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                     _T("Graphics Information File (gif)|*.gif|")
+                     _T("Portable Network Graphics (png)|*.png|")
+                     _T("Windows bitmaps (bmp)|*.bmp|")
+                     _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -491,16 +491,16 @@ void
 ImageDlg::OnBnClickedButtonVideo()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select a video"   // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select a video")   // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All movies (wmv,mpeg,)|*.wmv;*.mpeg;*.avi;*.wav|"
-                    "Windows video movie (wmv)|*.wmv|"
-                    "MPEG 1,2 Movie (mpeg)|*.mpeg;*.mpeg2|"
-                    "VID/X Video movie (avi)|*.avi|"
-                    "Windows sound (wav)|*.wav|"
-                    "All files|*.*");
+                    ,_T("All movies (wmv,mpeg,)|*.wmv;*.mpeg;*.avi;*.wav|")
+                    _T("Windows video movie (wmv)|*.wmv|")
+                    _T("MPEG 1,2 Movie (mpeg)|*.mpeg;*.mpeg2|")
+                    _T("VID/X Video movie (avi)|*.avi|")
+                    _T("Windows sound (wav)|*.wav|")
+                    _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -520,16 +520,16 @@ void
 ImageDlg::OnBnClickedButtonLowres()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select an low resolution image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select an low resolution image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                    "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                    "Graphics Information File (gif)|*.gif|"
-                    "Portable Network Graphics (png)|*.png|"
-                    "Windows bitmaps (bmp)|*.bmp|"
-                    "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                    _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                    _T("Graphics Information File (gif)|*.gif|")
+                    _T("Portable Network Graphics (png)|*.png|")
+                    _T("Windows bitmaps (bmp)|*.bmp|")
+                    _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -575,9 +575,9 @@ ImageDlg::OnEnChangeImgWidth()
     if(m_buttonRatio.GetCheck())
     {
       // m_ratio = h / w
-      long width = atoi(m_width);
+      long width = _ttoi(m_width);
       long height = (long)(width * m_ratio);
-      m_height.Format("%d",height);
+      m_height.Format(_T("%d"),height);
     }
     UpdateData(Data2Controls);
     OnDocumentComplete(NULL,NULL);
@@ -677,14 +677,14 @@ void
 ImageDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(m_img);
-  GeneralIDDlg dlg(this,"img",elem);
+  GeneralIDDlg dlg(this,_T("img"),elem);
   dlg.DoModal();
 }
 
 void 
 ImageDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_img,"IMG");
+  TagEventsDlg dlg(this,m_img,_T("IMG"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -703,13 +703,13 @@ ImageDlg::OnBnClickedStyle()
 
   UpdateProperties();
   CString style = m_img->GetInlineStyle();
-  style = CString("img { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"img",NULL,style,true,tabs);
+  style = CString(_T("img { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("img"),NULL,style,true,tabs);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("img {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("img {"));
     m_img->SetInlineStyle(style);
     FillPage();
     UpdateData(Data2Controls);

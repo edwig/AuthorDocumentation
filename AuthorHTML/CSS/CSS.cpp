@@ -21,13 +21,13 @@ CssStyleSheet::SetFile(LPCTSTR p_filename,bool emptyOK /*=false*/)
 {
   m_filename = p_filename;
   XString contents = file_get_contents(m_filename);
-  if(contents == "")
+  if(contents == _T(""))
   {
     if(emptyOK)
     {
       return true;
     }
-    XString warn = "Empty CSS file or no file found: " + m_filename;
+    XString warn = _T("Empty CSS file or no file found: ") + m_filename;
     log(warn,Error);
     return false;
   }
@@ -39,7 +39,7 @@ CssStyleSheet::SetFile(LPCTSTR p_filename,bool emptyOK /*=false*/)
 //
 void CssStyleSheet::add_token(const token_type ttype, const XString data, const bool force)
 {
-	if(m_settings["preserve_css"] || force)
+	if(m_settings[_T("preserve_css")] || force)
   {
 		token temp;
 		temp.type = ttype;
@@ -63,7 +63,7 @@ void CssStyleSheet::copy(const XString media, const XString selector, const XStr
 //
 void CssStyleSheet::put(const XString& media, const XString& selector, const XString& property, const XString& value)
 {
-	if(m_settings["preserve_css"])
+	if(m_settings[_T("preserve_css")])
   {
 		return;
 	}
@@ -97,10 +97,10 @@ void CssStyleSheet::put(const XString& media, const XString& selector, const XSt
 XString
 CssStyleSheet::get(const XString& media, const XString& selector, const XString& property)
 {
-  if(m_settings["preserve_css"])
+  if(m_settings[_T("preserve_css")])
   {
     // Cannot get unparsed data
-    return "";
+    return _T("");
   }
   XString value;
 
@@ -201,7 +201,7 @@ void CssStyleSheet::log(const XString msg, const message_type type, int iline)
 XString CssStyleSheet::unicode(XString& istring,int& i)
 {
 	++i;
-	XString add = "";
+	XString add = _T("");
 	bool replaced = false;
 	
 	while(i < (int)istring.length() && (ctype_xdigit(istring[i]) || ctype_space(istring[i])) && add.length()< 6)
@@ -217,7 +217,7 @@ XString CssStyleSheet::unicode(XString& istring,int& i)
 
 	if(hexdec(add) > 47 && hexdec(add) < 58 || hexdec(add) > 64 && hexdec(add) < 91 || hexdec(add) > 96 && hexdec(add) < 123)
 	{
-		XString msg = "Replaced unicode notation: Changed \\" + rtrim(add) + " to ";
+		XString msg = _T("Replaced unicode notation: Changed \\") + rtrim(add) + _T(" to ");
 		add = static_cast<int>(hexdec(add));
 		msg += add;
 		log(msg,Information);
@@ -225,7 +225,7 @@ XString CssStyleSheet::unicode(XString& istring,int& i)
 	}
 	else
 	{
-		add = trim("\\" + add);
+		add = trim(_T("\\") + add);
 	}
 
 	if(ctype_xdigit(istring[i+1]) && ctype_space(istring[i]) && !replaced || !ctype_space(istring[i]))
@@ -233,15 +233,15 @@ XString CssStyleSheet::unicode(XString& istring,int& i)
 		i--;
 	}
 	
-	if(add != "\\" || !m_settings["remove_bslash"] || in_str_array(m_tokens,istring[i+1]))
+	if(add != _T("\\") || !m_settings[_T("remove_bslash")] || in_str_array(m_tokens,istring[i+1]))
 	{
 		return add;
 	}
-	if(add == "\\")
+	if(add == _T("\\"))
 	{
-		log("Removed unnecessary backslash",Information);
+		log(_T("Removed unnecessary backslash"),Information);
 	}
-	return "";
+	return _T("");
 }
 
 bool CssStyleSheet::is_token(XString& istring,const size_t i)
@@ -258,18 +258,18 @@ void CssStyleSheet::merge_4value_shorthands(XString media, XString selector)
 		if(m_css[media][selector].has(i->second[0]) && m_css[media][selector].has(i->second[1])
 		&& m_css[media][selector].has(i->second[2]) && m_css[media][selector].has(i->second[3]))
 		{
-			XString important = "";
+			XString important = _T("");
 			for(int j = 0; j < 4; ++j)
 			{
 				XString val = m_css[media][selector][i->second[j]];
 				if(is_important(val))
 				{
-					important = " !important";
-					temp += gvw_important(val)+ " ";
+					important = _T(" !important");
+					temp += gvw_important(val)+ _T(" ");
 				}
 				else
 				{
-					temp += val + " ";
+					temp += val + _T(" ");
 				}
 				m_css[media][selector].erase(i->second[j]);
 			}
@@ -282,19 +282,19 @@ map<XString,XString> CssStyleSheet::dissolve_4value_shorthands(XString property,
 {
 	map<XString, XString> ret;
 
-	if(m_shorthands[property][0] == "0")
+	if(m_shorthands[property][0] == _T("0"))
 	{
 		ret[property] = value;
 		return ret;
 	}
 
-	XString important = "";
+	XString important = _T("");
 	if(is_important(value))
 	{
 		value = gvw_important(value);
-		important = " !important";
+		important = _T(" !important");
 	}
-	vector<XString> values = explode(" ",value);
+	vector<XString> values = explode(_T(" "),value);
 
 	if(values.size() == 4)
 	{
@@ -331,7 +331,7 @@ map<XString,XString> CssStyleSheet::dissolve_4value_shorthands(XString property,
 void CssStyleSheet::explode_selectors()
 {
 	// Explode multiple selectors
-  if (m_settings["merge_selectors"] == 1)
+  if (m_settings[_T("merge_selectors")] == 1)
   {
     vector<XString> new_sels;
     int lastpos = 0;
@@ -365,16 +365,16 @@ void CssStyleSheet::explode_selectors()
 void
 CssStyleSheet::SetTemplate(XString value)
 {
-  if(value == "high" || value == "highest" || value == "low")
+  if(value == _T("high") || value == _T("highest") || value == _T("low"))
   {
     m_csstemplate = m_predefined_templates[value];
   }
-  else if(value != "default")
+  else if(value != _T("default"))
   {
     XString tpl_content = file_get_contents(value);
-    if(tpl_content != "")
+    if(tpl_content != _T(""))
     {
-      vector<XString> tpl_arr = explode("|",tpl_content,true);
+      vector<XString> tpl_arr = explode(_T("|"),tpl_content,true);
       m_csstemplate = tpl_arr;
     }
   }
@@ -395,12 +395,12 @@ CssStyleSheet::DeleteImport(XString value)
   {
     m_import.erase(it);
   }
-}
+}	
 
 bool
 CssStyleSheet::Valid()
 {
-  if(m_css.empty() && m_charset == "" && m_namesp == "" && m_import.empty() && m_csstokens.empty())
+  if(m_css.empty() && m_charset == _T("") && m_namesp == _T("") && m_import.empty() && m_csstokens.empty())
   {
     return false;
   }
@@ -437,7 +437,7 @@ CssStyleSheet::file_get_contents(const XString filename)
   WinFile file(filename);
   if(!file.Open(winfile_read | open_trans_text))
   {
-    return "";
+    return _T("");
   }
   XString line;
   XString file_contents;

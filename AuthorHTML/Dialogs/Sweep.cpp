@@ -52,7 +52,7 @@ void
 SweepDlg::Reset()
 {
   m_gauge.SetPos(0);
-  SetText("");
+  SetText(_T(""));
   UpdateData(false);
   ShowWindow(m_show);
   Repaint();
@@ -144,7 +144,7 @@ SweepDlg::MakeTextToShow()
     percent = (100 * m_current) / m_max;
   }
   // Now processing "[22/201] = 10% text.html"
-  m_showText.Format("[%d/%d = %d%%] %s",m_current,m_max,percent,m_text.GetString());
+  m_showText.Format(_T("[%d/%d = %d%%] %s"),m_current,m_max,percent,m_text.GetString());
 }
 
 void

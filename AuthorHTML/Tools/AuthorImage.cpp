@@ -15,8 +15,8 @@
 #include "Images.h"
 
 AuthorImage::AuthorImage()
-              :m_image(NULL),
-               m_posOptions(BUTT_LAYOUT_ALL)
+            :m_image(NULL),
+             m_posOptions(BUTT_LAYOUT_ALL)
 {
 }
 
@@ -25,7 +25,7 @@ AuthorImage::~AuthorImage()
 }
 
 bool
-AuthorImage::CalculateStandard(LPCSTR type,LPCSTR def)
+AuthorImage::CalculateStandard(LPCTSTR type,LPCTSTR def)
 {
   if (theApp.GetImages())
   {
@@ -39,7 +39,7 @@ AuthorImage::CalculateStandard(LPCSTR type,LPCSTR def)
 }
 
 bool
-AuthorImage::ZetAfbeelding(LPCSTR afbeelding)
+AuthorImage::ZetAfbeelding(LPCTSTR afbeelding)
 {
   m_image = CalculateImageInfo(afbeelding);
   return m_image;
@@ -58,7 +58,7 @@ AuthorImage::PaintBitmap(CDC& pDC,CRect& rect,int volgNr,int drawParam)
 }
 
 Ref<CAfbeeldingInfo> 
-AuthorImage::CalculateImageInfo(LPCSTR str,int logica)
+AuthorImage::CalculateImageInfo(LPCTSTR str,int logica)
 {
   if (theApp.GetImages())
   {

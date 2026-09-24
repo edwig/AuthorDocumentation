@@ -308,108 +308,108 @@ CHTMLEdView::TagJumps
 CHTMLEdView::jumps[] =
 {
   // SUPPORTED TAGS
-  { "!",          &CHTMLEdView::OnDoubleClickComment,      NULL, "" },
-  { "a",          &CHTMLEdView::OnDoubleClickHyperlink,    NULL, "" },
-  { "acronym",    &CHTMLEdView::OnDoubleClickAcronym,      NULL, "" },
-  { "address",    &CHTMLEdView::OnDoubleClickAddress,      NULL, "" },
-  { "area",       &CHTMLEdView::OnDoubleClickArea,         NULL, "" },
-  { "b",          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "big",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "blockquote", &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "br",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "button",     &CHTMLEdView::OnDoubleClickButton,       NULL, "" },
-  { "caption",    &CHTMLEdView::OnDoubleClickCaption,      NULL, "" },
-  { "cite",       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "code",       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "comment",    &CHTMLEdView::OnDoubleClickComment,      NULL, "" },
-  { "dd",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "del",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "dir",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "div",        &CHTMLEdView::OnDoubleClickDiv,          NULL, "" },
-  { "dl",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "dt",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "em",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "fieldset",   &CHTMLEdView::OnDoubleClickFieldset,     NULL, "" },
-  { "font",       &CHTMLEdView::OnDoubleClickFont,         NULL, "" },
-  { "form",       &CHTMLEdView::OnDoubleClickForm,         NULL, "" },
-  { "h1",         &CHTMLEdView::OnDoubleClickHeading1,     NULL, "" },
-  { "h2",         &CHTMLEdView::OnDoubleClickHeading2,     NULL, "" },
-  { "h3",         &CHTMLEdView::OnDoubleClickHeading3,     NULL, "" },
-  { "h4",         &CHTMLEdView::OnDoubleClickHeading4,     NULL, "" },
-  { "h5",         &CHTMLEdView::OnDoubleClickHeading5,     NULL, "" },
-  { "h6",         &CHTMLEdView::OnDoubleClickHeading6,     NULL, "" },
-  { "hr",         &CHTMLEdView::OnDoubleClickHR,           NULL, "" },
-  { "i",          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "iframe",     &CHTMLEdView::OnDoubleClickIFrame,       NULL, "" },
-  { "img",        &CHTMLEdView::OnDoubleClickImage,        NULL, "" },
-  { "input",      &CHTMLEdView::OnDoubleClickFormInput,    NULL, "" },
-  { "ins",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "kbd",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "label",      &CHTMLEdView::OnDoubleClickFormLabel,    NULL, "" },
-  { "legend",     &CHTMLEdView::OnDoubleClickLegend,       NULL, "" },
-  { "li",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "listing",    &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "marquee",    &CHTMLEdView::OnDoubleClickMarquee,      NULL, "" },
-  { "object",     &CHTMLEdView::OnDoubleClickObject,       NULL, "" },
-  { "ol",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "p",          &CHTMLEdView::OnDoubleClickParagraph,    NULL, "" },
-  { "plaintext",  &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "pre",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "q",          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "s",          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "samp",       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "script",     &CHTMLEdView::OnDoubleClickScript,       NULL, "" },
-  { "select",     &CHTMLEdView::OnDoubleClickFormSelect,   NULL, "" },
-  { "small",      &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "span",       &CHTMLEdView::OnDoubleClickSpan,         NULL, "" },
-  { "strike",     &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "strong",     &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "sub",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "sup",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "table",      &CHTMLEdView::OnTableProperties,         NULL, "" },
-  { "tbody",      &CHTMLEdView::OnTableProperties,         NULL, "" },
-  { "textarea",   &CHTMLEdView::OnDoubleClickFormTextArea, NULL, "" },
-  { "td",         &CHTMLEdView::OnCellProperties,          NULL, "" },
-  { "th",         &CHTMLEdView::OnCellProperties,          NULL, "" },
-  { "thead",      &CHTMLEdView::OnTableProperties,         NULL, "" },
-  { "tfoot",      &CHTMLEdView::OnTableProperties,         NULL, "" },
-  { "tr",         &CHTMLEdView::OnCellProperties,          NULL, "" },
-  { "tt",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "u",          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "ul",         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "var",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "wbr",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
-  { "xmp",        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, "" },
+  { _T("!"),          &CHTMLEdView::OnDoubleClickComment,      NULL, _T("") },
+  { _T("a"),          &CHTMLEdView::OnDoubleClickHyperlink,    NULL, _T("") },
+  { _T("acronym"),    &CHTMLEdView::OnDoubleClickAcronym,      NULL, _T("") },
+  { _T("address"),    &CHTMLEdView::OnDoubleClickAddress,      NULL, _T("") },
+  { _T("area"),       &CHTMLEdView::OnDoubleClickArea,         NULL, _T("") },
+  { _T("b"),          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("big"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("blockquote"), &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("br"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("button"),     &CHTMLEdView::OnDoubleClickButton,       NULL, _T("") },
+  { _T("caption"),    &CHTMLEdView::OnDoubleClickCaption,      NULL, _T("") },
+  { _T("cite"),       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("code"),       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("comment"),    &CHTMLEdView::OnDoubleClickComment,      NULL, _T("") },
+  { _T("dd"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("del"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("dir"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("div"),        &CHTMLEdView::OnDoubleClickDiv,          NULL, _T("") },
+  { _T("dl"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("dt"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("em"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("fieldset"),   &CHTMLEdView::OnDoubleClickFieldset,     NULL, _T("") },
+  { _T("font"),       &CHTMLEdView::OnDoubleClickFont,         NULL, _T("") },
+  { _T("form"),       &CHTMLEdView::OnDoubleClickForm,         NULL, _T("") },
+  { _T("h1"),         &CHTMLEdView::OnDoubleClickHeading1,     NULL, _T("") },
+  { _T("h2"),         &CHTMLEdView::OnDoubleClickHeading2,     NULL, _T("") },
+  { _T("h3"),         &CHTMLEdView::OnDoubleClickHeading3,     NULL, _T("") },
+  { _T("h4"),         &CHTMLEdView::OnDoubleClickHeading4,     NULL, _T("") },
+  { _T("h5"),         &CHTMLEdView::OnDoubleClickHeading5,     NULL, _T("") },
+  { _T("h6"),         &CHTMLEdView::OnDoubleClickHeading6,     NULL, _T("") },
+  { _T("hr"),         &CHTMLEdView::OnDoubleClickHR,           NULL, _T("") },
+  { _T("i"),          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("iframe"),     &CHTMLEdView::OnDoubleClickIFrame,       NULL, _T("") },
+  { _T("img"),        &CHTMLEdView::OnDoubleClickImage,        NULL, _T("") },
+  { _T("input"),      &CHTMLEdView::OnDoubleClickFormInput,    NULL, _T("") },
+  { _T("ins"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("kbd"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("label"),      &CHTMLEdView::OnDoubleClickFormLabel,    NULL, _T("") },
+  { _T("legend"),     &CHTMLEdView::OnDoubleClickLegend,       NULL, _T("") },
+  { _T("li"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("listing"),    &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("marquee"),    &CHTMLEdView::OnDoubleClickMarquee,      NULL, _T("") },
+  { _T("object"),     &CHTMLEdView::OnDoubleClickObject,       NULL, _T("") },
+  { _T("ol"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("p"),          &CHTMLEdView::OnDoubleClickParagraph,    NULL, _T("") },
+  { _T("plaintext"),  &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("pre"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("q"),          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("s"),          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("samp"),       &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("script"),     &CHTMLEdView::OnDoubleClickScript,       NULL, _T("") },
+  { _T("select"),     &CHTMLEdView::OnDoubleClickFormSelect,   NULL, _T("") },
+  { _T("small"),      &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("span"),       &CHTMLEdView::OnDoubleClickSpan,         NULL, _T("") },
+  { _T("strike"),     &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("strong"),     &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("sub"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("sup"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("table"),      &CHTMLEdView::OnTableProperties,         NULL, _T("") },
+  { _T("tbody"),      &CHTMLEdView::OnTableProperties,         NULL, _T("") },
+  { _T("textarea"),   &CHTMLEdView::OnDoubleClickFormTextArea, NULL, _T("") },
+  { _T("td"),         &CHTMLEdView::OnCellProperties,          NULL, _T("") },
+  { _T("th"),         &CHTMLEdView::OnCellProperties,          NULL, _T("") },
+  { _T("thead"),      &CHTMLEdView::OnTableProperties,         NULL, _T("") },
+  { _T("tfoot"),      &CHTMLEdView::OnTableProperties,         NULL, _T("") },
+  { _T("tr"),         &CHTMLEdView::OnCellProperties,          NULL, _T("") },
+  { _T("tt"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("u"),          &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("ul"),         &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("var"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("wbr"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
+  { _T("xmp"),        &CHTMLEdView::OnDoubleClickInlineTag,    NULL, _T("") },
   // UNSUPPORTED TAGS
-  { "abbr",     NULL,  &CHTMLEdView::OnUnsupportedHTML, "ABBR is deprecated HTML"                       },
-  { "applet",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "APPLET (Use object instead)"                   },
-  { "base",     NULL,  &CHTMLEdView::OnUnsupportedHTML, "BASE (Cannot be used in CHM documentation)"    },
-  { "basefont", NULL,  &CHTMLEdView::OnUnsupportedHTML, "BASEFONT (Use Cascading StyleSheets instead)"  },
-  { "bgsound",  NULL,  &CHTMLEdView::OnUnsupportedHTML, "BGSOUND (Not used in CHM documentation)"       },
-  { "blink",    NULL,  &CHTMLEdView::OnUnsupportedHTML, "BLINK (Do not use: to restless / unreadable)"  },
-  { "center",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "CENTER (Use (CSS)styles instead)"              },
-  { "col",      NULL,  &CHTMLEdView::OnUnsupportedHTML, "COL (Not yet supported by AuthorHTML)"         },
-  { "colgroup", NULL,  &CHTMLEdView::OnUnsupportedHTML, "COLGROUP (Not yet supported by AuthorHTML)"    },
-  { "dfn",      NULL,  &CHTMLEdView::OnUnsupportedHTML, "DFN is deprecated HTML (use I instead)"        },
-  { "embed",    NULL,  &CHTMLEdView::OnUnsupportedHTML, "EMBED is deprecated HTML (Use object instead)" },
-  { "ilayer",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "ILAYER is deprecated HTML (Use DIV instead)"   },
-  { "isindex",  NULL,  &CHTMLEdView::OnUnsupportedHTML, "ISINDEX is deprecated HTML (Use INPUT instead)"},
-  { "keygen",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "KEYGEN (deprecated, only NS 4.x)"              },
-  { "layer",    NULL,  &CHTMLEdView::OnUnsupportedHTML, "LAYER is deprecated HTML (Use DIV instead)"    },
-  { "menu",     NULL,  &CHTMLEdView::OnUnsupportedHTML, "MENU (Use lists instead)"                      },
-  { "multicol", NULL,  &CHTMLEdView::OnUnsupportedHTML, "MULTICOL (Use Cascading StyleSheets instead)"  },
-  { "nobr",     NULL,  &CHTMLEdView::OnUnsupportedHTML, "NOBR (Use 'break-below-images' instead)"       },
-  { "noembed",  NULL,  &CHTMLEdView::OnUnsupportedHTML, "NOEMBED (Deprecated HTML)"                     },
-  { "noframes", NULL,  &CHTMLEdView::OnUnsupportedHTML, "NOFRAMES (Deprecated HTML)"                    },
-  { "nolayer",  NULL,  &CHTMLEdView::OnUnsupportedHTML, "NOLAYER (Deprecated HTML)"                     },
-  { "noscript", NULL,  &CHTMLEdView::OnUnsupportedHTML, "NOSCRIPT (Deprecated HTML)"                    },
-  { "param",    NULL,  &CHTMLEdView::OnUnsupportedHTML, "PARAM (Use object instead)"                    },
-  { "rt",       NULL,  &CHTMLEdView::OnUnsupportedHTML, "RT - RubyText (not much used IE extension)"    },
-  { "ruby",     NULL,  &CHTMLEdView::OnUnsupportedHTML, "RUBY at rubytext (Not much used IE extension)" },
-  { "strike",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "STRIKE (Deprecated strike-through)"            },
-  { "server",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "SERVER (Deprecated HTML)"                      },
-  { "spacer",   NULL,  &CHTMLEdView::OnUnsupportedHTML, "SPACER (Deprecated HTML)"                      },
-  { "",         NULL,                                   NULL, "" }
+  { _T("abbr"),     NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("ABBR is deprecated HTML")                       },
+  { _T("applet"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("APPLET (Use object instead)")                   },
+  { _T("base"),     NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("BASE (Cannot be used in CHM documentation)")    },
+  { _T("basefont"), NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("BASEFONT (Use Cascading StyleSheets instead)")  },
+  { _T("bgsound"),  NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("BGSOUND (Not used in CHM documentation)")       },
+  { _T("blink"),    NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("BLINK (Do not use: to restless / unreadable)")  },
+  { _T("center"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("CENTER (Use (CSS)styles instead)")              },
+  { _T("col"),      NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("COL (Not yet supported by AuthorHTML)")         },
+  { _T("colgroup"), NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("COLGROUP (Not yet supported by AuthorHTML)")    },
+  { _T("dfn"),      NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("DFN is deprecated HTML (use I instead)")        },
+  { _T("embed"),    NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("EMBED is deprecated HTML (Use object instead)") },
+  { _T("ilayer"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("ILAYER is deprecated HTML (Use DIV instead)")   },
+  { _T("isindex"),  NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("ISINDEX is deprecated HTML (Use INPUT instead)")},
+  { _T("keygen"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("KEYGEN (deprecated, only NS 4.x)")              },
+  { _T("layer"),    NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("LAYER is deprecated HTML (Use DIV instead)")    },
+  { _T("menu"),     NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("MENU (Use lists instead)")                      },
+  { _T("multicol"), NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("MULTICOL (Use Cascading StyleSheets instead)")  },
+  { _T("nobr"),     NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("NOBR (Use 'break-below-images' instead)")       },
+  { _T("noembed"),  NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("NOEMBED (Deprecated HTML)")                     },
+  { _T("noframes"), NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("NOFRAMES (Deprecated HTML)")                    },
+  { _T("nolayer"),  NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("NOLAYER (Deprecated HTML)")                     },
+  { _T("noscript"), NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("NOSCRIPT (Deprecated HTML)")                    },
+  { _T("param"),    NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("PARAM (Use object instead)")                    },
+  { _T("rt"),       NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("RT - RubyText (not much used IE extension)")    },
+  { _T("ruby"),     NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("RUBY at rubytext (Not much used IE extension)") },
+  { _T("strike"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("STRIKE (Deprecated strike-through)")            },
+  { _T("server"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("SERVER (Deprecated HTML)")                      },
+  { _T("spacer"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("SPACER (Deprecated HTML)")                      },
+  { _T(""),         NULL,                                   NULL, _T("") }
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -520,15 +520,15 @@ BOOL CHTMLEdView::PreTranslateMessage(MSG* pMsg)
       {
 			  switch (pMsg->wParam)
 			  {
-			    case 'N':  // prevent stupid default behavior for CTRL N (opening Windows Explorer)
+			    case _T('N'):  // prevent stupid default behavior for CTRL N (opening Windows Explorer)
                     return TRUE;
-			    case 'T':  // CTRL T: inserts a new table
+			    case _T('T'):  // CTRL T: inserts a new table
                     OnTableInsert();
 				            return TRUE;
-  			  case 'R':  // CTRL R: new table row
+  			  case _T('R'):  // CTRL R: new table row
 	            		  OnTableInsertRowBelow();
 				            return TRUE;
-  			  case 'O':  // CTRL O: new table column
+  			  case _T('O'):  // CTRL O: new table column
 				            OnTableInsertColumnBefore();
 				            return TRUE;
           case VK_RETURN: // CTRL-ENTER is a soft hyphen
@@ -549,9 +549,9 @@ BOOL CHTMLEdView::PreTranslateMessage(MSG* pMsg)
           case VK_END:
           case VK_NEXT:
           case VK_PRIOR:
-          case '.':
-          case ',':
-          case ' ': m_dirty = true;
+          case _T('.'):
+          case _T(','):
+          case _T(' '): m_dirty = true;
                     break;
         }
         if(pMsg->wParam > 127)
@@ -654,7 +654,7 @@ CHTMLEdView::OnBackspaceKey()
 void
 CHTMLEdView::OnSoftHyphen()
 {
-  PasteTextHTML("&shy;");
+  PasteTextHTML(_T("&shy;"));
 }
 
 BOOL
@@ -686,20 +686,20 @@ void CHTMLEdView::OnNavigateComplete2(LPCTSTR t_URL)
   m_URL = t_URL;
 
   // Test if it is legall and will not result in the error page
-  if(!m_URL.IsEmpty() && m_URL.CompareNoCase("about:blank"))
+  if(!m_URL.IsEmpty() && m_URL.CompareNoCase(_T("about:blank")))
   {
     CString filename;
     CString anchor;
     Misc::SplitMidpageAnchor(m_URL,filename,anchor);
     filename = Misc::StripFileProtocol(filename);
 
-    if(_access(filename,4) == -1)
+    if(_taccess(filename,4) == -1)
     {
       CString file = GetBase() + filename;
-      if(_access(file,4) == -1)
+      if(_taccess(file,4) == -1)
       {
-        theApp.ErrorMessage("Cannot find or display the document: " + m_URL);
-        m_URL = "";
+        theApp.ErrorMessage(_T("Cannot find or display the document: ") + m_URL);
+        m_URL = _T("");
         PostMessage(WM_COMMAND,ID_FILE_CLOSE);
         return;
       }
@@ -754,14 +754,14 @@ CHTMLEdView::OnDownloadComplete()
   ExecHelperSetVal(IDM_LIVERESIZE,        (bool)true);
 
   ExtractStyles();
-  CString noStyle = "<No style>";
+  CString noStyle = _T("<No style>");
   UpdateClassCombo(noStyle,noStyle);
 
   CHTMLEdDoc* document = this->GetDocument();
   CString temp = document->GetFromTemplate();
   if(!temp.IsEmpty())
   {
-    Misc::MetaTag(m_Doc2,"AuthorHTMLTemplate",&temp);
+    Misc::MetaTag(m_Doc2,_T("AuthorHTMLTemplate"),&temp);
   }
   // Check for BASE tag
   CheckBase();
@@ -772,7 +772,7 @@ CHTMLEdView::OnDownloadComplete()
   // Kick dirty for spell checking in OnIdle() time of new document
   m_dirty = true;
   // Document is now complete
-  if(!m_URL.IsEmpty() && m_URL.CompareNoCase("about:blank"))
+  if(!m_URL.IsEmpty() && m_URL.CompareNoCase(_T("about:blank")))
   {
     // Document is now fully loaded. and commands can be performed
     m_complete = true;
@@ -825,9 +825,9 @@ CHTMLEdView::OnBeforeNavigate2(LPCTSTR     t_URL
 	// browsing to embedded resources "res://Path" must ALWAYS be allowed !!
 	// browsing to files on the local harddisk should also be allowed
 	// security risks are mainly on http and https pages (ftp:// should be no problem)
-	if (_tcsnicmp(t_URL, _T("http"), 4) == 0 && (strlen(t_URL) > 8))
+	if (_tcsnicmp(t_URL, _T("http"), 4) == 0 && (_tcslen(t_URL) > 8))
 	{
-    theApp.MessageBox("External browsing prohibited","Warning",MB_OK|MB_ICONSTOP);
+    theApp.MessageBox(_T("External browsing prohibited"),_T("Warning"),MB_OK|MB_ICONSTOP);
 		*pb_Cancel = TRUE;
 	}
 
@@ -847,19 +847,19 @@ void
 CHTMLEdView::OnRemoveHyperlink()
 {
   CComPtr<IHTMLElement> hyperlink;
-  if(InsideTag("a",hyperlink))
+  if(InsideTag(_T("a"),hyperlink))
   {
     HtmlElement elem(hyperlink);
     CString linktext = elem.GetInnerHtml();
-    CString linkto   = elem.GetAttribute("href");
+    CString linkto   = elem.GetAttribute(_T("href"));
     CString message;
-    message.Format("Remove the hyperlink reference to [%s] ?",linkto.GetString());
-    if(theApp.MessageBox(message,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+    message.Format(_T("Remove the hyperlink reference to [%s] ?"),linkto.GetString());
+    if(theApp.MessageBox(message,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
     {
       // Remove the link by setting innerHTML as outerHTML
       if(!elem.SetOuterHtml(linktext))
       {
-        theApp.MessageBox("Could not remove the hyperlink!","Error",MB_OK|MB_ICONSTOP);
+        theApp.MessageBox(_T("Could not remove the hyperlink!"),_T("Error"),MB_OK|MB_ICONSTOP);
       }
     }
   }
@@ -909,8 +909,8 @@ CHTMLEdView::OnSpellCheckDocument()
     if(SpellCheck(body,errors,changed))
     {
       CString msg;
-      msg.Format("Ready spell-checking the document. Errors: %d Changed: %d",errors,changed);
-      theApp.MessageBox(msg,"Spell checker",MB_OK|MB_ICONINFORMATION);
+      msg.Format(_T("Ready spell-checking the document. Errors: %d Changed: %d"),errors,changed);
+      theApp.MessageBox(msg,_T("Spell checker"),MB_OK|MB_ICONINFORMATION);
     }
     // Kick idle time spell checking
     m_dirty = true;
@@ -928,11 +928,11 @@ CHTMLEdView::SpellCheck(CComPtr<IHTMLElement> pElement
   {
     CString language = spell->GetLanguageName();
     CString ask;
-    ask.Format("Checking of your spelling is not currently enabled.\n"
-               "WOULD YOU LIKE TO ENABLE THIS FEATURE NOW?\n\n"
-               "Your language will then be: %s\n"
-               "(Change it via menu 'Edit/Spelling options...')",language.GetString());
-    if(theApp.MessageBox(ask,"Question",MB_YESNO|MB_ICONQUESTION) == IDNO)
+    ask.Format(_T("Checking of your spelling is not currently enabled.\n")
+               _T("WOULD YOU LIKE TO ENABLE THIS FEATURE NOW?\n\n")
+               _T("Your language will then be: %s\n")
+               _T("(Change it via menu 'Edit/Spelling options...')"),language.GetString());
+    if(theApp.MessageBox(ask,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDNO)
     {
       // Already ready
       return false;
@@ -952,7 +952,7 @@ CHTMLEdView::SpellCheck(CComPtr<IHTMLElement> pElement
   long actual1 = 0;
   long actual2 = 1;
   CComBSTR how;
-  CComBSTR unit = CT2CW("word");
+  CComBSTR unit = CT2CW(_T("word"));
   CComBSTR sentence;
   total->moveToElementText(pElement);
   total->get_text(&sentence);
@@ -963,9 +963,9 @@ CHTMLEdView::SpellCheck(CComPtr<IHTMLElement> pElement
     CComQIPtr<IHTMLTxtRange,&IID_IHTMLTxtRange> txt = disp2;
 
     txt->moveToElementText(pElement);
-    how = CT2CW("StartToStart");
+    how = CT2CW(_T("StartToStart"));
     hr = txt->setEndPoint(how,total);
-    how = CT2CW("EndToStart");
+    how = CT2CW(_T("EndToStart"));
     hr = txt->setEndPoint(how,total);
     hr = txt->moveEnd(unit,1,&actual1);
     while(actual1 == 1 && actual2 == 1)
@@ -978,7 +978,7 @@ CHTMLEdView::SpellCheck(CComPtr<IHTMLElement> pElement
         if(!cText.IsEmpty())
         {
           CString word = cText;
-          word.TrimRight(' ');
+          word.TrimRight(_T(' '));
           if(word.GetLength() > 1)
           {
             // Spell check
@@ -1069,7 +1069,7 @@ CHTMLEdView::HighLightSpellErrors()
   if(!spell->GetRenderStyle().p)
   {
     // No render style
-    MainFrame::SetStatusText("No render styles available to show spelling errors.");
+    MainFrame::SetStatusText(_T("No render styles available to show spelling errors."));
     return;
   }
   HRESULT hr;
@@ -1104,7 +1104,7 @@ CHTMLEdView::HighLightSpellErrors()
   long actual1 = 0;
   long actual2 = 1;
   CComBSTR how;
-  CComBSTR unit = CT2CW("word");
+  CComBSTR unit = CT2CW(_T("word"));
   CComBSTR sentence;
   total->moveToElementText(body);
   total->get_text(&sentence);
@@ -1115,9 +1115,9 @@ CHTMLEdView::HighLightSpellErrors()
     CComQIPtr<IHTMLTxtRange,&IID_IHTMLTxtRange> txt = disp2;
 
     txt->moveToElementText(body);
-    how = CT2CW("StartToStart");
+    how = CT2CW(_T("StartToStart"));
     txt->setEndPoint(how,total);
-    how = CT2CW("EndToStart");
+    how = CT2CW(_T("EndToStart"));
     txt->setEndPoint(how,total);
     txt->moveEnd(unit,1,&actual1);
     while(actual1 == 1 && actual2 == 1)
@@ -1130,7 +1130,7 @@ CHTMLEdView::HighLightSpellErrors()
         if(!cText.IsEmpty())
         {
           CString word = cText;
-          word.TrimRight(' ');
+          word.TrimRight(_T(' '));
           if(word.GetLength() > 1)
           {
             // Spell check
@@ -1262,7 +1262,7 @@ CHTMLEdView::OnSearchText(bool findOnly)
   CComQIPtr<IHTMLElementCollection,&IID_IHTMLElementCollection> coll = dispchild;
   if(SUCCEEDED(hr) && coll.p)
   {
-    FindReplaceDialog diag(findOnly,"","",this);
+    FindReplaceDialog diag(findOnly,_T(""),_T(""),this);
     INT_PTR action = diag.DoModal();
     if(action == IDOK || 
        action == IDC_BUTTON_FINDNEXT    ||
@@ -1282,8 +1282,8 @@ CHTMLEdView::OnSearchText(bool findOnly)
       if(didNothing)
       {
         CString message;
-        message.Format("Cannot find the text \"%s\" in your document(s)",textToFind.GetString());
-        theApp.MessageBox(message,"Find result",MB_OK|MB_ICONINFORMATION);
+        message.Format(_T("Cannot find the text \"%s\" in your document(s)"),textToFind.GetString());
+        theApp.MessageBox(message,_T("Find result"),MB_OK|MB_ICONINFORMATION);
       }
     }
   }
@@ -1329,13 +1329,13 @@ CHTMLEdView::SearchInCollection(CComPtr<IHTMLElementCollection> coll
       CComBSTR bTagName;
       pElement->get_tagName(&bTagName);
       CString tagName = bTagName;
-      if((tagName.CompareNoCase("TR")       == 0) ||
-         (tagName.CompareNoCase("TABLE")    == 0) ||
-         (tagName.CompareNoCase("THEAD")    == 0) ||
-         (tagName.CollateNoCase("TBODY")    == 0) ||
-         (tagName.CompareNoCase("TFOOT")    == 0) ||
-         (tagName.CompareNoCase("FORM")     == 0) ||
-         (tagName.CompareNoCase("FIELDSET") == 0) )
+      if((tagName.CompareNoCase(_T("TR"))       == 0) ||
+         (tagName.CompareNoCase(_T("TABLE"))    == 0) ||
+         (tagName.CompareNoCase(_T("THEAD"))    == 0) ||
+         (tagName.CollateNoCase(_T("TBODY"))    == 0) ||
+         (tagName.CompareNoCase(_T("TFOOT"))    == 0) ||
+         (tagName.CompareNoCase(_T("FORM"))     == 0) ||
+         (tagName.CompareNoCase(_T("FIELDSET")) == 0) )
       {
         // See if we have children
         CComPtr<IDispatch> elemDisp;
@@ -1399,13 +1399,13 @@ CHTMLEdView::SearchInCollection(CComPtr<IHTMLElementCollection> coll
               if(pos >= 0 && (iOptions & FRD_MATCHWORD))
               {
                 // Only a match if we have a whole word found.
-                if(pos > 0 && isalnum(sCurSentence.GetAt(pos - 1)))
+                if(pos > 0 && _istalnum(sCurSentence.GetAt(pos - 1)))
                 {
                   // Not at the beginning of a word/sentence
                   pos = -1;
                 }
                 else if((pos + textToFind.GetLength() < sCurSentence.GetLength()) &&  
-                         isalnum(sCurSentence.GetAt(pos + textToFind.GetLength())))
+                         _istalnum(sCurSentence.GetAt(pos + textToFind.GetLength())))
                 {
                   // Not at the end of a word/sentence
                   pos = -1;
@@ -1500,9 +1500,9 @@ CHTMLEdView::SearchInCollection(CComPtr<IHTMLElementCollection> coll
 void 
 CHTMLEdView::ExtractStyles()
 {
-	MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-	ASSERT_VALID(main);
-	CMFCToolBarComboBoxButton* combo = main->GetClassNameCombo();
+	MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+	ASSERT_VALID(_tmain);
+	CMFCToolBarComboBoxButton* combo = _tmain->GetClassNameCombo();
   if(m_Doc2 && combo)
   {
     Misc::ExtractStylesList(m_Doc2,combo);
@@ -1539,8 +1539,8 @@ void CHTMLEdView::OnUpdateInsertKey()
 {
   if(g_statusBar)
   {
-    CString text = m_overwriteKey ? "OVR" : "";
-    g_statusBar->SetPaneText(2, _T(text)); // , TRUE);
+    CString text = m_overwriteKey ? _T("OVR") : _T("");
+    g_statusBar->SetPaneText(2,text); // , TRUE);
   }
 }
 
@@ -1861,15 +1861,15 @@ CHTMLEdView::OnBookmark()
   // Check if there was already a bookmark.
   // Works only by retrieving the attribute "name" from the element
   // anchor->name doesn't work after IE 6.0, so IDM_BOOKMARK (get name) does not work
-  inside = InsideTag("a",pElement);
+  inside = InsideTag(_T("a"),pElement);
   if(inside)
   {
-    oldMark = GetAttribute(pElement,"name");
+    oldMark = GetAttribute(pElement,_T("name"));
   }
   if(!oldMark.IsEmpty())
   {
     // Mark as current and do the dialog
-    BookmarkDialog diag(oldMark,"",m_Doc2,this);
+    BookmarkDialog diag(oldMark,_T(""),m_Doc2,this);
     diag.DoModal();
 
   }
@@ -1878,13 +1878,13 @@ CHTMLEdView::OnBookmark()
     // Get default text for bookmark. Protect against empty tags 
     // or malformed ?????? tags from empty COM strings.
     CString marker = GetCurrentSelectionText();
-    if(marker.IsEmpty() || !isalpha(marker[0]))
+    if(marker.IsEmpty() || !_istalpha(marker[0]))
     {
-      marker.Format("Bookmark%d",++m_bookmarkNumber);
+      marker.Format(_T("Bookmark%d"),++m_bookmarkNumber);
     }
-    marker.Replace(" ","");
+    marker.Replace(_T(" "),_T(""));
     // Choose name for a marker.
-    BookmarkDialog diag("",marker,m_Doc2,this);
+    BookmarkDialog diag(_T(""),marker,m_Doc2,this);
     diag.DoModal();
   }
   else // Inside and no anchor tag
@@ -1899,11 +1899,11 @@ CHTMLEdView::OnUpdateAnchor(CCmdUI* pCmdUI)
 {
   CComPtr<IHTMLElement> pElement;
   bool inBookmark = false;
-  bool inside = InsideTag("a",pElement);
+  bool inside = InsideTag(_T("a"),pElement);
   if(inside)
   {
-    CString marker = GetAttribute(pElement,"name");
-    CString href   = GetAttribute(pElement,"href");
+    CString marker = GetAttribute(pElement,_T("name"));
+    CString href   = GetAttribute(pElement,_T("href"));
     if(href.IsEmpty() && !marker.IsEmpty())
     {
       inBookmark = true;
@@ -1927,11 +1927,11 @@ CHTMLEdView::OnUpdateHyperlink(CCmdUI* pCmdUI)
 {
   CComPtr<IHTMLElement> pElement;
   bool inHyper = false;
-  bool inside = InsideTag("a",pElement);
+  bool inside = InsideTag(_T("a"),pElement);
   if(inside)
   {
-    CString marker = GetAttribute(pElement,"name");
-    CString href   = GetAttribute(pElement,"href");
+    CString marker = GetAttribute(pElement,_T("name"));
+    CString href   = GetAttribute(pElement,_T("href"));
     if(!href.IsEmpty() && marker.IsEmpty())
     {
       inHyper = true;
@@ -2036,7 +2036,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   VERIFY(htmlMenu.LoadMenu(IDR_HTML_POPUP));
   CMenu* popup = htmlMenu.GetSubMenu(0);
 
-  if(InsideTag("P"))
+  if(InsideTag(_T("P")))
   {
     ++firstPosition;
   }
@@ -2070,7 +2070,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   else
   {
-    if(InsideTag("caption",pCaption))
+    if(InsideTag(_T("caption"),pCaption))
     {
       ++firstPosition;
       for(int n = 0; n < 4; ++n)
@@ -2085,7 +2085,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
       firstPosition += 5;
     }
   }
-  if(InsideTag("A",pElem))
+  if(InsideTag(_T("A"),pElem))
   {
     CComBSTR href = L"href";
     CComVariant  value;
@@ -2118,7 +2118,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   bool appendImage = false;
   bool removeSep   = true;
 
-  if(InsideTag("IMG",pImage))
+  if(InsideTag(_T("IMG"),pImage))
   {
     appendImage = true;
   }
@@ -2128,14 +2128,14 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
     HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&pImage);
     if(SUCCEEDED(hr) && pImage.p)
     {
-      if(InsideTag(pImage,"img",pImage))
+      if(InsideTag(pImage,_T("img"),pImage))
       {
         appendImage = true;
       }
       else
       {
         // Advanced hittest for floating objects
-        if(Misc::GetElementByPositionAndTag(m_Doc2,pImage,piv.x,piv.y,"img"))
+        if(Misc::GetElementByPositionAndTag(m_Doc2,pImage,piv.x,piv.y,_T("img")))
         {
           appendImage = true;
         }
@@ -2153,7 +2153,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
 
   bool appendArea = false;
-  if(InsideTag("AREA",pArea))
+  if(InsideTag(_T("AREA"),pArea))
   {
     appendArea = true;
   }
@@ -2164,14 +2164,14 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
     HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&pArea);
     if(SUCCEEDED(hr) && pArea.p)
     {
-      if(InsideTag(pArea,"area",pArea))
+      if(InsideTag(pArea,_T("area"),pArea))
       {
         appendArea = true;
       }
       else
       {
         // Advanced hittest for floating objects
-        if(Misc::GetElementByPositionAndTag(m_Doc2,pArea,piv.x,piv.x,"area"))
+        if(Misc::GetElementByPositionAndTag(m_Doc2,pArea,piv.x,piv.x,_T("area")))
         {
           appendArea = true;
         }
@@ -2189,7 +2189,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
 
-  if(InsideTag("!") || InsideTag("COMMENT"))
+  if(InsideTag(_T("!")) || InsideTag(_T("COMMENT")))
   {
     removeSep = false;
     ++firstPosition;
@@ -2198,7 +2198,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag("marquee"))
+  if(InsideTag(_T("marquee")))
   {
     removeSep = false;
     ++firstPosition;
@@ -2215,18 +2215,18 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   // LAYER PART
   removeSep = true;
   bool noLayer = true;
-  if(InsideTag("div",pLayer))
+  if(InsideTag(_T("div"),pLayer))
   {
     HtmlElement elem(pLayer);
     if(elem.HasStyle())
     {
-      CString style = elem.GetInlineStyle();
-      style = CString("div {") + style + "}";
+      XString style = elem.GetInlineStyle();
+      style = XString(_T("div {")) + style + _T("}");
       CssStyleSheet css;
-      css.parse_css((string)style);
-      string media  = "standard";
-      string select = "div";
-      if(css.get("standard","div","position").c_str() == CString("absolute"))
+      css.parse_css(style);
+      XString media  = _T("standard");
+      XString select = _T("div");
+      if(css.get(_T("standard"),_T("div"),_T("position")).c_str() == XString(_T("absolute")))
       {
         noLayer   = false;
         removeSep = false;
@@ -2246,7 +2246,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   // FORM PART
   removeSep = true;
-  if(InsideTag("form",pForm))
+  if(InsideTag(_T("form"),pForm))
   {
     removeSep = false;
     ++firstPosition;
@@ -2255,7 +2255,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag("input",pField))
+  if(InsideTag(_T("input"),pField))
   {
     removeSep = false;
     ++firstPosition;
@@ -2264,7 +2264,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag("label",pLabel))
+  if(InsideTag(_T("label"),pLabel))
   {
     removeSep = false;
     ++firstPosition;
@@ -2273,7 +2273,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag("select",pSelect))
+  if(InsideTag(_T("select"),pSelect))
   {
     removeSep = false;
     ++firstPosition;
@@ -2283,7 +2283,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
 
-  if(InsideTag("textarea",pText))
+  if(InsideTag(_T("textarea"),pText))
   {
     removeSep = false;
     ++firstPosition;
@@ -2471,11 +2471,11 @@ CHTMLEdView::GetTagsMenu(CMenu* menu,vector<IHTMLElement*>& allTags)
       if(SUCCEEDED(hr))
       {
         tag = CW2CT(pStr);
-        if(tag == "BODY")
+        if(tag == _T("BODY"))
         {
           break;
         }
-        text = CString("Tag: ") + tag;
+        text = CString(_T("Tag: ")) + tag;
       }
       hr = pElement->get_className(&pStr);
       if(SUCCEEDED(hr))
@@ -2483,7 +2483,7 @@ CHTMLEdView::GetTagsMenu(CMenu* menu,vector<IHTMLElement*>& allTags)
         className = CW2CT(pStr);
         if(!className.IsEmpty())
         {
-          text += CString(" (") + className + ")";
+          text += CString(_T(" (")) + className + _T(")");
         }
       }
       // Save this element
@@ -2930,7 +2930,7 @@ CHTMLEdView::InsideTag(CComPtr<IHTMLElement> start,CString tag)
         {
           return true;;
         }
-        if(foundTag.CompareNoCase("BODY") == 0)
+        if(foundTag.CompareNoCase(_T("BODY")) == 0)
         {
           return false;
         }
@@ -3055,7 +3055,7 @@ CHTMLEdView::InsideTag(CComPtr<IHTMLElement> start,CString tag,CComPtr<IHTMLElem
           pElement  = pCurElement;
           return true;;
         }
-        if(foundTag.CompareNoCase("HTML") == 0)
+        if(foundTag.CompareNoCase(_T("HTML")) == 0)
         {
           return false;
         }
@@ -3095,7 +3095,7 @@ CHTMLEdView::GetCurrentSelectionText()
     if(SUCCEEDED(hr))
     {
       theType = CW2CT(bstrType);
-      if(theType.CompareNoCase("text") == 0)
+      if(theType.CompareNoCase(_T("text")) == 0)
       {
         hr = pSelObj->createRange((IDispatch**)&pTxtRange);
         if (SUCCEEDED(hr)) 
@@ -3126,7 +3126,7 @@ CHTMLEdView::GetAttribute(CComPtr<IHTMLElement> pElement
     csValue = CW2CT(atValue);
     return csValue;
   }
-  return "";
+  return _T("");
 }
 
 // Called whenever UI repaints (OnUpdateUI)
@@ -3149,7 +3149,7 @@ CHTMLEdView::UpdateStructure(CString& p_tagname,CString& p_classname)
       if(SUCCEEDED(hr))
       {
         tag = CW2CT(pStr);
-        if(tag == "BODY")
+        if(tag == _T("BODY"))
         {
           return;
         }
@@ -3243,7 +3243,7 @@ CHTMLEdView::GetSelectedCell()
 
 	if (s_Sel == _T("TR") || s_Sel == _T("TBODY") || s_Sel == _T("TABLE"))
 	{
-    theApp.MessageBox("A selection spanning over multiple cells is not allowed.","Error", MB_OK|MB_ICONSTOP);
+    theApp.MessageBox(_T("A selection spanning over multiple cells is not allowed."),_T("Error"), MB_OK|MB_ICONSTOP);
 		return HtmlTableCell(0);
 	}
 	// search upward in hierarchy for the next table cell (TD)
@@ -3253,7 +3253,7 @@ CHTMLEdView::GetSelectedCell()
     i_TD = i_Sel.FindParent(_T("TH"));
     if(!i_TD.Valid())
     {
-      theApp.MessageBox("Please set the cursor into a table cell!","Warning", MB_OK|MB_ICONEXCLAMATION);
+      theApp.MessageBox(_T("Please set the cursor into a table cell!"),_T("Warning"), MB_OK|MB_ICONEXCLAMATION);
       return HtmlTableCell(0);
     }
 	}
@@ -3281,14 +3281,14 @@ CHTMLEdView::GetSelectedRow()
 
   if (s_Sel == _T("TBODY") || s_Sel == _T("TABLE"))
   {
-    theApp.MessageBox("A selection spanning over multiple rows is not allowed.","Error", MB_OK|MB_ICONSTOP);
+    theApp.MessageBox(_T("A selection spanning over multiple rows is not allowed."),_T("Error"), MB_OK|MB_ICONSTOP);
     return HtmlTableRow(0);
   }
   // search upward in hierarchy for the next table row (TR)
   HtmlElement i_TR = i_Sel.FindParent(_T("TR"));
   if (!i_TR.Valid())
   {
-    theApp.MessageBox("Please set the cursor into a table row!","Warning", MB_OK|MB_ICONEXCLAMATION);
+    theApp.MessageBox(_T("Please set the cursor into a table row!"),_T("Warning"), MB_OK|MB_ICONEXCLAMATION);
     return HtmlTableRow(0);
   }
   // convert cHtmlElement to cHtmlTableRow using Ptr()
@@ -3298,21 +3298,21 @@ CHTMLEdView::GetSelectedRow()
 bool
 CHTMLEdView::InTableCell()
 {
-  return InsideTag("TD") || InsideTag("TH");
+  return InsideTag(_T("TD")) || InsideTag(_T("TH"));
 }
 
 bool
 CHTMLEdView::InTable()
 {
-  return InsideTag("TABLE");
+  return InsideTag(_T("TABLE"));
 }
 
 bool 
 CHTMLEdView::InTableRowGroup()
 {
-  return InsideTag("TBODY") || 
-         InsideTag("THEAD") || 
-         InsideTag("TFOOT");
+  return InsideTag(_T("TBODY")) || 
+         InsideTag(_T("THEAD")) || 
+         InsideTag(_T("TFOOT"));
 }
 
 // Inserts a new table row above (b_Below = FALSE) or below (b_Below = TRUE)
@@ -3406,7 +3406,7 @@ CHTMLEdView::OnTableCombine()
 {
   bool horizontal = true;
 
-  if(theApp.MessageBox("Combine the cell with it's right neighbor or its lower neighbor?","Which direction?","?Right Lower") == "lower")
+  if(theApp.MessageBox(_T("Combine the cell with it's right neighbor or its lower neighbor?"),_T("Which direction?"),_T("?Right Lower")) == _T("lower"))
   {
     horizontal = false;
   }
@@ -3417,14 +3417,14 @@ CHTMLEdView::OnTableCombine()
     {
 	    if(!i_Cell.CombineHorizontal())
       {
-        theApp.MessageBox("You can only combine cells which have a right neighbor.","Error",MB_OK|MB_ICONSTOP);
+        theApp.MessageBox(_T("You can only combine cells which have a right neighbor."),_T("Error"),MB_OK|MB_ICONSTOP);
       }
     }
     else
     {
       if(!i_Cell.CombineVertical())
       {
-        theApp.MessageBox("You can only combine cells which have a neighbor under them.","Error",MB_OK|MB_ICONSTOP);
+        theApp.MessageBox(_T("You can only combine cells which have a neighbor under them."),_T("Error"),MB_OK|MB_ICONSTOP);
       }
     }
   }
@@ -3435,7 +3435,7 @@ CHTMLEdView::OnTableSplitCell()
 {
   bool horizontal = true;
 
-  if(theApp.MessageBox("Split the cell horizontal or vertical?","Which direction?","?Horizontal Vertical") == "vertical")
+  if(theApp.MessageBox(_T("Split the cell horizontal or vertical?"),_T("Which direction?"),_T("?Horizontal Vertical")) == _T("vertical"))
   {
     horizontal = false;
   }
@@ -3549,8 +3549,8 @@ CHTMLEdView::OnDoubleClick(int xPos,int yPos)
   {
     // Unknown feature in IE-Explorer. No Document, or no Element
     CString msg;
-    msg.Format("%s: Unimplemented feature of MS-IExplorer. (Tag = %s)",REGISTER_APP,tag.GetString());
-    theApp.MessageBox(msg,"Error",MB_OK|MB_ICONSTOP);
+    msg.Format(_T("%s: Unimplemented feature of MS-IExplorer. (Tag = %s)"),REGISTER_APP,tag.GetString());
+    theApp.MessageBox(msg,_T("Error"),MB_OK|MB_ICONSTOP);
   }
   // Double click not 'eaten'
   return FALSE;
@@ -3603,16 +3603,16 @@ CHTMLEdView::OnEditElement(CComPtr<IHTMLElement> pElement)
     else
     {
       CString msg;
-      msg.Format("This tag [%s] is not yet supported in 'OnEditElement'",tag.GetString());
-      theApp.MessageBox(msg,"Impelement",MB_OK|MB_ICONINFORMATION);
+      msg.Format(_T("This tag [%s] is not yet supported in 'OnEditElement'"),tag.GetString());
+      theApp.MessageBox(msg,_T("Impelement"),MB_OK|MB_ICONINFORMATION);
     }
   }
   catch(...)
   {
     // Unknown feature in IE-Explorer. No Document, or no Element
     CString msg;
-    msg.Format("%s: Unimplemented feature of MS-IExplorer. (Tag = %s)",REGISTER_APP,tag.GetString());
-    theApp.MessageBox(msg,"Error",MB_OK|MB_ICONSTOP);
+    msg.Format(_T("%s: Unimplemented feature of MS-IExplorer. (Tag = %s)"),REGISTER_APP,tag.GetString());
+    theApp.MessageBox(msg,_T("Error"),MB_OK|MB_ICONSTOP);
   }
   // Double click not 'eaten'
   return FALSE;
@@ -3642,7 +3642,7 @@ CHTMLEdView::OnDoubleClickHyperlink(CComPtr<IHTMLElement> pElement)
   // href can contain %XX characters
   Misc::ResolveSpecialChars(href);
   // Add base of this document
-  if(documentFile.GetLength()>2 && documentFile.GetAt(1) != ':')
+  if(documentFile.GetLength()>2 && documentFile.GetAt(1) != _T(':'))
   {
     documentFile = GetBase() + documentFile;
   }
@@ -3655,8 +3655,8 @@ CHTMLEdView::OnDoubleClickHyperlink(CComPtr<IHTMLElement> pElement)
     theApp.OpenTypedDocumentFile(documentFile);
     return;
   }
-  bool defNavigate = (settings.GetSetting("NavigateDCHyperlink","yes")   == "yes");
-  bool defShowIt   = (settings.GetSetting("ShowNavigateHyperlink","yes") == "yes");
+  bool defNavigate = (settings.GetSetting(_T("NavigateDCHyperlink"),_T("yes"))   == _T("yes"));
+  bool defShowIt   = (settings.GetSetting(_T("ShowNavigateHyperlink"),_T("yes")) == _T("yes"));
   if(bShftKey)
   {
     defShowIt = true;
@@ -3667,8 +3667,8 @@ CHTMLEdView::OnDoubleClickHyperlink(CComPtr<IHTMLElement> pElement)
     defShowIt   = diag.GetShowIt();
     defNavigate = diag.GetNavigate();
 
-    settings.SetSetting("NavigateDCHyperlink",defNavigate ? "yes" : "no");
-    settings.SetSetting("ShowNavigateHyperlink",defShowIt ? "yes" : "no");
+    settings.SetSetting(_T("NavigateDCHyperlink"),defNavigate ? _T("yes") : _T("no"));
+    settings.SetSetting(_T("ShowNavigateHyperlink"),defShowIt ? _T("yes") : _T("no"));
 
     if(defNavigate)
     {
@@ -3688,10 +3688,10 @@ CHTMLEdView::OnAnchor()
   bool    inside = true;
   CComPtr<IHTMLElement> pElement;
   CString text = GetCurrentSelectionText();
-  int unique = Misc::GetUniqueID(m_Doc2,"a");
+  int unique = Misc::GetUniqueID(m_Doc2,_T("a"));
 
-  if(!InsideTag ("A",pElement) && 
-     !OutsideTag("A",pElement)  )
+  if(!InsideTag (_T("A"),pElement) && 
+     !OutsideTag(_T("A"),pElement)  )
   {
     inside = false;
     // Place or replace the hyperlink by ExecCommmand.
@@ -3724,7 +3724,7 @@ void
 CHTMLEdView::OnDoubleClickAnchor(CComPtr<IHTMLElement> pElement)
 {
   HtmlAnchor anchor(pElement);
-  int unique = Misc::GetUniqueID(m_Doc2,"a");
+  int unique = Misc::GetUniqueID(m_Doc2,_T("a"));
   AnchorDlg diag(this,GetBase(),m_URL,&anchor,unique);
   if(diag.DoModal() == IDOK)
   {
@@ -3740,26 +3740,26 @@ void
 CHTMLEdView::CheckPopupSCRIPT()
 {
   CString popupFunctions = 
-          "var oPopup = window.createPopup();\r\n"
-          "var wide = 400;\r\n"
-          "var high = 300;\r\n"
-          "function onDone(src)\r\n"
-          "{\r\n"
-          "  var tot = src;\r\n"
-          "  tot = src.replace('/<html>/','')\r\n"
-          "  tot = tot.replace('/</html>/','')\r\n"
-          "  tot = tot.replace('/<body>/','');\r\n"
-          "  tot = '<body>' + tot;\r\n"
-          "  tot = \"<DIV STYLE='border-style:solid; border-width=2; width:\" + wide + \"; height:\" + high + \";'>\" + tot + \"</DIV>\";\r\n"
-          "  oPopup.document.body.innerHTML = tot;\r\n"
-          "}\r\n"
-          "function ADHShowPopup(link,theID,w,h)\r\n"
-          "{\r\n"
-          "  if(w != null) wide = w;\r\n"
-          "  if(h != null) high = h;\r\n"
-          "  dwn.startDownload(link,onDone);\r\n"
-          "  oPopup.show(50, 50, wide, high, theID);\r\n"
-          "}\r\n";
+          _T("var oPopup = window.createPopup();\r\n")
+          _T("var wide = 400;\r\n")
+          _T("var high = 300;\r\n")
+          _T("function onDone(src)\r\n")
+          _T("{\r\n")
+          _T("  var tot = src;\r\n")
+          _T("  tot = src.replace('/<html>/','')\r\n")
+          _T("  tot = tot.replace('/</html>/','')\r\n")
+          _T("  tot = tot.replace('/<body>/','');\r\n")
+          _T("  tot = '<body>' + tot;\r\n")
+          _T("  tot = \"<DIV STYLE='border-style:solid; border-width=2; width:\" + wide + \"; height:\" + high + \";'>\" + tot + \"</DIV>\";\r\n")
+          _T("  oPopup.document.body.innerHTML = tot;\r\n")
+          _T("}\r\n")
+          _T("function ADHShowPopup(link,theID,w,h)\r\n")
+          _T("{\r\n")
+          _T("  if(w != null) wide = w;\r\n")
+          _T("  if(h != null) high = h;\r\n")
+          _T("  dwn.startDownload(link,onDone);\r\n")
+          _T("  oPopup.show(50, 50, wide, high, theID);\r\n")
+          _T("}\r\n");
 
   CComPtr<IHTMLElementCollection> col;
   HRESULT hr = m_Doc2->get_all(&col);
@@ -3781,7 +3781,7 @@ CHTMLEdView::CheckPopupSCRIPT()
         CComBSTR bText;
         elem->get_innerHTML(&bText);
         CString cText = CW2CT(bText);
-        if(cText.Find("ADHShowPopup") > 0)
+        if(cText.Find(_T("ADHShowPopup")) > 0)
         {
           // Has already popup functions
           return;
@@ -3798,7 +3798,7 @@ CHTMLEdView::CheckPopupSCRIPT()
   CComPtr<IHTMLElement> elemS = Misc::CreateHeadElement(m_Doc2,TAGID_SCRIPT);
   HtmlScript script(elemS);
   script.SetText(popupFunctions);
-  script.SetType("text/javascript");
+  script.SetType(_T("text/javascript"));
 }
 
 void
@@ -3817,13 +3817,13 @@ CHTMLEdView::OnImage()
   INT_PTR result = 0;
   CComPtr<IHTMLElement> pElement;
 
-  if(!InsideTag("img",pElement))
+  if(!InsideTag(_T("img"),pElement))
   {
     HRESULT hr = m_Doc2->elementFromPoint(m_HITxPos,m_HITyPos,&pElement);
     if(!(SUCCEEDED(hr) && pElement.p))
     {
       // Advanced hittest for floating objects
-      Misc::GetElementByPositionAndTag(m_Doc2,pElement,m_HITxPos,m_HITyPos,"img");
+      Misc::GetElementByPositionAndTag(m_Doc2,pElement,m_HITxPos,m_HITyPos,_T("img"));
     }
   }
   if(pElement.p)
@@ -3832,7 +3832,7 @@ CHTMLEdView::OnImage()
     pElement->get_tagName(&tag);
     cTag = CW2CT(tag);
   }
-  if(cTag.CompareNoCase("area") == 0)
+  if(cTag.CompareNoCase(_T("area")) == 0)
   {
     CComPtr<IHTMLElement> image = Misc::AreaToImg(m_Doc2,pElement);
     HtmlImg img(image);
@@ -3904,7 +3904,7 @@ CHTMLEdView::GetMetaTag(CString p_name)
 
   if(m_Doc2 == NULL)
   {
-    return "";
+    return _T("");
   }
   CComPtr<IHTMLElementCollection> col;
   HRESULT hr = m_Doc2->get_all(&col);
@@ -3945,7 +3945,7 @@ CHTMLEdView::GetMetaTag(CString p_name)
             {
               tag_content = content;
             }
-            if(mname.CompareNoCase("generator") == 0)
+            if(mname.CompareNoCase(_T("generator")) == 0)
             {
               //CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> dom = meta;
               //CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> rem;
@@ -3966,7 +3966,7 @@ void
 CHTMLEdView::SetOurGenerator()
 {
   // Only set after calling twice!!
-  GetMetaTag("generator");
+  GetMetaTag(_T("generator"));
 }
 
 void
@@ -3977,7 +3977,7 @@ CHTMLEdView::SetClassName(CString name)
   CString combotext = name;
 
   Misc::ReconstructTagClass(combotext,tag,classname);
-  char type = combotext.GetAt(0); // B/C/S
+  TCHAR type = combotext.GetAt(0); // B/C/S
 
   if(tag.IsEmpty() && classname.IsEmpty())
   {
@@ -4017,7 +4017,7 @@ CHTMLEdView::SetClassName(CString name)
   do 
   {
     CString elemTag = elem.GetTagName();
-    if(elemTag == "BODY")
+    if(elemTag == _T("BODY"))
     {
       // Don't go higher than the 'body' in the hierarchy
       break;
@@ -4026,7 +4026,7 @@ CHTMLEdView::SetClassName(CString name)
     {
       CString replace;
 
-      if(type == 'S')
+      if(type == _T('S'))
       {
         // Adds simple selector to outer element
         elem.SetClassName(classname);
@@ -4042,7 +4042,7 @@ CHTMLEdView::SetClassName(CString name)
         elem.SetOuterHtml(replace);
         return;
       }
-      if(type == 'C' || (!tag.IsEmpty() && Misc::IsBlockTag(tag)))
+      if(type == _T('C') || (!tag.IsEmpty() && Misc::IsBlockTag(tag)))
       {
         // Tag is a block tag, but not user-settable (TD)
         // Place tag/style at inner html
@@ -4059,7 +4059,7 @@ CHTMLEdView::SetClassName(CString name)
   while(elem.Valid());
   
   CString message;
-  message.Format("Cannot set the style [%s.%s]",tag.GetString(),classname.GetString());
+  message.Format(_T("Cannot set the style [%s.%s]"),tag.GetString(),classname.GetString());
   theApp.ErrorMessage(message);
 }
 
@@ -4079,7 +4079,7 @@ CHTMLEdView::OnDoubleClickHR(CComPtr<IHTMLElement> pElement)
 void
 CHTMLEdView::OnInsertBR()
 {
-  PasteTextHTML("<br>");
+  PasteTextHTML(_T("<br>"));
 }
 
 // Create a new HTML element in the text flow at this point
@@ -4123,7 +4123,7 @@ CHTMLEdView::CreateNewElement(ELEMENT_TAG_ID tag,CString* p_attributes)
 void
 CHTMLEdView::OnInsertComment()
 {
-  CommentDialog diag("",this);
+  CommentDialog diag(_T(""),this);
   if(diag.DoModal() == IDOK)
   {
     CString comment = diag.GetText();
@@ -4147,12 +4147,12 @@ CHTMLEdView::OnDoubleClickComment(CComPtr<IHTMLElement> pElem)
   }
   comm->get_text(&bText);
   CString sText = bText;
-  if(sText.Left(4) == "<!--")
+  if(sText.Left(4) == _T("<!--"))
   {
     sText = sText.Mid(4);
     rawComment = true;
   }
-  if(sText.Right(3) == "-->")
+  if(sText.Right(3) == _T("-->"))
   {
     sText = sText.Left(sText.GetLength() - 3);
     rawComment = true;
@@ -4163,7 +4163,7 @@ CHTMLEdView::OnDoubleClickComment(CComPtr<IHTMLElement> pElem)
     CString comment = diag.GetText();
     if(rawComment)
     {
-      comment = CString("<!--") + comment + "-->";
+      comment = CString(_T("<!--")) + comment + _T("-->");
     }
     bText = comment;
     comm->put_text(bText);
@@ -4174,11 +4174,11 @@ void
 CHTMLEdView::OnEditComment()
 {
   CComPtr<IHTMLElement> pElem;
-  if(InsideTag("!",pElem))
+  if(InsideTag(_T("!"),pElem))
   {
     OnDoubleClickComment(pElem);
   }
-  else if(InsideTag("COMMENT",pElem))
+  else if(InsideTag(_T("COMMENT"),pElem))
   {
     OnDoubleClickComment(pElem);
   }
@@ -4190,7 +4190,7 @@ CHTMLEdView::OnCellTop()
   HtmlTableCell i_Cell  = GetSelectedCell(); // outputs error
   if(i_Cell.Valid())
   {
-    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,"top");
+    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,_T("top"));
   }
 }
 
@@ -4200,7 +4200,7 @@ CHTMLEdView::OnCellMiddle()
   HtmlTableCell i_Cell  = GetSelectedCell(); // outputs error
   if(i_Cell.Valid())
   {
-    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,"middle");
+    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,_T("middle"));
   }
 }
 
@@ -4210,7 +4210,7 @@ CHTMLEdView::OnCellBottom()
   HtmlTableCell i_Cell  = GetSelectedCell(); // outputs error
   if(i_Cell.Valid())
   {
-    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,"bottom");
+    i_Cell.SetProperty(HtmlTableCell::E_AlignVert,_T("bottom"));
   }
 }
 
@@ -4264,9 +4264,9 @@ CHTMLEdView::OnProperties()
   CComQIPtr<IHTMLBodyElement,    &IID_IHTMLBodyElement>     body  = elem;
   if(frame.p == NULL && body.p == NULL)
   {
-    theApp.ErrorMessage("This topic doesn't have a <BODY> nor <FRAMESET> element."
-                        "AuthorHTML is unable to display a topic dialog."
-                        "Is it a truly correct HTML 4.x page?");
+    theApp.ErrorMessage(_T("This topic doesn't have a <BODY> nor <FRAMESET> element.")
+                        _T("AuthorHTML is unable to display a topic dialog.")
+                        _T("Is it a truly correct HTML 4.x page?"));
     return;
   }
   // Start the topic dialog
@@ -4286,8 +4286,8 @@ CHTMLEdView::OnProperties()
       document->SaveMyDocument();
 
       // Now copy it
-      MainFrame* main = (MainFrame*)theApp.m_pMainWnd;
-      if(main->CopyFileForRename(oldFilename,m_URL))
+      MainFrame* _tmain = (MainFrame*)theApp.m_pMainWnd;
+      if(_tmain->CopyFileForRename(oldFilename,m_URL))
       {
         // Re-Navigate to the changed file
         Navigate2(m_URL);
@@ -4312,7 +4312,7 @@ CHTMLEdView::OnMarquee()
 {
   CComPtr<IHTMLElement> elem;
 
-  if(!InsideTag("marquee",elem))
+  if(!InsideTag(_T("marquee"),elem))
   {
     CString text = GetCurrentSelectionText();
 
@@ -4348,7 +4348,7 @@ CHTMLEdView::OnDoubleClickMarquee(CComPtr<IHTMLElement> pElement)
 void
 CHTMLEdView::OnBreakBelowImages()
 {
-  CString breakAll = "<br clear=\"all\">";
+  CString breakAll = _T("<br clear=\"all\">");
   PasteTextHTML(breakAll);
 }
 
@@ -4387,7 +4387,7 @@ CHTMLEdView::GetStyleSheets(CSSVector& list,bool p_link)
               link->get_rel (&rel);
               CString cRel = CW2CT(rel);
               CString cUrl = CW2CT(url);
-              if(cRel.CompareNoCase("Stylesheet") == 0)
+              if(cRel.CompareNoCase(_T("Stylesheet")) == 0)
               {
                 // To resolve issues as %5C in pathnames
                 Misc::ResolveSpecialChars(cUrl);
@@ -4406,7 +4406,7 @@ CHTMLEdView::GetStyleSheets(CSSVector& list,bool p_link)
               CComBSTR bText;
               style->get_type(&bText);
               CString type = CW2CT(bText);
-              if(type.IsEmpty() || type.CompareNoCase("text/css") == 0)
+              if(type.IsEmpty() || type.CompareNoCase(_T("text/css")) == 0)
               {
                 SheetDef def;
                 def.style = elem;
@@ -4430,7 +4430,7 @@ CHTMLEdView::OnEditStyleSheets()
   CSSVector list;
   GetStyleSheets(list,true);  // Get LINK's 
   GetStyleSheets(list,false); // Get STYLE's 
-  CString type = "Style sheets in topic";
+  CString type = _T("Style sheets in topic");
 
   CString filename = GetDocument()->GetPathName();
   CString pathname = Misc::DirectoryPart(filename);
@@ -4455,7 +4455,7 @@ CHTMLEdView::OnEditStyleSheets()
 void
 CHTMLEdView::OnUpdateFormatParagraph(CCmdUI *pCmdUi)
 {
-  bool enab = InsideTag("p");
+  bool enab = InsideTag(_T("p"));
   pCmdUi->Enable(enab);
 }
 
@@ -4463,7 +4463,7 @@ void
 CHTMLEdView::OnFormatParagraph()
 {
   CComPtr<IHTMLElement> elem;
-  if(InsideTag("p",elem))
+  if(InsideTag(_T("p"),elem))
   {
     OnDoubleClickParagraph(elem);
   }
@@ -4478,10 +4478,10 @@ CHTMLEdView::OnDoubleClickParagraph(CComPtr<IHTMLElement> elem)
   {
     CComBSTR bText;
     style->get_cssText(&bText);
-    CString cText = CW2CT(bText);
-    cText = CString("p {") + cText + "}";
+    XString cText = CW2CT(bText);
+    cText = XString(_T("p {")) + cText + _T("}");
     CssStyleSheet css;
-    css.parse_css((string)cText);
+    css.parse_css(cText);
 
     // Do the paragraph dialog
     ParagraphDlg dlg(this,GetBase(),&css,elem,style);
@@ -4555,24 +4555,24 @@ CHTMLEdView::OnGridProperties()
     m_pEditSite->GetGridSize(gw,gh);
     m_pEditSite->GetSnapSize(sw,sh);
     lc = m_pEditSite->Color();
-    gW.Format("%d",gw);
-    gH.Format("%d",gh);
-    sW.Format("%d",sw);
-    sH.Format("%d",sh);
+    gW.Format(_T("%d"),gw);
+    gH.Format(_T("%d"),gh);
+    sW.Format(_T("%d"),sw);
+    sH.Format(_T("%d"),sh);
     red   = GetRValue(lc);
     green = GetGValue(lc);
     blue  = GetBValue(lc);
-    LC.Format("#%02x%02x%02x",red,green,blue);
+    LC.Format(_T("#%02x%02x%02x"),red,green,blue);
     SnapGridDlg dlg(this,doGrid,doSnap,gW,gH,sW,sH,LC);
     if(dlg.DoModal() == IDOK)
     {
       // Get new values
       doGrid = dlg.GetGridEnable();
       doSnap = dlg.GetSnapEnable();
-      gw = atoi(dlg.GetGridWith());
-      gh = atoi(dlg.GetGridHeight());
-      sw = atoi(dlg.GetSnapWith());
-      sh = atoi(dlg.GetSnapHeight());
+      gw = _ttoi(dlg.GetGridWith());
+      gh = _ttoi(dlg.GetGridHeight());
+      sw = _ttoi(dlg.GetSnapWith());
+      sh = _ttoi(dlg.GetSnapHeight());
       LC = dlg.GetLineColor();
       Misc::DecodeColor(LC,red,green,blue);
       lc = RGB(red,green,blue);
@@ -4589,7 +4589,7 @@ CHTMLEdView::OnGridProperties()
   }
   else
   {
-    theApp.ErrorMessage("No connection to EditConrolSite established, cannot paint grids!");
+    theApp.ErrorMessage(_T("No connection to EditConrolSite established, cannot paint grids!"));
   }
 }
 
@@ -4597,10 +4597,10 @@ void
 CHTMLEdView::OnUnsupportedHTML(CString tag)
 {
   CString msg;
-  msg.Format("Sorry: The tag '%s' is currently unsupported by %s\n",tag.GetString(),REGISTER_APP);
-  msg += "This is due to the current limitations of Microsoft Internet Explorer\n";
-  msg += "Use the source-view to edit the HTML source manually.";
-  theApp.MessageBox(msg,"Unsupported",MB_OK|MB_ICONEXCLAMATION);
+  msg.Format(_T("Sorry: The tag '%s' is currently unsupported by %s\n"),tag.GetString(),REGISTER_APP);
+  msg += _T("This is due to the current limitations of Microsoft Internet Explorer\n");
+  msg += _T("Use the source-view to edit the HTML source manually.");
+  theApp.MessageBox(msg,_T("Unsupported"),MB_OK|MB_ICONEXCLAMATION);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -4613,7 +4613,7 @@ void
 CHTMLEdView::OnInsertAcronym()
 {
   CString text = GetCurrentSelectionText();
-  DivTextDlg dlg(this,GetBase(),"acronym","",text,NULL);
+  DivTextDlg dlg(this,GetBase(),_T("acronym"),_T(""),text,NULL);
   if(dlg.DoModal() == IDOK)
   {
     CComBSTR bString = CT2CW(dlg.GetText());
@@ -4628,7 +4628,7 @@ void
 CHTMLEdView::OnInsertAddress()
 {
   CString text = GetCurrentSelectionText();
-  DivTextDlg dlg(this,GetBase(),"address","",text,NULL);
+  DivTextDlg dlg(this,GetBase(),_T("address"),_T(""),text,NULL);
   if(dlg.DoModal() == IDOK)
   {
     CComBSTR bString = CT2CW(dlg.GetText());
@@ -4648,7 +4648,7 @@ CHTMLEdView::OnDoubleClickAcronym(CComPtr<IHTMLElement> pElement)
   CString cTitle = CW2CT(bTitle);
   CString cText  = CW2CT(bText);
   HtmlElement elem(pElement);
-  DivTextDlg dlg(this,GetBase(),"acronym",cTitle,cText,&elem);
+  DivTextDlg dlg(this,GetBase(),_T("acronym"),cTitle,cText,&elem);
   if(dlg.DoModal() == IDOK)
   {
     bTitle = CT2CW(dlg.GetTitle());
@@ -4665,7 +4665,7 @@ CHTMLEdView::OnDoubleClickAddress(CComPtr<IHTMLElement> pElement)
   pElement->get_innerText(&bText);
   CString cText  = CW2CT(bText);
   HtmlElement elem(pElement);
-  DivTextDlg dlg(this,GetBase(),"address","",cText,&elem);
+  DivTextDlg dlg(this,GetBase(),_T("address"),_T(""),cText,&elem);
   if(dlg.DoModal() == IDOK)
   {
     bText  = CT2CW(dlg.GetText());
@@ -4677,8 +4677,8 @@ void
 CHTMLEdView::OnSelectionWarning(CString forTag)
 {
   CString msg;
-  msg.Format("Select a piece of text before marking the text as: %s",forTag.GetString());
-  theApp.MessageBox(msg,"Missing selection",MB_OK|MB_ICONEXCLAMATION);
+  msg.Format(_T("Select a piece of text before marking the text as: %s"),forTag.GetString());
+  theApp.MessageBox(msg,_T("Missing selection"),MB_OK|MB_ICONEXCLAMATION);
 }
 
 void
@@ -4687,11 +4687,11 @@ CHTMLEdView::OnBig()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Bigger text");
+    OnSelectionWarning(_T("Bigger text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<BIG>") + text + "</BIG>";
+  text = CString(_T("<BIG>")) + text + _T("</BIG>");
   PasteTextHTML(text);
 }
 
@@ -4701,11 +4701,11 @@ CHTMLEdView::OnBlockQuote()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Blockquote");
+    OnSelectionWarning(_T("Blockquote"));
     return;
   }
   OnDeleteKey();
-  text = CString("<BLOCKQUOTE>") + text + "</BLOCKQUOTE>";
+  text = CString(_T("<BLOCKQUOTE>")) + text + _T("</BLOCKQUOTE>");
   PasteTextHTML(text);
 }
 
@@ -4715,11 +4715,11 @@ CHTMLEdView::OnCite()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Paragraph citation");
+    OnSelectionWarning(_T("Paragraph citation"));
     return;
   }
   OnDeleteKey();
-  text = CString("<CITE>") + text + "</CITE>";
+  text = CString(_T("<CITE>")) + text + _T("</CITE>");
   PasteTextHTML(text);
 }
 
@@ -4729,11 +4729,11 @@ CHTMLEdView::OnCode()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Code sample");
+    OnSelectionWarning(_T("Code sample"));
     return;
   }
   OnDeleteKey();
-  text = CString("<CODE>") + text + "</CODE>";
+  text = CString(_T("<CODE>")) + text + _T("</CODE>");
   PasteTextHTML(text);
 }
 
@@ -4743,11 +4743,11 @@ CHTMLEdView::OnDeletedText()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Deleted text");
+    OnSelectionWarning(_T("Deleted text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<DEL>") + text + "</DEL>";
+  text = CString(_T("<DEL>")) + text + _T("</DEL>");
   PasteTextHTML(text);
 }
 
@@ -4757,11 +4757,11 @@ CHTMLEdView::OnInsertedText()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Inserted text");
+    OnSelectionWarning(_T("Inserted text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<INS>") + text + "</INS>";
+  text = CString(_T("<INS>")) + text + _T("</INS>");
   PasteTextHTML(text);
 }
 
@@ -4771,11 +4771,11 @@ CHTMLEdView::OnKbd()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Keyboard-input");
+    OnSelectionWarning(_T("Keyboard-input"));
     return;
   }
   OnDeleteKey();
-  text = CString("<KBD>") + text + "</KBD>";
+  text = CString(_T("<KBD>")) + text + _T("</KBD>");
   PasteTextHTML(text);
 }
 
@@ -4785,11 +4785,11 @@ CHTMLEdView::OnPre()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Preformatted text");
+    OnSelectionWarning(_T("Preformatted text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<PRE>") + text + "</PRE>";
+  text = CString(_T("<PRE>")) + text + _T("</PRE>");
   PasteTextHTML(text);
 }
 
@@ -4799,11 +4799,11 @@ CHTMLEdView::OnQuotation()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Inline Quotation");
+    OnSelectionWarning(_T("Inline Quotation"));
     return;
   }
   OnDeleteKey();
-  text = CString("<Q>") + text + "</Q>";
+  text = CString(_T("<Q>")) + text + _T("</Q>");
   PasteTextHTML(text);
 }
 
@@ -4813,11 +4813,11 @@ CHTMLEdView::OnSample()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Sample");
+    OnSelectionWarning(_T("Sample"));
     return;
   }
   OnDeleteKey();
-  text = CString("<SAMP>") + text + "</SAMP>";
+  text = CString(_T("<SAMP>")) + text + _T("</SAMP>");
   PasteTextHTML(text);
 }
 
@@ -4827,11 +4827,11 @@ CHTMLEdView::OnSmaller()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Smaller text");
+    OnSelectionWarning(_T("Smaller text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<SMALL>") + text + "</SMALL>";
+  text = CString(_T("<SMALL>")) + text + _T("</SMALL>");
   PasteTextHTML(text);
 }
 
@@ -4841,11 +4841,11 @@ CHTMLEdView::OnSubscript()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Subscript");
+    OnSelectionWarning(_T("Subscript"));
     return;
   }
   OnDeleteKey();
-  text = CString("<SUB>") + text + "</SUB>";
+  text = CString(_T("<SUB>")) + text + _T("</SUB>");
   PasteTextHTML(text);
 }
 
@@ -4855,11 +4855,11 @@ CHTMLEdView::OnSuperscript()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Superscript");
+    OnSelectionWarning(_T("Superscript"));
     return;
   }
   OnDeleteKey();
-  text = CString("<SUP>") + text + "</SUP>";
+  text = CString(_T("<SUP>")) + text + _T("</SUP>");
   PasteTextHTML(text);
 }
 
@@ -4869,11 +4869,11 @@ CHTMLEdView::OnTeletype()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    OnSelectionWarning("Teletype text");
+    OnSelectionWarning(_T("Teletype text"));
     return;
   }
   OnDeleteKey();
-  text = CString("<TT>") + text + "</TT>";
+  text = CString(_T("<TT>")) + text + _T("</TT>");
   PasteTextHTML(text);
 }
 
@@ -4886,55 +4886,55 @@ CHTMLEdView::OnTeletype()
 void
 CHTMLEdView::OnParaStyleParagraph()
 {
-  SetClassName("P");
+  SetClassName(_T("P"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading1()
 {
-  SetClassName("H1");
+  SetClassName(_T("H1"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading2()
 {
-  SetClassName("H2");
+  SetClassName(_T("H2"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading3()
 {
-  SetClassName("H3");
+  SetClassName(_T("H3"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading4()
 {
-  SetClassName("H4");
+  SetClassName(_T("H4"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading5()
 {
-  SetClassName("H5");
+  SetClassName(_T("H5"));
 }
 
 void
 CHTMLEdView::OnParaStyleHeading6()
 {
-  SetClassName("H6");
+  SetClassName(_T("H6"));
 }
 
 void
 CHTMLEdView::OnParaStyleAddress()
 {
-  SetClassName("ADDRESS");
+  SetClassName(_T("ADDRESS"));
 }
 
 void
 CHTMLEdView::OnParaStylePreformat()
 {
-  SetClassName("PRE");
+  SetClassName(_T("PRE"));
 }
 
 /////////////////////////////////////////////////////////////////
@@ -4947,25 +4947,25 @@ void
 CHTMLEdView::OnUpdateForm(CCmdUI* pCmdUi)
 {
   // Only possible to insert a form if outside a form
-  pCmdUi->Enable(!InsideTag("form"));
+  pCmdUi->Enable(!InsideTag(_T("form")));
 }
 
 void
 CHTMLEdView::OnUpdateFormElements(CCmdUI* pCmdUi)
 {
   // Only add form elements inside a form
-  pCmdUi->Enable(InsideTag("form"));
+  pCmdUi->Enable(InsideTag(_T("form")));
 }
 
 void
 CHTMLEdView::OnInsertForm()
 {
-  if(InsideTag("form"))
+  if(InsideTag(_T("form")))
   {
-    theApp.ErrorMessage("Already inside a FORM. Forms cannot be nested");
+    theApp.ErrorMessage(_T("Already inside a FORM. Forms cannot be nested"));
     return;
   }
-  FormDlg dlg(this,GetBase(),"","","","","",NULL);
+  FormDlg dlg(this,GetBase(),_T(""),_T(""),_T(""),_T(""),_T(""),NULL);
   if(dlg.DoModal() == IDOK)
   {
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_FORM,NULL);
@@ -5029,11 +5029,11 @@ CHTMLEdView::FormDlgToFormElement(FormDlg& dlg,CComPtr<IHTMLFormElement> form)
 void
 CHTMLEdView::OnInsertFormField()
 {
-  FormFieldDlg dlg(this,GetBase(),"","","","","",NULL);
+  FormFieldDlg dlg(this,GetBase(),_T(""),_T(""),_T(""),_T(""),_T(""),NULL);
   if(dlg.DoModal() == IDOK)
   {
     CString type = dlg.GetType();
-    type = CString("type=\"") + type + "\"";
+    type = CString(_T("type=\"")) + type + _T("\"");
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_INPUT,&type);
     CComQIPtr<IHTMLInputElement,&IID_IHTMLInputElement> field = elem;
     FormFieldDlgToInputElement(dlg,field);
@@ -5062,8 +5062,8 @@ CHTMLEdView::OnDoubleClickFormField(CComPtr<IHTMLElement> pElement)
   CString name = CW2CT(bName);
   CString value = CW2CT(bValue);
   CString cLength,cSize;
-  cLength.Format("%d",length);
-  cSize  .Format("%d",size);
+  cLength.Format(_T("%d"),length);
+  cSize  .Format(_T("%d"),size);
   HtmlElement elem(pElement);
   FormFieldDlg dlg(this,GetBase(),type,name,value,cLength,cSize,&elem);
   if(dlg.DoModal() == IDOK)
@@ -5077,8 +5077,8 @@ CHTMLEdView::FormFieldDlgToInputElement(FormFieldDlg& dlg,CComPtr<IHTMLInputElem
 {
   CString name     = dlg.GetName();
   CString value    = dlg.GetValue();
-  long    length   = atoi(dlg.GetMaxLength());
-  long     size    = atoi(dlg.GetSize());
+  long    length   = _ttoi(dlg.GetMaxLength());
+  long     size    = _ttoi(dlg.GetSize());
   CComBSTR bName   = CT2CW(name);
   CComBSTR bValue  = CT2CW(value);
   field->put_name(bName);
@@ -5090,11 +5090,11 @@ CHTMLEdView::FormFieldDlgToInputElement(FormFieldDlg& dlg,CComPtr<IHTMLInputElem
 void
 CHTMLEdView::OnInsertFormButton()
 {
-  FormButtonDlg dlg(this,GetBase(),"","","",false,NULL);
+  FormButtonDlg dlg(this,GetBase(),_T(""),_T(""),_T(""),false,NULL);
   if(dlg.DoModal() == IDOK)
   {
     CString type = dlg.GetType();
-    type = CString("type=\"") + type + "\"";
+    type = CString(_T("type=\"")) + type + _T("\"");
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_INPUT,&type);
     CComQIPtr<IHTMLInputElement,&IID_IHTMLInputElement> field = elem;
     FormButtonDlgToInputElement(dlg,field);
@@ -5145,7 +5145,7 @@ CHTMLEdView::FormButtonDlgToInputElement(FormButtonDlg& dlg,CComPtr<IHTMLInputEl
 void
 CHTMLEdView::OnInsertFormImage()
 {
-  CString type = "type=\"image\"";
+  CString type = _T("type=\"image\"");
   CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_INPUT,&type);
   HtmlInput input(elem);
   FormImageDlg dlg(this,GetBase(),&input);
@@ -5171,22 +5171,22 @@ CHTMLEdView::OnDoubleClickFormInput(CComPtr<IHTMLElement> pElement)
   CComBSTR bType;
   input->get_type(&bType);
   CString type = CW2CT(bType);
-  if(type == "button")   OnDoubleClickFormButton(pElement);
-  if(type == "checkbox") OnDoubleClickFormButton(pElement);
-  if(type == "file")     OnDoubleClickFormField(pElement);
-  if(type == "hidden")   OnDoubleClickFormField(pElement);
-  if(type == "image")    OnDoubleClickFormImage(pElement);
-  if(type == "password") OnDoubleClickFormField(pElement);
-  if(type == "radio")    OnDoubleClickFormButton(pElement);
-  if(type == "reset")    OnDoubleClickFormButton(pElement);
-  if(type == "submit")   OnDoubleClickFormButton(pElement);
-  if(type == "text")     OnDoubleClickFormField(pElement);
+  if(type == _T("button"))   OnDoubleClickFormButton(pElement);
+  if(type == _T("checkbox")) OnDoubleClickFormButton(pElement);
+  if(type == _T("file"))     OnDoubleClickFormField(pElement);
+  if(type == _T("hidden"))   OnDoubleClickFormField(pElement);
+  if(type == _T("image"))    OnDoubleClickFormImage(pElement);
+  if(type == _T("password")) OnDoubleClickFormField(pElement);
+  if(type == _T("radio"))    OnDoubleClickFormButton(pElement);
+  if(type == _T("reset"))    OnDoubleClickFormButton(pElement);
+  if(type == _T("submit"))   OnDoubleClickFormButton(pElement);
+  if(type == _T("text"))     OnDoubleClickFormField(pElement);
 }
 
 void
 CHTMLEdView::OnInsertFormTextarea()
 {
-  FormTextareaDlg dlg(this,GetBase(),"","","","",NULL);
+  FormTextareaDlg dlg(this,GetBase(),_T(""),_T(""),_T(""),_T(""),NULL);
   if(dlg.DoModal() == IDOK)
   {
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_TEXTAREA,NULL);
@@ -5214,8 +5214,8 @@ CHTMLEdView::OnDoubleClickFormTextArea(CComPtr<IHTMLElement> pElement)
   area->get_rows(&rows);
   CString name = CW2CT(bName);
   CString wrap = CW2CT(bWrap);
-  cCols.Format("%d",cols);
-  cRows.Format("%d",rows);
+  cCols.Format(_T("%d"),cols);
+  cRows.Format(_T("%d"),rows);
   HtmlElement elem(pElement);
   FormTextareaDlg dlg(this,GetBase(),name,cCols,cRows,wrap,&elem);
   if(dlg.DoModal() == IDOK)
@@ -5234,8 +5234,8 @@ CHTMLEdView::FormTextareaDlgToTextAreaElement(FormTextareaDlg* dlg,CComPtr<IHTML
   CComBSTR bName = CT2CW(name);
   CComBSTR bWrap = CT2CW(wrap);
   area->put_name(bName);
-  area->put_cols(atoi(cols));
-  area->put_rows(atoi(rows));
+  area->put_cols(_ttoi(cols));
+  area->put_rows(_ttoi(rows));
   area->put_wrap(bWrap);
 }
 
@@ -5245,22 +5245,22 @@ CHTMLEdView::OnInsertFieldset()
   CString text = GetCurrentSelectionText();
   if(text.IsEmpty())
   {
-    CString msg = "Make a selection first to apply a FIELDSET around it.";
-    theApp.MessageBox(msg,"No selection",MB_OK|MB_ICONWARNING);
+    CString msg = _T("Make a selection first to apply a FIELDSET around it.");
+    theApp.MessageBox(msg,_T("No selection"),MB_OK|MB_ICONWARNING);
     return;
   }
   else
   {
     OnDeleteKey();
   }
-  text = CString("<FIELDSET>") + text + "</FIELDSET>";
+  text = CString(_T("<FIELDSET>")) + text + _T("</FIELDSET>");
   PasteTextHTML(text);
 }
 
 void
 CHTMLEdView::OnInsertFormLabel()
 {
-  FormLabelDlg dlg(this,"");
+  FormLabelDlg dlg(this,_T(""));
   if(dlg.DoModal() == IDOK)
   {
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_LABEL,NULL);
@@ -5300,7 +5300,7 @@ void
 CHTMLEdView::OnInsertFormSelect()
 {
   FormOptions options;
-  FormSelectDlg dlg(this,GetBase(),"","",true,&options,NULL);
+  FormSelectDlg dlg(this,GetBase(),_T(""),_T(""),true,&options,NULL);
   if(dlg.DoModal() == IDOK)
   {
     CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_SELECT,NULL);
@@ -5326,7 +5326,7 @@ CHTMLEdView::OnDoubleClickFormSelect(CComPtr<IHTMLElement> pElement)
   select->get_multiple(&multiple);
   CString cName = CW2CT(bName);
   CString cSize;
-  cSize.Format("%d",size);
+  cSize.Format(_T("%d"),size);
 
   // Get all the options from the select
   FormOptions options;
@@ -5369,11 +5369,11 @@ CHTMLEdView::FormSelectDlgToSelectElement(FormSelectDlg& dlg
                                          ,FormOptions& options
                                          ,CComPtr<IHTMLSelectElement> select)
 {
-  CString name = dlg.GetName();
-  CString size = dlg.GetSize();
+  XString name = dlg.GetName();
+  XString size = dlg.GetSize();
   bool    mult = dlg.GetMultiple();
   CComBSTR bName = CT2CW(name);
-  long     lSize = atoi(size);
+  long     lSize = _ttoi(size);
 
   // Reapply the attributes of the SELECT element
   select->put_name(bName);
@@ -5456,32 +5456,32 @@ CHTMLEdView::OnDoubleClickHeading(CString tag,CComPtr<IHTMLElement> pElement)
 void
 CHTMLEdView::OnDoubleClickHeading1(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h1",elem);
+  OnDoubleClickHeading(_T("h1"),elem);
 }
 void
 CHTMLEdView::OnDoubleClickHeading2(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h2",elem);
+  OnDoubleClickHeading(_T("h2"),elem);
 }
 void
 CHTMLEdView::OnDoubleClickHeading3(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h3",elem);
+  OnDoubleClickHeading(_T("h3"),elem);
 }
 void
 CHTMLEdView::OnDoubleClickHeading4(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h4",elem);
+  OnDoubleClickHeading(_T("h4"),elem);
 }
 void
 CHTMLEdView::OnDoubleClickHeading5(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h5",elem);
+  OnDoubleClickHeading(_T("h5"),elem);
 }
 void
 CHTMLEdView::OnDoubleClickHeading6(CComPtr<IHTMLElement> elem)
 {
-  OnDoubleClickHeading("h6",elem);
+  OnDoubleClickHeading(_T("h6"),elem);
 }
 
 
@@ -5555,9 +5555,9 @@ CHTMLEdView::OnInsertObject()
   CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_OBJECT,NULL);
   HtmlObject object(elem);
 
-  theApp.MessageBox("The <OBJECT> interface is a generic only interface with no HTMLHelp knowledge.\n"
-                    "To use it you must know what you are doing here. You are on your own!"
-                    ,"Warning"
+  theApp.MessageBox(_T("The <OBJECT> interface is a generic only interface with no HTMLHelp knowledge.\n")
+                    _T("To use it you must know what you are doing here. You are on your own!")
+                    ,_T("Warning")
                     ,MB_OK|MB_ICONWARNING);
 
   ObjectDlg dlg(this,GetBase(),&object);
@@ -5572,16 +5572,16 @@ void
 CHTMLEdView::OnDoubleClickObject(CComPtr<IHTMLElement> pElement)
 {
   HtmlObject object(pElement);
-  CString classid = object.GetProperty(HtmlObject::E_ClassId);
+  XString classid = object.GetProperty(HtmlObject::E_ClassId);
   if(classid.CompareNoCase(CLSID_ALINK) == 0)
   {
     // It's a ALINK definition
-    CString value = object.GetParameter("ALink Name");
+    XString value = object.GetParameter(_T("ALink Name"));
     ALinkDlg dlg(this,value);
     if(dlg.DoModal() == IDOK)
     {
       // Set the parameter to this new value
-      object.SetParameter("ALink Name",dlg.GetKeyword());
+      object.SetParameter(_T("ALink Name"),dlg.GetKeyword());
     }
   }
   else if(classid.CompareNoCase(CLSID_ALINK_COMMAND) == 0)
@@ -5605,7 +5605,7 @@ CHTMLEdView::OnInsertALink()
 {
   CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_OBJECT,NULL);
   HtmlObject object(elem);
-  object.SetProperty(HtmlObject::E_Type,"application/x-oleobject");
+  object.SetProperty(HtmlObject::E_Type,_T("application/x-oleobject"));
   object.SetProperty(HtmlObject::E_ClassId,CLSID_ALINK);
 
   // Title of the document as default link name
@@ -5614,17 +5614,17 @@ CHTMLEdView::OnInsertALink()
   CString title = CW2CT(bTitle);
   if(title.IsEmpty())
   {
-    title = "Associative keyword to this topic";
+    title = _T("Associative keyword to this topic");
   }
-  object.SetParameter("ALink Name",title);
+  object.SetParameter(_T("ALink Name"),title);
 
   // Get a value for the parameter
-  CString value = title;
+  XString value = title;
   ALinkDlg dlg(this,value);
   if(dlg.DoModal() == IDOK)
   {
     // Set the parameter to this new value
-    object.SetParameter("ALink Name",dlg.GetKeyword());
+    object.SetParameter(_T("ALink Name"),dlg.GetKeyword());
   }
 }
 
@@ -5635,12 +5635,12 @@ CHTMLEdView::OnInsertALinkCommand()
   CComPtr<IHTMLElement> elem = CreateNewElement(TAGID_OBJECT,NULL);
   HtmlObject object(elem);
   
-  object.SetProperty(HtmlObject::E_Type,"application/x-oleobject");
+  object.SetProperty(HtmlObject::E_Type,_T("application/x-oleobject"));
   object.SetProperty(HtmlObject::E_ClassId,CLSID_ALINK_COMMAND);
-  object.SetProperty(HtmlObject::E_Width,"100");
-  object.SetProperty(HtmlObject::E_Height,"30");
-  object.SetParameter("Command","ALink");
-  object.SetParameter("Button","Related topics");
+  object.SetProperty(HtmlObject::E_Width,_T("100"));
+  object.SetProperty(HtmlObject::E_Height,_T("30"));
+  object.SetParameter(_T("Command"),_T("ALink"));
+  object.SetParameter(_T("Button"),_T("Related topics"));
 
   // Get a value for the parameter
   CString base = GetBase();
@@ -5657,7 +5657,7 @@ CHTMLEdView::OnInsertALinkCommand()
 void
 CHTMLEdView::OnDoubleClickSpan(CComPtr<IHTMLElement> pElement)
 {
-  OnDoubleClickSpanDiv("span",pElement);
+  OnDoubleClickSpanDiv(_T("span"),pElement);
 }
 
 void
@@ -5666,20 +5666,20 @@ CHTMLEdView::OnDoubleClickDiv(CComPtr<IHTMLElement> pElement)
   HtmlElement elem(pElement);
   if(elem.HasStyle())
   {
-    CString style = elem.GetInlineStyle();
-    style = CString("div {") + style + "}";
+    XString style = elem.GetInlineStyle();
+    style = XString(_T("div {")) + style + _T("}");
     CssStyleSheet css;
-    css.parse_css((string)style);
-    string media = "standard";
-    string select = "div";
-    if(css.get("standard","div","position").c_str() == CString("absolute"))
+    css.parse_css(style);
+    XString media = _T("standard");
+    XString select = _T("div");
+    if(css.get(_T("standard"),_T("div"),_T("position")).c_str() == XString(_T("absolute")))
     {
-      LayerDlg dlg(this,GetBase(),&elem,"1");
+      LayerDlg dlg(this,GetBase(),&elem,_T("1"));
       dlg.DoModal();
       return;
     }
   }
-  OnDoubleClickSpanDiv("div",pElement);
+  OnDoubleClickSpanDiv(_T("div"),pElement);
 }
 
 void
@@ -5727,7 +5727,7 @@ void
 CHTMLEdView::OnDoubleClickLegend(CComPtr<IHTMLElement> pElement)
 {
   CComPtr<IHTMLElement> pField;
-  InsideTag(pElement,"FIELDSET",pField);
+  InsideTag(pElement,_T("FIELDSET"),pField);
   if(pField.p)
   {
     OnDoubleClickFieldset(pField);
@@ -5747,9 +5747,9 @@ CHTMLEdView::OnInsertLayer()
   HtmlElement division(elem);
 
   // Make unique layer number
-  long num = Misc::GetUniqueID(m_Doc2,"div");
+  long num = Misc::GetUniqueID(m_Doc2,_T("div"));
   CString unique;
-  unique.Format("%d",num);
+  unique.Format(_T("%d"),num);
 
   LayerDlg dlg(this,GetBase(),&division,unique);
   if(dlg.DoModal() != IDOK)
@@ -5763,10 +5763,10 @@ void
 CHTMLEdView::OnRemoveLayer(CComPtr<IHTMLElement> pElement)
 {
   HtmlElement layer(pElement);
-  CString identity = layer.GetAttribute("id"); 
+  CString identity = layer.GetAttribute(_T("id")); 
   CString mess;
-  mess.Format("Are you sure you want to remove layer [%s]?",identity.GetString());
-  if(theApp.MessageBox(mess,"Question",MB_YESNO|MB_ICONQUESTION) == IDYES)
+  mess.Format(_T("Are you sure you want to remove layer [%s]?"),identity.GetString());
+  if(theApp.MessageBox(mess,_T("Question"),MB_YESNO|MB_ICONQUESTION) == IDYES)
   {
     layer.Remove();
   }
@@ -5786,7 +5786,7 @@ CHTMLEdView::CheckBase()
 
   // Step 3: Independent HTML page
   // Base is found by way of the BASE tag in the head
-  CString base = Misc::BaseTag(m_Doc2,"","");
+  CString base = Misc::BaseTag(m_Doc2,_T(""),_T(""));
   if(!base.IsEmpty())
   {
     m_baseURL = base;
@@ -5815,19 +5815,19 @@ CHTMLEdView::RenameReferences(CString& p_old_href,CString& p_new_href)
 //   }
   int renamed = 0;
   // Attributes 'href' and 'src' from these
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"link");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"script");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"img");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"a");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"area");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"frame");
-  renamed += RenameReferencesTag(p_old_href,p_new_href,"iframe");
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("link"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("script"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("img"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("a"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("area"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("frame"));
+  renamed += RenameReferencesTag(p_old_href,p_new_href,_T("iframe"));
 
   return renamed;
 }
 
 int
-CHTMLEdView::RenameReferencesTag(CString& p_old_href,CString& p_new_href,char* p_tag)
+CHTMLEdView::RenameReferencesTag(CString& p_old_href,CString& p_new_href,TCHAR* p_tag)
 {
   int renamed = 0;
   const int CaseInsesitive = 0;

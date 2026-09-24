@@ -26,7 +26,7 @@ public:
 	virtual ~CSSPage4Dlg();
   virtual BOOL OnInitDialog();
   void UpdateProperties();
-  void SetSelector(string selector);
+  void SetSelector(XString selector);
   // Dialog Data
 	enum { IDD = IDD_SS_PAGE4 };
 
@@ -51,7 +51,7 @@ private:
   CComQIPtr<IWebBrowser2>   m_spBrowser;
   CComQIPtr<IHTMLDocument2> m_doc;
   CssStyleSheet* m_css;
-  string         m_selector;
+  XString        m_selector;
 
   // Which to use
   bool           m_allsides; 

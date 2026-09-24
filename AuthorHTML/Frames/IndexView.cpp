@@ -76,7 +76,7 @@ IndexView::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if(!m_wndExplorer.Create(WS_VISIBLE | TVS_HASLINES /*| TVS_LINESATROOT /*| TVS_HASBUTTONS */| TVS_SHOWSELALWAYS,
                            CRect(0,0,0,0), this, ID_INDEX_EXPLORER))
   {
-    TRACE0( "Unable to create tree control.\n" );
+    TRACE0("Unable to create tree control.\n");
     return NULL;
   }
   InitializeTree();
@@ -294,7 +294,7 @@ IndexView::OnEditPage()
     }
     else
     {
-      theApp.MessageBox("This index entry doesn't have a page associated with it (yet)","Edit",MB_OK|MB_ICONASTERISK);
+      theApp.MessageBox(_T("This index entry doesn't have a page associated with it (yet)"),_T("Edit"),MB_OK|MB_ICONASTERISK);
     }
   }
 }
@@ -312,14 +312,14 @@ IndexView::OnDelete()
   CString mess;
   if(hasChildren)
   {
-    mess.Format("Are you sure you want to delete the index keyword '%s'\n"
-                "and all it's underlying index keywords??",entry->GetTitle().GetString());
+    mess.Format(_T("Are you sure you want to delete the index keyword '%s'\n")
+                _T("and all it's underlying index keywords??"),entry->GetTitle().GetString());
   }
   else
   {
-    mess.Format("Are you sure you want to delete the index keyword '%s'?",entry->GetTitle().GetString());
+    mess.Format(_T("Are you sure you want to delete the index keyword '%s'?"),entry->GetTitle().GetString());
   }
-  if(theApp.MessageBox(mess,"Delete",MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2) == IDYES)
+  if(theApp.MessageBox(mess,_T("Delete"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2) == IDYES)
   {
     IndexFile* index = theApp.GetIndex();
     index->DeleteEntry(entry);
@@ -406,7 +406,7 @@ IndexView::OnKeyUpper()
     CString title = entry->GetTitle();
     if(title.GetLength() > 0)
     {
-      title.SetAt(0,toupper(title.GetAt(0)));
+      title.SetAt(0,_totupper(title.GetAt(0)));
     }
     entry->SetTitle(title);
     m_wndExplorer.RedisplayEntry(hCurSel,entry);
@@ -423,7 +423,7 @@ IndexView::OnKeyLower()
     CString title = entry->GetTitle();
     if(title.GetLength() > 0)
     {
-      title.SetAt(0,tolower(title.GetAt(0)));
+      title.SetAt(0,_totlower(title.GetAt(0)));
     }
     entry->SetTitle(title);
     m_wndExplorer.RedisplayEntry(hCurSel,entry);

@@ -32,7 +32,7 @@ SpanDivDlg::SpanDivDlg(CWnd*        pParent
 {
   CString desc = Misc::GetTagDescription(m_tag);
   p_tag.MakeUpper();
-  m_type = p_tag + " : " + desc;
+  m_type = p_tag + _T(" : ") + desc;
 }
 
 SpanDivDlg::~SpanDivDlg()
@@ -59,15 +59,15 @@ void SpanDivDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -105,14 +105,14 @@ SpanDivDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = m_tag + " { " + style + "}";
+  style = m_tag + _T(" { ") + style + _T("}");
   StyleSheetDlg dlg(this,m_base,m_tag,NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
+    style.TrimRight(_T("}"));
     style.TrimLeft(m_tag);
-    style.TrimLeft(" {");
+    style.TrimLeft(_T(" {"));
     m_elem->SetInlineStyle(style);
   }
 }

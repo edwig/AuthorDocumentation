@@ -92,7 +92,7 @@ void ParagraphDlg::DoDataExchange(CDataExchange* pDX)
     ind = m_comboWord.FindString(-1,m_wordSpacingUnit);
           m_comboWord.SetCurSel(ind);
 
-    CString desc = Misc::GetAttributeDisplayname("line-height",m_lineHeight);
+    CString desc = Misc::GetAttributeDisplayname(_T("line-height"),m_lineHeight);
     ind = m_comboSpacing.FindString(-1,desc);
     if(ind >= 0)
     {
@@ -102,15 +102,15 @@ void ParagraphDlg::DoDataExchange(CDataExchange* pDX)
     HtmlElement elem(m_elem);
 
     m_buttonID.GetWindowText(def);
-    text = elem.HasIdentity() ? "[ &ID ]" : "&ID";
+    text = elem.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = elem.HasStyle() ? "[ &Style ]" : "&Style";
+    text = elem.HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = elem.HasEvents() ? "[ &Events ]" : "&Events";
+    text = elem.HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
   m_buttonApply.EnableWindow(m_canApply);
@@ -174,22 +174,22 @@ ParagraphDlg::InitControls()
 {
   m_spinLeft.SetBase(10);
   m_spinLeft.SetRange(-32000,32000);
-  m_spinLeft.SetPos(atoi(m_marginLeft));
+  m_spinLeft.SetPos(_ttoi(m_marginLeft));
   m_spinRight.SetBase(10);
   m_spinRight.SetRange(-32000,32000);
-  m_spinRight.SetPos(atoi(m_marginRight));
+  m_spinRight.SetPos(_ttoi(m_marginRight));
   m_spinTop.SetBase(10);
   m_spinTop.SetRange(-32000,32000);
-  m_spinTop.SetPos(atoi(m_marginTop));
+  m_spinTop.SetPos(_ttoi(m_marginTop));
   m_spinBottom.SetBase(10);
   m_spinBottom.SetRange(-32000,32000);
-  m_spinBottom.SetPos(atoi(m_marginBottom));
+  m_spinBottom.SetPos(_ttoi(m_marginBottom));
   m_spinIndent.SetBase(10);
   m_spinIndent.SetRange(-32000,32000);
-  m_spinIndent.SetPos(atoi(m_textIndent));
+  m_spinIndent.SetPos(_ttoi(m_textIndent));
   m_spinWord.SetBase(10);
   m_spinWord.SetRange(-32000,32000);
-  m_spinWord.SetPos(atoi(m_wordSpacing));
+  m_spinWord.SetPos(_ttoi(m_wordSpacing));
 
   CSSComboBoxUnits(m_comboTop,    m_marginTopUnit);
   CSSComboBoxUnits(m_comboLeft,   m_marginLeftUnit);
@@ -202,51 +202,51 @@ ParagraphDlg::InitControls()
 void
 ParagraphDlg::FillPage()
 {
-  string selector = "p";
-  m_align        = CSSPropertyGet(m_css,selector,"text-align",   true);
-  m_marginLeft   = CSSPropertyGet(m_css,selector,"margin-left",  false);
-  m_marginRight  = CSSPropertyGet(m_css,selector,"margin-right", false);
-  m_marginTop    = CSSPropertyGet(m_css,selector,"margin-top",   false); 
-  m_marginBottom = CSSPropertyGet(m_css,selector,"margin-bottom",false); 
+  XString selector = _T("p");
+  m_align        = CSSPropertyGet(m_css,selector,_T("text-align"),   true);
+  m_marginLeft   = CSSPropertyGet(m_css,selector,_T("margin-left"),  false);
+  m_marginRight  = CSSPropertyGet(m_css,selector,_T("margin-right"), false);
+  m_marginTop    = CSSPropertyGet(m_css,selector,_T("margin-top"),   false); 
+  m_marginBottom = CSSPropertyGet(m_css,selector,_T("margin-bottom"),false); 
   CssSplitValueUnits(m_marginLeft  ,m_marginLeft  ,m_marginLeftUnit);
   CssSplitValueUnits(m_marginRight ,m_marginRight ,m_marginRightUnit);
   CssSplitValueUnits(m_marginTop   ,m_marginTop   ,m_marginTopUnit);
   CssSplitValueUnits(m_marginBottom,m_marginBottom,m_marginBottomUnit);
-  m_lineHeight   = CSSPropertyGet(m_css,selector,"line-height",false);
-  m_textIndent   = CSSPropertyGet(m_css,selector,"text-indent",false);
+  m_lineHeight   = CSSPropertyGet(m_css,selector,_T("line-height"),false);
+  m_textIndent   = CSSPropertyGet(m_css,selector,_T("text-indent"),false);
   CssSplitValueUnits(m_textIndent,m_textIndent,m_textIndentUnit);
-  m_wordSpacing  = CSSPropertyGet(m_css,selector,"word-spacing",false);
+  m_wordSpacing  = CSSPropertyGet(m_css,selector,_T("word-spacing"),false);
   CssSplitValueUnits(m_wordSpacing,m_wordSpacing,m_wordSpacingUnit);
 
-  if(m_align.IsEmpty() || m_align.CompareNoCase("Unspecified") == 0)
+  if(m_align.IsEmpty() || m_align.CompareNoCase(_T("Unspecified")) == 0)
   {
     HtmlElement elem(m_elem);
-    m_align = elem.GetAttribute("align");
+    m_align = elem.GetAttribute(_T("align"));
   }
 }
 
 void
 ParagraphDlg::UpdateProperties()
 {
-  string selector = "p";
+  XString selector = _T("p");
   CString left   = m_marginLeft   + m_marginLeftUnit;
   CString right  = m_marginRight  + m_marginRightUnit;
   CString top    = m_marginTop    + m_marginTopUnit;
   CString bottom = m_marginBottom + m_marginBottomUnit;
   CString indent = m_textIndent   + m_textIndentUnit;
   CString word   = m_wordSpacing  + m_wordSpacingUnit;
-  CSSPropertyPut(m_css,selector,"margin-left",  left,   false);
-  CSSPropertyPut(m_css,selector,"margin-right", right,  false);
-  CSSPropertyPut(m_css,selector,"margin-top",   top,    false);
-  CSSPropertyPut(m_css,selector,"margin-bottom",bottom, false);
-  CSSPropertyPut(m_css,selector,"line-height",  m_lineHeight,false);
-  CSSPropertyPut(m_css,selector,"text-indent",  indent, false);
-  CSSPropertyPut(m_css,selector,"word-spacing", word,   false);
-  CSSPropertyPut(m_css,selector,"text-align",   m_align,true);
-  if(!m_align.IsEmpty() && m_align.CompareNoCase("Unspecified"))
+  CSSPropertyPut(m_css,selector,_T("margin-left"),  left,   false);
+  CSSPropertyPut(m_css,selector,_T("margin-right"), right,  false);
+  CSSPropertyPut(m_css,selector,_T("margin-top"),   top,    false);
+  CSSPropertyPut(m_css,selector,_T("margin-bottom"),bottom, false);
+  CSSPropertyPut(m_css,selector,_T("line-height"),  m_lineHeight,false);
+  CSSPropertyPut(m_css,selector,_T("text-indent"),  indent, false);
+  CSSPropertyPut(m_css,selector,_T("word-spacing"), word,   false);
+  CSSPropertyPut(m_css,selector,_T("text-align"),   m_align,true);
+  if(!m_align.IsEmpty() && m_align.CompareNoCase(_T("Unspecified")))
   {
     HtmlElement elem(m_elem);
-    elem.SetAttribute("align",m_align);
+    elem.SetAttribute(_T("align"),m_align);
   }
 }
 
@@ -289,7 +289,7 @@ ParagraphDlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
       if(SUCCEEDED(hr))
       {
         CString cID = CW2CT(bID);
-        if(cID == "para")
+        if(cID == _T("para"))
         {
           CComPtr<IHTMLStyle> style;
           hr = elem->get_style(&style);
@@ -374,11 +374,11 @@ ParagraphDlg::OnEnChangeParaBt()
   }
   if(!m_marginLeft.IsEmpty() && m_marginLeftUnit.IsEmpty())
   {
-    m_marginLeftUnit = "px";
+    m_marginLeftUnit = _T("px");
   }
   if(m_marginLeft.IsEmpty() && !m_marginLeftUnit.IsEmpty())
   {
-    m_marginLeftUnit = "";
+    m_marginLeftUnit = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -397,11 +397,11 @@ ParagraphDlg::OnEnChangeParaAt()
   }
   if(!m_marginRight.IsEmpty() && m_marginRightUnit.IsEmpty())
   {
-    m_marginRightUnit = "px";
+    m_marginRightUnit = _T("px");
   }
   if(m_marginRight.IsEmpty() && !m_marginRightUnit.IsEmpty())
   {
-    m_marginRightUnit = "";
+    m_marginRightUnit = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -420,11 +420,11 @@ ParagraphDlg::OnEnChangeParaSb()
   }
   if(!m_marginTop.IsEmpty() && m_marginTopUnit.IsEmpty())
   {
-    m_marginTopUnit = "px";
+    m_marginTopUnit = _T("px");
   }
   if(m_marginTop.IsEmpty() && !m_marginTopUnit.IsEmpty())
   {
-    m_marginTopUnit = "";
+    m_marginTopUnit = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -443,11 +443,11 @@ ParagraphDlg::OnEnChangeParaSa()
   }
   if(!m_marginBottom.IsEmpty() && m_marginBottomUnit.IsEmpty())
   {
-    m_marginBottomUnit = "px";
+    m_marginBottomUnit = _T("px");
   }
   if(m_marginBottom.IsEmpty() && !m_marginBottomUnit.IsEmpty())
   {
-    m_marginBottomUnit = "";
+    m_marginBottomUnit = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -525,11 +525,11 @@ ParagraphDlg::OnDeltaposSpinBt(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_BT);
   w->GetWindowText(m_marginLeft);
   m_canApply = true;
-  double total = atof(m_marginLeft);
+  double total = _ttof(m_marginLeft);
   total += pNMUpDown->iDelta;
-  m_marginLeft.Format("%f",total);
-  m_marginLeft.TrimRight('0');
-  m_marginLeft.TrimRight('.');
+  m_marginLeft.Format(_T("%f"),total);
+  m_marginLeft.TrimRight(_T('0'));
+  m_marginLeft.TrimRight(_T('.'));
   w->SetWindowText(m_marginLeft);
   OnEnChangeParaBt();
 }
@@ -542,11 +542,11 @@ ParagraphDlg::OnDeltaposSpinAt(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_AT);
   w->GetWindowText(m_marginRight);
   m_canApply = true;
-  double total = atof(m_marginRight);
+  double total = _ttof(m_marginRight);
   total += pNMUpDown->iDelta;
-  m_marginRight.Format("%f",total);
-  m_marginRight.TrimRight('0');
-  m_marginRight.TrimRight('.');
+  m_marginRight.Format(_T("%f"),total);
+  m_marginRight.TrimRight(_T('0'));
+  m_marginRight.TrimRight(_T('.'));
   w->SetWindowText(m_marginRight);
   OnEnChangeParaAt();
 }
@@ -559,11 +559,11 @@ ParagraphDlg::OnDeltaposSpinSb(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_SB);
   w->GetWindowText(m_marginTop);
   m_canApply = true;
-  double total = atof(m_marginTop);
+  double total = _ttof(m_marginTop);
   total += pNMUpDown->iDelta;
-  m_marginTop.Format("%f",total);
-  m_marginTop.TrimRight('0');
-  m_marginTop.TrimRight('.');
+  m_marginTop.Format(_T("%f"),total);
+  m_marginTop.TrimRight(_T('0'));
+  m_marginTop.TrimRight(_T('.'));
   w->SetWindowText(m_marginTop);
   OnEnChangeParaSb();
 }
@@ -576,11 +576,11 @@ ParagraphDlg::OnDeltaposSpinSa(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_SA);
   w->GetWindowText(m_marginBottom);
   m_canApply = true;
-  double total = atof(m_marginBottom);
+  double total = _ttof(m_marginBottom);
   total += pNMUpDown->iDelta;
-  m_marginBottom.Format("%f",total);
-  m_marginBottom.TrimRight('0');
-  m_marginBottom.TrimRight('.');
+  m_marginBottom.Format(_T("%f"),total);
+  m_marginBottom.TrimRight(_T('0'));
+  m_marginBottom.TrimRight(_T('.'));
   w->SetWindowText(m_marginBottom);
   OnEnChangeParaSa();
 }
@@ -598,7 +598,7 @@ ParagraphDlg::OnCbnSelchangeParaLinespacing()
   {
     m_comboSpacing.GetWindowText(desc);
   }
-  value = Misc::GetAttributeValue("line-height",desc);
+  value = Misc::GetAttributeValue(_T("line-height"),desc);
   if(m_lineHeight != value)
   {
     m_lineHeight = value;
@@ -621,11 +621,11 @@ ParagraphDlg::OnEnChangeParaIndent()
   }
   if(!m_textIndent.IsEmpty() && m_textIndentUnit.IsEmpty())
   {
-    m_textIndentUnit = "px";
+    m_textIndentUnit = _T("px");
   }
   if(m_textIndent.IsEmpty() && !m_textIndentUnit.IsEmpty())
   {
-    m_textIndentUnit = "";
+    m_textIndentUnit = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -654,11 +654,11 @@ ParagraphDlg::OnDeltaposSpinIndent(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_INDENT);
   w->GetWindowText(m_textIndent);
   m_canApply = true;
-  double total = atof(m_textIndent);
+  double total = _ttof(m_textIndent);
   total += pNMUpDown->iDelta;
-  m_textIndent.Format("%f",total);
-  m_textIndent.TrimRight('0');
-  m_textIndent.TrimRight('.');
+  m_textIndent.Format(_T("%f"),total);
+  m_textIndent.TrimRight(_T('0'));
+  m_textIndent.TrimRight(_T('.'));
   w->SetWindowText(m_textIndent);
   OnEnChangeParaIndent();
 }
@@ -676,11 +676,11 @@ ParagraphDlg::OnEnChangeParaWs()
   }
   if(!m_wordSpacing.IsEmpty() && m_wordSpacingUnit.IsEmpty())
   {
-    m_wordSpacingUnit = "px";
+    m_wordSpacingUnit = _T("px");
   }
   if(m_wordSpacing.IsEmpty() && !m_wordSpacingUnit.IsEmpty())
   {
-    m_wordSpacingUnit= "";
+    m_wordSpacingUnit= _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -710,11 +710,11 @@ ParagraphDlg::OnDeltaposSpinWs(NMHDR *pNMHDR, LRESULT *pResult)
   CWnd* w = GetDlgItem(IDC_PARA_WS);
   w->GetWindowText(m_wordSpacing);
   m_canApply = true;
-  double total = atof(m_wordSpacing);
+  double total = _ttof(m_wordSpacing);
   total += pNMUpDown->iDelta;
-  m_wordSpacing.Format("%f",total);
-  m_wordSpacing.TrimRight('0');
-  m_wordSpacing.TrimRight('.');
+  m_wordSpacing.Format(_T("%f"),total);
+  m_wordSpacing.TrimRight(_T('0'));
+  m_wordSpacing.TrimRight(_T('.'));
   w->SetWindowText(m_wordSpacing);
   OnEnChangeParaWs();
 }
@@ -731,8 +731,8 @@ void ParagraphDlg::OnBnClickedParaApply()
   {
     CComBSTR bText;
     CString sheet = m_css->GetTheSheet().c_str();
-    sheet.TrimLeft("p {");
-    sheet.TrimRight("}");
+    sheet.TrimLeft(_T("p {"));
+    sheet.TrimRight(_T("}"));
     bText = CT2CW(sheet);
     m_style->put_cssText(bText);
 
@@ -749,7 +749,7 @@ void ParagraphDlg::OnBnClickedCancel()
 void ParagraphDlg::OnBnClickedId()
 {
   HtmlElement elem(m_elem);
-  GeneralIDDlg dlg(this,"p",&elem);
+  GeneralIDDlg dlg(this,_T("p"),&elem);
   if(dlg.DoModal() == IDOK)
   {
     m_canApply = true;
@@ -761,7 +761,7 @@ void
 ParagraphDlg::OnBnClickedEvents()
 {
   HtmlElement elem(m_elem);
-  TagEventsDlg dlg(this,&elem,"P");
+  TagEventsDlg dlg(this,&elem,_T("P"));
   dlg.DoModal();
   UpdateData(Data2Controls);}
 
@@ -774,7 +774,7 @@ ParagraphDlg::OnBnClickedStyle()
   if(m_css->print_css())
   {
     CString sheet = m_css->GetTheSheet().c_str();
-    StyleSheetDlg dlg(this,m_base,"p",NULL,sheet);
+    StyleSheetDlg dlg(this,m_base,_T("p"),NULL,sheet);
     if(dlg.DoModal() == IDOK)
     {
       sheet = dlg.GetInlineStylesheet();
@@ -784,7 +784,7 @@ ParagraphDlg::OnBnClickedStyle()
       }
       m_css = new CssStyleSheet();
       m_mySheet = true;
-      m_css->parse_css((string)sheet);
+      m_css->parse_css((XString)sheet);
       FillPage();
 
       m_canApply = true;

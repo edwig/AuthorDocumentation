@@ -54,15 +54,15 @@ void ButtonDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -91,17 +91,17 @@ ButtonDlg::OnInitDialog()
 void
 ButtonDlg::FillPage()
 {
-  m_name  = m_elem->GetAttribute("name");
-  m_value = m_elem->GetAttribute("value");
-  m_type  = m_elem->GetAttribute("type");
+  m_name  = m_elem->GetAttribute(_T("name"));
+  m_value = m_elem->GetAttribute(_T("value"));
+  m_type  = m_elem->GetAttribute(_T("type"));
 }
 
 void
 ButtonDlg::UpdateProperties()
 {
-  m_elem->SetAttribute("name", m_name);
-  m_elem->SetAttribute("value",m_value);
-  m_elem->SetAttribute("type" ,m_type);
+  m_elem->SetAttribute(_T("name"), m_name);
+  m_elem->SetAttribute(_T("value"),m_value);
+  m_elem->SetAttribute(_T("type") ,m_type);
 }
 
 // ButtonDlg message handlers
@@ -133,14 +133,14 @@ ButtonDlg::OnCbnSelchangeButtonType()
 void 
 ButtonDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"button",m_elem);
+  GeneralIDDlg dlg(this,_T("button"),m_elem);
   dlg.DoModal();
 }
 
 void 
 ButtonDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"BUTTON");
+  TagEventsDlg dlg(this,m_elem,_T("BUTTON"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -154,13 +154,13 @@ ButtonDlg::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_elem->GetInlineStyle();
-  style = CString("button { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"button",NULL,style);
+  style = CString(_T("button { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("button"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("button {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("button {"));
     m_elem->SetInlineStyle(style);
     FillPage();
   }

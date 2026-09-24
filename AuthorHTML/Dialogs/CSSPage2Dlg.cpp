@@ -126,8 +126,8 @@ void CSSPage2Dlg::DoDataExchange(CDataExchange* pDX)
       //Arial, Helvetica, Sans-serif;
       // Times New Roman, Times, Serif;
       // Courier New, Courier, Monospace;
-      if((Misc::FindNoCase(m_fontFamily,"Arial")     >= 0) ||
-         (Misc::FindNoCase(m_fontFamily,"Helvetica") >= 0) )
+      if((Misc::FindNoCase(m_fontFamily,_T("Arial"))     >= 0) ||
+         (Misc::FindNoCase(m_fontFamily,_T("Helvetica")) >= 0) )
       {
         m_buttonFontUnspec .SetCheck(FALSE);
         m_buttonFontPredef .SetCheck(TRUE);
@@ -137,8 +137,8 @@ void CSSPage2Dlg::DoDataExchange(CDataExchange* pDX)
         m_comboFontSpecify.SetCurSel(-1);
         m_comboFontSpecify.EnableWindow(FALSE);
       }
-      else if((Misc::FindNoCase(m_fontFamily,"Times New Roman") >= 0) ||
-              (m_fontFamily.CompareNoCase("Times") == 0))
+      else if((Misc::FindNoCase(m_fontFamily,_T("Times New Roman")) >= 0) ||
+              (m_fontFamily.CompareNoCase(_T("Times")) == 0))
       {
         m_buttonFontUnspec .SetCheck(FALSE);
         m_buttonFontPredef .SetCheck(TRUE);
@@ -148,8 +148,8 @@ void CSSPage2Dlg::DoDataExchange(CDataExchange* pDX)
         m_comboFontSpecify.SetCurSel(-1);
         m_comboFontSpecify.EnableWindow(FALSE);
       }
-      else if((Misc::FindNoCase(m_fontFamily,"Courier New") >= 0) ||
-              (m_fontFamily.CompareNoCase("Courier") == 0))
+      else if((Misc::FindNoCase(m_fontFamily,_T("Courier New")) >= 0) ||
+              (m_fontFamily.CompareNoCase(_T("Courier")) == 0))
       {
         m_buttonFontUnspec .SetCheck(FALSE);
         m_buttonFontPredef .SetCheck(TRUE);
@@ -292,7 +292,7 @@ CSSPage2Dlg::InitCombos()
 }
 
 void
-CSSPage2Dlg::SetSelector(string selector)
+CSSPage2Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -313,23 +313,23 @@ void
 CSSPage2Dlg::FillPage()
 {
   CString value;
-  m_fontColor       = CSSPropertyGet(m_css,m_selector,"color",          false);
-  m_fontWeight      = CSSPropertyGet(m_css,m_selector,"font-weight",    true);
-  m_fontStyle       = CSSPropertyGet(m_css,m_selector,"font-style",     true);
-  m_fontTransform   = CSSPropertyGet(m_css,m_selector,"text-transform", true);
-  m_fontAlign       = CSSPropertyGet(m_css,m_selector,"text-align",     true);
-  m_fontFamily      = CSSPropertyGet(m_css,m_selector,"font-family",    false);
-  m_fontJustify     = CSSPropertyGet(m_css,m_selector,"text-justify",   true);
-  m_fontDecoration  = CSSPropertyGet(m_css,m_selector,"text-decoration",true);
-  m_fontWhitespace  = CSSPropertyGet(m_css,m_selector,"white-space",    true);
-  m_fontWritingMode = CSSPropertyGet(m_css,m_selector,"writing-mode",   true);
-  value             = CSSPropertyGet(m_css,m_selector,"font-size",      false);
+  m_fontColor       = CSSPropertyGet(m_css,m_selector,_T("color"),          false);
+  m_fontWeight      = CSSPropertyGet(m_css,m_selector,_T("font-weight"),    true);
+  m_fontStyle       = CSSPropertyGet(m_css,m_selector,_T("font-style"),     true);
+  m_fontTransform   = CSSPropertyGet(m_css,m_selector,_T("text-transform"), true);
+  m_fontAlign       = CSSPropertyGet(m_css,m_selector,_T("text-align"),     true);
+  m_fontFamily      = CSSPropertyGet(m_css,m_selector,_T("font-family"),    false);
+  m_fontJustify     = CSSPropertyGet(m_css,m_selector,_T("text-justify"),   true);
+  m_fontDecoration  = CSSPropertyGet(m_css,m_selector,_T("text-decoration"),true);
+  m_fontWhitespace  = CSSPropertyGet(m_css,m_selector,_T("white-space"),    true);
+  m_fontWritingMode = CSSPropertyGet(m_css,m_selector,_T("writing-mode"),   true);
+  value             = CSSPropertyGet(m_css,m_selector,_T("font-size"),      false);
   CssSplitValueUnits(value,m_fontSize,m_fontSizeUnits);
-  value             = CSSPropertyGet(m_css,m_selector,"line-height",    false);
+  value             = CSSPropertyGet(m_css,m_selector,_T("line-height"),    false);
   CssSplitValueUnits(value,m_lineHeigth,m_lineHeigthUnits);
-  value             = CSSPropertyGet(m_css,m_selector,"text-indent",    false);
+  value             = CSSPropertyGet(m_css,m_selector,_T("text-indent"),    false);
   CssSplitValueUnits(value,m_lineIndent,m_lineIndentUnits);
-  value             = CSSPropertyGet(m_css,m_selector,"letter-spacing", false);
+  value             = CSSPropertyGet(m_css,m_selector,_T("letter-spacing"), false);
   CssSplitValueUnits(value,m_letterSpacing,m_letterSpacingUnits);
 
   if(m_fontColor.IsEmpty())
@@ -359,33 +359,33 @@ CSSPage2Dlg::UpdateProperties()
     if(!m_fontColor.IsEmpty())
     {
       Misc::DecodeColor(m_fontColor,red,green,blue);
-      m_fontColor.Format("#%02x%02x%02x",red,green,blue);
+      m_fontColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_fontColor = "";
+    m_fontColor = _T("");
   }
-  CSSPropertyPut(m_css,m_selector,"color",          m_fontColor,      false);
-  CSSPropertyPut(m_css,m_selector,"font-weight",    m_fontWeight,     true);
-  CSSPropertyPut(m_css,m_selector,"font-style",     m_fontStyle,      true);
-  CSSPropertyPut(m_css,m_selector,"text-transform", m_fontTransform,  true);
-  CSSPropertyPut(m_css,m_selector,"text-align",     m_fontAlign,      true);
-  CSSPropertyPut(m_css,m_selector,"font-family",    m_fontFamily,     false);
-  CSSPropertyPut(m_css,m_selector,"text-decoration",m_fontDecoration, true);
-  CSSPropertyPut(m_css,m_selector,"text-justify",   m_fontJustify,    true);
-  CSSPropertyPut(m_css,m_selector,"white-space",    m_fontWhitespace, true);
-  CSSPropertyPut(m_css,m_selector,"writing-mode",   m_fontWritingMode,true);
+  CSSPropertyPut(m_css,m_selector,_T("color"),          m_fontColor,      false);
+  CSSPropertyPut(m_css,m_selector,_T("font-weight"),    m_fontWeight,     true);
+  CSSPropertyPut(m_css,m_selector,_T("font-style"),     m_fontStyle,      true);
+  CSSPropertyPut(m_css,m_selector,_T("text-transform"), m_fontTransform,  true);
+  CSSPropertyPut(m_css,m_selector,_T("text-align"),     m_fontAlign,      true);
+  CSSPropertyPut(m_css,m_selector,_T("font-family"),    m_fontFamily,     false);
+  CSSPropertyPut(m_css,m_selector,_T("text-decoration"),m_fontDecoration, true);
+  CSSPropertyPut(m_css,m_selector,_T("text-justify"),   m_fontJustify,    true);
+  CSSPropertyPut(m_css,m_selector,_T("white-space"),    m_fontWhitespace, true);
+  CSSPropertyPut(m_css,m_selector,_T("writing-mode"),   m_fontWritingMode,true);
 
   CString value;
   value = m_fontSize + m_fontSizeUnits;
-  CSSPropertyPut(m_css,m_selector,"font-size",      value,false);
+  CSSPropertyPut(m_css,m_selector,_T("font-size"),      value,false);
   value = m_lineHeigth + m_lineHeigthUnits;
-  CSSPropertyPut(m_css,m_selector,"line-height",    value,false);
+  CSSPropertyPut(m_css,m_selector,_T("line-height"),    value,false);
   value = m_lineIndent + m_lineIndentUnits;
-  CSSPropertyPut(m_css,m_selector,"text-indent",    value,false);
+  CSSPropertyPut(m_css,m_selector,_T("text-indent"),    value,false);
   value = m_letterSpacing + m_letterSpacingUnits;
-  CSSPropertyPut(m_css,m_selector,"letter-spacing", value,false);
+  CSSPropertyPut(m_css,m_selector,_T("letter-spacing"), value,false);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -490,7 +490,7 @@ CSSPage2Dlg::OnBnClickedSsColorbutton()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_fontColor.Format("#%02x%02x%02x",red,green,blue);
+  m_fontColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   Redisplay();
 }
 
@@ -578,7 +578,7 @@ CSSPage2Dlg::OnBnClickedFfUnspec()
   m_comboFontPredefined.EnableWindow(FALSE);
   m_comboFontSpecify.SetCurSel(-1);
   m_comboFontSpecify.EnableWindow(FALSE);
-  m_fontFamily = "";
+  m_fontFamily = _T("");
   Redisplay();
 }
 
@@ -653,7 +653,7 @@ CSSPage2Dlg::OnCbnSelchangeFsUnits()
   }
   else
   {
-    m_fontSizeUnits = "";
+    m_fontSizeUnits = _T("");
   }
   Redisplay();
 }
@@ -685,7 +685,7 @@ CSSPage2Dlg::OnCbnSelchangeLhUnits()
   }
   else
   {
-    m_lineHeigthUnits = "";
+    m_lineHeigthUnits = _T("");
   }
   Redisplay();
 }
@@ -709,7 +709,7 @@ CSSPage2Dlg::OnCbnSelchangeLiUnits()
   }
   else
   {
-    m_lineIndentUnits = "";
+    m_lineIndentUnits = _T("");
   }
   Redisplay();
 }
@@ -733,7 +733,7 @@ CSSPage2Dlg::OnCbnSelchangeLsUnits()
   }
   else
   {
-    m_letterSpacingUnits = "";
+    m_letterSpacingUnits = _T("");
   }
   Redisplay();
 }
@@ -748,7 +748,7 @@ CSSPage2Dlg::OnCbnSelchangeWritingmode()
   }
   else
   {
-    m_fontWritingMode = "";
+    m_fontWritingMode = _T("");
   }
   Redisplay();
 }
@@ -760,7 +760,7 @@ CSSPage2Dlg::OnEnChangeSsFontcolor()
   UpdateData(Controls2Data);
   int red,green,blue;
   Misc::DecodeColor(m_fontColor,red,green,blue);
-  m_fontColor.Format("#%02x%02x%02x",red,green,blue);
+  m_fontColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   Redisplay();
 }
 

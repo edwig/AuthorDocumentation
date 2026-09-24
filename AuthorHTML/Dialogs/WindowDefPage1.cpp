@@ -88,9 +88,9 @@ BOOL
 WindowDefPage1::OnInitDialog()
 {
   CDialog::OnInitDialog();
-  m_comboTabPos.AddString("Top");
-  m_comboTabPos.AddString("Left");
-  m_comboTabPos.AddString("Bottom");
+  m_comboTabPos.AddString(_T("Top"));
+  m_comboTabPos.AddString(_T("Left"));
+  m_comboTabPos.AddString(_T("Bottom"));
   m_spin.SetBase(10);
   m_spin.SetRange(0,10000);
   return TRUE;
@@ -134,19 +134,19 @@ WindowDefPage1::ShowProperties()
 
   // Default tab
   m_comboDefTab.ResetContent();
-  m_comboDefTab.AddString("Contents");
-  m_comboDefTab.AddString("Index");
+  m_comboDefTab.AddString(_T("Contents"));
+  m_comboDefTab.AddString(_T("Index"));
   if(m_textSearch)
   {
-    m_comboDefTab.AddString("Text search");
+    m_comboDefTab.AddString(_T("Text search"));
   }
   if(m_favourites)
   {
-    m_comboDefTab.AddString("Favourites");
+    m_comboDefTab.AddString(_T("Favourites"));
   }
   if(m_glossary)
   {
-    m_comboDefTab.AddString("Glossary");
+    m_comboDefTab.AddString(_T("Glossary"));
   }
   m_comboDefTab.SetCurSel(m_defaultTab);
 
@@ -290,7 +290,7 @@ WindowDefPage1::OnEnChangeWidth()
   CWnd* w = GetDlgItem(IDC_WIDTH);
   CString wi;
   w->GetWindowText(wi);
-  m_width = atoi(wi);
+  m_width = _ttoi(wi);
 }
 
 void WindowDefPage1::OnDeltaposSpin(NMHDR *pNMHDR, LRESULT *pResult)
@@ -300,7 +300,7 @@ void WindowDefPage1::OnDeltaposSpin(NMHDR *pNMHDR, LRESULT *pResult)
   CString wi;
   CWnd* w = GetDlgItem(IDC_WIDTH);
   w->GetWindowText(wi);
-  m_width = atoi(wi);
+  m_width = _ttoi(wi);
   m_width += pNMUpDown->iDelta;
   UpdateData(FALSE);
 }

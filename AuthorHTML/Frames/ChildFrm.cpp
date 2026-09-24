@@ -18,7 +18,6 @@
 #define new DEBUG_NEW
 #endif
 
-
 // CMDIChildFrame
 
 IMPLEMENT_DYNCREATE(CMDIChildFrame,CMDIChildWndEx)

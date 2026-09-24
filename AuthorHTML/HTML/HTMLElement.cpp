@@ -23,11 +23,11 @@ HtmlElement::HtmlElement(CComPtr<IHTMLElement> i_Elem)
     CComBSTR bText;
     m_Elem->get_outerHTML(&bText);
     CString cText = CW2CT(bText);
-    int pos = cText.Find(">");
+    int pos = cText.Find(_T(">"));
     if(pos >= 0)
     {
       cText = cText.Left(pos);
-      if(cText.Find("style=") >= 0)
+      if(cText.Find(_T("style=")) >= 0)
       {
         CComPtr<IHTMLStyle> style;
         i_Elem->get_style(&style);
@@ -161,7 +161,7 @@ HtmlElement::GetAttribute(CString s_AttrName,SearchType search /* = INTERPOLATED
 {
   if(!Valid())
   {
-    return "";
+    return _T("");
   }
 	CComVariant v_AttrValue;
 	CComBSTR   bs_AttrName = s_AttrName;
@@ -179,7 +179,7 @@ HtmlElement::GetAttribute(CString s_AttrName,SearchType search /* = INTERPOLATED
 BOOL 
 HtmlElement::SetAttribute(CString s_AttrName, CString s_Value,SetType setting)
 {
-  if(s_Value.IsEmpty() || (setting == EMPTYREMOVE && (s_Value == "0")))
+  if(s_Value.IsEmpty() || (setting == EMPTYREMOVE && (s_Value == _T("0"))))
   {
     return RemoveAttribute(s_AttrName);
   }
@@ -396,11 +396,11 @@ HtmlElement::HasEvents()
     CComBSTR bText;
     m_Elem->get_outerHTML(&bText);
     CString cText = CW2CT(bText);
-    int pos = cText.Find('>');
+    int pos = cText.Find(_T('>'));
     if(pos > 0)
     {
       CString tagText = cText.Left(pos);
-      int eventPos = Misc::FindNoCase(tagText," on",0);
+      int eventPos = Misc::FindNoCase(tagText,_T(" on"),0);
       if(eventPos > 0)
       {
         return TRUE;

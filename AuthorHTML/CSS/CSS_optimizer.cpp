@@ -21,15 +21,15 @@ using namespace std;
 XString
 CssStyleSheet::shorthand(XString value)
 {
-	XString important = "";
+	XString important = _T("");
 
 	if(is_important(value))
 	{
 		value = gvw_important(value);
-		important = " !important";
+		important = _T(" !important");
 	}
 
-	vector<XString> values = explode(" ",value);
+	vector<XString> values = explode(_T(" "),value);
 	switch(values.size())
 	{
 		case 4:
@@ -39,11 +39,11 @@ CssStyleSheet::shorthand(XString value)
 		}
 		else if(values[1] == values[3] && values[0] == values[2])
 		{
-			return values[0] + " " + values[1] + important;
+			return values[0] + _T(" ") + values[1] + important;
 		}
 		else if(values[1] == values[3])
 		{
-			return values[0] + " " + values[1] + " " + values[2] + important;
+			return values[0] + _T(" ") + values[1] + _T(" ")	 + values[2] + important;
 		}
 		else return value + important;
 		break;
@@ -55,7 +55,7 @@ CssStyleSheet::shorthand(XString value)
 		}
 		else if(values[0] == values[2])
 		{
-			return values[0] + " " + values[1] + important;
+			return values[0] + _T(" ") + values[1] + important;
 		}
 		else return value + important;
 		break;
@@ -78,33 +78,33 @@ CssStyleSheet::compress_numbers(XString subvalue, XString property)
 {
 	XString units[] =
   {
-     "in"     // Inches
-    ,"cm"     // Centimeters
-    ,"mm"     // Milimeters
-    ,"pt"     // Points
-    ,"pc"     // Picas
-    ,"px"     // Pixels
-    ,"rem"    // 
-    ,"%"      // Percentage
-    ,"ex"     // x-height of relevant font
-    ,"gd"     //
-    ,"em"     // The 'font-size' of relevant font (em-space)
-    ,"vw"
-    ,"vh"
-    ,"vm"
-    ,"deg"    // Degrees ( 90 degree = straight angle)
-    ,"grad"   // Grades  (100 grades = straight angle)
-    ,"rad"    // Radians (2pi = half circle)
-    ,"ms"     // Miliseconds
-    ,"s"      // Seconds
-    ,"khz"    // Kiloherz
-    ,"hz"     // Herz
+     _T("in")     // Inches
+    ,_T("cm")     // Centimeters
+    ,_T("mm")     // Milimeters
+    ,_T("pt")     // Points
+    ,_T("pc")     // Picas
+    ,_T("px")     // Pixels
+    ,_T("rem")    // 
+    ,_T("%")      // Percentage
+    ,_T("ex")     // x-height of relevant font
+    ,_T("gd")     //
+    ,_T("em")     // The 'font-size' of relevant font (em-space)
+    ,_T("vw")
+    ,_T("vh")
+    ,_T("vm")	
+    ,_T("deg")    // Degrees ( 90 degree = straight angle)
+    ,_T("grad")   // Grades  (100 grades = straight angle)
+    ,_T("rad")    // Radians (2pi = half circle)
+    ,_T("ms")     // Miliseconds
+    ,_T("s")      // Seconds
+    ,_T("khz")    // Kiloherz
+    ,_T("hz")     // Herz
   }; 
 
 	vector<XString> temp;
-	if(property == "font")
+	if(property == _T("font"))
 	{
-		temp = explode("/",subvalue);
+		temp = explode(_T("/"),subvalue);
 	}
 	else
 	{
@@ -113,19 +113,19 @@ CssStyleSheet::compress_numbers(XString subvalue, XString property)
 		
 	for (int i = 0; i < (int) temp.size(); ++i)
 	{
-		if(!(temp[i].length() > 0 && (ctype_digit(temp[i][0]) || temp[i][0] == '+' || temp[i][0] == '-' ) ))
+		if(!(temp[i].length() > 0 && (ctype_digit(temp[i][0]) || temp[i][0] == _T('+') || temp[i][0] == _T('-') ) ))
 		{
 			continue;
 		}
 		
 		if(in_str_array(m_color_values,property))
 		{
-			temp[i] = "#" + temp[i];
+			temp[i] = _T("#") + temp[i];
 		}
 	
 		if(str2f(temp[i]) == 0)
 		{
-			temp[i] = "0";
+			temp[i] = _T("0");
 		}
 		else
 		{
@@ -143,7 +143,7 @@ CssStyleSheet::compress_numbers(XString subvalue, XString property)
 			if(!unit_found && !in_str_array(m_number_values,property))
 			{
 				temp[i] = f2str(str2f(temp[i]));
-				temp[i] += "px";
+				temp[i] += _T("px");
 			}
 			else if(!unit_found)
 			{
@@ -151,14 +151,14 @@ CssStyleSheet::compress_numbers(XString subvalue, XString property)
 			}
 		}
 	}
-	return (temp.size() > 1) ? temp[0] + "/" + temp[1] : temp[0];
+	return (temp.size() > 1) ? temp[0] + _T("/") + temp[1] : temp[0];
 }
 
 bool
 CssStyleSheet::property_is_next(XString istring, size_t pos)
 {
 	istring = istring.substr(pos,istring.length()-pos);
-	pos = istring.find_first_of(':',0);
+	pos = istring.find_first_of(_T(':'),0);
 	if(pos == XString::npos)
 	{
 		return false;
@@ -170,33 +170,33 @@ CssStyleSheet::property_is_next(XString istring, size_t pos)
 XString
 CssStyleSheet::cut_color(XString color)
 {
-	if(strtolower(color.substr(0,4)) == "rgb(")
+	if(strtolower(color.substr(0,4)) == _T("rgb("))
 	{
-		vector<XString> color_tmp = explode(",",color.substr(4,color.length()-5));
+		vector<XString> color_tmp = explode(_T(","),color.substr(4,color.length()-5));
 
 		for (int i = 0; i < (int)color_tmp.size(); ++i)
 		{
 			color_tmp[i] = trim(color_tmp[i]);
-			if(color_tmp[i].at(color_tmp[i].length()-1) == '%')
+			if(color_tmp[i].at(color_tmp[i].length()-1) == _T('%'))
 			{
-				color_tmp[i] = f2str((float)round((float)255 * atoi(color_tmp[i].c_str())/100,0));
+				color_tmp[i] = f2str((float)round((float)255 * _ttoi(color_tmp[i].c_str())/100,0));
 			}
-			if(atoi(color_tmp[i].c_str()) > 255) 
+			if(_ttoi(color_tmp[i].c_str()) > 255) 
       {
-        color_tmp[i] = "255";
+        color_tmp[i] = _T("255")	;
       }
 		}
 		
-		color = "#";
+		color = _T("#");
 		for (int i = 0; i < (int)color_tmp.size(); ++i)
 		{
-			if(atoi(color_tmp[i].c_str()) < 16)
+			if(_ttoi(color_tmp[i].c_str()) < 16)
 			{
-				color += "0" + dechex(atoi(color_tmp[i].c_str()));
+				color += _T("0") + dechex(_ttoi(color_tmp[i].c_str()));
 			}
 			else
 			{
-				color += dechex(atoi(color_tmp[i].c_str()));
+				color += dechex(_ttoi(color_tmp[i].c_str()));
 			}
 		}
 	}
@@ -211,9 +211,9 @@ CssStyleSheet::cut_color(XString color)
 	{
 		XString color_temp = strtoupper(color);
 
-		if(color_temp[0] == '#' && color_temp[1] == color_temp[2] && color_temp[3] == color_temp[4] && color_temp[5] == color_temp[6])
+		if(color_temp[0] == _T('#') && color_temp[1] == color_temp[2] && color_temp[3] == color_temp[4] && color_temp[5] == color_temp[6])
 		{
-			color = "#";
+			color = _T("#");
 			color += color_temp[2];
 			color += color_temp[3];
 			color += color_temp[5];
@@ -222,21 +222,21 @@ CssStyleSheet::cut_color(XString color)
 
 	XString temp = strtolower(color);
 	/* color name -> hex code */
-	if(temp == "black")		return "#000";
-	if(temp == "fuchsia")	return "#F0F";
-	if(temp == "white")		return "#FFF";
-	if(temp == "yellow")	return "#FF0";		
+	if(temp == _T("black"))		return _T("#000");
+	if(temp == _T("fuchsia"))	return _T("#F0F");
+	if(temp == _T("white"))		return _T("#FFF");
+	if(temp == _T("yellow"))	return _T("#FF0");		
 	/* hex code -> color name */
-	if(temp == "#800000")	return "maroon";
-	if(temp == "#ffa500")	return "orange";
-	if(temp == "#808000")	return "olive";
-	if(temp == "#800080")	return "purple";
-	if(temp == "#008000")	return "green";
-	if(temp == "#000080")	return "navy";
-	if(temp == "#008080")	return "teal";
-	if(temp == "#c0c0c0")	return "silver";
-	if(temp == "#808080")	return "gray";
-	if(temp == "#f00")		return "red";	
+	if(temp == _T("#800000"))	return _T("maroon");
+	if(temp == _T("#ffa500"))	return _T("orange");
+	if(temp == _T("#808000"))	return _T("olive");
+	if(temp == _T("#800080"))	return _T("purple");
+	if(temp == _T("#008000"))	return _T("green");
+	if(temp == _T("#000080"))	return _T("navy");
+	if(temp == _T("#008080"))	return _T("teal");
+	if(temp == _T("#c0c0c0"))	return _T("silver");
+	if(temp == _T("#808080"))	return _T("gray");
+	if(temp == _T("#f00"))		return _T("red");	
 
 	return color;
 }
@@ -244,20 +244,20 @@ CssStyleSheet::cut_color(XString color)
 int
 CssStyleSheet::c_font_weight(XString& value)
 {
-	XString important = "";
+	XString important = _T("");
 	if(is_important(value))
 	{
-		important = " !important";
+		important = _T(" !important");
 		value = gvw_important(value);
 	}
-	if(value == "bold")
+	if(value == _T("bold"))
 	{
-		value = "700"+important;
+		value = _T("700")+important;
 		return 700;
 	}
-	else if(value == "normal")
+	else if(value == _T("normal"))
 	{
-		value = "400"+important;
+		value = _T("400")+important;
 		return 400;
 	}
 	return 0;
@@ -270,7 +270,7 @@ CssStyleSheet::merge_selectors(sstore& input)
   //sstore::iterator last;
 	for(sstore::iterator i = input.begin(),last = i; i != input.end();)
 	{
-		XString newsel = "";
+		XString newsel = _T("");
 
 		// Check if properties also exist in another selector
 		vector<XString> keys;
@@ -294,7 +294,7 @@ CssStyleSheet::merge_selectors(sstore& input)
 			for(int k = 0; k < (int)keys.size(); ++k)
 			{
 				input.erase(keys[k]);
-				newsel += "," + keys[k];
+				newsel += _T(",") + keys[k];
 			}
 
 			input[newsel] = i->second;
@@ -321,26 +321,26 @@ XString CssStyleSheet::optimise_subvalue(XString subvalue, const XString propert
 	{
 		if(temp.length() > subvalue.length())
 		{
-			log("Fixed invalid number: Changed \"" + subvalue + "\" to \"" + temp + "\"",Warning);
+			log(_T("Fixed invalid number: Changed \"") + subvalue + _T("\" to \"") + temp + _T("\""),Warning);
 		}
 		else
 		{
-			log("Optimised number: Changed \"" + subvalue + "\" to \"" + temp + "\"",Information);
+			log(_T("Optimised number: Changed \"") + subvalue + _T("\" to \"") + temp + _T("\""),Information);
 		}
 		subvalue = temp;
 	}
-	if(m_settings["compress_colors"])
+	if(m_settings[_T("compress_colors")])
 	{
 		temp = cut_color(subvalue);
 		if(temp != subvalue)
 		{
 			if(m_replace_colors.count(subvalue) > 0)
 			{
-				log("Fixed invalid color name: Changed \"" + subvalue + "\" to \"" + temp + "\"",Warning);
+				log(_T("Fixed invalid color name: Changed \"") + subvalue + _T("\" to \"") + temp + _T("\""),Warning);
 			}
 			else
 			{
-				log("Optimised color: Changed \"" + subvalue + "\" to \"" + temp + "\"",Information);
+				log(_T("Optimised color: Changed \"") + subvalue + _T("\" to \"") + temp + _T("\""),Information);
 			}
 			subvalue = temp;
 		}
@@ -355,103 +355,103 @@ CssStyleSheet::dissolve_short_bg(XString istring)
 {
   vector<XString> repeat,attachment,clip,origin,pos,str_values;
 
-  repeat.push_back("repeat"); 
-  repeat.push_back("repeat-x"); 
-  repeat.push_back("repeat-y");
-  repeat.push_back("no-repeat"); 
-  repeat.push_back("space");
-  attachment.push_back("scroll"); 
-  attachment.push_back("fixed"); 
-  attachment.push_back("local");
-  clip.push_back("border"); 
-  clip.push_back("padding");
-  origin.push_back("border"); 
-  origin.push_back("padding"); 
-  origin.push_back("content");
-  pos.push_back("top"); 
-  pos.push_back("center"); 
-  pos.push_back("bottom"); 
-  pos.push_back("left"); 
-  pos.push_back("right");
-  XString important = "";
+  repeat.push_back(_T("repeat")); 
+  repeat.push_back(_T("repeat-x")); 
+  repeat.push_back(_T("repeat-y"));
+  repeat.push_back(_T("no-repeat")); 
+  repeat.push_back(_T("space"));
+  attachment.push_back(_T("scroll")); 
+  attachment.push_back(_T("fixed")); 
+  attachment.push_back(_T("local"));
+  clip.push_back(_T("border")); 
+  clip.push_back(_T("padding"));
+  origin.push_back(_T("border")); 
+  origin.push_back(_T("padding")); 
+  origin.push_back(_T("content"));
+  pos.push_back(_T("top")); 
+  pos.push_back(_T("center")); 
+  pos.push_back(_T("bottom")); 
+  pos.push_back(_T("left")); 
+  pos.push_back(_T("right"));
+  XString important = _T("");
 
   map<XString,XString> ret;
   map<XString,bool> have;
-  ret["background-image"] = "";
-  ret["background-size"] = "";
-  ret["background-repeat"] = "";
-  ret["background-position"] = "";
-  ret["background-attachment"] = "";
-  ret["background-clip"] = "";
-  ret["background-origin"] = "";
-  ret["background-color"] = "";
+  ret[_T("background-image")] = _T("");
+  ret[_T("background-size")] = _T("");
+  ret[_T("background-repeat")] = _T("");
+  ret[_T("background-position")] = _T("");
+  ret[_T("background-attachment")] = _T("");
+  ret[_T("background-clip")] = _T("");
+  ret[_T("background-origin")] = _T("");
+  ret[_T("background-color")] = _T("");
 
   if(is_important(istring))
   {
-    important = " !important";
+    important = _T(" !important");
     istring = gvw_important(istring);
   }
 
-  str_values = explode_ws(',',istring);
+  str_values = explode_ws(_T(','),istring);
   for(int i = 0; i < (int) str_values.size(); i++)
   {
-    have["clip"] = false; have["pos"] = false;
-    have["color"] = false; have["bg"] = false;
+    have[_T("clip")] = false; have[_T("pos")] = false;
+    have[_T("color")] = false; have[_T("bg")] = false;
 
-    vector<XString> temp_values = explode_ws(' ',trim(str_values[i]));
+    vector<XString> temp_values = explode_ws(_T(' '),trim(str_values[i]));
 
     for(int j = 0; j < (int) temp_values.size(); j++)
     {
-      if(have["bg"] == false && ((temp_values[j]).substr(0,4) == "url(" || temp_values[j] == "none"))
+      if(have[_T("bg")] == false && ((temp_values[j]).substr(0,4) == _T("url(") || temp_values[j] == _T("none")))
       {
-        ret["background-image"] += temp_values[j];
-        ret["background-image"] += ",";
-        have["bg"] = true;
+        ret[_T("background-image")] += temp_values[j];
+        ret[_T("background-image")] += _T(",");
+        have[_T("bg")] = true;
       }
       else if(in_str_array(repeat,temp_values[j]))
       {
-        ret["background-repeat"] += temp_values[j];
-        ret["background-repeat"] += ",";
+        ret[_T("background-repeat")] += temp_values[j];
+        ret[_T("background-repeat")] += _T(",");
       }
       else if(in_str_array(attachment,temp_values[j]))
       {
-        ret["background-attachment"] += temp_values[j];
-        ret["background-attachment"] += ",";
+        ret[_T("background-attachment")] += temp_values[j];
+        ret[_T("background-attachment")] += _T(",");
       }
-      else if(in_str_array(clip,temp_values[j]) && !have["clip"])
+      else if(in_str_array(clip,temp_values[j]) && !have[_T("clip")])
       {
-        ret["background-clip"] += temp_values[j];
-        ret["background-clip"] += ",";
-        have["clip"] = true;
+        ret[_T("background-clip")] += temp_values[j];
+        ret[_T("background-clip")] += _T(",");
+        have[_T("clip")] = true;
       }
       else if(in_str_array(origin,temp_values[j]))
       {
-        ret["background-origin"] += temp_values[j];
-        ret["background-origin"] += ",";
+        ret[_T("background-origin")] += temp_values[j];
+        ret[_T("background-origin")] += _T(",");
       }
-      else if(temp_values[j][0] == '(')
+      else if(temp_values[j][0] == _T('('))
       {
-        ret["background-size"] += (temp_values[j]).substr(1,temp_values[j].length()-2);
-        ret["background-size"] += ",";
+        ret[_T("background-size")] += (temp_values[j]).substr(1,temp_values[j].length()-2);
+        ret[_T("background-size")] += _T(",");
       }
-      else if(in_str_array(pos,temp_values[j]) || isdigit(temp_values[j][0]) || temp_values[j][0] == 0)
+      else if(in_str_array(pos,temp_values[j]) || _istdigit(temp_values[j][0]) || temp_values[j][0] == 0)
       {
-        ret["background-position"] += temp_values[j];
-        if(!have["pos"]) ret["background-position"] += " "; else ret["background-position"] += ",";
-        have["pos"] = true;
+        ret[_T("background-position")] += temp_values[j];
+        if(!have[_T("pos")]) ret[_T("background-position")] += _T(" "); else ret[_T("background-position")] += _T(",");
+        have[_T("pos")] = true;
       }
-      else if(!have["color"])
+      else if(!have[_T("color")])
       {
-        ret["background-color"] += temp_values[j];
-        ret["background-color"] += ",";
-        have["color"] = true;
+        ret[_T("background-color")] += temp_values[j];
+        ret[_T("background-color")] += _T(",");
+        have[_T("color")] = true;
       }
     }
   }
 
   for(map<XString,XString>::iterator it = m_background_prop_default.begin(); it != m_background_prop_default.end(); it++ )
   {
-    if(ret[it->first] != "")
+    if(ret[it->first] != _T(""))
     {
       ret[it->first] = (ret[it->first]).substr(0,ret[it->first].length()-1);
       ret[it->first] += important;
@@ -467,14 +467,14 @@ CssStyleSheet::dissolve_short_bg(XString istring)
 }
 
 vector<XString>
-CssStyleSheet::explode_ws(char sep,XString istring)
+CssStyleSheet::explode_ws(TCHAR sep,XString istring)
 {
   // 1 = st // 2 = str
   int status = 1;
-  char to = ' ';
+  TCHAR to = _T(' ');
 
   vector<XString> output;
-  output.push_back("");
+  output.push_back(_T(""));
   int num = 0;
   int len = (int) istring.length();
   for(int i = 0;i < len; i++)
@@ -485,12 +485,12 @@ CssStyleSheet::explode_ws(char sep,XString istring)
       if(istring[i] == sep && !escaped(istring,i))
       {
         ++num;
-        output.push_back("");
+        output.push_back(_T(""));
       }
-      else if(istring[i] == '"' || istring[i] == '\'' || istring[i] == '(' && !escaped(istring,i))
+      else if(istring[i] == _T('"') || istring[i] == _T('\'') || istring[i] == _T('(') && !escaped(istring,i))
       {
         status = 2;
-        to = (istring[i] == '(') ? ')' : istring[i];
+        to = (istring[i] == _T('(')) ? _T(')') : istring[i];
         output[num] += istring[i];
       }
       else
@@ -516,10 +516,10 @@ void
 CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
 {
   // Max number of background images. CSS3 not yet fully implemented
-  int number_of_values = cssmax(((int)explode_ws(',',css_input["background-image"]).size()),(int)(explode_ws(',',css_input["background-color"])).size());
+  int number_of_values = cssmax(((int)explode_ws(_T(','),css_input[_T("background-image")]).size()),(int)(explode_ws(_T(','),css_input[_T("background-color")])).size());
   // Array with background images to check if BG image exists
-  vector<XString> bg_img_array = explode_ws(',',gvw_important(css_input["background-image"]));
-  XString new_bg_value,important = "";
+  vector<XString> bg_img_array = explode_ws(_T(','),gvw_important(css_input[_T("background-image")]));
+  XString new_bg_value,important = _T("");
 
   for(int i = 0; i < number_of_values; i++)
   {
@@ -534,9 +534,9 @@ CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
       XString cur_value = css_input[it->first];
 
       // Skip some properties if there is no background image
-      if(((int)bg_img_array.size() <= i || bg_img_array[i] == "none")
-        && (it->first == "background-size"       || it->first == "background-position"
-         || it->first == "background-attachment" || it->first == "background-repeat"))
+      if(((int)bg_img_array.size() <= i || bg_img_array[i] == _T("none"))
+        && (it->first == _T("background-size")       || it->first == _T("background-position")
+         || it->first == _T("background-attachment") || it->first == _T("background-repeat")))
       {
         continue;
       }
@@ -544,7 +544,7 @@ CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
       // Remove !important
       if(is_important(cur_value))
       {
-        important = " !important";
+        important = _T(" !important");
         cur_value = gvw_important(cur_value);
       }
 
@@ -554,26 +554,26 @@ CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
         continue;
       }
 
-      vector<XString> temp = explode_ws(',',cur_value);
+      vector<XString> temp = explode_ws(_T(','),cur_value);
 
       if((int)temp.size() > i)
       {					
-        if(it->first == "background-size")
+        if(it->first == _T("background-size"))
         {
-          new_bg_value += "(";
+          new_bg_value += _T("(");
           new_bg_value += temp[i];
-          new_bg_value += ") ";
+          new_bg_value += _T(") ");
         }
         else
         {
           new_bg_value += temp[i];
-          new_bg_value += " ";
+          new_bg_value += _T(" ");
         }
       }			
     }
 
     new_bg_value = trim(new_bg_value);
-    if(i != number_of_values-1) new_bg_value += ",";
+    if(i != number_of_values-1) new_bg_value += _T(",");
   }
 
   // Delete all background-properties
@@ -583,8 +583,8 @@ CssStyleSheet::merge_bg(umap<XString,XString>& css_input)
   }
 
   // Add new background property
-  if(new_bg_value != "")
+  if(new_bg_value != _T(""))
   {
-    css_input["background"] = new_bg_value + important;
+    css_input[_T("background")] = new_bg_value + important;
   }
 }

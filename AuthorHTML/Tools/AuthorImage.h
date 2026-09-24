@@ -24,13 +24,13 @@ public:
   ~AuthorImage();
 
   //bool BepaalAfbeelding(OnderdeelInfo* ond,int logica = AFB_SET_KNOPPEN, LPCSTR ptype = NULL,SchermAttribuut att = sat_afbeelding);
-  bool CalculateStandard(LPCSTR type,LPCSTR def = NULL);
-  bool ZetAfbeelding(LPCSTR afbeelding = NULL);
+  bool CalculateStandard(LPCTSTR type,LPCTSTR def = NULL);
+  bool ZetAfbeelding(LPCTSTR afbeelding = NULL);
 
   bool HasImage();
   CRect PaintBitmap(CDC& pDC,CRect& rect,int volgNr,int drawParam);
 
-  static Ref<CAfbeeldingInfo> CalculateImageInfo(LPCSTR str,int logica = AFB_SET_KNOPPEN);
+  static Ref<CAfbeeldingInfo> CalculateImageInfo(LPCTSTR str,int logica = AFB_SET_KNOPPEN);
   int CalculateButtonLayout(int& buttonLayout);
 
 public:

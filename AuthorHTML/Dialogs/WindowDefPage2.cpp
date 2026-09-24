@@ -35,10 +35,10 @@ WindowDefPage2::WindowDefPage2(CWnd*        p_parent
   m_locate    = false;
   m_user1     = false;
   m_user2     = false;
-  m_label1    = "";
-  m_label2    = "";
-  m_file1     = "";
-  m_file2     = "";
+  m_label1    = _T("");
+  m_label2    = _T("");
+  m_file1     = _T("");
+  m_file2     = _T("");
 }
 
 WindowDefPage2::~WindowDefPage2()

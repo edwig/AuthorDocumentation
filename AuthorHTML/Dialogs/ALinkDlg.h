@@ -19,7 +19,7 @@ class ALinkDlg : public CDialog
 	DECLARE_DYNAMIC(ALinkDlg)
 
 public:
-	ALinkDlg(CWnd* p_parent,CString& p_keyword);
+	ALinkDlg(CWnd* p_parent,XString& p_keyword);
 	virtual ~ALinkDlg();
   CString  GetKeyword();
 

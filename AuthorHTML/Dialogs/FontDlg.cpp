@@ -55,15 +55,15 @@ void FontDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     int ind;
@@ -103,22 +103,22 @@ FontDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Set sizes
-  static char* nFontSizes[] = 
+  static TCHAR* nFontSizes[] = 
   {
-    "8", "10", "12", "14", "18", "24", "36",
-    "+1","+2", "+3", "+4", "+5", "+6", "+7",
-    "-1","-2", "-3", "-4", "-5", "-6", "-7"
+    _T("8"), _T("10"), _T("12"), _T("14"), _T("18"), _T("24"), _T("36"),
+    _T("+1"),_T("+2"), _T("+3"), _T("+4"), _T("+5"), _T("+6"), _T("+7"),
+    _T("-1"),_T("-2"), _T("-3"), _T("-4"), _T("-5"), _T("-6"), _T("-7")
   };
-  for (int i = 0; i < sizeof(nFontSizes)/sizeof(char*); i++)
+  for (int i = 0; i < sizeof(nFontSizes)/sizeof(TCHAR*); i++)
   {
     m_comboSize.AddString(nFontSizes[i]);
   }
   // Set Faces
   m_comboFace.ResetContent();
-  m_comboFace.AddString("");
-  m_comboFace.AddString("serif");
-  m_comboFace.AddString("sans-serif");
-  m_comboFace.AddString("monospace");
+  m_comboFace.AddString(_T(""));
+  m_comboFace.AddString(_T("serif"));
+  m_comboFace.AddString(_T("sans-serif"));
+  m_comboFace.AddString(_T("monospace"));
   ::EnumFontFamilies(GetDC()->m_hDC,(LPTSTR) NULL,(FONTENUMPROC)NEnumFontNameProc,(LPARAM)(&m_comboFace));
 
   m_buttonColor.SetColor(COLOR_DEFAULT_FONTCOLOR);
@@ -132,19 +132,19 @@ FontDlg::OnInitDialog()
 void
 FontDlg::FillPage()
 {
-  m_color = m_elem->GetAttribute("color");
-  m_size  = m_elem->GetAttribute("size");
-  m_face  = m_elem->GetAttribute("face");
+  m_color = m_elem->GetAttribute(_T("color"));
+  m_size  = m_elem->GetAttribute(_T("size"));
+  m_face  = m_elem->GetAttribute(_T("face"));
 
   m_size.Trim();
   if(!m_size.IsEmpty())
   {
-    if(m_size.GetAt(0) != '-' && 
-       m_size.GetAt(0) != '+' )
+    if(m_size.GetAt(0) != _T('-') && 
+       m_size.GetAt(0) != _T('+') )
     {
-      int size = atoi(m_size);
+      int size = _ttoi(m_size);
       size = Misc::PointSizeToFontSize(size);
-      m_size.Format("%d",size);
+      m_size.Format(_T("%d"),size);
     }
   }
   if(m_color.IsEmpty())
@@ -166,12 +166,12 @@ FontDlg::UpdateProperties()
   m_size.Trim();
   if(!m_size.IsEmpty())
   {
-    if(m_size.GetAt(0) != '-' &&
-       m_size.GetAt(0) != '+' )
+    if(m_size.GetAt(0) != _T('-') &&
+       m_size.GetAt(0) != _T('+') )
     {
-      int size = atoi(m_size);
+      int size = _ttoi(m_size);
       size = Misc::FontSizeToPointSize(size);
-      m_size.Format("%d",size);
+      m_size.Format(_T("%d"),size);
     }
   }
   if(m_hasColor)
@@ -180,16 +180,16 @@ FontDlg::UpdateProperties()
     {
       int red,green,blue;
       Misc::DecodeColor(m_color,red,green,blue);
-      m_color.Format("#%02x%02x%02x",red,green,blue);
+      m_color.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_color = "";
+    m_color = _T("");
   }
-  m_elem->SetAttribute("color",m_color);
-  m_elem->SetAttribute("size", m_size);
-  m_elem->SetAttribute("face", m_face);
+  m_elem->SetAttribute(_T("color"),m_color);
+  m_elem->SetAttribute(_T("size"), m_size);
+  m_elem->SetAttribute(_T("face"), m_face);
 }
 
 // FontDlg message handlers
@@ -211,7 +211,7 @@ FontDlg::OnBnClickedColorButton()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_color.Format("#%02x%02x%02x",red,green,blue);
+  m_color.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -231,14 +231,14 @@ FontDlg::OnCbnSelchangeFace()
 void 
 FontDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"FONT",m_elem);
+  GeneralIDDlg dlg(this,_T("FONT"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FontDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"FONT");
+  TagEventsDlg dlg(this,m_elem,_T("FONT"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -251,13 +251,13 @@ FontDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("font { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"font",NULL,style);
+  style = CString(_T("font { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("font"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("font {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("font {"));
     m_elem->SetInlineStyle(style);
   }
 }

@@ -58,15 +58,15 @@ FormImageDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
   else
@@ -136,16 +136,16 @@ void
 FormImageDlg::OnBnClickedFiChoose()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select an image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select an image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                    "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                    "Graphics Information File (gif)|*.gif|"
-                    "Portable Network Graphics (png)|*.png|"
-                    "Windows bitmaps (bmp)|*.bmp|"
-                    "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                    _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                    _T("Graphics Information File (gif)|*.gif|")
+                    _T("Portable Network Graphics (png)|*.png|")
+                    _T("Windows bitmaps (bmp)|*.bmp|")
+                    _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     m_url = diag.GetChosenFile();
@@ -173,7 +173,7 @@ FormImageDlg::OnBnClickedOk()
 {
   if(m_url.IsEmpty())
   {
-    theApp.ErrorMessage("A form image submit button must have at least an image-url!");
+    theApp.ErrorMessage(_T("A form image submit button must have at least an image-url!"));
     return;
   }
   UpdateProperties();
@@ -188,14 +188,14 @@ FormImageDlg::OnBnClickedCancel()
 
 void FormImageDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"input",m_elem);
+  GeneralIDDlg dlg(this,_T("input"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormImageDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"input");
+  TagEventsDlg dlg(this,m_elem,_T("input"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -207,13 +207,13 @@ void FormImageDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("input { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"input",NULL,style);
+  style = CString(_T("input { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("input"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("input {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("input {"));
     m_elem->SetInlineStyle(style);
   }
 }

@@ -13,13 +13,13 @@ class AuMessageBox : CDialog
 public:
   // Maak door middel van label/stijlen strings
   AuMessageBox(CWnd*  p_parent
-              ,LPCSTR p_titel
-              ,LPCSTR p_boodschap
+              ,LPCTSTR p_titel
+              ,LPCTSTR p_boodschap
               ,CString p_labels);
   // Maak door middel van MB_* stijlen
   AuMessageBox(CWnd* parent
-              ,LPCSTR titel
-              ,LPCSTR boodschap
+              ,LPCTSTR titel
+              ,LPCTSTR boodschap
               ,int    stijlen);
   // Destructor
   ~AuMessageBox();
@@ -76,26 +76,26 @@ private:
   void OnderdrukVoortaan();
 
   // DATA
-  CFont* m_font;            // Font waarin we het tonen
-  bool   m_ownsFont;        // Font wissen bij destructie?
-  CString m_titel;          // Titel van het dialoog
-  CString m_boodschap;      // Dit willen we tonen
-  int    m_stijlen;         // signaal stijlen
-  int    m_default;         // Deze knop is de default knop
-  bool   m_def_gedaan;      // Default focus gedaan
-  CString m_afbeelding;     // Signal this bitmap
-  AuthorImage m_image;      // Signaal plaatje 
-  CRect     m_tekstRect;    // Hier komt de boodschap
-  CRect     m_buttonRect;   // Grootte van een knop
-  CButtonC* m_button[5];    // Max = 5 Buttons
-  CString   m_label[5];     // Max = 5 labels
-  CString   m_style[5];     // Max = 5 styles
-  int       m_breed[5];     // Max = 5 knop breedtes
+  CFont*       m_font;         // Font waarin we het tonen
+  bool         m_ownsFont;     // Font wissen bij destructie?
+  CString      m_titel;        // Titel van het dialoog
+  CString      m_boodschap;    // Dit willen we tonen
+  int          m_stijlen;      // signaal stijlen
+  int          m_default;      // Deze knop is de default knop
+  bool         m_def_gedaan;   // Default focus gedaan
+  CString      m_afbeelding;   // Signal this bitmap
+  AuthorImage  m_image;        // Signaal plaatje 
+  CRect        m_tekstRect;    // Hier komt de boodschap
+  CRect        m_buttonRect;   // Grootte van een knop
+  CButtonC*    m_button[5];    // Max = 5 Buttons
+  CString      m_label[5];     // Max = 5 labels
+  CString      m_style[5];     // Max = 5 styles
+  int          m_breed[5];     // Max = 5 knop breedtes
  
   // Voor boodschap register
-  bool         m_alleenOK;      // Aleen een OK knop
-  AD_Checkbox* m_onderdruk;     // Onderdruk dialoog
-  CRect        m_lijn;          // Lijn ter onderverdeling
-  bool         m_nietMeer;      // Niet meer tonen
+  bool         m_alleenOK;     // Aleen een OK knop
+  AD_Checkbox* m_onderdruk;    // Onderdruk dialoog
+  CRect        m_lijn;         // Lijn ter onderverdeling
+  bool         m_nietMeer;     // Niet meer tonen
 };
 

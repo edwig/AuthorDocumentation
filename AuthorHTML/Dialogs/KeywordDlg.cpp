@@ -71,8 +71,8 @@ KeywordDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Link types
-  m_comboType.AddString("Composite index keyword");   // K-Link
-  m_comboType.AddString("Associative link keyword");  // A-Link
+  m_comboType.AddString(_T("Composite index keyword"));   // K-Link
+  m_comboType.AddString(_T("Associative link keyword"));  // A-Link
 
   FillPage();
   SyncFocus();
@@ -141,12 +141,12 @@ void
 KeywordDlg::CheckWord(CString& p_word)
 {
   // Check for illegal characters in the keyword
-  int pos = p_word.Find(',');
+  int pos = p_word.Find(_T(','));
   if (pos >= 0)
   {
     CString message;
-    message.Format("Illegal character ',' in keyword '%s'.\n"
-                   "Please remove the comma and try again.", p_word.GetString());
+    message.Format(_T("Illegal character ',' in keyword '%s'.\n")
+                   _T("Please remove the comma and try again."), p_word.GetString());
     theApp.Panic(message);
     p_word.Empty();
   }
@@ -174,16 +174,16 @@ KeywordDlg::ReComposite()
   {
     if(!m_level2.IsEmpty())
     {
-      composite += ", " + m_level2;
+      composite += _T(", ") + m_level2;
       if(!m_level3.IsEmpty())
       {
-        composite += ", " + m_level3;
+        composite += _T(", ") + m_level3;
         if(!m_level4.IsEmpty())
         {
-          composite += ", " + m_level4;
+          composite += _T(", ") + m_level4;
           if(!m_level5.IsEmpty())
           {
-            composite += ", " + m_level5;
+            composite += _T(", ") + m_level5;
           }
         }
         else

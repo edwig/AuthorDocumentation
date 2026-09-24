@@ -35,7 +35,7 @@ protected:
 
 private:
   void    ResetDialog();
-  void    ExtraSelector(char extra);
+  void    ExtraSelector(TCHAR extra);
   CString GetAddedSelector();
 
   CString     m_totalResult;

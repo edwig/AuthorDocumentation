@@ -72,18 +72,18 @@ int
 NavigateHyperlink::GetRelationIndex(CString& rel)
 {
   int index = -1;
-       if(rel == "Appendix")     index = 0;
-  else if(rel == "Chapter")      index = 1;
-  else if(rel == "Contents")     index = 2;
-  else if(rel == "Copyright")    index = 3;
-  else if(rel == "Glossary")     index = 4;
-  else if(rel == "Help")         index = 5;
-  else if(rel == "Index")        index = 6;
-  else if(rel == "Next")         index = 7;
-  else if(rel == "Prev")         index = 8;
-  else if(rel == "Section")      index = 9;
-  else if(rel == "Start")        index = 10;
-  else if(rel == "Subsection")   index = 11;
+       if(rel == _T("Appendix"))     index = 0;
+  else if(rel == _T("Chapter"))      index = 1;
+  else if(rel == _T("Contents"))     index = 2;
+  else if(rel == _T("Copyright"))    index = 3;
+  else if(rel == _T("Glossary"))     index = 4;
+  else if(rel == _T("Help"))         index = 5;
+  else if(rel == _T("Index"))        index = 6;
+  else if(rel == _T("Next"))         index = 7;
+  else if(rel == _T("Prev"))         index = 8;
+  else if(rel == _T("Section"))      index = 9;
+  else if(rel == _T("Start"))        index = 10;
+  else if(rel == _T("Subsection"))   index = 11;
   return index;
 }
 

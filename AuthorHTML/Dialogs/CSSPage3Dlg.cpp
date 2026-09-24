@@ -52,14 +52,14 @@ void CSSPage3Dlg::DoDataExchange(CDataExchange* pDX)
 
   if(pDX->m_bSaveAndValidate == Data2Controls)
   {
-    CString repeat = Misc::GetAttributeDisplayname("background-repeat",m_backgroundRepeat);
+    CString repeat = Misc::GetAttributeDisplayname(_T("background-repeat"),m_backgroundRepeat);
     int ind = m_comboRepeat.FindString(-1,repeat);
     if(ind >= 0)
     {
       m_comboRepeat.SetCurSel(ind);
     }
-    if(m_backgroundAttach == "" ||
-       m_backgroundAttach.CompareNoCase("scroll") == 0)
+    if(m_backgroundAttach == _T("") ||
+       m_backgroundAttach.CompareNoCase(_T("scroll")) == 0)
     {
       m_buttonAttach.SetCheck(TRUE);
     }
@@ -78,15 +78,15 @@ void CSSPage3Dlg::DoDataExchange(CDataExchange* pDX)
     m_buttonHRight .EnableWindow(enable);
 
     int toCheck = IDC_BI_TOP;
-    if(m_backgroundPosV.CompareNoCase("top")    == 0) toCheck = IDC_BI_TOP;
-    if(m_backgroundPosV.CompareNoCase("center") == 0) toCheck = IDC_BI_CENTER;
-    if(m_backgroundPosV.CompareNoCase("bottom") == 0) toCheck = IDC_BI_BOTTOM;
+    if(m_backgroundPosV.CompareNoCase(_T("top"))    == 0) toCheck = IDC_BI_TOP;
+    if(m_backgroundPosV.CompareNoCase(_T("center")) == 0) toCheck = IDC_BI_CENTER;
+    if(m_backgroundPosV.CompareNoCase(_T("bottom")) == 0) toCheck = IDC_BI_BOTTOM;
     CheckRadioButton(IDC_BI_TOP,IDC_BI_BOTTOM,toCheck);
 
     toCheck= IDC_BI_LEFT;
-    if(m_backgroundPosH.CompareNoCase("left")   == 0) toCheck = IDC_BI_LEFT;
-    if(m_backgroundPosH.CompareNoCase("center") == 0) toCheck = IDC_BI_MIDDLE;
-    if(m_backgroundPosH.CompareNoCase("right")  == 0) toCheck = IDC_BI_RIGHT;
+    if(m_backgroundPosH.CompareNoCase(_T("left"))   == 0) toCheck = IDC_BI_LEFT;
+    if(m_backgroundPosH.CompareNoCase(_T("center")) == 0) toCheck = IDC_BI_MIDDLE;
+    if(m_backgroundPosH.CompareNoCase(_T("right"))  == 0) toCheck = IDC_BI_RIGHT;
     CheckRadioButton(IDC_BI_LEFT,IDC_BI_RIGHT,toCheck);
 
     ((StyleSheetDlg*)GetParent())->SetBackgroundColor(m_backgroundColor);
@@ -127,8 +127,8 @@ CSSPage3Dlg::OnInitDialog()
     m_spBrowser = pWnd->GetControlUnknown();
   }
   // Fill combo repeat
-  vector<string> all;
-  Misc::GetAllAttributeDisplaynames("background-repeat",&all);
+  vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("background-repeat"),&all);
   for(unsigned int ind=0; ind<all.size(); ++ind)
   {
     m_comboRepeat.AddString(all[ind].c_str());
@@ -142,7 +142,7 @@ CSSPage3Dlg::OnInitDialog()
 }
 
 void
-CSSPage3Dlg::SetSelector(string selector)
+CSSPage3Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -151,11 +151,11 @@ CSSPage3Dlg::SetSelector(string selector)
 void
 CSSPage3Dlg::FillPage()
 {
-  m_backgroundColor  = CSSPropertyGet(m_css,m_selector,"background-color", false);
-  m_backgroundImage  = CSSPropertyGet(m_css,m_selector,"background-image", false);
-  m_backgroundRepeat = CSSPropertyGet(m_css,m_selector,"background-repeat",false);
-  m_backgroundAttach = CSSPropertyGet(m_css,m_selector,"background-attachment",false);
-  CString backPos    = CSSPropertyGet(m_css,m_selector,"background-position",  false);
+  m_backgroundColor  = CSSPropertyGet(m_css,m_selector,_T("background-color"), false);
+  m_backgroundImage  = CSSPropertyGet(m_css,m_selector,_T("background-image"), false);
+  m_backgroundRepeat = CSSPropertyGet(m_css,m_selector,_T("background-repeat"),false);
+  m_backgroundAttach = CSSPropertyGet(m_css,m_selector,_T("background-attachment"),false);
+  CString backPos    = CSSPropertyGet(m_css,m_selector,_T("background-position"),  false);
 
   if(m_backgroundColor.IsEmpty())
   {
@@ -170,15 +170,15 @@ CSSPage3Dlg::FillPage()
   }
   if(!m_backgroundImage.IsEmpty())
   {
-    if(m_backgroundImage.Left(3).CompareNoCase("url") == 0)
+    if(m_backgroundImage.Left(3).CompareNoCase(_T("url")) == 0)
     {
       m_backgroundImage = m_backgroundImage.Mid(3);
-      m_backgroundImage.TrimLeft ("( \"");
-      m_backgroundImage.TrimRight(") \"");
+      m_backgroundImage.TrimLeft (_T("( \""));
+      m_backgroundImage.TrimRight(_T(") \""));
     }
   }
   // Find background positions
-  int pos = backPos.Find(" ");
+  int pos = backPos.Find(_T(" "));
   if(pos >= 0)
   {
     m_backgroundPosH = backPos.Left(pos);
@@ -187,7 +187,7 @@ CSSPage3Dlg::FillPage()
   else
   {
     m_backgroundPosH = backPos;
-    m_backgroundPosV = "";
+    m_backgroundPosV = _T("");
   }
   Redisplay();
 }
@@ -198,7 +198,7 @@ CSSPage3Dlg::UpdateProperties()
   CString image = m_backgroundImage;
   if(!image.IsEmpty())
   {
-    image = "url(\"" + m_backgroundImage + ")";
+    image = _T("url(\"") + m_backgroundImage + _T(")");
   }
   if(m_hasBackColor)
   {
@@ -206,23 +206,23 @@ CSSPage3Dlg::UpdateProperties()
     {
       int red,green,blue;
       Misc::DecodeColor(m_backgroundColor,red,green,blue);
-      m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+      m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
     }
   }
   else
   {
-    m_backgroundColor = "";
+    m_backgroundColor = _T("");
   }
   CString backPos = m_backgroundPosH;
   if(!m_backgroundPosV.IsEmpty())
   {
-    backPos += " " + m_backgroundPosV;
+    backPos += _T(" ") + m_backgroundPosV;
   }
-  CSSPropertyPut(m_css,m_selector,"background-color", m_backgroundColor, false);
-  CSSPropertyPut(m_css,m_selector,"background-image", image, false);
-  CSSPropertyPut(m_css,m_selector,"background-repeat",m_backgroundRepeat,false);
-  CSSPropertyPut(m_css,m_selector,"background-attachment",m_backgroundAttach,false);
-  CSSPropertyPut(m_css,m_selector,"background-position",  backPos,false);
+  CSSPropertyPut(m_css,m_selector,_T("background-color"), m_backgroundColor, false);
+  CSSPropertyPut(m_css,m_selector,_T("background-image"), image, false);
+  CSSPropertyPut(m_css,m_selector,_T("background-repeat"),m_backgroundRepeat,false);
+  CSSPropertyPut(m_css,m_selector,_T("background-attachment"),m_backgroundAttach,false);
+  CSSPropertyPut(m_css,m_selector,_T("background-position"),  backPos,false);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -233,6 +233,8 @@ CSSPage3Dlg::UpdateProperties()
 void 
 CSSPage3Dlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
 {
+  USES_CONVERSION;
+
   HRESULT hr = S_FALSE;
   CComPtr<IDispatch> disp;
   CComPtr<IHTMLElementCollection> coll;
@@ -269,12 +271,13 @@ CSSPage3Dlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
       {
         // SET BACKGROUND COLOR
         VARIANT value;
-        V_VT(&value) = VT_BSTR;
-        V_BSTR(&value) = CT2CW(m_backgroundColor);
+        value.bstrVal = m_backgroundColor.AllocSysString();
+        value.vt = VT_BSTR;
         style->put_backgroundColor(value);
+        ::VariantClear(&value);
 
         // SET BACKGROUND-IMAGE
-        CComBSTR bString = CT2CW( "url(" + m_backgroundImage + ")");
+        CComBSTR bString = CT2CW( _T("url(") + m_backgroundImage + _T(")"));
         hr = style->put_backgroundImage(bString);
 
         // SET BACKGROUND-REPEAT
@@ -289,7 +292,7 @@ CSSPage3Dlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
         CString backPos = m_backgroundPosH;
         if(!m_backgroundPosV.IsEmpty())
         {
-          backPos += " " + m_backgroundPosV;
+          backPos += _T(" ") + m_backgroundPosV;
         }
         bString = CT2CW(backPos);
         style->put_backgroundPosition(bString);
@@ -314,7 +317,7 @@ CSSPage3Dlg::OnBnClickedBcChoose()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+  m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   UpdateProperties();
   Redisplay();
 }
@@ -323,16 +326,16 @@ void
 CSSPage3Dlg::OnBnClickedBiChoose()
 {
   DocFileDialog diag(true                         // true = open
-                    ,"Select a background image"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select a background image")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|"
-                    "Joint Photogroup files (jpg)|*.jpg;*.jpeg|"
-                    "Graphics Information File (gif)|*.gif|"
-                    "Portable Network Graphics (png)|*.png|"
-                    "Windows bitmaps (bmp)|*.bmp|"
-                    "All files|*.*");
+                    ,_T("All images (jpg,gif,bmp,png)|*.jpg;*.jpeg;*.gif;*.bmp|")
+                    _T("Joint Photogroup files (jpg)|*.jpg;*.jpeg|")
+                    _T("Graphics Information File (gif)|*.gif|")
+                    _T("Portable Network Graphics (png)|*.png|")
+                    _T("Windows bitmaps (bmp)|*.bmp|")
+                    _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     m_backgroundImage = diag.GetChosenFile();
@@ -354,10 +357,10 @@ void CSSPage3Dlg::OnEnChangeBackgroundimage()
   if(m_backgroundImage.IsEmpty())
   {
     // Image removed
-    m_backgroundRepeat = "";
-    m_backgroundPosV   = "";
-    m_backgroundPosH   = "";
-    m_backgroundAttach = "";
+    m_backgroundRepeat = _T("");
+    m_backgroundPosV   = _T("");
+    m_backgroundPosH   = _T("");
+    m_backgroundAttach = _T("");
   }
   UpdateProperties();
   Redisplay();
@@ -370,7 +373,7 @@ void CSSPage3Dlg::OnCbnSelchangeBiTile()
   {
     CString text;
     m_comboRepeat.GetLBText(ind,text);
-    m_backgroundRepeat = Misc::GetAttributeValue("background-repeat",text);
+    m_backgroundRepeat = Misc::GetAttributeValue(_T("background-repeat"),text);
     UpdateProperties();
     Redisplay();
   }
@@ -380,11 +383,11 @@ void CSSPage3Dlg::OnBnClickedBiScroll()
 {
   if(m_buttonAttach.GetCheck())
   {
-    m_backgroundAttach = "scroll";
+    m_backgroundAttach = _T("scroll");
   }
   else
   {
-    m_backgroundAttach = "fixed";
+    m_backgroundAttach = _T("fixed");
   }
   UpdateProperties();
   Redisplay();
@@ -392,28 +395,28 @@ void CSSPage3Dlg::OnBnClickedBiScroll()
 
 void CSSPage3Dlg::OnBnClickedBiTop()
 {
-  m_backgroundPosV = "top";
+  m_backgroundPosV = _T("top");
   UpdateProperties();
   Redisplay();
 }
 
 void CSSPage3Dlg::OnBnClickedBiCenter()
 {
-  m_backgroundPosV = "center";
+  m_backgroundPosV = _T("center");
   UpdateProperties();
   Redisplay();
 }
 
 void CSSPage3Dlg::OnBnClickedBiBottom()
 {
-  m_backgroundPosV = "bottom";
+  m_backgroundPosV = _T("bottom");
   UpdateProperties();
   Redisplay();
 }
 
 void CSSPage3Dlg::OnBnClickedBiLeft()
 {
-  m_backgroundPosH = "left";
+  m_backgroundPosH = _T("left");
   UpdateProperties();
   Redisplay();
 }
@@ -421,7 +424,7 @@ void CSSPage3Dlg::OnBnClickedBiLeft()
 void 
 CSSPage3Dlg::OnBnClickedBiMiddle()
 {
-  m_backgroundPosH = "center";
+  m_backgroundPosH = _T("center");
   UpdateProperties();
   Redisplay();
 }
@@ -429,7 +432,7 @@ CSSPage3Dlg::OnBnClickedBiMiddle()
 void 
 CSSPage3Dlg::OnBnClickedBiRight()
 {
-  m_backgroundPosH = "right";
+  m_backgroundPosH = _T("right");
   UpdateProperties();
   Redisplay();
 }

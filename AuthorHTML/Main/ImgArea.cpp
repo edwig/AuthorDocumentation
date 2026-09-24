@@ -309,20 +309,20 @@ ImgArea::MakeCoords()
   if(m_points.size() < 2)
   {
     // Cannot write it back
-    return "";
+    return _T("");
   }
-  coords.Format("%d,%d",m_points[0].x,m_points[0].y);
+  coords.Format(_T("%d,%d"),m_points[0].x,m_points[0].y);
   if(m_shape == AREA_CIRCLE)
   {
     CString radius;
-    radius.Format(",%d",(int)(Distance(m_points[0],m_points[1])));
+    radius.Format(_T(",%d"),(int)(Distance(m_points[0],m_points[1])));
     coords += radius;
   }
   else if(m_shape == AREA_RECTANGLE)
   {
     ASSERT(m_points.size() == 4);
     CString lower_right;
-    lower_right.Format(",%d,%d",m_points[2].x,m_points[2].y);
+    lower_right.Format(_T(",%d,%d"),m_points[2].x,m_points[2].y);
     coords += lower_right;
   }
   else
@@ -331,7 +331,7 @@ ImgArea::MakeCoords()
     for(unsigned int ind = 1;ind < m_points.size();++ind)
     {
       CString point;
-      point.Format(",%d,%d",m_points[ind].x,m_points[ind].y);
+      point.Format(_T(",%d,%d"),m_points[ind].x,m_points[ind].y);
       coords += point;
     }
   }
@@ -393,16 +393,16 @@ ImgArea::AddDefintionPoint(POINT extra)
 void 
 ImgArea::SetPoints(CString& coords)
 {
-  int pos = coords.Find(',');
+  int pos = coords.Find(_T(','));
   if(pos < 0) 
   {
     m_shape = AREA_INVALID;
     return;
   }
   // All shapes have a first reference point (x1,y1)
-  int x1 = atoi(coords); // Make use of the fact that atoi stops at ','
+  int x1 = _ttoi(coords); // Make use of the fact that atoi stops at ','
   coords = coords.Mid(pos+1);
-  int y1 = atoi(coords);
+  int y1 = _ttoi(coords);
 
   // The same for CIRCLE/RECTANGLE/POLYGON
   POINT center;
@@ -411,7 +411,7 @@ ImgArea::SetPoints(CString& coords)
   m_points.push_back(center);
 
   // Find third point in coords
-  pos = coords.Find(',');
+  pos = coords.Find(_T(','));
   if(pos < 0)
   {
     m_shape = AREA_INVALID;
@@ -423,7 +423,7 @@ ImgArea::SetPoints(CString& coords)
   {
     // A circle only has three points (x1,y1,r) in coords
     // Define two POINTS in m_points (radius lies directly right of the center
-    int r = atoi(coords);
+    int r = _ttoi(coords);
     POINT radius;
     radius.x = x1 + r;
     radius.y = y1;
@@ -435,15 +435,15 @@ ImgArea::SetPoints(CString& coords)
     // A rectangle has four points (x1,y1,x2,y2) in coords
     // Define four polygon waypoints out of these two
     // First is left-upper, second is right-lower point of the rectangle!
-    int x2 = atoi(coords);
-    pos = coords.Find(',');
+    int x2 = _ttoi(coords);
+    pos = coords.Find(_T(','));
     if(pos < 0)
     {
       m_shape = AREA_INVALID;
       return;
     }
     coords = coords.Mid(pos + 1);
-    int y2 = atoi(coords);
+    int y2 = _ttoi(coords);
     POINT ri_lower;
     ri_lower.x = x2;
     ri_lower.y = y2;
@@ -462,15 +462,15 @@ ImgArea::SetPoints(CString& coords)
   // else AREA_POLYGON left
   while(coords.GetLength())
   {
-    int x2 = atoi(coords);
-    pos = coords.Find(',');
+    int x2 = _ttoi(coords);
+    pos = coords.Find(_T(','));
     if(pos < 0)
     {
       // Odd number of waypoints in shape=poly
       return;
     }
     coords = coords.Mid(pos + 1);
-    int y2 = atoi(coords);
+    int y2 = _ttoi(coords);
 
     // Save the waypoint
     POINT waypoint;
@@ -478,7 +478,7 @@ ImgArea::SetPoints(CString& coords)
     waypoint.y = y2;
     m_points.push_back(waypoint);
 
-    pos = coords.Find(',');
+    pos = coords.Find(_T(','));
     if(pos < 0)
     {
       // Last point of the polygon.

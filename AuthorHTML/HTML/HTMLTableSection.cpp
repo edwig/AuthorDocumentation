@@ -34,19 +34,19 @@ HtmlTableSection::SetProperty(eAction e_Action, CString s_Value)
                     {
                       m_Style.SetProperty(HtmlStyle::P_TextAlign,s_Value);
                     }
-                    SetAttribute("align",s_Value);
+                    SetAttribute(_T("align"),s_Value);
                     break;
     case E_BgColor: if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_BackgColor,s_Value);
                     }
-                    SetAttribute("bgcolor",s_Value);
+                    SetAttribute(_T("bgcolor"),s_Value);
                     break;
     case E_Valign:  if(m_Style.Valid())
                     {
                       m_Style.SetProperty(HtmlStyle::P_VerticalAlign,s_Value);
                     }
-                    SetAttribute("valign",s_Value);
+                    SetAttribute(_T("valign"),s_Value);
                     break;
   }
 }
@@ -64,7 +64,7 @@ HtmlTableSection::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("align");
+                    return GetAttribute(_T("align"));
     case E_BgColor: if(m_Style.Valid())
                     {
                       CString prop = m_Style.GetProperty(HtmlStyle::P_BackgColor);
@@ -73,7 +73,7 @@ HtmlTableSection::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("bgcolor");
+                    return GetAttribute(_T("bgcolor"));
     case E_Valign:  if(m_Style.Valid())
                     {
                       CString prop = m_Style.GetProperty(HtmlStyle::P_VerticalAlign);
@@ -82,9 +82,9 @@ HtmlTableSection::GetProperty(eAction e_Action)
                         return prop;
                       }
                     }
-                    return GetAttribute("valign");
+                    return GetAttribute(_T("valign"));
   }
-  return "";
+  return _T("");
 }
 
 // Looks like InsertRow in HtmlTable but is different!!!!!!

@@ -26,7 +26,7 @@ public:
              ,CssStyleSheet* pCss);
 	virtual ~CSSPage6Dlg();
   virtual BOOL OnInitDialog();
-  void SetSelector(string selector);
+  void SetSelector(XString selector);
   void UpdateProperties();
 
   // Dialog Data
@@ -42,7 +42,7 @@ private:
   void Redisplay();
 
   CssStyleSheet* m_css;
-  string         m_selector;
+  XString        m_selector;
 
   // Attributes
   CString        m_listStyle;
@@ -50,9 +50,9 @@ private:
   CString        m_listImage;
 
   // CONTROLS
-  CComboBox    m_comboStyle;
-  CComboBox    m_comboPosition;
-  AD_Button        m_buttonImage;
+  CComboBox      m_comboStyle;
+  CComboBox      m_comboPosition;
+  AD_Button      m_buttonImage;
 public:
   afx_msg void OnCbnSelchangeListstyle();
   afx_msg void OnCbnSelchangeStylepos();

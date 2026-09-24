@@ -66,15 +66,15 @@ void LayerDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
   }
 }
@@ -101,13 +101,13 @@ LayerDlg::OnInitDialog()
 
   m_spinZindex.SetBase(10);
   m_spinZindex.SetRange(1,32000);
-  m_spinZindex.SetPos(atoi(m_zindex));
+  m_spinZindex.SetPos(_ttoi(m_zindex));
   m_spinWidth.SetBase(10);
   m_spinWidth.SetRange(0,32000);
-  m_spinWidth.SetPos(atoi(m_width));
+  m_spinWidth.SetPos(_ttoi(m_width));
   m_spinHeight.SetBase(10);
   m_spinHeight.SetRange(0,32000);
-  m_spinHeight.SetPos(atoi(m_height));
+  m_spinHeight.SetPos(_ttoi(m_height));
 
   UpdateData(Data2Controls);
   return TRUE;
@@ -120,60 +120,60 @@ LayerDlg::FillPage()
   {
     m_css = new CssStyleSheet();
     // Timestamp not permitted. Stripping of selector will fail otherwise
-    m_css->m_settings["timestamp"] = 0;
+    m_css->m_settings[_T("timestamp")] = 0;
   }
   if(!m_elem->HasStyle())
   {
     m_elem->SetStyle();
     // INIT LAYER CODE
-    m_id.Format("Layer%s",m_newUniqueID.GetString());
-    m_zindex     = "1";
-    m_visibility = "Unspecified";
-    m_width      = "100";
-    m_height     = "100";
-    m_left       = "100";
-    m_top        = "100";
+    m_id.Format(_T("Layer%s"),m_newUniqueID.GetString());
+    m_zindex     = _T("1");
+    m_visibility = _T("Unspecified");
+    m_width      = _T("100");
+    m_height     = _T("100");
+    m_left       = _T("100");
+    m_top        = _T("100");
     UpdateProperties();
     return;
   }
-  CString style = m_elem->GetInlineStyle();
-  style = CString("div { ") + style + "}";
-  m_css->parse_css((string)style);
+  XString style = m_elem->GetInlineStyle();
+  style = XString(_T("div { ")) + style + _T("}");
+  m_css->parse_css(style);
 
-  string selector = "div";
-  m_id = m_elem->GetAttribute("id");
-  m_zindex     = CSSPropertyGet(m_css,selector,"z-index",   false);
-  m_visibility = CSSPropertyGet(m_css,selector,"visibility",true);
-  m_width      = CSSPropertyGet(m_css,selector,"width",     false);
-  m_height     = CSSPropertyGet(m_css,selector,"height",    false);
-  m_left       = CSSPropertyGet(m_css,selector,"left",      false);
-  m_top        = CSSPropertyGet(m_css,selector,"top",       false);
+  XString selector = _T("div");
+  m_id = m_elem->GetAttribute(_T("id"));
+  m_zindex     = CSSPropertyGet(m_css,selector,_T("z-index"),   false);
+  m_visibility = CSSPropertyGet(m_css,selector,_T("visibility"),true);
+  m_width      = CSSPropertyGet(m_css,selector,_T("width"),     false);
+  m_height     = CSSPropertyGet(m_css,selector,_T("height"),    false);
+  m_left       = CSSPropertyGet(m_css,selector,_T("left"),      false);
+  m_top        = CSSPropertyGet(m_css,selector,_T("top"),       false);
 
   // Make sure we have it in pixels
-  m_width  = CssConvertToUnit(m_width ,"px",m_wunits);
-  m_height = CssConvertToUnit(m_height,"px",m_hunits);
-  m_left   = CssConvertToUnit(m_left,  "px",m_lunits);
-  m_top    = CssConvertToUnit(m_top,   "px",m_tunits);
+  m_width  = CssConvertToUnit(m_width ,_T("px"),m_wunits);
+  m_height = CssConvertToUnit(m_height,_T("px"),m_hunits);
+  m_left   = CssConvertToUnit(m_left,  _T("px"),m_lunits);
+  m_top    = CssConvertToUnit(m_top,   _T("px"),m_tunits);
 }
 
 void
 LayerDlg::UpdateProperties()
 {
-  m_elem->SetAttribute("id",m_id);
-  string selector = "div";
+  m_elem->SetAttribute(_T("id"),m_id);
+  XString selector = _T("div");
   CString pixels;
-  CSSPropertyPut(m_css,selector,"z-index",   m_zindex,    false);
-  CSSPropertyPut(m_css,selector,"visibility",m_visibility,true);
-  CSSPropertyPut(m_css,selector,"width",     CssConvertToUnit(m_width  + "px",m_wunits,pixels) + m_wunits, false);
-  CSSPropertyPut(m_css,selector,"height",    CssConvertToUnit(m_height + "px",m_hunits,pixels) + m_hunits, false);
-  CSSPropertyPut(m_css,selector,"left",      CssConvertToUnit(m_left   + "px",m_lunits,pixels) + m_lunits, false);
-  CSSPropertyPut(m_css,selector,"top",       CssConvertToUnit(m_top    + "px",m_tunits,pixels) + m_tunits, false);
-  CSSPropertyPut(m_css,selector,"position",  "absolute",  false);
+  CSSPropertyPut(m_css,selector,_T("z-index"),   m_zindex,    false);
+  CSSPropertyPut(m_css,selector,_T("visibility"),m_visibility,true);
+  CSSPropertyPut(m_css,selector,_T("width"),     CssConvertToUnit(m_width  + _T("px"),m_wunits,pixels) + m_wunits, false);
+  CSSPropertyPut(m_css,selector,_T("height"),    CssConvertToUnit(m_height + _T("px"),m_hunits,pixels) + m_hunits, false);
+  CSSPropertyPut(m_css,selector,_T("left"),      CssConvertToUnit(m_left   + _T("px"),m_lunits,pixels) + m_lunits, false);
+  CSSPropertyPut(m_css,selector,_T("top"),       CssConvertToUnit(m_top    + _T("px"),m_tunits,pixels) + m_tunits, false);
+  CSSPropertyPut(m_css,selector,_T("position"),  _T("absolute"),  false);
   if(m_css->print_css())
   {
     CString inlineSheet = m_css->GetTheSheet().c_str();
-    inlineSheet.TrimRight("}");
-    inlineSheet.TrimLeft("div {");
+    inlineSheet.TrimRight(_T("}"));
+    inlineSheet.TrimLeft(_T("div {"));
     m_elem->SetInlineStyle(inlineSheet);
   }
 }
@@ -219,14 +219,14 @@ void LayerDlg::OnEnChangeHeight()
 void 
 LayerDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"div",m_elem);
+  GeneralIDDlg dlg(this,_T("div"),m_elem);
   dlg.DoModal();
 }
 
 void 
 LayerDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"div");
+  TagEventsDlg dlg(this,m_elem,_T("div"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -236,13 +236,13 @@ LayerDlg::OnBnClickedStyle()
 {
   UpdateProperties();
   CString style = m_elem->GetInlineStyle();
-  style = CString("div { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"div",NULL,style);
+  style = CString(_T("div { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("div"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("div {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("div {"));
     m_elem->SetInlineStyle(style);
     FillPage();
     UpdateData(Data2Controls);

@@ -60,10 +60,10 @@ void ScriptDlg::DoDataExchange(CDataExchange* pDX)
   {
     int ind;
     CString typ;
-    typ = Misc::GetAttributeDisplayname("script-type",m_type);
+    typ = Misc::GetAttributeDisplayname(_T("script-type"),m_type);
     ind = m_comboType.FindString(-1,typ);
           m_comboType.SetCurSel(ind);
-    typ = Misc::GetAttributeDisplayname("language",m_language);
+    typ = Misc::GetAttributeDisplayname(_T("language"),m_language);
     ind = m_comboLang.FindString(-1,typ);
           m_comboLang.SetCurSel(ind);
     ind = m_comboEvent.FindString(-1,m_event);
@@ -98,20 +98,20 @@ ScriptDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
   FillPage();
-  std::vector<string> all;
-  Misc::GetAllAttributeDisplaynames("script-type",&all);
+  std::vector<XString> all;
+  Misc::GetAllAttributeDisplaynames(_T("script-type"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ ind)
   {
     m_comboType.AddString(all[ind].c_str());
   }
   all.clear();
-  Misc::GetAllAttributeDisplaynames("language",&all);
+  Misc::GetAllAttributeDisplaynames(_T("language"),&all);
   for(unsigned int ind = 0; ind < all.size(); ++ind)
   {
     m_comboLang.AddString(all[ind].c_str());
   }
   std::vector<CString> events;
-  m_comboEvent.AddString(""); // Empty string to empty event.
+  m_comboEvent.AddString(_T("")); // Empty string to empty event.
   Misc::GetAllEvents(events,0,0);
   for(unsigned int ind = 0; ind < events.size(); ++ind)
   {
@@ -124,7 +124,7 @@ ScriptDlg::OnInitDialog()
   // Further setup of the Scintilla control
   m_scintilla.SetupDirectAccess();
   // Set font
-  SetAStyle(STYLE_DEFAULT, RGB(0, 0, 0), RGB(0xff, 0xff, 0xff), 10, "Courier new");
+  SetAStyle(STYLE_DEFAULT, RGB(0, 0, 0), RGB(0xff, 0xff, 0xff), 10, _T("Courier new"));
   // Set language styles
   SetEditorToScript();
 
@@ -167,9 +167,9 @@ ScriptDlg::SetEditorToScript()
   int len = m_scintilla.GetTextLength() + 1;
   m_scintilla.GetText(len,script.GetBufferSetLength(len));
   script.ReleaseBuffer();
-  m_scintilla.SetText("");
+  m_scintilla.SetText(_T(""));
 
-  CString stype = Misc::GetAttributeDisplayname("script-type",m_type);
+  CString stype = Misc::GetAttributeDisplayname(_T("script-type"),m_type);
   int type = m_comboType.FindStringExact(0,stype);
   if(type == 0 || type == 1) // Javascript
   {
@@ -223,7 +223,7 @@ ScriptDlg::SetEditorToScript()
   else if(!m_type.IsEmpty())
   {
     // Error
-    theApp.MessageBox("Cannot recognize this type of script!","Script error",MB_OK|MB_ICONHAND);
+    theApp.MessageBox(_T("Cannot recognize this type of script!"),_T("Script error"),MB_OK|MB_ICONHAND);
   }
   // Reset the same text
   m_scintilla.SetText(script);
@@ -238,7 +238,7 @@ ScriptDlg::DefineMarker(int marker, int markerType, COLORREF fore, COLORREF back
 }
 
 void 
-ScriptDlg::SetAStyle(int style, COLORREF fore, COLORREF back, int size, const char* face) 
+ScriptDlg::SetAStyle(int style, COLORREF fore, COLORREF back, int size, const TCHAR* face) 
 {
   m_scintilla.StyleSetFore(style, fore);
   m_scintilla.StyleSetBack(style, back);
@@ -255,41 +255,41 @@ ScriptDlg::SetAStyle(int style, COLORREF fore, COLORREF back, int size, const ch
 void
 ScriptDlg::FillPage()
 {
-  m_type      = m_elem->GetAttribute("type");
-  m_language  = m_elem->GetAttribute("language");
-  m_src       = m_elem->GetAttribute("src",EXACT_VALUE);
-  m_defer     = atoi(m_elem->GetAttribute("defer")) == 1;
-  m_object    = m_elem->GetAttribute("for");
-  m_event     = m_elem->GetAttribute("event");
+  m_type      = m_elem->GetAttribute(_T("type"));
+  m_language  = m_elem->GetAttribute(_T("language"));
+  m_src       = m_elem->GetAttribute(_T("src"),EXACT_VALUE);
+  m_defer     = _ttoi(m_elem->GetAttribute(_T("defer"))) == 1;
+  m_object    = m_elem->GetAttribute(_T("for"));
+  m_event     = m_elem->GetAttribute(_T("event"));
   m_script    = m_elem->GetText();
   m_script.Trim();
-  m_script.TrimLeft("<!--");
-  m_script.TrimRight("-->");
-  m_script.TrimRight("//");
+  m_script.TrimLeft(_T("<!--"));
+  m_script.TrimRight(_T("-->"));
+  m_script.TrimRight(_T("//"));
 }
 
 void
 ScriptDlg::UpdateProperties()
 {
   CString defer;
-  defer.Format("%d",m_defer);
-  m_elem->SetAttribute("type",    m_type);
-  m_elem->SetAttribute("language",m_language);
-  m_elem->SetAttribute("src",     m_src);
-  m_elem->SetAttribute("defer",   defer,EMPTYREMOVE);
-  m_elem->SetAttribute("for",     m_object);
-  m_elem->SetAttribute("event",   m_event);
+  defer.Format(_T("%d"),m_defer);
+  m_elem->SetAttribute(_T("type"),    m_type);
+  m_elem->SetAttribute(_T("language"),m_language);
+  m_elem->SetAttribute(_T("src"),     m_src);
+  m_elem->SetAttribute(_T("defer"),   defer,EMPTYREMOVE);
+  m_elem->SetAttribute(_T("for"),     m_object);
+  m_elem->SetAttribute(_T("event"),   m_event);
 
   int len = m_scintilla.GetTextLength() + 1;
   m_scintilla.GetText(len,m_script.GetBufferSetLength(len));
   m_script.ReleaseBuffer();
-  if(m_script.Find("<!--") < 0)
+  if(m_script.Find(_T("<!--")) < 0)
   {
-    m_script = CString("<!--") + m_script;
+    m_script = CString(_T("<!--")) + m_script;
   }
-  if(m_script.Find("-->") < 0)
+  if(m_script.Find(_T("-->")) < 0)
   {
-    m_script += CString("//-->");
+    m_script += CString(_T("//-->"));
   }
   m_elem->SetText(m_script);
 }
@@ -304,10 +304,10 @@ ScriptDlg::OnCbnSelchangeScripttype()
   {
     CString type;
     m_comboType.GetLBText(ind,type);
-    m_type = Misc::GetAttributeValue("script-type",type);
+    m_type = Misc::GetAttributeValue(_T("script-type"),type);
 
     SetEditorToScript();
-    m_language = "";
+    m_language = _T("");
     UpdateData(Data2Controls);
   }
 }
@@ -320,7 +320,7 @@ ScriptDlg::OnCbnSelchangeLang()
   {
     CString lang;
     m_comboLang.GetLBText(ind,lang);
-    m_language = Misc::GetAttributeValue("language",lang);
+    m_language = Misc::GetAttributeValue(_T("language"),lang);
   }
 }
 
@@ -336,14 +336,14 @@ void
 ScriptDlg::OnBnClickedChoose()
 {
   DocFileDialog diag(true               // true = open
-                    ,"Select a script"  // title
-                    ,""                 // Extension
-                    ,""                 // Default file
+                    ,_T("Select a script")  // title
+                    ,_T("")                 // Extension
+                    ,_T("")                 // Default file
                     ,0                  // flags
-                    ,"Java scripts (js)|*.js|"
-                     "Visual basic scripts (vbs)|*.vbs|"
-                     "Ecmascript|*.cs|"
-                     "All files|*.*");
+                    ,_T("Java scripts (js)|*.js|")
+                     _T("Visual basic scripts (vbs)|*.vbs|")
+                     _T("Ecmascript|*.cs|")
+                     _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();

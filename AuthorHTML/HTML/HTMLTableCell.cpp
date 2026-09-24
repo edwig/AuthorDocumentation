@@ -43,53 +43,53 @@ HtmlTableCell::SetProperty(eAction e_Action, CString s_Value)
                         {
                           m_Style.SetProperty(HtmlStyle::P_TextAlign,s_Value);
                         }
-                        SetAttribute("align",s_Value);
+                        SetAttribute(_T("align"),s_Value);
                         break;
     case E_AlignVert:   // "valign" Alignment of text in cell
                         if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_VerticalAlign,s_Value);
                         }
-                        SetAttribute("valign",s_Value);
+                        SetAttribute(_T("valign"),s_Value);
                         break;
     case E_Background:  // Background
                         if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_BackgImage,s_Value);
                         }
-                        SetAttribute("background",s_Value);
+                        SetAttribute(_T("background"),s_Value);
                         break;
     case E_BgColor:     // Background color
                         if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_BackgColor,s_Value);
                         }
-                        SetAttribute("bgcolor",s_Value);
+                        SetAttribute(_T("bgcolor"),s_Value);
                         break;
     case E_Height:      // Height of cell
                         if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_Height,s_Value);
                         }
-                        SetAttribute("height",s_Value);
+                        SetAttribute(_T("height"),s_Value);
                         break;
     case E_Width:       // Width  of cell
                         if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_Width,s_Value);
                         }
-                        SetAttribute("width",s_Value);
+                        SetAttribute(_T("width"),s_Value);
                         break;
     case E_BorderColor: if(m_Style.Valid())
                         {
                           m_Style.SetProperty(HtmlStyle::P_BorderColor,s_Value);
                         }
-                        SetAttribute("bordercolor",s_Value);
+                        SetAttribute(_T("bordercolor"),s_Value);
                         break;
 
-    case E_BorderColorDark: SetAttribute("bordercolordark",s_Value);
+    case E_BorderColorDark: SetAttribute(_T("bordercolordark"),s_Value);
                             break;
-    case E_BorderColorLight:SetAttribute("bordercolorlight",s_Value);
+    case E_BorderColorLight:SetAttribute(_T("bordercolorlight"),s_Value);
                             break;
   }
 }
@@ -109,7 +109,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("align");
+                        return GetAttribute(_T("align"));
     case E_AlignVert:   // "valing" Alignment of text in cell
                         if(m_Style.Valid())
                         {
@@ -119,7 +119,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("valign");
+                        return GetAttribute(_T("valign"));
     case E_Background:  // Background
                         if(m_Style.Valid())
                         {
@@ -129,7 +129,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("background");
+                        return GetAttribute(_T("background"));
     case E_BgColor:     // Background color
                         if(m_Style.Valid())
                         {
@@ -139,7 +139,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("bgcolor");
+                        return GetAttribute(_T("bgcolor"));
     case E_Height:      // Height of cell
                         if(m_Style.Valid())
                         {
@@ -149,7 +149,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("height");
+                        return GetAttribute(_T("height"));
     case E_Width:       // Width  of cell
                         if(m_Style.Valid())
                         {
@@ -159,7 +159,7 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("width");
+                        return GetAttribute(_T("width"));
     case E_BorderColor: if(m_Style.Valid())
                         {
                           prop = m_Style.GetProperty(HtmlStyle::P_BorderColor);
@@ -168,12 +168,12 @@ HtmlTableCell::GetProperty(eAction e_Action)
                             return prop;
                           }
                         }
-                        return GetAttribute("bordercolor");
+                        return GetAttribute(_T("bordercolor"));
 
-    case E_BorderColorDark: return GetAttribute("bordercolordark");
-    case E_BorderColorLight:return GetAttribute("bordercolorlight");
+    case E_BorderColorDark: return GetAttribute(_T("bordercolordark"));
+    case E_BorderColorLight:return GetAttribute(_T("bordercolorlight"));
   }
-  return "";
+  return _T("");
 }
 
 HtmlTableRow 

@@ -189,10 +189,10 @@ CSSPage5Dlg::InitSpinButtons()
   m_spinML.SetRange(-32000,32000);
   m_spinMR.SetRange(-32000,32000);
   m_spinMB.SetRange(-32000,32000);
-  m_spinMT.SetPos(atoi(m_marginTop));
-  m_spinML.SetPos(atoi(m_marginLeft));
-  m_spinMR.SetPos(atoi(m_marginRight));
-  m_spinMB.SetPos(atoi(m_marginBottom));
+  m_spinMT.SetPos(_ttoi(m_marginTop));
+  m_spinML.SetPos(_ttoi(m_marginLeft));
+  m_spinMR.SetPos(_ttoi(m_marginRight));
+  m_spinMB.SetPos(_ttoi(m_marginBottom));
 
   // Paddings
   m_spinPT.SetBase(10);
@@ -203,10 +203,10 @@ CSSPage5Dlg::InitSpinButtons()
   m_spinPL.SetRange(-32000,32000);
   m_spinPR.SetRange(-32000,32000);
   m_spinPB.SetRange(-32000,32000);
-  m_spinPT.SetPos(atoi(m_paddingTop));
-  m_spinPL.SetPos(atoi(m_paddingLeft));
-  m_spinPR.SetPos(atoi(m_paddingRight));
-  m_spinPB.SetPos(atoi(m_paddingBottom));
+  m_spinPT.SetPos(_ttoi(m_paddingTop));
+  m_spinPL.SetPos(_ttoi(m_paddingLeft));
+  m_spinPR.SetPos(_ttoi(m_paddingRight));
+  m_spinPB.SetPos(_ttoi(m_paddingBottom));
 
   // Offsets
   m_spinOT.SetBase(10);
@@ -217,18 +217,18 @@ CSSPage5Dlg::InitSpinButtons()
   m_spinOL.SetRange(-32000,32000);
   m_spinOR.SetRange(-32000,32000);
   m_spinOB.SetRange(-32000,32000);
-  m_spinOT.SetPos(atoi(m_offsetTop));
-  m_spinOL.SetPos(atoi(m_offsetLeft));
-  m_spinOR.SetPos(atoi(m_offsetRight));
-  m_spinOB.SetPos(atoi(m_offsetBottom));
+  m_spinOT.SetPos(_ttoi(m_offsetTop));
+  m_spinOL.SetPos(_ttoi(m_offsetLeft));
+  m_spinOR.SetPos(_ttoi(m_offsetRight));
+  m_spinOB.SetPos(_ttoi(m_offsetBottom));
 
   // Width/Height
   m_spinW.SetBase(10);
   m_spinH.SetBase(10);
   m_spinW.SetRange(-32000,32000);
   m_spinH.SetRange(-32000,32000);
-  m_spinW.SetPos(atoi(m_width));
-  m_spinH.SetPos(atoi(m_height));
+  m_spinW.SetPos(_ttoi(m_width));
+  m_spinH.SetPos(_ttoi(m_height));
 }
 
 void
@@ -255,7 +255,7 @@ CSSPage5Dlg::InitUnitCombos()
 }
 
 void
-CSSPage5Dlg::SetSelector(string selector)
+CSSPage5Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -268,8 +268,8 @@ CSSPage5Dlg::CSSSizeSplit(CString  property
                          ,CString& right
                          ,CString& bottom)
 {
-  top = left = right = bottom = "";
-  int pos = property.Find(' ');
+  top = left = right = bottom = _T("");
+  int pos = property.Find(_T(' '));
   if(pos < 0)
   {
     // Just one -> all the same
@@ -278,7 +278,7 @@ CSSPage5Dlg::CSSSizeSplit(CString  property
   }
   CString first  = property.Left(pos);
   CString second = property.Mid(pos+1);
-  pos = second.Find(' ');
+  pos = second.Find(_T(' '));
   if(pos < 0)
   {
     // Two values
@@ -288,7 +288,7 @@ CSSPage5Dlg::CSSSizeSplit(CString  property
   }
   CString third  = second.Mid(pos+1);
           second = second.Left(pos);
-  pos = third.Find(' ');
+  pos = third.Find(_T(' '));
   if(pos < 0)
   {
     // Three values
@@ -312,7 +312,7 @@ CSSPage5Dlg::CSSSizeMerge(CString& property
                          ,CString& right
                          ,CString& bottom)
 {
-  property = "";
+  property = _T("");
 
   if(top.IsEmpty() && left.IsEmpty() && right.IsEmpty() && bottom.IsEmpty())
   {
@@ -329,16 +329,16 @@ CSSPage5Dlg::CSSSizeMerge(CString& property
     if(top == bottom && right == left)
     {
       // Two values
-      property = top + " " + right;
+      property = top + _T(" ") + right;
       return true;
     }
     if(right == left)
     {
       // Three values
-      property = top + " " + left + " " + bottom;
+      property = top + _T(" ") + left + _T(" ") + bottom;
     }
     // Four values is possible
-    property = top + " " + right + " " + bottom + " " + left;
+    property = top + _T(" ") + right + _T(" ") + bottom + _T(" ") + left;
     return true;
   }
   // INDIVIDUAL VALUES NEEDED
@@ -350,13 +350,13 @@ CSSPage5Dlg::FillPage()
 {
   // GET PROPERTIES
   // Margins
-  CString margin = CSSPropertyGet(m_css,m_selector,"margin",false);
+  CString margin = CSSPropertyGet(m_css,m_selector,_T("margin"),false);
   if(margin.IsEmpty())
   {
-    m_marginTop    = CSSPropertyGet(m_css,m_selector,"margin-top",   false);
-    m_marginLeft   = CSSPropertyGet(m_css,m_selector,"margin-left",  false);
-    m_marginRight  = CSSPropertyGet(m_css,m_selector,"margin-right", false);
-    m_marginBottom = CSSPropertyGet(m_css,m_selector,"margin-bottom",false);
+    m_marginTop    = CSSPropertyGet(m_css,m_selector,_T("margin-top"),   false);
+    m_marginLeft   = CSSPropertyGet(m_css,m_selector,_T("margin-left"),  false);
+    m_marginRight  = CSSPropertyGet(m_css,m_selector,_T("margin-right"), false);
+    m_marginBottom = CSSPropertyGet(m_css,m_selector,_T("margin-bottom"),false);
   }
   else
   {
@@ -367,13 +367,13 @@ CSSPage5Dlg::FillPage()
   CssSplitValueUnits(m_marginRight, m_marginRight, m_marginRUnit);
   CssSplitValueUnits(m_marginBottom,m_marginBottom,m_marginBUnit);
   // Paddings
-  CString padding = CSSPropertyGet(m_css,m_selector,"padding",false);
+  CString padding = CSSPropertyGet(m_css,m_selector,_T("padding"),false);
   if(padding.IsEmpty())
   {
-    m_paddingTop    = CSSPropertyGet(m_css,m_selector,"padding-top",   false);
-    m_paddingLeft   = CSSPropertyGet(m_css,m_selector,"padding-left",  false);
-    m_paddingRight  = CSSPropertyGet(m_css,m_selector,"padding-right", false);
-    m_paddingBottom = CSSPropertyGet(m_css,m_selector,"padding-bottom",false);
+    m_paddingTop    = CSSPropertyGet(m_css,m_selector,_T("padding-top"),   false);
+    m_paddingLeft   = CSSPropertyGet(m_css,m_selector,_T("padding-left"),  false);
+    m_paddingRight  = CSSPropertyGet(m_css,m_selector,_T("padding-right"), false);
+    m_paddingBottom = CSSPropertyGet(m_css,m_selector,_T("padding-bottom"),false);
   }
   else
   {
@@ -384,18 +384,18 @@ CSSPage5Dlg::FillPage()
   CssSplitValueUnits(m_paddingRight, m_paddingRight, m_paddingRUnit);
   CssSplitValueUnits(m_paddingBottom,m_paddingBottom,m_paddingBUnit);
   // Offsets
-  m_offsetTop    = CSSPropertyGet(m_css,m_selector,"top",   false);
-  m_offsetLeft   = CSSPropertyGet(m_css,m_selector,"left",  false);
-  m_offsetRight  = CSSPropertyGet(m_css,m_selector,"right", false);
-  m_offsetBottom = CSSPropertyGet(m_css,m_selector,"bottom",false);
+  m_offsetTop    = CSSPropertyGet(m_css,m_selector,_T("top"),   false);
+  m_offsetLeft   = CSSPropertyGet(m_css,m_selector,_T("left"),  false);
+  m_offsetRight  = CSSPropertyGet(m_css,m_selector,_T("right"), false);
+  m_offsetBottom = CSSPropertyGet(m_css,m_selector,_T("bottom"),false);
 
   CssSplitValueUnits(m_offsetTop,   m_offsetTop,   m_offsetTUnit);
   CssSplitValueUnits(m_offsetLeft,  m_offsetLeft,  m_offsetLUnit);
   CssSplitValueUnits(m_offsetRight, m_offsetRight, m_offsetRUnit);
   CssSplitValueUnits(m_offsetBottom,m_offsetBottom,m_offsetBUnit);
   // Width/Height
-  m_width  = CSSPropertyGet(m_css,m_selector,"width", false);
-  m_height = CSSPropertyGet(m_css,m_selector,"height",false);
+  m_width  = CSSPropertyGet(m_css,m_selector,_T("width"), false);
+  m_height = CSSPropertyGet(m_css,m_selector,_T("height"),false);
   CssSplitValueUnits(m_width, m_width, m_widthUnit);
   CssSplitValueUnits(m_height,m_height,m_heightUnit);
 
@@ -415,14 +415,14 @@ CSSPage5Dlg::UpdateProperties()
 
   if(CSSSizeMerge(property,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,"margin",property,false);
+    CSSPropertyPut(m_css,m_selector,_T("margin"),property,false);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,"margin-top",   top,   false);
-    CSSPropertyPut(m_css,m_selector,"margin-left",  left,  false);
-    CSSPropertyPut(m_css,m_selector,"margin-right", right, false);
-    CSSPropertyPut(m_css,m_selector,"margin-bottom",bottom,false);
+    CSSPropertyPut(m_css,m_selector,_T("margin-top"),   top,   false);
+    CSSPropertyPut(m_css,m_selector,_T("margin-left"),  left,  false);
+    CSSPropertyPut(m_css,m_selector,_T("margin-right"), right, false);
+    CSSPropertyPut(m_css,m_selector,_T("margin-bottom"),bottom,false);
   }
   // Paddings
   top    = m_paddingTop    + m_paddingTUnit;
@@ -432,14 +432,14 @@ CSSPage5Dlg::UpdateProperties()
 
   if(CSSSizeMerge(property,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,"padding",property,false);
+    CSSPropertyPut(m_css,m_selector,_T("padding"),property,false);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,"padding-top",   top,   false);
-    CSSPropertyPut(m_css,m_selector,"padding-left",  left,  false);
-    CSSPropertyPut(m_css,m_selector,"padding-right", right, false);
-    CSSPropertyPut(m_css,m_selector,"padding-bottom",bottom,false);
+    CSSPropertyPut(m_css,m_selector,_T("padding-top"),   top,   false);
+    CSSPropertyPut(m_css,m_selector,_T("padding-left"),  left,  false);
+    CSSPropertyPut(m_css,m_selector,_T("padding-right"), right, false);
+    CSSPropertyPut(m_css,m_selector,_T("padding-bottom"),bottom,false);
   }
   // Offsets
   top    = m_offsetTop    + m_offsetTUnit;
@@ -449,20 +449,20 @@ CSSPage5Dlg::UpdateProperties()
 
   if(CSSSizeMerge(property,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,"offset",property,false);
+    CSSPropertyPut(m_css,m_selector,_T("offset"),property,false);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,"offset-top",   top,   false);
-    CSSPropertyPut(m_css,m_selector,"offset-left",  left,  false);
-    CSSPropertyPut(m_css,m_selector,"offset-right", right, false);
-    CSSPropertyPut(m_css,m_selector,"offset-bottom",bottom,false);
+    CSSPropertyPut(m_css,m_selector,_T("offset-top"),   top,   false);
+    CSSPropertyPut(m_css,m_selector,_T("offset-left"),  left,  false);
+    CSSPropertyPut(m_css,m_selector,_T("offset-right"), right, false);
+    CSSPropertyPut(m_css,m_selector,_T("offset-bottom"),bottom,false);
   }
   // Width / Height
   CString w = m_width  + m_widthUnit;
   CString h = m_height + m_heightUnit;
-  CSSPropertyPut(m_css,m_selector,"width", w,false);
-  CSSPropertyPut(m_css,m_selector,"height",h,false);
+  CSSPropertyPut(m_css,m_selector,_T("width"), w,false);
+  CSSPropertyPut(m_css,m_selector,_T("height"),h,false);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -510,72 +510,72 @@ CSSPage5Dlg::OnDocumentComplete(LPDISPATCH /*pDisp*/, LPVARIANT /*pURL*/)
         bool blackColor = true;
         bool doColor    = false;
         CString cID = CW2CT(bID);
-        if(cID == "tm")
+        if(cID == _T("tm"))
         {
           doColor    = true;
           blackColor = m_marginTop.IsEmpty();
         }
-        if(cID == "lm")
+        if(cID == _T("lm"))
         {
           doColor    = true;
           blackColor = m_marginLeft.IsEmpty();
         }
-        if(cID == "rm")
+        if(cID == _T("rm"))
         {
           doColor    = true;
           blackColor = m_marginRight.IsEmpty();
         }
-        if(cID == "bm")
+        if(cID == _T("bm"))
         {
           doColor    = true;
           blackColor = m_marginBottom.IsEmpty();
         }
-        if(cID == "tp")
+        if(cID == _T("tp"))
         {
           doColor    = true;
           blackColor = m_paddingTop.IsEmpty();
         }
-        if(cID == "lp")
+        if(cID == _T("lp"))
         {
           doColor    = true;
           blackColor = m_paddingLeft.IsEmpty();
         }
-        if(cID == "rp")
+        if(cID == _T("rp"))
         {
           doColor    = true;
           blackColor = m_paddingRight.IsEmpty();
         }
-        if(cID == "bp")
+        if(cID == _T("bp"))
         {
           doColor    = true;
           blackColor = m_paddingBottom.IsEmpty();
         }
-        if(cID == "to")
+        if(cID == _T("to"))
         {
           doColor    = true;
           blackColor = m_offsetTop.IsEmpty();
         }
-        if(cID == "lo")
+        if(cID == _T("lo"))
         {
           doColor    = true;
           blackColor = m_offsetLeft.IsEmpty();
         }
-        if(cID == "ro")
+        if(cID == _T("ro"))
         {
           doColor    = true;
           blackColor = m_offsetRight.IsEmpty();
         }
-        if(cID == "bo")
+        if(cID == _T("bo"))
         {
           doColor    = true;
           blackColor = m_offsetBottom.IsEmpty();
         }
-        if(cID == "w")
+        if(cID == _T("w"))
         {
           doColor = true;
           blackColor = m_width.IsEmpty();
         }
-        if(cID == "h")
+        if(cID == _T("h"))
         {
           doColor    = true;
           blackColor = m_height.IsEmpty();

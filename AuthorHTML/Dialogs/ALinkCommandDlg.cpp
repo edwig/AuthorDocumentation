@@ -68,11 +68,11 @@ ALinkCommandDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_object->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_object->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_object->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_object->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
   }
 
@@ -122,7 +122,7 @@ ALinkCommandDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Prepare keyword list
-  CString labelText("Associative keyword links");
+  CString labelText(_T("Associative keyword links"));
   m_list.SetColumnCount(1);
   m_list.SetRowCount(1);
   m_list.SetFixedRowCount(1);
@@ -136,22 +136,22 @@ ALinkCommandDlg::OnInitDialog()
   FillPage();
 
   // Set type combo
-  m_comboType.AddString("Composite index keyword");
-  m_comboType.AddString("Associative link keyword");
-  m_comboType.SetCurSel(m_type == "A") ? 1 : 0;
+  m_comboType.AddString(_T("Composite index keyword"));
+  m_comboType.AddString(_T("Associative link keyword"));
+  m_comboType.SetCurSel(m_type == _T("A")) ? 1 : 0;
 
   // Fill the button combo
-  m_comboButton.AddString("No button");       // 0
-  m_comboButton.AddString("Text button");     // 1
-  m_comboButton.AddString("Chiclet button");  // 2
-  m_comboButton.AddString("Bitmap button");   // 3
-  m_comboButton.AddString("Icon button");     // 4
+  m_comboButton.AddString(_T("No button"));       // 0
+  m_comboButton.AddString(_T("Text button"));     // 1
+  m_comboButton.AddString(_T("Chiclet button"));  // 2
+  m_comboButton.AddString(_T("Bitmap button"));   // 3
+  m_comboButton.AddString(_T("Icon button"));     // 4
 //m_comboButton.AddString("Shortcut button"); // 5
   m_comboButton.SetCurSel(m_button);
 
-  m_comboMenu.AddString("Default");
-  m_comboMenu.AddString("Menu");
-  m_comboMenu.AddString("Dialog");
+  m_comboMenu.AddString(_T("Default"));
+  m_comboMenu.AddString(_T("Menu"));
+  m_comboMenu.AddString(_T("Dialog"));
   m_comboMenu.SetCurSel(m_menu);
 
   UpdateData(false);
@@ -175,12 +175,12 @@ ALinkCommandDlg::EnsureCHM()
 bool
 ALinkCommandDlg::CheckCommand()
 {
-  CString title("Associative link error");
+  CString title(_T("Associative link error"));
   CString errors;
 
   if(m_chmFilename.IsEmpty())
   {
-    errors += "Associative link must have a CHM file name to refer to\n";
+    errors += _T("Associative link must have a CHM file name to refer to\n");
   }
   if(!errors.IsEmpty())
   {
@@ -199,26 +199,26 @@ ALinkCommandDlg::FillPage()
   m_menu   = MENU_DEFAULT;
 
   // Get Command
-  CString command = m_object->GetParameter("Command");
-  int pos = command.Find(',');
+  CString command = m_object->GetParameter(_T("Command"));
+  int pos = command.Find(_T(','));
   if(pos >= 0)
   {
     CString menu = command.Mid(pos + 1);
     command = command.Left(pos);
-    if(menu.CompareNoCase("menu") == 0)
+    if(menu.CompareNoCase(_T("menu")) == 0)
     {
       m_menu = MENU_MENU;
     }
-    if(menu.CompareNoCase("dialog") == 0)
+    if(menu.CompareNoCase(_T("dialog")) == 0)
     {
       m_menu = MENU_DIALOG;
     }
   }
   // Alink or KLink
-  m_type = (command.CompareNoCase("ALink") == 0) ? "A" : "K";
+  m_type = (command.CompareNoCase(_T("ALink")) == 0) ? _T("A") : _T("K");
 
   // Get button and text
-  CString button = m_object->GetParameter("Button");
+  CString button = m_object->GetParameter(_T("Button"));
   if(button.IsEmpty())
   {
     m_button = BUTTON_CHICLET;
@@ -228,12 +228,12 @@ ALinkCommandDlg::FillPage()
 //{
 //  m_button = BUTTON_SHORTCUT;
 //}
-  else if(button.Left(7).CompareNoCase("Bitmap:") == 0)
+  else if(button.Left(7).CompareNoCase(_T("Bitmap:")) == 0)
   {
     m_iconbitmap = button.Mid(7);
     m_button = BUTTON_BITMAP;
   }
-  else if(button.Left(5).CompareNoCase("Icon:") == 0)
+  else if(button.Left(5).CompareNoCase(_T("Icon:")) == 0)
   {
     m_iconbitmap = button.Mid(5);
     m_button = BUTTON_ICON;
@@ -245,23 +245,23 @@ ALinkCommandDlg::FillPage()
     m_text   = button;
   }
   // Get CHM file
-  m_chmFilename = m_object->GetParameter("Item1");
+  m_chmFilename = m_object->GetParameter(_T("Item1"));
   // Default topic
-  m_defaultTopic = m_object->GetParameter("Default Topic");
+  m_defaultTopic = m_object->GetParameter(_T("Default Topic"));
   // Text with no button
-  CString text = m_object->GetParameter("Text");
+  CString text = m_object->GetParameter(_T("Text"));
   if(!text.IsEmpty() && m_text.IsEmpty())
   {
     m_text = text;
   }
   // frame
-  m_frame = m_object->GetParameter("Frame");
+  m_frame = m_object->GetParameter(_T("Frame"));
   // width & height
   // DO NOT USE GETPROPERTY. IGNORE STYLESHEETS
-  m_width  = m_object->GetAttribute("width");
-  m_height = m_object->GetAttribute("Height");
-  CssConvertToUnit(m_width, "px",m_wunits);
-  CssConvertToUnit(m_height,"px",m_hunits);
+  m_width  = m_object->GetAttribute(_T("width"));
+  m_height = m_object->GetAttribute(_T("Height"));
+  CssConvertToUnit(m_width, _T("px"),m_wunits);
+  CssConvertToUnit(m_height,_T("px"),m_hunits);
 
   // Get keyword items in the list
   ParameterMap* map = m_object->GetParameterMap();
@@ -270,18 +270,18 @@ ALinkCommandDlg::FillPage()
   {
     CString name  = it->first;
     CString value = it->second;
-    if((name.Left(4).CompareNoCase("Item") == 0) &&
-        name.CompareNoCase("Item1"))
+    if((name.Left(4).CompareNoCase(_T("Item")) == 0) &&
+        name.CompareNoCase(_T("Item1")))
     {
       int row = m_list.GetRowCount();
-      m_list.InsertRow("");
+      m_list.InsertRow(_T(""));
       m_list.InsertItem(row,0,value,DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_END_ELLIPSIS|DT_NOPREFIX);
       ++m_maxItemInObject;
     }
     // Next parameter
     ++it;
   }
-  m_list.InsertRow("");
+  m_list.InsertRow(_T(""));
   m_list.ExpandLastColumn();
   m_list.Refresh();
 
@@ -296,31 +296,31 @@ ALinkCommandDlg::UpdateObject()
   if(m_changed)
   {
     // Set type of command (must be set already)
-    CString textvalue = (m_type == "A") ? "ALink" : "KLink";
+    CString textvalue = (m_type == _T("A")) ? _T("ALink") : _T("KLink");
     switch(m_menu)
     {
       case MENU_DEFAULT: break;
-      case MENU_MENU:    textvalue += ",menu";   break;
-      case MENU_DIALOG:  textvalue += ",dialog"; break;
+      case MENU_MENU:    textvalue += _T(",menu");   break;
+      case MENU_DIALOG:  textvalue += _T(",dialog"); break;
     }
-    m_object->SetParameter("Command",textvalue);
+    m_object->SetParameter(_T("Command"),textvalue);
     // Set button text
     switch(m_button)
     {
-      case BUTTON_NOBUTTON:   m_object->RemoveParameter("Button");
+      case BUTTON_NOBUTTON:   m_object->RemoveParameter(_T("Button"));
                               break;
-      case BUTTON_TEXTBUTTON: m_object->SetParameter("Button",m_text);
+      case BUTTON_TEXTBUTTON: m_object->SetParameter(_T("Button"),m_text);
                               break;
-      case BUTTON_CHICLET:    m_object->SetParameter("Button","");
-                              m_text = "";
+      case BUTTON_CHICLET:    m_object->SetParameter(_T("Button"),_T(""));
+                              m_text = _T("");
                               break;
-      case BUTTON_BITMAP:     textvalue = "Bitmap:" + m_iconbitmap;
-                              m_object->SetParameter("Button",textvalue);
-                              m_text = "";
+      case BUTTON_BITMAP:     textvalue = _T("Bitmap:") + m_iconbitmap;
+                              m_object->SetParameter(_T("Button"),textvalue);
+                              m_text = _T("");
                               break;
-      case BUTTON_ICON:       textvalue = "Icon:" + m_iconbitmap;
-                              m_object->SetParameter("Button",textvalue);
-                              m_text = "";
+      case BUTTON_ICON:       textvalue = _T("Icon:") + m_iconbitmap;
+                              m_object->SetParameter(_T("Button"),textvalue);
+                              m_text = _T("");
                               break;
 //    Does not work due to a bug in IE8
 //    case BUTTON_SHORTCUT:   textvalue = "Bitmap:shortcut";
@@ -329,38 +329,38 @@ ALinkCommandDlg::UpdateObject()
 //                            break;
     }
     // Set CHM filename
-    m_object->SetParameter("Item1",m_chmFilename);
+    m_object->SetParameter(_T("Item1"),m_chmFilename);
     // Set optional default topic
     if(m_defaultTopic.IsEmpty())
     {
-      m_object->RemoveParameter("Default Topic");
+      m_object->RemoveParameter(_T("Default Topic"));
     }
     else
     {
-      m_object->SetParameter("Default Topic",m_defaultTopic);
+      m_object->SetParameter(_T("Default Topic"),m_defaultTopic);
     }
     // Set text 
     if(!m_text.IsEmpty() && m_button != BUTTON_TEXTBUTTON)
     {
-      m_object->SetParameter("Text",m_text);
+      m_object->SetParameter(_T("Text"),m_text);
     }
     else
     {
-      m_object->RemoveParameter("Text");
+      m_object->RemoveParameter(_T("Text"));
     }
     // Frame title
     if(m_frame.IsEmpty())
     {
-      m_object->RemoveParameter("Frame");
+      m_object->RemoveParameter(_T("Frame"));
     }
     else
     {
-      m_object->SetParameter("Frame",m_frame);
+      m_object->SetParameter(_T("Frame"),m_frame);
     }
     // Width and height
     CString pixels;
-    m_object->SetAttribute("width", CssConvertToUnit(m_width  + "px",m_wunits,pixels) + m_wunits);
-    m_object->SetAttribute("height",CssConvertToUnit(m_height + "px",m_hunits,pixels) + m_hunits);
+    m_object->SetAttribute(_T("width"), CssConvertToUnit(m_width  + _T("px"),m_wunits,pixels) + m_wunits);
+    m_object->SetAttribute(_T("height"),CssConvertToUnit(m_height + _T("px"),m_hunits,pixels) + m_hunits);
 
     // Read keyword list
     for(int ind = 1; ind < m_list.GetRowCount(); ++ind)
@@ -369,7 +369,7 @@ ALinkCommandDlg::UpdateObject()
       CString item;
       if(!word.IsEmpty())
       {
-        item.Format("Item%d",ind + 1);
+        item.Format(_T("Item%d"),ind + 1);
         m_object->SetParameter(item,word);
       }
     }
@@ -377,7 +377,7 @@ ALinkCommandDlg::UpdateObject()
     for(int ind = m_list.GetRowCount() - 1;ind <= m_maxItemInObject; ++ind)
     {
       CString item;
-      item.Format("Item%d",ind);
+      item.Format(_T("Item%d"),ind);
       m_object->RemoveParameter(item);
     }
     // Nothing changed anymore
@@ -393,7 +393,7 @@ ALinkCommandDlg::OnCbnSelchangeIndextype()
   int ind = m_comboType.GetCurSel();
   if(ind >= 0)
   {
-    m_type = (ind == 0) ? "K" : "A";
+    m_type = (ind == 0) ? _T("K") : _T("A");
     m_changed = true;
     UpdateData(FALSE);
   }
@@ -417,9 +417,9 @@ void
 ALinkCommandDlg::OnBnClickedChmSearch()
 {
   DocFileDialog diag(true
-                    ,"Search for a documentation file"
-                    ,"chm"
-                    ,""
+                    ,_T("Search for a documentation file")
+                    ,_T("chm")
+                    ,_T("")
                     ,0);
   if(diag.DoModal() == IDOK)
   {
@@ -492,13 +492,13 @@ void
 ALinkCommandDlg::OnBnClickedBmpSearch()
 {
   CString title = (m_button == BUTTON_BITMAP)
-                    ? "Search for a bitmap file"
-                    : "Search for an icon file";
+                    ? _T("Search for a bitmap file")
+                    : _T("Search for an icon file");
   CString type  = (m_button == BUTTON_BITMAP)
-                    ? "bmp"
-                    : "ico";
+                    ? _T("bmp")
+                    : _T("ico");
 
-  DocFileDialog diag(true,title,type,"",0);
+  DocFileDialog diag(true,title,type,_T(""),0);
   if(diag.DoModal() == IDOK)
   {
     CString file = diag.GetChosenFile();
@@ -542,9 +542,9 @@ void
 ALinkCommandDlg::OnDeltaposSpinh(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  int high = atoi(m_height);
+  int high = _ttoi(m_height);
   high -= pNMUpDown->iDelta;
-  m_height.Format("%d",high);
+  m_height.Format(_T("%d"),high);
   m_changed = true;
   UpdateData(false);
 
@@ -562,9 +562,9 @@ void
 ALinkCommandDlg::OnDeltaposSpinw(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  int wide = atoi(m_width);
+  int wide = _ttoi(m_width);
   wide -= pNMUpDown->iDelta;
-  m_width.Format("%d",wide);
+  m_width.Format(_T("%d"),wide);
   m_changed = true;
   UpdateData(false);
 
@@ -605,7 +605,7 @@ ALinkCommandDlg::OnEndInPlaceEdit(NMHDR *pNMHDR, LRESULT *pResult)
   text = m_list.GetItemText(max,0);
   if(!text.IsEmpty())
   {
-    m_list.InsertRow("");
+    m_list.InsertRow(_T(""));
     m_list.Refresh();
   }
   m_saveEdit.Empty();
@@ -626,8 +626,8 @@ ALinkCommandDlg::OnBnClickedDelete()
   CString message;
   CCellID cell = m_list.GetFocusCell();
   CString text = m_list.GetItemText(cell.row,0);
-  message.Format("Do you want to delete the associative keyword '%s'?",text.GetString());
-  if(theApp.MessageBox(message,"Delete keyword?",MB_YESNO|MB_ICONQUESTION) == IDYES)
+  message.Format(_T("Do you want to delete the associative keyword '%s'?"),text.GetString());
+  if(theApp.MessageBox(message,_T("Delete keyword?"),MB_YESNO|MB_ICONQUESTION) == IDYES)
   {
     m_list.DeleteRow(cell.row);
     m_list.Refresh();
@@ -639,7 +639,7 @@ ALinkCommandDlg::OnBnClickedDelete()
 void 
 ALinkCommandDlg::OnBnClickedId()
 {
-  CString tag("object");
+  CString tag(_T("object"));
   HtmlElement* elem = (HtmlElement*) m_object;
   GeneralIDDlg dlg(this,tag,elem);
   dlg.DoModal();
@@ -652,17 +652,17 @@ ALinkCommandDlg::OnBnClickedStyle()
   {
     m_object->SetStyle();
   }
-  CString tag("object");
+  CString tag(_T("object"));
 
   CString style = m_object->GetInlineStyle();
-  style = tag + " { " + style + "}";
+  style = tag + _T(" { ") + style + _T("}");
   StyleSheetDlg dlg(this,m_base,tag,NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
+    style.TrimRight(_T("}"));
     style.TrimLeft(tag);
-    style.TrimLeft(" {");
+    style.TrimLeft(_T(" {"));
     m_object->SetInlineStyle(style);
   }
 }

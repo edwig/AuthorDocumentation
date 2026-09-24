@@ -698,9 +698,6 @@
     <ClCompile Include="Dialogs\ImportDlg.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogs\MapDialog.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="project\ImportCHM.cpp">
       <Filter>Source Files\Project</Filter>
     </ClCompile>
@@ -1370,9 +1367,6 @@
       <Filter>Source Files\Dialogs\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dialogs\ImportDlg.h">
-      <Filter>Source Files\Dialogs\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialogs\MapDialog.h">
       <Filter>Source Files\Dialogs\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="project\ImportCHM.h">

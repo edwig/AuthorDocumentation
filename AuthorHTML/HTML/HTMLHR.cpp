@@ -27,25 +27,25 @@ HtmlHR::SetProperty(eAction e_Action, CString s_Value)
                   {
                     m_Style.SetProperty(HtmlStyle::P_Color,s_Value);
                   }
-                  SetAttribute("color",s_Value);
+                  SetAttribute(_T("color"),s_Value);
                   break;
 		case E_Size:  if(m_Style.Valid())
                   {
                     m_Style.SetProperty(HtmlStyle::P_Height,s_Value);
                   }
-                  SetAttribute("size",s_Value);
+                  SetAttribute(_T("size"),s_Value);
                   break;
 		case E_Width: if(m_Style.Valid())
                   {
                     m_Style.SetProperty(HtmlStyle::P_Width,s_Value);
                   }
-                  SetAttribute("width",s_Value);
+                  SetAttribute(_T("width"),s_Value);
                   break;
     case E_Align: if(m_Style.Valid())
                   {
                     m_Style.SetProperty(HtmlStyle::P_TextAlign,s_Value);
                   }
-                  SetAttribute("align",s_Value);
+                  SetAttribute(_T("align"),s_Value);
                   break;
 	}
 }
@@ -64,7 +64,7 @@ HtmlHR::GetProperty(eAction e_Action)
                       return prop;
                     }
                   }
-                  return GetAttribute("color");
+                  return GetAttribute(_T("color"));
 		case E_Size:  if(m_Style.Valid())
                   {
                     prop = m_Style.GetProperty(HtmlStyle::P_Height);
@@ -73,7 +73,7 @@ HtmlHR::GetProperty(eAction e_Action)
                       return prop;
                     }
                   }
-                  return GetAttribute("size");
+                  return GetAttribute(_T("size"));
 		case E_Width: if(m_Style.Valid())
                   {
                     prop = m_Style.GetProperty(HtmlStyle::P_Width);
@@ -82,7 +82,7 @@ HtmlHR::GetProperty(eAction e_Action)
                       return prop;
                     }
                   }
-                  return GetAttribute("width");
+                  return GetAttribute(_T("width"));
     case E_Align: if(m_Style.Valid())
                   {
                     prop = m_Style.GetProperty(HtmlStyle::P_TextAlign);
@@ -91,9 +91,9 @@ HtmlHR::GetProperty(eAction e_Action)
                       return prop;
                     }
                   }
-                  return GetAttribute("align");
+                  return GetAttribute(_T("align"));
 	}
-  return "";
+  return _T("");
 }
 
 // return TRUE if the <HR NOSHADE> property is not set

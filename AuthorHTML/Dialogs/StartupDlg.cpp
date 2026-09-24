@@ -64,7 +64,7 @@ StartupDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Projects / Files",LVCFMT_LEFT,360);
+  m_list.InsertColumn(0,_T("Projects / Files"),LVCFMT_LEFT,360);
 
   SetButtonImages();
   CleanupRecentFileList();
@@ -108,14 +108,14 @@ StartupDlg::SetButtonText(bool p_project)
   if(p_project)
   {
     // Projects displayed
-    m_buttonOpenProject.SetWindowText("\n&OPEN\nProject by dialog");
-    m_buttonOpenFile.SetWindowText("\nGet the list\nof recent files");
+    m_buttonOpenProject.SetWindowText(_T("\n&OPEN\nProject by dialog"));
+    m_buttonOpenFile.SetWindowText(_T("\nGet the list\nof recent files"));
   }
   else
   {
     // Files displayed
-    m_buttonOpenProject.SetWindowText("\nGet the list\nof recent projects");
-    m_buttonOpenFile.SetWindowText("\nOPEN\n&File by dialog");
+    m_buttonOpenProject.SetWindowText(_T("\nGet the list\nof recent projects"));
+    m_buttonOpenFile.SetWindowText(_T("\nOPEN\n&File by dialog"));
   }
 }
 
@@ -129,7 +129,7 @@ StartupDlg::GetRecentProjectList()
   for(int ind = 0; ind < size; ++ind)
   {
     CString filename;
-    recent->GetDisplayName(filename,ind,"",0,TRUE);
+    recent->GetDisplayName(filename,ind,_T(""),0,TRUE);
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, filename, 0, 0, 0, 0);
   }
   m_list.SetFocus();
@@ -149,7 +149,7 @@ StartupDlg::GetRecentFileList()
   for(int ind = 0; ind < size; ++ind)
   {
     CString filename;
-    recent->GetDisplayName(filename,ind,"",0,TRUE);
+    recent->GetDisplayName(filename,ind,_T(""),0,TRUE);
     if(filename.IsEmpty())
     {
       filename = (*recent)[ind];
@@ -197,8 +197,8 @@ StartupDlg::OnBnClickedOpenfile()
 
   // See if we now have an open file
   BOOL alreadyMax;
-  MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-  CMDIChildFrame* first = (CMDIChildFrame*)main->MDIGetActive(&alreadyMax);
+  MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+  CMDIChildFrame* first = (CMDIChildFrame*)_tmain->MDIGetActive(&alreadyMax);
   if(first)
   {
     OnOK();
@@ -227,8 +227,8 @@ StartupDlg::OnBnClickedNewfile()
 
   // See if we now have an open file
   BOOL alreadyMax;
-  MainFrame* main = (MainFrame*) theApp.m_pMainWnd;
-  CMDIChildFrame* first = (CMDIChildFrame*)main->MDIGetActive(&alreadyMax);
+  MainFrame* _tmain = (MainFrame*) theApp.m_pMainWnd;
+  CMDIChildFrame* first = (CMDIChildFrame*)_tmain->MDIGetActive(&alreadyMax);
   if(first)
   {
     OnOK();
@@ -281,16 +281,16 @@ StartupDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
     }
     // Open it if it exists
     filename = (*recent)[now];
-    if(_access(filename,0) == 0)
+    if(_taccess(filename,0) == 0)
     {
       theApp.OpenTypedDocumentFile(filename);
       OnOK();
       return;
     }
     CString message;
-    message.Format("The file [%s] does no longer exists.\n"
-                   "Remove it from the recent project/file lists?",filename.GetString());
-    if(theApp.MessageBox(message,"File error",MB_YESNO) == IDYES)
+    message.Format(_T("The file [%s] does no longer exists.\n")
+                   _T("Remove it from the recent project/file lists?"),filename.GetString());
+    if(theApp.MessageBox(message,_T("File error"),MB_YESNO) == IDYES)
     {
       recent->Remove(now);
       // Re-read recent list

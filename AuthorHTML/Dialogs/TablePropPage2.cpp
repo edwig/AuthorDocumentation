@@ -68,15 +68,15 @@ CTablePropPage2Dlg::InitTabForCell(HtmlTableCell cell)
   {
     m_maxColumn     = m_pTable.GetRowCount();
     m_CellColumnNum = cell.GetCellIndex() + 1;
-    CString height  = cell.GetAttribute("height");
-    CString width   = cell.GetAttribute("width");
-    m_Height = atoi(height);
-    m_Width  = atoi(width);
-    if(height.Find("%") >= 0)
+    CString height  = cell.GetAttribute(_T("height"));
+    CString width   = cell.GetAttribute(_T("width"));
+    m_Height = _ttoi(height);
+    m_Width  = _ttoi(width);
+    if(height.Find(_T("%")) >= 0)
     {
       m_heightInPixels = false;
     }
-    if(width.Find("%") >= 0)
+    if(width.Find(_T("%")) >= 0)
     {
       m_widthInPixels = false;
     }
@@ -158,15 +158,15 @@ CTablePropPage2Dlg::InitTabForRow(HtmlTableRow p_row)
   {
     m_maxColumn     = m_pTable.GetRowCount();
     m_CellColumnNum = p_row.GetRowIndex() + 1;
-    CString height  = p_row.GetAttribute("height");
-    CString width   = p_row.GetAttribute("width");
-    m_Height = atoi(height);
-    m_Width  = atoi(width);
-    if(height.Find("%") >= 0)
+    CString height  = p_row.GetAttribute(_T("height"));
+    CString width   = p_row.GetAttribute(_T("width"));
+    m_Height = _ttoi(height);
+    m_Width  = _ttoi(width);
+    if(height.Find(_T("%")) >= 0)
     {
       m_heightInPixels = false;
     }
-    if(width.Find("%") >= 0)
+    if(width.Find(_T("%")) >= 0)
     {
       m_widthInPixels = false;
     }
@@ -284,15 +284,15 @@ void CTablePropPage2Dlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_pCell.HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_pCell.HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_pCell.HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_pCell.HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_pCell.HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_pCell.HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -358,7 +358,7 @@ CTablePropPage2Dlg::OnInitDialog()
   if(m_bNewTable)
   {
     m_cellSelectCtrl.ResetContent();
-    m_cellSelectCtrl.AddString("All cells");
+    m_cellSelectCtrl.AddString(_T("All cells"));
     m_cellSelectCtrl.SetCurSel(0);
     m_cellSelectCtrl.EnableWindow(FALSE);
 
@@ -395,18 +395,18 @@ CTablePropPage2Dlg::OnInitDialog()
 
   // Top,middle,bottom,baseline
   int valign = 1; // Middle is default
-  if(m_vAlign.CompareNoCase("Top")      == 0)  valign = 0;
-  if(m_vAlign.CompareNoCase("Middle")   == 0)  valign = 1;
-  if(m_vAlign.CompareNoCase("Bottom")   == 0)  valign = 2;
-  if(m_vAlign.CompareNoCase("Baseline") == 0)  valign = 3;
+  if(m_vAlign.CompareNoCase(_T("Top"))      == 0)  valign = 0;
+  if(m_vAlign.CompareNoCase(_T("Middle"))   == 0)  valign = 1;
+  if(m_vAlign.CompareNoCase(_T("Bottom"))   == 0)  valign = 2;
+  if(m_vAlign.CompareNoCase(_T("Baseline")) == 0)  valign = 3;
   m_alignVertical.SetCurSel(valign); 
 
   // Get horizontal alignment (Left, center, right, justify)
   int halign = 0;
-  if(m_hAlign.CompareNoCase("Left")   == 0) halign = 0;
-  if(m_hAlign.CompareNoCase("Center") == 0) halign = 1;
-  if(m_hAlign.CompareNoCase("Right")  == 0) halign = 2;
-  if(m_hAlign.CompareNoCase("Justify")== 0) halign = 3;
+  if(m_hAlign.CompareNoCase(_T("Left"))   == 0) halign = 0;
+  if(m_hAlign.CompareNoCase(_T("Center")) == 0) halign = 1;
+  if(m_hAlign.CompareNoCase(_T("Right"))  == 0) halign = 2;
+  if(m_hAlign.CompareNoCase(_T("Justify"))== 0) halign = 3;
   m_alignHorizontal.SetCurSel(halign);
 
   m_buttonBGColor.EnableOtherButton(_T("More colors..."));
@@ -450,76 +450,76 @@ CTablePropPage2Dlg::CreateOneCell(int rows,int columns)
     {
       int height;
       height = min(m_Height,defHeight);
-      heightString.Format("%d",height);
+      heightString.Format(_T("%d"),height);
     }
     else
     {
-      heightString.Format("%d%%",m_Height);
+      heightString.Format(_T("%d%%"),m_Height);
     }
   }
   else
   {
     // Default height in % of table by num-of-rows
-    heightString.Format("%d%%",defHeight);
+    heightString.Format(_T("%d%%"),defHeight);
   }
-  heightString = " height=\"" + heightString + "\"";
+  heightString = _T(" height=\"") + heightString + _T("\"");
   if(m_widthEnable)
   {
     if(m_widthInPixels)
     {
       int width;
       width = min(m_Width,defWidth);
-      widthString.Format("%d",width);
+      widthString.Format(_T("%d"),width);
     }
     else
     {
-      widthString.Format("%d%%",m_Width);
+      widthString.Format(_T("%d%%"),m_Width);
     }
   }
   else
   {
     // Default width in % of table by num-of-columns
-    widthString.Format("%d%%",defWidth);
+    widthString.Format(_T("%d%%"),defWidth);
   }
-  widthString = " width=\"" + widthString + "\"";
+  widthString = _T(" width=\"") + widthString + _T("\"");
 
   // Horizontal / Vertical justification
   if(m_horizontalEnable)
   {
-    horizString = " align=\"" + m_vAlign + "\"";
+    horizString = _T(" align=\"") + m_vAlign + _T("\"");
   }
   if(m_verticalEnable)
   {
-    vertiString = " valign=\"" + m_hAlign + "\"";
+    vertiString = _T(" valign=\"") + m_hAlign + _T("\"");
   }
   if(m_backColorEnable)
   {
-    background = " bgcolor=\"" + m_backgroundColor + "\"";
+    background = _T(" bgcolor=\"") + m_backgroundColor + _T("\"");
   }
   if(m_backImageEnable)
   {
-    image = " background=\"" + m_backgroundImage + "\"";
+    image = _T(" background=\"") + m_backgroundImage + _T("\"");
   }
   if(m_borderColorEnable)
   {
-    border = " bordercolor=\"" + m_borderColor + "\"";
+    border = _T(" bordercolor=\"") + m_borderColor + _T("\"");
   }
   if(m_borderLightColorEnable)
   {
-    borderLight = " bordercolorlight=\"" + m_borderColorLight + "\"";
+    borderLight = _T(" bordercolorlight=\"") + m_borderColorLight + _T("\"");
   }
   if(m_borderDarkColorEnable)
   {
-    borderDark = " bordercolordark=\"" + m_borderColorDark + "\"";
+    borderDark = _T(" bordercolordark=\"") + m_borderColorDark + _T("\"");
   }
   // Now build the single table data (TD) string
-  CString colDef = "<TD" + 
+  CString colDef = _T("<TD") + 
                    heightString + widthString + 
                    vertiString  + horizString + 
                    background   + image + 
                    border       + borderLight + 
                    borderDark   + 
-                   "><P></P></TD>";
+                   _T("><P></P></TD>");
   return colDef;
 }
 
@@ -545,14 +545,14 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   {
     if(m_heightInPixels)
     {
-      heightString.Format("%d",m_Height);
+      heightString.Format(_T("%d"),m_Height);
     }
     else
     {
-      heightString.Format("%d%%",m_Height);
+      heightString.Format(_T("%d%%"),m_Height);
     }
   }
-  pCell.SetAttribute("height",heightString);
+  pCell.SetAttribute(_T("height"),heightString);
 
   // Width update
   CString widthString;
@@ -560,24 +560,24 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   {
     if(m_widthInPixels)
     {
-      widthString.Format("%d",m_Width);
+      widthString.Format(_T("%d"),m_Width);
     }
     else
     {
-      widthString.Format("%d%%",m_Width);
+      widthString.Format(_T("%d%%"),m_Width);
     }
   }
-  pCell.SetAttribute("width",widthString);
+  pCell.SetAttribute(_T("width"),widthString);
 
   // Horizontal / Vertical justification
   if(!m_horizontalEnable)
   {
-    m_hAlign = "";
+    m_hAlign = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_AlignHorz,m_hAlign);
   if(!m_verticalEnable)
   {
-    m_vAlign = "";
+    m_vAlign = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_AlignVert,m_vAlign);
 
@@ -585,18 +585,18 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   if(m_backColorEnable)
   {
     Misc::DecodeColor(m_backgroundColor,red,green,blue);
-    m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+    m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_backgroundColor = "";
+    m_backgroundColor = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_BgColor,m_backgroundColor);
 
   // Backgorund image
   if(!m_backImageEnable)
   {
-    m_backgroundImage = "";
+    m_backgroundImage = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_Background,m_backgroundImage);
 
@@ -604,11 +604,11 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   if(m_borderColorEnable)
   {
     Misc::DecodeColor(m_borderColor,red,green,blue);
-    m_borderColor.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColor = "";
+    m_borderColor = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_BorderColor,m_borderColor);
 
@@ -616,11 +616,11 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   if(m_borderLightColorEnable)
   {
     Misc::DecodeColor(m_borderColorLight,red,green,blue);
-    m_borderColorLight.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColorLight.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColorLight = "";
+    m_borderColorLight = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_BorderColorLight,m_borderColorLight);
 
@@ -628,11 +628,11 @@ CTablePropPage2Dlg::UpdateCellProperties(HtmlTableCell pCell)
   if(m_borderDarkColorEnable)
   {
     Misc::DecodeColor(m_borderColorDark,red,green,blue);
-    m_borderColorDark.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColorDark.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColorDark = "";
+    m_borderColorDark = _T("");
   }
   pCell.SetProperty(HtmlTableCell::E_BorderColorDark,m_borderColorDark);
 }
@@ -648,14 +648,14 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   {
     if(m_heightInPixels)
     {
-      heightString.Format("%d",m_Height);
+      heightString.Format(_T("%d"),m_Height);
     }
     else
     {
-      heightString.Format("%d%%",m_Height);
+      heightString.Format(_T("%d%%"),m_Height);
     }
   }
-  pRow.SetAttribute("height",heightString);
+  pRow.SetAttribute(_T("height"),heightString);
 
   // Width update
   CString widthString;
@@ -663,24 +663,24 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   {
     if(m_widthInPixels)
     {
-      widthString.Format("%d",m_Width);
+      widthString.Format(_T("%d"),m_Width);
     }
     else
     {
-      widthString.Format("%d%%",m_Width);
+      widthString.Format(_T("%d%%"),m_Width);
     }
   }
-  pRow.SetAttribute("width",widthString);
+  pRow.SetAttribute(_T("width"),widthString);
 
   // Horizontal / Vertical justification
   if(!m_horizontalEnable)
   {
-    m_hAlign = "";
+    m_hAlign = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_AlignHorz,m_hAlign);
   if(!m_verticalEnable)
   {
-    m_vAlign = "";
+    m_vAlign = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_AlignVert,m_vAlign);
 
@@ -688,18 +688,18 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   if(m_backColorEnable)
   {
     Misc::DecodeColor(m_backgroundColor,red,green,blue);
-    m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+    m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_backgroundColor = "";
+    m_backgroundColor = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_BgColor,m_backgroundColor);
 
   // Backgorund image
   if(!m_backImageEnable)
   {
-    m_backgroundImage = "";
+    m_backgroundImage = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_Background,m_backgroundImage);
 
@@ -707,11 +707,11 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   if(m_borderColorEnable)
   {
     Misc::DecodeColor(m_borderColor,red,green,blue);
-    m_borderColor.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColor = "";
+    m_borderColor = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_BorderColor,m_borderColor);
 
@@ -719,11 +719,11 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   if(m_borderLightColorEnable)
   {
     Misc::DecodeColor(m_borderColorLight,red,green,blue);
-    m_borderColorLight.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColorLight.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColorLight = "";
+    m_borderColorLight = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_BorderColorLight,m_borderColorLight);
 
@@ -731,11 +731,11 @@ CTablePropPage2Dlg::UpdateRowProperties(HtmlTableRow pRow)
   if(m_borderDarkColorEnable)
   {
     Misc::DecodeColor(m_borderColorDark,red,green,blue);
-    m_borderColorDark.Format("#%02x%02x%02x",red,green,blue);
+    m_borderColorDark.Format(_T("#%02x%02x%02x"),red,green,blue);
   }
   else
   {
-    m_borderColorDark = "";
+    m_borderColorDark = _T("");
   }
   pRow.SetProperty(HtmlTableRow::E_BorderColorDark,m_borderColorDark);
 }
@@ -782,24 +782,24 @@ void CTablePropPage2Dlg::OnCbnSelchangeCellapply()
 
   // Commit latest changes
   CommitUpdates();
-  if(units == "Cell")   
+  if(units == _T("Cell"))   
   {
     m_mode = TP_CellMode;
     m_CellColumnNum = m_pCell.GetCellIndex() + 1;
   }
-  if(units == "Column") 
+  if(units == _T("Column")) 
   {
     m_mode = TP_ColumnMode;
     m_CellColumnNum = m_pCell.GetColIndex() + 1;
   }
-  if(units == "Row")    
+  if(units == _T("Row"))    
   {
     m_mode = TP_RowMode;
     m_CellColumnNum = m_pRow.GetRowIndex() + 1;
   }
   CString sNum;
   CWnd* wnd = GetDlgItem(IDC_CELLNUM);
-  sNum.Format("%d",m_CellColumnNum);
+  sNum.Format(_T("%d"),m_CellColumnNum);
   wnd->SetWindowText(sNum);
 }
 
@@ -818,7 +818,7 @@ void CTablePropPage2Dlg::OnEnChangeCellnum()
   // m_CellColumnNum not yet set!
   CWnd* wnd = GetDlgItem(IDC_CELLNUM);
   wnd->GetWindowText(sNum);
-  UINT num = atoi(sNum);
+  UINT num = _ttoi(sNum);
 
   switch(m_mode)
   {
@@ -835,17 +835,17 @@ void CTablePropPage2Dlg::OnEnChangeCellnum()
          }
          else if(num)
          {
-           theApp.ErrorMessage("Number of columns in this table exceeded");
+           theApp.ErrorMessage(_T("Number of columns in this table exceeded"));
            --num;
-           sNum.Format("%d",num);
+           sNum.Format(_T("%d"),num);
            wnd->SetWindowText(sNum);
            return;
          }
          else
          {
-           theApp.ErrorMessage("Column number 0 not allowed");
+           theApp.ErrorMessage(_T("Column number 0 not allowed"));
            ++num;
-           sNum.Format("%d",num);
+           sNum.Format(_T("%d"),num);
            wnd->SetWindowText(sNum);
            return;
          }
@@ -864,17 +864,17 @@ void CTablePropPage2Dlg::OnEnChangeCellnum()
          }
          else if(num)
          {
-           theApp.ErrorMessage("Number of rows in this table exceeded");
+           theApp.ErrorMessage(_T("Number of rows in this table exceeded"));
            --num;
-           sNum.Format("%d",num);
+           sNum.Format(_T("%d"),num);
            wnd->SetWindowText(sNum);
            return;
          }
          else
          {
-           theApp.ErrorMessage("Row number 0 not allowed");
+           theApp.ErrorMessage(_T("Row number 0 not allowed"));
            ++num;
-           sNum.Format("%d",num);
+           sNum.Format(_T("%d"),num);
            wnd->SetWindowText(sNum);
            return;
          }
@@ -887,9 +887,9 @@ void CTablePropPage2Dlg::OnBnClickedPrevcell()
   CString sNum;
   CWnd* wnd = GetDlgItem(IDC_CELLNUM);
   wnd->GetWindowText(sNum);
-  UINT num = atoi(sNum);
+  UINT num = _ttoi(sNum);
   --num;
-  sNum.Format("%d",num);
+  sNum.Format(_T("%d"),num);
   wnd->SetWindowText(sNum);
   OnEnChangeCellnum();
 }
@@ -900,9 +900,9 @@ CTablePropPage2Dlg::OnBnClickedNextcell()
   CString sNum;
   CWnd* wnd = GetDlgItem(IDC_CELLNUM);
   wnd->GetWindowText(sNum);
-  UINT num = atoi(sNum);
+  UINT num = _ttoi(sNum);
   ++num;
-  sNum.Format("%d",num);
+  sNum.Format(_T("%d"),num);
   wnd->SetWindowText(sNum);
   OnEnChangeCellnum();
 }
@@ -935,7 +935,7 @@ CTablePropPage2Dlg::OnCbnSelchangeFormatheight()
   CString units;
   int ind = m_formatHeightCtrl.GetCurSel();
   m_formatHeightCtrl.GetLBText(ind,units);
-  m_heightInPixels = (units == "Pixels") ? true : false;
+  m_heightInPixels = (units == _T("Pixels")) ? true : false;
 }
 
 void 
@@ -944,7 +944,7 @@ CTablePropPage2Dlg::OnCbnSelchangeFormatwidth()
   CString units;
   int ind = m_formatWidthCtrl.GetCurSel();
   m_formatWidthCtrl.GetLBText(ind,units);
-  m_widthInPixels = (units == "Pixels") ? true : false;
+  m_widthInPixels = (units == _T("Pixels")) ? true : false;
 }
 
 void 
@@ -990,7 +990,7 @@ CTablePropPage2Dlg::OnBnClickedButtBgcolorcell()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_backgroundColor.Format("#%02x%02x%02x",red,green,blue);
+  m_backgroundColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -1028,7 +1028,7 @@ CTablePropPage2Dlg::OnBnClickedButtBordercolorcell()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderColor.Format("#%02x%02x%02x",red,green,blue);
+  m_borderColor.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -1047,7 +1047,7 @@ CTablePropPage2Dlg::OnBnClickedButtBorderlightcolorcell()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderColorLight.Format("#%02x%02x%02x",red,green,blue);
+  m_borderColorLight.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
@@ -1066,14 +1066,14 @@ CTablePropPage2Dlg::OnBnClickedButtBorderdarkcolorcell()
   int red   = GetRValue(col);
   int green = GetGValue(col);
   int blue  = GetBValue(col);
-  m_borderColorDark.Format("#%02x%02x%02x",red,green,blue);
+  m_borderColorDark.Format(_T("#%02x%02x%02x"),red,green,blue);
 }
 
 void 
 CTablePropPage2Dlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(&m_pCell);
-  GeneralIDDlg dlg(this,"td",elem);
+  GeneralIDDlg dlg(this,_T("td"),elem);
   dlg.DoModal();
 }
 
@@ -1081,7 +1081,7 @@ void
 CTablePropPage2Dlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*)(&m_pCell);
-  TagEventsDlg dlg(this,elem,"TD");
+  TagEventsDlg dlg(this,elem,_T("TD"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -1099,13 +1099,13 @@ CTablePropPage2Dlg::OnBnClickedStyle()
   // debug
   style.MakeLower();
 
-  style = CString("td { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"td",NULL,style);
+  style = CString(_T("td { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("td"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("td {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("td {"));
     m_pCell.SetInlineStyle(style);
     InitTabForCell(m_pCell);
     UpdateData(Data2Controls);

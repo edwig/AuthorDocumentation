@@ -73,13 +73,13 @@ OpenFiles::OnCreate(LPCREATESTRUCT lpCreateStruct)
   {
     return NULL;
   }
-  m_openFilesList.InsertColumn(0, (LPCSTR)NULL);
+  m_openFilesList.InsertColumn(0, (LPCTSTR)NULL);
   m_openFilesList.SetColumnWidth(0,300);
   m_openFilesList.SetExtendedStyle(m_openFilesList.GetExtendedStyle()|LVS_EX_FULLROWSELECT);
   //m_openFilesList.ModifyStyleEx(0, WS_EX_CLIENTEDGE, 0);
 
   SHFILEINFO shFinfo;
-  HIMAGELIST hImgList = (HIMAGELIST)SHGetFileInfo("", 0, &shFinfo, sizeof(shFinfo), SHGFI_SMALLICON|SHGFI_SYSICONINDEX);
+  HIMAGELIST hImgList = (HIMAGELIST)SHGetFileInfo(_T(""), 0, &shFinfo, sizeof(shFinfo), SHGFI_SMALLICON|SHGFI_SYSICONINDEX);
   // Record the image list as 'permanent'
   ::SendMessage(m_openFilesList.m_hWnd,LVM_SETIMAGELIST, (LPARAM)hImgList, (UINT)LVSIL_SMALL);
   if (m_imgList && m_imgList->m_hImageList) 

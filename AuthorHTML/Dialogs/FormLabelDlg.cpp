@@ -55,7 +55,7 @@ void FormLabelDlg::OnBnClickedOk()
 {
   if(m_for.IsEmpty())
   {
-    theApp.ErrorMessage("Fill in an edit field ID first");
+    theApp.ErrorMessage(_T("Fill in an edit field ID first"));
     return;
   }
   OnOK();

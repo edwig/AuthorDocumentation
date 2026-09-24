@@ -99,10 +99,10 @@ IndexEntry::AddDocument(CString title,CString filename)
 {
   // Split the bookmark
   CString bookmark;
-  if(filename.Find('#') > 0)
+  if(filename.Find(_T('#')) > 0)
   {
-    bookmark = filename.Mid (filename.Find('#') + 1);
-    filename = filename.Left(filename.Find('#'));
+    bookmark = filename.Mid (filename.Find(_T('#')) + 1);
+    filename = filename.Left(filename.Find(_T('#')));
   }
 
   IndexDocument* doc = new IndexDocument();

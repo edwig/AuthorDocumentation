@@ -44,10 +44,10 @@ public:
 
   HICON GeefHICON();
 
-  bool LoadFromFile(const char *filename,int iconx = 0,int icony = 0);
+  bool LoadFromFile(const TCHAR *filename,int iconx = 0,int icony = 0);
 private:
-  HICON LoadIconFile(const char *filename,int iconx, int icony);
-  HICON ReadIconFile(const char *filename,int iconx = 0,int icony = 0);
+  HICON LoadIconFile(const TCHAR *filename,int iconx, int icony);
+  HICON ReadIconFile(const TCHAR *filename,int iconx = 0,int icony = 0);
 
 private:
   HICON m_icon;

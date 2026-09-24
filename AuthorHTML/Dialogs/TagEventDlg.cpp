@@ -72,24 +72,24 @@ TagEventDlg::OnInitDialog()
 void
 TagEventDlg::FillPage()
 {
-  m_name = m_elem->GetAttribute("name");
-  m_id   = m_elem->GetAttribute("id");
+  m_name = m_elem->GetAttribute(_T("name"));
+  m_id   = m_elem->GetAttribute(_T("id"));
   m_code = m_elem->GetAttribute(m_event);
   m_tagdescript = Misc::GetTagDescription(m_tag);
   m_description = Misc::GetEventDescription(m_event,0);
 
   int gettag = 0;
-  if(m_tag.CompareNoCase("img")      == 0) gettag = TAGS_IMG;
-  if(m_tag.CompareNoCase("body")     == 0) gettag = TAGS_BODY;
-  if(m_tag.CompareNoCase("form")     == 0) gettag = TAGS_FORM;
-  if(m_tag.CompareNoCase("input")    == 0) gettag = TAGS_INPUT;
-  if(m_tag.CompareNoCase("select")   == 0) gettag = TAGS_SELECT;
-  if(m_tag.CompareNoCase("table")    == 0) gettag = TAGS_TABLE;
-  if(m_tag.CompareNoCase("script")   == 0) gettag = TAGS_SCRIPT;
-  if(m_tag.CompareNoCase("style")    == 0) gettag = TAGS_STYLE;
-  if(m_tag.CompareNoCase("object")   == 0) gettag = TAGS_OBJECT;
-  if(m_tag.CompareNoCase("marquee")  == 0) gettag = TAGS_MARQUEE;
-  if(m_tag.CompareNoCase("textarea") == 0) gettag = TAGS_TEXTAREA;
+  if(m_tag.CompareNoCase(_T("img"))      == 0) gettag = TAGS_IMG;
+  if(m_tag.CompareNoCase(_T("body"))     == 0) gettag = TAGS_BODY;
+  if(m_tag.CompareNoCase(_T("form"))     == 0) gettag = TAGS_FORM;
+  if(m_tag.CompareNoCase(_T("input"))    == 0) gettag = TAGS_INPUT;
+  if(m_tag.CompareNoCase(_T("select"))   == 0) gettag = TAGS_SELECT;
+  if(m_tag.CompareNoCase(_T("table"))    == 0) gettag = TAGS_TABLE;
+  if(m_tag.CompareNoCase(_T("script"))   == 0) gettag = TAGS_SCRIPT;
+  if(m_tag.CompareNoCase(_T("style"))    == 0) gettag = TAGS_STYLE;
+  if(m_tag.CompareNoCase(_T("object"))   == 0) gettag = TAGS_OBJECT;
+  if(m_tag.CompareNoCase(_T("marquee"))  == 0) gettag = TAGS_MARQUEE;
+  if(m_tag.CompareNoCase(_T("textarea")) == 0) gettag = TAGS_TEXTAREA;
 
   std::vector<CString> all;
   Misc::GetAllEvents(all,0,gettag);   // Specific tags first

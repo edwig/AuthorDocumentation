@@ -17,44 +17,44 @@ BEGIN_MESSAGE_MAP(AuMessageBox, CDialog)
 END_MESSAGE_MAP()
 
 AuMessageBox::AuMessageBox(CWnd*  parent
-                    ,LPCSTR titel
-                    ,LPCSTR boodschap
-                    ,CString labels)
-          :CDialog(AuMessageBox::IDD,parent)
-          ,m_titel(titel)
-          ,m_boodschap(boodschap)
-          ,m_stijlen(0)
-          ,m_default(0)
-          ,m_def_gedaan(false)
-          ,m_onderdruk(NULL)
-          ,m_alleenOK(false)
-          ,m_nietMeer(false)
-          ,m_ownsFont(false)
-          ,m_font(NULL)
+                          ,LPCTSTR titel
+                          ,LPCTSTR boodschap
+                          ,CString labels)
+            :CDialog(AuMessageBox::IDD,parent)
+            ,m_titel(titel)
+            ,m_boodschap(boodschap)
+            ,m_stijlen(0)
+            ,m_default(0)
+            ,m_def_gedaan(false)
+            ,m_onderdruk(NULL)
+            ,m_alleenOK(false)
+            ,m_nietMeer(false)
+            ,m_ownsFont(false)
+            ,m_font(NULL)
 {
   InitButtons();
 
   // Zoek naar een signaal plaatje op het eerste label
   int piep = 0;
-  if(labels.GetAt(0) == '!') 
+  if(labels.GetAt(0) == _T('!')) 
   {
     piep = MB_ICONEXCLAMATION;
-    m_image.ZetAfbeelding(m_afbeelding = "EXCLAMATION");
+    m_image.ZetAfbeelding(m_afbeelding = _T("EXCLAMATION"));
   }
-  if(labels.GetAt(0) == '?') 
+  if(labels.GetAt(0) == _T('?')) 
   {
     piep = MB_ICONQUESTION;
-    m_image.ZetAfbeelding(m_afbeelding = "QUESTION");
+    m_image.ZetAfbeelding(m_afbeelding = _T("QUESTION"));
   }
-  if(labels.GetAt(0) == '.') 
+  if(labels.GetAt(0) == _T('.')) 
   {
     piep = MB_ICONHAND;
-    m_image.ZetAfbeelding(m_afbeelding = "STOP");
+    m_image.ZetAfbeelding(m_afbeelding = _T("STOP"));
   }
-  if(labels.GetAt(0) == '#') 
+  if(labels.GetAt(0) == _T('#')) 
   {
     piep = MB_ICONASTERISK;
-    m_image.ZetAfbeelding(m_afbeelding = "INFORMATION");
+    m_image.ZetAfbeelding(m_afbeelding = _T("INFORMATION"));
   }
 
   if(!m_afbeelding.IsEmpty())
@@ -65,32 +65,32 @@ AuMessageBox::AuMessageBox(CWnd*  parent
     MessageBeep(piep);
   }
 
-  if(labels == "ok cancel")
+  if(labels == _T("ok cancel"))
   {
-    labels = "ok cancel$ca";
+    labels = _T("ok cancel$ca");
   }
-  if(labels == "cancel retry ignore")
+  if(labels == _T("cancel retry ignore"))
   {
-    labels = "cancel$ca retry$ok ignore$ig";
+    labels = _T("cancel$ca retry$ok ignore$ig");
   }
-  if(labels == "yes no")
+  if(labels == _T("yes no"))
   {
-    labels = "yes$ye no$no";
+    labels = _T("yes$ye no$no");
   }
-  if(labels == "yes no cancel")
+  if(labels == _T("yes no cancel"))
   {
-    labels = "yes$ok no$ca cancel$ig";
+    labels = _T("yes$ok no$ca cancel$ig");
   }
-  if(labels == "retry ignore")
+  if(labels == _T("retry ignore"))
   {
-    labels = "retry$ok ignore$ca";
+    labels = _T("retry$ok ignore$ca");
   }
   MaakLabelTekstenEnStijlen(labels);
 }
 
 AuMessageBox::AuMessageBox(CWnd* parent
-                    ,LPCSTR titel
-                    ,LPCSTR boodschap
+                    ,LPCTSTR titel
+                    ,LPCTSTR boodschap
                     ,int    stijlen)
           :CDialog(AuMessageBox::IDD,parent)
           ,m_titel(titel)
@@ -108,27 +108,27 @@ AuMessageBox::AuMessageBox(CWnd* parent
   CString labels;
   if((stijlen & 0x0f) == MB_OK)       
   {
-    labels = "ok";
+    labels = _T("ok");
   }
   if((stijlen & 0x0f) == MB_OKCANCEL) 
   {
-    labels = "ok cancel$ca";
+    labels = _T("ok cancel$ca");
   }
   if((stijlen & 0x0f) == MB_ABORTRETRYIGNORE) 
   {
-    labels = "abort$ca retry$ok ignore$ig";
+    labels = _T("abort$ca retry$ok ignore$ig");
   }
   if((stijlen & 0x0f) == MB_YESNO)            
   {
-    labels = "yes$ok no$no";
+    labels = _T("yes$ok no$no");
   }
   if((stijlen & 0x0f) == MB_YESNOCANCEL)
   {
-    labels = "yes$ok no$no cancel$ca";
+    labels = _T("yes$ok no$no cancel$ca");
   }
   if((stijlen & 0x0f) == MB_RETRYCANCEL)
   {
-    labels = "retry$ok cancel$ca";
+    labels = _T("retry$ok cancel$ca");
   }
   MaakLabelTekstenEnStijlen(labels);
 
@@ -136,10 +136,10 @@ AuMessageBox::AuMessageBox(CWnd* parent
   {
     // (MB_ICONHAND | MB_ICONQUESTION | MB_ICONEXCLAMATION | MB_ICONASTERISK)
     int stijl = stijlen & 0x0f0;
-    if(stijl == MB_ICONASTERISK)     m_afbeelding = "INFORMATION";
-    if(stijl == MB_ICONEXCLAMATION)  m_afbeelding = "EXCLAMATION";
-    if(stijl == MB_ICONHAND)         m_afbeelding = "STOP";
-    if(stijl == MB_ICONQUESTION)     m_afbeelding = "QUESTION";
+    if(stijl == MB_ICONASTERISK)     m_afbeelding = _T("INFORMATION");
+    if(stijl == MB_ICONEXCLAMATION)  m_afbeelding = _T("EXCLAMATION");
+    if(stijl == MB_ICONHAND)         m_afbeelding = _T("STOP");
+    if(stijl == MB_ICONQUESTION)     m_afbeelding = _T("QUESTION");
     m_image.ZetAfbeelding(m_afbeelding);
     m_alleenOK = false;
     // Geef de juiste beep, volgens de stijl
@@ -203,8 +203,8 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
   // Alles resetten
   for(int i = 0; i < MAX_LABELS; ++i)
   {
-    m_label[i] = CString("");
-    m_style[i] = CString("");
+    m_label[i] = CString(_T(""));
+    m_style[i] = CString(_T(""));
     m_breed[i] = 0;
   }
   // label string doorlopen
@@ -212,7 +212,7 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
   int spatiePos = 0;
   for(int i = 0; i < MAX_LABELS; ++i)
   {
-    spatiePos = rest.Find(' ');
+    spatiePos = rest.Find(_T(' '));
     if(spatiePos > 0)
     {
       m_label[i] = rest.Left(spatiePos);
@@ -224,13 +224,13 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
       m_label[i] = rest;
     }
     rest.TrimLeft();
-    if(m_label[i].Find('$') > 0)
+    if(m_label[i].Find(_T('$')) > 0)
     {
-      int pos = m_label[i].Find('$');
+      int pos = m_label[i].Find(_T('$'));
       m_style[i] = m_label[i].Mid(pos + 1);
       m_label[i] = m_label[i].Left(pos);
     }
-    m_label[i].Replace('_',' ');
+    m_label[i].Replace(_T('_'),_T(' '));
     if(spatiePos < 0)
     {
       break;
@@ -242,7 +242,7 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
   {
     if(!m_label[i].IsEmpty())
     {
-      if(m_label[i].GetAt(0) == '@')
+      if(m_label[i].GetAt(0) == _T('@'))
       {
         m_default  = i + ID_OFFSET;
         m_label[i] = m_label[i].Mid(1);
@@ -255,13 +255,13 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
   {
     if(!m_label[i].IsEmpty())
     {
-      if(m_label[i] == "ok")
+      if(m_label[i] == _T("ok"))
       {
-        m_label[i] = "OK";
+        m_label[i] = _T("OK");
       }
       else
       {
-        m_label[i].SetAt(0,(char)toupper(m_label[i].GetAt(0)));
+        m_label[i].SetAt(0,(TCHAR)_totupper(m_label[i].GetAt(0)));
       }
     }
   }
@@ -285,7 +285,7 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
     }
   }
   // Controle op alleen een OK knop
-  if((m_label[0].CompareNoCase("ok") == 0) && m_label[1].IsEmpty())
+  if((m_label[0].CompareNoCase(_T("ok")) == 0) && m_label[1].IsEmpty())
   {
     if(m_afbeelding.IsEmpty())
     {
@@ -320,7 +320,7 @@ AuMessageBox::GeefResultaat(int p_id)
     if(p_id == IDCANCEL)
     {
       // Op de ESCape toets gedrukt
-      resultaat = "";
+      resultaat = _T("");
     }
   }
   resultaat.MakeLower();
@@ -374,13 +374,13 @@ AuMessageBox::GeefStandaardPositief()
   {
     if(!m_style[i].IsEmpty())
     {
-      if(m_style[i].CompareNoCase("ok") == 0)
+      if(m_style[i].CompareNoCase(_T("ok")) == 0)
       {
         return m_label[i];
       }
     }
   }
-  return "";
+  return _T("");
 }
 
 CString
@@ -390,13 +390,13 @@ AuMessageBox::GeefStandaardNegatief()
   {
     if(!m_style[i].IsEmpty())
     {
-      if(m_style[i].CompareNoCase("ca") == 0)
+      if(m_style[i].CompareNoCase(_T("ca")) == 0)
       {
         return m_label[i];
       }
     }
   }
-  return "";
+  return _T("");
 }
 
 int
@@ -406,7 +406,7 @@ AuMessageBox::GeefStandaardPositiefID()
   {
     if(!m_style[i].IsEmpty())
     {
-      if(m_style[i].CompareNoCase("ok") == 0)
+      if(m_style[i].CompareNoCase(_T("ok")) == 0)
       {
         return i + ID_OFFSET;
       }
@@ -422,7 +422,7 @@ AuMessageBox::GeefStandaardNegatiefID()
   {
     if(!m_style[i].IsEmpty())
     {
-      if(m_style[i].CompareNoCase("ca") == 0)
+      if(m_style[i].CompareNoCase(_T("ca")) == 0)
       {
         return i + ID_OFFSET;
       }
@@ -445,7 +445,7 @@ AuMessageBox::OnInitDialog()
 
 
   m_font = new CFont;
-  LOGFONT lf = ControlsInfo::MaakLOGFONTVanString("");
+  LOGFONT lf = ControlsInfo::MaakLOGFONTVanString(_T(""));
   m_font->CreateFontIndirect( &lf );
   m_ownsFont = true;
 
@@ -465,8 +465,8 @@ AuMessageBox::OnInitDialog()
   CString text = m_boodschap;
 
   // Vervang alle voorkomens van \n door \r\n
-  text.Replace("\r\n", "\n");
-  text.Replace("\n", "\r\n");
+  text.Replace(_T("\r\n"), _T("\n"));
+  text.Replace(_T("\n"), _T("\r\n"));
 
 
   // Bepaal breedte/hoogte
@@ -513,7 +513,7 @@ AuMessageBox::OnInitDialog()
   // Knoppen maken
   // Voor de breedte gebruiken we de breedte van 
   // een "W", voor de hoogte de echte fonthoogte.
-  CSize tsize = dc->GetTextExtent("W");
+  CSize tsize = dc->GetTextExtent(_T("W"));
   int buttonTop    = tekstRect.bottom + OFFSET;
   int buttonWidth  = (int)(ButtonWidthFactor * tsize.cx + (3 * OFFSET));
   int buttonHeight = tsize.cy + 4 * GetSystemMetrics(SM_CYFIXEDFRAME);
@@ -574,9 +574,9 @@ AuMessageBox::OnInitDialog()
     CString sButtonTekst = m_label[i];
     if(!sButtonTekst.IsEmpty())
     {
-      if(sButtonTekst.Find('&') < 0)
+      if(sButtonTekst.Find(_T('&')) < 0)
       {
-        sButtonTekst = "&" + sButtonTekst;
+        sButtonTekst = _T("&") + sButtonTekst;
       }
       buttonWidth = m_breed[i];
       CRect rect(buttonBegin,buttonTop,buttonBegin + buttonWidth,buttonTop + buttonHeight);
@@ -600,7 +600,7 @@ AuMessageBox::OnInitDialog()
     int wcb = tsize.cx + 2*GetSystemMetrics(SM_CXFIXEDFRAME);
     totalHeight += hcb + OFFSET;
 
-    CString sNietMeerHerhalen = "Do not show again      ";
+    CString sNietMeerHerhalen = _T("Do not show again      ");
 
     // Bepaal tekst breedte
     CRect textRect = CRect(0, 0, 0, 0);
@@ -707,7 +707,7 @@ AuMessageBox::OnKeyDown(UINT nChar,
 void
 AuMessageBox::ControleerActie(UINT nChar)
 {
-  if(nChar == ' ')
+  if(nChar == _T(' '))
   {
     // Spatie selecteert de huidige knop met focus
     CButtonC* wnd = (CButtonC *) GetFocus();
@@ -724,7 +724,7 @@ AuMessageBox::ControleerActie(UINT nChar)
     // Zoek anders het label dat begint met deze letter
     if(!m_label[i].IsEmpty())
     {
-      if(tolower(m_label[i].GetAt(0)) == tolower(nChar))
+      if(_totlower(m_label[i].GetAt(0)) == _totlower(nChar))
       {
         EndDialog(i + ID_OFFSET);
         return;

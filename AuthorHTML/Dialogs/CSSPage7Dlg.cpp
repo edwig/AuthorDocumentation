@@ -103,7 +103,7 @@ CSSPage7Dlg::OnInitDialog()
 }
 
 void 
-CSSPage7Dlg::SetSelector(string selector)
+CSSPage7Dlg::SetSelector(XString selector)
 {
   m_selector = selector;
   FillPage();
@@ -112,16 +112,16 @@ CSSPage7Dlg::SetSelector(string selector)
 void 
 CSSPage7Dlg::FillPage()
 {
-  m_hAlign     = CSSPropertyGet(m_css,m_selector,"text-align",    true);
-  m_vAlign     = CSSPropertyGet(m_css,m_selector,"vertical-align",true);
-  m_display    = CSSPropertyGet(m_css,m_selector,"display",       true);
-  m_float      = CSSPropertyGet(m_css,m_selector,"float",         true);
-  m_position   = CSSPropertyGet(m_css,m_selector,"position",      true);
-  m_zindex     = CSSPropertyGet(m_css,m_selector,"z-index",       true);
-  m_visibility = CSSPropertyGet(m_css,m_selector,"visibility",    true);
-  m_clear      = CSSPropertyGet(m_css,m_selector,"clear",         true);
-  m_overflow   = CSSPropertyGet(m_css,m_selector,"overflow",      true);
-  m_zoom       = CSSPropertyGet(m_css,m_selector,"zoom",          true);
+  m_hAlign     = CSSPropertyGet(m_css,m_selector,_T("text-align"),    true);
+  m_vAlign     = CSSPropertyGet(m_css,m_selector,_T("vertical-align"),true);
+  m_display    = CSSPropertyGet(m_css,m_selector,_T("display"),       true);
+  m_float      = CSSPropertyGet(m_css,m_selector,_T("float"),         true);
+  m_position   = CSSPropertyGet(m_css,m_selector,_T("position"),      true);
+  m_zindex     = CSSPropertyGet(m_css,m_selector,_T("z-index"),       true);
+  m_visibility = CSSPropertyGet(m_css,m_selector,_T("visibility"),    true);
+  m_clear      = CSSPropertyGet(m_css,m_selector,_T("clear"),         true);
+  m_overflow   = CSSPropertyGet(m_css,m_selector,_T("overflow"),      true);
+  m_zoom       = CSSPropertyGet(m_css,m_selector,_T("zoom"),          true);
 
   Redisplay();
 }
@@ -129,16 +129,16 @@ CSSPage7Dlg::FillPage()
 void 
 CSSPage7Dlg::UpdateProperties()
 {
-  CSSPropertyPut(m_css,m_selector,"text-align",     m_hAlign,     true);
-  CSSPropertyPut(m_css,m_selector,"vertical-align", m_vAlign,     true);
-  CSSPropertyPut(m_css,m_selector,"display",        m_display,    true);
-  CSSPropertyPut(m_css,m_selector,"float",          m_float,      true);
-  CSSPropertyPut(m_css,m_selector,"position",       m_position,   true);
-  CSSPropertyPut(m_css,m_selector,"z-index",        m_zindex,     true);
-  CSSPropertyPut(m_css,m_selector,"visibility",     m_visibility, true);
-  CSSPropertyPut(m_css,m_selector,"clear",          m_clear,      true);
-  CSSPropertyPut(m_css,m_selector,"overflow",       m_overflow,   true);
-  CSSPropertyPut(m_css,m_selector,"zoom",           m_zoom,       true);
+  CSSPropertyPut(m_css,m_selector,_T("text-align"),     m_hAlign,     true);
+  CSSPropertyPut(m_css,m_selector,_T("vertical-align"), m_vAlign,     true);
+  CSSPropertyPut(m_css,m_selector,_T("display"),        m_display,    true);
+  CSSPropertyPut(m_css,m_selector,_T("float"),          m_float,      true);
+  CSSPropertyPut(m_css,m_selector,_T("position"),       m_position,   true);
+  CSSPropertyPut(m_css,m_selector,_T("z-index"),        m_zindex,     true);
+  CSSPropertyPut(m_css,m_selector,_T("visibility"),     m_visibility, true);
+  CSSPropertyPut(m_css,m_selector,_T("clear"),          m_clear,      true);
+  CSSPropertyPut(m_css,m_selector,_T("overflow"),       m_overflow,   true);
+  CSSPropertyPut(m_css,m_selector,_T("zoom"),           m_zoom,       true);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -210,7 +210,7 @@ void
 CSSPage7Dlg::OnDeltaposSpinZ(NMHDR *pNMHDR, LRESULT *pResult)
 {
   LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-  m_zindex.Format("%d",pNMUpDown->iPos + pNMUpDown->iDelta);
+  m_zindex.Format(_T("%d"),pNMUpDown->iPos + pNMUpDown->iDelta);
   *pResult = 0;
   UpdateProperties();
   Redisplay();

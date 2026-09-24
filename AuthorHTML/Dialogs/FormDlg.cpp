@@ -73,15 +73,15 @@ void FormDlg::DoDataExchange(CDataExchange* pDX)
       CString def,text;
 
       m_buttonID.GetWindowText(def);
-      text = m_elem->HasIdentity() ? "[ &ID ]" : "&ID";
+      text = m_elem->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
       if(def != text) m_buttonID.SetWindowText(text);
 
       m_buttonStyle.GetWindowText(def);
-      text = m_elem->HasStyle() ? "[ &Style ]" : "&Style";
+      text = m_elem->HasStyle() ? _T("[ &Style ]") : _T("&Style");
       if(def != text) m_buttonStyle.SetWindowText(text);
 
       m_buttonEvents.GetWindowText(def);
-      text = m_elem->HasEvents() ? "[ &Events ]" : "&Events";
+      text = m_elem->HasEvents() ? _T("[ &Events ]") : _T("&Events");
       if(def != text) m_buttonEvents.SetWindowText(text);
     }
     else
@@ -162,20 +162,20 @@ void FormDlg::OnBnClickedOk()
   CString msg1,msg2,msg3;
   if(m_name.IsEmpty())
   {
-    msg1 = "\nThe name of the form was not filled in yet.";
+    msg1 = _T("\nThe name of the form was not filled in yet.");
   }
   if(m_method.IsEmpty())
   {
-    msg2 = "\nThe form method (get/post) was not filled in yet";
+    msg2 = _T("\nThe form method (get/post) was not filled in yet");
   }
   if(m_actionUrl.IsEmpty())
   {
-    msg3 = "\nThe URL the form is acting upon was not filled in yet";
+    msg3 = _T("\nThe URL the form is acting upon was not filled in yet");
   }
   CString msg = msg1 + msg2 + msg3;
   if(!msg.IsEmpty())
   {
-    msg = CString("Minimal requirements for this forms attributes are not yet met!\n") + msg;
+    msg = CString(_T("Minimal requirements for this forms attributes are not yet met!\n")) + msg;
     theApp.ErrorMessage(msg);
     return;
   }
@@ -189,14 +189,14 @@ void FormDlg::OnBnClickedCancel()
 
 void FormDlg::OnBnClickedId()
 {
-  GeneralIDDlg dlg(this,"form",m_elem);
+  GeneralIDDlg dlg(this,_T("form"),m_elem);
   dlg.DoModal();
 }
 
 void 
 FormDlg::OnBnClickedEvents()
 {
-  TagEventsDlg dlg(this,m_elem,"form");
+  TagEventsDlg dlg(this,m_elem,_T("form"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -208,13 +208,13 @@ void FormDlg::OnBnClickedStyle()
     m_elem->SetStyle();
   }
   CString style = m_elem->GetInlineStyle();
-  style = CString("form { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"form",NULL,style);
+  style = CString(_T("form { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("form"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("form {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("form {"));
     m_elem->SetInlineStyle(style);
   }
 }

@@ -78,7 +78,7 @@ private:
   bool      m_inline;             // Started with a inlne stylesheet
   bool      m_tagonly;            // Sheet for **one** tag
   CString   m_inlineSheet;        // Inline representation of a style sheet
-  CString   m_tag;                // Tagonly tag 
+  XString   m_tag;                // Tagonly tag 
   CComPtr<IHTMLStyle> m_style;    // DHTML  representation of a style sheet
   CssStyleSheet*      m_css;      // Parsed stylesheet
   bool      m_canApply;

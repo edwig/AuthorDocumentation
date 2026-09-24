@@ -30,18 +30,18 @@ void CssStyleSheet::convert_css_to_tokens()
         
   for (css_struct::iterator i = m_css.begin(); i != m_css.end(); ++i)
   {
-    if (m_settings["sort_selectors"]) 
+    if (m_settings[_T("sort_selectors")]) 
     {
       i->second.sort();
     }
-    if (i->first != "standard") 
+    if (i->first != _T("standard")) 
     {
       add_token(AT_START, i->first, true);
     }
     
     for(sstore::iterator j = i->second.begin(); j != i->second.end(); ++j)
     {
-      if (m_settings["sort_properties"]) 
+      if (m_settings[_T("sort_properties")]) 
       {
         j->second.sort();
       }
@@ -54,7 +54,7 @@ void CssStyleSheet::convert_css_to_tokens()
       }
       add_token(SEL_END, j->first, true);
     }
-    if (i->first != "standard") 
+    if (i->first != _T("standard")) 
     {
       add_token(AT_END, i->first, true);
     }
@@ -87,7 +87,7 @@ CssStyleSheet::print_css()
 {
   if(!Valid())
   {
-    log("Invalid CSS!",Error);
+    log(_T("Invalid CSS!"),Error);
 		return false;
 	}
 
@@ -96,9 +96,9 @@ CssStyleSheet::print_css()
 	{
     if(!file_output.Open(winfile_write | open_trans_text,attrib_normal,Encoding::UTF8))
 		{
-			if(!m_settings["silent"]) 
+			if(!m_settings[_T("silent")]) 
       {
-        log("Error when trying to save the output file!",Error);
+        log(_T("Error when trying to save the output file!"),Error);
       }
 			return false;
 		}
@@ -109,7 +109,7 @@ CssStyleSheet::print_css()
   //  return false;
   //}
 	
-	if(!m_settings["allow_html_in_templates"])
+	if(!m_settings[_T("allow_html_in_templates")])
 	{
 		for(int i = 0; i < (int)m_csstemplate.size(); ++i)
 		{
@@ -119,50 +119,57 @@ CssStyleSheet::print_css()
 	
   // Complete stylesheet is in csstokens (if preserve_css is true)
   // or is in "css" and must be converted to tokens
-  if(!m_settings["preserve_css"]) 
+  if(!m_settings[_T("preserve_css")]) 
   {
     convert_css_to_tokens();
   }
 
+#ifdef _UNICODE
+  wstringstream output,in_at_out;
+#else
   stringstream output, in_at_out;
-	
-	if (m_settings["timestamp"] && m_filename != "") 
+#endif
+	if (m_settings[_T("timestamp")] && m_filename != _T("")) 
   {
       struct tm now;
 		  time_t rawtime;
 		  time(&rawtime);
 		  token temp;
-      temp.data = " AuthorHTML CSS-Editor rewritten: ";
+      temp.data = _T(" AuthorHTML CSS-Editor rewritten: ");
       localtime_s(&now,&rawtime);
-      char buffer[100];
-      asctime_s(buffer,100,&now);
+      TCHAR buffer[100];
+      _tasctime_s(buffer,100,&now);
 		  temp.data += rtrim(XString(buffer));
 		  temp.type = COMMENT;
 		  m_csstokens.insert(m_csstokens.begin(), temp);
 	}
 	
-	if(m_charset != "")
+	if(m_charset != _T(""))
 	{
-		output << m_csstemplate[0] << "@charset " << m_csstemplate[5] << m_charset << m_csstemplate[6];
+		output << m_csstemplate[0] << _T("@charset ") << m_csstemplate[5] << m_charset << m_csstemplate[6];
 	}
 	
 	if(m_import.size() > 0)
 	{
 		for(int i = 0; i < (int)m_import.size(); i ++)
 		{
-			output  << m_csstemplate[0] << "@import " << m_csstemplate[5] << m_import[i] << m_csstemplate[6];
+			output  << m_csstemplate[0] << _T("@import ") << m_csstemplate[5] << m_import[i] << m_csstemplate[6];
 		}
 	}
 	
-	if(m_namesp != "")
+	if(m_namesp != _T(""))
 	{
-		output << m_csstemplate[0] << "@namespace " << m_csstemplate[5] << m_namesp << m_csstemplate[6];
+		output << m_csstemplate[0] << _T("@namespace ") << m_csstemplate[5] << m_namesp << m_csstemplate[6];
 	}
 	
 	output << m_csstemplate[13];
-	stringstream* out =& output;
-	   
-  bool plain = !m_settings["allow_html_in_templates"];
+#ifdef _UNICODE
+  wstringstream* out = &output;
+#else
+	stringstream* out = &output;
+#endif
+
+  bool plain = !m_settings[_T("allow_html_in_templates")];
   XString amp;
   bool isamp;
 
@@ -176,13 +183,13 @@ CssStyleSheet::print_css()
            break;
             
       case SEL_START:
-           if(m_settings["lowercase_s"]) 
+           if(m_settings[_T("lowercase_s")]) 
            {
              m_csstokens[i].data = strtolower(m_csstokens[i].data);
            }
            amp   = m_csstokens[i].data;
            isamp = false;
-           if(!amp.empty() && amp.compare("@") == 0)
+           if(!amp.empty() && amp.compare(_T("@")) == 0)
            {
              isamp = true;
            }
@@ -195,16 +202,16 @@ CssStyleSheet::print_css()
            break;
                 
       case PROPERTY:
-           if(m_settings["case_properties"] == 2) m_csstokens[i].data = strtoupper(m_csstokens[i].data);
-           if(m_settings["case_properties"] == 1) m_csstokens[i].data = strtolower(m_csstokens[i].data);
-           *out << m_csstemplate[4] << HtmlSpecials(m_csstokens[i].data, plain) << ":" << m_csstemplate[5];
+           if(m_settings[_T("case_properties")] == 2) m_csstokens[i].data = strtoupper(m_csstokens[i].data);
+           if(m_settings[_T("case_properties")] == 1) m_csstokens[i].data = strtolower(m_csstokens[i].data);
+           *out << m_csstemplate[4] << HtmlSpecials(m_csstokens[i].data, plain) << _T(":") << m_csstemplate[5];
            break;
             
       case VALUE:
            *out << HtmlSpecials(m_csstokens[i].data, plain);
-           if(SeekNoComment(i, 1) == SEL_END && m_settings["remove_last_;"]) 
+           if(SeekNoComment(i, 1) == SEL_END && m_settings[_T("remove_last_;")]) 
            {
-             *out << str_replace(";", "", m_csstemplate[6]);
+             *out << str_replace(_T(";"), _T(""), m_csstemplate[6]);
            } 
            else 
            {
@@ -222,33 +229,33 @@ CssStyleSheet::print_css()
            
       case AT_END:
 				   out = &output;
-           *out << m_csstemplate[10] << str_replace("\n", "\n" + m_csstemplate[10], in_at_out.str());
-           in_at_out.str("");
+           *out << m_csstemplate[10] << str_replace(_T("\n"), _T("\n") + m_csstemplate[10], in_at_out.str());
+           in_at_out.str(_T(""));
            *out << m_csstemplate[9];
            break;
 
       case COMMENT:
-           *out << m_csstemplate[11] <<  "/*" << HtmlSpecials(m_csstokens[i].data, plain) << "*/" << m_csstemplate[12];
+           *out << m_csstemplate[11] <<  _T("/*") << HtmlSpecials(m_csstokens[i].data, plain) << _T("*/") << m_csstemplate[12];
            break;
     }
   }
 	XString output_string = trim(output.str());
   m_output_size = (int)output_string.length();
 
-	if(!m_settings["silent"])
+	if(!m_settings[_T("silent")])
   {
     XString info;
-    char   number[20];
+    TCHAR   number[20];
 
     float i_b   = round(((float) m_input_size )/1024,3);
     float o_b   = round(((float) m_output_size)/1024,3);
     float ratio = round(((m_input_size - (float) output_string.length())/m_input_size)*100,2);
 
-    info = "Selectors  : "; _itoa_s(m_selectors, number,20,10); info += number; log(info,Information);
-    info = "Properties : "; _itoa_s(m_properties,number,20,10); info += number; log(info,Information);
-    info = "Input size : "; sprintf_s(number,20,"%f",i_b);      info += number; info += " kB"; log(info,Information);
-    info = "Output size: "; sprintf_s(number,20,"%f",o_b);      info += number; info += " kB"; log(info,Information);
-    info = "Compression: "; sprintf_s(number,20,"%f",ratio);    info += number; info += " %";  log(info,Information);
+    info = _T("Selectors  : "); _itot_s(m_selectors, number,20,10); info += number; log(info,Information);
+    info = _T("Properties : "); _itot_s(m_properties,number,20,10); info += number; log(info,Information);
+    info = _T("Input size : "); _stprintf_s(number,20,_T("%f"),i_b);      info += number; info += _T(" kB"); log(info,Information);
+    info = _T("Output size: "); _stprintf_s(number,20,_T("%f"),o_b);      info += number; info += _T(" kB"); log(info,Information);
+    info = _T("Compression: "); _stprintf_s(number,20,_T("%f"),ratio);    info += number; info += _T(" %");  log(info,Information);
 	}
 
   // NOW REALLY OUTPUT IT TO FILE
@@ -268,22 +275,22 @@ CssStyleSheet::print_logs()
 
   if(!Valid())
   {
-    loglines = "Empty CSS stylesheet!";
+    loglines = _T("Empty CSS stylesheet!");
     return loglines;
   }
   // Print the conversion logs
-  if(m_logs.size() > 0 && !m_settings["silent"])
+  if(m_logs.size() > 0 && !m_settings[_T("silent")])
   {
     for(map<int, vector<message> >::iterator j = m_logs.begin(); j != m_logs.end(); j++ )
     {
       for(int i = 0; i < (int)j->second.size(); ++i)
       {
-        char number[10];
-        _itoa_s(j->first,number,10,10);
+        TCHAR number[10];
+        _itot_s(j->first,number,20,10);
         loglines += number;
-        loglines += ": ";
+        loglines += _T(": ");
         loglines += j->second[i].m;
-        loglines += "\n";
+        loglines += _T("\n");
       }
     }
   }

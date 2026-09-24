@@ -86,20 +86,20 @@ void ObjectDlg::DoDataExchange(CDataExchange* pDX)
     CString def,text;
 
     m_buttonID.GetWindowText(def);
-    text = m_object->HasIdentity() ? "[ &ID ]" : "&ID";
+    text = m_object->HasIdentity() ? _T("[ &ID ]") : _T("&ID");
     if(def != text) m_buttonID.SetWindowText(text);
 
     m_buttonStyle.GetWindowText(def);
-    text = m_object->HasStyle() ? "[ &Style ]" : "&Style";
+    text = m_object->HasStyle() ? _T("[ &Style ]") : _T("&Style");
     if(def != text) m_buttonStyle.SetWindowText(text);
 
     m_buttonEvents.GetWindowText(def);
-    text = m_object->HasEvents() ? "[ &Events ]" : "&Events";
+    text = m_object->HasEvents() ? _T("[ &Events ]") : _T("&Events");
     if(def != text) m_buttonEvents.SetWindowText(text);
 
     // Parameter button
     m_buttonParameters.GetWindowText(def);
-    text = m_object->GetNumberOfParameters() ? "[ &Parameters ]" : "&Parameters";
+    text = m_object->GetNumberOfParameters() ? _T("[ &Parameters ]") : _T("&Parameters");
     if(def != text) m_buttonParameters.SetWindowText(text);
   }
 }
@@ -145,15 +145,15 @@ ObjectDlg::OnInitDialog()
 {
   CDialog::OnInitDialog();
 
-  m_comboAlign.AddString("");
-  m_comboAlign.AddString("Baseline");
-  m_comboAlign.AddString("Center");
-  m_comboAlign.AddString("Left");
-  m_comboAlign.AddString("Middle");
-  m_comboAlign.AddString("Right");
-  m_comboAlign.AddString("Textbottom");
-  m_comboAlign.AddString("Textmiddle");
-  m_comboAlign.AddString("Texttop");
+  m_comboAlign.AddString(_T(""));
+  m_comboAlign.AddString(_T("Baseline"));
+  m_comboAlign.AddString(_T("Center"));
+  m_comboAlign.AddString(_T("Left"));
+  m_comboAlign.AddString(_T("Middle"));
+  m_comboAlign.AddString(_T("Right"));
+  m_comboAlign.AddString(_T("Textbottom"));
+  m_comboAlign.AddString(_T("Textmiddle"));
+  m_comboAlign.AddString(_T("Texttop"));
 
   FillPage();
 
@@ -346,7 +346,7 @@ ObjectDlg::OnEnChangeObjVspace()
 void 
 ObjectDlg::OnBnClickedButtData()
 {
-  DocFileDialog diag(true,"Search for an object","","",0);
+  DocFileDialog diag(true,_T("Search for an object"),_T(""),_T(""),0);
   if(diag.DoModal() == IDOK)
   {
     m_data = diag.GetChosenFile();
@@ -362,7 +362,7 @@ ObjectDlg::OnBnClickedButtCode()
 void 
 ObjectDlg::OnBnClickedButtBhref()
 {
-  DocFileDialog diag(true,"Search for an object HREF","","",0);
+  DocFileDialog diag(true,_T("Search for an object HREF"),_T(""),_T(""),0);
   if(diag.DoModal() == IDOK)
   {
     m_baseHref = diag.GetChosenFile();
@@ -373,7 +373,7 @@ ObjectDlg::OnBnClickedButtBhref()
 void 
 ObjectDlg::OnBnClickedButtCodebase()
 {
-  DocFileDialog diag(true,"Search for an object CODEBASE","","",0);
+  DocFileDialog diag(true,_T("Search for an object CODEBASE"),_T(""),_T(""),0);
   if(diag.DoModal() == IDOK)
   {
     m_codeBase = diag.GetChosenFile();
@@ -411,7 +411,7 @@ void
 ObjectDlg::OnBnClickedId()
 {
   HtmlElement* elem = (HtmlElement*)(m_object);
-  GeneralIDDlg dlg(this,"object",elem);
+  GeneralIDDlg dlg(this,_T("object"),elem);
   dlg.DoModal();
 }
 
@@ -419,7 +419,7 @@ void
 ObjectDlg::OnBnClickedEvents()
 {
   HtmlElement* elem = (HtmlElement*)(m_object);
-  TagEventsDlg dlg(this,elem,"object");
+  TagEventsDlg dlg(this,elem,_T("object"));
   dlg.DoModal();
   UpdateData(Data2Controls);
 }
@@ -433,13 +433,13 @@ ObjectDlg::OnBnClickedStyle()
   }
   UpdateProperties();
   CString style = m_object->GetInlineStyle();
-  style = CString("object { ") + style + "}";
-  StyleSheetDlg dlg(this,m_base,"object",NULL,style);
+  style = CString(_T("object { ")) + style + _T("}");
+  StyleSheetDlg dlg(this,m_base,_T("object"),NULL,style);
   if(dlg.DoModal() == IDOK)
   {
     style = dlg.GetInlineStylesheet();
-    style.TrimRight("}");
-    style.TrimLeft("object {");
+    style.TrimRight(_T("}"));
+    style.TrimLeft(_T("object {"));
     m_object->SetInlineStyle(style);
     FillPage();
     UpdateData(Data2Controls);

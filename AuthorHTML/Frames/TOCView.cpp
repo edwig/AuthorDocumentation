@@ -82,7 +82,7 @@ TOCView::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if(!m_wndExplorer.Create(WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS,
                            CRect(0,0,0,0), this, ID_TOC_EXPLORER))
   {
-    TRACE0( "Unable to create tree control.\n" );
+    TRACE0("Unable to create tree control.\n");
     return NULL;
   }
   InitializeTree();
@@ -204,7 +204,7 @@ TOCView::OnNewBook()
   {
     parent = hCurSel = m_wndExplorer.GetRootItem();
   }
-  entry->SetTitle("New book");
+  entry->SetTitle(_T("New book"));
   entry->MakeBook();
   // Add the entry
   TOC* toc = theApp.GetTOC();
@@ -260,10 +260,10 @@ TOCView::OnNewPage()
       theApp.OpenTypedDocumentFile(fileref);
     }
     // refocus the TOC
-    MainFrame* main = (MainFrame*) theApp.GetMainWnd();
-    if(main)
+    MainFrame* _tmain = (MainFrame*) theApp.GetMainWnd();
+    if(_tmain)
     {
-      main->ShowPane(ID_PANE_TOC);
+      _tmain->ShowPane(ID_PANE_TOC);
     }
   }
   else
@@ -279,7 +279,7 @@ TOCView::OnBookFromPage()
   TOCEntry* entry   = (TOCEntry*) m_wndExplorer.GetItemData(hCurSel);
   if(entry->HasChildren())
   {
-    theApp.MessageBox("This is already a book. Conversion not possible","TOC",MB_OK|MB_ICONINFORMATION);
+    theApp.MessageBox(_T("This is already a book. Conversion not possible"),_T("TOC"),MB_OK|MB_ICONINFORMATION);
     return;
   }
   entry->MakeBook();
@@ -293,7 +293,7 @@ TOCView::OnPageFromBook()
   TOCEntry* entry   = (TOCEntry*) m_wndExplorer.GetItemData(hCurSel);
   if(entry->HasChildren())
   {
-    theApp.MessageBox("This book still has pages. Conversion not possible","TOC",MB_OK|MB_ICONINFORMATION);
+    theApp.MessageBox(_T("This book still has pages. Conversion not possible"),_T("TOC"),MB_OK|MB_ICONINFORMATION);
     return;
   }
   entry->MakePage();
@@ -313,7 +313,7 @@ TOCView::OnEditPage()
   }
   else
   {
-    theApp.MessageBox("This entry doesn't have a page associated with it (yet)","Edit",MB_OK|MB_ICONASTERISK);
+    theApp.MessageBox(_T("This entry doesn't have a page associated with it (yet)"),_T("Edit"),MB_OK|MB_ICONASTERISK);
   }
 }
 
@@ -459,14 +459,14 @@ TOCView::OnDelete()
   CString mess;
   if(hasChildren || (entry->EntryType() == PF_Book))
   {
-    mess.Format("Are you sure you want to delete the book '%s'\n"
-                "and all it's underlying books and pages?",entry->GetTitle().GetString());
+    mess.Format(_T("Are you sure you want to delete the book '%s'\n")
+                _T("and all it's underlying books and pages?"),entry->GetTitle().GetString());
   }
   else
   {
-    mess.Format("Are you sure you want to delete the page '%s'?",entry->GetTitle().GetString());
+    mess.Format(_T("Are you sure you want to delete the page '%s'?"),entry->GetTitle().GetString());
   }
-  if(theApp.MessageBox(mess,"Delete",MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2) == IDYES)
+  if(theApp.MessageBox(mess,_T("Delete"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2) == IDYES)
   {
     TOC* toc = theApp.GetTOC();
     toc->DeleteEntry(entry);

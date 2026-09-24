@@ -75,12 +75,12 @@ TopicPropPage3Dlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
-  m_list.InsertColumn(0,"Type",   LVCFMT_LEFT,80);
-  m_list.InsertColumn(1,"Level1", LVCFMT_LEFT,100);
-  m_list.InsertColumn(2,"Level2", LVCFMT_LEFT,100);
-  m_list.InsertColumn(3,"Level3", LVCFMT_LEFT,100);
-  m_list.InsertColumn(4,"Level4", LVCFMT_LEFT,100);
-  m_list.InsertColumn(5,"Level5", LVCFMT_LEFT,100);
+  m_list.InsertColumn(0,_T("Type"),   LVCFMT_LEFT,80);
+  m_list.InsertColumn(1,_T("Level1"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(2,_T("Level2"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(3,_T("Level3"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(4,_T("Level4"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(5,_T("Level5"), LVCFMT_LEFT,100);
 
   FillPage();
   UpdateData(Data2Controls);
@@ -108,7 +108,7 @@ TopicPropPage3Dlg::ScriptsToList()
   for(unsigned int ind = 0; ind < m_keywords.size(); ++ind)
   {
     KeywordDef* def = &(m_keywords[ind]);
-    CString type = def->m_type == KeywordType::KLink ? "Index" : "Associative";
+    CString type = def->m_type == KeywordType::KLink ? _T("Index") : _T("Associative");
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, type, 0, 0, 0, 0);
     m_list.SetItemText(ind,1,def->m_level1);
     m_list.SetItemText(ind,2,def->m_level2);
@@ -182,12 +182,12 @@ TopicPropPage3Dlg::GetHeadKeywords()
                 CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = idisp;
                 HtmlElement element(elem);
 
-                CString key = element.GetAttribute("name");
-                if((key.CompareNoCase("MS-HKWD") == 0) ||
-                   (key.CompareNoCase("MS-HAID") == 0)  )
+                CString key = element.GetAttribute(_T("name"));
+                if((key.CompareNoCase(_T("MS-HKWD")) == 0) ||
+                   (key.CompareNoCase(_T("MS-HAID")) == 0)  )
                 {
-                  CString keywords = element.GetAttribute("content");
-                  KeywordType type = key.CompareNoCase("MS-HKWD") == 0 ? KeywordType::KLink : KeywordType::ALink;
+                  CString keywords = element.GetAttribute(_T("content"));
+                  KeywordType type = key.CompareNoCase(_T("MS-HKWD")) == 0 ? KeywordType::KLink : KeywordType::ALink;
                   AddKeywords(type,keywords);
                 }
               }
@@ -251,9 +251,9 @@ TopicPropPage3Dlg::RemoveHeadKeywords()
                 CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = idisp;
                 HtmlElement element(elem);
 
-                CString key = element.GetAttribute("name");
-                if((key.CompareNoCase("MS-HKWD") == 0) ||
-                   (key.CompareNoCase("MS-HAID") == 0))
+                CString key = element.GetAttribute(_T("name"));
+                if((key.CompareNoCase(_T("MS-HKWD")) == 0) ||
+                   (key.CompareNoCase(_T("MS-HAID")) == 0))
                 {
                   CComQIPtr<IHTMLDOMNode, &IID_IHTMLDOMNode> dom = elem.p;
                   hr = dom->removeNode(VARIANT_TRUE,nullptr);
@@ -266,7 +266,7 @@ TopicPropPage3Dlg::RemoveHeadKeywords()
                   else
                   {
                     CString message;
-                    message.Format("Failed to remove meta tag [%s] from head", key.GetString());
+                    message.Format(_T("Failed to remove meta tag [%s] from head"), key.GetString());
                     theApp.Panic(message);
                   }
                 }
@@ -290,36 +290,36 @@ TopicPropPage3Dlg::RewriteHeadKeywords()
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute("name",   def->m_type == KeywordType::KLink ? "MS-HKWD" : "MS-HAID");
-      keyword.SetAttribute("content",def->m_level1);
+      keyword.SetAttribute(_T("name"),   def->m_type == KeywordType::KLink ? _T("MS-HKWD") : _T("MS-HAID"));
+      keyword.SetAttribute(_T("content"),def->m_level1);
     }
     if(!def->m_level2.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute("name",   "MS-HKWD");
-      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2);
+      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
+      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2);
     }
     if(!def->m_level3.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute("name",   "MS-HKWD");
-      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3);
+      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
+      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3);
     }
     if(!def->m_level4.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute("name",   "MS-HKWD");
-      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3 + ", " + def->m_level4);
+      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
+      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3 + _T(", ") + def->m_level4);
     }
     if(!def->m_level5.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute("name",   "MS-HKWD");
-      keyword.SetAttribute("content",def->m_level1 + ", " + def->m_level2 + ", " + def->m_level3 + ", " + def->m_level4 + ", " + def->m_level5);
+      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
+      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3 + _T(", ") + def->m_level4 + _T(", ") + def->m_level5);
     }
   }
 }
@@ -361,13 +361,13 @@ TopicPropPage3Dlg::AddKeywords(KeywordType p_type,CString p_keywords)
   // Break into separate strings.
   while(p_keywords.GetLength() > 0) 
   {
-    int pos = p_keywords.Find(',');
+    int pos = p_keywords.Find(_T(','));
     if(pos >= 0)
     {
       keyword    = p_keywords.Left(pos);
       p_keywords = p_keywords.Mid(pos);
       keyword.Trim();
-      p_keywords.TrimLeft(',');
+      p_keywords.TrimLeft(_T(','));
       p_keywords.Trim();
     }
     else
@@ -389,9 +389,9 @@ TopicPropPage3Dlg::AddKeywords(KeywordType p_type,CString p_keywords)
   if(level > 4)
   {
     CString message;
-    message.Format("Composite index keyword truncated after 5 levels.\n"
-                   "Remaining keywords: %s %s",keyword.GetString(),p_keywords.GetString());
-    theApp.MessageBox(message,"Index keywords",MB_OK|MB_ICONERROR);
+    message.Format(_T("Composite index keyword truncated after 5 levels.\n")
+                   _T("Remaining keywords: %s %s"),keyword.GetString(),p_keywords.GetString());
+    theApp.MessageBox(message,_T("Index keywords"),MB_OK|MB_ICONERROR);
   }
 
   // Store all new keyword
@@ -477,9 +477,9 @@ TopicPropPage3Dlg::OnBnClickedDelete()
     CString mess;
     KeywordDef* def = &(m_keywords[now]);
     CString keyword = def->m_composite;
-    CString type    = def->m_type == KeywordType::KLink ? "Index keyword" : "Associative link";
-    mess.Format("Do you want to delete the %s [%s] ?",type.GetString(),keyword.GetString());
-    if (theApp.MessageBox(mess, "Delete?", MB_YESNO | MB_ICONQUESTION) == IDYES)
+    CString type    = def->m_type == KeywordType::KLink ? _T("Index keyword") : _T("Associative link");
+    mess.Format(_T("Do you want to delete the %s [%s] ?"),type.GetString(),keyword.GetString());
+    if (theApp.MessageBox(mess, _T("Delete?"), MB_YESNO | MB_ICONQUESTION) == IDYES)
     {
       KeywordVector::iterator it = m_keywords.begin();
       while (now)
