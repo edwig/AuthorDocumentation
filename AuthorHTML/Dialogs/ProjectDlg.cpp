@@ -16,6 +16,7 @@
 #include "Misc.h"
 #include "WindowDefDlg.h"
 #include "TOC.h"
+#include "IndexFile.h"
 #include <StringUtilities.h>
 
 // ProjectDlg dialog
@@ -42,6 +43,7 @@ void ProjectDlg::DoDataExchange(CDataExchange* pDX)
   DDX_Text   (pDX,IDC_DEFAULTFONT,  m_defaultFont);
   DDX_Control(pDX,IDC_BUTTONFONT,   m_buttonDefFont);
   DDX_Control(pDX,IDC_DEFWINDOW,    m_comboWindow);
+  DDX_Control(pDX,IDC_DBCS,         m_comboDBCS);
   DDX_Control(pDX,IDC_EDITWINDOWS,  m_buttonEditWindows);
   DDX_Control(pDX,IDC_TEXTSEARCH,   m_buttonFullSearch);
   DDX_Control(pDX,IDC_BINARYINDEX,  m_buttonBinIndex);
@@ -71,6 +73,7 @@ BEGIN_MESSAGE_MAP(ProjectDlg, CDialog)
   ON_BN_CLICKED   (IDC_BUTTONFONT,   &ProjectDlg::OnBnClickedButtonfont)
   ON_CBN_SELCHANGE(IDC_DEFWINDOW,    &ProjectDlg::OnCbnSelchangeDefwindow)
   ON_BN_CLICKED   (IDC_EDITWINDOWS,  &ProjectDlg::OnBnClickedEditwindows)
+  ON_CBN_SELCHANGE(IDC_DBCS,         &ProjectDlg::OnCbnSelchangeDBCS)
   ON_BN_CLICKED   (IDC_TEXTSEARCH,   &ProjectDlg::OnBnClickedTextsearch)
   ON_BN_CLICKED   (IDC_BINARYINDEX,  &ProjectDlg::OnBnClickedBinaryindex)
   ON_BN_CLICKED   (IDC_AUTOINDEX,    &ProjectDlg::OnBnClickedAutoindex)
@@ -99,6 +102,8 @@ ProjectDlg::OnInitDialog()
   m_autoTOC        = m_project->GetAutoTOC();
   m_flatTOC        = m_project->GetFlatTOC();
   m_enhanced       = m_project->GetEnhancedDecompilation();
+  m_dbcs           = m_project->GetDBCSMode();
+  m_orig_dbcs      = m_dbcs;
 
   m_buttonFullSearch.SetCheck(m_fullTextSearch);
   m_buttonBinIndex  .SetCheck(m_binaryIndex);
@@ -108,6 +113,11 @@ ProjectDlg::OnInitDialog()
   m_buttonEnhanced  .SetCheck(m_enhanced);
 
   SetWindowNames();
+
+  m_comboDBCS.AddString(_T("Current ANSI codepage"));
+  m_comboDBCS.AddString(_T("Double Byte Character Set (DBCS)"));
+  m_comboDBCS.SetCurSel(m_dbcs ? 1 : 0);
+
   UpdateData(FALSE);
   return TRUE;
 }
@@ -170,6 +180,21 @@ ProjectDlg::UpdateProject()
   m_project->SetAutoTOC(m_autoTOC);
   m_project->SetFlatTOC(m_flatTOC);
   m_project->SetEnhancedDecompilation(m_enhanced);
+  m_project->SetDBCSMode(m_dbcs);
+
+  if(m_orig_dbcs != m_dbcs)
+  {
+    // Store again, and HHC and HHK files
+    // Make sure the TOC and index get saved again in the correct DBCS mode
+    theApp.GetTOC()->SetNeedSaving();
+    theApp.GetTOC()->WriteTOCFile();
+    theApp.GetIndex()->SetNeedSaving(true);
+    theApp.GetIndex()->WriteIndexFile();
+    m_project->WriteProjectFile();
+
+    // DBCS mode now changed on disk
+    m_orig_dbcs = m_dbcs;
+  }
 }
 
 void
@@ -370,6 +395,31 @@ ProjectDlg::OnCbnSelchangeDefwindow()
     m_comboWindow.GetLBText(ind,m_defaultWindow);
   }
   UpdateData(FALSE);
+}
+
+void
+ProjectDlg::OnCbnSelchangeDBCS()
+{
+  int ind = m_comboDBCS.GetCurSel();
+  if (ind >= 0)
+  {
+    // New DBCS mode
+    m_dbcs = (ind == 1);
+    CString message;
+    if (m_dbcs)
+    {
+      message = _T("You turned the dbcs-mode to 'ON' !!\n\n")
+                _T("This means that the *.HHP, *.HHC and *.HHK files will be saved in 2-byte UTF-16 format,\n")
+                _T("but without a Byte-Order-Mark for modern applications.");
+    }
+    else
+    {
+      message = _T("You have turned the dbcs-mode to 'OFF' !!\n")
+                _T("This means that the *.HHP, *.HHC and *.HHK files will be saved in 1 byte ANSI mode format,\n")
+                _T("without the means to store diacritic and asian characters that require more than 8 bits.");
+    }
+    theApp.MessageBox(message,_T("WARNING"),MB_OK|MB_ICONWARNING);
+  }
 }
 
 void 

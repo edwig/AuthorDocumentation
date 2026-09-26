@@ -68,6 +68,7 @@ public:
   IndexFile*          GetIndex();
   CRecentFileList*    GetRecentFileList();
   CRecentFileList*    GetRecentProjectList();
+  bool                GetDBCSMode();
 
   CString MessageBox(const CString& text
                     ,const CString& title
@@ -209,4 +210,5 @@ AuthorHTMLApp::GetRecentProjectList()
 
 extern SettingsManager settings;
 extern AuthorHTMLApp   theApp;
+
 

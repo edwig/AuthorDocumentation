@@ -1589,6 +1589,13 @@ WinFile::UnLockFile()
 bool
 WinFile::WriteEncodingBOM()
 {
+  // Old-style DBCS mode does NOT write a BOM
+  // but always succeeds in silence
+  if(m_dbcsMode)
+  {
+    return true;
+  }
+
   switch(m_encoding)
   {
     case Encoding::UTF8:     Putch(0xEF);
@@ -2035,6 +2042,20 @@ void
 WinFile::SetEncoding(Encoding p_encoding)
 {
   m_encoding = p_encoding;
+}
+
+// For old style Windows 3.11 mode we can do DBCS character translation
+// This will expect UTF-16 code to be read without a Byte-Order-Mark
+// and will write LE_UTF16 code also without a Byte-Order-Mark.
+// Some very old programs expect this (WinHelp Compiler, *.CHM etc)
+void
+WinFile::SetDBCSMode(bool p_dbcs, Encoding p_expecting)
+{
+  m_dbcsMode = p_dbcs;
+  if(p_dbcs)
+  {
+    m_encoding = p_expecting;
+  }
 }
 
 // NOT thread safe: Must be set for the total process!
@@ -2602,6 +2623,12 @@ bool
 WinFile::GetFoundBOM()
 {
   return m_foundBOM;
+}
+
+bool
+WinFile::GetDBCSMode()
+{
+  return m_dbcsMode;
 }
 
 bool
@@ -3660,9 +3687,12 @@ WinFile::ScanBomInFirstPageBuffer()
   unsigned skip = 0;
   if(DefuseBOM(m_pagePointer,type,skip) == BOMOpenResult::BOM)
   {
-    m_foundBOM     = true;
-    m_encoding     = type;
     m_pagePointer += skip;
+    if(m_dbcsMode == false)
+    {
+      m_foundBOM = true;
+      m_encoding = type;
+    }
   }
 }
 
@@ -3676,7 +3706,7 @@ WinFile::PageBufferWrite(uchar ch)
   {
     PageBuffer();
 
-    if (PageBufferReadForeward(false) == false)
+    if(PageBufferReadForeward(false) == false)
     {
       return false;
     }

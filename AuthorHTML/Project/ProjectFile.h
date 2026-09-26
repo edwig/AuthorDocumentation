@@ -80,6 +80,7 @@ public:
    bool         GetAutoIndex();
    bool         GetAutoTOC();
    bool         GetFlatTOC();
+   bool         GetDBCSMode();
    bool         GetEnhancedDecompilation();
    Glossary*    GetGlossary();
    BrokenMap*   GetBrokenMap();
@@ -96,6 +97,7 @@ public:
    void         SetAutoIndex(bool p_auto); 
    void         SetAutoTOC(bool p_auto);
    void         SetFlatTOC(bool p_auto);
+   void         SetDBCSMode(bool p_dbcs);
    void         SetEnhancedDecompilation(bool p_enhanced);
 private:
    void    Reset();
@@ -106,6 +108,8 @@ private:
    void    GetDocumentMeta   (TidyNode node,DocumentFile* docfile);
    void    GetDocumentPayload(TidyNode node,DocumentFile* docfile);
    bool    CheckBrokenLink   (CString& p_dir,CString& p_reldir,CString& p_file);
+   void    DetectDBCSMode();
+
    // Renaming
    int     RenameInOneFile(CString& p_filename,CString& p_old_href,CString& p_new_href);
    void    RenameInHeader (TidyDoc tdoc,CString& p_old_href,CString& p_new_href);
@@ -136,6 +140,7 @@ private:
    bool    m_enhancedDecompile;
    bool    m_binaryTOC;
    bool    m_flat;
+   bool    m_dbcs;
    CString m_customTab;
    bool    m_sweepRebuildsIndex;
    // Windows
@@ -342,4 +347,16 @@ inline void
 ProjectFile::SetEnhancedDecompilation(bool p_enhanced)
 {
   m_enhancedDecompile = p_enhanced;
+}
+
+inline void
+ProjectFile::SetDBCSMode(bool p_dbcs)
+{
+  m_dbcs = p_dbcs;
+}
+
+inline bool
+ProjectFile::GetDBCSMode()
+{
+  return m_dbcs;
 }

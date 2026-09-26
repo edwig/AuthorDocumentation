@@ -52,6 +52,7 @@ public:
 
 private:
   void Reset();
+  void DetectDBCSMode();
   void ReadDocType    (WinFile& file);
   void ReadHeader     (WinFile& p_file);
   void ReadComment    (WinFile& file);
@@ -68,6 +69,7 @@ private:
   CString m_indexFilename;
   long    m_linenumber;
   bool    m_needSaving;
+  bool    m_dbcs;
   // Index site properties
   CString m_siteType;
   CString m_frameName;

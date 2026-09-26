@@ -20,6 +20,7 @@
 IndexFile::IndexFile(CString indexFilename)
           :m_indexFilename(indexFilename)
           ,m_needSaving(false)
+          ,m_dbcs(false)
 {
 }
 
@@ -34,6 +35,7 @@ IndexFile::Reset()
   m_linenumber    = 0;
   m_frameName     = _T("");
   m_needSaving    = false;
+  m_dbcs          = false;
   m_list.Reset();
 }
 
@@ -59,8 +61,13 @@ IndexFile::WriteIndexFile()
   }
   Misc::ResetTokenizer();
 
+  bool dbcs = theApp.GetDBCSMode();
   WinFile file(m_indexFilename.GetString());
-  file.Open(winfile_write | open_trans_text, attrib_normal,AUTHOR_HTML_ENCODING);
+  if(dbcs)
+  {
+    file.SetDBCSMode(true, Encoding::LE_UTF16);
+  }
+  file.Open(winfile_write | open_trans_text,attrib_normal,dbcs ? Encoding::LE_UTF16 : Encoding::EN_ACP);
 
   if(!file.GetIsOpen())
   {
@@ -188,8 +195,13 @@ IndexFile::ReadIndexFile()
   MainFrame::SetStatusText(_T("Reading index file: ") + m_indexFilename);
 
   Reset();
+  DetectDBCSMode();
 
   WinFile file(m_indexFilename.GetString());
+  if(m_dbcs)
+  {
+    file.SetDBCSMode(true,Encoding::LE_UTF16);
+  }
   file.Open(winfile_read | open_trans_text);
   if(!file.GetIsOpen())
   {
@@ -220,6 +232,26 @@ IndexFile::ReadIndexFile()
   file.Close();
   m_needSaving = false;
   return result;
+}
+
+void
+IndexFile::DetectDBCSMode()
+{
+  WinFile file(m_indexFilename.GetString());
+  if (file.Open(winfile_read | open_trans_binary, attrib_normal))
+  {
+    BYTE buffer[40];
+    int didread = 0;
+    file.Read(buffer, 40, didread);
+
+    wchar_t* options_utf16 = L"<!DOCTYPE";
+
+    if(memcmp(buffer,options_utf16,18) == 0)
+    {
+      m_dbcs = true;
+    }
+    file.Close();
+  }
 }
 
 // Read past:

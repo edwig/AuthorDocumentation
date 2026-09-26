@@ -41,6 +41,7 @@ TOC::Reset()
   m_windowStyles   = 0L;
   m_ExWindowStyles = 0L;
   m_needSaving     = false;
+  m_dbcs           = false;
 
   m_list.Reset();
 }
@@ -66,8 +67,14 @@ TOC::WriteTOCFile()
     return true;
   }
 
+  bool dbcs = theApp.GetDBCSMode();
+
   WinFile file(m_tocFilename.GetString());
-  file.Open(winfile_write | open_trans_text, attrib_normal,AUTHOR_HTML_ENCODING);
+  if(dbcs)
+  {
+    file.SetDBCSMode(true,Encoding::LE_UTF16);
+  }
+  file.Open(winfile_write | open_trans_text,attrib_normal,dbcs ? Encoding::LE_UTF16 : Encoding::EN_ACP);
   if(!file.GetIsOpen())
   {
     return false;
@@ -208,7 +215,12 @@ TOC::ReadTOCFile()
   MainFrame::SetStatusText(_T("Reading TOC file: ") + m_tocFilename);
 
   Reset();
+  DetectDBCSMode();
   WinFile file(m_tocFilename.GetString());
+  if(m_dbcs)
+  {
+    file.SetDBCSMode(true,Encoding::LE_UTF16);
+  }
   file.Open(winfile_read | open_trans_text);
   if(!file.GetIsOpen())
   {
@@ -243,6 +255,26 @@ TOC::ReadTOCFile()
   file.Close();
   m_needSaving = false;
   return result;
+}
+
+void
+TOC::DetectDBCSMode()
+{
+  WinFile file(m_tocFilename.GetString());
+  if (file.Open(winfile_read | open_trans_binary,attrib_normal))
+  {
+    BYTE buffer[40];
+    int didread = 0;
+    file.Read(buffer, 40, didread);
+
+    wchar_t* options_utf16 = L"<!DOCTYPE";
+
+    if (memcmp(buffer,options_utf16,18) == 0)
+    {
+      m_dbcs = true;
+    }
+    file.Close();
+  }
 }
 
 // Read past:

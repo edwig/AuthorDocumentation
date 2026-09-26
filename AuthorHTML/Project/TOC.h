@@ -48,6 +48,7 @@ public:
   int     GetFontSize() { return m_fontSize; }
 
 private:
+  void     DetectDBCSMode();
   void     ReadDocType    (WinFile& p_file);
   void     ReadHeader     (WinFile& p_file);
   void     ReadComment(WinFile& p_file);
@@ -76,6 +77,7 @@ private:
   long          m_foreground;
   CString       m_fontName;
   int           m_fontSize;
+  bool          m_dbcs;
 
   // This is the TOC!!
   TOCEntry      m_list;

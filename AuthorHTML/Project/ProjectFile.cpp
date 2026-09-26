@@ -36,6 +36,7 @@ ProjectFile::ProjectFile(CString p_projectfile)
             ,m_enhancedDecompile(false)
             ,m_binaryTOC(false)
             ,m_flat(false)
+            ,m_dbcs(false)
             ,m_needSaving(false)
             ,m_blockSwipeOnce(false)
             ,m_sweeping(NULL)
@@ -88,6 +89,7 @@ ProjectFile::Reset()
   m_binaryTOC               = false;
   m_flat                    = false;
   m_needSaving              = false;
+  m_dbcs                    = false;
 }
 
 CString 
@@ -114,9 +116,13 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
       file = file.Left(pos);
     }
   }
-  m_projectFilename = base + file + _T(".hhp");
+  m_projectFilename = base + file;
+  if(extens.Compare(_T(".hhp")))
+  {
+    m_projectFilename += _T(".hhp");
+  }
 
-  // Changing the TOC (hhc) and Index (hhk) filenames
+  // Changing the TOC (*.HHC) and Index-keywords (*.HHK) filenames
   CString tocFile;
   CString idxFile;
   TOC* toc = theApp.GetTOC();
@@ -136,14 +142,14 @@ ProjectFile::SetProjectFilename(CString p_filename,bool p_create /*= false*/)
     idx->SetFilename(idxFile);
   }
   
-  // Rewrite hhc/hhk in the window's defintions
+  // Rewrite HHC/HHK in the window's definitions
   WindowMap::iterator it = m_windows.begin();
   while(it != m_windows.end())
   {
     WindowDefinition* win = it->second;
     win->SetHHCFile(Misc::FilenamePart(tocFile));
     win->SetHHKFile(Misc::FilenamePart(idxFile));
-    // Volgend window
+    // Next window
     ++it;
   }
 
@@ -218,9 +224,11 @@ ProjectFile::WriteProjectFile()
     return true;
   }
   WinFile file(m_projectFilename.GetString());
-  file.Open(winfile_write | open_trans_text,attrib_normal,AUTHOR_HTML_ENCODING);
-
-  if(!file.GetIsOpen())
+  if(m_dbcs)
+  {
+    file.SetDBCSMode(true,Encoding::LE_UTF16);
+  }
+  if(!file.Open(winfile_write | open_trans_text,attrib_normal,m_dbcs ? Encoding::LE_UTF16 : Encoding::EN_ACP))
   {
     return false;
   }
@@ -246,6 +254,7 @@ ProjectFile::WriteProjectFile()
   file.Format(_T("Auto index=%s\n"),            m_autoIndex           ? _T("yes") : _T("no"));
   file.Format(_T("Enhanced decompilation=%s\n"),m_enhancedDecompile   ? _T("yes") : _T("no"));
   file.Format(_T("Flat=%s\n"),                  m_flat                ? _T("yes") : _T("no"));
+  file.Format(_T("DBCS=%s\n"),                  m_dbcs                ? _T("yes") : _T("no"));
 
   if(m_glossary.HasEntries())
   {
@@ -298,6 +307,26 @@ ProjectFile::WriteProjectFile()
   return true;
 }
 
+void
+ProjectFile::DetectDBCSMode()
+{
+  WinFile file(m_projectFilename.GetString());
+  if(file.Open(winfile_read | open_trans_binary, attrib_normal))
+  {
+    BYTE buffer[40];
+    int didread = 0;
+    file.Read(buffer,40,didread);
+
+    wchar_t* options_utf16 = L"[OPTIONS]";
+
+    if(memcmp(buffer, options_utf16, 18) == 0)
+    {
+      m_dbcs = true;
+    }
+    file.Close();
+  }
+}
+
 bool 
 ProjectFile::ReadProjectFile()
 {
@@ -305,12 +334,17 @@ ProjectFile::ReadProjectFile()
   {
     return false;
   }
-  // Reset everything exept the projectfilename
+  // Reset everything except the project filename
   Reset();
   MainFrame::SetStatusText(_T("Reading project file: ") + m_projectFilename);
 
+  DetectDBCSMode();
   WinFile file(m_projectFilename.GetString());
-  file.Open(winfile_read | open_trans_text);
+  if(m_dbcs)
+  {
+    file.SetDBCSMode(true,Encoding::LE_UTF16);
+  }
+  file.Open(winfile_read|open_trans_text);
   if(!file.GetIsOpen())
   {
     return false;

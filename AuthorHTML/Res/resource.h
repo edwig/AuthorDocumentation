@@ -542,6 +542,7 @@
 #define IDC_FRAME                       1029
 #define IDC_TABPOSITION                 1029
 #define IDC_MENU                        1029
+#define IDC_DBCS                        1029
 #define IDC_EDIT1                       1030
 #define IDC_EDITCELLIMAGE               1030
 #define IDC_HRSIZE                      1030
@@ -844,7 +845,6 @@
 #define IDC_TIMESPENT                   1087
 #define IDC_TODO_7                      1088
 #define IDC_BUTTON_TEMPLATE             1089
-#define IDC_TOPIC_UA_COMPATIBLE         1441
 #define IDC_BODY_COLOR                  1092
 #define IDC_BUTTON_IMAGE                1093
 #define IDC_MARQUEE_APPLY               1094
@@ -1226,6 +1226,7 @@
 #define IDC_AUTOTOC                     1438
 #define IDC_FLATTOC                     1439
 #define IDC_ENHANCED                    1440
+#define IDC_TOPIC_UA_COMPATIBLE         1441
 #define IDM_OPEN                        2000
 #define IDM_NEW                         2001
 #define IDM_SAVECOPYAS                  2002

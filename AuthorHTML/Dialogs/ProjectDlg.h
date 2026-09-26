@@ -48,6 +48,9 @@ private:
   AD_Button    m_buttonDefFont;
   CComboBox    m_comboWindow;
   CString      m_defaultWindow;
+  bool         m_dbcs;
+  bool         m_orig_dbcs;
+  CComboBox    m_comboDBCS;
   AD_Button    m_buttonEditWindows;
   bool         m_fullTextSearch;
   AD_Checkbox  m_buttonFullSearch;
@@ -73,6 +76,7 @@ public:
   afx_msg void OnEnChangeDefaultfont();
   afx_msg void OnBnClickedButtonfont();
   afx_msg void OnCbnSelchangeDefwindow();
+  afx_msg void OnCbnSelchangeDBCS();
   afx_msg void OnBnClickedTextsearch();
   afx_msg void OnBnClickedBinaryindex();
   afx_msg void OnBnClickedAutoindex();

@@ -1193,6 +1193,16 @@ AuthorHTMLApp::SaveAllModified()
   return TRUE;
 }
 
+bool
+AuthorHTMLApp::GetDBCSMode()
+{
+  if (m_projectFile)
+  {
+    return m_projectFile->GetDBCSMode();
+  }
+  return false;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDlg dialog used for App About
 
