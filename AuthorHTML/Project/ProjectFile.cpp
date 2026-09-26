@@ -954,7 +954,7 @@ ProjectFile::GetDocumentTitle(DocumentFile* docfile,TidyDoc& tdoc)
       tidyNodeGetText(tdoc,node,&buf);
       if(buf.size)
       {
-        CString title((LPCTSTR)buf.bp);
+        CString title = CA2CT((char*)buf.bp);
         title.Remove(_T('\r'));
         title.Remove(_T('\n'));
         title.TrimLeft(_T("<title>"));
