@@ -1008,6 +1008,7 @@ TIDY_EXPORT Bool TIDY_CALL tidyAttrIsSTYLE( TidyAttr tattr );
 TIDY_EXPORT Bool TIDY_CALL tidyAttrIsABBR( TidyAttr tattr );
 TIDY_EXPORT Bool TIDY_CALL tidyAttrIsCOLSPAN( TidyAttr tattr );
 TIDY_EXPORT Bool TIDY_CALL tidyAttrIsROWSPAN( TidyAttr tattr );
+TIDY_EXPORT Bool TIDY_CALL tidyAttrIsDECLARE( TidyAttr tattr );
 
 /** @} End AttrIsAttributeName group */
 

@@ -32,6 +32,7 @@ DocumentFile::DocumentFile(CString p_filename
              ,m_todo(0)
              ,m_width(0)
              ,m_height(0)
+             ,m_mapID(0)
              ,m_metadataRead(false)
              ,m_didSweep(false)
 {

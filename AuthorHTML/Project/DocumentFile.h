@@ -87,6 +87,9 @@ public:
   int     GetHeight();
   void    SetSwiped(bool p_sweeped);
   bool    GetSweeped();
+  unsigned GetMapID();
+  CString  GetMapAlias();
+  void     SetMapIDandAlias(unsigned p_mapID,CString p_alias);
 
   // LINKS
   void    AddLinkToMe(DocumentFile* p_doc,CString& p_anchor);
@@ -148,6 +151,9 @@ private:
   IndexMap  m_keywords;
   // TOC Entries
   TOCMap    m_tocEntries;
+  // MAP ID
+  unsigned  m_mapID;
+  CString   m_mapAlias;
 };
 
 inline bool
@@ -334,4 +340,23 @@ inline bool
 DocumentFile::GetSweeped()
 {
   return m_didSweep;
+}
+
+inline unsigned
+DocumentFile::GetMapID()
+{
+  return m_mapID;
+}
+
+inline void
+DocumentFile::SetMapIDandAlias(unsigned p_mapID,CString p_alias)
+{
+  m_mapID    = p_mapID;
+  m_mapAlias = p_alias;
+}
+
+inline CString
+DocumentFile::GetMapAlias()
+{
+  return m_mapAlias;
 }

@@ -76,11 +76,12 @@ TopicPropPage3Dlg::OnInitDialog()
 
   m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EDITLABELS);
   m_list.InsertColumn(0,_T("Type"),   LVCFMT_LEFT,80);
-  m_list.InsertColumn(1,_T("Level1"), LVCFMT_LEFT,100);
-  m_list.InsertColumn(2,_T("Level2"), LVCFMT_LEFT,100);
-  m_list.InsertColumn(3,_T("Level3"), LVCFMT_LEFT,100);
-  m_list.InsertColumn(4,_T("Level4"), LVCFMT_LEFT,100);
-  m_list.InsertColumn(5,_T("Level5"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(1,_T("Map ID"), LVCFMT_LEFT,80);
+  m_list.InsertColumn(2,_T("Level1"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(3,_T("Level2"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(4,_T("Level3"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(5,_T("Level4"), LVCFMT_LEFT,100);
+  m_list.InsertColumn(6,_T("Level5"), LVCFMT_LEFT,100);
 
   FillPage();
   UpdateData(Data2Controls);
@@ -91,7 +92,7 @@ void
 TopicPropPage3Dlg::FillPage()
 {
   GetHeadKeywords();
-  ScriptsToList();
+  KeywordsToList();
 }
 
 void
@@ -102,19 +103,26 @@ TopicPropPage3Dlg::UpdateProperties()
 }
 
 void
-TopicPropPage3Dlg::ScriptsToList()
+TopicPropPage3Dlg::KeywordsToList()
 {
   m_list.DeleteAllItems();
   for(unsigned int ind = 0; ind < m_keywords.size(); ++ind)
   {
     KeywordDef* def = &(m_keywords[ind]);
     CString type = def->m_type == KeywordType::KLink ? _T("Index") : _T("Associative");
+    CString mapID;
+    if (def->m_mapID > 0)
+    {
+      mapID.Format(_T("%u"),def->m_mapID);
+      type = _T("Map ID");
+    }
     m_list.InsertItem(LVIF_TEXT|LVIF_STATE, ind, type, 0, 0, 0, 0);
-    m_list.SetItemText(ind,1,def->m_level1);
-    m_list.SetItemText(ind,2,def->m_level2);
-    m_list.SetItemText(ind,3,def->m_level3);
-    m_list.SetItemText(ind,4,def->m_level4);
-    m_list.SetItemText(ind,5,def->m_level5);
+    m_list.SetItemText(ind,1,mapID);
+    m_list.SetItemText(ind,2,def->m_level1);
+    m_list.SetItemText(ind,3,def->m_level2);
+    m_list.SetItemText(ind,4,def->m_level3);
+    m_list.SetItemText(ind,5,def->m_level4);
+    m_list.SetItemText(ind,6,def->m_level5);
   }
   if(m_keywords.size())
   {
@@ -190,6 +198,13 @@ TopicPropPage3Dlg::GetHeadKeywords()
                   KeywordType type = key.CompareNoCase(_T("MS-HKWD")) == 0 ? KeywordType::KLink : KeywordType::ALink;
                   AddKeywords(type,keywords);
                 }
+
+                if(key.CompareNoCase(_T("MS-MAP-ID")) == 0)
+                {
+                  CString mapID   = element.GetAttribute(_T("content"));
+                  CString declare = element.GetAttribute(_T("declare"));
+                  AddMapID(_ttoi(mapID),declare);
+                }
               }
             }
           }
@@ -252,8 +267,9 @@ TopicPropPage3Dlg::RemoveHeadKeywords()
                 HtmlElement element(elem);
 
                 CString key = element.GetAttribute(_T("name"));
-                if((key.CompareNoCase(_T("MS-HKWD")) == 0) ||
-                   (key.CompareNoCase(_T("MS-HAID")) == 0))
+                if((key.CompareNoCase(_T("MS-HKWD"))   == 0) ||
+                   (key.CompareNoCase(_T("MS-HAID"))   == 0) ||
+                   (key.CompareNoCase(_T("MS-MAP-ID")) == 0))
                 {
                   CComQIPtr<IHTMLDOMNode, &IID_IHTMLDOMNode> dom = elem.p;
                   hr = dom->removeNode(VARIANT_TRUE,nullptr);
@@ -286,6 +302,19 @@ TopicPropPage3Dlg::RewriteHeadKeywords()
   {
     // Rewriting head keywords
     KeywordDef* def = &(m_keywords[ind]);
+    if(def->m_mapID > 0)
+    {
+      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
+      HtmlElement keyword(elem);
+      CString mapID;
+      mapID.Format(_T("%u"),def->m_mapID);
+      keyword.SetAttribute(_T("name"), _T("MS-MAP-ID"));
+      keyword.SetAttribute(_T("content"), mapID);
+      keyword.SetAttribute(_T("declare"), def->m_level1);
+
+      // Set on the document
+      m_doc->SetMapIDandAlias(def->m_mapID,def->m_level1);
+    }
     if(!def->m_level1.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
@@ -401,6 +430,18 @@ TopicPropPage3Dlg::AddKeywords(KeywordType p_type,CString p_keywords)
   }
 }
 
+void 
+TopicPropPage3Dlg::AddMapID(unsigned p_mapID,CString p_alias)
+{
+  if(p_mapID > 0)
+  {
+    KeywordDef def;
+    def.m_mapID  = p_mapID;
+    def.m_level1 = p_alias;
+    m_keywords.push_back(def);
+  }
+}
+
 // TopicPropPage3 message handlers
 
 void TopicPropPage3Dlg::OnLvnChanged(NMHDR* /*pNMHDR*/, LRESULT *pResult)
@@ -423,7 +464,7 @@ TopicPropPage3Dlg::OnBnClickedUp()
   if(now > 0)
   {
     std::swap(m_keywords[now],m_keywords[now-1]);
-    ScriptsToList();
+    KeywordsToList();
     UpdateData(Data2Controls);
     m_list.SetItemState(now-1,LVNI_SELECTED,LVNI_SELECTED);
     m_changed = true;
@@ -442,7 +483,7 @@ TopicPropPage3Dlg::OnBnClickedEdit()
     KeywordDlg dlg(this,def);
     if(dlg.DoModal() == IDOK)
     {
-      ScriptsToList();
+      KeywordsToList();
       UpdateData(Data2Controls);
       m_changed = true;
     }
@@ -460,7 +501,7 @@ TopicPropPage3Dlg::OnBnClickedNew()
   if(dlg.DoModal() == IDOK)
   {
     m_keywords.push_back(def);
-    ScriptsToList();
+    KeywordsToList();
     UpdateData(Data2Controls);
     m_changed = true;
   }
@@ -490,7 +531,7 @@ TopicPropPage3Dlg::OnBnClickedDelete()
       // Erase from vector scripts
       m_keywords.erase(it);
       // Rebuild visual list
-      ScriptsToList();
+      KeywordsToList();
       UpdateData(Data2Controls);
       m_changed = true;
     }
@@ -506,7 +547,7 @@ TopicPropPage3Dlg::OnBnClickedDown()
   if(now < (num -1))
   {
     std::swap(m_keywords[now],m_keywords[now+1]);
-    ScriptsToList();
+    KeywordsToList();
     UpdateData(Data2Controls);
     m_list.SetItemState(now+1,LVNI_SELECTED,LVNI_SELECTED);
     m_changed = true;

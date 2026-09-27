@@ -945,6 +945,7 @@
 #define IDC_PARA_BTU5                   1141
 #define IDC_PARA_WSU                    1141
 #define IDC_ALT                         1141
+#define IDC_MAP_ID                      1141
 #define IDC_EDIT7                       1142
 #define IDC_MARGIN_L                    1142
 #define IDC_ALTHTML                     1142

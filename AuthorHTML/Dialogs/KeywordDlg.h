@@ -44,6 +44,7 @@ private:
   KeywordDef*  m_keyword;
   CComboBox    m_comboType;
 
+  unsigned     m_mapID;
   KeywordType  m_type;
   CString      m_composite;
   CString      m_level1;
@@ -52,6 +53,7 @@ private:
   CString      m_level4;
   CString      m_level5;
 public:
+  afx_msg void OnEnChangeMapIO();
   afx_msg void OnEnChangeComposite();
   afx_msg void OnEnChangeLevel1();
   afx_msg void OnEnChangeLevel2();

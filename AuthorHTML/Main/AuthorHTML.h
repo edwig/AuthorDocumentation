@@ -36,6 +36,8 @@ class TOC;
 class IndexFile;
 class StartupDlg;
 
+typedef HWND(CALLBACK* LPFNHTMLHELP)(HWND,LPCTSTR,UINT,DWORD_PTR);
+
 /////////////////////////////////////////////////////////////////////////////
 // AuthorHTMLApp:
 // See HTMLEdit.cpp for the implementation of this class
@@ -79,6 +81,9 @@ public:
   int   ErrorMessage(const CString& message);
   void  Panic(CString message);
 
+  void  ShowHtmlHelp(CString const& pad,UINT uMode,HH_AKLINK& link);
+
+
   UINT  m_nAppLook;
 public:
 	virtual BOOL InitInstance();
@@ -120,6 +125,7 @@ private:
   void OnManualMicrosoftHTML();
   void OnManualW3C_HTML();
   void OnManualW3C_CSS();
+  bool LoadHtmlHelpDLL();
 
   CString             m_baseDir;
   CString             m_binDir;
@@ -145,6 +151,11 @@ private:
   CStringList        m_StdioCommand;
 
   CRecentFileList*   m_pRecentProjectList;
+
+  // Our help system
+  HMODULE            m_htmlLib;
+  bool               m_noHelpAvailabale;
+  LPFNHTMLHELP       m_htmlHelp;
 };
 
 inline CString

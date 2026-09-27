@@ -70,6 +70,7 @@ AuthorHTMLApp::AuthorHTMLApp()
               ,m_pRecentProjectList(NULL)
               ,m_startup(NULL)
               ,m_uniqueDocID(0)
+              ,m_noHelpAvailabale(false)
 {
 }
 
@@ -80,7 +81,12 @@ AuthorHTMLApp::~AuthorHTMLApp()
   if(m_controlsInfo)
   {
     delete m_controlsInfo;
-    m_controlsInfo = NULL;
+    m_controlsInfo = nullptr;
+  }
+  if (m_htmlLib)
+  {
+    FreeLibrary(m_htmlLib);
+    m_htmlLib = nullptr;
   }
 }
 
@@ -1201,6 +1207,50 @@ AuthorHTMLApp::GetDBCSMode()
     return m_projectFile->GetDBCSMode();
   }
   return false;
+}
+
+// In case the HtmlHelp is not installed properly on the MS-Window OS
+// we get no error messages or strange error messages
+// so we find out for ourselfes how to call "HtmlHelp A/W" 
+bool
+AuthorHTMLApp::LoadHtmlHelpDLL()
+{
+  if (m_htmlLib)
+  {
+    return true;
+  }
+  if (m_noHelpAvailabale)
+  {
+    return false;
+  }
+
+#ifdef _UNICODE
+  char* helpfunc = "HtmlHelpW";
+#else
+  char* helpfunc = "HtmlHelpA";
+#endif
+  m_htmlLib = LoadLibrary(_T("HHCtrl.OCX"));
+  if(m_htmlLib)
+  {
+    m_htmlHelp = (LPFNHTMLHELP)GetProcAddress(m_htmlLib, helpfunc);
+    if(m_htmlHelp)
+    {
+      return true;
+    }
+    FreeLibrary(m_htmlLib);
+    m_htmlLib = NULL;
+  }
+  m_noHelpAvailabale = true;
+  return false;
+}
+
+void
+AuthorHTMLApp::ShowHtmlHelp(CString const& pad,UINT uMode,HH_AKLINK& link)
+{
+  if(LoadHtmlHelpDLL())
+  {
+    m_htmlHelp(m_pMainWnd->GetSafeHwnd(),(LPCTSTR)pad,uMode,(DWORD_PTR)&link);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////

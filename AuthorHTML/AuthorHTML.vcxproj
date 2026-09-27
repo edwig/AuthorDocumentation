@@ -995,6 +995,7 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClInclude Include="project\ImportCHM.h" />
     <ClInclude Include="Project\IndexEntry.h" />
     <ClInclude Include="Project\IndexFile.h" />
+    <ClInclude Include="Project\Keyword.h" />
     <ClInclude Include="Project\ProjectFile.h" />
     <ClInclude Include="Project\TOC.h" />
     <ClInclude Include="Project\TOCEntry.h" />

@@ -291,9 +291,27 @@ ProjectFile::WriteProjectFile()
 
   // 4) WRITE ALIASSES
   file.Write(_T("[ALIAS]\n"));
+  for (it = m_documents.begin(); it != m_documents.end(); ++it)
+  {
+    DocumentFile* doc = it->second;
+    if(!doc->GetMapAlias().IsEmpty() && doc->GetMapID() > 0)
+    {
+      file.Format(_T("%s = %s\n"), doc->GetMapAlias().GetString(), doc->GetRelativeFilename().GetString());
+    }
+  }
+  file.Write(_T("\n"));
 
   // 5) WRITE MAP
   file.Write(_T("[MAP]\n"));
+  for (it = m_documents.begin(); it != m_documents.end(); ++it)
+  {
+    DocumentFile* doc = it->second;
+    if (!doc->GetMapAlias().IsEmpty() && doc->GetMapID() > 0)
+    {
+      file.Format(_T("#define %s %u\n"),doc->GetMapAlias().GetString(), doc->GetMapID());
+    }
+  }
+  file.Write(_T("\n"));
 
   // 6) WRITE TEXT POPUPS
   file.Write(_T("[TEXT POPUPS]\n"));
@@ -1068,6 +1086,7 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
 {
   CString sContent;
   CString sName;
+  CString sDeclare;
 
   // Find attributes in META Tag
   TidyAttr attr = tidyAttrFirst(node);
@@ -1083,6 +1102,12 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
       ctmbstr name = tidyAttrValue(attr);
       sName = name;
     }
+    if(tidyAttrIsDECLARE(attr))
+    {
+      ctmbstr declare = tidyAttrValue(attr);
+      sDeclare = declare;
+    }
+
     attr = tidyAttrNext(attr);
   }
   if(!sContent.IsEmpty() && !sName.IsEmpty())
@@ -1100,7 +1125,10 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
     else if(sName.CompareNoCase(_T("AuthorToDo"))           == 0) docfile->SetToDo     (_ttoi(sContent));
     else if(sName.CompareNoCase(_T("AuthorWidth"))          == 0) docfile->SetWidth    (_ttoi(sContent));
     else if(sName.CompareNoCase(_T("AuthorHeight"))         == 0) docfile->SetHeight   (_ttoi(sContent));
-
+    else if (sName.CompareNoCase(_T("MS-MAP-ID")) == 0)
+    {
+      docfile->SetMapIDandAlias(_ttoi(sContent),sDeclare);
+    }
     else if(sName.CompareNoCase(_T("MS-HKWD")) == 0) 
     {
       theApp.GetIndex()->AddKeywords(sContent,docfile);

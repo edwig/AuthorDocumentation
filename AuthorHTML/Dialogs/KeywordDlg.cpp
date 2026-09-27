@@ -19,6 +19,7 @@ KeywordDlg::KeywordDlg(CWnd*        p_parent
                       ,KeywordDef*  p_keyword)
            :CDialog(KeywordDlg::IDD,p_parent)
            ,m_keyword(p_keyword)
+           ,m_mapID(0)
 {
 }
 
@@ -30,6 +31,9 @@ void
 KeywordDlg::DoDataExchange(CDataExchange* pDX)
 {
   CDialog::DoDataExchange(pDX);
+
+  // Mappings
+  DDX_Text   (pDX,IDC_MAP_ID,    m_mapID);
   DDX_Control(pDX,IDC_LINKTYPE,  m_comboType);
   DDX_Text   (pDX,IDC_COMPOSITE, m_composite);
   DDX_Text   (pDX,IDC_LEVEL1,    m_level1);
@@ -37,6 +41,8 @@ KeywordDlg::DoDataExchange(CDataExchange* pDX)
   DDX_Text   (pDX,IDC_LEVEL3,    m_level3);
   DDX_Text   (pDX,IDC_LEVEL4,    m_level4);
   DDX_Text   (pDX,IDC_LEVEL5,    m_level5);
+  // Checks
+  DDV_MinMaxInt(pDX,m_mapID,0,0x7FFFF);
 
   if(pDX->m_bSaveAndValidate == FALSE)
   {
@@ -44,7 +50,7 @@ KeywordDlg::DoDataExchange(CDataExchange* pDX)
     CWnd* w3 = GetDlgItem(IDC_LEVEL3);
     CWnd* w4 = GetDlgItem(IDC_LEVEL4);
     CWnd* w5 = GetDlgItem(IDC_LEVEL5);
-    bool key = (m_type == KeywordType::KLink);
+    bool key = (m_type == KeywordType::KLink) && (m_mapID == 0);
     w2->EnableWindow(!m_level1.IsEmpty() && key);
     w3->EnableWindow(!m_level2.IsEmpty() && key);
     w4->EnableWindow(!m_level3.IsEmpty() && key);
@@ -53,6 +59,7 @@ KeywordDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(KeywordDlg, CDialog)
+  ON_EN_KILLFOCUS (IDC_MAP_ID,      &KeywordDlg::OnEnChangeMapIO)
   ON_CBN_SELCHANGE(IDC_LINKTYPE,    &KeywordDlg::OnCbnSelchangeLinktype)
   ON_EN_CHANGE    (IDC_COMPOSITE,   &KeywordDlg::OnEnChangeComposite)
   ON_EN_CHANGE    (IDC_LEVEL1,      &KeywordDlg::OnEnChangeLevel1)
@@ -71,6 +78,7 @@ KeywordDlg::OnInitDialog()
   CDialog::OnInitDialog();
 
   // Link types
+  m_comboType.AddString(_T("MapID and alias"));           // MapID
   m_comboType.AddString(_T("Composite index keyword"));   // K-Link
   m_comboType.AddString(_T("Associative link keyword"));  // A-Link
 
@@ -83,6 +91,9 @@ KeywordDlg::OnInitDialog()
 void
 KeywordDlg::FillPage()
 {
+  // Map ID
+  m_mapID = m_keyword->m_mapID;
+
   // Fill combobox
   m_type  = m_keyword->m_type;
   int ind = m_keyword->m_type == KeywordType::KLink ? 0 : 1;
@@ -156,6 +167,7 @@ void
 KeywordDlg::UpdateProperties()
 {
   // Set content
+  m_keyword->m_mapID     = m_mapID;
   m_keyword->m_type      = m_type;
   m_keyword->m_composite = m_composite;
   m_keyword->m_level1    = m_level1;
@@ -216,12 +228,34 @@ KeywordDlg::ReComposite()
 }
 
 void 
+KeywordDlg::OnEnChangeMapIO()
+{
+  UpdateData();
+
+  if(m_mapID)
+  {
+    m_composite.Empty();
+    m_level1.Empty();
+    m_level2.Empty();
+    m_level3.Empty();
+    m_level4.Empty();
+    m_level5.Empty();
+  }
+  UpdateData(FALSE);
+}
+
+void 
 KeywordDlg::OnCbnSelchangeLinktype()
 {
   int ind = m_comboType.GetCurSel();
   if(ind >= 0)
   {
-    m_type = (ind == 0) ? KeywordType::KLink : KeywordType::ALink;
+    switch(ind)
+    {
+      case 0: m_type = KeywordType::MapID; break;
+      case 1: m_type = KeywordType::KLink; break;
+      case 2: m_type = KeywordType::ALink; break;
+    }
     m_keyword->m_type = m_type;
     CheckType();
     UpdateData(Data2Controls);
