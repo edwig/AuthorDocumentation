@@ -12,6 +12,7 @@
 #include "StdAfx.h"
 #include "AuthorHTML.h"
 #include "KeywordDlg.h"
+#include "ProjectFile.h"
 
 IMPLEMENT_DYNAMIC(KeywordDlg, CDialog)
 
@@ -46,11 +47,13 @@ KeywordDlg::DoDataExchange(CDataExchange* pDX)
 
   if(pDX->m_bSaveAndValidate == FALSE)
   {
+    CWnd* wm = GetDlgItem(IDC_MAP_ID);
     CWnd* w2 = GetDlgItem(IDC_LEVEL2);
     CWnd* w3 = GetDlgItem(IDC_LEVEL3);
     CWnd* w4 = GetDlgItem(IDC_LEVEL4);
     CWnd* w5 = GetDlgItem(IDC_LEVEL5);
     bool key = (m_type == KeywordType::KLink) && (m_mapID == 0);
+    wm->EnableWindow(m_type == KeywordType::MapID);
     w2->EnableWindow(!m_level1.IsEmpty() && key);
     w3->EnableWindow(!m_level2.IsEmpty() && key);
     w4->EnableWindow(!m_level3.IsEmpty() && key);
@@ -62,7 +65,7 @@ BEGIN_MESSAGE_MAP(KeywordDlg, CDialog)
   ON_EN_KILLFOCUS (IDC_MAP_ID,      &KeywordDlg::OnEnChangeMapIO)
   ON_CBN_SELCHANGE(IDC_LINKTYPE,    &KeywordDlg::OnCbnSelchangeLinktype)
   ON_EN_CHANGE    (IDC_COMPOSITE,   &KeywordDlg::OnEnChangeComposite)
-  ON_EN_CHANGE    (IDC_LEVEL1,      &KeywordDlg::OnEnChangeLevel1)
+  ON_EN_KILLFOCUS (IDC_LEVEL1,      &KeywordDlg::OnEnChangeLevel1)
   ON_EN_CHANGE    (IDC_LEVEL2,      &KeywordDlg::OnEnChangeLevel2)
   ON_EN_CHANGE    (IDC_LEVEL3,      &KeywordDlg::OnEnChangeLevel3)
   ON_EN_CHANGE    (IDC_LEVEL4,      &KeywordDlg::OnEnChangeLevel4)
@@ -96,7 +99,15 @@ KeywordDlg::FillPage()
 
   // Fill combobox
   m_type  = m_keyword->m_type;
-  int ind = m_keyword->m_type == KeywordType::KLink ? 0 : 1;
+
+  int ind = 0;
+  switch(m_type)
+  {
+    case KeywordType::MapID: ind = 0; break;
+    case KeywordType::KLink: ind = 1; break;
+    case KeywordType::ALink: ind = 2; break;
+    default:                 ind = 0; break;
+  }
   m_comboType.SetCurSel(ind);
 
   // Fill text fields
@@ -161,6 +172,43 @@ KeywordDlg::CheckWord(CString& p_word)
     theApp.Panic(message);
     p_word.Empty();
   }
+}
+
+bool
+KeywordDlg::CheckKeyword()
+{
+  if(m_type == KeywordType::KLink)
+  {
+    if(m_level1.IsEmpty())
+    {
+      theApp.Panic(_T("The first keyword level is empty.\nPlease fill in the first level and try again."));
+      return false;
+    }
+  }
+  if(m_type == KeywordType::ALink ||
+     m_type == KeywordType::MapID)
+  {
+    if(m_level1.IsEmpty())
+    {
+      theApp.Panic(_T("The keyword is empty. Please fill in the keyword and try again."));
+      return false;
+    }
+  }
+  if(m_type == KeywordType::MapID)
+  {
+    if(m_mapID == 0)
+    {
+      theApp.Panic(_T("In order to enter a MAP ID, you must fill in a number greater than zero!"));
+      return false;
+    }
+    if(!theApp.GetProjectFile()->AddIDandAlias(m_mapID,m_level1))
+    {
+      theApp.Panic(_T("Failed to add MAP ID and alias. The are not unique within your project!\n")
+                   _T("Change the MAP ID or alias and try again."));  
+      return false;
+    }
+  }
+  return true;
 }
 
 void
@@ -252,9 +300,16 @@ KeywordDlg::OnCbnSelchangeLinktype()
   {
     switch(ind)
     {
-      case 0: m_type = KeywordType::MapID; break;
-      case 1: m_type = KeywordType::KLink; break;
-      case 2: m_type = KeywordType::ALink; break;
+      case 0: m_type  = KeywordType::MapID;
+              m_mapID = theApp.GetProjectFile()->GetMaxMapID() + INCREASE_MAP_ID;
+              m_keyword->m_mapID = m_mapID;
+              break;
+      case 1: m_mapID = 0;
+              m_type  = KeywordType::KLink; 
+              break;
+      case 2: m_mapID = 0;
+              m_type  = KeywordType::ALink;
+              break;
     }
     m_keyword->m_type = m_type;
     CheckType();
@@ -272,6 +327,10 @@ KeywordDlg::OnEnChangeLevel1()
 {
   UpdateData();
   CheckWord(m_level1);
+  if(m_type == KeywordType::MapID)
+  {
+    m_level1.MakeUpper();
+  }
   ReComposite();
 }
 
@@ -311,8 +370,11 @@ void
 KeywordDlg::OnBnClickedOk()
 {
   ReComposite();
-  UpdateProperties();
-  OnOK();
+  if(CheckKeyword())
+  {
+    UpdateProperties();
+    OnOK();
+  }
 }
 
 void 

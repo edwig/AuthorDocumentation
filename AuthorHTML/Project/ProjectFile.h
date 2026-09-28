@@ -26,6 +26,8 @@ typedef std::map<CString,DocumentFile*>      DocumentMap;
 typedef std::map<CString,WindowDefinition*>  WindowMap;
 typedef std::vector<CString>                 WindowNames;
 typedef std::multimap<DocumentFile*,CString> BrokenMap;
+typedef std::map<unsigned,CString>           IDAliasMap;
+typedef std::map<CString,unsigned>           AliasIDMap;
 
 class ProjectFile
 {
@@ -59,6 +61,9 @@ public:
    void    RenameFile(CString& p_old_href,CString& p_new_href);
    // Block sweep for this project
    void    BlockSweep();
+   bool    AddIDandAlias   (unsigned p_mapID,CString p_alias);
+   bool    RemoveIDandAlias(unsigned p_mapID,CString p_alias);
+   unsigned GetMaxMapID();
    
    // Specialized getters/setters
    CString      GetProjectFilename();
@@ -152,8 +157,10 @@ private:
    BrokenMap      m_broken;
    // Glossary
    Glossary       m_glossary;
-   // Alias files
-   // MAP files
+   // Alias ID uniqueness tests
+   IDAliasMap     m_idAliasMap;
+   AliasIDMap     m_aliasIDMap;
+   unsigned       m_maxMapID;
    // Text popup files
 };
 

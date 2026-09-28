@@ -40,6 +40,7 @@ ProjectFile::ProjectFile(CString p_projectfile)
             ,m_needSaving(false)
             ,m_blockSwipeOnce(false)
             ,m_sweeping(NULL)
+            ,m_maxMapID(0)
 {
   // Base directory is taken from the project file
   m_baseDir = Misc::DirectoryPart(p_projectfile);
@@ -1127,7 +1128,8 @@ ProjectFile::GetDocumentMeta(TidyNode node,DocumentFile* docfile)
     else if(sName.CompareNoCase(_T("AuthorHeight"))         == 0) docfile->SetHeight   (_ttoi(sContent));
     else if (sName.CompareNoCase(_T("MS-MAP-ID")) == 0)
     {
-      docfile->SetMapIDandAlias(_ttoi(sContent),sDeclare);
+      docfile->SetMapIDandAlias(_ttoi(sDeclare),sContent);
+      AddIDandAlias(_ttoi(sDeclare),sContent);
     }
     else if(sName.CompareNoCase(_T("MS-HKWD")) == 0) 
     {
@@ -1522,3 +1524,58 @@ ProjectFile::CreateNewDefaultProject(CString p_name)
   theApp.OpenTypedDocumentFile(newfile);
   return true;
 }
+
+//////////////////////////////////////////////////////////////////////////
+// 
+// MAP and ALIAS 
+// 
+//////////////////////////////////////////////////////////////////////////
+
+bool
+ProjectFile::AddIDandAlias(unsigned p_mapID,CString p_alias)
+{
+  IDAliasMap::iterator it = m_idAliasMap.find(p_mapID);
+  if(it != m_idAliasMap.end())
+  {
+    // Already exists
+    return false;
+  }
+  AliasIDMap::iterator iter = m_aliasIDMap.find(p_alias);
+  if(iter != m_aliasIDMap.end())
+  {
+    // Already exists
+    return false;
+  }
+  // Keep track of the maximum mapID, so we can generate new ones
+  if(p_mapID > m_maxMapID)
+  {
+    m_maxMapID = p_mapID;
+  }
+  // Save the mapping in both directions
+  m_idAliasMap[p_mapID] = p_alias;
+  m_aliasIDMap[p_alias] = p_mapID;
+  return true;
+}
+
+bool
+ProjectFile::RemoveIDandAlias(unsigned p_mapID,CString p_alias)
+{
+  IDAliasMap::iterator it = m_idAliasMap.find(p_mapID);
+  if(it != m_idAliasMap.end())
+  {
+    m_idAliasMap.erase(it);
+  }
+  AliasIDMap::iterator iter = m_aliasIDMap.find(p_alias);
+  if(iter != m_aliasIDMap.end())
+  {
+    m_aliasIDMap.erase(iter);
+  }
+  return true;
+}
+
+unsigned 
+ProjectFile::GetMaxMapID()
+{
+  return m_maxMapID;
+}
+

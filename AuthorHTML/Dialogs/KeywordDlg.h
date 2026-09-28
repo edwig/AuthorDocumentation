@@ -14,6 +14,8 @@
 #include "HTMLElement.h"
 #include "TopicPropPage3.h"
 
+#define INCREASE_MAP_ID  10
+
 // KeywordDlg dialog
 
 class KeywordDlg : public CDialog
@@ -40,6 +42,7 @@ private:
   void ReComposite();
   void CheckType();
   void CheckWord(CString& p_word);
+  bool CheckKeyword();
 
   KeywordDef*  m_keyword;
   CComboBox    m_comboType;

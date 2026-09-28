@@ -16,6 +16,7 @@
 #include "IndexFile.h"
 #include "HTMLScript.h"
 #include "ScriptDlg.h"
+#include "ProjectFile.h"
 
 // TopicPropPage3 dialog
 IMPLEMENT_DYNAMIC(TopicPropPage3Dlg, CDialog)
@@ -201,9 +202,9 @@ TopicPropPage3Dlg::GetHeadKeywords()
 
                 if(key.CompareNoCase(_T("MS-MAP-ID")) == 0)
                 {
-                  CString mapID   = element.GetAttribute(_T("content"));
-                  CString declare = element.GetAttribute(_T("declare"));
-                  AddMapID(_ttoi(mapID),declare);
+                  CString alias = element.GetAttribute(_T("content"));
+                  CString mapID = element.GetAttribute(_T("declare"));
+                  AddMapID(_ttoi(mapID),alias);
                 }
               }
             }
@@ -302,53 +303,38 @@ TopicPropPage3Dlg::RewriteHeadKeywords()
   {
     // Rewriting head keywords
     KeywordDef* def = &(m_keywords[ind]);
-    if(def->m_mapID > 0)
+    if(def->m_type == KeywordType::MapID && def->m_mapID > 0 && !def->m_level1.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
       HtmlElement keyword(elem);
       CString mapID;
       mapID.Format(_T("%u"),def->m_mapID);
       keyword.SetAttribute(_T("name"), _T("MS-MAP-ID"));
-      keyword.SetAttribute(_T("content"), mapID);
-      keyword.SetAttribute(_T("declare"), def->m_level1);
+      keyword.SetAttribute(_T("content"),def->m_level1);
+      keyword.SetAttribute(_T("declare"),mapID);
 
       // Set on the document
       m_doc->SetMapIDandAlias(def->m_mapID,def->m_level1);
     }
-    if(!def->m_level1.IsEmpty())
+    if(def->m_type == KeywordType::ALink && !def->m_level1.IsEmpty())
     {
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute(_T("name"),   def->m_type == KeywordType::KLink ? _T("MS-HKWD") : _T("MS-HAID"));
+      keyword.SetAttribute(_T("name"),_T("MS-HAID"));
       keyword.SetAttribute(_T("content"),def->m_level1);
     }
-    if(!def->m_level2.IsEmpty())
+    if(def->m_type == KeywordType::KLink && !def->m_level1.IsEmpty())
     {
+      CString content = def->m_level1;
+      if(!def->m_level2.IsEmpty()) content += _T(", ") + def->m_level2;
+      if(!def->m_level3.IsEmpty()) content += _T(", ") + def->m_level3;
+      if(!def->m_level4.IsEmpty()) content += _T(", ") + def->m_level4;
+      if(!def->m_level5.IsEmpty()) content += _T(", ") + def->m_level5;
+
       CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc,TAGID_META);
       HtmlElement keyword(elem);
-      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
-      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2);
-    }
-    if(!def->m_level3.IsEmpty())
-    {
-      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
-      HtmlElement keyword(elem);
-      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
-      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3);
-    }
-    if(!def->m_level4.IsEmpty())
-    {
-      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
-      HtmlElement keyword(elem);
-      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
-      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3 + _T(", ") + def->m_level4);
-    }
-    if(!def->m_level5.IsEmpty())
-    {
-      CComPtr<IHTMLElement> elem = Misc::CreateHeadElement(m_htmlDoc, TAGID_META);
-      HtmlElement keyword(elem);
-      keyword.SetAttribute(_T("name"),   _T("MS-HKWD"));
-      keyword.SetAttribute(_T("content"),def->m_level1 + _T(", ") + def->m_level2 + _T(", ") + def->m_level3 + _T(", ") + def->m_level4 + _T(", ") + def->m_level5);
+      keyword.SetAttribute(_T("name"),_T("MS-HKWD"));
+      keyword.SetAttribute(_T("content"),content);
     }
   }
 }
@@ -436,6 +422,7 @@ TopicPropPage3Dlg::AddMapID(unsigned p_mapID,CString p_alias)
   if(p_mapID > 0)
   {
     KeywordDef def;
+    def.m_type   = KeywordType::MapID;
     def.m_mapID  = p_mapID;
     def.m_level1 = p_alias;
     m_keywords.push_back(def);
@@ -518,12 +505,25 @@ TopicPropPage3Dlg::OnBnClickedDelete()
     CString mess;
     KeywordDef* def = &(m_keywords[now]);
     CString keyword = def->m_composite;
-    CString type    = def->m_type == KeywordType::KLink ? _T("Index keyword") : _T("Associative link");
-    mess.Format(_T("Do you want to delete the %s [%s] ?"),type.GetString(),keyword.GetString());
-    if (theApp.MessageBox(mess, _T("Delete?"), MB_YESNO | MB_ICONQUESTION) == IDYES)
+    CString type;
+
+    switch(def->m_type)
     {
+      case KeywordType::MapID: keyword.Format(_T("%s = %u"),def->m_level1.GetString(),def->m_mapID);
+                               type = _T("Map ID");           break;
+      case KeywordType::KLink: type = _T("Index keyword");    break;
+      case KeywordType::ALink: type = _T("Associative link"); break;
+    }
+    mess.Format(_T("Do you want to delete the %s [%s] ?"),type.GetString(),keyword.GetString());
+    if(theApp.MessageBox(mess, _T("Delete?"), MB_YESNO | MB_ICONQUESTION) == IDYES)
+    {
+      // Remove from the mapped topic ID and alias list.
+      if(def->m_type == KeywordType::MapID)
+      { 
+        theApp.GetProjectFile()->RemoveIDandAlias(def->m_mapID,def->m_level1);
+      }
       KeywordVector::iterator it = m_keywords.begin();
-      while (now)
+      while(now)
       {
         ++it;
         --now;
