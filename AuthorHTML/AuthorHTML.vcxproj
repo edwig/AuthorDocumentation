@@ -303,6 +303,7 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClCompile Include="Css\CSS_prepare.cpp" />
     <ClCompile Include="Css\CSS_print.cpp" />
     <ClCompile Include="CSS\CSS_utils.cpp" />
+    <ClCompile Include="Dialogs\AboutDlg.cpp" />
     <ClCompile Include="Dialogs\AddressCombo.cpp" />
     <ClCompile Include="Dialogs\ALinkCommandDlg.cpp" />
     <ClCompile Include="Dialogs\ALinkDlg.cpp" />
@@ -1022,11 +1023,13 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseUnicode|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Tools\StyleRichEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Css\CSS.h" />
     <ClInclude Include="CSS\CSS_utils.h" />
     <ClInclude Include="Css\umap.hpp" />
+    <ClInclude Include="Dialogs\AboutDlg.h" />
     <ClInclude Include="Dialogs\AddressCombo.h" />
     <ClInclude Include="Dialogs\ALinkCommandDlg.h" />
     <ClInclude Include="Dialogs\ALinkDlg.h" />
@@ -1252,6 +1255,7 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClInclude Include="HTMLTidy\version.h" />
     <ClInclude Include="HTMLTidy\win32tc.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="Tools\StyleRichEdit.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\alg.bmp" />

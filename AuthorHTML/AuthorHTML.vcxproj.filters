@@ -749,6 +749,12 @@
     <ClCompile Include="CSS\CSS_utils.cpp">
       <Filter>Source Files\CSS</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\AboutDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\StyleRichEdit.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Css\CSS.h">
@@ -1434,6 +1440,12 @@
     </ClInclude>
     <ClInclude Include="Project\Keyword.h">
       <Filter>Source Files\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\AboutDlg.h">
+      <Filter>Source Files\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\StyleRichEdit.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

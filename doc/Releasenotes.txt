@@ -1,12 +1,19 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
-Version 1. 0.6
---------------
-1) Removed the empty entry in the RecentFileList for the startup dialog
-2) Fixed the scripts dialog in the topic-properties dialog to correctly 
+Version 1.0.6
+-------------
+1) Changed the default release to Unicode build. CSS and HtmlTidy have been
+   changed to work with the Unicode version
+   HHP, HHC and HHK files can be stored in DBCS (Double-Byte-Character-Set)
+   mode to accomodate asian languages, like Chinese, Kanji, Korean or Vietnamese.
+2) Added the topic ID to the keywords section (see 3th tab on the Topic dialog)
+   You can add an ID and alias to the keyword list, that can be exported to the
+   [MAP] and [ALIAS] sections of the HHP file.
+3) Removed the empty entry in the RecentFileList for the startup dialog
+4) Fixed the scripts dialog in the topic-properties dialog to correctly 
    show the internal scripts on a topic page.
-3) Editting the default font also changes the font in the TOC on screen
+5) Editting the default font also changes the font in the TOC on screen
    and in the project file and compiled CHM.
 
 Version 1.0.5
