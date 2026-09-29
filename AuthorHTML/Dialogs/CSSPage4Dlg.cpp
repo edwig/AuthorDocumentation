@@ -604,17 +604,17 @@ CSSPage4Dlg::UpdateProperties()
   CString prop;
   // Clear all properties
   CSSPropertyPut(m_css,m_selector,_T("border"),              _T(""),false);
-  CSSPropertyPut(m_css,m_selector,_T("border-style"),        _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-style"),        _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-width"),        _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-color"),        _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-top"),          _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-left"),         _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-right"),        _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-bottom"),       _T(""),false);
-  CSSPropertyPut(m_css,m_selector,_T("border-top-style"),    _T(""),true);
-  CSSPropertyPut(m_css,m_selector,_T("border-left-style"),   _T(""),true);
-  CSSPropertyPut(m_css,m_selector,_T("border-right-style"),  _T(""),true);
-  CSSPropertyPut(m_css,m_selector,_T("border-bottom-style"), _T(""),true);
+  CSSPropertyPut(m_css,m_selector,_T("border-top-style"),    _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-left-style"),   _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-right-style"),  _T(""),false);
+  CSSPropertyPut(m_css,m_selector,_T("border-bottom-style"), _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-top-width"),    _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-left-width"),   _T(""),false);
   CSSPropertyPut(m_css,m_selector,_T("border-right-width"),  _T(""),false);

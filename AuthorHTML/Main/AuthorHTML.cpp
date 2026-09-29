@@ -433,10 +433,10 @@ AuthorHTMLApp::OnFileOpen()
                     ,_T("")
                     ,0
                     ,_T("Documentation files (*.htm, *.html)|*.htm;*.html|")
-                     _T("Author Documentation Project(*.adp)|*.adp|")
                      _T("Documentation project (*.hhp)|*.hhp|")
                      _T("VB-Script files (*.vbs)|*.vbs|")
                      _T("J-Script files (*.js)|*.js|")
+                     _T("CSS files (*.css)|*.css|")
                      _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {
@@ -454,7 +454,6 @@ AuthorHTMLApp::OnProjectOpen()
                     ,_T("")
                     ,0
                     ,_T("Documentation project (*.hhp)|*.hhp|")
-                     _T("Author Documentation Project(*.adp)|*.adp|")
                      _T("All files|*.*"));
   if(diag.DoModal() == IDOK)
   {

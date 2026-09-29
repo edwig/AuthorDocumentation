@@ -41,18 +41,20 @@ protected:
   DECLARE_EVENTSINK_MAP()
 
 private:
-  void Redisplay();
-  void FillPage();
-  void CSSSizeSplit(CString  property
-                   ,CString& top
-                   ,CString& left
-                   ,CString& right
-                   ,CString& bottom);
-  bool CSSSizeMerge(CString& property
-                   ,CString& top
-                   ,CString& left
-                   ,CString& right
-                   ,CString& bottom);
+  void    Redisplay();
+  void    FillPage();
+  CString ComposeValueUnit(CString& value,CString& unit);
+
+  void    CSSSizeSplit(CString  property
+                      ,CString& top
+                      ,CString& left
+                      ,CString& right
+                      ,CString& bottom);
+  bool    CSSSizeMerge(CString& property
+                      ,CString& top
+                      ,CString& left
+                      ,CString& right
+                      ,CString& bottom);
 
   CComQIPtr<IWebBrowser2>   m_spBrowser;
   CComQIPtr<IHTMLDocument2> m_doc;
@@ -137,6 +139,10 @@ public:
   afx_msg void OnCbnSelchangeMuL();
   afx_msg void OnCbnSelchangeMuR();
   afx_msg void OnCbnSelchangeMuB();
+  afx_msg void OnDeltaposSmT(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSmL(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSmR(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSmB(NMHDR* pNMHDR,LRESULT* pResult);
   // Paddings
   afx_msg void OnEnChangePadT();
   afx_msg void OnEnChangePadL();
@@ -146,6 +152,10 @@ public:
   afx_msg void OnCbnSelchangePuL();
   afx_msg void OnCbnSelchangePuR();
   afx_msg void OnCbnSelchangePuB();
+  afx_msg void OnDeltaposSpT(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSpL(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSpR(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSpB(NMHDR* pNMHDR,LRESULT* pResult);
   // Offsets
   afx_msg void OnEnChangeOffsetT();
   afx_msg void OnEnChangeOffsetL();
@@ -155,9 +165,15 @@ public:
   afx_msg void OnCbnSelchangeOuL();
   afx_msg void OnCbnSelchangeOuR();
   afx_msg void OnCbnSelchangeOuB();
+  afx_msg void OnDeltaposSoT(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSoL(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSoR(NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposSoB(NMHDR* pNMHDR,LRESULT* pResult);
   // Width/Height
   afx_msg void OnEnChangeWidth();
   afx_msg void OnEnChangeHeight();
   afx_msg void OnCbnSelchangeWidthUnit();
   afx_msg void OnCbnSelchangeHeightUnit();
+  afx_msg void OnDeltaposWidth (NMHDR* pNMHDR,LRESULT* pResult);
+  afx_msg void OnDeltaposHeight(NMHDR* pNMHDR,LRESULT* pResult);
 };

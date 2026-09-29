@@ -121,37 +121,54 @@ void CSSPage5Dlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CSSPage5Dlg, CDialog)
   // Margins
-  ON_EN_KILLFOCUS (IDC_MARGIN_T, OnEnChangeMarginT)
-  ON_EN_KILLFOCUS (IDC_MARGIN_L, OnEnChangeMarginL)
-  ON_EN_KILLFOCUS (IDC_MARGIN_R, OnEnChangeMarginR)
-  ON_EN_KILLFOCUS (IDC_MARGIN_B, OnEnChangeMarginB)
-  ON_CBN_SELCHANGE(IDC_MU_T,     OnCbnSelchangeMuT)
-  ON_CBN_SELCHANGE(IDC_MU_L,     OnCbnSelchangeMuL)
-  ON_CBN_SELCHANGE(IDC_MU_R,     OnCbnSelchangeMuR)
-  ON_CBN_SELCHANGE(IDC_MU_B,     OnCbnSelchangeMuB)
+  ON_EN_KILLFOCUS (IDC_MARGIN_T,  OnEnChangeMarginT)
+  ON_EN_KILLFOCUS (IDC_MARGIN_L,  OnEnChangeMarginL)
+  ON_EN_KILLFOCUS (IDC_MARGIN_R,  OnEnChangeMarginR)
+  ON_EN_KILLFOCUS (IDC_MARGIN_B,  OnEnChangeMarginB)
+  ON_CBN_SELCHANGE(IDC_MU_T,      OnCbnSelchangeMuT)
+  ON_CBN_SELCHANGE(IDC_MU_L,      OnCbnSelchangeMuL)
+  ON_CBN_SELCHANGE(IDC_MU_R,      OnCbnSelchangeMuR)
+  ON_CBN_SELCHANGE(IDC_MU_B,      OnCbnSelchangeMuB)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SM_T,OnDeltaposSmT)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SM_L,OnDeltaposSmL)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SM_R,OnDeltaposSmR)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SM_B,OnDeltaposSmB)
+
   // Paddings
-  ON_EN_KILLFOCUS (IDC_PAD_T,    OnEnChangePadT)
-  ON_EN_KILLFOCUS (IDC_PAD_L,    OnEnChangePadL)
-  ON_EN_KILLFOCUS (IDC_PAD_R,    OnEnChangePadR)
-  ON_EN_KILLFOCUS (IDC_PAD_B,    OnEnChangePadB)
-  ON_CBN_SELCHANGE(IDC_PU_T,     OnCbnSelchangePuT)
-  ON_CBN_SELCHANGE(IDC_PU_L,     OnCbnSelchangePuL)
-  ON_CBN_SELCHANGE(IDC_PU_R,     OnCbnSelchangePuR)
-  ON_CBN_SELCHANGE(IDC_PU_B,     OnCbnSelchangePuB)
+  ON_EN_KILLFOCUS (IDC_PAD_T,     OnEnChangePadT)
+  ON_EN_KILLFOCUS (IDC_PAD_L,     OnEnChangePadL)
+  ON_EN_KILLFOCUS (IDC_PAD_R,     OnEnChangePadR)
+  ON_EN_KILLFOCUS (IDC_PAD_B,     OnEnChangePadB)
+  ON_CBN_SELCHANGE(IDC_PU_T,      OnCbnSelchangePuT)
+  ON_CBN_SELCHANGE(IDC_PU_L,      OnCbnSelchangePuL)
+  ON_CBN_SELCHANGE(IDC_PU_R,      OnCbnSelchangePuR)
+  ON_CBN_SELCHANGE(IDC_PU_B,      OnCbnSelchangePuB)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SP_T,OnDeltaposSpT)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SP_L,OnDeltaposSpL)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SP_R,OnDeltaposSpR)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SP_B,OnDeltaposSpB)
+
   // Offsets
-  ON_EN_KILLFOCUS (IDC_OFFSET_T, OnEnChangeOffsetT)
-  ON_EN_KILLFOCUS (IDC_OFFSET_L, OnEnChangeOffsetL)
-  ON_EN_KILLFOCUS (IDC_OFFSET_R, OnEnChangeOffsetR)
-  ON_EN_KILLFOCUS (IDC_OFFSET_B, OnEnChangeOffsetB)
-  ON_CBN_SELCHANGE(IDC_OU_T,     OnCbnSelchangeOuT)
-  ON_CBN_SELCHANGE(IDC_OU_L,     OnCbnSelchangeOuL)
-  ON_CBN_SELCHANGE(IDC_OU_R,     OnCbnSelchangeOuR)
-  ON_CBN_SELCHANGE(IDC_OU_B,     OnCbnSelchangeOuB)
+  ON_EN_KILLFOCUS (IDC_OFFSET_T,  OnEnChangeOffsetT)
+  ON_EN_KILLFOCUS (IDC_OFFSET_L,  OnEnChangeOffsetL)
+  ON_EN_KILLFOCUS (IDC_OFFSET_R,  OnEnChangeOffsetR)
+  ON_EN_KILLFOCUS (IDC_OFFSET_B,  OnEnChangeOffsetB)
+  ON_CBN_SELCHANGE(IDC_OU_T,      OnCbnSelchangeOuT)
+  ON_CBN_SELCHANGE(IDC_OU_L,      OnCbnSelchangeOuL)
+  ON_CBN_SELCHANGE(IDC_OU_R,      OnCbnSelchangeOuR)
+  ON_CBN_SELCHANGE(IDC_OU_B,      OnCbnSelchangeOuB)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SO_T,OnDeltaposSoT) 
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SO_L,OnDeltaposSoL)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SO_R,OnDeltaposSoR)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SO_B,OnDeltaposSoB)
+
   // Width / Height
   ON_EN_KILLFOCUS (IDC_WIDTH,      OnEnChangeWidth)
   ON_EN_KILLFOCUS (IDC_HEIGHT,     OnEnChangeHeight)
   ON_CBN_SELCHANGE(IDC_WIDTH_UNIT, OnCbnSelchangeWidthUnit)
   ON_CBN_SELCHANGE(IDC_HEIGHT_UNIT,OnCbnSelchangeHeightUnit)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SW,   OnDeltaposWidth)
+  ON_NOTIFY(UDN_DELTAPOS,IDC_SH,   OnDeltaposHeight)
 END_MESSAGE_MAP()
 
 BEGIN_EVENTSINK_MAP(CSSPage5Dlg, CDialog)
@@ -299,6 +316,12 @@ CSSPage5Dlg::CSSSizeSplit(CString  property
   // Four values
   CString fourth = third.Mid(pos+1);
           third  = third.Left(pos);
+  pos = fourth.Find(_T(' '));
+  if(pos > 0)
+  {
+    fourth = fourth.Left(pos);
+  }
+  // Results
   top    = first;
   right  = second;
   bottom = third;
@@ -402,67 +425,115 @@ CSSPage5Dlg::FillPage()
   Redisplay();
 }
 
+CString
+CSSPage5Dlg::ComposeValueUnit(CString& value,CString& unit)
+{
+  if(value.IsEmpty())
+  {
+    return _T("");
+  }
+  else
+  {
+    if(unit.IsEmpty())
+    {
+      unit = _T("px");
+    }
+  }
+  return value + unit;
+}
+
 void 
 CSSPage5Dlg::UpdateProperties()
 {
   // REAPPLY PROPERTIES
   // Margins
-  CString property;
-  CString top    = m_marginTop    + m_marginTUnit;
-  CString left   = m_marginLeft   + m_marginLUnit;
-  CString right  = m_marginRight  + m_marginRUnit;
-  CString bottom = m_marginBottom + m_marginBUnit;
+  CString empty;
+  CString composite;
+  CString top    = ComposeValueUnit(m_marginTop,    m_marginTUnit);
+  CString left   = ComposeValueUnit(m_marginLeft,   m_marginLUnit);
+  CString right  = ComposeValueUnit(m_marginRight,  m_marginRUnit);
+  CString bottom = ComposeValueUnit(m_marginBottom, m_marginBUnit);
 
-  if(CSSSizeMerge(property,top,left,right,bottom))
+  // MARGINS
+  if(CSSSizeMerge(composite,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,_T("margin"),property,false);
+    // Set total margin property
+    CSSPropertyPut(m_css,m_selector,_T("margin"),composite);
+    // Reset individual values
+    CSSPropertyPut(m_css,m_selector,_T("margin-top"),   empty);
+    CSSPropertyPut(m_css,m_selector,_T("margin-left"),  empty);
+    CSSPropertyPut(m_css,m_selector,_T("margin-right"), empty);
+    CSSPropertyPut(m_css,m_selector,_T("margin-bottom"),empty);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,_T("margin-top"),   top,   false);
-    CSSPropertyPut(m_css,m_selector,_T("margin-left"),  left,  false);
-    CSSPropertyPut(m_css,m_selector,_T("margin-right"), right, false);
-    CSSPropertyPut(m_css,m_selector,_T("margin-bottom"),bottom,false);
+    // Reset total
+    CSSPropertyPut(m_css,m_selector,_T("margin"),       empty);
+    // Set individual values
+    CSSPropertyPut(m_css,m_selector,_T("margin-top"),   top);
+    CSSPropertyPut(m_css,m_selector,_T("margin-left"),  left);
+    CSSPropertyPut(m_css,m_selector,_T("margin-right"), right);
+    CSSPropertyPut(m_css,m_selector,_T("margin-bottom"),bottom);
   }
-  // Paddings
-  top    = m_paddingTop    + m_paddingTUnit;
-  left   = m_paddingLeft   + m_paddingLUnit;
-  right  = m_paddingRight  + m_paddingRUnit;
-  bottom = m_paddingBottom + m_paddingBUnit;
 
-  if(CSSSizeMerge(property,top,left,right,bottom))
+  // PADDINGS
+  top    = ComposeValueUnit(m_paddingTop,    m_paddingTUnit);
+  left   = ComposeValueUnit(m_paddingLeft,   m_paddingLUnit);
+  right  = ComposeValueUnit(m_paddingRight,  m_paddingRUnit);
+  bottom = ComposeValueUnit(m_paddingBottom, m_paddingBUnit);
+
+  if(CSSSizeMerge(composite,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,_T("padding"),property,false);
+    // Set total padding property
+    CSSPropertyPut(m_css,m_selector,_T("padding"),composite);
+    // Reset individual values
+    CSSPropertyPut(m_css,m_selector,_T("padding-top"),   empty);
+    CSSPropertyPut(m_css,m_selector,_T("padding-left"),  empty);
+    CSSPropertyPut(m_css,m_selector,_T("padding-right"), empty);
+    CSSPropertyPut(m_css,m_selector,_T("padding-bottom"),empty);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,_T("padding-top"),   top,   false);
-    CSSPropertyPut(m_css,m_selector,_T("padding-left"),  left,  false);
-    CSSPropertyPut(m_css,m_selector,_T("padding-right"), right, false);
-    CSSPropertyPut(m_css,m_selector,_T("padding-bottom"),bottom,false);
+    // Reset total
+    CSSPropertyPut(m_css,m_selector,_T("padding"),empty);
+    // Set individual values
+    CSSPropertyPut(m_css,m_selector,_T("padding-top"),   top);
+    CSSPropertyPut(m_css,m_selector,_T("padding-left"),  left);
+    CSSPropertyPut(m_css,m_selector,_T("padding-right"), right);
+    CSSPropertyPut(m_css,m_selector,_T("padding-bottom"),bottom);
   }
-  // Offsets
-  top    = m_offsetTop    + m_offsetTUnit;
-  left   = m_offsetLeft   + m_offsetLUnit;
-  right  = m_offsetRight  + m_offsetRUnit;
-  bottom = m_offsetBottom + m_offsetBUnit;
 
-  if(CSSSizeMerge(property,top,left,right,bottom))
+  // OFFSETS
+  top    = ComposeValueUnit(m_offsetTop,    m_offsetTUnit);
+  left   = ComposeValueUnit(m_offsetLeft,   m_offsetLUnit);
+  right  = ComposeValueUnit(m_offsetRight,  m_offsetRUnit);
+  bottom = ComposeValueUnit(m_offsetBottom, m_offsetBUnit);
+
+  if(CSSSizeMerge(composite,top,left,right,bottom))
   {
-    CSSPropertyPut(m_css,m_selector,_T("offset"),property,false);
+    // Set total offset property
+    CSSPropertyPut(m_css,m_selector,_T("offset"),composite);
+    // Reset individual values
+    CSSPropertyPut(m_css,m_selector,_T("offset-top"),   empty);
+    CSSPropertyPut(m_css,m_selector,_T("offset-left"),  empty);
+    CSSPropertyPut(m_css,m_selector,_T("offset-right"), empty);
+    CSSPropertyPut(m_css,m_selector,_T("offset-bottom"),empty);
   }
   else
   {
-    CSSPropertyPut(m_css,m_selector,_T("offset-top"),   top,   false);
-    CSSPropertyPut(m_css,m_selector,_T("offset-left"),  left,  false);
-    CSSPropertyPut(m_css,m_selector,_T("offset-right"), right, false);
-    CSSPropertyPut(m_css,m_selector,_T("offset-bottom"),bottom,false);
+    // Reset total
+    CSSPropertyPut(m_css,m_selector,_T("offset"),empty);
+    // Set individual values
+    CSSPropertyPut(m_css,m_selector,_T("offset-top"),   top);
+    CSSPropertyPut(m_css,m_selector,_T("offset-left"),  left);
+    CSSPropertyPut(m_css,m_selector,_T("offset-right"), right);
+    CSSPropertyPut(m_css,m_selector,_T("offset-bottom"),bottom);
   }
   // Width / Height
-  CString w = m_width  + m_widthUnit;
-  CString h = m_height + m_heightUnit;
-  CSSPropertyPut(m_css,m_selector,_T("width"), w,false);
-  CSSPropertyPut(m_css,m_selector,_T("height"),h,false);
+  CString w = ComposeValueUnit(m_width,  m_widthUnit);
+  CString h = ComposeValueUnit(m_height, m_heightUnit);
+  CSSPropertyPut(m_css,m_selector,_T("width"), w);
+  CSSPropertyPut(m_css,m_selector,_T("height"),h);
 
   StyleSheetDlg* dlg = (StyleSheetDlg*)GetParent();
   dlg->SetCanApply();
@@ -652,11 +723,16 @@ void
 CSSPage5Dlg::OnCbnSelchangeMuT()
 {
   int ind = m_comboMT.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboMT.GetLBText(ind,newunits);
     m_marginTop = CssConvertToUnit(m_marginTop + m_marginTUnit,newunits,m_marginTUnit,true);
+  }
+  else
+  {
+    m_marginTop.Empty();
+    m_marginTUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -666,11 +742,16 @@ void
 CSSPage5Dlg::OnCbnSelchangeMuL()
 {
   int ind = m_comboML.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboML.GetLBText(ind,newunits);
     m_marginLeft = CssConvertToUnit(m_marginLeft + m_marginLUnit,newunits,m_marginLUnit,true);
+  }
+  else
+  {
+    m_marginLeft.Empty();
+    m_marginLUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -680,11 +761,16 @@ void
 CSSPage5Dlg::OnCbnSelchangeMuR()
 {
   int ind = m_comboMR.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboMR.GetLBText(ind,newunits);
     m_marginRight = CssConvertToUnit(m_marginRight + m_marginRUnit,newunits,m_marginRUnit,true);
+  }
+  else
+  {
+    m_marginRight.Empty();
+    m_marginRUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -694,14 +780,64 @@ void
 CSSPage5Dlg::OnCbnSelchangeMuB()
 {
   int ind = m_comboMR.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboMR.GetLBText(ind,newunits);
     m_marginBottom = CssConvertToUnit(m_marginBottom + m_marginBUnit,newunits,m_marginBUnit,true);
   }
+  else
+  {
+    m_marginBottom.Empty();
+    m_marginBUnit.Empty();
+  }
   UpdateProperties();
   Redisplay();
+}
+
+void
+CSSPage5Dlg::OnDeltaposSmT(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinMT.GetPos();
+  m_spinMT.SetPos(newValue);
+  m_marginTop.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSmL(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinML.GetPos();
+  m_spinML.SetPos(newValue);
+  m_marginLeft.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSmR(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinMR.GetPos();
+  m_spinMR.SetPos(newValue);
+  m_marginRight.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+} 
+
+void CSSPage5Dlg::OnDeltaposSmB(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinMB.GetPos();
+  m_spinMB.SetPos(newValue);
+  m_marginBottom.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
 }
 
 // PADDINGS
@@ -741,11 +877,16 @@ void CSSPage5Dlg::OnEnChangePadB()
 void CSSPage5Dlg::OnCbnSelchangePuT()
 {
   int ind = m_comboPT.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboPT.GetLBText(ind,newunits);
     m_paddingTop = CssConvertToUnit(m_paddingTop + m_paddingTUnit,newunits,m_paddingTUnit,true);
+  }
+  else
+  {
+    m_paddingTop.Empty();
+    m_paddingTUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -754,11 +895,16 @@ void CSSPage5Dlg::OnCbnSelchangePuT()
 void CSSPage5Dlg::OnCbnSelchangePuL()
 {
   int ind = m_comboPL.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboPL.GetLBText(ind,newunits);
     m_paddingLeft = CssConvertToUnit(m_paddingLeft + m_paddingLUnit,newunits,m_paddingLUnit,true);
+  }
+  else
+  {
+    m_paddingLeft.Empty();
+    m_paddingLUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -767,11 +913,16 @@ void CSSPage5Dlg::OnCbnSelchangePuL()
 void CSSPage5Dlg::OnCbnSelchangePuR()
 {
   int ind = m_comboPR.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboPR.GetLBText(ind,newunits);
     m_paddingRUnit = CssConvertToUnit(m_paddingRight + m_paddingRUnit,newunits,m_paddingRUnit,true);
+  }
+  else
+  {
+    m_paddingRight.Empty();
+    m_paddingRUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -780,14 +931,63 @@ void CSSPage5Dlg::OnCbnSelchangePuR()
 void CSSPage5Dlg::OnCbnSelchangePuB()
 {
   int ind = m_comboPB.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboPB.GetLBText(ind,newunits);
     m_paddingBottom = CssConvertToUnit(m_paddingBottom + m_paddingBUnit,newunits,m_paddingBUnit,true);
   }
+  else
+  {
+    m_paddingBottom.Empty();
+    m_paddingBUnit.Empty();
+  }
   UpdateProperties();
   Redisplay();
+}
+
+void CSSPage5Dlg::OnDeltaposSpT(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinPT.GetPos();
+  m_spinPT.SetPos(newValue);
+  m_paddingTop.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSpL(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinPL.GetPos();
+  m_spinPL.SetPos(newValue);
+  m_paddingLeft.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSpR(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinPR.GetPos();
+  m_spinPR.SetPos(newValue);
+  m_paddingRight.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSpB(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinPB.GetPos();
+  m_spinPB.SetPos(newValue);
+  m_paddingBottom.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
 }
 
 // OFFSETS
@@ -828,11 +1028,16 @@ void CSSPage5Dlg::OnEnChangeOffsetB()
 void CSSPage5Dlg::OnCbnSelchangeOuT()
 {
   int ind = m_comboOT.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboOT.GetLBText(ind,newunits);
     m_offsetTop = CssConvertToUnit(m_offsetTop + m_offsetTUnit,newunits,m_offsetTUnit,true);
+  }
+  else
+  {
+    m_offsetTop.Empty();
+    m_offsetTUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -841,11 +1046,16 @@ void CSSPage5Dlg::OnCbnSelchangeOuT()
 void CSSPage5Dlg::OnCbnSelchangeOuL()
 {
   int ind = m_comboOL.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboOL.GetLBText(ind,newunits);
     m_offsetLeft = CssConvertToUnit(m_offsetLeft + m_offsetLUnit,newunits,m_offsetLUnit,true);
+  }
+  else
+  {
+    m_offsetLeft.Empty();
+    m_offsetLUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -854,11 +1064,16 @@ void CSSPage5Dlg::OnCbnSelchangeOuL()
 void CSSPage5Dlg::OnCbnSelchangeOuR()
 {
   int ind = m_comboOR.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboOR.GetLBText(ind,newunits);
     m_offsetRight = CssConvertToUnit(m_offsetRight + m_offsetRUnit,newunits,m_offsetRUnit,true);
+  }
+  else
+  {
+    m_offsetRight.Empty();
+    m_offsetRUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -867,15 +1082,66 @@ void CSSPage5Dlg::OnCbnSelchangeOuR()
 void CSSPage5Dlg::OnCbnSelchangeOuB()
 {
   int ind = m_comboOB.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboOB.GetLBText(ind,newunits);
     m_offsetBottom = CssConvertToUnit(m_offsetBottom + m_offsetBUnit,newunits,m_offsetBUnit,true);
   }
+  else
+  {
+    m_offsetBottom.Empty();
+    m_offsetBUnit.Empty();
+  }
   UpdateProperties();
   Redisplay();
 }
+
+void CSSPage5Dlg::OnDeltaposSoT(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinOT.GetPos();
+  m_spinOT.SetPos(newValue);
+  m_offsetTop.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSoL(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinOL.GetPos();
+  m_spinOL.SetPos(newValue);
+  m_offsetLeft.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSoR(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinOR.GetPos();
+  m_spinOR.SetPos(newValue);
+  m_offsetRight.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposSoB(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinOB.GetPos();
+  m_spinOB.SetPos(newValue);
+  m_offsetBottom.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+// WIDTH AND HEIGHT
 
 void CSSPage5Dlg::OnEnChangeWidth()
 {
@@ -896,11 +1162,16 @@ void CSSPage5Dlg::OnEnChangeHeight()
 void CSSPage5Dlg::OnCbnSelchangeWidthUnit()
 {
   int ind = m_comboW.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboW.GetLBText(ind,newunits);
     m_width = CssConvertToUnit(m_width + m_widthUnit,newunits,m_widthUnit,true);
+  }
+  else
+  {
+    m_width.Empty();
+    m_widthUnit.Empty();
   }
   UpdateProperties();
   Redisplay();
@@ -909,12 +1180,39 @@ void CSSPage5Dlg::OnCbnSelchangeWidthUnit()
 void CSSPage5Dlg::OnCbnSelchangeHeightUnit()
 {
   int ind = m_comboH.GetCurSel();
-  if(ind >= 0)
+  if(ind > 0)
   {
     CString newunits;
     m_comboH.GetLBText(ind,newunits);
     m_height = CssConvertToUnit(m_height + m_heightUnit,newunits,m_heightUnit,true);
   }
+  else
+  {
+    m_height.Empty();
+    m_heightUnit.Empty();
+  }
   UpdateProperties();
   Redisplay();
+}
+
+void CSSPage5Dlg::OnDeltaposWidth(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinW.GetPos();
+  m_spinW.SetPos(newValue);
+  m_width.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
+}
+
+void CSSPage5Dlg::OnDeltaposHeight(NMHDR* pNMHDR,LRESULT* pResult)
+{
+  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+  int newValue = m_spinH.GetPos();
+  m_spinH.SetPos(newValue);
+  m_height.Format(_T("%d"),newValue);
+  UpdateProperties();
+  Redisplay();
+  *pResult = 0;
 }

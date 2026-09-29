@@ -70,7 +70,7 @@ CSSPropertyPut(CssStyleSheet* css
               ,XString& selector
               ,XString  property
               ,CString value
-              ,bool    unspec);
+              ,bool    unspec = false);
 
 void     CssSplitValueUnits(CString property,CString& value,CString& units);
 

@@ -76,7 +76,7 @@ CssStyleSheet::shorthand(XString value)
 XString
 CssStyleSheet::compress_numbers(XString subvalue, XString property)
 {
-	XString units[] =
+	static const XString units[] =
   {
      _T("in")     // Inches
     ,_T("cm")     // Centimeters

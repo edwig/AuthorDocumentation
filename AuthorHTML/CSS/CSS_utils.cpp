@@ -42,7 +42,7 @@ CSSPropertyPut(CssStyleSheet* css
               ,XString& selector
               ,XString  p_property
               ,CString value
-              ,bool    unspec)
+              ,bool    unspec /*=false*/)
 {
   XString media = _T("standard");
   XString val   = value;

@@ -37,7 +37,7 @@ CssStyleSheet::explode(const XString e,XString s, const bool check)
 	size_t iPos = s.find(e, 0);
 	size_t iPit = e.length();
 
-	while(iPos > -1)
+	while(iPos != -1)
 	{
 		if(iPos != 0 || check)
 		{

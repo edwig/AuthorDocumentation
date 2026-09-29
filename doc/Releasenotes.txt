@@ -15,6 +15,8 @@ Version 1.0.6
    show the internal scripts on a topic page.
 5) Editting the default font also changes the font in the TOC on screen
    and in the project file and compiled CHM.
+6) Various fixes for CSS and the CSS editor. The decomposition and composition 
+   of properties has been fixed.
 
 Version 1.0.5
 -------------
