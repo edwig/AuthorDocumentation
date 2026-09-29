@@ -22,7 +22,6 @@
 #include "FileDialog.h"
 #include "ProjectDlg.h"
 #include "WindowDefDlg.h"
-#include "AuMessageBox.h"
 #include "Spelling.h"
 #include "ControlsInfo.h"
 #include "GetURL.h"
@@ -63,15 +62,6 @@ CRuntimeClass* pRTC = RUNTIME_CLASS(CMFCToolBarComboBoxButton);
 // AuthorHTMLApp construction
 
 AuthorHTMLApp::AuthorHTMLApp()
-              :m_speller(NULL)
-              ,m_controlsInfo(NULL)
-              ,m_projectFile(NULL)
-              ,m_contentFile(NULL)
-              ,m_sweep(false)
-              ,m_pRecentProjectList(NULL)
-              ,m_startup(NULL)
-              ,m_uniqueDocID(0)
-              ,m_noHelpAvailabale(false)
 {
 }
 
@@ -176,7 +166,7 @@ BOOL AuthorHTMLApp::InitInstance()
   CWinAppEx::InitInstance();
 
   // Initialize OLE libraries
-  if (!AfxOleInit())
+  if(!AfxOleInit())
   {
     return FALSE;
   }	
@@ -187,7 +177,7 @@ BOOL AuthorHTMLApp::InitInstance()
   InitImages();
 
   // Register scintilla window class
-  if (!Scintilla_RegisterClasses(m_hInstance))
+  if(!Scintilla_RegisterClasses(m_hInstance))
   {
     MessageBox(_T("Cannot register the scintilla editor classes. Please reinstall"),_T("Starterror"),MB_OK|MB_ICONHAND);
     return FALSE;
@@ -235,12 +225,12 @@ BOOL AuthorHTMLApp::InitInstance()
   // JS Javascript template
 	CMultiDocTemplate* pJScriptDocTemplate;
 	pJScriptDocTemplate = new CMultiDocTemplate(IDR_JAVASCRIPT,
- 		                                         RUNTIME_CLASS(CScintillaScriptDoc),
- 		                                         RUNTIME_CLASS(ScintillaChildFrame), // custom MDI child frame
- 		                                         RUNTIME_CLASS(CScintillaScriptView));
+ 		                                          RUNTIME_CLASS(CScintillaScriptDoc),
+ 		                                          RUNTIME_CLASS(ScintillaChildFrame), // custom MDI child frame
+ 		                                          RUNTIME_CLASS(CScintillaScriptView));
   if(!pJScriptDocTemplate)
   {
-    Panic(_T("J-Script document template not loaded"));
+    Panic(_T("JavaScript document template not loaded"));
   }
 	AddDocTemplate(pJScriptDocTemplate);
 
@@ -1102,7 +1092,7 @@ AuthorHTMLApp::MessageBox(const CString& tekst
 
   AuMessageBox msg(m_pMainWnd,titel.GetString(), tekst.GetString(),knoppen);
   int id = msg.DoModal();
-  CString resultstr = msg.GeefResultaat(id);
+  CString resultstr = msg.GetResult(id);
   if(::IsWindow(focuswin)) 
   {
     ::SetFocus(focuswin);

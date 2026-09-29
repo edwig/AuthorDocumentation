@@ -1,4 +1,14 @@
-// Auhtor HTML Message Box
+//////////////////////////////////////////////////////////////////////////
+//
+// System:  AuthorDocumentation
+// Program: AuthorHTML
+// File:    AuMessageBox.h
+//
+// Written by: ir W.E. Huisman
+// Dates:      2007 - 2026
+//
+// Description: A specialized messagebox with custom buttons and images
+//
 #pragma once
 #include "StdAfx.h"
 #include "AuthorImage.h"
@@ -11,91 +21,87 @@
 class AuMessageBox : CDialog
 {
 public:
-  // Maak door middel van label/stijlen strings
+  // Make with labels and styles from strings
   AuMessageBox(CWnd*  p_parent
               ,LPCTSTR p_titel
               ,LPCTSTR p_boodschap
               ,CString p_labels);
-  // Maak door middel van MB_* stijlen
+  // Make with MB_* styles
   AuMessageBox(CWnd* parent
               ,LPCTSTR titel
               ,LPCTSTR boodschap
               ,int    stijlen);
   // Destructor
   ~AuMessageBox();
-  // Koppeling aan de resources
+  // Link to the resources
   enum { IDD = IDD_AUMESSAGEBOX };
 
-  // De modal-loop: later zelf herschrijven?
+  // The modal loop: later rewrite?
   virtual INT_PTR DoModal();
-  // Geef het resultaat als string ("ok","ja","nee" etc)
-  CString GeefResultaat(int p_id);
-  // Geef het resultaat als een ID (IDOK, IDYES etc)
-	int    GetResultID(int p_id);
-  // Standaard Postief antwoord (ok)
-  CString GeefStandaardPositief();
-  // Standaard negatief antwoord (no, cancel, annuleer)
-  CString GeefStandaardNegatief();
-  // Standaard Positief antwoord via ID
-  int    GeefStandaardPositiefID();
-  // Standaard negatief antwoord via ID
-  int    GeefStandaardNegatiefID();
-  // Controleer of dit ID de default knop is
-  bool   GeefDefault(UINT ID);
-  // We drukken op deze knop
-  void   DrukOpKnop(UINT p_id,CPoint point);
+  // Give the result as a string ("ok","yes","no" etc)
+  CString GetResult(int p_id);
+  // Give the result as an ID (IDOK, IDYES etc)
+	int     GetResultID(int p_id);
+  // Standard positive answer (ok)
+  CString ReturnStandardPositive();
+  // Standard negative answer (no, cancel, annuleer)
+  CString ReturnStandardNegative();
+  // Standard positive answer via ID
+  int     ReturnStandardPositiveID();
+  // Standard negative answer via ID
+  int     ReturnStandardNegativeID();
+  // Check if this ID is the default button
+  bool    GetDefault(UINT ID);
+  // We press this button
+  void    PressOnButton(UINT p_id,CPoint point);
 
-  // Er komt een key binnen
-  void OnKeyDown(UINT nChar,UINT nRepCnt,UINT nFlags);
-  // Heeft een message map
+  // Has a message map
   DECLARE_MESSAGE_MAP();
-  // Override van de message loop -> Voor message box problemen
-  // LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
-  // Herteken de dialoog
-  afx_msg void OnPaint();
-  // Op de niet-meer check box gelicked
-  afx_msg void OnNietMeer();
 
-  // Sluit de dialoog en druk op de huidige knop. Dit wordt alleen aangeroepen
-  // als de gebruiker op Enter drukt, want we hebben geen knoppen met id IDOK!
-  void OnOK();
+public:
+  // Handlers
+  afx_msg void OnKeyDown(UINT nChar,UINT nRepCnt,UINT nFlags);
+  afx_msg void OnPaint();
+  afx_msg void OnNotAgain();
+  // Close the dialog and press the current button. This is only called
+  // if the user presses Enter, because we don't have buttons with id IDOK!
+  afx_msg void OnOK();
 
 private:
-  // METHODEN
-  // Initialisatie van de dialoog
-  virtual BOOL OnInitDialog();
+  // METHODS
+  // Initialization of the dialog
+  virtual BOOL OnInitDialog() override;
   // Initialize button controls
   void InitButtons();
-  // Reset de button controls
+  // Reset the button controls
   void ResetButtons();
-  // Splits een labelstring naar labels voor knoppen
-  void MaakLabelTekstenEnStijlen(CString& p_labels);
-  // Controleer een keyhit op een knop
-  void ControleerActie(UINT nChar);
-  // Huidige boodschap nooit meer tonen, altijd OK.
-  void OnderdrukVoortaan();
+  // Split a label string into labels for buttons
+  void MakeLabelTextsAndStyles(CString& p_labels);
+  // Check a key hit on a button
+  void CheckTheAction(UINT nChar);
+  // Never show the current message again, always OK.
+  void SuppressForever();
 
   // DATA
-  CFont*       m_font;         // Font waarin we het tonen
-  bool         m_ownsFont;     // Font wissen bij destructie?
-  CString      m_titel;        // Titel van het dialoog
-  CString      m_boodschap;    // Dit willen we tonen
-  int          m_stijlen;      // signaal stijlen
-  int          m_default;      // Deze knop is de default knop
-  bool         m_def_gedaan;   // Default focus gedaan
-  CString      m_afbeelding;   // Signal this bitmap
-  AuthorImage  m_image;        // Signaal plaatje 
-  CRect        m_tekstRect;    // Hier komt de boodschap
-  CRect        m_buttonRect;   // Grootte van een knop
-  CButtonC*    m_button[5];    // Max = 5 Buttons
+  CFont*       m_font;         // Font in which we display it
+  bool         m_ownsFont;     // Delete font on destruction?
+  CString      m_title;        // Title of the dialog
+  CString      m_messsage;     // This is what we want to display
+  int          m_styles;       // Signal styles
+  int          m_default;      // This button is the default button
+  bool         m_def_done;     // Default focus done
+  CString      m_signalBMP;    // Signal this bitmap
+  AuthorImage  m_image;        // Signal image
+  CRect        m_buttonRect;   // Size of a button
+  AuButton*    m_button[5];    // Max = 5 Buttons
   CString      m_label[5];     // Max = 5 labels
   CString      m_style[5];     // Max = 5 styles
-  int          m_breed[5];     // Max = 5 knop breedtes
+  int          m_width[5];     // Max = 5 button widths
  
-  // Voor boodschap register
-  bool         m_alleenOK;     // Aleen een OK knop
-  AD_Checkbox* m_onderdruk;    // Onderdruk dialoog
-  CRect        m_lijn;         // Lijn ter onderverdeling
-  bool         m_nietMeer;     // Niet meer tonen
+  // For message register
+  bool         m_onlyOK;       // Only an OK button
+  AD_Checkbox* m_suppress;     // Suppress dialog
+  CRect        m_line;         // Line for subdivision
+  bool         m_notAgain;     // Do not show again
 };
 

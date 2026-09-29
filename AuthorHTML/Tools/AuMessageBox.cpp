@@ -5,15 +5,15 @@
 #include "AuMessageBox.h"
 #include "ControlsInfo.h"
 
-const int OFFSET       =   8; // Ruimte tussen controls en teksten
-const int MAX_LABELS   =   5; // Maximaal aantal labels/knoppen
-const int ID_OFFSET    =  10; // Blijf weg van IDOK / IDCANCEL
-const double ButtonWidthFactor = 8;   // Breedte van een knop, in "W"-letters
+const int OFFSET       =   8;         // Space between controls and texts
+const int MAX_LABELS   =   5;         // Maximum number of labels/buttons
+const int ID_OFFSET    =  10;         // Stay away from IDOK / IDCANCEL
+const double ButtonWidthFactor = 8;   // Width of a button, in "W" letters
 
 BEGIN_MESSAGE_MAP(AuMessageBox, CDialog)
   ON_WM_PAINT()
   ON_WM_KEYDOWN()
-  ON_BN_CLICKED(ID_ONDERDRUKKEN,OnNietMeer)
+  ON_BN_CLICKED(ID_ONDERDRUKKEN,OnNotAgain)
 END_MESSAGE_MAP()
 
 AuMessageBox::AuMessageBox(CWnd*  parent
@@ -21,47 +21,47 @@ AuMessageBox::AuMessageBox(CWnd*  parent
                           ,LPCTSTR boodschap
                           ,CString labels)
             :CDialog(AuMessageBox::IDD,parent)
-            ,m_titel(titel)
-            ,m_boodschap(boodschap)
-            ,m_stijlen(0)
+            ,m_title(titel)
+            ,m_messsage(boodschap)
+            ,m_styles(0)
             ,m_default(0)
-            ,m_def_gedaan(false)
-            ,m_onderdruk(NULL)
-            ,m_alleenOK(false)
-            ,m_nietMeer(false)
+            ,m_def_done(false)
+            ,m_suppress(NULL)
+            ,m_onlyOK(false)
+            ,m_notAgain(false)
             ,m_ownsFont(false)
             ,m_font(NULL)
 {
   InitButtons();
 
-  // Zoek naar een signaal plaatje op het eerste label
+  // Look for a signal image on the first label
   int piep = 0;
   if(labels.GetAt(0) == _T('!')) 
   {
     piep = MB_ICONEXCLAMATION;
-    m_image.ZetAfbeelding(m_afbeelding = _T("EXCLAMATION"));
+    m_image.ZetAfbeelding(m_signalBMP = _T("EXCLAMATION"));
   }
   if(labels.GetAt(0) == _T('?')) 
   {
     piep = MB_ICONQUESTION;
-    m_image.ZetAfbeelding(m_afbeelding = _T("QUESTION"));
+    m_image.ZetAfbeelding(m_signalBMP = _T("QUESTION"));
   }
   if(labels.GetAt(0) == _T('.')) 
   {
     piep = MB_ICONHAND;
-    m_image.ZetAfbeelding(m_afbeelding = _T("STOP"));
+    m_image.ZetAfbeelding(m_signalBMP = _T("STOP"));
   }
   if(labels.GetAt(0) == _T('#')) 
   {
     piep = MB_ICONASTERISK;
-    m_image.ZetAfbeelding(m_afbeelding = _T("INFORMATION"));
+    m_image.ZetAfbeelding(m_signalBMP = _T("INFORMATION"));
   }
 
-  if(!m_afbeelding.IsEmpty())
+  if(!m_signalBMP.IsEmpty())
   {
-    // Verwijder teken !?.# van het label
+    // Remove character !?.# from the label
     labels = labels.Mid(1);
-    // Geef de juiste piep, volgens de stijl
+    // Give the correct beep, according to the style
     MessageBeep(piep);
   }
 
@@ -85,7 +85,7 @@ AuMessageBox::AuMessageBox(CWnd*  parent
   {
     labels = _T("retry$ok ignore$ca");
   }
-  MaakLabelTekstenEnStijlen(labels);
+  MakeLabelTextsAndStyles(labels);
 }
 
 AuMessageBox::AuMessageBox(CWnd* parent
@@ -93,14 +93,14 @@ AuMessageBox::AuMessageBox(CWnd* parent
                     ,LPCTSTR boodschap
                     ,int    stijlen)
           :CDialog(AuMessageBox::IDD,parent)
-          ,m_titel(titel)
-          ,m_boodschap(boodschap)
+          ,m_title(titel)
+          ,m_messsage(boodschap)
           ,m_default(0)
-          ,m_def_gedaan(false)
-          ,m_stijlen(stijlen)
-          ,m_onderdruk(NULL)
-          ,m_alleenOK(false)
-          ,m_nietMeer(false)
+          ,m_def_done(false)
+          ,m_styles(stijlen)
+          ,m_suppress(NULL)
+          ,m_onlyOK(false)
+          ,m_notAgain(false)
           ,m_font(NULL)
 {
   InitButtons();
@@ -130,22 +130,22 @@ AuMessageBox::AuMessageBox(CWnd* parent
   {
     labels = _T("retry$ok cancel$ca");
   }
-  MaakLabelTekstenEnStijlen(labels);
+  MakeLabelTextsAndStyles(labels);
 
   if(stijlen & 0x0f0)
   {
     // (MB_ICONHAND | MB_ICONQUESTION | MB_ICONEXCLAMATION | MB_ICONASTERISK)
     int stijl = stijlen & 0x0f0;
-    if(stijl == MB_ICONASTERISK)     m_afbeelding = _T("INFORMATION");
-    if(stijl == MB_ICONEXCLAMATION)  m_afbeelding = _T("EXCLAMATION");
-    if(stijl == MB_ICONHAND)         m_afbeelding = _T("STOP");
-    if(stijl == MB_ICONQUESTION)     m_afbeelding = _T("QUESTION");
-    m_image.ZetAfbeelding(m_afbeelding);
-    m_alleenOK = false;
-    // Geef de juiste beep, volgens de stijl
+    if(stijl == MB_ICONASTERISK)     m_signalBMP = _T("INFORMATION");
+    if(stijl == MB_ICONEXCLAMATION)  m_signalBMP = _T("EXCLAMATION");
+    if(stijl == MB_ICONHAND)         m_signalBMP = _T("STOP");
+    if(stijl == MB_ICONQUESTION)     m_signalBMP = _T("QUESTION");
+    m_image.ZetAfbeelding(m_signalBMP);
+    m_onlyOK = false;
+    // Give the correct beep, according to the style
     MessageBeep(stijl);
   }
-  // Eventueel andere default button zetten.
+  // Possibly set another default button.
   if(stijlen & 0xf00)
   {
     if((stijlen & 0xf00) == MB_DEFBUTTON1) m_default = ID_OFFSET + 0;
@@ -157,7 +157,7 @@ AuMessageBox::AuMessageBox(CWnd* parent
 // Destructor
 AuMessageBox::~AuMessageBox()
 {
-  OnderdrukVoortaan();
+  SuppressForever();
   ResetButtons();
   if (m_ownsFont)
   {
@@ -175,7 +175,7 @@ AuMessageBox::InitButtons()
   }
 }
 
-// Reset de button controls
+// Reset the button controls
 void
 AuMessageBox::ResetButtons()
 {
@@ -184,30 +184,30 @@ AuMessageBox::ResetButtons()
     delete m_button[i];
     m_button[i] = NULL;
   }
-  if(m_onderdruk)
+  if(m_suppress)
   {
-    delete m_onderdruk;
-    m_onderdruk = NULL;
+    delete m_suppress;
+    m_suppress = NULL;
   }
 }
 
-// Splits de labeltekst op in afzonderlijke labels
+// Split the label text into individual labels
 // ok -> ok
-// "ja nee" -> "ja", "nee" 
-// Haal ook de knoptype uit het label op
-// "knoptekst$ab" -> label = "knoptekst" style = "ab"
+// "yes no" -> "yes", "no" 
+// Also extract the button type from the label
+// "buttontext$ab" -> label = "buttontext" style = "ab"
 //
 void
-AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
+AuMessageBox::MakeLabelTextsAndStyles(CString& p_labels)
 {
-  // Alles resetten
+  // Reset all
   for(int i = 0; i < MAX_LABELS; ++i)
   {
     m_label[i] = CString(_T(""));
     m_style[i] = CString(_T(""));
-    m_breed[i] = 0;
+    m_width[i] = 0;
   }
-  // label string doorlopen
+  // Walk through the label string
   CString rest = p_labels;
   int spatiePos = 0;
   for(int i = 0; i < MAX_LABELS; ++i)
@@ -237,7 +237,7 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
     }
   }
 
-  // Zoek naar de default knop (alleen de eerste wordt gevonden)
+  // Look for the default button (only the first one is found)
   for(int i = 0; i < MAX_LABELS; ++i)
   {
     if(!m_label[i].IsEmpty())
@@ -250,7 +250,7 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
       }
     }
   }
-  // Zet het eerste teken op uppercase (uitzondering = OK)
+  // Set the first character to uppercase (exception = OK)
   for(int i = 0; i < MAX_LABELS; ++i)
   {
     if(!m_label[i].IsEmpty())
@@ -265,9 +265,9 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
       }
     }
   }
-  // Als er geen stijlen zijn gevonden
-  // maar er zijn wel labels
-  // Zoek dan naar de knopstijl in controlsinfo
+  // If no styles are found
+  // but there are labels
+  // Then look for the button style in controlsinfo
   ControlsInfo* info = theApp.GetControlsInfo();
   for (int i = 0; i < MAX_LABELS; ++i)
   {
@@ -284,12 +284,12 @@ AuMessageBox::MaakLabelTekstenEnStijlen(CString& p_labels)
       }
     }
   }
-  // Controle op alleen een OK knop
+  // Check for only an OK button
   if((m_label[0].CompareNoCase(_T("ok")) == 0) && m_label[1].IsEmpty())
   {
-    if(m_afbeelding.IsEmpty())
+    if(m_signalBMP.IsEmpty())
     {
-      m_alleenOK = true;
+      m_onlyOK = true;
     }
   }
 }
@@ -300,11 +300,11 @@ AuMessageBox::OnOK()
   EndDialog(GetFocus()->GetDlgCtrlID());
 }
 
-// Vertaal het knop ID van het resultaat
-// IDCANCEL = ESC   toets
-// ID       = ID van het control
+// Translate the button ID of the result
+// IDCANCEL = ESC   key
+// ID       = ID of the control
 CString
-AuMessageBox::GeefResultaat(int p_id)
+AuMessageBox::GetResult(int p_id)
 {
   CString resultaat;
   if((p_id >= ID_OFFSET) && (p_id < (ID_OFFSET + MAX_LABELS)))
@@ -319,7 +319,7 @@ AuMessageBox::GeefResultaat(int p_id)
   {
     if(p_id == IDCANCEL)
     {
-      // Op de ESCape toets gedrukt
+      // Pressed the ESCape key
       resultaat = _T("");
     }
   }
@@ -327,12 +327,12 @@ AuMessageBox::GeefResultaat(int p_id)
   return resultaat;
 }
 
-// Geef het resultaat van een standaard boodschap
+// Give the result of a standard message
 int
 AuMessageBox::GetResultID(int p_id)
 {
   int altOK = 0;
-  switch(m_stijlen & 0x0f)
+  switch(m_styles & 0x0f)
   {
     case MB_OK:          if(p_id == (ID_OFFSET + 0)) return IDOK;
                          break;
@@ -361,14 +361,15 @@ AuMessageBox::GetResultID(int p_id)
   }
   if(p_id == IDCANCEL)
   {
+    // Pressed the ESCape key
     return p_id;
   }
-  // Onbekend resultaat
+  // Unknown result
   return 0;
 }
 
 CString
-AuMessageBox::GeefStandaardPositief()
+AuMessageBox::ReturnStandardPositive()
 {
   for(int i = 0; i < MAX_LABELS; ++i)
   {
@@ -384,7 +385,7 @@ AuMessageBox::GeefStandaardPositief()
 }
 
 CString
-AuMessageBox::GeefStandaardNegatief()
+AuMessageBox::ReturnStandardNegative()
 {
   for(int i = 0; i < MAX_LABELS; ++i)
   {
@@ -400,7 +401,7 @@ AuMessageBox::GeefStandaardNegatief()
 }
 
 int
-AuMessageBox::GeefStandaardPositiefID()
+AuMessageBox::ReturnStandardPositiveID()
 {
   for(int i = 0; i < MAX_LABELS; ++i)
   {
@@ -416,7 +417,7 @@ AuMessageBox::GeefStandaardPositiefID()
 }
 
 int
-AuMessageBox::GeefStandaardNegatiefID()
+AuMessageBox::ReturnStandardNegativeID()
 {
   for(int i = 0; i < MAX_LABELS; ++i)
   {
@@ -433,11 +434,11 @@ AuMessageBox::GeefStandaardNegatiefID()
 
 /*************************************************************\
 *                                                             *
-*   Aanmaken en tekenen van de boodschap                      *
+*   Creating and drawing the message                          *
 *                                                             *
 \*************************************************************/
 
-// Hele boodschap dialoog herberekenen bij het starten ervan
+// Recalculate the entire message dialog when it starts
 BOOL
 AuMessageBox::OnInitDialog()
 {
@@ -449,40 +450,40 @@ AuMessageBox::OnInitDialog()
   m_font->CreateFontIndirect( &lf );
   m_ownsFont = true;
 
-  SetWindowText(m_titel); 
+  SetWindowText(m_title); 
 
-  // Pak control, en zet font erop
+  // Get the control and set the font
   CEdit* edit = (CEdit*) GetDlgItem(IDC_AUMESSAGEBOX);
   edit->SetFont(m_font);
 
-  // GetDC levert NIET een dc waarin het goede font zit.
-  // Daarom ook hier het font erin voor de berekening.
-  // Alle berekeningen moeten dan ook verder dc gebruiken.
+  // GetDC does NOT provide a dc with the correct font.
+  // Therefore, also set the font here for the calculation.
+  // All calculations must then also use this dc.
   CDC* dc = edit->GetDC();
   dc->SelectObject(m_font);
 
-  // Bepaal meldingtekst
-  CString text = m_boodschap;
+  // Determine message text
+  CString text = m_messsage;
 
-  // Vervang alle voorkomens van \n door \r\n
+  // Replace all occurrences of \n with \r\n
   text.Replace(_T("\r\n"), _T("\n"));
   text.Replace(_T("\n"), _T("\r\n"));
 
 
-  // Bepaal breedte/hoogte
+  // Determine width/height
   CRect tekstRect = CRect(0, 0, 0, 0);
   tekstRect.right = GetSystemMetrics(SM_CXSCREEN) * 90 / 100;
   dc->DrawText(text, &tekstRect, 
                DT_CALCRECT|DT_LEFT|DT_NOPREFIX|DT_WORDBREAK|DT_EXPANDTABS|DT_EDITCONTROL);
 
-  // Tel de interne marges van het edit control bij de afmetingen het de tekstdeel,
-  // zodat de edit control groot genoeg wordt om ook z'n eigen marges te bevatten
+  // Add the internal margins of the edit control to the dimensions of the text part,
+  // so that the edit control is large enough to also contain its own margins
   CRect margins;
   edit->GetRect(margins);
   tekstRect.right += margins.left * 2;
   tekstRect.bottom += margins.top * 2;
 
-  // Niet te hoog laten worden, anders scrollbar plaatsen
+  // Do not let it become too tall, otherwise place a scrollbar
   int maxHeight = GetSystemMetrics(SM_CYSCREEN) * 80 / 100;
   if(tekstRect.bottom > maxHeight)
   {
@@ -491,35 +492,35 @@ AuMessageBox::OnInitDialog()
     tekstRect.right += GetSystemMetrics(SM_CXHTHUMB);
   }
 
-  // Voeg fixed offsets (kaders) toe
+  // Add fixed offsets (frames)
   tekstRect.OffsetRect(OFFSET,OFFSET);
 
-  // Informatie pictogram
-  if(!m_afbeelding.IsEmpty())
+  // Information icon
+  if(!m_signalBMP.IsEmpty())
   {
-    // Extra ruimte links (32 pixels) maken voor het plaatje
+    // Make extra space on the left (32 pixels) for the image
     tekstRect.OffsetRect(32 + OFFSET,0);
     if(tekstRect.bottom < 32)
     {
-      // TODO De tekst verticaal centreren
+      // Vertically center the text
       tekstRect.bottom = 32 + OFFSET;
     }
   }
 
-  // Plaatsen en tekst erin zetten
+  // Position and set the text
   edit->MoveWindow(tekstRect);
   edit->SetWindowText(text);
 
-  // Knoppen maken
-  // Voor de breedte gebruiken we de breedte van 
-  // een "W", voor de hoogte de echte fonthoogte.
+  // Create the buttons
+  // For the width we use the width of 
+  // a "W", for the height the actual font height.
   CSize tsize = dc->GetTextExtent(_T("W"));
   int buttonTop    = tekstRect.bottom + OFFSET;
   int buttonWidth  = (int)(ButtonWidthFactor * tsize.cx + (3 * OFFSET));
   int buttonHeight = tsize.cy + 4 * GetSystemMetrics(SM_CYFIXEDFRAME);
   int totalWidth   = OFFSET;
 
-  // Bekijk de vorm van de knoppen
+  // Determine the layout of the buttons
   int layout = theApp.GetButtonLayout();
   if(layout == BUTT_LAYOUT_IMAGE)
   {
@@ -538,7 +539,7 @@ AuMessageBox::OnInitDialog()
   m_buttonRect.top    = 0;
   m_buttonRect.right  = buttonWidth;
   m_buttonRect.bottom = buttonHeight;
-  // Bereken de totale breedte van alle knoppen tesamen
+  // Calculate the total width of all buttons together
   for(int i = 0; i < MAX_LABELS; ++i)
   {
     if(!m_label[i].IsEmpty())
@@ -547,27 +548,27 @@ AuMessageBox::OnInitDialog()
       {
         totalWidth += OFFSET;
       }
-      m_breed[i] = buttonWidth;
+      m_width[i] = buttonWidth;
       if(layout != BUTT_LAYOUT_IMAGE)
       {
         int breedte = (((m_label[i].GetLength() * tsize.cx) * 2) / 3) + (3 * OFFSET);
         if(breedte > buttonWidth)
         {
-          m_breed[i] = breedte;
+          m_width[i] = breedte;
         }
       }
-      totalWidth += m_breed[i];
+      totalWidth += m_width[i];
     }
   }
-  // Bereken het begin van de buttons.
-  // Als de tekst breder is dan de buttons, gebruik dan de tekst als total breedte
+  // Calculate the starting position of the buttons.
+  // If the text is wider than the buttons, use the text as the total width
   int buttonBegin = OFFSET;
   if(tekstRect.right > totalWidth)
   {
     buttonBegin += tekstRect.right - totalWidth;
     totalWidth   = tekstRect.right;
   }
-  // Creeer de buttons
+  // Create the buttons
   long buttonStyle = BS_OWNERDRAW | WS_TABSTOP | BS_NOTIFY | WS_CHILD | WS_VISIBLE;
   for(int i = 0; i < MAX_LABELS; ++i)
   {
@@ -578,23 +579,23 @@ AuMessageBox::OnInitDialog()
       {
         sButtonTekst = _T("&") + sButtonTekst;
       }
-      buttonWidth = m_breed[i];
+      buttonWidth = m_width[i];
       CRect rect(buttonBegin,buttonTop,buttonBegin + buttonWidth,buttonTop + buttonHeight);
-      m_button[i]  = new CButtonC(m_style[i]);
-      m_button[i]->Create(sButtonTekst  // Labeltekst
+      m_button[i]  = new AuButton(m_style[i]);
+      m_button[i]->Create(sButtonTekst  // Button text
                          ,buttonStyle                 // MS-Windows window style
-                         ,rect                        // Rechthoek
-                         ,this                        // Mijn kind
-                         ,i + ID_OFFSET);             // CtrlID van deze knop
+                         ,rect                        // Rectangle
+                         ,this                        // My child
+                         ,i + ID_OFFSET);             // CtrlID of this button
       m_button[i]->SetFont(m_font);
-      // Voor volgende knop
+      // For the next button
       buttonBegin += buttonWidth + OFFSET;
     }
   }
-  // Grootte van het window herberekenen
+  // Recalculate the size of the window
   totalWidth += OFFSET;
   int totalHeight = buttonTop + OFFSET + buttonHeight;
-  if(m_alleenOK)
+  if(m_onlyOK)
   {
     int hcb = tsize.cy + 2*GetSystemMetrics(SM_CYFIXEDFRAME);
     int wcb = tsize.cx + 2*GetSystemMetrics(SM_CXFIXEDFRAME);
@@ -602,29 +603,29 @@ AuMessageBox::OnInitDialog()
 
     CString sNietMeerHerhalen = _T("Do not show again      ");
 
-    // Bepaal tekst breedte
+    // Determine the width of the text
     CRect textRect = CRect(0, 0, 0, 0);
     dc->DrawText(sNietMeerHerhalen, &textRect,DT_CALCRECT|DT_LEFT|DT_NOPREFIX|DT_SINGLELINE|DT_EXPANDTABS);
 
 
-    // Maak checkbox
+    // Create checkbox
     int top = buttonTop + buttonHeight + 2 * OFFSET;
-    m_lijn.left   = OFFSET;
-    m_lijn.top    = top - OFFSET;
-    m_lijn.right  = wcb + textRect.Width() - OFFSET;
-    m_lijn.bottom = m_lijn.top;
-    CRect brect(OFFSET,top,m_lijn.right,top + hcb);
+    m_line.left   = OFFSET;
+    m_line.top    = top - OFFSET;
+    m_line.right  = wcb + textRect.Width() - OFFSET;
+    m_line.bottom = m_line.top;
+    CRect brect(OFFSET,top,m_line.right,top + hcb);
     totalWidth = max(totalWidth, wcb + textRect.Width() + OFFSET);
 
 
-    m_onderdruk = new AD_Checkbox();
+    m_suppress = new AD_Checkbox();
 
-    m_onderdruk->Create(sNietMeerHerhalen
+    m_suppress->Create(sNietMeerHerhalen
                        ,WS_TABSTOP | BS_AUTOCHECKBOX | BS_NOTIFY | WS_CHILD | WS_VISIBLE
                        ,brect
                        ,this    
                        ,ID_ONDERDRUKKEN);
-    m_onderdruk->SetFont(m_font);
+    m_suppress->SetFont(m_font);
   }
 
   CRect rect(0, 0, totalWidth, totalHeight);
@@ -643,34 +644,34 @@ AuMessageBox::OnPaint()
   CDC* dc = GetDC();
   int saveDC = dc->SaveDC();
 
-  // Het signaal tekenen
-  if(!m_afbeelding.IsEmpty())
+  // Draw the signal
+  if(!m_signalBMP.IsEmpty())
   {
     CRect rect(OFFSET,OFFSET,40,40);
     m_image.PaintBitmap(*dc,rect,0,AFB_PAINT_TRANS);
   }
-  // Eventueel lijn tekenen
-  if(m_alleenOK)
+  // Optionally draw the line
+  if(m_onlyOK)
   {
-    dc->DrawEdge(m_lijn,EDGE_ETCHED,BF_TOP);
+    dc->DrawEdge(m_line,EDGE_ETCHED,BF_TOP);
   }
   dc->RestoreDC(saveDC);
 }
 
-// Override bij te onderdrukken boodschap
+// Override for suppressible message
 INT_PTR
 AuMessageBox::DoModal()
 {
-  // Onderdruk de boodschap eventueel
+  // Optionally suppress the message
   //AutoIBSMessageLock lock;
-  if(m_alleenOK)
+  if(m_onlyOK)
   {
-    if(theApp.IsSuppressedMessage(m_boodschap))
+    if(theApp.IsSuppressedMessage(m_messsage))
     {
       return IDOK;
     }
   }
-  // Vraag om aandacht, alleen als we nog niet de foreground window zijn.
+  // Request attention, only if we are not already the foreground window.
   CWnd *w = GetForegroundWindow();
   bool bFlash = true;
   while(w)
@@ -683,13 +684,11 @@ AuMessageBox::DoModal()
     w = w->GetParent();
   }
 
-  // DJS Ik begrijp niet waarom het niet werkt met IsChild. 
   if(AfxGetMainWnd() && bFlash)
-  //  if(AfxGetMainWnd() && !(GetForegroundWindow()->IsChild(AfxGetMainWnd())) )
   {
     AfxGetMainWnd()->FlashWindowEx(FLASHW_TRAY, 3, 0);
   }
-  // Toon dialoog
+  // Show dialog
   return CDialog::DoModal();
 }
 
@@ -698,19 +697,19 @@ AuMessageBox::OnKeyDown(UINT nChar,
                      UINT nRepCnt, 
                      UINT nFlags)
 {
-  ControleerActie(nChar);
+  CheckTheAction(nChar);
   CDialog::OnKeyDown(nChar,nRepCnt,nFlags);
 }
 
-// Kijk of de ingedrukte toets overeenkomt met het eerste teken
-// van een van onze labels van de knoppen
+// Check if the pressed key matches the first character
+// of one of our button labels
 void
-AuMessageBox::ControleerActie(UINT nChar)
+AuMessageBox::CheckTheAction(UINT nChar)
 {
   if(nChar == _T(' '))
   {
-    // Spatie selecteert de huidige knop met focus
-    CButtonC* wnd = (CButtonC *) GetFocus();
+    // Space selects the current button with focus
+    AuButton* wnd = (AuButton *) GetFocus();
     for(int i = 0; i < MAX_LABELS; ++i)
     {
       if(m_button[i] == wnd)
@@ -721,7 +720,7 @@ AuMessageBox::ControleerActie(UINT nChar)
   }
   for(int i = 0;i < MAX_LABELS; ++i)
   {
-    // Zoek anders het label dat begint met deze letter
+    // Otherwise, find the label that starts with this letter
     if(!m_label[i].IsEmpty())
     {
       if(_totlower(m_label[i].GetAt(0)) == _totlower(nChar))
@@ -733,14 +732,14 @@ AuMessageBox::ControleerActie(UINT nChar)
   }
 }
 
-// We drukken op deze knop
-// Alleen een hit als muis nog boven de knop
+// We press this button
+// Only a hit if the mouse is still over the button
 void
-AuMessageBox::DrukOpKnop(UINT p_id,CPoint point)
+AuMessageBox::PressOnButton(UINT p_id,CPoint point)
 {
   if(p_id >= ID_OFFSET && p_id < ID_OFFSET + MAX_LABELS)
   {
-    m_buttonRect.right = m_breed[p_id - ID_OFFSET];
+    m_buttonRect.right = m_width[p_id - ID_OFFSET];
     if(m_buttonRect.PtInRect(point))
     {
       EndDialog(p_id);
@@ -748,16 +747,16 @@ AuMessageBox::DrukOpKnop(UINT p_id,CPoint point)
   }
 }
 
-// Aanvraag vanuit de knop of het de standaard knop is
-// Tevens controle op initiele focus regelen
+// Request from the button whether it is the default button
+// Also handle initial focus
 bool
-AuMessageBox::GeefDefault(UINT ID)
+AuMessageBox::GetDefault(UINT ID)
 {
-  if(!m_def_gedaan)
+  if(!m_def_done)
   {
-    // Dit is het eerste moment na het starten van de dialoog en
-    // voor het tekenen van de eerste button. Nog snel even de focus zetten
-    m_def_gedaan = true;
+    // This is the first moment after the dialog has started and
+    // before the first button is drawn. Quickly set the focus.
+    m_def_done = true;
     if(m_default)
     {
       GotoDlgCtrl(m_button[m_default - ID_OFFSET]);
@@ -770,19 +769,19 @@ AuMessageBox::GeefDefault(UINT ID)
   return false;
 }
 
-// Check box handler voor onderdrukken
+// Check box handler for suppressing
 void
-AuMessageBox::OnNietMeer()
+AuMessageBox::OnNotAgain()
 {
-  m_nietMeer = !m_nietMeer;
+  m_notAgain = !m_notAgain;
 }
 
-// Huidige boodschap nooit meer tonen, altijd OK.
+// Never show the current message again, always OK.
 void
-AuMessageBox::OnderdrukVoortaan()
+AuMessageBox::SuppressForever()
 {
-  if(m_nietMeer)
+  if(m_notAgain)
   {
-    theApp.SuppressMessage(m_boodschap);
+    theApp.SuppressMessage(m_messsage);
   }
 }

@@ -14,17 +14,17 @@
 #include "AuthorButton.h"
 #include "AuMessageBox.h"
 
-CButtonC::CButtonC(CString& p_type)
+AuButton::AuButton(CString& p_type)
 {
-  m_buttonImage.CalculateStandard(p_type.GetString(),_T("KNOP")); //AFB_SET_KNOPPEN);
+  m_buttonImage.CalculateStandard(p_type.GetString(),_T("KNOP"));
 }
 
-CButtonC::~CButtonC()
+AuButton::~AuButton()
 {
   DestroyWindow();
 }
 
-BEGIN_MESSAGE_MAP(CButtonC, AD_Button)
+BEGIN_MESSAGE_MAP(AuButton, AD_Button)
   ON_WM_PAINT()
   ON_WM_KEYDOWN()
   ON_WM_ERASEBKGND()
@@ -33,13 +33,13 @@ BEGIN_MESSAGE_MAP(CButtonC, AD_Button)
 END_MESSAGE_MAP()
 
 void
-CButtonC::SetImage(CString p_type,CString p_library)
+AuButton::SetImage(CString p_type,CString p_library)
 {
   m_buttonImage.CalculateStandard(p_type.GetString(),p_library.IsEmpty() ? _T("KNOP") : p_library);
 }
 
 void
-CButtonC::OnKeyDown(UINT nChar, 
+AuButton::OnKeyDown(UINT nChar, 
                     UINT nRepCnt, 
                     UINT nFlags)
 {
@@ -60,23 +60,22 @@ CButtonC::OnKeyDown(UINT nChar,
 }
 
 void
-CButtonC::OnPaint()
+AuButton::OnPaint()
 {
   AD_Button::OnPaint();
 }
 
-void CButtonC::DrawItem(LPDRAWITEMSTRUCT s) 
+void AuButton::DrawItem(LPDRAWITEMSTRUCT s) 
 {
   CDC* dc = CDC::FromHandle(s->hDC);;
   int saveDC = dc->SaveDC();
-  //KleurenInfo&ki = ibs->GeefKleurenInfo();
   
   CWnd* win = CWnd::FromHandle(s->hwndItem);
-  bool transparant = (win->GetExStyle() & WS_EX_TRANSPARENT) > 0;   // buiten de knop transparant
-  bool transparantFace = transparant;                               // knop oppervlakte transparant
-  bool BGclear = false;                                             // is de knopface overschreven ?
-  bool BGerase = false;                                             // alternatief om de face te cleren
-  bool ddKader = (win->GetStyle() & BS_FLAT) == 0;                  // Drie d kader
+  bool transparant = (win->GetExStyle() & WS_EX_TRANSPARENT) > 0;   // Outside buttun it's transparent
+  bool transparantFace = transparant;                               // Button surface transparant
+  bool BGclear = false;                                             // Is the surface overwritten?
+  bool BGerase = false;                                             // Alternative to clear the surface
+  bool ddKader = (win->GetStyle() & BS_FLAT) == 0;                  // 3D frame or flat frame
   bool bAktief  = true;
   bool bFocus   = ::GetFocus() == s->hwndItem;
   bool bDefault = false;
@@ -95,11 +94,11 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   AuMessageBox* parent = dynamic_cast<AuMessageBox*> (GetParent());
   if(parent)
   {
-    bDefault = parent->GeefDefault(GetDlgCtrlID());
+    bDefault = parent->GetDefault(GetDlgCtrlID());
   }
-  int  kaderBreedte = ddKader?3:0;                                  // pixels in het kader
-  int  tplaats = -1;                                                // TEXT plaats
-  int  bplaats = -1;                                                // BITMAP plaats
+  int  kaderBreedte = ddKader?3:0;                                  // pixels in the frame
+  int  tplaats = -1;                                                // TEXT place
+  int  bplaats = -1;                                                // BITMAP place
 
 	CRect crect,crectOrig;
   CBrush br;
@@ -110,27 +109,26 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   win->GetClientRect(crectOrig);
   CRgn knopRgn;
 
-  // Zet de kleur van de achtergrond (default=4/focus=2/selected=1/gewoon=0)
+  // Set the background color (default=4/focus=2/selected=1/normal=0)
   int buttonCtlState = s->itemState & (ODS_SELECTED)?1:0;
   if(bFocus)   buttonCtlState |= 2;
   if(bDefault) buttonCtlState |= 4;
 
   // ***********************************************************
-  // Eerst wordt afhankelik van het knoptype de clipping bepaald
+  // First, depending on the button type, the clipping is determined
   CRect rgnRect(crect);
   rgnRect.DeflateRect(kaderBreedte,kaderBreedte);
   knopRgn.CreateRectRgnIndirect(rgnRect);
 
-  if(!transparant) //((kaderBreedte > 0) && !transparant)
+  if(!transparant)
   {
     dc->FillSolidRect( crect,dc->GetBkColor());
   }
   dc->SelectClipRgn(&knopRgn);
 
   // ***********************************************************
-  // Plaatsen van de text en het plaatje
+  // Placing the text and the image
 
-  // TODO was controlsinfo
   int buttonLayout = BUTT_LAYOUT_LEFT;
   m_buttonImage.CalculateButtonLayout(buttonLayout);
 
@@ -189,25 +187,25 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
 
     if(m_buttonImage.HasImage() && !(buttonLayout & BUTT_LAYOUT_NONE))
     {
-      // teken een plaatje
+      // Draw an image
       int volgnr = -1;
       if (IsWindowEnabled())
       {
-        // Bepaal welk plaatje wordt getekend uit de ControlsInfo set
+        // Determine which image is drawn from the ControlsInfo set
         if(s->itemState & ODS_SELECTED)
         {
-          focusOffset = 2;             // Plaatje/Text 2 pixels naar rechtsonder
-          volgnr = AFB_POS_PRESS; // Rechtermuisknop ingedrukt
+          focusOffset = 2;             // Image/Text 2 pixels to the bottom right
+          volgnr = AFB_POS_PRESS; // Right mouse button pressed
         }
         else
         {
           if(s->itemState & ODS_FOCUS)
           {
-            volgnr = AFB_POS_FOCUS; // Knop heeft focus, focus plaatje
+            volgnr = AFB_POS_FOCUS; // Button has focus, focus image
           }
           else
           {
-            volgnr = AFB_POS_STAN; // Standaard plaatje
+            volgnr = AFB_POS_STAN; // Standard image
           }
         }
       }
@@ -246,7 +244,7 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
       {
         if(s->itemState & ODS_SELECTED)
         {
-          focusOffset = 2;   // Text 2 pixels naar rechtsonder
+          focusOffset = 2;   // Text 2 pixels to the bottom right
         }
       }
       if (!win->IsWindowEnabled() && !BGclear)
@@ -272,8 +270,8 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   }
   dc->SelectClipRgn(NULL);
 
-  // Brush voor randje
-  COLORREF randKleur = 0; // RGB(0,0,0) = Zwart
+  // Brush for the border
+  COLORREF randKleur = 0; // RGB(0,0,0) = Black
   hBr = NULL;
 
   bool maakRand  = false;
@@ -285,15 +283,15 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   br.CreateSolidBrush(randKleur);
   hBr = (HBRUSH)br;
 
-  // Standaard vierkante knop intekenen
-  // Het randje;
+  // Draw standard square button
+  // The border;
   dc->SelectStockObject(HOLLOW_BRUSH);
   if (maakRand)
   {
     ::FrameRect(s->hDC,crect,hBr);
     crect.DeflateRect(1,1);
   }
-  // Knop kader tekenen
+  // Draw button frame
   int kleurLB, kleurRO;
   if(s->itemState & ODS_SELECTED)
   {
@@ -325,7 +323,7 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   crect.DeflateRect(3,3);
   trect.InflateRect(1,1);
 
-  // Focus: Knop extra benadrukken
+  // Focus: Emphasize the button
   trect.IntersectRect(&trect,&crect);
   trect.OffsetRect(focusOffset,focusOffset);
   dc->SetBkColor(GetSysColor(COLOR_3DFACE));
@@ -340,8 +338,8 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
   {
     dc->DrawFocusRect(trect);
   }
-  // Default knop: Extra zwarte rand eromheen om het te benadrukken
-  // Zonder kleurinstellingen dan toch nog te zien
+  // Default button: Extra black border around it to emphasize
+  // Without color settings, it is still visible
   if(bDefault)
   {
     CBrush brush(RGB(0,0,0));
@@ -352,18 +350,18 @@ void CButtonC::DrawItem(LPDRAWITEMSTRUCT s)
 }
 
 afx_msg BOOL 
-CButtonC::OnEraseBkgnd( CDC* )
+AuButton::OnEraseBkgnd( CDC* )
 {
   return TRUE;
 }
 
 void 
-CButtonC::OnLButtonUp( UINT nFlags, CPoint point )
+AuButton::OnLButtonUp( UINT nFlags, CPoint point )
 {
   AuMessageBox* box = (AuMessageBox*)(GetParent());
   if(box)
   {
-    box->DrukOpKnop(GetDlgCtrlID(),point);
+    box->PressOnButton(GetDlgCtrlID(),point);
   }
   else
   {
@@ -376,7 +374,7 @@ CButtonC::OnLButtonUp( UINT nFlags, CPoint point )
   AD_Button::OnLButtonUp(nFlags,point);
 }
 
-BOOL CButtonC::PreTranslateMessage(MSG* pMsg) 
+BOOL AuButton::PreTranslateMessage(MSG* pMsg) 
 {
   if 	(pMsg->message == WM_LBUTTONDBLCLK)
   {
@@ -386,19 +384,19 @@ BOOL CButtonC::PreTranslateMessage(MSG* pMsg)
 }
 
 void
-CButtonC::PlaatsRectInRect(const CRect& mRect,CRect& rect,int pos,int marges)
+AuButton::PlaatsRectInRect(const CRect& mRect,CRect& rect,int pos,int marges)
 {
   CRect inRect(mRect);
   inRect.DeflateRect(2*marges,2*marges);
-  // Plaats rect linksboven in inRect
-  // Bepaal marges
+  // Place rect at the top left in inRect
+  // Determine margins
   int restx = (inRect.Width()  -  rect.Width());
   int resty = (inRect.Height() -  rect.Height());
 
   double prop = 0;
-  // 20 - 30   // Proportionele schaling
-  // 30 - 40   // Vergroten maar niet verkleinen
-  if (pos >= 20 && pos < 40 )  // Proportioneel
+  // 20 - 30   // Proportional scaling
+  // 30 - 40   // Enlarge but do not reduce
+  if (pos >= 20 && pos < 40 )  // Proportional
   {
     if (restx != 0 && resty != 0)
     {
@@ -416,44 +414,42 @@ CButtonC::PlaatsRectInRect(const CRect& mRect,CRect& rect,int pos,int marges)
   }
   rect.OffsetRect(inRect.left - rect.left ,inRect.top - rect.top);
 
-  switch(pos) // textpositie
+  switch(pos) // text position
   {
     default:
-    case 0:    break;
-    case 1:    rect.OffsetRect(restx/2,0);
+    case 0:   break;
+    case 1:   rect.OffsetRect(restx/2,0);
               break;
-    case 2:    rect.OffsetRect(restx,0);
+    case 2:   rect.OffsetRect(restx,0);
               break;
-    case 3:    rect.OffsetRect(0,resty/2);
+    case 3:   rect.OffsetRect(0,resty/2);
               break;
-    case 4:    rect.OffsetRect(restx/2,resty/2);
+    case 4:   rect.OffsetRect(restx/2,resty/2);
               break;
-    case 5:    rect.OffsetRect(restx,resty/2);
+    case 5:   rect.OffsetRect(restx,resty/2);
               break;
-    case 6:    rect.OffsetRect(0,resty);
+    case 6:   rect.OffsetRect(0,resty);
               break;
-    case 7:    rect.OffsetRect(restx/2,resty);
+    case 7:   rect.OffsetRect(restx/2,resty);
               break;
-    case 8:    rect.OffsetRect(restx,resty);
+    case 8:   rect.OffsetRect(restx,resty);
               break;
-    case 10: // alles
+    case 10:  // all
               rect = inRect;
               break;
-    case 11: // boven lang
+    case 11:  // top long
               rect.right= inRect.right;
               break;
-    case 12: // rechts hoog
+    case 12:  // right high
               rect.OffsetRect(restx,0);
               rect.bottom = inRect.bottom;
               break;
-    case 13: // onder lang
+    case 13:  // bottom long
               rect.OffsetRect(0,resty);
               rect.right= inRect.right;
               break;
-    case 14: // links hoog
+    case 14:  // left high
               rect.bottom = inRect.bottom;
               break;
   }
 }
-
-

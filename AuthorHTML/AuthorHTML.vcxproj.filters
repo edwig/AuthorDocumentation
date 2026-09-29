@@ -437,9 +437,6 @@
     <ClCompile Include="Html\HTMLTableSection.cpp">
       <Filter>Source Files\HTML</Filter>
     </ClCompile>
-    <ClCompile Include="Main\AuMessageBox.cpp">
-      <Filter>Source Files\Main</Filter>
-    </ClCompile>
     <ClCompile Include="Main\AuthorHTML.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
@@ -493,9 +490,6 @@
     </ClCompile>
     <ClCompile Include="Project\WindowDefinition.cpp">
       <Filter>Source Files\Project</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\AuthorButton.cpp">
-      <Filter>Source Files\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Tools\AuthorImage.cpp">
       <Filter>Source Files\Tools</Filter>
@@ -753,6 +747,12 @@
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="Tools\StyleRichEdit.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\AuthorButton.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\AuMessageBox.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1150,9 +1150,6 @@
     <ClInclude Include="Project\WindowDefinition.h">
       <Filter>Source Files\Project\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\AuthorButton.h">
-      <Filter>Source Files\Tools\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\AuthorImage.h">
       <Filter>Source Files\Tools\Header Files</Filter>
     </ClInclude>
@@ -1445,6 +1442,12 @@
       <Filter>Source Files\Dialogs\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tools\StyleRichEdit.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\AuthorButton.h">
+      <Filter>Source Files\Tools\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\AuMessageBox.h">
       <Filter>Source Files\Tools\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

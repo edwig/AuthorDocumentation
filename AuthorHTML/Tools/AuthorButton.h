@@ -13,11 +13,11 @@
 #include "StdAfx.h"
 #include "AuthorImage.h"
 
-class CButtonC : public AD_Button
+class AuButton : public AD_Button
 {
 public:
-  CButtonC(CString& p_type);
-  virtual ~CButtonC();
+  AuButton(CString& p_type);
+  virtual ~AuButton();
 
   void         SetImage(CString p_type,CString p_library = _T(""));
   AuthorImage& GetImageInfo();
@@ -38,7 +38,7 @@ private:
 };
 
 inline
-AuthorImage& CButtonC::GetImageInfo()
+AuthorImage& AuButton::GetImageInfo()
 {
   return m_buttonImage;
 }

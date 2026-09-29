@@ -444,7 +444,6 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClCompile Include="Html\HTMLTableCell.cpp" />
     <ClCompile Include="Html\HTMLTableRow.cpp" />
     <ClCompile Include="Html\HTMLTableSection.cpp" />
-    <ClCompile Include="Main\AuMessageBox.cpp" />
     <ClCompile Include="Main\AuthorHTML.cpp" />
     <ClCompile Include="Main\AuthorHTMLControlSite.cpp" />
     <ClCompile Include="Main\HTMLDocEditDesigner.cpp" />
@@ -470,6 +469,7 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClCompile Include="Project\TOC.cpp" />
     <ClCompile Include="Project\TOCEntry.cpp" />
     <ClCompile Include="Project\WindowDefinition.cpp" />
+    <ClCompile Include="Tools\AuMessageBox.cpp" />
     <ClCompile Include="Tools\AuthorButton.cpp" />
     <ClCompile Include="Tools\AuthorImage.cpp" />
     <ClCompile Include="Tools\CheckWorkshop.cpp" />
@@ -1181,6 +1181,7 @@ copy "$(SolutionDir)hhc.exe"  "$(Outdir)"
     <ClInclude Include="Project\TOC.h" />
     <ClInclude Include="Project\TOCEntry.h" />
     <ClInclude Include="Project\WindowDefinition.h" />
+    <ClInclude Include="Tools\AuMessageBox.h" />
     <ClInclude Include="Tools\AuthorButton.h" />
     <ClInclude Include="Tools\AuthorImage.h" />
     <ClInclude Include="Tools\CheckWorkshop.h" />

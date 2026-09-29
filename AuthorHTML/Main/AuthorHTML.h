@@ -84,7 +84,7 @@ public:
   void  ShowHtmlHelp(CString const& pad,UINT uMode,HH_AKLINK& link);
 
 
-  UINT  m_nAppLook;
+  UINT  m_nAppLook { 0 };
 public:
 	virtual BOOL InitInstance();
   virtual int  ExitInstance();
@@ -127,35 +127,26 @@ private:
   void OnManualW3C_CSS();
   bool LoadHtmlHelpDLL();
 
-  CString             m_baseDir;
-  CString             m_binDir;
-  Spelling*           m_speller;
-  std::set<CString>   m_messages;
-  Ref<CAfbeeldingen>  m_images;
-  ControlsInfo*       m_controlsInfo;
-
-  // Started on a HPP project file
-  CString            m_project;
-  bool               m_sweep; 
-  bool               m_reindex;
-  ProjectFile*       m_projectFile;
-  TOC*               m_contentFile;
-  IndexFile*         m_indexFile;
-  StartupDlg*        m_startup;
-
-  int                m_uniqueDocID;
-  // The Scintilla DLL handle for the Scintilla editor control
-  HINSTANCE          m_hSciDLL;
-
-  CCriticalSection   m_criticalSection;
-  CStringList        m_StdioCommand;
-
-  CRecentFileList*   m_pRecentProjectList;
-
-  // Our help system
-  HMODULE            m_htmlLib;
-  bool               m_noHelpAvailabale;
-  LPFNHTMLHELP       m_htmlHelp;
+  CString            m_baseDir;                                     // Directory folder of the documentation project
+  CString            m_binDir;                                      // Directory folder of the AuthorHTML binaries
+  Spelling*          m_speller            { nullptr };              // Current spell checker
+  std::set<CString>  m_messages;                                    // Set of suppressedmessages
+  Ref<CAfbeeldingen> m_images;                                      // Set of images for the application
+  ControlsInfo*      m_controlsInfo       { nullptr };              // Controls on dialogs
+  CString            m_project;                                     // Current project name
+  bool               m_sweep              { false   };              // Project folder has been swept for tags
+  bool               m_reindex            { false   };              // Index file needs to be re-indexed
+  ProjectFile*       m_projectFile        { nullptr };              // Current project file
+  TOC*               m_contentFile        { nullptr };              // Table of contents file
+  IndexFile*         m_indexFile          { nullptr };              // Index file
+  StartupDlg*        m_startup            { nullptr };              // Startup dialog
+  int                m_uniqueDocID        { 0       };              // Unique document ID for new documents
+  HINSTANCE          m_hSciDLL            { NULL    };              // Scintilla DLL handle
+  CRecentFileList*   m_pRecentProjectList { nullptr };              // List of recent project files (For the startup dialog)
+  // Our own help system
+  HMODULE            m_htmlLib            { nullptr };              // Our own HTML help DLL handle (hhctrl.ocx)
+  bool               m_noHelpAvailabale   { false   };              // Status if HTML Help is not properly installed on the system
+  LPFNHTMLHELP       m_htmlHelp           { nullptr };              // Pointer to the HTML Help function
 };
 
 inline CString
