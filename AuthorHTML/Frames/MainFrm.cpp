@@ -1186,7 +1186,11 @@ MainFrame::OnCloseOthers()
     if(pnt != wnd)
     {
       CDocument* doc = pnt->GetActiveDocument();
-      doc->OnCloseDocument();
+      if(doc && doc != (CDocument*)1L)
+      {
+        doc->OnCloseDocument();
+      }
+      else break;
     }
     pnt = (CMDIChildWnd*)wnd->GetNextWindow();
   }
