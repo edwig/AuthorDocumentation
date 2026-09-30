@@ -129,6 +129,7 @@ BEGIN_MESSAGE_MAP(AuthorHTMLApp, CWinAppEx)
 
   ON_COMMAND(ID_TOOLS_PROJECT,     OnProjectSettings)
   ON_COMMAND(ID_WINDOWDEFS,        OnWindowDefinitions)
+  ON_COMMAND(ID_CHANGEPROJECT,     OnChangeProject)
   ON_COMMAND(ID_STARTUP,           OnStartup)
   ON_COMMAND(ID_IMPORTCHM,         OnImport)
   // HELP MENU
@@ -145,6 +146,7 @@ BEGIN_MESSAGE_MAP(AuthorHTMLApp, CWinAppEx)
   ON_UPDATE_COMMAND_UI(ID_WINDOWDEFS,           OnHasProject)
   ON_UPDATE_COMMAND_UI(ID_STARTUP,              OnHasContent)
   ON_UPDATE_COMMAND_UI(ID_IMPORTCHM,            OnHasNoProject)
+//ON_UPDATE_COMMAND_UI(ID_CHANGEPROJECT,        OnHasProject)
   ON_UPDATE_COMMAND_UI(ID_TOOLS_BROKENLINKS,    OnHasProject)
 END_MESSAGE_MAP()
 
@@ -841,23 +843,29 @@ AuthorHTMLApp::OnCloseProject()
                  ,_T("Close project")
                  ,MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION|MB_TASKMODAL) == IDYES)
     {
-      MainFrame*  _tmain  = (MainFrame*) m_pMainWnd;
-      CMDIChildFrame* child = (CMDIChildFrame*) _tmain->MDIGetActive();
-      while(child)
-      {
-        CHTMLEdDoc* doc = (CHTMLEdDoc*) child->GetActiveDocument();
-        doc->SaveMyDocument();
-        doc->OnCloseDocument();
-        child = (CMDIChildFrame*) _tmain->MDIGetActive();
-      }
-      // Now reset project
-      ResetProject();
-      // Close the project panes
-      _tmain->CloseAllPanes();
-      // Do startup again
-      ::PostMessage(theApp.m_pMainWnd->GetSafeHwnd(),WM_COMMAND,ID_STARTUP,0);
+      CloseProject();
     }
   }
+}
+
+void
+AuthorHTMLApp::CloseProject()
+{
+  MainFrame* tmain = (MainFrame*)m_pMainWnd;
+  CMDIChildFrame* child = (CMDIChildFrame*)tmain->MDIGetActive();
+  while(child)
+  {
+    CHTMLEdDoc* doc = (CHTMLEdDoc*)child->GetActiveDocument();
+    doc->SaveMyDocument();
+    doc->OnCloseDocument();
+    child = (CMDIChildFrame*)tmain->MDIGetActive();
+  }
+  // Now reset project
+  ResetProject();
+  // Close the project panes
+  tmain->CloseAllPanes();
+  // Do startup again
+  ::PostMessage(theApp.m_pMainWnd->GetSafeHwnd(),WM_COMMAND,ID_STARTUP,0);
 }
 
 void
@@ -870,6 +878,12 @@ AuthorHTMLApp::OnStartup()
     delete m_startup;
     m_startup = NULL;
   }
+}
+
+void 
+AuthorHTMLApp::OnChangeProject()
+{
+  CloseProject();
 }
 
 void

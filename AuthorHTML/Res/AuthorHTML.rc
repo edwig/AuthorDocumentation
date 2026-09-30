@@ -143,6 +143,8 @@ BEGIN
     SEPARATOR
     BUTTON      ID_FILE_PRINT
     SEPARATOR
+    BUTTON      ID_CHANGEPROJECT
+    BUTTON      ID_APP_EXIT
     BUTTON      ID_APP_ABOUT
 END
 
@@ -1190,7 +1192,7 @@ FONT 8, "Tahoma", 400, 0, 0x0
 BEGIN
     CONTROL         IDB_WRITING,IDC_STATIC,"Static",SS_BITMAP,7,7,133,206
     DEFPUSHBUTTON   "OK",IDOK,247,225,73,14,WS_GROUP
-    CONTROL         "",IDC_TEXT,"RichEdit20W",ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_BORDER,145,7,175,207
+    CONTROL         "",IDC_TEXT,"RichEdit20W",WS_BORDER | 0x884,145,7,175,207
 END
 
 IDD_URLDIALOG DIALOGEX 0, 0, 468, 341
@@ -6579,6 +6581,7 @@ BEGIN
     ID_INSERT_ALINK         "Insert an associative keyword link for this topic"
     ID_INSERT_ALINK_COMMAND "Insert a link-command to an associative keyword search"
     ID_TOC_PROP             "Edit the table-of-contents entry"
+    ID_CHANGEPROJECT        "Close project and go to the startup dialog\nNew startup"
 END
 
 #endif    // English (United States) resources

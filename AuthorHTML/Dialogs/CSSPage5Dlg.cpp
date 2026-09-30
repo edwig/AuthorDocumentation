@@ -796,9 +796,8 @@ CSSPage5Dlg::OnCbnSelchangeMuB()
 }
 
 void
-CSSPage5Dlg::OnDeltaposSmT(NMHDR* pNMHDR,LRESULT* pResult)
+CSSPage5Dlg::OnDeltaposSmT(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinMT.GetPos();
   m_spinMT.SetPos(newValue);
   m_marginTop.Format(_T("%d"),newValue);
@@ -807,9 +806,8 @@ CSSPage5Dlg::OnDeltaposSmT(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSmL(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSmL(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinML.GetPos();
   m_spinML.SetPos(newValue);
   m_marginLeft.Format(_T("%d"),newValue);
@@ -818,9 +816,8 @@ void CSSPage5Dlg::OnDeltaposSmL(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSmR(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSmR(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinMR.GetPos();
   m_spinMR.SetPos(newValue);
   m_marginRight.Format(_T("%d"),newValue);
@@ -829,9 +826,8 @@ void CSSPage5Dlg::OnDeltaposSmR(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 } 
 
-void CSSPage5Dlg::OnDeltaposSmB(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSmB(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinMB.GetPos();
   m_spinMB.SetPos(newValue);
   m_marginBottom.Format(_T("%d"),newValue);
@@ -946,9 +942,8 @@ void CSSPage5Dlg::OnCbnSelchangePuB()
   Redisplay();
 }
 
-void CSSPage5Dlg::OnDeltaposSpT(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSpT(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinPT.GetPos();
   m_spinPT.SetPos(newValue);
   m_paddingTop.Format(_T("%d"),newValue);
@@ -957,9 +952,8 @@ void CSSPage5Dlg::OnDeltaposSpT(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSpL(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSpL(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinPL.GetPos();
   m_spinPL.SetPos(newValue);
   m_paddingLeft.Format(_T("%d"),newValue);
@@ -968,9 +962,8 @@ void CSSPage5Dlg::OnDeltaposSpL(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSpR(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSpR(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinPR.GetPos();
   m_spinPR.SetPos(newValue);
   m_paddingRight.Format(_T("%d"),newValue);
@@ -979,9 +972,8 @@ void CSSPage5Dlg::OnDeltaposSpR(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSpB(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSpB(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinPB.GetPos();
   m_spinPB.SetPos(newValue);
   m_paddingBottom.Format(_T("%d"),newValue);
@@ -1097,9 +1089,8 @@ void CSSPage5Dlg::OnCbnSelchangeOuB()
   Redisplay();
 }
 
-void CSSPage5Dlg::OnDeltaposSoT(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSoT(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinOT.GetPos();
   m_spinOT.SetPos(newValue);
   m_offsetTop.Format(_T("%d"),newValue);
@@ -1108,9 +1099,8 @@ void CSSPage5Dlg::OnDeltaposSoT(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSoL(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSoL(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinOL.GetPos();
   m_spinOL.SetPos(newValue);
   m_offsetLeft.Format(_T("%d"),newValue);
@@ -1119,9 +1109,8 @@ void CSSPage5Dlg::OnDeltaposSoL(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSoR(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSoR(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinOR.GetPos();
   m_spinOR.SetPos(newValue);
   m_offsetRight.Format(_T("%d"),newValue);
@@ -1130,9 +1119,8 @@ void CSSPage5Dlg::OnDeltaposSoR(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposSoB(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposSoB(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinOB.GetPos();
   m_spinOB.SetPos(newValue);
   m_offsetBottom.Format(_T("%d"),newValue);
@@ -1195,9 +1183,8 @@ void CSSPage5Dlg::OnCbnSelchangeHeightUnit()
   Redisplay();
 }
 
-void CSSPage5Dlg::OnDeltaposWidth(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposWidth(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinW.GetPos();
   m_spinW.SetPos(newValue);
   m_width.Format(_T("%d"),newValue);
@@ -1206,9 +1193,8 @@ void CSSPage5Dlg::OnDeltaposWidth(NMHDR* pNMHDR,LRESULT* pResult)
   *pResult = 0;
 }
 
-void CSSPage5Dlg::OnDeltaposHeight(NMHDR* pNMHDR,LRESULT* pResult)
+void CSSPage5Dlg::OnDeltaposHeight(NMHDR* /*pNMHDR*/,LRESULT* pResult)
 {
-  NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
   int newValue = m_spinH.GetPos();
   m_spinH.SetPos(newValue);
   m_height.Format(_T("%d"),newValue);

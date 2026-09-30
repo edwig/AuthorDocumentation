@@ -106,6 +106,7 @@ public:
   afx_msg void OnCompile();
   afx_msg void OnImport();
   afx_msg void OnReadHelp();
+  afx_msg void OnChangeProject();
   afx_msg void OnHasProject  (CCmdUI* pCmdUI);
   afx_msg void OnHasNoProject(CCmdUI* pCmdUI);
   afx_msg void OnHasContent  (CCmdUI* pCmdUI);
@@ -116,6 +117,7 @@ protected:
   afx_msg void OnAppExit();
 private:
   void ResetProject();
+  void CloseProject();
   void OpenProjectFile(bool p_create = false);
   void OpenContentsFile(CString contents,bool p_create = false);
   void OpenIndexFile   (CString index,   bool p_create = false);
