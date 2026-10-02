@@ -903,7 +903,7 @@ BEGIN
         MENUITEM "Hyperlink properties...",     IDM_HYPERLINK
         MENUITEM "Remove hyperlink...",         ID_EDIT_REMOVEHYPERLINK
         MENUITEM SEPARATOR
-        MENUITEM "Image properties....",        ID_BUTTON_IMAGE
+        MENUITEM "Image properties....",        ID_POPUP_IMAGE
         MENUITEM "Area properties...",          ID_HTMLPOPUP_AREAPROPERTIES
         MENUITEM "Remove area...",              ID_HTMLPOPUP_REMOVEAREA
         MENUITEM "Comment....",                 ID_EDIT_COMMENT

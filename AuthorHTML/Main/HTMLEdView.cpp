@@ -238,6 +238,21 @@ BEGIN_MESSAGE_MAP(CHTMLEdView, CHtmlEditView)
   ON_COMMAND(ID_BUTTON_ABSOLUTE,              OnAbsolute)
   ON_COMMAND(ID_FORMAT_STATICELEMENT,         OnStatic)
   ON_COMMAND(ID_BUTTON_STATIC,                OnStatic)
+  ON_COMMAND(ID_CONTEXT_MARQUEE,              OnMarquee)
+  ON_COMMAND(IDM_HYPERLINK,                   OnAnchor)
+  ON_COMMAND(ID_CONTEXTMENU_SELECTALL,        OnContextSelectAll)
+  ON_COMMAND(ID_EDIT_REPLACE_AA,              OnReplace)
+  ON_COMMAND(ID_EDIT_CAPTION,                 OnDoubleClickCaption)
+  ON_COMMAND(ID_POPUP_IMAGE,                  OnDoubleClickImage)
+  ON_COMMAND(ID_HTMLPOPUP_AREAPROPERTIES,     OnDoubleClickArea)
+  ON_COMMAND(ID_HTMLPOPUP_REMOVEAREA,         OnRemoveArea)
+  ON_COMMAND(ID_HTMLPOPUP_LAYERPROPERTIES,    OnDoubleClickDiv)
+  ON_COMMAND(ID_HTMLPOPUP_REMOVELAYER,        OnRemoveLayer)
+  ON_COMMAND(ID_CONTEXT_FORM,                 OnDoubleClickForm)
+  ON_COMMAND(ID_CONTEXT_FIELD,                OnDoubleClickFormInput)
+  ON_COMMAND(ID_CONTEXT_SELECT,               OnDoubleClickFormSelect)
+  ON_COMMAND(ID_CONTEXT_TEXTAREA,             OnDoubleClickFormTextArea)
+
   ON_UPDATE_COMMAND_UI(ID_FORMAT_ABSOLUTEPOSITIONELEMENT,OnUpdateAbsolute)
   ON_UPDATE_COMMAND_UI(ID_BUTTON_ABSOLUTE,        OnUpdateAbsolute)
   ON_UPDATE_COMMAND_UI(ID_FORMAT_STATICELEMENT,   OnUpdateStatic)
@@ -296,6 +311,8 @@ BEGIN_MESSAGE_MAP(CHTMLEdView, CHtmlEditView)
   ON_UPDATE_COMMAND_UI(ID_FORM_IMAGE,             OnUpdateFormElements)
   ON_UPDATE_COMMAND_UI(ID_FORM_LABEL,             OnUpdateFormElements)
   ON_UPDATE_COMMAND_UI(ID_FORM_SELECTIONLIST,     OnUpdateFormElements)
+
+  ON_COMMAND_RANGE(ID_ALLTAGS_FIRSTTAG,ID_ALLTAGS_LASTTAG,CallPopupTag)
 END_MESSAGE_MAP()
 
 ////////////////////////////////////////////////////////////////////
@@ -305,7 +322,7 @@ END_MESSAGE_MAP()
 ////////////////////////////////////////////////////////////////////
 
 CHTMLEdView::TagJumps 
-CHTMLEdView::jumps[] =
+CHTMLEdView::g_jumps[] =
 {
   // SUPPORTED TAGS
   { _T("!"),          &CHTMLEdView::OnDoubleClickComment,      NULL, _T("") },
@@ -409,7 +426,7 @@ CHTMLEdView::jumps[] =
   { _T("strike"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("STRIKE (Deprecated strike-through)")            },
   { _T("server"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("SERVER (Deprecated HTML)")                      },
   { _T("spacer"),   NULL,  &CHTMLEdView::OnUnsupportedHTML, _T("SPACER (Deprecated HTML)")                      },
-  { _T(""),         NULL,                                   NULL, _T("") }
+  { _T(""),         NULL,  NULL,                            _T("")                                              }
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1250,6 +1267,12 @@ CHTMLEdView::OnReplace()
 }
 
 void
+CHTMLEdView::OnContextSelectAll()
+{
+  CHtmlEditView::SelectAll();
+}
+
+void
 CHTMLEdView::OnSearchText(bool findOnly)
 {
   HRESULT hr = S_FALSE;
@@ -2001,8 +2024,6 @@ HRESULT CHTMLEdView::OnUpdateUI()
 	return S_OK;
 }
 
-#pragma warning (disable : 4311)
-
 HRESULT 
 CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
 							                ,LPPOINT    ppt
@@ -2010,15 +2031,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
 							                ,LPDISPATCH /*pdispReserved*/)
 {
   CComPtr<IHTMLElement> pElem;
-  CComPtr<IHTMLElement> pImage;
-  CComPtr<IHTMLElement> pForm;
-  CComPtr<IHTMLElement> pField;
-  CComPtr<IHTMLElement> pText;
   CComPtr<IHTMLElement> pLabel;
-  CComPtr<IHTMLElement> pSelect;
-  CComPtr<IHTMLElement> pCaption;
-  CComPtr<IHTMLElement> pLayer;
-  CComPtr<IHTMLElement> pArea;
     
   // OnContextmenu works only as expected by moving the caret
   // to the position of the context menu.
@@ -2032,9 +2045,11 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   int  firstPosition = 4; // Paragraph
 
   // Load the menu
-  CMenu htmlMenu;
-  VERIFY(htmlMenu.LoadMenu(IDR_HTML_POPUP));
-  CMenu* popup = htmlMenu.GetSubMenu(0);
+  CMFCPopupMenu* htmlMenu = new CMFCPopupMenu();
+
+  CMenu menu;
+  VERIFY(menu.LoadMenu(IDR_HTML_POPUP));
+  CMenu* popup = menu.GetSubMenu(0);
 
   if(InsideTag(_T("P")))
   {
@@ -2046,9 +2061,8 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   firstPosition += 4;
 
-  // ALL TAGS
+  // ALL TAGS IN THE SUBMENU
   MENUITEMINFO info;
-  vector<IHTMLElement*> allTags;
   info.cbSize = sizeof(MENUITEMINFO);
   info.fMask = MIIM_SUBMENU;
   VERIFY(popup->GetMenuItemInfo(firstPosition,&info,TRUE));
@@ -2056,10 +2070,11 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   if(info.hSubMenu)
   {
     tagsPopup.Attach(info.hSubMenu);
-    GetTagsMenu(&tagsPopup,allTags);
+    GetTagsForPopupMenu(&tagsPopup);
   }
   //
   firstPosition += 2;
+
   // TABLE PART
   if(!inTable)
   {
@@ -2070,7 +2085,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   else
   {
-    if(InsideTag(_T("caption"),pCaption))
+    if(InsideTag(_T("caption"),m_popupCaption))
     {
       ++firstPosition;
       for(int n = 0; n < 4; ++n)
@@ -2118,24 +2133,24 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   bool appendImage = false;
   bool removeSep   = true;
 
-  if(InsideTag(_T("IMG"),pImage))
+  if(InsideTag(_T("IMG"),m_popupImage))
   {
     appendImage = true;
   }
   else
   {
-    // Hittest from document
-    HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&pImage);
-    if(SUCCEEDED(hr) && pImage.p)
+    // Hit test from document
+    HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&m_popupImage.p);
+    if(SUCCEEDED(hr) && m_popupImage.p)
     {
-      if(InsideTag(pImage,_T("img"),pImage))
+      if(InsideTag(m_popupImage,_T("img"),m_popupImage))
       {
         appendImage = true;
       }
       else
       {
-        // Advanced hittest for floating objects
-        if(Misc::GetElementByPositionAndTag(m_Doc2,pImage,piv.x,piv.y,_T("img")))
+        // Advanced hit test for floating objects
+        if(Misc::GetElementByPositionAndTag(m_Doc2,m_popupImage,piv.x,piv.y,_T("img")))
         {
           appendImage = true;
         }
@@ -2153,25 +2168,24 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
 
   bool appendArea = false;
-  if(InsideTag(_T("AREA"),pArea))
+  if(InsideTag(_T("AREA"),m_popupArea))
   {
     appendArea = true;
   }
   else
   {
-    // Hittest from document
-//  HRESULT hr = m_Doc2->elementFromPoint(m_HITxPos,m_HITyPos,&pArea);
-    HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&pArea);
-    if(SUCCEEDED(hr) && pArea.p)
+    // Hit test from document
+    HRESULT hr = m_Doc2->elementFromPoint(piv.x,piv.y,&m_popupArea.p);
+    if(SUCCEEDED(hr) && m_popupArea.p)
     {
-      if(InsideTag(pArea,_T("area"),pArea))
+      if(InsideTag(m_popupArea,_T("area"),m_popupArea))
       {
         appendArea = true;
       }
       else
       {
-        // Advanced hittest for floating objects
-        if(Misc::GetElementByPositionAndTag(m_Doc2,pArea,piv.x,piv.x,_T("area")))
+        // Advanced hit test for floating objects
+        if(Misc::GetElementByPositionAndTag(m_Doc2,m_popupArea,piv.x,piv.y,_T("area")))
         {
           appendArea = true;
         }
@@ -2209,15 +2223,15 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   if(removeSep)
   {
-    // Remove last double seperator
+    // Remove last double separator
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  // LAYER PART
+  // LAYER PART (DIV)
   removeSep = true;
   bool noLayer = true;
-  if(InsideTag(_T("div"),pLayer))
+  if(InsideTag(_T("div"),m_popupLayer))
   {
-    HtmlElement elem(pLayer);
+    HtmlElement elem(m_popupLayer);
     if(elem.HasStyle())
     {
       XString style = elem.GetInlineStyle();
@@ -2241,12 +2255,12 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   if(removeSep)
   {
-    // Remove last double seperator
+    // Remove last double separator
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
   // FORM PART
   removeSep = true;
-  if(InsideTag(_T("form"),pForm))
+  if(InsideTag(_T("form"),m_popupForm))
   {
     removeSep = false;
     ++firstPosition;
@@ -2255,7 +2269,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag(_T("input"),pField))
+  if(InsideTag(_T("input"),m_popupField))
   {
     removeSep = false;
     ++firstPosition;
@@ -2273,7 +2287,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   {
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
-  if(InsideTag(_T("select"),pSelect))
+  if(InsideTag(_T("select"),m_popupSelect))
   {
     removeSep = false;
     ++firstPosition;
@@ -2283,7 +2297,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
     popup->RemoveMenu(firstPosition,MF_BYPOSITION);
   }
 
-  if(InsideTag(_T("textarea"),pText))
+  if(InsideTag(_T("textarea"),m_popupText))
   {
     removeSep = false;
     ++firstPosition;
@@ -2294,7 +2308,7 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
   }
   if(removeSep)
   {
-    // Remove last double seperator
+    // Remove last double separator
     popup->RemoveMenu(firstPosition++,MF_BYPOSITION);
   }
 
@@ -2327,111 +2341,32 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
       }
     }
 	}
-  UINT item = TrackPopupMenu(*popup
-                            ,TPM_LEFTALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD 
-                            ,ppt->x
-                            ,ppt->y
-                            ,0
-                            ,GetSafeHwnd()
-                            ,nullptr);
-  switch(item)
+
+  // Make and show the popup menu
+  CMFCMenuBar::SetShowAllCommands();
+  htmlMenu->Create(this,ppt->x,ppt->y,popup->GetSafeHmenu(),FALSE,TRUE);
+  htmlMenu->SetMessageWnd(theApp.m_pMainWnd);
+  return S_OK;
+}
+
+void
+CHTMLEdView::CallPopupTag(UINT p_index)
+{
+  int index = p_index - ID_ALLTAGS_FIRSTTAG;
+  if(index < (ID_ALLTAGS_LASTTAG - ID_ALLTAGS_FIRSTTAG))
   {
-    case ID_EDIT_CUT:         CHtmlEditView::Cut();
-                              break;
-    case ID_EDIT_COPY:        CHtmlEditView::Copy();
-                              break;
-    case ID_EDIT_PASTE:       CHtmlEditView::Paste();
-                              break;
-    case ID_CONTEXTMENU_SELECTALL: 
-                              CHtmlEditView::SelectAll();
-                              break;
-    case ID_FORMAT_PARAGRAPH: OnFormatParagraph();
-                              break;
-    case ID_EDIT_FIND:        OnFind();
-                              break;
-    case ID_EDIT_REPLACE_AA:  OnReplace();
-                              break;
-    case ID_PROPERTIES:       OnProperties();
-                              break;
-    case ID_EDIT_CAPTION:     OnDoubleClickCaption(pCaption);
-                              break;
-    case ID_TABLE_TABLEPROPERTIES:
-                              OnTableProperties();
-                              break;
-    case ID_TABLE_CELLPROPERTIES:
-                              OnCellProperties();
-                              break;
-    case ID_TABLE_INSERTROWABOVE:
-                              OnTableInsertRowAbove();
-                              break;
-    case ID_TABLE_INSERTROWBELOW:
-                              OnTableInsertRowBelow();
-                              break;
-    case ID_TABLE_INSERTCOLUMNLEFT:
-                              OnTableInsertColumnBefore();
-                              break;
-    case ID_TABLE_INSERTCOLUMNRIGHT:
-                              OnTableInsertColumnAfter();
-                              break;
-    case ID_TABLE_DELETEROW:
-                              OnTableDeleteRow();
-                              break;
-    case ID_TABLE_DELETECOLUMN:
-                              OnTableDeleteColumn();
-                              break;
-    case IDM_HYPERLINK:       OnAnchor();
-                              break;
-    case ID_EDIT_REMOVEHYPERLINK:
-                              OnRemoveHyperlink();
-                              break;
-    case ID_BUTTON_IMAGE:     OnDoubleClickImage(pImage);
-                              break;
-    case ID_HTMLPOPUP_AREAPROPERTIES:
-                              OnDoubleClickArea(pArea);
-                              break;
-    case ID_HTMLPOPUP_REMOVEAREA:
-                              OnRemoveArea(pArea);
-                              break;
-    case ID_EDIT_COMMENT:     OnEditComment();
-                              break;
-    case ID_BUTTON_ANCHOR:    OnBookmark();
-                              break;
-    case ID_CONTEXT_MARQUEE:  OnMarquee();
-                              break;
-    case ID_CONTEXT_FORM:     OnDoubleClickForm(pForm);
-                              break;
-    case ID_CONTEXT_FIELD:    OnDoubleClickFormInput(pField);
-                              break;
-    case ID_FORM_LABEL:       OnDoubleClickFormLabel(pLabel);
-                              break;
-    case ID_CONTEXT_SELECT:   OnDoubleClickFormSelect(pSelect);
-                              break;
-    case ID_CONTEXT_TEXTAREA: OnDoubleClickFormTextArea(pText);
-                              break;
-    case ID_HTMLPOPUP_LAYERPROPERTIES:
-                              OnDoubleClickDiv(pLayer);
-                              break;
-    case ID_HTMLPOPUP_REMOVELAYER:
-                              OnRemoveLayer(pLayer);
-                              break;
-    case ID_CSSSTYLESHEETS:   OnEditStyleSheets();
-                              break;
-  }
-  if((ID_ALLTAGS_FIRSTTAG < item) && (item <= ID_ALLTAGS_LASTTAG))
-  {
-    unsigned ind = item - ID_ALLTAGS_FIRSTTAG - 1;
-    CComPtr<IHTMLElement> elem = allTags[ind];
+    CComPtr<IHTMLElement> elem = m_popupTags[index];
     if(elem)
     {
       OnEditElement(elem);
     }
   }
   // Clear all tags
-  for(unsigned int ind = 0;ind < allTags.size(); ++ind)
+  for(unsigned int ind = 0;ind < m_popupTags.size(); ++ind)
   {
     try
     {
-      IHTMLElement* elem = allTags[ind];
+      IHTMLElement* elem = m_popupTags[ind];
       elem->Release();
     }
     catch(...)
@@ -2441,21 +2376,18 @@ CHTMLEdView::OnShowContextMenu(DWORD      /*dwID*/
       // process of clearing up things anyway
     }
   }
-  allTags.clear();
-
-  return S_OK;
+  m_popupTags.clear();
 }
-#pragma warning (default : 4311)
 
 void
-CHTMLEdView::GetTagsMenu(CMenu* menu,vector<IHTMLElement*>& allTags)
+CHTMLEdView::GetTagsForPopupMenu(CMenu* menu)
 {
   HRESULT       hr       = S_FALSE;
   IHTMLElement* pElement = NULL;
   IHTMLElement* pParent  = NULL;
   CComBSTR      pStr     = NULL;
+  int           index    = 0;
   CString       text;
-  int x = 1;
 
   // First item deleted
   menu->DeleteMenu(0,MF_BYPOSITION);
@@ -2488,16 +2420,17 @@ CHTMLEdView::GetTagsMenu(CMenu* menu,vector<IHTMLElement*>& allTags)
       }
       // Save this element
       pElement->AddRef();
-      allTags.push_back(pElement);
+      m_popupTags.push_back(pElement);
 
-      menu->AppendMenu(MF_STRING,ID_ALLTAGS_FIRSTTAG + x++,text);
+      menu->AppendMenu(MF_STRING,ID_ALLTAGS_FIRSTTAG + index++,text);
       hr = pElement->get_parentElement(&pParent);
       if(SUCCEEDED(hr))
       {
         pElement = pParent;
       }
     } 
-    while(pElement && SUCCEEDED(hr));
+    while(pElement && SUCCEEDED(hr) &&
+         (index < (ID_ALLTAGS_LASTTAG - ID_ALLTAGS_FIRSTTAG)));
   }
 }
 
@@ -3506,14 +3439,15 @@ CHTMLEdView::OnDoubleClick(int xPos,int yPos)
 
   if(!jumpMap.size())
   {
-    // Initialize jumpmap the first time
+    // Initialize jump map the first time
     int ind = 0;
-    while(jumps[ind].tagname.GetLength())
+    while(g_jumps[ind].tagname.GetLength())
     {
-      jumpMap.insert(std::make_pair(jumps[ind].tagname,ind));
+      jumpMap.insert(std::make_pair(g_jumps[ind].tagname,ind));
       ++ind;
     }
   }
+
   try
   {
     hr = m_Doc2->elementFromPoint(xPos,yPos,&pElement);
@@ -3528,12 +3462,12 @@ CHTMLEdView::OnDoubleClick(int xPos,int yPos)
       if(it != jumpMap.end())
       {
         int ind = it->second;
-        dclickFunction dblClick = jumps[ind].DoubleClick;
-        if(jumps[ind].message.GetLength())
+        dclickFunction dblClick = g_jumps[ind].DoubleClick;
+        if(g_jumps[ind].message.GetLength())
         {
           // Unsupported message
-          unsuppFunction unsupp = jumps[ind].Unsupported;
-          (this->*unsupp)(jumps[ind].message);
+          unsuppFunction unsupp = g_jumps[ind].Unsupported;
+          (this->*unsupp)(g_jumps[ind].message);
         }
         else
         {
@@ -3567,14 +3501,15 @@ CHTMLEdView::OnEditElement(CComPtr<IHTMLElement> pElement)
 
   if(!jumpMap.size())
   {
-    // Initialize jumpmap the first time
+    // Initialize jump map the first time
     int ind = 0;
-    while(jumps[ind].tagname.GetLength())
+    while(g_jumps[ind].tagname.GetLength())
     {
-      jumpMap.insert(std::make_pair(jumps[ind].tagname,ind));
+      jumpMap.insert(std::make_pair(g_jumps[ind].tagname,ind));
       ++ind;
     }
   }
+
   try
   {
     CComBSTR pStr;
@@ -3586,12 +3521,12 @@ CHTMLEdView::OnEditElement(CComPtr<IHTMLElement> pElement)
     if(it != jumpMap.end())
     {
       int ind = it->second;
-      dclickFunction dblClick = jumps[ind].DoubleClick;
-      if(jumps[ind].message.GetLength())
+      dclickFunction dblClick = g_jumps[ind].DoubleClick;
+      if(g_jumps[ind].message.GetLength())
       {
         // Unsupported message
-        unsuppFunction unsupp = jumps[ind].Unsupported;
-        (this->*unsupp)(jumps[ind].message);
+        unsuppFunction unsupp = g_jumps[ind].Unsupported;
+        (this->*unsupp)(g_jumps[ind].message);
       }
       else
       {
@@ -3604,7 +3539,7 @@ CHTMLEdView::OnEditElement(CComPtr<IHTMLElement> pElement)
     {
       CString msg;
       msg.Format(_T("This tag [%s] is not yet supported in 'OnEditElement'"),tag.GetString());
-      theApp.MessageBox(msg,_T("Impelement"),MB_OK|MB_ICONINFORMATION);
+      theApp.MessageBox(msg,_T("Implement"),MB_OK|MB_ICONINFORMATION);
     }
   }
   catch(...)
@@ -4034,7 +3969,7 @@ CHTMLEdView::SetClassName(CString name)
       }
       if(Misc::IsUserSelectableTag(elemTag) && Misc::IsBlockTag(tag))
       {
-        // Tag is normaly accessible in Styles Combo
+        // Tag is normally accessible in Styles Combo
         replace = elem.GetOuterHtml();
         replace = Misc::RemoveTag(replace,elemTag);
         replace = Misc::AddTagClass(replace,tag,classname);
@@ -4472,17 +4407,19 @@ CHTMLEdView::OnFormatParagraph()
 void
 CHTMLEdView::OnDoubleClickParagraph(CComPtr<IHTMLElement> elem)
 {
+  CssStyleSheet css;
   CComPtr<IHTMLStyle> style;
   HRESULT hr = elem->get_style(&style);
   if(SUCCEEDED(hr))
   {
     CComBSTR bText;
     style->get_cssText(&bText);
-    XString cText = CW2CT(bText);
-    cText = XString(_T("p {")) + cText + _T("}");
-    CssStyleSheet css;
-    css.parse_css(cText);
-
+    if(bText.m_str)
+    {
+      XString cText = CW2CT(bText);
+      cText = XString(_T("p {")) + cText + _T("}");
+      css.parse_css(cText);
+    }
     // Do the paragraph dialog
     ParagraphDlg dlg(this,GetBase(),&css,elem,style);
     dlg.DoModal();
@@ -4975,6 +4912,13 @@ CHTMLEdView::OnInsertForm()
 }
 
 void
+CHTMLEdView::OnDoubleClickForm()
+{
+  OnDoubleClickForm(m_popupForm);
+  m_popupForm.Release();
+}
+
+void
 CHTMLEdView::OnDoubleClickForm(CComPtr<IHTMLElement> pElement)
 {
   CComQIPtr<IHTMLFormElement,&IID_IHTMLFormElement> form = pElement;
@@ -5165,6 +5109,13 @@ CHTMLEdView::OnDoubleClickFormImage(CComPtr<IHTMLElement> pElement)
 }
 
 void
+CHTMLEdView::OnDoubleClickFormInput()
+{
+  OnDoubleClickFormInput(m_popupField);
+  m_popupField.Release();
+}
+
+void
 CHTMLEdView::OnDoubleClickFormInput(CComPtr<IHTMLElement> pElement)
 {
   CComQIPtr<IHTMLInputElement,&IID_IHTMLInputElement> input = pElement;
@@ -5193,6 +5144,13 @@ CHTMLEdView::OnInsertFormTextarea()
     CComQIPtr<IHTMLTextAreaElement,&IID_IHTMLTextAreaElement> area = elem;
     FormTextareaDlgToTextAreaElement(&dlg,area);
   }
+}
+
+void
+CHTMLEdView::OnDoubleClickFormTextArea()
+{
+  OnDoubleClickFormTextArea(m_popupText);
+  m_popupText.Release();
 }
 
 void 
@@ -5307,6 +5265,13 @@ CHTMLEdView::OnInsertFormSelect()
     CComQIPtr<IHTMLSelectElement,&IID_IHTMLSelectElement> select = elem;
     FormSelectDlgToSelectElement(dlg,options,select);
   }
+}
+
+void
+CHTMLEdView::OnDoubleClickFormSelect()
+{
+  OnDoubleClickFormSelect(m_popupSelect);
+  m_popupSelect.Release();
 }
 
 void 
@@ -5661,6 +5626,13 @@ CHTMLEdView::OnDoubleClickSpan(CComPtr<IHTMLElement> pElement)
 }
 
 void
+CHTMLEdView::OnDoubleClickDiv()
+{
+  OnDoubleClickDiv(m_popupLayer);
+  m_popupLayer.Release();
+}
+
+void
 CHTMLEdView::OnDoubleClickDiv(CComPtr<IHTMLElement> pElement)
 {
   HtmlElement elem(pElement);
@@ -5688,6 +5660,20 @@ CHTMLEdView::OnDoubleClickSpanDiv(CString p_tag,CComPtr<IHTMLElement> pElement)
   HtmlElement elem(pElement);
   SpanDivDlg dlg(this,GetBase(),p_tag,&elem);
   dlg.DoModal();
+}
+
+void
+CHTMLEdView::OnDoubleClickCaption()
+{
+  OnDoubleClickCaption(m_popupCaption);
+  m_popupCaption.Release();
+}
+
+void
+CHTMLEdView::OnDoubleClickImage()
+{
+  OnDoubleClickImage(m_popupImage);
+  m_popupImage.Release();
 }
 
 void 
@@ -5757,6 +5743,13 @@ CHTMLEdView::OnInsertLayer()
     CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> dom = elem;
     dom->removeNode(VARIANT_FALSE,NULL);
   }
+}
+
+void
+CHTMLEdView::OnRemoveLayer()
+{
+  OnRemoveLayer(m_popupLayer);
+  m_popupLayer.Release();
 }
 
 void

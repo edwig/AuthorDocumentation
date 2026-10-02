@@ -426,6 +426,13 @@ CHTMLEdView::IMGBehaviorSetMap(IMGControlSite* site,CString cmap)
 }
 
 void
+CHTMLEdView::OnDoubleClickArea()
+{
+  OnDoubleClickArea(m_popupArea);
+  m_popupArea.Release();
+}
+
+void
 CHTMLEdView::OnDoubleClickArea(CComPtr<IHTMLElement> pElement)
 {
   HtmlArea area(pElement);
@@ -473,6 +480,13 @@ CHTMLEdView::AreaMessage(CString type,CString start,CString next)
              ,start.GetString()
              ,next .GetString());
   theApp.MessageBox(mess,_T("Drawing the area"),_T("ok"));
+}
+
+void
+CHTMLEdView::OnRemoveArea()
+{
+  OnRemoveArea(m_popupArea);
+  m_popupArea.Release();
 }
 
 void

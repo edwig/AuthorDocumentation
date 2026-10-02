@@ -1,6 +1,13 @@
 RELEASENOTES AuthorDocumentation (AuthorHTML)
 =============================================
 
+Version 1.0.7
+-------------
+1) Changed the implementation of the context menu of an HTML edit, so that 
+   it now resembles the contxt menu of the application, including all icons.
+   In the mean time fixed the not-closing of the context menu and the main
+   menu when clicking outside of the menu.
+
 Version 1.0.6
 -------------
 1) Changed the default release to Unicode build. CSS and HtmlTidy have been

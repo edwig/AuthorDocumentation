@@ -710,7 +710,7 @@ MainFrame::PreTranslateMessage (MSG* pMsg)
     m_bMDINextSeq = FALSE;
     m_hSkipChild  = NULL;
   }
-  return CMDIFrameWnd::PreTranslateMessage(pMsg);
+  return CMDIFrameWndEx::PreTranslateMessage(pMsg);
 }
 
 void MainFrame::OnWindowManager()
@@ -754,7 +754,7 @@ void MainFrame::AssertValid() const
 
 void MainFrame::Dump(CDumpContext& dc) const
 {
-	CMDIFrameWnd::Dump(dc);
+	CMDIFrameWndEx::Dump(dc);
 }
 
 #endif //_DEBUG
@@ -982,7 +982,7 @@ MainFrame::OnMDIMaximize()
 
   if(pMDIChild)
   {
-    CMDIFrameWnd::MDIMaximize(pMDIChild);
+    CMDIFrameWndEx::MDIMaximize(pMDIChild);
   }
 }
 

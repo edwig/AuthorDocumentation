@@ -1536,6 +1536,7 @@
 #define ID_FORMAT_BRINGABOVETEXT        32798
 #define ID_FORMAT_ABSOLUTEPOSITIONELEMENT 32799
 #define ID_FORMAT_STATICELEMENT         32800
+#define ID_POPUP_IMAGE                  32801 
 #define ID_VIEW_WEB                     32802
 #define ID_VIEW_SOURCE                  32803
 #define ID_BUTTON_HYPERLINK             32804

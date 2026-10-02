@@ -7,7 +7,7 @@
 // Written by: ir W.E. Huisman
 // Dates:      2007 - 2026
 //
-// Iimplementation of the CHTMLEdView class
+// Implementation of the CHTMLEdView class
 // VIEW with the MSHMTL control for a HTML page
 //
 // This is the main view for a HTML editor
@@ -33,6 +33,7 @@
 //interface IDAuthorHTML;
 
 typedef std::multimap<CString,IHighlightSegment*> HighLights;
+typedef std::vector<IHTMLElement*>                PopupTags;
 
 class CHTMLEdView : public CHtmlEditView
 {
@@ -209,6 +210,17 @@ protected:
   void OnRemoveLayer            (CComPtr<IHTMLElement> pElement);
   void OnRemoveArea             (CComPtr<IHTMLElement> pElement);
 
+  void OnDoubleClickCaption();
+  void OnDoubleClickImage();
+  void OnDoubleClickArea();
+  void OnDoubleClickDiv();
+  void OnDoubleClickForm();
+  void OnDoubleClickFormInput();
+  void OnDoubleClickFormSelect();
+  void OnDoubleClickFormTextArea();
+  void OnRemoveArea();
+  void OnRemoveLayer();
+
   void OnInsertBR();
   void OnInsertHR();
   void OnInsertComment();
@@ -226,6 +238,7 @@ protected:
   BOOL GotoPreviousCell();
   void OnFind();
   void OnReplace();
+  void OnSelectAll();
   void OnSearchText(bool findOnly);
   void OnMarquee();
   void OnBreakBelowImages();
@@ -296,7 +309,7 @@ protected:
   void OnPaste();
   void OnUndo();
   void OnRedo();
-  void OnSelectAll();
+  void OnContextSelectAll();
   void OnNoFormat();
   void OnLeftJustify();
   void OnCenterJustify();
@@ -370,6 +383,7 @@ private:
   // Create a new HTML element of a givven TAG-ID
   CComPtr<IHTMLElement> CreateNewElement(ELEMENT_TAG_ID tag,CString* p_attributes);
   // Translate an area to the underlying image
+  void    CallPopupTag(UINT p_index);
   void    OnSelectionWarning(CString forTag);
   void    FormDlgToFormElement(FormDlg& dlg,CComPtr<IHTMLFormElement> form);
   void    FormFieldDlgToInputElement (FormFieldDlg&  dlg,CComPtr<IHTMLInputElement> field);
@@ -380,7 +394,7 @@ private:
   bool    SpellCheck(CComPtr<IHTMLElement> pElement,int& errors,int &changed);
   void    ReleaseHighlights();
   void    HighLightSpellErrors();
-  void    GetTagsMenu(CMenu* menu,vector<IHTMLElement*>& allTags);
+  void    GetTagsForPopupMenu(CMenu* menu);
   // Get a unique number for a tag of a specified name (a, div-layer)
   long    GetUniqueID(CString tagname);
   void    CheckBase();
@@ -418,7 +432,7 @@ private:
       CString message;
   }
   TagJumps;
-  static  TagJumps jumps[];
+  static  TagJumps g_jumps[];
 
   // Is our document complete (Navigate2 and OnDownloadComplete)
   bool m_complete;
@@ -428,8 +442,20 @@ private:
   HTMLDocEditDesigner m_designer;
   // THIS IS OUR DOCUMENT
 	CComQIPtr<IHTMLDocument2> m_Doc2;
-  // Map with highLight segements for spelling errors
+  // Map with highLight segments for spelling errors
   HighLights m_highLights;
+  // All tags on the popup menu for clicking on a TAG in the submenu
+  PopupTags m_popupTags;
+
+  // Elements for the popup menu
+  CComPtr<IHTMLElement> m_popupCaption;
+  CComPtr<IHTMLElement> m_popupImage;
+  CComPtr<IHTMLElement> m_popupArea;
+  CComPtr<IHTMLElement> m_popupLayer;
+  CComPtr<IHTMLElement> m_popupForm;
+  CComPtr<IHTMLElement> m_popupField;
+  CComPtr<IHTMLElement> m_popupSelect;
+  CComPtr<IHTMLElement> m_popupText;
 };
 
 #ifndef _DEBUG  // debug version in HTMLEdView.cpp
