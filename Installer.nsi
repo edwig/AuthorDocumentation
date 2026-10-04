@@ -50,6 +50,7 @@
  ; MUI Settings
  !define MUI_ICON   "AuthorHTML\res\AuthorHTML.ico"
  !define MUI_UNICON "AuthorHTML\res\AuthorHTML.ico"
+ !define MUI_WELCOMEFINISHPAGE_BITMAP "AuthorHTML\res\Installer.bmp"
  !define MUI_BGCOLOR F0F0F0
  !define MUI_HEADER_TRANSPARENT_TEXT
  !define MUI_COMPONENTSPAGE_NODESC
