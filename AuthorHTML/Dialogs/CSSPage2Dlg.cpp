@@ -274,6 +274,10 @@ CSSPage2Dlg::OnInitDialog()
   m_buttonColor.SetColor(COLOR_DEFAULT_FOREGROUND);
   m_buttonColor.EnableOtherButton(_T("More colors"));
 
+  m_comboFontPredefined.AddString(_T("Arial, Helvetica, Sans-serif")); 
+  m_comboFontPredefined.AddString(_T("Times New Roman, Times, Serif"));
+  m_comboFontPredefined.AddString(_T("Courier New,Courier, Monospace"));
+
   // Read in all the attributes
   FillPage();
   InitCombos();
