@@ -12,6 +12,7 @@
 #include "stdafx.h"
 #include "AuthorHTML.h"
 #include "TopicPropPage4.h"
+#include "TableProperties.h"
 #include "HTMLScript.h"
 #include "ScriptDlg.h"
 
@@ -219,6 +220,21 @@ TopicPropPage4Dlg::OnBnClickedEdit()
   if(now < num)
   {
     ScriptDef* def = &(m_scripts[now]);
+
+    // Check for stand alone script
+    if(!def->src.IsEmpty())
+    {
+      CString filename = m_base + def->src;
+      theApp.OpenTypedDocumentFile(filename);
+      CTablePropertiesDlg* parent = reinterpret_cast<CTablePropertiesDlg*>(GetParent());
+      if(parent)
+      {
+        parent->OnCancel();
+      }
+      return;
+    }
+
+    // Clearly an internal script
     CComQIPtr<IHTMLElement,&IID_IHTMLElement> elem = def->script;
     HtmlScript script(elem);
     ScriptDlg dlg(this,&script,m_base);

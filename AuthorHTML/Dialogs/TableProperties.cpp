@@ -213,3 +213,9 @@ CTablePropertiesDlg::UpdateRows(int rows)
   // Broadcast to all pages?
   m_tab1Dlg->SetRows(rows);
 }
+
+void 
+CTablePropertiesDlg::OnCancel()
+{
+  CDialog::OnCancel();
+}
