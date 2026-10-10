@@ -1539,8 +1539,9 @@
 #define ID_POPUP_IMAGE                  32801 
 #define ID_VIEW_WEB                     32802
 #define ID_VIEW_SOURCE                  32803
-#define ID_BUTTON_HYPERLINK             32804
-#define ID_BUTTON_CENTERJUSTIFY         32805
+#define ID_VIEW_SCRIPT                  32804
+#define ID_BUTTON_HYPERLINK             32805
+#define ID_BUTTON_CENTERJUSTIFY         32806
 #define ID_BUTTON_ABSOLUTE              32808
 #define ID_BUTTONSTATIC                 32809
 #define ID_BUTTON_STATIC                32809

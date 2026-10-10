@@ -17,6 +17,7 @@
 #include "geturl.h"
 #include "mainfrm.h"
 #include "ScintillaHTMLView.h"
+#include "ScintillaScriptView.h"
 #include "tidy.h"
 #include <io.h>
 
@@ -352,6 +353,12 @@ CHTMLEdDoc::SaveMyDocument()
       AfxGetApp()->AddToRecentFileList(m_sSaveFileName);
       TidyFile();
       return result;
+    }
+    else if(viewType == ID_VIEW_SCRIPT)
+    {
+      CScintillaScriptView* pScriptView = (CScintillaScriptView*)frame->GetScriptView();
+      pScriptView->GetCtrl().GetWindowText(text);
+      return InternalSave(text);
     }
   }
   ASSERT(FALSE);

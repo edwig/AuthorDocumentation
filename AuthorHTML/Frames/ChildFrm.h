@@ -15,6 +15,8 @@
 #include "ScintillaHTMLView.h"
 #include <afxmdichildwndex.h>
 
+class CScintillaScriptView;
+
 class CMDIChildFrame : public CMDIChildWndEx
 {
 	DECLARE_DYNCREATE(CMDIChildFrame)
@@ -32,6 +34,7 @@ public:
   void          SwapView();
   void          SwapView(int nCmdId);
   CView*        GetSourceView();
+  CView*        GetScriptView();
   CHTMLEdView*  GetWebView();
   DWORD         GetCurrentView();
   CView*        GetActiveView();
@@ -65,10 +68,11 @@ protected:
 
   virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
 
-	int                m_nColor;    // COlor of the tab
-  ScintillaHTMLView* m_pSrcView;
-  CHTMLEdView*       m_pWebView;
-  DWORD              m_dwCurrentView;
+	int                   m_nColor;    // COlor of the tab
+  ScintillaHTMLView*    m_pSrcView;
+  CScintillaScriptView* m_pScriptView;
+  CHTMLEdView*          m_pWebView;
+  DWORD                 m_dwCurrentView;
 };
 
 inline CHTMLEdView* 

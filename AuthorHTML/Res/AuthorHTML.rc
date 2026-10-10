@@ -819,11 +819,8 @@ BEGIN
     END
     POPUP "&Window"
     BEGIN
-        MENUITEM "Properties",                  ID_PROPERTIES
-        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
-        MENUITEM "&Tile horizontally",          ID_WINDOW_TILE_HORZ
-        MENUITEM "Tile &vertically",            ID_WINDOW_TILE_VERT
-        MENUITEM "&Arrange icons",              ID_WINDOW_ARRANGE
+      MENUITEM "&Arrange Icons",                ID_WINDOW_ARRANGE, GRAYED
+      MENUITEM "Properties",                    ID_PROPERTIES
     END
     POPUP "&Help"
     BEGIN
@@ -977,14 +974,21 @@ BEGIN
     END
     POPUP "&Window"
     BEGIN
-        MENUITEM "&New Window",                 ID_WINDOW_NEW
-        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
-        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE, GRAYED
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About ScintillaDemo...",     ID_APP_ABOUT
+        MENUITEM "Help Index\tF1",              ID_HELP_HELPINDEX
+        MENUITEM SEPARATOR
+        MENUITEM "Release notes",               ID_HELP_RELEASENOTES
+        POPUP "Reference manuals"
+        BEGIN
+            MENUITEM "Microsoft HTML/CSS",          ID_REFERENCEMANUALS_MICROSOFTHTML
+            MENUITEM "W3C HTML 4.01",               ID_REFERENCEMANUALS_W3CHTML4
+            MENUITEM "W3C CSS 2.1",                 ID_REFERENCEMANUALS_W3CCSS2
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&About AuthorDocumentation...", ID_APP_ABOUT
     END
 END
 
@@ -1042,14 +1046,21 @@ BEGIN
     END
     POPUP "&Window"
     BEGIN
-        MENUITEM "&New Window",                 ID_WINDOW_NEW
-        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
-        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE, GRAYED
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About ScintillaDemo...",     ID_APP_ABOUT
+        MENUITEM "Help Index\tF1",              ID_HELP_HELPINDEX
+        MENUITEM SEPARATOR
+        MENUITEM "Release notes",               ID_HELP_RELEASENOTES
+        POPUP "Reference manuals"
+        BEGIN
+            MENUITEM "Microsoft HTML/CSS",      ID_REFERENCEMANUALS_MICROSOFTHTML
+            MENUITEM "W3C HTML 4.01",           ID_REFERENCEMANUALS_W3CHTML4
+            MENUITEM "W3C CSS 2.1",             ID_REFERENCEMANUALS_W3CCSS2
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&About AuthorDocumentation...", ID_APP_ABOUT
     END
 END
 

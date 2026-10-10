@@ -13,6 +13,7 @@
 #include "AuthorHTML.h"
 #include "ChildFrm.h"
 #include "MainFrm.h"
+#include "ScintillaScriptView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,15 +47,11 @@ END_MESSAGE_MAP()
 // CMDIChildFrame construction/destruction
 
 CMDIChildFrame::CMDIChildFrame()
-               :m_pSrcView(NULL)
-               ,m_pWebView(NULL)
+               :m_pSrcView(nullptr)
+               ,m_pWebView(nullptr)
+               ,m_pScriptView(nullptr)
                ,m_dwCurrentView(ID_VIEW_WEB)
 {
-// 	m_nColor = nColor++;
-// 	if (nColor > xtpTabColorMagenta)
-//   {
-//     nColor = xtpTabColorBlue;
-//   }
 }
 
 CMDIChildFrame::~CMDIChildFrame()
@@ -64,9 +61,8 @@ CMDIChildFrame::~CMDIChildFrame()
 LRESULT 
 CMDIChildFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (message == WM_NCPAINT)
+	if(message == WM_NCPAINT)
 	{
-		// prevent caption blinking
 		return TRUE;
 	}
 	return CMDIChildWndEx::WindowProc(message, wParam, lParam);
@@ -87,7 +83,7 @@ CMDIChildFrame::PreCreateWindow(CREATESTRUCT& cs)
 int 
 CMDIChildFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-  if (CMDIChildWndEx::OnCreate(lpCreateStruct) == -1)
+  if(CMDIChildWndEx::OnCreate(lpCreateStruct) == -1)
   {
     return -1;
   }
@@ -95,20 +91,61 @@ CMDIChildFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 BOOL 
-CMDIChildFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext) 
+CMDIChildFrame::OnCreateClient(LPCREATESTRUCT  lpcs
+                              ,CCreateContext* pContext) 
 {	
-  CDocument *pDoc=NULL;
+  CRuntimeClass* prc = nullptr;
+  CDocument*    pDoc = nullptr;
   POSITION pos;
   BOOL bRet = FALSE;
-  //create the source view for this document at this time
-  CRuntimeClass *prc = RUNTIME_CLASS(ScintillaHTMLView);
-  ASSERT(prc);
-  m_pSrcView = (ScintillaHTMLView*)prc->CreateObject();
-  if(m_pSrcView)
+
+  if(stricmp(pContext->m_pNewViewClass->m_lpszClassName,"CScintillaScriptView") == 0)
   {
-    VERIFY(m_pSrcView->Create(NULL, NULL, AFX_WS_DEFAULT_VIEW,
-    CRect(0,0,0,0), this, AFX_IDW_PANE_LAST, NULL));
+    prc = RUNTIME_CLASS(CScintillaScriptView);
+    ASSERT(prc);
+    m_pScriptView = (CScintillaScriptView*)prc->CreateObject();
+    if(m_pScriptView)
+    {
+      VERIFY(m_pScriptView->Create(NULL, NULL
+                                  ,AFX_WS_DEFAULT_VIEW
+                                  ,CRect(0,0,0,0)
+                                  ,this
+                                  ,AFX_IDW_PANE_LAST
+                                  ,NULL));
+      m_dwCurrentView = ID_VIEW_SCRIPT;
+    }
   }
+  else
+  {
+    prc = RUNTIME_CLASS(CHTMLEdView);
+    ASSERT(prc);
+    m_pWebView = (CHTMLEdView*)prc->CreateObject();
+    if(m_pWebView)
+    {
+      VERIFY(m_pWebView->Create(NULL, NULL
+                               ,AFX_WS_DEFAULT_VIEW
+                               ,CRect(0,0,0,0)
+                               ,this
+                               ,AFX_IDW_PANE_LAST
+                               ,NULL));
+    }
+
+    //create the source view for this document at this time
+    prc = RUNTIME_CLASS(ScintillaHTMLView);
+    ASSERT(prc);
+    m_pSrcView = (ScintillaHTMLView*)prc->CreateObject();
+    if(m_pSrcView)
+    {
+      VERIFY(m_pSrcView->Create(NULL, NULL
+                               ,AFX_WS_DEFAULT_VIEW
+                               ,CRect(0,0,0,0)
+                               ,this
+                               ,AFX_IDW_PANE_LAST
+                               ,NULL));
+    }
+    m_dwCurrentView = ID_VIEW_WEB;
+  }
+
   //create the doc-template view and save off a pointer to it
   // SDI-MDI
   bRet = CMDIChildWndEx::OnCreateClient(lpcs, pContext);
@@ -116,22 +153,39 @@ CMDIChildFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
   if(bRet && pDoc)
   {
     pos = pDoc->GetFirstViewPosition();
-    pDoc->AddView(m_pSrcView);
+    if(m_pSrcView)
+    {
+      pDoc->AddView(m_pWebView);
+      pDoc->AddView(m_pSrcView);
+    }
+    if(m_pScriptView)
+    {
+      pDoc->AddView(m_pScriptView);
+    }
   }
   else
   {
     return FALSE;
   }
   CView *pView = pDoc->GetNextView(pos);
-  ASSERT(pView->IsKindOf(RUNTIME_CLASS(CHTMLEdView)));
   if(pView)
   {
-    m_pWebView = (CHTMLEdView*) pView;
+    if(pView->IsKindOf(RUNTIME_CLASS(CHTMLEdView)))
+    {
+      m_pWebView = (CHTMLEdView*) pView;
+    }
+    else if(pView->IsKindOf(RUNTIME_CLASS(ScintillaHTMLView)))
+    {
+      m_pSrcView = (ScintillaHTMLView*) pView;
+    }
+    else if(pView->IsKindOf(RUNTIME_CLASS(CScintillaScriptView)))
+    {
+      m_pScriptView = (CScintillaScriptView*) pView;
+    }
+    else return FALSE;
   }
-  else
-  {
-    return FALSE;
-  }
+  else return FALSE;
+
   // Workbook implementation
   ASSERT_KINDOF(MainFrame, GetMDIFrame());
   ((MainFrame*)GetMDIFrame())->OnCreateChild(this);
@@ -161,7 +215,7 @@ CMDIChildFrame::OnSysCommand(UINT nID,LPARAM lParam)
 }
 
 void 
-CMDIChildFrame::OnMDIActivate (BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
+CMDIChildFrame::OnMDIActivate(BOOL bActivate,CWnd* pActivateWnd,CWnd* pDeactivateWnd)
 {
   CMDIChildWndEx::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
   if (bActivate && this == pActivateWnd)
@@ -171,7 +225,7 @@ CMDIChildFrame::OnMDIActivate (BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeacti
 }
 
 LRESULT 
-CMDIChildFrame::OnSetText (WPARAM, LPARAM lParam)
+CMDIChildFrame::OnSetText(WPARAM,LPARAM lParam)
 {
   Default();
 
@@ -192,8 +246,8 @@ CMDIChildFrame::SwapView(int nCmdID)
   if(nCmdID == ID_VIEW_SOURCE)
   {
     //swap the view IDs
-    m_pWebView->SetDlgCtrlID(AFX_IDW_PANE_LAST);
     m_pSrcView->SetDlgCtrlID(AFX_IDW_PANE_FIRST);
+    m_pWebView->SetDlgCtrlID(AFX_IDW_PANE_LAST);
 
     // Saves the document to disk, so the other document view
     // can handle it as 'non-saved, not altered
@@ -232,7 +286,19 @@ CMDIChildFrame::SwapView(int nCmdID)
     RecalcLayout();
 
     m_dwCurrentView = ID_VIEW_WEB;
-    g_statusBar->SetPaneText(1, _T("WEB VIEW")); // , TRUE);
+    g_statusBar->SetPaneText(1, _T("WEB VIEW"));
+    return;
+  }
+  else if (nCmdID == ID_VIEW_SCRIPT)
+  {
+    //swap the view IDs
+    m_pScriptView->SetDlgCtrlID(AFX_IDW_PANE_FIRST);
+    m_pScriptView->ShowWindow(SW_SHOW);
+    //re-layout everything
+    SetActiveView(m_pScriptView);
+    RecalcLayout();
+    m_dwCurrentView = ID_VIEW_SCRIPT;
+    g_statusBar->SetPaneText(1,_T("JAVASCRIPT"));
     return;
   }
 }
@@ -274,11 +340,13 @@ CMDIChildFrame::OnViewWebRedisplay()
 CView*
 CMDIChildFrame::GetActiveView()
 {
-  if(m_dwCurrentView == ID_VIEW_WEB)
+  switch (m_dwCurrentView)
   {
-    return (CView*) m_pWebView;
-  }
-  return (CView*) m_pSrcView;
+    case ID_VIEW_WEB:     return (CView*)m_pWebView;
+    case ID_VIEW_SOURCE:  return (CView*)m_pSrcView;
+    case ID_VIEW_SCRIPT:  return (CView*)m_pScriptView;
+  } 
+  return nullptr;
 }
 
 void 
@@ -298,6 +366,12 @@ CView*
 CMDIChildFrame::GetSourceView()
 {
   return DYNAMIC_DOWNCAST(CView,m_pSrcView);
+}
+
+CView*
+CMDIChildFrame::GetScriptView()
+{
+  return DYNAMIC_DOWNCAST(CView, m_pScriptView);
 }
 
 DWORD 

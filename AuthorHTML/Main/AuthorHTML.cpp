@@ -228,7 +228,7 @@ BOOL AuthorHTMLApp::InitInstance()
 	CMultiDocTemplate* pJScriptDocTemplate;
 	pJScriptDocTemplate = new CMultiDocTemplate(IDR_JAVASCRIPT,
  		                                          RUNTIME_CLASS(CScintillaScriptDoc),
- 		                                          RUNTIME_CLASS(ScintillaChildFrame), // custom MDI child frame
+ 		                                          RUNTIME_CLASS(CMDIChildFrame),
  		                                          RUNTIME_CLASS(CScintillaScriptView));
   if(!pJScriptDocTemplate)
   {
@@ -417,7 +417,10 @@ AuthorHTMLApp::OnIdle(LONG lCount)
     if(first)
     {
       CHTMLEdView* web = first->GetWebView();
-      web->SpellCheckOnIdle();
+      if (web)
+      {
+        web->SpellCheckOnIdle();
+      }
     }
 	}
 	return lCount < 2;  // more to do if lCount < 1
