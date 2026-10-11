@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>Template title</title>
+    <meta content="" http-equiv="X-UA-Compatible">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="GENERATOR" content="AuthorDocumentation">
+    <link rel="Stylesheet" type="text/css" href="default.css">
+    <meta name="AuthorOriginalAuthor" content="">
+    <meta name="AuthorDocComment" content="">
+    <meta name="AuthorHTMLTemplate" content="">
+    <meta name="AuthorStatus" content="0">
+    <meta name="AuthorPriority" content="0">
+    <meta name="AuthorTimeSpent" content="0">
+    <meta name="AuthorToDo" content="0">
+    <meta name="AuthorWidth" content="0">
+    <meta name="AuthorHeight" content="0">
+    <meta name="MS-HKWD" content="Releasenotes">
+    <meta name="MS-MAP-ID" content="HH_RELEASENOTES" declare="2">
+</head>
+
+<body>
+    <h1>Releasenotes</h1>
+
+    <h3>Version 1.0.6</h3>
+
+    <ul>
+        <li>Changed the default release to Unicode build. CSS and HtmlTidy have been changed to work with the Unicode version
+        HHP, HHC and HHK files can be stored in DBCS (Double-Byte-Character-Set) mode to accomodate asian languages, like
+        Chinese, Kanji, Korean or Vietnamese.</li>
+
+        <li>Added the topic ID to the keywords section (see 3th tab on the Topic dialog) You can add an ID and alias to the
+        keyword list, that can be exported to the [MAP] and [ALIAS] sections of the HHP file.</li>
+
+        <li>Re1moved the empty entry in the RecentFileList for the startup dialog</li>
+
+        <li>Fixed the scripts dialog in the topic-properties dialog to correctly show the internal scripts on a topic
+        page.</li>
+
+        <li>Editting the default font also changes the font in the TOC on screen and in the project file and compiled CHM.</li>
+
+        <li>Various fixes for CSS and the CSS editor. The decomposition and composition of properties has been fixed.</li>
+    </ul>
+
+    <h3>Version 1.0.5</h3>
+
+    <ul>
+        <li>Reworked the "New project" function from the start dialog Now creates a full new project with reasonable defaults,
+        a window definition and a default "Intro.html" file with a Table-Of-Contents. Can directly be compiled to a CHM,
+        without having to fill in the project settings and window settings dialogs.</li>
+
+        <li>Default storing of the HTML files is changed to UTF-8 with BOM, so that the files are correctly read by the browser
+        and the help compiler, and that we can correctly use international characters in the HTML files.</li>
+
+        <li>X-UA-Compatible meta tag can now be set in the topic-properties dialog, so that the browser can correctly render
+        the HTML files in HTML5 and CSS3. Doing so will however remove the ability to show the tag icons and the
+        end-of-paragraph icons in the browser, since these are not supported in HTML5.</li>
+    </ul>
+
+    <h3>Version 1.0.4</h3>
+
+    <ul>
+        <li>Editting of TOC entries is re-enabled again from the TOC view. A edit icon has been added there to edit the current
+        entry.</li>
+
+        <li>The TOC can now save the image number again without altering any other part of the TOC entry properties.</li>
+
+        <li>Fix for saving multi-level topic keywords. The second en higher levels are now correctly stripped from leading and
+        trailing spaces.</li>
+
+        <li>Fix for the broken link detector. The BrokenLinks Dialog is now displaying no more false positives.</li>
+
+        <li>Restored the split-cursors for gripping the panes</li>
+
+        <li>Resizing of the list on the startup dialog.</li>
+
+        <li>Rewritten the addressCombo box for various dialogs to work more correctly with the relative and absolute
+        pathnames.</li>
+
+        <li>Broken-links detector is upgraded for better yields on the results. relative paths did lead to false positives, now
+        the relative paths are resolved to absolute paths before checking.</li>
+
+        <li>Fixed URLDlg to open a page outside of an CHM project.</li>
+    </ul>
+
+    <h3>Version 1.0.3</h3>
+
+    <ul>
+        <li>Reading/Writing HHP, HHC and HHK files are now implemented with WinFile This makes it possible to read/write the
+        BOM of the files.</li>
+
+        <li>Rewritten the read/write of the *.CSS files</li>
+
+        <li>Extra checks on the files in the window definition. TOC and HKK must be relative pathnames there.</li>
+
+        <li>Fully support all CSS measurement units:
+            <pre style="FONT-SIZE: 10pt; LINE-HEIGHT: 11pt; pre: Courier New,Courier, Monospace">
+// Absolute size
+px      // Pixels ( 1/96 of an inch)
+in      // Inch
+cm      // Centimeter (1/2.54  of an inch)
+mm      // Millimeter (1/25.4  of an inch)
+Q       // Quarter    (1/101.6 of an inch)
+pt      // Point      (1/72    of an inch)
+pc      // Pica       (1/6     of an inch)
+
+// Relative size
+%       // Percentage of the browser viewport
+ex      // Height of the fonts 'x' character
+em      // Width of the em of a font
+rem     // Width of the em of the root font
+vh      // Percentage of the viewport height
+vw      // Percentage of the viewport width
+vmin    // Percentage of the minimum of viewport(width and height)
+vmax    // Percentage of the maximum of viewport(width and height)
+</pre>
+        </li>
+
+        <li>Fix for entering bookmarks and hyperlinks again by selecting text and converting it into a bookmark or hyperlink by
+        the apropriate command.</li>
+
+        <li>Custum dictionaries and ignore lists per selected language, so that the additions to the standard spelling
+        libraries will be split on a per-language basis.</li>
+
+        <li>Spelling correction now corrects for quotes that the browser editor sees as part of the word the spell-correct. The
+        quotes are now not entered in the dictionary any more.</li>
+    </ul>
+
+    <h3>Version 1.0.2</h3>
+
+    <ul>
+        <li>Rebuilding the index view after changing an index keyword on the topic-properties dialog (3th tab)</li>
+
+        <li>Checking that index words do NOT contain a comma (,)</li>
+
+        <li>Reworking of the index editting</li>
+
+        <li>Rewritten the K-Link keywords logic in the HTML file so that the index is correctly filled-in without having to
+        worry about entering the keyword multiple times</li>
+
+        <li>Fix for the help on the draw a polygon area functions so that it becomes clear that you have to click on the
+        beginning point againt o close the polygon</li>
+
+        <li>The top menu's now all show all items so that the menu is stable</li>
+
+        <li>Fixed the constant questioning to rename the topic file on the filesystem after editting one of the topic
+        properties.</li>
+
+        <li>The default installation folder in the installer is now moved to
+        %APPDATA%\Local\Programs\EDO\AuthorDocumentation\AuthorHTML This is make sure we can re-write our custom dictionaries
+        while spell-checking our HTML topic files.</li>
+    </ul>
+
+    <h3>Version 1.0.1</h3>
+
+    <ul>
+        <li>Added the htmlhelp.exe installer file (with the help compiler) and added a note for Microsoft about the
+        rights.</li>
+
+        <li>Fully roundtrip decompiling-compiling by correcting the default HHP file that the decompilation writes.</li>
+
+        <li>Expanding on the icon artwork on the startup dialog</li>
+
+        <li>Various corrections on the URL paths of topic files.</li>
+    </ul>
+
+    <h3>Version 1.0.0</h3>
+
+    <ul>
+        <li>Initial deployment on github Product had been in use for more than 15 years now.</li>
+    </ul>
+</body>
+</html>

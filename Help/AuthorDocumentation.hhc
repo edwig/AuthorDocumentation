@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+  <META name="EDO-AuthorDocumentation" content="Version: ??7">
+</HEAD>
+<!-- Sitemap 1.0 -->
+<BODY>
+<OBJECT type="text/site properties">
+  <param name="SiteType" value="toc">
+</OBJECT>
+<UL>
+    <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Welcome">
+        <param name="Local" value="Intro.html">
+        <param name="ImageNumber" value="9">
+    </OBJECT>
+    <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Startup">
+        <param name="Local" value="StartupDialog.html">
+    </OBJECT>
+    <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="Releasenotes">
+        <param name="Local" value="Releasenotes.htm">
+    </OBJECT>
+</UL>
+</BODY>
+</HTML>
