@@ -81,7 +81,7 @@ public:
   int   ErrorMessage(const CString& message);
   void  Panic(CString message);
 
-  void  ShowHtmlHelp(CString const& pad,UINT uMode,HH_AKLINK& link);
+  void  ShowHtmlHelp(DWORD p_topicID);
 
 
   UINT  m_nAppLook { 0 };
@@ -110,6 +110,8 @@ public:
   afx_msg void OnHasProject  (CCmdUI* pCmdUI);
   afx_msg void OnHasNoProject(CCmdUI* pCmdUI);
   afx_msg void OnHasContent  (CCmdUI* pCmdUI);
+  afx_msg void OnHelpIndex();
+  afx_msg void OnHelpReleaseNotes();
 
   DECLARE_MESSAGE_MAP()
 
@@ -128,6 +130,7 @@ private:
   void OnManualW3C_HTML();
   void OnManualW3C_CSS();
   bool LoadHtmlHelpDLL();
+  CString GetHelpfileName();
 
   CString            m_baseDir;                                     // Directory folder of the documentation project
   CString            m_binDir;                                      // Directory folder of the AuthorHTML binaries

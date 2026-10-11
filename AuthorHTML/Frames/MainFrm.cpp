@@ -750,7 +750,7 @@ MainFrame::OnDestroyChild (CMDIChildWnd* pWnd)
 {
   m_openFiles.OpenFiles_RemoveByParam((LPARAM)pWnd);
 
-  // 16.03.2003 bug fix, a woorkbook tab toltip shows a wrong path if any left tab has been closed
+  // 16.03.2003 bug fix, a workbook tab tooltip shows a wrong path if any left tab has been closed
   CWnd* pMDIClient = GetWindow(GW_CHILD);
   CWnd* pMDIChild = (pMDIClient) ? pMDIClient->GetWindow(GW_CHILD) : 0;
   int   count = 0;
@@ -924,7 +924,7 @@ void MainFrame::OnSysCommand(UINT nID,LPARAM lParam)
   CMDIFrameWndEx::OnSysCommand(nID, lParam);
 
   UINT nItemID = (nID & 0xFFF0);
-  // 16.03.2003 bug fix, violetion in debug mode when the application is closing
+  // 16.03.2003 bug fix, violation in debug mode when the application is closing
   if ((nItemID == SC_MAXIMIZE || nItemID == SC_RESTORE) && !m_bHelpMode)
   {
     RecalcLayout(TRUE/*bNotify*/);

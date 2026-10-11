@@ -310,7 +310,7 @@ StartupDlg::OnLvnItemchangedList(NMHDR *pNMHDR, LRESULT *pResult)
 void 
 StartupDlg::OnBnClickedHelp()
 {
-  // TODO: Add your control notification handler code here
+  theApp.ShowHtmlHelp(10);
 }
 
 void 

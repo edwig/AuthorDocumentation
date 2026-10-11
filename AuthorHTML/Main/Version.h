@@ -30,15 +30,8 @@
 #define VERSION_NUMBER    STRINGIZE(VERSION_MAJOR) "." STRINGIZE(VERSION_MINOR) "." STRINGIZE(VERSION_SP)
 #define VERSION_COMPLETE  STRINGIZE(VERSION_MAJOR) "." STRINGIZE(VERSION_MINOR) "." STRINGIZE(VERSION_SP) ":" STRINGIZE(BUILD_NUMBER)
 
-// Standard format of the HHP, HHC and HHK files for the Microsoft HTML Help Workshop
-// 
-//#define AUTHOR_HTML_ENCODING  Encoding::LE_UTF16
-//#define AUTHOR_HTML_ENCODING  Encoding::UTF8
-#define AUTHOR_HTML_ENCODING    Encoding::EN_ACP
-
 // Standard document type for HTML, HHK, HHC files
-#define AUTHOR_DOCTYPE          "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">"
-#define AUTHOR_DOCTYPE_TRANS    "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
+#define AUTHOR_DOCTYPE "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">"
 
 // For documentation of the CHM format see:
 // https://www.nongnu.org/chmspec/latest/

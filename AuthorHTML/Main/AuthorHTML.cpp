@@ -112,7 +112,7 @@ AuthorHTMLApp::ResetProject()
 // AuthorHTMLApp message map
 //
 BEGIN_MESSAGE_MAP(AuthorHTMLApp, CWinAppEx)
-  ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
+  ON_COMMAND(ID_APP_ABOUT,         OnAppAbout)
   // Standard file based document commands
   ON_COMMAND(ID_FILE_NEW,          OnNewFile)
   ON_COMMAND(ID_FILE_NEWPROJECT,   OnNewProject)
@@ -126,6 +126,9 @@ BEGIN_MESSAGE_MAP(AuthorHTMLApp, CWinAppEx)
   ON_COMMAND(ID_FILE_PRINT_SETUP,  CWinAppEx::OnFilePrintSetup)
   ON_COMMAND(ID_COMPILE_HELP,      OnCompile)
   ON_COMMAND(ID_READHELP,          OnReadHelp)
+  // Help menu commands
+  ON_COMMAND(ID_HELP_HELPINDEX,    OnHelpIndex)
+  ON_COMMAND(ID_HELP_RELEASENOTES, OnHelpReleaseNotes)
 
   ON_COMMAND(ID_TOOLS_PROJECT,     OnProjectSettings)
   ON_COMMAND(ID_WINDOWDEFS,        OnWindowDefinitions)
@@ -1251,15 +1254,45 @@ AuthorHTMLApp::LoadHtmlHelpDLL()
   return false;
 }
 
-void
-AuthorHTMLApp::ShowHtmlHelp(CString const& pad,UINT uMode,HH_AKLINK& link)
+CString
+AuthorHTMLApp::GetHelpfileName()
 {
+#ifdef _DEBUG
+  return theApp.GetBinDirectory() + _T("..\\..\\doc\\AuthorDocumentation.chm");
+#else
+  return theApp.GetBinDirectory() + _T("..\\doc\\AuthorDocumentation.chm");
+#endif
+}
+
+void
+AuthorHTMLApp::ShowHtmlHelp(DWORD p_topicID)
+{
+  CString helpfile = GetHelpfileName();
   if(LoadHtmlHelpDLL())
   {
-    m_htmlHelp(m_pMainWnd->GetSafeHwnd(),(LPCTSTR)pad,uMode,(DWORD_PTR)&link);
+    m_htmlHelp(m_pMainWnd->GetSafeHwnd(),helpfile.GetString(),HH_HELP_CONTEXT,(DWORD_PTR)p_topicID);
   }
 }
 
+void 
+AuthorHTMLApp::OnHelpIndex()
+{
+  CString helpfile = GetHelpfileName();
+  if (LoadHtmlHelpDLL())
+  {
+    m_htmlHelp(m_pMainWnd->GetSafeHwnd(),helpfile.GetString(),HH_DISPLAY_TOC,0);
+  } 
+}
+
+void 
+AuthorHTMLApp::OnHelpReleaseNotes()
+{
+  CString helpfile = GetHelpfileName();
+  if (LoadHtmlHelpDLL())
+  {
+    m_htmlHelp(m_pMainWnd->GetSafeHwnd(),helpfile.GetString(),HH_HELP_CONTEXT,2);
+  }
+}
 
 // App command to run the dialog
 void

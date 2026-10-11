@@ -819,8 +819,8 @@ BEGIN
     END
     POPUP "&Window"
     BEGIN
-      MENUITEM "&Arrange Icons",                ID_WINDOW_ARRANGE, GRAYED
-      MENUITEM "Properties",                    ID_PROPERTIES
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE, GRAYED
+        MENUITEM "Properties",                  ID_PROPERTIES
     END
     POPUP "&Help"
     BEGIN
@@ -1055,9 +1055,9 @@ BEGIN
         MENUITEM "Release notes",               ID_HELP_RELEASENOTES
         POPUP "Reference manuals"
         BEGIN
-            MENUITEM "Microsoft HTML/CSS",      ID_REFERENCEMANUALS_MICROSOFTHTML
-            MENUITEM "W3C HTML 4.01",           ID_REFERENCEMANUALS_W3CHTML4
-            MENUITEM "W3C CSS 2.1",             ID_REFERENCEMANUALS_W3CCSS2
+            MENUITEM "Microsoft HTML/CSS",          ID_REFERENCEMANUALS_MICROSOFTHTML
+            MENUITEM "W3C HTML 4.01",               ID_REFERENCEMANUALS_W3CHTML4
+            MENUITEM "W3C CSS 2.1",                 ID_REFERENCEMANUALS_W3CCSS2
         END
         MENUITEM SEPARATOR
         MENUITEM "&About AuthorDocumentation...", ID_APP_ABOUT
@@ -6464,6 +6464,8 @@ BEGIN
     ID_CSSSTYLESHEETS       "Edit CSS stylesheets\nCascaded Stylesheets"
     ID_REFERENCEMANUALS_MICROSOFTHTML "Show Microsoft's HTML/CSS reference"
     ID_REFERENCEMANUALS_W3CHTML4 "Show HTML"
+    ID_HELP_HELPINDEX       "Start the help with the index in focus"
+    ID_HELP_RELEASENOTES    "Start the helpfile with the release notes in focus"
     ID_GRID_GRIDPROPERTIES  "Change grid properties"
     ID_GRID_SHOWGRID        "Show the edit grid"
     ID_GRID_SNAPTOGRID      "Snap drag actions to grid"

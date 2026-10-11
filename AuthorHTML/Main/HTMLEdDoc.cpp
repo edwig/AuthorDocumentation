@@ -107,7 +107,7 @@ CHTMLEdDoc::CreateNewDocumentFile(CString& p_filename,CString& p_title)
                     _T("  </head>\n")
                     _T("  <body>\n")
                     _T("  </body>\n")
-                    _T("</html>\n"),AUTHOR_DOCTYPE_TRANS,p_title.GetString());
+                    _T("</html>\n"),_T(AUTHOR_DOCTYPE),p_title.GetString());
     file.Write(document);
     file.Close();
     return true;

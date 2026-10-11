@@ -81,7 +81,7 @@ Glossary::WriteToFile()
     return true;
   }
   WinFile file(m_filename.GetString());
-  if(file.Open(winfile_write | open_trans_text,attrib_none,AUTHOR_HTML_ENCODING))
+  if(file.Open(winfile_write | open_trans_text,attrib_none,Encoding::UTF8))
   {
     GlossaryMap::iterator it = m_glos.begin();
     while(it != m_glos.end())
