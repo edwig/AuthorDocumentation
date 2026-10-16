@@ -2905,11 +2905,13 @@ CHTMLEdView::OutsideTag(CComPtr<IHTMLElement> start,CString tag,CComPtr<IHTMLEle
 
   pCurElement = start;
   CComBSTR pStr = NULL;
-  if(pCurElement.p)
+  CComQIPtr<IHTMLDOMNode, &IID_IHTMLDOMNode> node = pCurElement;
+
+  if(node && node.p)
   {
     do 
     {
-      hr = pCurElement->get_tagName(&pStr);
+      hr = node->get_nodeName(&pStr);
       if(SUCCEEDED(hr))
       {
         CString foundTag = CW2CT(pStr);
@@ -2922,7 +2924,6 @@ CHTMLEdView::OutsideTag(CComPtr<IHTMLElement> start,CString tag,CComPtr<IHTMLEle
           return true;;
         }
         pChild = NULL;
-        CComQIPtr<IHTMLDOMNode,&IID_IHTMLDOMNode> node = pCurElement;
         CComPtr<IHTMLDOMNode> child;
         hr = node->get_firstChild(&child);
         if(SUCCEEDED(hr))
@@ -2931,8 +2932,7 @@ CHTMLEdView::OutsideTag(CComPtr<IHTMLElement> start,CString tag,CComPtr<IHTMLEle
           {
             return false;
           }
-          pCurElement = NULL;
-          pCurElement = child;
+          node = child;
         }
         else
         {

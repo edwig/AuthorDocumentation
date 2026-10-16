@@ -161,7 +161,7 @@ ImportDlg::OnBnClickedDosweep()
 void 
 ImportDlg::OnBnClickedHelp()
 {
-  // TODO: Add your control notification handler code here
+  theApp.ShowHtmlHelp(20);
 }
 
 void 
