@@ -22,6 +22,21 @@
         <param name="Name" value="Releasenotes">
         <param name="Local" value="Releasenotes.htm">
     </OBJECT>
+    <LI><OBJECT type="text/sitemap">
+        <param name="Name" value="New book">
+        <param name="ImageNumber" value="-842150450">
+    </OBJECT>
+    <UL>
+        <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="New file">
+            <param name="Local" value="Procedures\New_file.htm">
+        </OBJECT>
+        <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="Import">
+            <param name="Local" value="Procedures\Import.htm">
+            <param name="ImageNumber" value="9">
+        </OBJECT>
+    </UL>
 </UL>
 </BODY>
 </HTML>

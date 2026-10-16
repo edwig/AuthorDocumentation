@@ -7,6 +7,9 @@ Version 1.0.7
    it now resembles the contxt menu of the application, including all icons.
    In the mean time fixed the not-closing of the context menu and the main
    menu when clicking outside of the menu.
+2) Hooked up the context ID's from dialogs help buttons to the real help file.
+   Also activated the Help index and help release note menu items to open the
+   help file on the correct page.
 
 Version 1.0.6
 -------------

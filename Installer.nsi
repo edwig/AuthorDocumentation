@@ -109,6 +109,7 @@ Section "AuthorDocumentation"
   File "doc\HtmlRef.chm"
   File "doc\W3C_CSS2.pdf"
   File "doc\W3C_HTML401.pdf"
+  File "doc\AuthorDocumentation.chm"
   
   SetOutPath "$INSTDIR\ms"
   

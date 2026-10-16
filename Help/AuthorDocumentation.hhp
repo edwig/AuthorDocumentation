@@ -22,20 +22,27 @@ Flat=no
 DBCS=no
 
 [WINDOWS]
-Main="AuthorDocumentation","AuthorDocumentation.hhc","AuthorDocumentation.hhk","Intro.html","Intro.html","","JUMP1","","JUMP2",0x21520,250,0x7e,[50,50,1000,900],0x860b0000,0x80,,0,0,0
+Main="AuthorDocumentation","AuthorDocumentation.hhc","AuthorDocumentation.hhk","Intro.html","Intro.html","","JUMP1","","JUMP2",0x21520,250,0x7e,[50,50,1291,931],0x860b0000,0x80,,0,0,0
 
 [FILES]
 default.css
 Intro.html
+Payload\Import.png
+Payload\NewFile.png
 Payload\StartupDialog.png
+Payload\writing2.bmp
+Procedures\Import.htm
+Procedures\New_file.htm
 Releasenotes.htm
 StartupDialog.html
 
 [ALIAS]
+HH_IMPORT = Import.htm
 HH_RELEASENOTES = Releasenotes.htm
 HH_STARTUP = StartupDialog.html
 
 [MAP]
+#define HH_IMPORT 20
 #define HH_RELEASENOTES 2
 #define HH_STARTUP 10
 
